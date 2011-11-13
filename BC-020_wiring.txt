@@ -1,0 +1,69 @@
+Wiring for Measurement Computing USB-1608G-2AO to BC-020 Lemo breakout 
+
+
+
+      Digital I/O using BC-087 daughter card
+
+50-pin ribbon      USB-1608G       BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                DIO0               J1     Digital I/O bit 0 
+ 2                DIO1               J2     Digital I/O bit 1
+ 3                DIO2               J3     Digital I/O bit 2
+ 4                DIO3               J4     Digital I/O bit 3
+ 5                DIO4               J5     Digital I/O bit 4
+ 6                DIO5               J6     Digital I/O bit 5
+ 7                DIO6               J7     Digital I/O bit 6
+ 8                DIO7               J8     Digital I/O bit 7
+ 
+ 9                 TMR               J9     Pulse generator output
+10                 GND              J10     Grounded to avoid cross-talk
+11                CTR0              J11     Counter 1 input
+12                 GND              J12     Grounded to avoid cross-talk
+13                CTR1              J13     Counter 2 input
+14                 GND              J14     Grounded to avoid cross-talk
+15                TRIG              J15     Trigger input for waveform generator and waveform digitizer
+16                 GND              J16     Grounded to avoid cross-talk
+17               A0CK0              J17     Waveform generator clock out
+18                 GND              J18     Grounded to avoid cross-talk
+19               A0CKI              J19     Waveform generator clock in
+20                 GND              J20     Grounded to avoid cross-talk
+21               AICK0              J21     Waveform digitizer clock out
+22                 GND              J16     Grounded to avoid cross-talk
+23               AICKI              J17     Waveform digitzer clock in
+
+ 
+         Analog I/O using BC-026 daughter card
+
+50-pin ribbon      USB-1608G       BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                CH0H               J1     Analog input 1 +
+ 2                CH0L               J1     Analog input 1 -
+ 3                AGND              N.C     Analog ground
+ 4                CH1H               J2     Analog input 2 +
+ 5                CH1L               J2     Analog input 2 -
+ 6                AGND              N.C     Analog ground
+ 7                CH2H               J3     Analog input 3 +
+ 8                CH2L               J3     Analog input 3 -
+ 9                AGND              N.C     Analog ground
+10                CH3H               J4     Analog input 4 +
+11                CH3L               J4     Analog input 4 -
+12                AGND              N.C     Analog ground
+13                CH4H               J5     Analog input 5 +
+14                CH4L               J5     Analog input 5 -
+15                AGND              N.C     Analog ground
+16                CH5H               J6     Analog input 6 +
+17                CH5L               J6     Analog input 6 -
+18                AGND              N.C     Analog ground
+19                CH6H               J7     Analog input 7 +
+20                CH6L               J7     Analog input 7 -
+21                AGND              N.C     Analog ground
+22                CH7H               J8     Analog input 8 +
+23                CH7L               J8     Analog input 8 -
+24                AGND              N.C     Analog ground
+25               AOUT0               J9     Analog output 1
+26                AGND               J9     Analog ground
+27                AGND              N.C     Analog ground
+28               AOUT1              J10     Analog output 1
+29                AGND              J10     Analog ground
+
+
