@@ -1,0 +1,1372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>measComp</title>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type" />
+</head>
+<body>
+  <div style="text-align: center">
+    <h1>
+      measComp: EPICS Drivers for Measurement Computing Devices</h1>
+    <h2>
+      November 15, 2011</h2>
+    <h2>
+      Mark Rivers</h2>
+    <h2>
+      University of Chicago</h2>
+  </div>
+  <h2>
+    Table of Contents</h2>
+  <ul>
+    <li><a href="#Introduction">Introduction</a></li>
+    <li><a href="#USB-1608GX-2AO">USB-1608GX-2A0 driver</a></li>
+    <li><a href="#USB-4303">USB-4303 driver</a></li>
+    <li><a href="#Configuration">Configuration</a></li>
+    <li><a href="#Performance_measurements">Performance measurements</a> </li>
+  </ul>
+  <h2 id="Introduction" style="text-align: left">
+    Introduction</h2>
+  <p>
+    This package provides EPICS drivers for the some of the USB I/O modules from Measurement
+    Computing. Currently the USB-4303 counter/timer module and the USB-1608G-2A0 analog
+    input/output module are supported.</p>
+  <p>
+    The driver is written in C++, and consists of a class that inherits from asynPortDriver,
+    which is part of the EPICS asyn module.
+  </p>
+  <h2 id="USB-1608GX-2AO" style="text-align: left">
+    USB-1608GX-2AO driver</h2>
+  <p>
+    This driver provides support for the USB-1608GX-2A0 module. This module has the
+    following features:</p>
+  <ul>
+    <li>16-bit analog inputs
+      <ul>
+        <li>16 single-ended channels or 8 differential channels</li>
+        <li>Programmable per-channel range: +-1V, +-2V, +-5V, +-10V</li>
+        <li>500 kHz total maximum input rate, i.e. 1 channel at 500 kHz, 8 channels at 62.5
+          kHz, etc.</li>
+        <li>Internal or external trigger. External trigger shared with analog outputs.</li>
+        <li>Internal or external clock, input and output signals.</li>
+        <li>4 kSample input FIFO, unlimited waveform length</li>
+      </ul>
+    </li>
+    <li>16-bit analog outputs
+      <ul>
+        <li>2 channels, fixed +-10V range</li>
+        <li>500 kHz total maximum input rate, i.e. 1 channel at 500 kHz, 2 channels at 250
+          kHz</li>
+        <li>Internal or external trigger. External trigger shared with analog inputs.</li>
+        <li>Internal or external clock, input and output signals</li>
+        <li>2 kSample output FIFO, unlimited waveform length</li>
+      </ul>
+    </li>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>8 signals, individually programmable as inputs or outputs</li>
+      </ul>
+    </li>
+    <li>Pulse generator
+      <ul>
+        <li>1 output</li>
+        <li>64MHz clock, 32-bit registers</li>
+        <li>Programmable period, width, number of pulses, polarity</li>
+      </ul>
+    </li>
+    <li>Counters
+      <ul>
+        <li>2 inputs</li>
+        <li>20 MHz maximum rate, 32-bit registers</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    This is a photo of the USB-1608GX-2A0
+  </p>
+  <div style="text-align: center">
+    <h3>
+      USB-1608GX-2A0</h3>
+    <img alt="USB-1608GX-2AO.jpg" src="USB-1608GX-2AO.jpg" /></div>
+  <p>
+    The following is the main medm screen for controlling the USB-1608GX-2A0.</p>
+  <div style="text-align: center">
+    <h3>
+      1608G_module.adl</h3>
+    <img alt="1608G_module.png" src="1608G_module.png" /></div>
+  <h2>
+    Databases</h2>
+  <p>
+    The following tables list the database template files that are used with the USB-1608GX-2A0.</p>
+  <h3>
+    Analog I/O Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompAnalogIn.template. This database is loaded once for each analog input channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          ai</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_IN_VALUE</td>
+        <td>
+          Analog input value. This is converted from the 16-bit unsigned integer device units
+          from the driver to engineering units using the EGUL and EGUF fields. This field
+          should be periodically scanned, since it is not currently polled in the driver,
+          so I/O Intr scanning cannot be used.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Range</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_IN_RANGE</td>
+        <td>
+          Input range for this analog input channel. Choices are "+-1V" (0), "+-2V" (1), "+-5V"
+          (2), "+-10V" (3).</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompAnalogOut.template. This database is loaded once for each analog input
+            channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          ai</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_OUT_VALUE</td>
+        <td>
+          Analog output value. This is converted from engineering units to the 16-bit unsigned
+          integer device units for the driver using the EGUL and EGUF fields.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Return</td>
+        <td>
+          ai</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_OUT_VALUE</td>
+        <td>
+          Analog output value to return to at the end of a pulse. This is converted from engineering
+          units to the 16-bit unsigned integer device units for the driver using the EGUL
+          and EGUF fields.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Pulse</td>
+        <td>
+          bo</td>
+        <td>
+          N.A,</td>
+        <td>
+          N.A.</td>
+        <td>
+          Choices are "Normal" and "Pulse". In Normal mode the Return record is ignored. In
+          Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
+          writing the $(P)$(R)Return value.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TweakVal</td>
+        <td>
+          ao</td>
+        <td>
+          N.A,</td>
+        <td>
+          N.A.</td>
+        <td>
+          The amount by which to tweak the out when the Tweak record is processed.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Tweak</td>
+        <td>
+          transform</td>
+        <td>
+          N.A,</td>
+        <td>
+          N.A.</td>
+        <td>
+          Tweaks the output down if the .A field is written to, or up if the .B field is written
+          too.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    The following is the medm screen for controlling the analog input records for the
+    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    to be in volts, they can be in any units such as "percent", "degrees", etc.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompAiSetup.adl</h3>
+    <img alt="measCompAiSetup.png" src="measCompAiSetup.png" /></div>
+  <p>
+    The following is the medm screen for controlling the analog output records for the
+    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    to be in volts, they can be in any units such as "percent", "degrees", etc. The
+    drive limits can be more restrictive than the full +-10V output range of the analog
+    outputs.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompAoSetup.adl</h3>
+    <img alt="measCompAoSetup.png" src="measCompAoSetup.png" /></div>
+  <h3>
+    Digital I/O Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          bi</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_INPUT</td>
+        <td>
+          Digital input value. The MASK parameter in the INP link defines which bit is used.
+          The binary inputs are polled by the driver poller thread, so these records should
+          have SCAN="I/O Intr".</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          longin</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_INPUT</td>
+        <td>
+          Digital input value as a word, rather than individual bits. The MASK parameter in
+          the INP link defines which bits are used. The binary inputs are polled by the driver
+          poller thread, so this record should have SCAN="I/O Intr".</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          bo</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value. The MASK parameter in the INP link defines which bit is used.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)_RBV</td>
+        <td>
+          bi</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value readback. The MASK parameter in the INP link defines which
+          bit is used.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          longout</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value as a word, rather than individual bits. The MASK parameter
+          in the INP link defines which bits are used.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)_RBV</td>
+        <td>
+          longin</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value readback as a word, rather than individual bits. The MASK parameter
+          in the INP link defines which bits are used.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompBinaryDir.template. This database is loaded once for each binary I/O bit.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          bo</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_DIRECTION</td>
+        <td>
+          Direction of this I/O line, "In" (0) or "Out" (1). The MASK parameter in the INP
+          link defines which bit is used.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>
+    Pulse Generator Functions (these are called "timers" in Measurement Computing's
+    documentation)</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompPulseGen.template. This database is loaded once for each pulse generator.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Run</td>
+        <td>
+          bo</td>
+        <td>
+          asynUInt32</td>
+        <td>
+          PULSE_RUN</td>
+        <td>
+          "Run" (1) starts the pulse generator, "Stop" (0) stops the pulse generator. Note
+          that ideally this record should go back to 0 when the pulse generator is done, if
+          it is outputting a finite number of pulses (see Count record). But unfortunately
+          the Measurement Computing library does not have a way to query the status of the
+          timer to see if it is done, so this is not possible.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Period</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_PERIOD</td>
+        <td>
+          Pulse period, in seconds. The time between pulses can be defined either with the
+          Period or with the Frequency; whenever one record is changed the other is updated
+          with the new calculated value.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Frequency</td>
+        <td>
+          ao</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          Pulse frequency, in seconds. The Frequency calculates a new value of the Period,
+          and sends the period value to the driver.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Width</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_WIDTH</td>
+        <td>
+          Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Delay</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_DELAY</td>
+        <td>
+          Initial pulse delay in seconds after Run is set to 1.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Count</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          PULSE_COUNT</td>
+        <td>
+          Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
+          until Run is set to 0.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IdleState</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          PULSE_IDLE_STATE</td>
+        <td>
+          The idle state of the pulse output line, "Low" (0) or "High" (1). This determines
+          the polarity of the pulse, i.e. positive going or negative going.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>
+    Waveform Digitizer Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompWaveformDig.template. This database is loaded once per module.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)NumPoints</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_NUM_POINTS</td>
+        <td>
+          Number of points to digitize. This cannot be more than the value of maxInputPoints
+          that was specified in USB1608GConfig.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)FirstChan</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_FIRST_CHAN</td>
+        <td>
+          First channel to digitize. "1" (0) to "8" (7). The database currently assumes differential
+          inputs, so only 8 inputs are available, though this can easily be extended to 16.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)NumChans</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_NUM_CHANS</td>
+        <td>
+          Number of channels to digitize. "1" (0) to "8" (7). The maximum valid number is
+          8-FirstChan+1. The database currently assumes differential inputs, so only 8 inputs
+          are available, though this can easily be extended to 16.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TimeWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat32Array</td>
+        <td>
+          WAVEDIG_TIME_WF</td>
+        <td>
+          Timebase waveform. These values are calculated when Dwell or NumPoints are changed.
+          It is typically used as the X-axis in plots.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CurrentPoint</td>
+        <td>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_CURRENT_POINT</td>
+        <td>
+          The current point being collected. This does not always increment by 1 because the
+          device can transfer data in blocks.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Dwell</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEDIG_DWELL</td>
+        <td>
+          The time per point in seconds. The minimum time is 2 microseconds times NumChans.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TotalTime</td>
+        <td>
+          ai</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEDIG_TOTAL_TIME</td>
+        <td>
+          The total time to digitize NumChans*NumPoints.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ExtTrigger</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_EXT_TRIGGER</td>
+        <td>
+          The trigger source, "Internal" (0) or "External" (1).</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ExtClock</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_EXT_CLOCK</td>
+        <td>
+          The clock source, "Internal" (0) or "External" (1). If External is used then the
+          Dwell record does not control the digitization rate, it is controlled by the external
+          clock. However Dwell should be set to approximately the correct value if possible,
+          because that controls what type of data transfers the device uses.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Continuous</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_CONTINUOUS</td>
+        <td>
+          Values are "One-shot" (0) or "Continuous" (1). This controls whether the device
+          stops when acquisition is complete, or immediately begins another acquisition. Typically
+          "One-shot" is used, because the driver is currently not double-buffered, so data
+          could be overwritten before the driver has a chance to read the data. One exception
+          is when using Retrigger=Enable and TriggerCount less than NumPoints. In that case
+          each trigger will only collect TriggerCount samples, and one wants to use Continuous
+          so that it collects the next TriggerCount samples on the next trigger input.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)AutoRestart</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_AUTO_RESTART</td>
+        <td>
+          Values are "Disable" (0) and "Enable" (1). This controls whether the driver automatically
+          starts another acquire when the previous one completes. This is different from Continuous
+          mode described above, because this is a software restart that only happens after
+          the driver has read the buffer from the previous acquisition.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Retrigger</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_RETRIGGER</td>
+        <td>
+          Values are "Disable" (0) and "Enable" (1). This controls whether the device rearms
+          the trigger input after a trigger is received.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TriggerCount</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_TRIGGER_COUNT</td>
+        <td>
+          This controls how many samples are collected on each trigger input. 0 means collect
+          NumPoint samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
+          then each time a trigger is received TriggerCount samples will be collected.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)BurstMode</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_BURST_MODE</td>
+        <td>
+          Values are "Disable" (0) and "Enable" (1). This controls whether the device digitizes
+          all NumChans channels as quickly as possible during each sample, or whether it digitizes
+          successive channels at evenly spaced time intevals during the Dwell time. Enabling
+          BurstMode means that all channels are digitized 2 microseconds apart. This can reduce
+          the accuracy if the channels have very different voltages because of the settling
+          time and slew rate limitations of the system.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Run</td>
+        <td>
+          busy</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_RUN</td>
+        <td>
+          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform digitizer.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ReadWF</td>
+        <td>
+          busy</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEDIG_READ_WF</td>
+        <td>
+          Values are "Done" (0) and "Read" (1). This reads the waveform data from the device
+          buffers into the waveform records. Note that the driver always reads device when
+          acquisition stops, so for quick acquisitions this record can be Passive. To see
+          partial data during long acquisitions this record can be periodically processed.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompWaveformDigN.template. This database is loaded for each digitizer input
+            channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)VoltWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat64Array</td>
+        <td>
+          WAVEDIG_VOLT_WF</td>
+        <td>
+          This waveform record contains the digitizer waveform data for channel N. This record
+          has scan=I/O Intr, and it will process whenever acquisition completes, or whenever
+          the ReadWF record above processes. The data are in volts.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <br />
+  </p>
+  <div style="text-align: center">
+    <h3>
+      Plot of a digitized waveform of someone speaking into a microphone</h3>
+    <img alt="measCompWaveDigPlot.png" src="measCompWaveDigPlot.png" />
+    <br />
+    <h3>
+      Waveform Generator Functions</h3>
+  </div>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompWaveformGen.template. This database is loaded once per module.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)NumPoints</td>
+        <td>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_NUM_POINTS</td>
+        <td>
+          Number of points output waveform. The value of this record is equal to UserNumPoints
+          if user-defined waveforms are selected, or IntNumPoints if internal predefined waveforms
+          are selected.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)UserNumPoints</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_USER_NUM_POINTS</td>
+        <td>
+          Number of points in user-defined output waveforms. This cannot be more than the
+          value of maxOutputPoints that was specified in USB1608GConfig.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IntNumPoints</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_INT_NUM_POINTS</td>
+        <td>
+          Number of points in internal predefined output waveforms. This cannot be more than
+          the value of maxOutputPoints that was specified in USB1608GConfig.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)UserTimeWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat32Array</td>
+        <td>
+          WAVEDIG_USER_TIME_WF</td>
+        <td>
+          Timebase waveform for user-defined waveforms. These values are calculated when UserDwell
+          or UserNumPoints are changed. It is typically used as the X-axis in plots.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IntTimeWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat32Array</td>
+        <td>
+          WAVEGEN_INT_TIME_WF</td>
+        <td>
+          Timebase waveform for internal predefined waveforms. These values are calculated
+          when IntDwell or IntNumPoints are changed. It is typically used as the X-axis in
+          plots.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CurrentPoint</td>
+        <td>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_CURRENT_POINT</td>
+        <td>
+          The current point being output. This does not always increment by 1 because the
+          device can transfer data in blocks.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Frequency</td>
+        <td>
+          ai</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_FREQUENCY</td>
+        <td>
+          The output frequency (waveforms/second). The value of this record is equal to UserFrequency
+          if user-defined waveforms are selected, or IntFrequency if internal predefined waveforms
+          are selected.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Dwell</td>
+        <td>
+          ai</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_DWELL</td>
+        <td>
+          The output dwell time or period (seconds/sample). The value of this record is equal
+          to UserDwell if user-defined waveforms are selected, or IntDwell if internal predefined
+          waveforms are selected.</td>
+      </tr>
+      <tr>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)UserDwell</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_USER_DWELL</td>
+        <td>
+          The output dwell time or period (seconds/sample) for user-defined waveforms. This
+          record is automatically changed if UserFrequency is modified.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IntDwell</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_INT_DWELL</td>
+        <td>
+          The output dwell time or period (seconds/sample) for internal predefined waveforms.
+          This record is automatically changed if IntFrequency is modified.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)UserFrequency</td>
+        <td>
+          ao</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          The output frequency (waveforms/second) for user-defined waveforms. This record
+          computes UserDwell and writes to that record. This record is automatically changed
+          if UserDwell is modified.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IntFrequency</td>
+        <td>
+          ao</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          The output frequency (waveforms/second) for internal predefined waveforms. This
+          record computes IntDwell and writes to that record. This record is automatically
+          changed if IntDwell is modified.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TotalTime</td>
+        <td>
+          ai</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_TOTAL_TIME</td>
+        <td>
+          The total time to output the waveforms. This is Dwell*NumPoints.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ExtTrigger</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_EXT_TRIGGER</td>
+        <td>
+          The trigger source, "Internal" (0) or "External" (1).</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ExtClock</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_EXT_CLOCK</td>
+        <td>
+          The clock source, "Internal" (0) or "External" (1). If External is used then the
+          Dwell record does not control the output rate, it is controlled by the external
+          clock. However Dwell should be set to approximately the correct value if possible,
+          because that controls what type of data transfers the device uses.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Continuous</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_CONTINUOUS</td>
+        <td>
+          Values are "One-shot" (0) or "Continuous" (1). This controls whether the device
+          stops when the output waveform is complete, or immediately begins again at the start
+          of the waveform.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Retrigger</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_RETRIGGER</td>
+        <td>
+          Values are "Disable" (0) and "Enable" (1). This controls whether the device rearms
+          the trigger input after a trigger is received.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TriggerCount</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_TRIGGER_COUNT</td>
+        <td>
+          This controls how many values are output on each trigger input. 0 means output NumPoints
+          samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
+          then each time a trigger is received TriggerCount samples will be output.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Run</td>
+        <td>
+          busy</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_RUN</td>
+        <td>
+          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform generator.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompWaveformGenN.template. This database is loaded for each waveform generator
+            output channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)UserWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat32Array</td>
+        <td>
+          WAVEGEN_USER_WF</td>
+        <td>
+          This waveform record contains the user-defined waveform generator data for channel
+          N. The data are in volts. These data are typically generated by an EPICS Channel
+          Access client.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)InternalWF</td>
+        <td>
+          waveform</td>
+        <td>
+          asynFloat32Array</td>
+        <td>
+          WAVEGEN_INT_WF</td>
+        <td>
+          This waveform record contains the internal predefined waveform generator data for
+          channel N. The data are in volts.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Enable</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_ENABLE</td>
+        <td>
+          Values are "Disable" and "Enable". Controls whether channel N output is enabled.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Type</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          WAVEGEN_WAVE_TYPE</td>
+        <td>
+          Controls the waveform type on channel N. Values are "User-defined" and "Sin wave",
+          "Square wave", "Sawtooth", "Pulse", or "Random". Note that if any channel is "User-defined"
+          then all channels must be. Note that all internally predefined waveforms are symmetric
+          about 0 volts. To output unipolar signals the Offset should be set to +-Amplitude/2.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)PulseWidth</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_PULSE_WIDTH</td>
+        <td>
+          Controls the pulse width in seconds if Type is "Pulse".</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Amplitude</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_AMPLITUDE</td>
+        <td>
+          Controls the amplitude in volts for internally predefined waveforms. Changing the
+          sign of the Amplitude controls the polarity of the signal. Does not currently affect
+          user-defined waveforms, though this should be added as a multiplier for those as
+          well in the future.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Offset</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          WAVEGEN_OFFSET</td>
+        <td>
+          Controls the offset in volts for internally predefined waveforms. Does not currently
+          affect user-defined waveforms, though this should be added as a offset for those
+          as well in the future.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="text-align: center">
+    <h3>
+      Plot of an internal predefined waveform (sin wave)</h3>
+    <img alt="measCompWaveGenPlot_int.png" src="measCompWaveGenPlot_int.png" />
+    <br />
+    <h3>
+      Plot of a user-defined waveform (sum of sin and cos waves)</h3>
+    <img alt="measCompWaveGenPlot_user.png" src="measCompWaveGenPlot_user.png" />
+    <br />
+    <h3>
+      Trigger Functions</h3>
+  </div>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompTrigger.template. This database is loaded once per module.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Mode</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          TRIGGER_MODE</td>
+        <td>
+          The mode of the external trigger input. Choices are "Positive edge", "Negative edge",
+          "High", and "Low".</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>
+    Startup script</h2>
+  <p>
+    The following lines are needed in the EPICS startup script for the IP-Unidig.</p>
+  <pre># Initialize Greenspring IP-Unidig
+# initIpUnidig(char *portName, 
+#              int carrier, 
+#              int slot,
+#              int msecPoll,
+#              int intVec, 
+#              int risingMask, 
+#              int fallingMask)
+# portName    = name to give this asyn port
+# carrier     = IPAC carrier number (0, 1, etc.)
+# slot        = IPAC slot (0,1,2,3, etc.)
+# msecPoll    = polling time for input bits in msec.  Default=100.
+# intVec      = interrupt vector
+# risingMask  = mask of bits to generate interrupts on low to high (24 bits)
+# fallingMask = mask of bits to generate interrupts on high to low (24 bits)
+initIpUnidig("Unidig1", 0, 1, 2000, 116, 0xfffffb, 0xfffffb)
+dbLoadTemplate "ipUnidig.substitutions"
+</pre>
+  <p>
+    The following photo shows the BCDA BC-020 LEMO breakout panels wired to the USB-1608GX-2A0
+    and USB-4303. For the USB-1608GX-2A0 a BC-026 daughter card is used for the analog
+    signals, and a BC-087 daughter card for the digital signals. For the USB-4303 a
+    BC-087 daughter card is used on both BC-020 modules.</p>
+  <div style="text-align: center">
+    <h3>
+      BC-020 LEMO breakout panels</h3>
+    <img alt="measCompBC-020.jpg" src="measCompBC-020.jpg" /></div>
+  <h2 id="USB-1608GX-2A0_wiring">
+    USB-1608GX-2A0 Wiring to Two BCDA BC-020 LEMO Breakout Panels</h2>
+  <pre>      Digital I/O using BC-087 daughter card
+
+50-pin ribbon      USB-1608GX      BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                DIO0               J1     Digital I/O bit 0 
+ 2                DIO1               J2     Digital I/O bit 1
+ 3                DIO2               J3     Digital I/O bit 2
+ 4                DIO3               J4     Digital I/O bit 3
+ 5                DIO4               J5     Digital I/O bit 4
+ 6                DIO5               J6     Digital I/O bit 5
+ 7                DIO6               J7     Digital I/O bit 6
+ 8                DIO7               J8     Digital I/O bit 7
+ 9                 TMR               J9     Pulse generator output
+10                 GND              J10     Grounded to avoid cross-talk
+11                CTR0              J11     Counter 1 input
+12                 GND              J12     Grounded to avoid cross-talk
+13                CTR1              J13     Counter 2 input
+14                 GND              J14     Grounded to avoid cross-talk
+15                TRIG              J15     Trigger input for waveform generator and waveform digitizer
+16                 GND              J16     Grounded to avoid cross-talk
+17               A0CK0              J17     Waveform generator clock out
+18                 GND              J18     Grounded to avoid cross-talk
+19               A0CKI              J19     Waveform generator clock in
+20                 GND              J20     Grounded to avoid cross-talk
+21               AICK0              J21     Waveform digitizer clock out
+22                 GND              J16     Grounded to avoid cross-talk
+23               AICKI              J17     Waveform digitzer clock in
+50                 GND           J1-J32     LEMO connectors outer shells
+
+ 
+         Analog I/O using BC-026 daughter card
+
+50-pin ribbon      USB-1608GX      BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                CH0H               J1     Analog input 1 +
+ 2                CH0L               J1     Analog input 1 -
+ 3                AGND              N.C     Analog ground
+ 4                CH1H               J2     Analog input 2 +
+ 5                CH1L               J2     Analog input 2 -
+ 6                AGND              N.C     Analog ground
+ 7                CH2H               J3     Analog input 3 +
+ 8                CH2L               J3     Analog input 3 -
+ 9                AGND              N.C     Analog ground
+10                CH3H               J4     Analog input 4 +
+11                CH3L               J4     Analog input 4 -
+12                AGND              N.C     Analog ground
+13                CH4H               J5     Analog input 5 +
+14                CH4L               J5     Analog input 5 -
+15                AGND              N.C     Analog ground
+16                CH5H               J6     Analog input 6 +
+17                CH5L               J6     Analog input 6 -
+18                AGND              N.C     Analog ground
+19                CH6H               J7     Analog input 7 +
+20                CH6L               J7     Analog input 7 -
+21                AGND              N.C     Analog ground
+22                CH7H               J8     Analog input 8 +
+23                CH7L               J8     Analog input 8 -
+24                AGND              N.C     Analog ground
+25               AOUT0               J9     Analog output 1
+26                AGND               J9     Analog ground
+27                AGND              N.C     Analog ground
+28               AOUT1              J10     Analog output 1
+29                AGND              J10     Analog ground
+
+Note: the "Analog input N +" lines are connected to the Lemo center pin, 
+and the "Analog input N -" lines are connected to the Lemo shell.
+</pre>
+  <h2 id="USB-4303_wiring">
+    USB-4303 Wiring to Two BCDA BC-020 LEMO Breakout Panels</h2>
+  <pre>           BC-020 #1 using BC-087 daughter card
+
+50-pin ribbon      USB-14303       BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                 DO0               J1     Digital output bit 0 
+ 2                 DO1               J2     Digital output bit 1
+ 3                 DO2               J3     Digital output bit 2
+ 4                 DO3               J4     Digital output bit 3
+ 5                 DO4               J5     Digital output bit 4
+ 6                 DO5               J6     Digital output bit 5
+ 7                 DO6               J7     Digital output bit 6
+ 8                 DO7               J8     Digital output bit 7
+ 9                 DI0               J9     Digital input bit 0 
+10                 DI1              J10     Digital input bit 1
+11                 DI2              J11     Digital input bit 2
+12                 DI3              J12     Digital input bit 3
+13                 DI4              J13     Digital input bit 4
+14                 DI5              J14     Digital input bit 5
+15                 DI6              J15     Digital input bit 6
+16                 DI7              J16     Digital input bit 7
+17               DICTL              J17     Digital input polarity control
+18                 INT              J18     Interrupt input
+19                 GND              J19     Ground
+20                 +5V              J20     +5V logic level
+50                 GND           J1-J32     LEMO connectors outer shells
+
+ 
+           BC-020 #2 using BC-087 daughter card
+
+50-pin ribbon      USB-1608G       BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1               1INP1               J1     Chip 1 input 1 
+ 2               1INP2               J2     Chip 1 input 2
+ 3               1INP3               J3     Chip 1 input 3
+ 4               1INP4               J4     Chip 1 input 4
+ 5               1INP5               J5     Chip 1 input 5
+ 6               2INP1               J6     Chip 2 input 1 
+ 7               2INP2               J7     Chip 2 input 2
+ 8               2INP3               J8     Chip 2 input 3
+ 9               2INP4               J9     Chip 2 input 4
+10               2INP5              J10     Chip 2 input 5
+11               1GAT1              J11     Chip 1 gate 1
+12               1GAT2              J12     Chip 1 gate 2
+13               1GAT3              J13     Chip 1 gate 3
+14               1GAT4              J14     Chip 1 gate 4
+15               1GAT5              J15     Chip 1 gate 5
+16               2GAT1              J16     Chip 2 gate 1
+17               2GAT2              J17     Chip 2 gate 2
+18               2GAT3              J18     Chip 2 gate 3
+19               2GAT4              J19     Chip 2 gate 4
+20               2GAT5              J20     Chip 2 gate 5
+21               1OUT1              J21     Chip 1 output 1
+22               1OUT2              J22     Chip 1 output 2
+23               1OUT3              J23     Chip 1 output 3 
+24               1OUT4              J24     Chip 1 output 4
+25               1OUT4              J25     Chip 1 output 5
+26               2OUT1              J26     Chip 2 output 1
+27               2OUT2              J27     Chip 2 output 2
+28               2OUT3              J28     Chip 2 output 3 
+29               2OUT4              J29     Chip 2 output 4
+30               2OUT5              J30     Chip 2 output 5
+31                1OSC              J31     Chip 1 oscillator
+32                2OSC              J32     Chip 2 oscillator
+50                 GND           J1-J32     LEMO connectors outer shells
+
+Note: To operate the USB-4303 with the EPICS scaler record it must be wired as follows:
+
+- 1OUT1 must be connected to 1GAT1, 1GAT2, 2GAT1, 2GAT2, 1GAT4, 2GAT4
+
+- No connnection to 1INP1, that is internally routed to XXX and is used as the preset channel.
+
+- Scaler input 2 is connected to 1INP2 = J2.  This is a 32-bit scaler.
+
+- Scaler input 3 is connected to 1INP4 = J4.  This is a 32-bit scaler.
+
+- Scaler input 4 is connected to 2INP1 = J6.  This is 16-bit scaler.
+
+- Scaler input 5 is connected to 2INP2 = J7.  This is a 32-bit scaler.
+
+- Scaler input 6 is connected to 2INP4 = J9.  This is a 32-bit scaler.
+
+</pre>
+  <hr />
+  <address>
+    Suggestions and Comments to:
+    <br />
+    <a href="mailto:rivers@cars.uchicago.edu">Mark Rivers </a>: (rivers@cars.uchicago.edu)
+    <br />
+  </address>
+</body>
+</html>
