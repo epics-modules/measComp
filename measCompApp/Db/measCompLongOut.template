@@ -1,0 +1,17 @@
+###################################################################
+#  Binary output as longout                                       # 
+###################################################################
+record(longout, "$(P)$(R)")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
+}
+
+record(longin, "$(P)$(R)_RBV")
+{
+    field(DTYP, "asynUInt32Digital")
+    field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
+    field(SCAN, "I/O Intr")
+}
+

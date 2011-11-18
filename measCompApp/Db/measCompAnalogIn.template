@@ -1,0 +1,29 @@
+record(ai,"$(P)$(R)")
+{
+    field(SCAN, "$(SCAN)")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))ANALOG_IN_VALUE")
+    field(LINR, "LINEAR")
+    field(EGUF, "$(EGUF)")
+    field(EGUL, "$(EGUL)")
+    field(HOPR, "$(HOPR)")
+    field(LOPR, "$(LOPR)")
+    field(PREC, "$(PREC)")
+}
+
+# Note: the ZRVL, etc. fields here correspond to the values of BIP1VOLTS, etc. in cbw.h
+record(mbbo,"$(P)$(R)Range")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_IN_RANGE")
+    field(ZRST, "+-1V")
+    field(ZRVL, "4")
+    field(ONST, "+-2V")
+    field(ONVL, "14")
+    field(TWST, "+-5V")
+    field(TWVL, "0")
+    field(THST, "+-10V")
+    field(THVL, "1")
+    field(VAL,  "$(RANGE)")
+}

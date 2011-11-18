@@ -1,0 +1,51 @@
+record(ao,"$(P)$(R)") {
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(FLNK, "$(P)$(R)Return.PROC  PP MS")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_VALUE")
+    field(EGUL, "$(EGUL)")
+    field(DRVL, "$(DRVL)")
+    field(LOPR, "$(LOPR)")
+    field(EGUF, "$(EGUF)")
+    field(DRVH, "$(DRVH)")
+    field(HOPR, "$(HOPR)")
+    field(PREC, "$(PREC)")
+    field(LINR, "LINEAR")
+    field(VAL,  "$(VAL)")
+}
+
+record(ao,"$(P)$(R)Return") {
+    field(DTYP, "asynInt32")
+    field(DISV, "0")
+    field(SDIS, "$(P)$(R)Pulse.VAL  NPP NMS")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_VALUE")
+    field(OMSL, "closed_loop")
+    field(EGUL, "$(EGUL)")
+    field(DRVL, "$(DRVL)")
+    field(LOPR, "$(LOPR)")
+    field(EGUF, "$(EGUF)")
+    field(DRVH, "$(DRVH)")
+    field(HOPR, "$(HOPR)")
+    field(PREC, "$(PREC)")
+    field(LINR, "LINEAR")
+    field(VAL,  "$(VAL)")
+}
+
+record(bo,"$(P)$(R)Pulse") {
+    field(ZNAM, "Normal")
+    field(ONAM, "Pulse")
+}
+
+record(ao,"$(P)$(R)TweakVal") {
+    field(PREC, "$(PREC)")
+}
+
+record(transform,"$(P)$(R)Tweak") {
+    field(CLCE, "a?d-c:b?d+c:d")
+    field(INPC, "$(P)$(R)TweakVal.VAL  NPP MS")
+    field(INPD, "$(P)$(R).VAL  NPP MS")
+    field(OUTE, "$(P)$(R).VAL  PP MS")
+    field(OUTF, "$(P)$(R)Tweak.A  NPP MS")
+    field(OUTG, "$(P)$(R)Tweak.B  NPP MS")
+    field(PREC, "$(PREC)")
+}

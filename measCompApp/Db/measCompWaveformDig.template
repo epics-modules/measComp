@@ -1,0 +1,223 @@
+# Database for Measurement Computing waveform generator
+# Mark Rivers
+# November 6, 2011
+
+###################################################################
+#  Number of points to use                                        # 
+###################################################################
+record(longout, "$(P)$(R)NumPoints")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_NUM_POINTS")
+}
+
+###################################################################
+#  First channel to digitize                                      # 
+###################################################################
+record(mbbo, "$(P)$(R)FirstChan")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_FIRST_CHAN")
+    field(ZRVL, "0")
+    field(ZRST, "1")
+    field(ONVL, "1")
+    field(ONST, "2")
+    field(TWVL, "2")
+    field(TWST, "3")
+    field(THVL, "3")
+    field(THST, "4")
+    field(FRVL, "4")
+    field(FRST, "5")
+    field(FVVL, "5")
+    field(FVST, "6")
+    field(SXVL, "6")
+    field(SXST, "7")
+    field(SVVL, "7")
+    field(SVST, "8")
+}
+
+###################################################################
+#  First channel to digitize                                      # 
+###################################################################
+record(mbbo, "$(P)$(R)NumChans")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_NUM_CHANS")
+    field(ZRVL, "1")
+    field(ZRST, "1")
+    field(ONVL, "2")
+    field(ONST, "2")
+    field(TWVL, "3")
+    field(TWST, "3")
+    field(THVL, "4")
+    field(THST, "4")
+    field(FRVL, "5")
+    field(FRST, "5")
+    field(FVVL, "6")
+    field(FVST, "6")
+    field(SXVL, "7")
+    field(SXST, "7")
+    field(SVVL, "8")
+    field(SVST, "8")
+}
+###################################################################
+#  Timebase waveform record                                       #
+###################################################################
+record(waveform, "$(P)$(R)TimeWF")
+{
+    field(FTVL, "FLOAT")
+    field(DTYP, "asynFloat32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_TIME_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Current point                                                  # 
+###################################################################
+record(longin, "$(P)$(R)CurrentPoint")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_CURRENT_POINT")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Time per point                                                 # 
+###################################################################
+record(ao, "$(P)$(R)Dwell")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_DWELL")
+    field(VAL,  "0.001")
+    field(PREC, "$(PREC)")
+}
+
+###################################################################
+#  Total time                                                     # 
+###################################################################
+record(ai, "$(P)$(R)TotalTime")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_TOTAL_TIME")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  External trigger                                               # 
+###################################################################
+record(bo, "$(P)$(R)ExtTrigger")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_EXT_TRIGGER")
+    field(ZNAM, "Internal")
+    field(ONAM, "External")
+}
+
+###################################################################
+#  External clock                                                 # 
+###################################################################
+record(bo, "$(P)$(R)ExtClock")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_EXT_CLOCK")
+    field(ZNAM, "Internal")
+    field(ONAM, "External")
+}
+
+###################################################################
+#  One-shot / continuous                                          # 
+###################################################################
+record(bo, "$(P)$(R)Continuous")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_CONTINUOUS")
+    field(ZNAM, "One-shot")
+    field(ONAM, "Continuous")
+}
+
+###################################################################
+#  Auto restart                                                   # 
+###################################################################
+record(bo, "$(P)$(R)AutoRestart")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_AUTO_RESTART")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Retrigger                                                      # 
+###################################################################
+record(bo, "$(P)$(R)Retrigger")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_RETRIGGER")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Trigger count                                                  # 
+###################################################################
+record(longout, "$(P)$(R)TriggerCount")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_TRIGGER_COUNT")
+    field(VAL,  "1")
+}
+
+###################################################################
+#  Burst mode                                                     # 
+###################################################################
+record(bo, "$(P)$(R)BurstMode")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_BURST_MODE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Run                                                            # 
+###################################################################
+record(busy, "$(P)$(R)Run")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_RUN")
+    field(ZNAM, "Stop")
+    field(ONAM, "Run")
+}
+
+###################################################################
+#  Read waveforms                                                 # 
+###################################################################
+# This tells the driver to read, which then does callbacks to the
+# input waveform records which are I/O Intr scanned
+# The driver always reads the waveforms when acquisition completes,
+# so this record can be passive for fast scans
+record(busy, "$(P)$(R)ReadWF")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_READ_WF")
+    field(ZNAM, "Done")
+    field(ONAM, "Read")
+    field(SCAN, "1 second")
+    field(SDIS, "$(P)$(R)Run")
+    field(DISV, "0")
+}
+
+

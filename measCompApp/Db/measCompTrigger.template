@@ -1,0 +1,14 @@
+record(mbbo,"$(P)$(R)Mode") {
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TRIGGER_MODE")
+    field(ZRVL, "12")
+    field(ZRST, "Positive edge")
+    field(ONVL, "13")
+    field(ONST, "Negative edge")
+    field(TWVL, "10")
+    field(TWST, "High")
+    field(THVL, "11")
+    field(THST, "Low")
+}
+

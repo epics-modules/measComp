@@ -1,0 +1,265 @@
+# Database for C9513.  This database is loaded for each chip
+# Mark Rivers
+# July 26, 2011
+
+###################################################################
+#  Frequency output divider                                       # 
+###################################################################
+
+record(mbbo, "$(P)$(R)FOutDivider")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))FOUT_DIVIDER")
+   field(ZRST, "1")
+   field(ZRVL, "1")
+   field(ONST, "2")
+   field(ONVL, "2")
+   field(TWST, "3")
+   field(TWVL, "3")
+   field(THST, "4")
+   field(THVL, "4")
+   field(FRST, "5")
+   field(FRVL, "5")
+   field(FVST, "6")
+   field(FVVL, "6")
+   field(SXST, "7")
+   field(SXVL, "7")
+   field(SVST, "8")
+   field(SVVL, "8")
+   field(EIST, "9")
+   field(EIVL, "9")
+   field(NIST, "10")
+   field(NIVL, "10")
+   field(TEST, "11")
+   field(TEVL, "11")
+   field(ELST, "12")
+   field(ELVL, "12")
+   field(TVST, "13")
+   field(TVVL, "13")
+   field(TTST, "14")
+   field(TTVL, "14")
+   field(FTST, "15")
+   field(FTVL, "15")
+   field(FFST, "16")
+   field(FFVL, "0")
+}
+
+record(mbbi, "$(P)$(R)FOutDivider_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))FOUT_DIVIDER")
+   field(ZRST, "1")
+   field(ZRVL, "1")
+   field(ONST, "2")
+   field(ONVL, "2")
+   field(TWST, "3")
+   field(TWVL, "3")
+   field(THST, "4")
+   field(THVL, "4")
+   field(FRST, "5")
+   field(FRVL, "5")
+   field(FVST, "6")
+   field(FVVL, "6")
+   field(SXST, "7")
+   field(SXVL, "7")
+   field(SVST, "8")
+   field(SVVL, "8")
+   field(EIST, "9")
+   field(EIVL, "9")
+   field(NIST, "10")
+   field(NIVL, "10")
+   field(TEST, "11")
+   field(TEVL, "11")
+   field(ELST, "12")
+   field(ELVL, "12")
+   field(TVST, "13")
+   field(TVVL, "13")
+   field(TTST, "14")
+   field(TTVL, "14")
+   field(FTST, "15")
+   field(FTVL, "15")
+   field(FFST, "16")
+   field(FFVL, "0")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Frequency output source                                        # 
+###################################################################
+
+record(mbbo, "$(P)$(R)FOutSource")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))FOUT_SOURCE")
+   field(ZRST, "Prev TC")
+   field(ZRVL, "0")
+   field(ONST, "Input 1")
+   field(ONVL, "1")
+   field(TWST, "Input 2")
+   field(TWVL, "2")
+   field(THST, "Input 3")
+   field(THVL, "3")
+   field(FRST, "Input 4")
+   field(FRVL, "4")
+   field(FVST, "Input 5")
+   field(FVVL, "5")
+   field(SXST, "Gate 1")
+   field(SXVL, "6")
+   field(SVST, "Gate 2")
+   field(SVVL, "7")
+   field(EIST, "Gate 3")
+   field(EIVL, "8")
+   field(NIST, "Gate 4")
+   field(NIVL, "9")
+   field(TEST, "Gate 5")
+   field(TEVL, "10")
+   field(ELST, "Freq 1 (5 MHz)")
+   field(ELVL, "11")
+   field(TVST, "Freq 2 (500 kHz)")
+   field(TVVL, "12")
+   field(TTST, "Freq 3 (50 kHz)")
+   field(TTVL, "13")
+   field(FTST, "Freq 4 (5 kHz)")
+   field(FTVL, "14")
+   field(FFST, "Freq 5 (500 Hz)")
+   field(FFVL, "15")
+}
+
+record(mbbi, "$(P)$(R)FOutSource_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))FOUT_SOURCE")
+   field(ZRST, "Prev TC")
+   field(ZRVL, "0")
+   field(ONST, "Input 1")
+   field(ONVL, "1")
+   field(TWST, "Input 2")
+   field(TWVL, "2")
+   field(THST, "Input 3")
+   field(THVL, "3")
+   field(FRST, "Input 4")
+   field(FRVL, "4")
+   field(FVST, "Input 5")
+   field(FVVL, "5")
+   field(SXST, "Gate 1")
+   field(SXVL, "6")
+   field(SVST, "Gate 2")
+   field(SVVL, "7")
+   field(EIST, "Gate 3")
+   field(EIVL, "8")
+   field(NIST, "Gate 4")
+   field(NIVL, "9")
+   field(TEST, "Gate 5")
+   field(TEVL, "10")
+   field(ELST, "Freq 1 (5 MHz)")
+   field(ELVL, "11")
+   field(TVST, "Freq 2 (500 kHz)")
+   field(TVVL, "12")
+   field(TTST, "Freq 3 (50 kHz)")
+   field(TTVL, "13")
+   field(FTST, "Freq 4 (5 kHz)")
+   field(FTVL, "14")
+   field(FFST, "Freq 5 (500 Hz)")
+   field(FFVL, "15")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Compare1                                                       # 
+###################################################################
+record(bo, "$(P)$(R)Compare1")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))COMPARE1")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(bi, "$(P)$(R)Compare1_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))COMPARE1")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Compare2                                                       # 
+###################################################################
+record(bo, "$(P)$(R)Compare2")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))COMPARE2")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(bi, "$(P)$(R)Compare2_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))COMPARE2")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  TimeOfDay                                                      # 
+###################################################################
+record(bo, "$(P)$(R)TimeOfDay")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TIME_OF_DAY")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(bi, "$(P)$(R)TimeOfDay_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))TIME_OF_DAY")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Alarm register 1                                               # 
+###################################################################
+record(longout, "$(P)$(R)AlarmReg1")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))ALARM_REG1")
+}
+
+record(longin, "$(P)$(R)AlarmReg1_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))ALARM_REG1")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Alarm register 2                                               # 
+###################################################################
+record(longout, "$(P)$(R)AlarmReg2")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))ALARM_REG2")
+}
+
+record(longin, "$(P)$(R)AlarmReg2_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))ALARM_REG2")
+   field(SCAN, "I/O Intr")
+}
+

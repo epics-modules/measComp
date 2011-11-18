@@ -1,0 +1,370 @@
+# Database for C9513.  This database is loaded for each chip
+# Mark Rivers
+# July 26, 2011
+
+###################################################################
+#  Gate control                                                   # 
+###################################################################
+
+record(mbbo, "$(P)$(R)GateControl")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))GATE_CONTROL")
+   field(ZRST, "No gate")
+   field(ZRVL, "0")
+   field(ONST, "High TC N-1")
+   field(ONVL, "1")
+   field(TWST, "High level gate N+1")
+   field(TWVL, "2")
+   field(THST, "High level gate N-1")
+   field(THVL, "3")
+   field(FRST, "High level gate N")
+   field(FRVL, "4")
+   field(FVST, "Low level gate N")
+   field(FVVL, "5")
+   field(SXST, "High edge gate N")
+   field(SXVL, "6")
+   field(SVST, "Low edge gate N")
+   field(SVVL, "7")
+}
+
+record(mbbi, "$(P)$(R)GateControl_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))GATE_CONTROL")
+   field(ZRST, "No gate")
+   field(ZRVL, "0")
+   field(ONST, "High TC N-1")
+   field(ONVL, "1")
+   field(TWST, "High level gate N+1")
+   field(TWVL, "2")
+   field(THST, "High level gate N-1")
+   field(THVL, "3")
+   field(FRST, "High level gate N")
+   field(FRVL, "4")
+   field(FVST, "Low level gate N")
+   field(FVVL, "5")
+   field(SXST, "High edge gate N")
+   field(SXVL, "6")
+   field(SVST, "Low edge gate N")
+   field(SVVL, "7")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Counter edge                                                   # 
+###################################################################
+
+record(mbbo, "$(P)$(R)CounterEdge")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))COUNTER_EDGE")
+   field(ZRST, "Rising")
+   field(ZRVL, "0")
+   field(ONST, "Falling")
+   field(ONVL, "1")
+}
+
+record(mbbi, "$(P)$(R)CounterEdge_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))COUNTER_EDGE")
+   field(ZRST, "Rising")
+   field(ZRVL, "0")
+   field(ONST, "Falling")
+   field(ONVL, "1")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Counter source                                                 # 
+###################################################################
+record(mbbo, "$(P)$(R)CountSource")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))COUNT_SOURCE")
+   field(ZRST, "Prev TC")
+   field(ZRVL, "0")
+   field(ONST, "Input 1")
+   field(ONVL, "1")
+   field(TWST, "Input 2")
+   field(TWVL, "2")
+   field(THST, "Input 3")
+   field(THVL, "3")
+   field(FRST, "Input 4")
+   field(FRVL, "4")
+   field(FVST, "Input 5")
+   field(FVVL, "5")
+   field(SXST, "Gate 1")
+   field(SXVL, "6")
+   field(SVST, "Gate 2")
+   field(SVVL, "7")
+   field(EIST, "Gate 3")
+   field(EIVL, "8")
+   field(NIST, "Gate 4")
+   field(NIVL, "9")
+   field(TEST, "Gate 5")
+   field(TEVL, "10")
+   field(ELST, "Freq 1 (5 MHz)")
+   field(ELVL, "11")
+   field(TVST, "Freq 2 (500 kHz)")
+   field(TVVL, "12")
+   field(TTST, "Freq 3 (50 kHz)")
+   field(TTVL, "13")
+   field(FTST, "Freq 4 (5 kHz)")
+   field(FTVL, "14")
+   field(FFST, "Freq 5 (500 Hz)")
+   field(FFVL, "15")
+}
+
+record(mbbi, "$(P)$(R)CountSource_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))COUNT_SOURCE")
+   field(ZRST, "Prev TC")
+   field(ZRVL, "0")
+   field(ONST, "Input 1")
+   field(ONVL, "1")
+   field(TWST, "Input 2")
+   field(TWVL, "2")
+   field(THST, "Input 3")
+   field(THVL, "3")
+   field(FRST, "Input 4")
+   field(FRVL, "4")
+   field(FVST, "Input 5")
+   field(FVVL, "5")
+   field(SXST, "Gate 1")
+   field(SXVL, "6")
+   field(SVST, "Gate 2")
+   field(SVVL, "7")
+   field(EIST, "Gate 3")
+   field(EIVL, "8")
+   field(NIST, "Gate 4")
+   field(NIVL, "9")
+   field(TEST, "Gate 5")
+   field(TEVL, "10")
+   field(ELST, "Freq 1 (5 MHz)")
+   field(ELVL, "11")
+   field(TVST, "Freq 2 (500 kHz)")
+   field(TVVL, "12")
+   field(TTST, "Freq 3 (50 kHz)")
+   field(TTVL, "13")
+   field(FTST, "Freq 4 (5 kHz)")
+   field(FTVL, "14")
+   field(FFST, "Freq 5 (500 Hz)")
+   field(FFVL, "15")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Special gate                                                   # 
+###################################################################
+record(bo, "$(P)$(R)SpecialGate")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))SPECIAL_GATE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(bi, "$(P)$(R)SpecialGate_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))SPECIAL_GATE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Reload source                                                  # 
+###################################################################
+record(bo, "$(P)$(R)ReloadSource")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))RELOAD_SOURCE")
+    field(ZNAM, "Load register")
+    field(ONAM, "Load and hold register")
+}
+
+record(bi, "$(P)$(R)ReloadSource_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))RELOAD_SOURCE")
+    field(ZNAM, "Load register")
+    field(ONAM, "Load and hold register")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Recycle                                                        # 
+###################################################################
+record(bo, "$(P)$(R)RecycleMode")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))RECYCLE_MODE")
+    field(ZNAM, "One time")
+    field(ONAM, "Recycle")
+}
+
+record(bi, "$(P)$(R)RecycleMode_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))RECYCLE_MODE")
+    field(ZNAM, "One time")
+    field(ONAM, "Recycle")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  BCD mode                                                       # 
+###################################################################
+record(bo, "$(P)$(R)BCDMode")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))BCD_MODE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+record(bi, "$(P)$(R)BCDMode_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))BCD_MODE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Count direction                                                # 
+###################################################################
+record(bo, "$(P)$(R)CountDirection")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))COUNT_DIRECTION")
+    field(ZNAM, "Count down")
+    field(ONAM, "Count up")
+}
+
+record(bi, "$(P)$(R)CountDirection_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))COUNT_DIRECTION")
+    field(ZNAM, "Count down")
+    field(ONAM, "Count up")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Output control                                                 # 
+###################################################################
+record(mbbo, "$(P)$(R)OutputControl")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))OUTPUT_CONTROL")
+   field(ZRST, "Always low")
+   field(ZRVL, "0")
+   field(ONST, "High pulse on TC")
+   field(ONVL, "1")
+   field(TWST, "Toggle on TC")
+   field(TWVL, "2")
+   field(THST, "Inactive high impedance")
+   field(THVL, "4")
+   field(FRST, "Low pulse on TC")
+   field(FRVL, "5")
+}
+
+record(mbbi, "$(P)$(R)OutputControl_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))OUTPUT_CONTROL")
+   field(ZRST, "Always low")
+   field(ZRVL, "0")
+   field(ONST, "High pulse on TC")
+   field(ONVL, "1")
+   field(TWST, "Toggle on TC")
+   field(TWVL, "2")
+   field(THST, "Inactive high impedance")
+   field(THVL, "4")
+   field(FRST, "Low pulse on TC")
+   field(FRVL, "5")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Load register                                                  # 
+###################################################################
+record(longout, "$(P)$(R)LoadReg")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))LOAD_REG")
+}
+
+record(longin, "$(P)$(R)LoadReg_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR))LOAD_REG")
+   field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Hold register                                                  # 
+###################################################################
+record(longout, "$(P)$(R)HoldReg")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))HOLD_REG")
+}
+
+record(longin, "$(P)$(R)HoldReg_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))HOLD_REG")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Poll Counter                                                   # 
+###################################################################
+record(bo, "$(P)$(R)PollCounter")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))POLL_COUNTER")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+}
+
+record(bi, "$(P)$(R)PollCounter_RBV")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))POLL_COUNTER")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(SCAN, "I/O Intr")
+}
+
+
+
+###################################################################
+#  Counter value                                                  # 
+###################################################################
+record(longin, "$(P)$(R)CounterValue")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))COUNTER_VALUE")
+    field(SCAN, "I/O Intr")
+}
+

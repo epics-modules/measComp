@@ -1,0 +1,93 @@
+###################################################################
+#  User-defined waveform record                                   #
+###################################################################
+record(waveform, "$(P)$(R)UserWF")
+{
+    field(FTVL, "FLOAT")
+    field(DTYP, "asynFloat32ArrayOut")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_WF")
+    field(NELM, "$(MAX_POINTS)")
+}
+
+###################################################################
+#  Internally defined waveform record                             #
+###################################################################
+record(waveform, "$(P)$(R)InternalWF")
+{
+    field(FTVL, "FLOAT")
+    field(DTYP, "asynFloat32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Enable this channel                                            # 
+###################################################################
+record(bo, "$(P)$(R)Enable")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_ENABLE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Waveform type                                                  # 
+###################################################################
+record(mbbo, "$(P)$(R)Type")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_WAVE_TYPE")
+    field(ZRVL, "0")
+    field(ZRST, "User-defined")
+    field(ONVL, "1")
+    field(ONST, "Sin wave")
+    field(TWVL, "2")
+    field(TWST, "Square wave")
+    field(THVL, "3")
+    field(THST, "Sawtooth")
+    field(FRVL, "4")
+    field(FRST, "Pulse")
+    field(FVVL, "5")
+    field(FVST, "Random")
+}
+
+###################################################################
+#  Pulse width                                                    # 
+###################################################################
+record(ao, "$(P)$(R)PulseWidth")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_PULSE_WIDTH")
+    field(VAL,  "0.001")
+    field(PREC, "$(PREC)")
+}
+
+###################################################################
+#  Amplitude                                                      # 
+###################################################################
+record(ao, "$(P)$(R)Amplitude")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_AMPLITUDE")
+    field(VAL,  "1.0")
+    field(PREC, "4")
+}
+
+###################################################################
+#  Offset                                                         # 
+###################################################################
+record(ao, "$(P)$(R)Offset")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_OFFSET")
+    field(VAL,  "0.0")
+    field(PREC, "4")
+}
+

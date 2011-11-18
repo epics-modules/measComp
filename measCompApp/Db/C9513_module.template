@@ -1,0 +1,47 @@
+###################################################################
+#  Records to select frequency source and scaler frequency        #
+#  based on scaler count time                                     # 
+###################################################################
+record(calc, "$(P)$(R)TimeCalc") {
+    field(CALC, "A<.013?0:A<.13?1:A<1.3?2:A<13.?3:4")
+    field(INPA, "$(SCALER).TP CP MS")
+    field(FLNK, "$(P)$(R)SetFrequency1.PROC")
+}
+
+record(mbbo, "$(P)$(R)SetFrequency1") {
+   field(DOL,  "$(P)$(R)TimeCalc.VAL")
+   field(OMSL, "closed_loop")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR))SCALER_FREQUENCY")
+   field(ZRST, "Freq 1 (5 MHz)")
+   field(ZRVL, "0")
+   field(ONST, "Freq 2 (500 kHz)")
+   field(ONVL, "1")
+   field(TWST, "Freq 3 (50 kHz)")
+   field(TWVL, "2")
+   field(THST, "Freq 4 (5 kHz)")
+   field(THVL, "3")
+   field(FRST, "Freq 5 (500 Hz)")
+   field(FRVL, "4")
+   field(FLNK, "$(P)$(R)SetFrequency2.PROC")
+}
+
+record(mbbo, "$(P)$(R)SetFrequency2") {
+   field(DOL,  "$(P)$(R)TimeCalc.VAL")
+   field(OMSL, "closed_loop")
+   field(DTYP, "Raw Soft Channel")
+   field(OUT,  "$(SCALER).FREQ")
+   field(ZRST, "Freq 1 (5 MHz)")
+   field(ZRVL, "5000000")
+   field(ONST, "Freq 2 (500 kHz)")
+   field(ONVL, "500000")
+   field(TWST, "Freq 3 (50 kHz)")
+   field(TWVL, "50000")
+   field(THST, "Freq 4 (5 kHz)")
+   field(THVL, "5000")
+   field(FRST, "Freq 5 (500 Hz)")
+   field(FRVL, "500")
+}
+
+
+

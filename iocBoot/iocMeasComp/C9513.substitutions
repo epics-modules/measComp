@@ -1,0 +1,98 @@
+file "$(MEASCOMP)/measCompApp/Db/C9513_module.template" 
+{
+pattern
+{    P,        R,      PORT,    ADDR,      SCALER,         COUNTER1    }
+{  C9513:,  Module:,  C9513_1,     0,   C9513:scaler1,  C9513:Counter1:}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/C9513_chip.template"
+{
+pattern
+{    P,        R,      PORT,    ADDR}
+{   C9513:,  Chip1:,  C9513_1,     0}
+{   C9513:,  Chip2:,  C9513_1,     1}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   C9513:,  Li,   0xFF,  C9513_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   C9513:,  Bi0,  0x01   C9513_1,     0}
+{   C9513:,  Bi1,  0x02   C9513_1,     0}
+{   C9513:,  Bi2,  0x04   C9513_1,     0}
+{   C9513:,  Bi3,  0x08   C9513_1,     0}
+{   C9513:,  Bi4,  0x10   C9513_1,     0}
+{   C9513:,  Bi5,  0x20   C9513_1,     0}
+{   C9513:,  Bi6,  0x40   C9513_1,     0}
+{   C9513:,  Bi7,  0x80   C9513_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   C9513:,  Lo,   0xFF,  C9513_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   C9513:,  Bo0,  0x01   C9513_1,     0}
+{   C9513:,  Bo1,  0x02   C9513_1,     0}
+{   C9513:,  Bo2,  0x04   C9513_1,     0}
+{   C9513:,  Bo3,  0x08   C9513_1,     0}
+{   C9513:,  Bo4,  0x10   C9513_1,     0}
+{   C9513:,  Bo5,  0x20   C9513_1,     0}
+{   C9513:,  Bo6,  0x40   C9513_1,     0}
+{   C9513:,  Bo7,  0x80   C9513_1,     0}
+}
+
+
+
+file "$(MEASCOMP)/measCompApp/Db/C9513_counter.template"
+{
+pattern
+{     P,         R,       PORT,    ADDR}
+{   C9513:,  Counter1:,  C9513_1,     0}
+{   C9513:,  Counter2:,  C9513_1,     1}
+{   C9513:,  Counter3:,  C9513_1,     2}
+{   C9513:,  Counter4:,  C9513_1,     3}
+{   C9513:,  Counter5:,  C9513_1,     4}
+{   C9513:,  Counter6:,  C9513_1,     5}
+{   C9513:,  Counter7:,  C9513_1,     6}
+{   C9513:,  Counter8:,  C9513_1,     7}
+{   C9513:,  Counter9:,  C9513_1,     8}
+{   C9513:,  Counter10:, C9513_1,     9}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompPulseGen.template"
+{
+pattern
+{     P,         R,        PORT,    ADDR,  PREC}
+{   C9513:,  PulseGen1:,  C9513_1,     0,     4}
+{   C9513:,  PulseGen2:,  C9513_1,     1,     4}
+{   C9513:,  PulseGen3:,  C9513_1,     2,     4}
+{   C9513:,  PulseGen4:,  C9513_1,     3,     4}
+{   C9513:,  PulseGen5:,  C9513_1,     4,     4}
+{   C9513:,  PulseGen6:,  C9513_1,     5,     4}
+{   C9513:,  PulseGen7:,  C9513_1,     6,     4}
+{   C9513:,  PulseGen8:,  C9513_1,     7,     4}
+{   C9513:,  PulseGen9:,  C9513_1,     8,     4}
+{   C9513:,  PulseGen10:, C9513_1,     9,     4}
+}
+
+# This loads the scaler record and supporting records
+file "$(STD)/stdApp/Db/scaler.db"
+{
+pattern
+{     P,        S,        DTYP,           OUT,         FREQ}
+{   C9513:,  scaler1, "Asyn Scaler", "@asyn(C9513_1)", 1000}
+}

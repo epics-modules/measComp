@@ -1,0 +1,115 @@
+# Database for C9513.  This database is loaded for each pulse generator
+# Mark Rivers
+# July 26, 2011
+
+###################################################################
+#  Pulse start/stop                                               # 
+###################################################################
+record(bo, "$(P)$(R)Run")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_RUN")
+    field(ZNAM, "Stop")
+    field(ZSV,  "NO_ALARM")
+    field(ONAM, "Run")
+    field(OSV,  "MINOR")
+}
+
+# NOTE: The records for the period and the frequency are a bit
+# complex because we want to be able to change either ao record
+# and have the other one update
+
+###################################################################
+#  Pulse period                                                   # 
+###################################################################
+record(ao, "$(P)$(R)Period")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_PERIOD")
+    field(VAL,  "0.001")
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcFrequency")
+}
+
+###################################################################
+#  Calculate frequency based on new period                        # 
+###################################################################
+record(calcout, "$(P)$(R)CalcFrequency")
+{
+    field(INPA, "$(P)$(R)Period")
+    field(CALC, "1/A")
+    field(SDIS, "$(P)$(R)Frequency.PROC")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)Frequency PP MS")
+}
+
+###################################################################
+#  Pulse frequency                                                # 
+###################################################################
+record(ao, "$(P)$(R)Frequency")
+{
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcPeriod PP MS")
+}
+
+###################################################################
+#  Calculate period based on new frequency                        # 
+###################################################################
+record(calcout, "$(P)$(R)CalcPeriod")
+{
+    field(INPA, "$(P)$(R)Frequency")
+    field(CALC, "1/A")
+    field(SDIS, "$(P)$(R)Period.PROC")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)Period PP MS")
+}
+
+###################################################################
+#  Pulse width                                                    # 
+###################################################################
+record(ao, "$(P)$(R)Width")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_WIDTH")
+    field(VAL,  "0.0001")
+    field(PREC, "$(PREC)")
+}
+
+###################################################################
+#  Pulse delay                                                    # 
+###################################################################
+record(ao, "$(P)$(R)Delay")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_DELAY")
+    field(VAL,  "0.")
+    field(PREC, "$(PREC)")
+}
+
+###################################################################
+#  Pulse count                                                    # 
+###################################################################
+record(longout, "$(P)$(R)Count")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_COUNT")
+}
+
+###################################################################
+#  Pulse idle state                                               # 
+###################################################################
+record(bo, "$(P)$(R)IdleState")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_IDLE_STATE")
+    field(ZNAM, "Low")
+    field(ONAM, "High")
+    field(VAL,  "0")
+}
+
+

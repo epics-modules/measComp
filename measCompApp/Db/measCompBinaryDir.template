@@ -1,0 +1,10 @@
+record(bo, "$(P)$(R)")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_DIRECTION")
+    field(ZNAM, "In")
+    field(ONAM, "Out")
+    field(VAL,  "$(VAL)")
+    field(PINI, "YES")
+}

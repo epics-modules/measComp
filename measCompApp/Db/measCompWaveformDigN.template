@@ -1,0 +1,11 @@
+###################################################################
+#  User-defined waveform record                                   #
+###################################################################
+record(waveform, "$(P)$(R)VoltWF")
+{
+    field(FTVL, "DOUBLE")
+    field(DTYP, "asynFloat64ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_VOLT_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}

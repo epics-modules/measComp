@@ -1,0 +1,270 @@
+# Database for Measurement Computing waveform generator
+# Mark Rivers
+# November 6, 2011
+
+###################################################################
+#  Number of points to use                                        # 
+###################################################################
+record(longin, "$(P)$(R)NumPoints")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_NUM_POINTS")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Number of points to use for user-defined waveforms             # 
+###################################################################
+record(longout, "$(P)$(R)UserNumPoints")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_NUM_POINTS")
+    field(VAL,  "1000")
+}
+
+###################################################################
+#  Number of points to use for pre-defined waveforms             # 
+###################################################################
+record(longout, "$(P)$(R)IntNumPoints")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_NUM_POINTS")
+    field(VAL,  "1000")
+}
+
+###################################################################
+#  Timebase waveform record for user waveforms                    #
+###################################################################
+record(waveform, "$(P)$(R)UserTimeWF")
+{
+    field(FTVL, "FLOAT")
+    field(DTYP, "asynFloat32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_TIME_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Timebase waveform record for predefined waveforms              #
+###################################################################
+record(waveform, "$(P)$(R)IntTimeWF")
+{
+    field(FTVL, "FLOAT")
+    field(DTYP, "asynFloat32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_TIME_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Current point                                                  # 
+###################################################################
+record(longin, "$(P)$(R)CurrentPoint")
+{
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_CURRENT_POINT")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Waveform frequency                                             # 
+###################################################################
+record(ai, "$(P)$(R)Frequency")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_FREQ")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Time per point readback, based on UserDwell or IntDwell        # 
+###################################################################
+record(ai, "$(P)$(R)Dwell")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_DWELL")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Total time                                                     # 
+###################################################################
+record(ai, "$(P)$(R)TotalTime")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_TOTAL_TIME")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Internal waveform dwell                                        # 
+###################################################################
+record(ao, "$(P)$(R)IntDwell")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_DWELL")
+    field(VAL,  "0.001")
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcIntFrequency")
+}
+
+###################################################################
+#  Calculate internal frequency based on new dwell                # 
+###################################################################
+record(calcout, "$(P)$(R)CalcIntFrequency")
+{
+    field(INPA, "$(P)$(R)IntDwell")
+    field(INPB, "$(P)$(R)IntNumPoints")
+    field(CALC, "1/A/B")
+    field(SDIS, "$(P)$(R)CalcIntDwell.PACT")
+    field(DISV, "1")
+    field(OUT,  "$(P)$(R)IntFrequency PP MS")
+}
+
+###################################################################
+#  Internal waveform frequency                                    # 
+###################################################################
+record(ao, "$(P)$(R)IntFrequency")
+{
+    field(PREC, "$(PREC)")
+    field(OUT,  "$(P)$(R)CalcIntDwell PP MS")
+}
+
+###################################################################
+#  Calculate internal dwell based on new frequency                # 
+###################################################################
+record(calcout, "$(P)$(R)CalcIntDwell")
+{
+    field(INPA, "$(P)$(R)IntFrequency")
+    field(INPB, "$(P)$(R)IntNumPoints CP")
+    field(CALC, "1/A/B")
+    field(SDIS, "$(P)$(R)CalcIntFrequency.PACT")
+    field(DISV, "1")
+    field(OUT,  "$(P)$(R)IntDwell PP MS")
+}
+
+###################################################################
+#  User waveform dwell                                            # 
+###################################################################
+record(ao, "$(P)$(R)UserDwell")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_DWELL")
+    field(VAL,  "0.001")
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcUserFrequency")
+}
+
+###################################################################
+#  Calculate user frequency based on new dwell                    # 
+###################################################################
+record(calcout, "$(P)$(R)CalcUserFrequency")
+{
+    field(INPA, "$(P)$(R)UserDwell")
+    field(INPB, "$(P)$(R)UserNumPoints")
+    field(CALC, "1/A/B")
+    field(SDIS, "$(P)$(R)CalcUserDwell.PACT")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)UserFrequency PP MS")
+}
+
+###################################################################
+#  User waveform frequency                                        # 
+###################################################################
+record(ao, "$(P)$(R)UserFrequency")
+{
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcUserDwell PP MS")
+}
+
+###################################################################
+#  Calculate user dwell based on new frequency                    # 
+###################################################################
+record(calcout, "$(P)$(R)CalcUserDwell")
+{
+    field(INPA, "$(P)$(R)UserFrequency")
+    field(INPB, "$(P)$(R)UserNumPoints CP")
+    field(CALC, "1/A/B")
+    field(SDIS, "$(P)$(R)CalcUserFrequency.PACT")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)UserDwell PP MS")
+}
+
+###################################################################
+#  External trigger                                               # 
+###################################################################
+record(bo, "$(P)$(R)ExtTrigger")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_EXT_TRIGGER")
+    field(ZNAM, "Internal")
+    field(ONAM, "External")
+}
+
+###################################################################
+#  External clock                                                 # 
+###################################################################
+record(bo, "$(P)$(R)ExtClock")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_EXT_CLOCK")
+    field(ZNAM, "Internal")
+    field(ONAM, "External")
+}
+
+###################################################################
+#  External trigger                                               # 
+###################################################################
+record(bo, "$(P)$(R)Continuous")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_CONTINUOUS")
+    field(ZNAM, "One-shot")
+    field(ONAM, "Continuous")
+}
+
+###################################################################
+#  Retrigger                                                      # 
+###################################################################
+record(bo, "$(P)$(R)Retrigger")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_RETRIGGER")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Trigger count                                                  # 
+###################################################################
+record(longout, "$(P)$(R)TriggerCount")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_TRIGGER_COUNT")
+    field(VAL,  "1")
+}
+
+###################################################################
+#  Run                                                            # 
+###################################################################
+record(busy, "$(P)$(R)Run")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_RUN")
+    field(ZNAM, "Stop")
+    field(ONAM, "Run")
+}
+
+
