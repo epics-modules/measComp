@@ -21,6 +21,7 @@ LIB_SRCS += drv1608G.cpp
 
 measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
+# Note, the following files were manually copied from the Measurement Computing/DAQ/C directory.
 LIB_INSTALLS_WIN32 += ../cbw32.lib ../cbw64.lib
 
 #=============================
@@ -42,6 +43,10 @@ measCompApp_LIBS += sscan
 measCompApp_LIBS += autosave
 measCompApp_LIBS += asyn
 measCompApp_LIBS += seq pv
+measCompApp_LIBS += cbw32
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+measCompApp_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 measCompApp_LIBS += cbw32
 
 # Finally link to the EPICS Base libraries
