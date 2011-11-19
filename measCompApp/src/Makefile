@@ -48,6 +48,7 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 measCompApp_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 measCompApp_LIBS += cbw32
+endif
 
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
