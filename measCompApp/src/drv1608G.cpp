@@ -116,6 +116,7 @@ typedef enum {
 #define MAX_SIGNALS     NUM_ANALOG_IN
 
 #define DEFAULT_POLL_TIME 0.01
+#define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
 
 #define PI 3.14159265
 
@@ -454,8 +455,8 @@ int USB1608G::defineWaveform(int channel)
     }
     getDoubleParam(waveGenUserDwell_, &dwell);
     setIntegerParam(waveGenNumPoints_, numPoints);
-    setDoubleParam(waveGenFreq_, 1./dwell);
     setDoubleParam(waveGenDwell_, dwell);
+    setDoubleParam(waveGenFreq_, 1./dwell/numPoints);
     return 0;
   }
 
@@ -472,8 +473,8 @@ int USB1608G::defineWaveform(int channel)
   getDoubleParam(channel, waveGenAmplitude_,   &amplitude);
   getDoubleParam(channel, waveGenPulseWidth_,  &pulseWidth);
   setIntegerParam(waveGenNumPoints_, numPoints);
-  setDoubleParam(waveGenFreq_, 1./dwell);
   setDoubleParam(waveGenDwell_, dwell);
+  setDoubleParam(waveGenFreq_, 1./dwell/numPoints);
   base = offset - amplitude/2.;
   switch (waveType) {
     case waveTypeSin:
@@ -515,11 +516,12 @@ int USB1608G::startWaveGen()
   int waveType;
   int extTrigger, extClock, continuous, retrigger;
   int options;
-  int i, j;
-  double scale=65535./20.;  // D/A units per volt; 16-bit DAC, +-10V range
+  int i, j, k;
+  double offset, scale;
+  double userOffset, userAmplitude;
   double dwell;
   epicsFloat32* inPtr[NUM_ANALOG_OUT];
-  epicsUInt16 *outPtr = (epicsUInt16 *)outputMemHandle_;
+  epicsUInt16 *outPtr;
   static const char *functionName = "startWaveGen";
   
   getIntegerParam(waveGenExtTrigger_, &extTrigger);
@@ -528,30 +530,29 @@ int USB1608G::startWaveGen()
   getIntegerParam(waveGenRetrigger_,  &retrigger);
  
   for (i=0; i<NUM_ANALOG_OUT; i++) {
+    getIntegerParam(i, waveGenEnable_, &enable);
+    if (!enable) continue;
     getIntegerParam(i, waveGenWaveType_,  &waveType);
     if (waveType == waveTypeUser)
       inPtr[i] = waveGenUserBuffer_[i];
     else
       inPtr[i] = waveGenIntBuffer_[i];
-    getIntegerParam(i, waveGenEnable_, &enable);
-    if (enable) {
-      if (firstChan < 0) {
-        firstChan = i;
-        firstType = waveType;
-      }
-      // Cannot mix user-defined and internal waveform types, because internal modifies dwell time
-      // based on frequency
-      if ((firstType == waveTypeUser) && (waveType != waveTypeUser) ||
-          (firstType != waveTypeUser) && (waveType == waveTypeUser)) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-          "%s:%s: ERROR if any enabled waveform type is user-defined then all must be.\n",
-          driverName, functionName);
-        return -1;
-      }
-      lastChan = i;
-      status = defineWaveform(i);
-      if (status) return -1;
+    if (firstChan < 0) {
+      firstChan = i;
+      firstType = waveType;
     }
+    // Cannot mix user-defined and internal waveform types, because internal modifies dwell time
+    // based on frequency
+    if ((firstType == waveTypeUser) && (waveType != waveTypeUser) ||
+        (firstType != waveTypeUser) && (waveType == waveTypeUser)) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s:%s: ERROR if any enabled waveform type is user-defined then all must be.\n",
+        driverName, functionName);
+      return -1;
+    }
+    lastChan = i;
+    status = defineWaveform(i);
+    if (status) return -1;
   }
   
   if (firstChan < 0) {
@@ -561,15 +562,31 @@ int USB1608G::startWaveGen()
      return -1;
   }
   
+  numWaveGenChans_ = lastChan - firstChan + 1;
+
   // dwell and numPoints were computed by defineWaveform above
   getIntegerParam(waveGenNumPoints_, &numPoints);
   getDoubleParam(waveGenDwell_, &dwell);
   pointsPerSecond = (long)((1. / dwell) + 0.5);
   
   // Copy data from float32 array to outputMemHandel, converting from volts to D/A units
-  for (j=0; j<numPoints; j++) {
-    for (i=firstChan; i<=lastChan; i++) {
-      *outPtr++ = (epicsUInt16)((inPtr[i][j] + 10.)*scale + 0.5);
+  // Pre-defined waveforms have been fully defined at this point
+  // User-defined waveforms need to have the offset and scale applied
+  for (i=0; i<numWaveGenChans_; i++) {
+    k = firstChan + i;
+    outPtr = &((epicsUInt16 *) outputMemHandle_)[i];
+    offset = 10.;        // Mid-scale range of DAC
+    scale = 65535./20.;  // D/A units per volt; 16-bit DAC, +-10V range
+    if (waveType == waveTypeUser) {
+      getDoubleParam(i, waveGenOffset_, &userOffset);
+      getDoubleParam(i, waveGenAmplitude_,  &userAmplitude);
+    } else {
+      userOffset = 0.;
+      userAmplitude = 1.0;
+    }
+    for (j=0; j<numPoints; j++) {
+     *outPtr = (epicsUInt16)((inPtr[k][j]*userAmplitude + userOffset + offset)*scale + 0.5);
+      outPtr += numWaveGenChans_;
     }
   }
   options                  = BACKGROUND;
@@ -578,7 +595,6 @@ int USB1608G::startWaveGen()
   if (continuous) options |= CONTINUOUS;
   if (retrigger)  options |= RETRIGMODE;
   
-  numWaveGenChans_ = lastChan - firstChan + 1;
   status = cbAOutScan(boardNum_, firstChan, lastChan, numWaveGenChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
                       outputMemHandle_, options);
 
@@ -859,6 +875,7 @@ asynStatus USB1608G::writeInt32(asynUser *pasynUser, epicsInt32 value)
       (function == waveGenExtTrigger_)    ||
       (function == waveGenExtClock_)      ||
       (function == waveGenContinuous_)) {
+    defineWaveform(addr);
     if (waveGenRunning_) {
       status = stopWaveGen();
       status |= startWaveGen();
@@ -943,6 +960,7 @@ asynStatus USB1608G::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
       (function == waveGenPulseWidth_) ||
       (function == waveGenAmplitude_)  ||
       (function == waveGenOffset_)) {
+    defineWaveform(addr);
     if (waveGenRunning_) {
       status = stopWaveGen();
       status |= startWaveGen();
