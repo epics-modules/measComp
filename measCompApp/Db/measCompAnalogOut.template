@@ -40,12 +40,18 @@ record(ao,"$(P)$(R)TweakVal") {
     field(PREC, "$(PREC)")
 }
 
-record(transform,"$(P)$(R)Tweak") {
-    field(CLCE, "a?d-c:b?d+c:d")
-    field(INPC, "$(P)$(R)TweakVal.VAL  NPP MS")
-    field(INPD, "$(P)$(R).VAL  NPP MS")
-    field(OUTE, "$(P)$(R).VAL  PP MS")
-    field(OUTF, "$(P)$(R)Tweak.A  NPP MS")
-    field(OUTG, "$(P)$(R)Tweak.B  NPP MS")
+record(calcout,"$(P)$(R)TweakUp") {
+    field(CALC, "A+B")
+    field(INPA, "$(P)$(R).VAL  NPP MS")
+    field(INPB, "$(P)$(R)TweakVal.VAL  NPP MS")
+    field(OUT,  "$(P)$(R).VAL  PP MS")
+    field(PREC, "$(PREC)")
+}
+
+record(calcout,"$(P)$(R)TweakDown") {
+    field(CALC, "A-B")
+    field(INPA, "$(P)$(R).VAL  NPP MS")
+    field(INPB, "$(P)$(R)TweakVal.VAL  NPP MS")
+    field(OUT,  "$(P)$(R).VAL  PP MS")
     field(PREC, "$(PREC)")
 }
