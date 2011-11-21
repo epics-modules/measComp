@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>measComp</title>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type" />
+</head>
+<body>
+  <div style="text-align: center">
+    <h1>
+      Driver for the Measurement Computing CTS9513 Counter/Timer Cards</h1>
+      <h1> Including USB-4303, PCI-CTR10, CIO-CTR10, and PC104-CTR10</h1>
+    <h2>
+      November 15, 2011</h2>
+    <h2>
+      Mark Rivers</h2>
+    <h2>
+      University of Chicago</h2>
+  </div>
+  <h2>
+    Table of Contents</h2>
+  <ul>
+    <li><a href="#Introduction">Introduction</a></li>
+    <li><a href="#Configuration">Configuration</a></li>
+    <li><a href="#Databases">Databases</a></li>
+    <li><a href="#Wiring">Wiring</a></li>
+    <li><a href="#Performance">Performance measurements</a> </li>
+  </ul>
+  <h2 id="Introduction" style="text-align: center">
+    Introduction</h2>
+  <p>
+    This is an EPICS driver for the Measurement Computing USB-4303
+    counter timer module, which is based on the C9513 counter/timer chip.
+    The driver should also work with other Measurement Computing devices that are based on the C9513, including the
+    discontinued PCI-CTR10, CIO-CTR10, and PC104-CTR10, but this has not been tested.
+    The driver is written in C++, and consists of a class that inherits from asynPortDriver,
+    which is part of the EPICS asyn module.
+  </p>
+  <div style="text-align: center">
+    <h3>
+      Photo of USB-4303</h3>
+    <img alt="USB-4303.jpg" src="USB-4303.jpg" /></div>
+  <p>
+    This module has the
+    following features:</p>
+  <ul>
+    <li>Counter/Timers
+      <ul>
+        <li>2 CTS9513 counter timer chips.  Each chip features
+        <ul>
+          <li>5 16-bit 20MHz programmable up/down counters</li>
+          <li>Programmable pulse generation</li>
+          <li>Programmable delay generator</li>
+          <li>Event counting</li>
+        </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>8 inputs</li>
+        <li>8 outputs</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    The following is the main medm screen for controlling the USB-4303.</p>
+  <div style="text-align: center">
+    <h3>
+      C9513_module.adl</h3>
+    <img alt="C9513_module.png" src="C9513_module.png" /></div>
+  <h2 id="Configuration" style="text-align: center">
+    Configuration</h2>
+  <p>
+    The following lines are needed in the EPICS startup script for the USB-4304 or other CTS9513 board.</p>
+<pre>
+## Configure port driver
+# C9513Config(portName,   # The name to give to this asyn port driver
+#             boardNum,   # The number of this board assigned by the Measurement Computing Instacal program 
+#             numChips)   # The number of CTS9513 chipts on this board
+C9513Config("C9513_1", 0, 2)
+dbLoadTemplate("C9513.substitutions")
+</pre>
+<p>The measComp module comes with an example iocBoot/iocMeasComp directory that contains example startup scripts
+and example substitutions files.</p>
+  </p>
+  <h2 id="Databases" style="text-align: center">
+    Databases</h2>
+  <h3 style="text-align: center">
+    Digital I/O Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          bi</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_INPUT</td>
+        <td>
+          Digital input value. The MASK parameter in the INP link defines which bit is used.
+          The binary inputs are polled by the driver poller thread, so these records should
+          have SCAN="I/O Intr".</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          longin</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_INPUT</td>
+        <td>
+          Digital input value as a word, rather than individual bits. The MASK parameter in
+          the INP link defines which bits are used. The binary inputs are polled by the driver
+          poller thread, so this record should have SCAN="I/O Intr".</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          bo</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value. The MASK parameter in the INP link defines which bit is used.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)_RBV</td>
+        <td>
+          bi</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value readback. The MASK parameter in the INP link defines which
+          bit is used.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          longout</td>
+        <td>
+          asynUInt32Digital</td>
+        <td>
+          DIGITAL_OUTPUT</td>
+        <td>
+          Digital output value as a word, rather than individual bits. The MASK parameter
+          in the INP link defines which bits are used.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 style="text-align: center">
+    Counter Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>C9513_counter.template. This database is loaded once for CTS9513 counter channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)GateControl</br>
+          $(P)$(R)GateControl_RBV</td>
+        <td>
+          mbbo<br/>
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          GATE_CONTROL</td>
+        <td>
+          Choices are:<br/>
+          "No gate"<br/>
+          "High TC N-1" (High terminal count on counter N-1)<br/>
+          "High level gate N+1"<br/>
+          "High level gate N-1"<br/>
+          "High level gate N"<br/>
+          "Low level gate N"<br/>
+          "High edge gate N"<br/>
+          "Low edge gate N"<br/>
+          </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CounterEdge</br>
+          $(P)$(R)CounterEdge_RBV</td>
+        <td>
+          mbbo<br/>
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COUNTER_EDGE</td>
+        <td>
+          Choices are:<br/>
+          "Rising"<br/>
+          "Falling"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CountSource</br>
+          $(P)$(R)CountSource_RBV</td>
+        <td>
+          mbbo<br/>
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COUNT_SOURCE</td>
+        <td>
+          Choices are:<br/>
+          "Prev TC" (Terminal Count on counter N-1)<br/>
+          "Input 1<br/>
+          "Input 2<br/>
+          "Input 3<br/>
+          "Input 4<br/>
+          "Input 5<br/>
+          "Gate 1<br/>
+          "Gate 2<br/>
+          "Gate 3<br/>
+          "Gate 4<br/>
+          "Gate 5<br/>
+          "Freq 1 (5 MHz)<br/>
+          "Freq 2 (500 kHz)<br/>
+          "Freq 3 (50 kHz)<br/>
+          "Freq 4 (5 kHz)<br/>
+          "Freq 5 (500 Hz)<br/>
+          </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)SpecialGate</br>
+          $(P)$(R)SpecialGate_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          SPECIAL_GATE</td>
+        <td>
+          Choices are:<br/>
+          "Disable"<br/>
+          "Enable"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)ReloadSource</br>
+          $(P)$(R)ReloadSource_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          RELOAD_SOURCE</td>
+        <td>
+          Choices are:<br/>
+          "Load register"<br/>
+          "Load and hold register"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)RecycleMode</br>
+          $(P)$(R)RecycleMode_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          RECYCLE_MODE</td>
+        <td>
+          Choices are:<br/>
+          "One time"<br/>
+          "Recycle"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)BCDMode</br>
+          $(P)$(R)BCDMode_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          RECYCLE_MODE</td>
+        <td>
+          Choices are:<br/>
+          "Disable"<br/>
+          "Enable"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CountDirection</br>
+          $(P)$(R)CountDirection_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COUNT_DIRECTION</td>
+        <td>
+          Choices are:<br/>
+          "Count down"<br/>
+          "Count up"</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)OutputControl</br>
+          $(P)$(R)OutputControl_RBV</td>
+        <td>
+          mbbo<br/>
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          OUTPUT_CONTROL</td>
+        <td>
+          Choices are:<br/>
+          "Always low"<br/>
+          "High pulse on TC"<br/>
+          "Toggle on TC"<br/>
+          "Inactive high impedance"<br/>
+          "Low  pulse on TC"<br/>
+          </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)LoadReg</br>
+          $(P)$(R)LoadReg_RBV</td>
+        <td>
+          longout<br/>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          LOAD_REG</td>
+        <td>
+          Write/read from the Load Register</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)HoldReg</br>
+          $(P)$(R)HoldReg_RBV</td>
+        <td>
+          longout<br/>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          HOLD_REG</td>
+        <td>
+          Write/read from the Load and Hold Register</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)PollCounter</br>
+          $(P)$(R)PollCounter_RBV</td>
+        <td>
+          bo<br/>
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          POLL_COUNTER</td>
+        <td>
+          Poll this counter in the polling thread. Choices are:<br/>
+          "No"<br/>
+          "Yes"<br/>
+          </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)CounterValue</td>
+        <td>
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COUNTER_VALUE</td>
+        <td>
+          The contents of the counter.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    The following is the medm screen for controlling each counter with the records in C9513_counter.template.</p>
+  <div style="text-align: center">
+    <h3>
+      C9513_counter.adl</h3>
+    <img alt="C9513_counter.png" src="C9513_counter.png" /></div>
+  <h2 id="BC-020_wiring" style="text-align: center">
+    Wiring to BCDA BC-020 LEMO Breakout Panels</h2>
+  <p>
+    The following photo shows the BCDA BC-020 LEMO breakout panels wired to the USB-4303.
+    These are the upper 2 BC-020 panels in this photo.</p>
+  <div style="text-align: center">
+    <h3>
+      BC-020 LEMO breakout panels</h3>
+    <img alt="measCompBC-020.jpg" src="measCompBC-020.jpg" /></div>
+</pre>
+  <h3 id="Wiring">
+    USB-4303 Wiring to Two BCDA BC-020 LEMO Breakout Panels</h3>
+  <pre>           BC-020 #1 using BC-087 daughter card
+
+50-pin ribbon    USB-4303         BC-020    EPICS Function
+connector pin   screw terminal   connector
+ 1                 DO0               J1     Digital output bit 0 
+ 2                 DO1               J2     Digital output bit 1
+ 3                 DO2               J3     Digital output bit 2
+ 4                 DO3               J4     Digital output bit 3
+ 5                 DO4               J5     Digital output bit 4
+ 6                 DO5               J6     Digital output bit 5
+ 7                 DO6               J7     Digital output bit 6
+ 8                 DO7               J8     Digital output bit 7
+ 9                 DI0               J9     Digital input bit 0 
+10                 DI1              J10     Digital input bit 1
+11                 DI2              J11     Digital input bit 2
+12                 DI3              J12     Digital input bit 3
+13                 DI4              J13     Digital input bit 4
+14                 DI5              J14     Digital input bit 5
+15                 DI6              J15     Digital input bit 6
+16                 DI7              J16     Digital input bit 7
+17               DICTL              J17     Digital input polarity control
+18                 INT              J18     Interrupt input
+19                 GND              J19     Ground
+20                 +5V              J20     +5V logic level
+50                 GND           J1-J32     LEMO connectors outer shells
+
+ 
+           BC-020 #2 using BC-087 daughter card
+
+50-pin ribbon    USB-4303         BC-020    EPICS Function
+connector pin   screw terminal   connector
+ 1               1INP1               J1     Chip 1 input 1 
+ 2               1INP2               J2     Chip 1 input 2
+ 3               1INP3               J3     Chip 1 input 3
+ 4               1INP4               J4     Chip 1 input 4
+ 5               1INP5               J5     Chip 1 input 5
+ 6               2INP1               J6     Chip 2 input 1 
+ 7               2INP2               J7     Chip 2 input 2
+ 8               2INP3               J8     Chip 2 input 3
+ 9               2INP4               J9     Chip 2 input 4
+10               2INP5              J10     Chip 2 input 5
+11               1GAT1              J11     Chip 1 gate 1
+12               1GAT2              J12     Chip 1 gate 2
+13               1GAT3              J13     Chip 1 gate 3
+14               1GAT4              J14     Chip 1 gate 4
+15               1GAT5              J15     Chip 1 gate 5
+16               2GAT1              J16     Chip 2 gate 1
+17               2GAT2              J17     Chip 2 gate 2
+18               2GAT3              J18     Chip 2 gate 3
+19               2GAT4              J19     Chip 2 gate 4
+20               2GAT5              J20     Chip 2 gate 5
+21               1OUT1              J21     Chip 1 output 1
+22               1OUT2              J22     Chip 1 output 2
+23               1OUT3              J23     Chip 1 output 3 
+24               1OUT4              J24     Chip 1 output 4
+25               1OUT4              J25     Chip 1 output 5
+26               2OUT1              J26     Chip 2 output 1
+27               2OUT2              J27     Chip 2 output 2
+28               2OUT3              J28     Chip 2 output 3 
+29               2OUT4              J29     Chip 2 output 4
+30               2OUT5              J30     Chip 2 output 5
+31                1OSC              J31     Chip 1 oscillator
+32                2OSC              J32     Chip 2 oscillator
+50                 GND           J1-J32     LEMO connectors outer shells
+
+Note: To operate the USB-4303 with the EPICS scaler record it must be wired as follows:
+
+- 1OUT1 must be connected to 1GAT1, 1GAT2, 2GAT1, 2GAT2, 1GAT4, 2GAT4
+
+- No connnection to 1INP1; that is internally routed to XXX and is used as the preset channel.
+
+- Scaler input 2 is connected to 1INP2 = J2.  This is a 32-bit scaler.
+
+- Scaler input 3 is connected to 1INP4 = J4.  This is a 32-bit scaler.
+
+- Scaler input 4 is connected to 2INP1 = J6.  This is 16-bit scaler.
+
+- Scaler input 5 is connected to 2INP2 = J7.  This is a 32-bit scaler.
+
+- Scaler input 6 is connected to 2INP4 = J9.  This is a 32-bit scaler.
+
+</pre>
+  <hr />
+  <address>
+    Suggestions and Comments to:
+    <br />
+    <a href="mailto:rivers@cars.uchicago.edu">Mark Rivers </a>: (rivers@cars.uchicago.edu)
+    <br />
+  </address>
+</body>
+</html>
