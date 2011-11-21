@@ -9,6 +9,10 @@ C9513Config("C9513_1", 0, 2)
 dbLoadTemplate("C9513.substitutions")
 
 ## Configure port driver
+# USB1608GConfig(portName,        # The name to give to this asyn port driver
+#                boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
+#                maxInputPoints,  # Maximum number of input points for waveform digitizer
+#                maxOutputPoints) # Maximum number of output points for waveform generator
 USB1608GConfig("1608G_1", 1, 1048576, 1048576)
 dbLoadTemplate("1608G.substitutions.big")
 
