@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>synApps ipUnidig</title>
+  <title>synApps measComp</title>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type" />
 </head>
 <body>
@@ -14,7 +14,7 @@
   <p>
     Module Owner: Mark Rivers: University of Chicago</p>
   <p>
-    This page is the home of <b>ipUnidig</b>.</p>
+    This page is the home of <b>measComp</b>.</p>
   <p>
     <b>measComp</b> supports USB I/O modules from <a href="http://www.mccdaq.com">Measurement Computing</a>.</p>
   <p>
@@ -29,8 +29,8 @@
     <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx">USB-1608GX-2AO</a>. 
       analog I/O module.  This device contains 16 single-ended/8 differential 16-bit analog inputs, 2 16-bit analog
       outputs, and 8 binary input/outputs.  The analog inputs and outputs can each be run at 500 kHz.  The driver
-      supports simple analog I/O, 2 waveform generators using the analog outputs, and an 8 or 16 channel waveform
-      digitizer using the analog inputs.</li>
+      supports simple analog I/O, 2 waveform generators using the analog outputs, an 8 or 16 channel waveform
+      digitizer using the analog inputs, binary I/O, and a pulse generator.</li>
   </ul>
   <p>
     Please email any comments and bug reports to <a href="mailto:%20rivers@cars.uchicago.edu">
@@ -82,7 +82,7 @@
           Required for</th>
       </tr>
       <tr>
-        <td rowspan="3">
+        <td rowspan="8">
           1-0</td>
         <td>
           EPICS base</td>
@@ -97,7 +97,55 @@
         <td>
           4-18</td>
         <td>
-          Driver support</td>
+          Driver and device support</td>
+      </tr>
+      <tr>
+        <td>
+          autosave</td>
+        <td>
+          4-7</td>
+        <td>
+          Save/restore support</td>
+      </tr>
+      <tr>
+        <td>
+          busy</td>
+        <td>
+          1-4</td>
+        <td>
+          Busy record support</td>
+      </tr>
+      <tr>
+        <td>
+          std</td>
+        <td>
+          3-0</td>
+        <td>
+          Scaler record support.</td>
+      </tr>
+      <tr>
+        <td>
+          seq</td>
+        <td>
+          2.0.12</td>
+        <td>
+          State notation language sequencer.  Needed by std, not directly used by measComp.</td>
+      </tr>
+      <tr>
+        <td>
+          calc</td>
+        <td>
+          2-9</td>
+        <td>
+          Record support for transform record, used by scaler record databases in std</td>
+      </tr>
+      <tr>
+        <td>
+          sscan</td>
+        <td>
+          2-7</td>
+        <td>
+          Scanning support.  Required by calc for recDynLink.</td>
       </tr>
     </tbody>
   </table>
@@ -117,11 +165,11 @@
     <li>Place the distribution file in this directory. Then issue the commands (Unix style)
       <pre>gunzip measCompRX-Y.tar.gz
 
-tar xvf ipUnidigRX-Y.tar
+tar xvf measCompRX-Y.tar
 </pre>
       where X-Y is the release.</li>
     <li>This creates a &lt;top&gt; application.<br />
-      <pre>.../support/ipUnidigRX-Y
+      <pre>.../support/measCompRX-Y
 </pre>
     </li>
     <li>Edit the <tt>configure/RELEASE</tt> file and set the paths to your installation
