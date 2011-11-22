@@ -260,7 +260,7 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
   : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask, 
-      ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
+      ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     boardNum_(boardNum),
     pollTime_(DEFAULT_POLL_TIME),
@@ -920,6 +920,11 @@ asynStatus USB1608G::readInt32(asynUser *pasynUser, epicsInt32 *value)
   if (function == analogInValue_) {
     if (waveDigRunning_) return asynSuccess;
     getIntegerParam(addr, analogInRange_, &range);
+    // NOTE: There is something wrong with their driver.  
+    // If cbAIn is just called once there is a large error due apparently
+    // to not allowing settling time before reading.  For now we read twice
+    // which removes the error.
+    status = cbAIn(boardNum_, addr, range, &shortVal);
     status = cbAIn(boardNum_, addr, range, &shortVal);
     *value = shortVal;
     setIntegerParam(addr, analogInValue_, *value);
