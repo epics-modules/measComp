@@ -27,7 +27,7 @@ LIB_INSTALLS_WIN32 += ../cbw32.lib ../cbw64.lib
 #=============================
 # Build the IOC application
 
-PROD_IOC_WIN32 = measCompApp
+PROD_IOC_WIN32 += measCompApp
 
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
@@ -49,6 +49,10 @@ measCompApp_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 measCompApp_LIBS += cbw32
 endif
+
+PROD_IOC_WIN32 += test_1608G_1
+test_1608G_1_SRCS += test_1608G_1.c
+test_1608G_1_LIBS += cbw32
 
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
