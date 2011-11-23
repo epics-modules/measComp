@@ -608,8 +608,8 @@ int USB1608G::startWaveGen()
   waveGenRunning_ = 1;
   setIntegerParam(waveGenRun_, 1);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s:%s: called cbAOutScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%d, options=0x%x\n",
-    driverName, functionName, firstChan, lastChan, numPoints, pointsPerSecond, options);
+    "%s:%s: called cbAOutScan, firstChan=%d, lastChan=%d, numPoints*numWaveGenChans_=%d, pointsPerSecond=%d, options=0x%x\n",
+    driverName, functionName, firstChan, lastChan,  numWaveGenChans_*numPoints, pointsPerSecond, options);
 
   // Convert back from pointsPerSecond to dwell, since value might have changed
   dwell = (1. / pointsPerSecond);
@@ -870,7 +870,6 @@ asynStatus USB1608G::writeInt32(asynUser *pasynUser, epicsInt32 value)
   if ((function == waveGenWaveType_)      ||
       (function == waveGenUserNumPoints_) ||
       (function == waveGenIntNumPoints_)  ||
-      (function == waveGenRun_)           ||
       (function == waveGenEnable_)        ||
       (function == waveGenExtTrigger_)    ||
       (function == waveGenExtClock_)      ||
