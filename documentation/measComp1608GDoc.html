@@ -28,17 +28,16 @@
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
   <p>
-    This is an EPICS driver for the Measurement Computing USB-1608G-2A0 analog
-    input/output module. The driver is written in C++, and consists of a class that inherits from asynPortDriver,
-    which is part of the EPICS asyn module.
+    This is an EPICS driver for the Measurement Computing USB-1608G-2A0 analog input/output
+    module. The driver is written in C++, and consists of a class that inherits from
+    asynPortDriver, which is part of the EPICS asyn module.
   </p>
   <div style="text-align: center">
     <h3>
       Photo of USB-1608GX-2A0</h3>
     <img alt="USB-1608GX-2AO.jpg" src="USB-1608GX-2AO.jpg" /></div>
   <p>
-    This module has the
-    following features:</p>
+    This module has the following features:</p>
   <ul>
     <li>16-bit analog inputs
       <ul>
@@ -90,7 +89,7 @@
     Configuration</h2>
   <p>
     The following lines are needed in the EPICS startup script for the USB-1608GX-2AO.</p>
-<pre>
+  <pre>
 ## Configure port driver
 # USB1608GConfig(portName,        # The name to give to this asyn port driver
 #                boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
@@ -99,9 +98,9 @@
 USB1608GConfig("1608G_1", 1, 1048576, 1048576)
 dbLoadTemplate("1608G.substitutions.big")
 </pre>
-<p>The measComp module comes with an example iocBoot/iocMeasComp directory that contains example startup scripts
-and example substitutions files.</p>
-  </p>
+  <p>
+    The measComp module comes with an example iocBoot/iocMeasComp directory that contains
+    example startup scripts and example substitutions files.</p>
   <h2 id="Databases" style="text-align: center">
     Databases</h2>
   <p>
@@ -1202,9 +1201,9 @@ and example substitutions files.</p>
     Wiring to BCDA BC-020 LEMO Breakout Panels</h2>
   <p>
     The following photo shows the BCDA BC-020 LEMO breakout panels wired to the USB-1608GX-2A0.
-    These are the lower 2 BC-020 panels in this photo.
-    A BC-020 with a BC-026 daughter card is used for the analog
-    signals (lower left), and a BC-020 with a BC-087 daughter card for the digital signals (lower right).</p>
+    These are the lower 2 BC-020 panels in this photo. A BC-020 with a BC-026 daughter
+    card is used for the analog signals (lower left), and a BC-020 with a BC-087 daughter
+    card for the digital signals (lower right).</p>
   <div style="text-align: center">
     <h3>
       BC-020 LEMO breakout panels</h3>
@@ -1280,7 +1279,8 @@ and the "Analog input N -" lines are connected to the Lemo shell.
 </pre>
   <h2 id="Performance" style="text-align: center">
     Performance measurements</h2>
-<p>NEED TO DOCUMENT PERFORMANCE HERE</p>
+  <p>
+    NEED TO DOCUMENT PERFORMANCE HERE</p>
   <hr />
   <address>
     Suggestions and Comments to:
