@@ -9,7 +9,8 @@
   <div style="text-align: center">
     <h1>
       Driver for the Measurement Computing CTS9513 Counter/Timer Cards</h1>
-      <h1> Including USB-4303, PCI-CTR10, CIO-CTR10, and PC104-CTR10</h1>
+    <h1>
+      Including USB-4303, PCI-CTR10, CIO-CTR10, and PC104-CTR10</h1>
     <h2>
       November 15, 2011</h2>
     <h2>
@@ -24,35 +25,33 @@
     <li><a href="#Configuration">Configuration</a></li>
     <li><a href="#Databases">Databases</a></li>
     <li><a href="#Wiring">Wiring</a></li>
-    <li><a href="#Performance">Performance measurements</a> </li>
   </ul>
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
   <p>
-    This is an EPICS driver for the Measurement Computing USB-4303
-    counter timer module, which is based on the C9513 counter/timer chip.
-    The driver should also work with other Measurement Computing devices that are based on the C9513, including the
-    discontinued PCI-CTR10, CIO-CTR10, and PC104-CTR10, but this has not been tested.
-    The driver is written in C++, and consists of a class that inherits from asynPortDriver,
-    which is part of the EPICS asyn module.
+    This is an EPICS driver for the Measurement Computing USB-4303 counter timer module,
+    which is based on the C9513 counter/timer chip. The driver should also work with
+    other Measurement Computing devices that are based on the C9513, including the discontinued
+    PCI-CTR10, CIO-CTR10, and PC104-CTR10, but this has not been tested. The driver
+    is written in C++, and consists of a class that inherits from asynPortDriver, which
+    is part of the EPICS asyn module.
   </p>
   <div style="text-align: center">
     <h3>
       Photo of USB-4303</h3>
     <img alt="USB-4303.jpg" src="USB-4303.jpg" /></div>
   <p>
-    This module has the
-    following features:</p>
+    This module has the following features:</p>
   <ul>
     <li>Counter/Timers
       <ul>
-        <li>2 CTS9513 counter timer chips.  Each chip features
-        <ul>
-          <li>5 16-bit 20MHz programmable up/down counters</li>
-          <li>Programmable pulse generation</li>
-          <li>Programmable delay generator</li>
-          <li>Event counting</li>
-        </ul>
+        <li>2 CTS9513 counter timer chips. Each chip features
+          <ul>
+            <li>5 16-bit 20MHz programmable up/down counters</li>
+            <li>Programmable pulse generation</li>
+            <li>Programmable delay generator</li>
+            <li>Event counting</li>
+          </ul>
         </li>
       </ul>
     </li>
@@ -64,6 +63,10 @@
     </li>
   </ul>
   <p>
+    The CTS9513 chip is extremely flexible. It is beyond the scope of this document
+    to explain the features of the CTS9513. The <a href="http://www.mccdaq.com/PDFs/Manuals/9513A.pdf">
+      CTS9513 manual</a> describes all of the chip's features and functions in detail.</p>
+  <p>
     The following is the main medm screen for controlling the USB-4303.</p>
   <div style="text-align: center">
     <h3>
@@ -72,8 +75,9 @@
   <h2 id="Configuration" style="text-align: center">
     Configuration</h2>
   <p>
-    The following lines are needed in the EPICS startup script for the USB-4304 or other CTS9513 board.</p>
-<pre>
+    The following lines are needed in the EPICS startup script for the USB-4304 or other
+    CTS9513 board.</p>
+  <pre>
 ## Configure port driver
 # C9513Config(portName,   # The name to give to this asyn port driver
 #             boardNum,   # The number of this board assigned by the Measurement Computing Instacal program 
@@ -81,9 +85,9 @@
 C9513Config("C9513_1", 0, 2)
 dbLoadTemplate("C9513.substitutions")
 </pre>
-<p>The measComp module comes with an example iocBoot/iocMeasComp directory that contains example startup scripts
-and example substitutions files.</p>
-  </p>
+  <p>
+    The measComp module comes with an example iocBoot/iocMeasComp directory that contains
+    example startup scripts and example substitutions files.</p>
   <h2 id="Databases" style="text-align: center">
     Databases</h2>
   <h3 style="text-align: center">
@@ -187,9 +191,14 @@ and example substitutions files.</p>
     </tbody>
   </table>
   <h3 style="text-align: center">
-    Counter Functions</h3>
+    Chip Functions</h3>
   <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
     <tbody>
+      <tr>
+        <td align="center" colspan="5">
+          <b>C9513_chip.template. This database is loaded once for each CTS9513 chip, (e.q.
+            2 instances for USB-4303).</b></td>
+      </tr>
       <tr>
         <th>
           EPICS record name</th>
@@ -203,185 +212,341 @@ and example substitutions files.</p>
           Description</th>
       </tr>
       <tr>
+        <td>
+          $(P)$(R)FOutDivider<br />
+          $(P)$(R)FOutDivider_RBV</td>
+        <td>
+          mbbo<br />
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          FOUT_DIVIDER</td>
+        <td>
+          Frequency output divider. Choices are:<br />
+          "1" (1)<br />
+          "2" (2)<br />
+          "..."<br />
+          "16" (0)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)FOutSource<br />
+          $(P)$(R)FOutSource_RBV</td>
+        <td>
+          mbbo<br />
+          mbbi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          FOUT_SOURCE</td>
+        <td>
+          Frequency output source. Choices are:<br />
+          "Prev TC" (Terminal Count on counter N-1)<br />
+          "Input 1"<br />
+          "Input 2"<br />
+          "Input 3"<br />
+          "Input 4"<br />
+          "Input 5"<br />
+          "Gate 1"<br />
+          "Gate 2"<br />
+          "Gate 3"<br />
+          "Gate 4"<br />
+          "Gate 5"<br />
+          "Freq 1 (5 MHz)"<br />
+          "Freq 2 (500 kHz)"<br />
+          "Freq 3 (50 kHz)"<br />
+          "Freq 4 (5 kHz)"<br />
+          "Freq 5 (500 Hz)"<br />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Compare1<br />
+          $(P)$(R)Compare1_RBV</td>
+        <td>
+          bo<br />
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COMPARE1</td>
+        <td>
+          Choices are:<br />
+          "Disable"<br />
+          "Enable"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Compare2<br />
+          $(P)$(R)Compare2_RBV</td>
+        <td>
+          bo<br />
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          COMPARE2</td>
+        <td>
+          Choices are:<br />
+          "Disable"<br />
+          "Enable"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TimeOfDay<br />
+          $(P)$(R)TimeOfDay_RBV</td>
+        <td>
+          bo<br />
+          bi</td>
+        <td>
+          asynInt32</td>
+        <td>
+          TIME_OF_DAY</td>
+        <td>
+          Choices are:<br />
+          "Disable"<br />
+          "Enable"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)AlarmReg1<br />
+          $(P)$(R)AlarmReg1_RBV</td>
+        <td>
+          longout<br />
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ALARM_REG1</td>
+        <td>
+          Alarm register 1 value.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)AlarmReg2<br />
+          $(P)$(R)AlarmReg2_RBV</td>
+        <td>
+          longout<br />
+          longin</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ALARM_REG2</td>
+        <td>
+          Alarm register 2 value.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    The following is the medm screen for controlling each CTS9513 chip with the records
+    in C9513_chip.template.</p>
+  <div style="text-align: center">
+    <h3>
+      C9513_chip.adl</h3>
+    <img alt="C9513_chip.png" src="C9513_chip.png" /></div>
+  <h3 style="text-align: center">
+    Counter Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
         <td align="center" colspan="5">
           <b>C9513_counter.template. This database is loaded once for CTS9513 counter channel.</b></td>
       </tr>
       <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
         <td>
-          $(P)$(R)GateControl</br>
+          $(P)$(R)GateControl<br />
           $(P)$(R)GateControl_RBV</td>
         <td>
-          mbbo<br/>
+          mbbo<br />
           mbbi</td>
         <td>
           asynInt32</td>
         <td>
           GATE_CONTROL</td>
         <td>
-          Choices are:<br/>
-          "No gate"<br/>
-          "High TC N-1" (High terminal count on counter N-1)<br/>
-          "High level gate N+1"<br/>
-          "High level gate N-1"<br/>
-          "High level gate N"<br/>
-          "Low level gate N"<br/>
-          "High edge gate N"<br/>
-          "Low edge gate N"<br/>
-          </td>
+          Choices are:<br />
+          "No gate"<br />
+          "High TC N-1" (High terminal count on counter N-1)<br />
+          "High level gate N+1"<br />
+          "High level gate N-1"<br />
+          "High level gate N"<br />
+          "Low level gate N"<br />
+          "High edge gate N"<br />
+          "Low edge gate N"<br />
+        </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)CounterEdge</br>
+          $(P)$(R)CounterEdge<br />
           $(P)$(R)CounterEdge_RBV</td>
         <td>
-          mbbo<br/>
+          mbbo<br />
           mbbi</td>
         <td>
           asynInt32</td>
         <td>
           COUNTER_EDGE</td>
         <td>
-          Choices are:<br/>
-          "Rising"<br/>
+          Choices are:<br />
+          "Rising"<br />
           "Falling"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)CountSource</br>
+          $(P)$(R)CountSource<br />
           $(P)$(R)CountSource_RBV</td>
         <td>
-          mbbo<br/>
+          mbbo<br />
           mbbi</td>
         <td>
           asynInt32</td>
         <td>
           COUNT_SOURCE</td>
         <td>
-          Choices are:<br/>
-          "Prev TC" (Terminal Count on counter N-1)<br/>
-          "Input 1<br/>
-          "Input 2<br/>
-          "Input 3<br/>
-          "Input 4<br/>
-          "Input 5<br/>
-          "Gate 1<br/>
-          "Gate 2<br/>
-          "Gate 3<br/>
-          "Gate 4<br/>
-          "Gate 5<br/>
-          "Freq 1 (5 MHz)<br/>
-          "Freq 2 (500 kHz)<br/>
-          "Freq 3 (50 kHz)<br/>
-          "Freq 4 (5 kHz)<br/>
-          "Freq 5 (500 Hz)<br/>
-          </td>
+          Choices are:<br />
+          "Prev TC" (Terminal Count on counter N-1)<br />
+          "Input 1"<br />
+          "Input 2"<br />
+          "Input 3"<br />
+          "Input 4"<br />
+          "Input 5"<br />
+          "Gate 1"<br />
+          "Gate 2"<br />
+          "Gate 3"<br />
+          "Gate 4"<br />
+          "Gate 5"<br />
+          "Freq 1 (5 MHz)"<br />
+          "Freq 2 (500 kHz)"<br />
+          "Freq 3 (50 kHz)"<br />
+          "Freq 4 (5 kHz)"<br />
+          "Freq 5 (500 Hz)"<br />
+        </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)SpecialGate</br>
+          $(P)$(R)SpecialGate<br />
           $(P)$(R)SpecialGate_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           SPECIAL_GATE</td>
         <td>
-          Choices are:<br/>
-          "Disable"<br/>
+          Choices are:<br />
+          "Disable"<br />
           "Enable"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ReloadSource</br>
+          $(P)$(R)ReloadSource<br />
           $(P)$(R)ReloadSource_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           RELOAD_SOURCE</td>
         <td>
-          Choices are:<br/>
-          "Load register"<br/>
+          Choices are:<br />
+          "Load register"<br />
           "Load and hold register"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)RecycleMode</br>
+          $(P)$(R)RecycleMode<br />
           $(P)$(R)RecycleMode_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           RECYCLE_MODE</td>
         <td>
-          Choices are:<br/>
-          "One time"<br/>
+          Choices are:<br />
+          "One time"<br />
           "Recycle"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)BCDMode</br>
+          $(P)$(R)BCDMode<br />
           $(P)$(R)BCDMode_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           RECYCLE_MODE</td>
         <td>
-          Choices are:<br/>
-          "Disable"<br/>
+          Choices are:<br />
+          "Disable"<br />
           "Enable"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)CountDirection</br>
+          $(P)$(R)CountDirection<br />
           $(P)$(R)CountDirection_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           COUNT_DIRECTION</td>
         <td>
-          Choices are:<br/>
-          "Count down"<br/>
+          Choices are:<br />
+          "Count down"<br />
           "Count up"</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)OutputControl</br>
+          $(P)$(R)OutputControl<br />
           $(P)$(R)OutputControl_RBV</td>
         <td>
-          mbbo<br/>
+          mbbo<br />
           mbbi</td>
         <td>
           asynInt32</td>
         <td>
           OUTPUT_CONTROL</td>
         <td>
-          Choices are:<br/>
-          "Always low"<br/>
-          "High pulse on TC"<br/>
-          "Toggle on TC"<br/>
-          "Inactive high impedance"<br/>
-          "Low  pulse on TC"<br/>
-          </td>
+          Choices are:<br />
+          "Always low"<br />
+          "High pulse on TC"<br />
+          "Toggle on TC"<br />
+          "Inactive high impedance"<br />
+          "Low pulse on TC"<br />
+        </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)LoadReg</br>
+          $(P)$(R)LoadReg<br />
           $(P)$(R)LoadReg_RBV</td>
         <td>
-          longout<br/>
+          longout<br />
           longin</td>
         <td>
           asynInt32</td>
@@ -392,10 +557,10 @@ and example substitutions files.</p>
       </tr>
       <tr>
         <td>
-          $(P)$(R)HoldReg</br>
+          $(P)$(R)HoldReg<br />
           $(P)$(R)HoldReg_RBV</td>
         <td>
-          longout<br/>
+          longout<br />
           longin</td>
         <td>
           asynInt32</td>
@@ -406,20 +571,20 @@ and example substitutions files.</p>
       </tr>
       <tr>
         <td>
-          $(P)$(R)PollCounter</br>
+          $(P)$(R)PollCounter<br />
           $(P)$(R)PollCounter_RBV</td>
         <td>
-          bo<br/>
+          bo<br />
           bi</td>
         <td>
           asynInt32</td>
         <td>
           POLL_COUNTER</td>
         <td>
-          Poll this counter in the polling thread. Choices are:<br/>
-          "No"<br/>
-          "Yes"<br/>
-          </td>
+          Poll this counter in the polling thread. Choices are:<br />
+          "No"<br />
+          "Yes"<br />
+        </td>
       </tr>
       <tr>
         <td>
@@ -436,11 +601,174 @@ and example substitutions files.</p>
     </tbody>
   </table>
   <p>
-    The following is the medm screen for controlling each counter with the records in C9513_counter.template.</p>
+    The following is the medm screen for controlling each counter with the records in
+    C9513_counter.template.</p>
   <div style="text-align: center">
     <h3>
       C9513_counter.adl</h3>
     <img alt="C9513_counter.png" src="C9513_counter.png" /></div>
+  <h3 style="text-align: center">
+    Pulse Generator Functions (these are called "timers" in Measurement Computing's
+    documentation)</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompPulseGen.template. This database is loaded once for each pulse counter
+            (e.g. 10 times for USB-4303).</b></td>
+      </tr>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Run</td>
+        <td>
+          bo</td>
+        <td>
+          asynUInt32</td>
+        <td>
+          PULSE_RUN</td>
+        <td>
+          "Run" (1) starts the pulse generator, "Stop" (0) stops the pulse generator. Note
+          that ideally this record should go back to 0 when the pulse generator is done, if
+          it is outputting a finite number of pulses (see Count record). But unfortunately
+          the Measurement Computing library does not have a way to query the status of the
+          timer to see if it is done, so this is not possible.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Period</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_PERIOD</td>
+        <td>
+          Pulse period, in seconds. The time between pulses can be defined either with the
+          Period or with the Frequency; whenever one record is changed the other is updated
+          with the new calculated value.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Frequency</td>
+        <td>
+          ao</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          Pulse frequency, in seconds. The Frequency calculates a new value of the Period,
+          and sends the period value to the driver.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Width</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_WIDTH</td>
+        <td>
+          Pulse width, in seconds. The allowed value is 1 to 65535 times the period of the
+          currently selected frequency source.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Delay</td>
+        <td>
+          ao</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          PULSE_DELAY</td>
+        <td>
+          Initial pulse delay in seconds after Run is set to 1. NOTE: this is currently not
+          implemented for CTS9513 counters.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Count</td>
+        <td>
+          longout</td>
+        <td>
+          asynInt32</td>
+        <td>
+          PULSE_COUNT</td>
+        <td>
+          Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
+          until Run is set to 0. NOTE: this is currently not implemented for CTS9513 counters.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)IdleState</td>
+        <td>
+          bo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          PULSE_IDLE_STATE</td>
+        <td>
+          The idle state of the pulse output line, "Low" (0) or "High" (1). This determines
+          the polarity of the pulse, i.e. positive going or negative going.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    When the pulse generator is started it configures the corresponding counter. This
+    may change the readback (_RBV) value of the counter functions, but will not change
+    the values of the output records.</p>
+  <p>
+    The pulse generator implementation in the driver is very simple, and does not support
+    the Count, Delay or IdleState records. It is not possible to support these functions
+    on all 5 counter channels of a CTS9513 chip. It may be possible to implement some
+    of these functions by combining counter channels together to have fewer pulse generators
+    with more features, but this has not been tested.</p>
+  <p>
+    The following is the medm screen for controlling each pulse generator with the records
+    in measCompPulseGen.template.</p>
+  <div style="text-align: center">
+    <h3>
+      measComp_pulse_generator.adl</h3>
+    <img alt="measComp_pulse_generator.png" src="measComp_pulse_generator.png" /></div>
+  <h3 style="text-align: center">
+    EPICS scaler record support</h3>
+  <p>
+    The driver supports the <a href="http://www.aps.anl.gov/bcda/synApps/std/scalerRecord.html">
+      EPICS scaler record</a>. The are some limitations to the support.</p>
+  <ul>
+    <li>One timer channel and 5 scaler inputs are supported.</li>
+    <li>Only the first scaler channel can be used as a preset, and it can only be used
+      to count for a preset time, not a preset number of external counts</li>
+    <li>The preset timer has 16-bit precision. However, the clock frequency that it uses
+      is automatically varied between 5 MHz and 500 Hz to maximize the precision for the
+      selected count time.</li>
+    <li>Scaler channels 2, 3, 5 and 6 are 32-bit counters.</li>
+    <li>Scaler channel 4 is a 16-bit counter.</li>
+    <li>The 1OUT1 signal must be connected to 1GAT1, 1GAT2, 2GAT1, 2GAT2, 1GAT4, 2GAT4.</li>
+  </ul>
+  <p>
+    When the scaler record is started it configures each of the 10 counters so that
+    they work together. This may change the readback (_RBV) value of the counter functions,
+    but will not change the values of the output records.</p>
+  <p>
+    The following is the medm screen for controlling the EPICS scaler record.</p>
+  <div style="text-align: center">
+    <h3>
+      scaler_full.adl</h3>
+    <img alt="measComp_scaler_full.png" src="measComp_scaler_full.png" /></div>
   <h2 id="BC-020_wiring" style="text-align: center">
     Wiring to BCDA BC-020 LEMO Breakout Panels</h2>
   <p>
@@ -450,7 +778,6 @@ and example substitutions files.</p>
     <h3>
       BC-020 LEMO breakout panels</h3>
     <img alt="measCompBC-020.jpg" src="measCompBC-020.jpg" /></div>
-</pre>
   <h3 id="Wiring">
     USB-4303 Wiring to Two BCDA BC-020 LEMO Breakout Panels</h3>
   <pre>           BC-020 #1 using BC-087 daughter card
