@@ -2,10 +2,10 @@
 
 npts = 2048L
 prefix = '1608G:WaveGen'
-dwell = 2e-3
-time = dwell * findgen(npts)
-volts1 = 3.*sin(time*4*!pi) + 2*sin(time*200*!pi) * 1*cos(time*3.1*!pi)
-volts2 = 2.*sin(time*4*!pi)
+dwell = 1e-3
+time = 2 * !pi * findgen(npts)/npts
+volts1 = 3.*sin(time) + 2*sin(time*10) + 1.*cos(time*3)
+volts2 = 2.*sin(time*4)
 t = caput(prefix + 'Run',           0, /wait)
 t = caput(prefix + 'UserNumPoints', npts)
 t = caput(prefix + 'UserDwell',     dwell)
