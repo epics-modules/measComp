@@ -274,7 +274,7 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
     waveDigRunning_(0)
 {
   int i;
-  static const char *functionName = "USB1608G";
+  //static const char *functionName = "USB1608G";
   
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
@@ -511,7 +511,7 @@ int USB1608G::startWaveGen()
   int status=0;
   int numPoints;
   int enable;
-  int firstChan=-1, lastChan, firstType;
+  int firstChan=-1, lastChan=-1, firstType=-1;
   long pointsPerSecond;
   int waveType;
   int extTrigger, extClock, continuous, retrigger;
@@ -911,7 +911,7 @@ asynStatus USB1608G::readInt32(asynUser *pasynUser, epicsInt32 *value)
   int status=0;
   unsigned short shortVal;
   int range;
-  static const char *functionName = "readInt32";
+  //static const char *functionName = "readInt32";
 
   this->getAddress(pasynUser, &addr);
 
@@ -1119,7 +1119,7 @@ asynStatus USB1608G::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value,
   this->getAddress(pasynUser, &addr);
   
   if (function == waveGenUserWF_) {
-    if ((addr >= NUM_ANALOG_OUT) || ((int)nElements > maxOutputPoints_)) {
+    if ((addr >= NUM_ANALOG_OUT) || (nElements > maxOutputPoints_)) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s:%s: ERROR: addr=%d max=%d, nElements=%d max=%d\n",
         driverName, functionName, addr, NUM_ANALOG_OUT-1, nElements, maxOutputPoints_);
