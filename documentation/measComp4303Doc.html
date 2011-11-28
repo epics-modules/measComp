@@ -12,7 +12,7 @@
     <h1>
       Including USB-4303, PCI-CTR10, CIO-CTR10, and PC104-CTR10</h1>
     <h2>
-      November 15, 2011</h2>
+      November 28, 2011</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -29,12 +29,14 @@
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
   <p>
-    This is an EPICS driver for the Measurement Computing USB-4303 counter timer module,
-    which is based on the C9513 counter/timer chip. The driver should also work with
-    other Measurement Computing devices that are based on the C9513, including the discontinued
-    PCI-CTR10, CIO-CTR10, and PC104-CTR10, but this has not been tested. The driver
-    is written in C++, and consists of a class that inherits from asynPortDriver, which
-    is part of the EPICS asyn module.
+    This is an <a href="http://www.aps.anl.gov/epics">EPICS</a> driver for the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx">
+      USB-4303</a> counter/timer module from <a href="http://www.mccdaq.com">Measurement
+        Computing </a>The driver should also work with other Measurement Computing devices
+    that are based on the C9513, including the discontinued PCI-CTR10, CIO-CTR10, and
+    PC104-CTR10, but this has not been tested. The driver is written in C++, and consists
+    of a class that inherits from <a href="http://www.aps.anl.gov/epics/modules/soft/asyn/R4-18/asynPortDriver.html">
+      asynPortDriver</a>, which is part of the EPICS <a href="http://www.aps.anl.gov/epics/modules/soft/asyn">
+        asyn</a> module.
   </p>
   <div style="text-align: center">
     <h3>
@@ -849,7 +851,7 @@ Note: To operate the USB-4303 with the EPICS scaler record it must be wired as f
 
 - 1OUT1 must be connected to 1GAT1, 1GAT2, 2GAT1, 2GAT2, 1GAT4, 2GAT4
 
-- No connnection to 1INP1; that is internally routed to XXX and is used as the preset channel.
+- No connnection to 1INP1; that is internally routed to count source 1 and is used as the preset channel.
 
 - Scaler input 2 is connected to 1INP2 = J2.  This is a 32-bit scaler.
 
