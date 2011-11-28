@@ -159,7 +159,7 @@ C9513::C9513(const char *portName, int boardNum, int numChips)
     forceCallback_(1),
     counting_(false)
 {
-  static const char *functionName = "C9513";
+  //static const char *functionName = "C9513";
   int i;
   
   numCounters_ = 5 * numChips_;
@@ -362,7 +362,7 @@ void C9513::startScaler()
   int counter;
   int frequencyIndex;
   int i;
-  static const char *functionName = "startScaler";
+  //static const char *functionName = "startScaler";
 
   // We configure the counters as follows
   // Counter1 on each chip is 16-bit, counts down, one-shot
@@ -419,7 +419,7 @@ void C9513::startScaler()
 
 void C9513::stopScaler()
 {
-  static const char *functionName = "stopScaler";
+  //static const char *functionName = "stopScaler";
 
   setIntegerParam(0, C9513OutputControl_, LOWPULSEONTC);
   setupCounter(0);
@@ -432,7 +432,7 @@ void C9513::readScalers()
   int i;
   int preset;
   int scalerToCounter[] = {0, 1, 3, 5, 6, 8, 10, 11, 13, 15, 16, 18};
-  static const char *functionName = "readScalers";
+  //static const char *functionName = "readScalers";
 
   for (i=0; i<numScalers_; i++) {
     // We have 3 scalers per chip - counter 1 is 16-bit, 2/3 and 4/5 are 32-bit
