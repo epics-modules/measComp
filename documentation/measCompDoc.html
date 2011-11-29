@@ -26,6 +26,20 @@
     <li><a href="measComp1608GDoc.html">USB-1608GX-2A0 driver</a></li>
     <li><a href="measComp4303Doc.html">USB-4303 driver</a></li>
   </ul>
+  <p>
+    This module is currently only supported on Windows, with the win32-x86, windows-x64,
+    and cygwin-x86 EPICS architectures. The driver uses the Measurement Computing "Universal
+    Library", which is only available on Windows. Measurement Computing does not offer
+    Linux support for the USB-4303. They do have a new message based library they call
+    DAQFlex, which runs on Windows, Linux, and Mac. It currently only supports a few
+    of their newer modules, including the USB-1608G series. The software architecture
+    of this package is quite nice, and the source code for the drivers is provided.
+    Unfortunately it is implemented in the C# programming language. C# is supported
+    on Linux and Mac OSX with the "Mono" compiler package.&nbsp; My understanding is
+    that it is difficult to call C# from C/C++, which is what the rest of EPICS is written
+    in, and for this reason I have not used DAQFlex in this EPICS module. In principle
+    one could rewrite the C# drivers in C++ and then use this new API with EPICS on
+    Linux, Mac and other platforms that have an underlying USB library.</p>
   <hr />
   <address>
     Suggestions and Comments to:
