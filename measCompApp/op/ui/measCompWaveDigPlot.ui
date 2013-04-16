@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+<class>MainWindow</class>
+<widget class="QMainWindow" name="MainWindow">
+    <property name="geometry">
+        <rect>
+            <x>405</x>
+            <y>91</y>
+            <width>600</width>
+            <height>400</height>
+        </rect>
+    </property>
+    <property name="styleSheet">
+        <string>
+
+QWidget#centralWidget {background: rgba(187, 187, 187, 255);}
+
+</string>
+    </property>
+    <widget class="QWidget" name="centralWidget">
+        <widget class="caCartesianPlot" name="caCartesianPlot_0">
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>5</y>
+                    <width>590</width>
+                    <height>390</height>
+                </rect>
+            </property>
+            <property name="Title">
+                <string>Waveform Digitizer $(WAVE)</string>
+            </property>
+            <property name="TitleX">
+                <string>Time</string>
+            </property>
+            <property name="TitleY">
+                <string>Volts</string>
+            </property>
+            <property name="scaleColor">
+                <color alpha="255">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>187</red>
+                    <green>187</green>
+                    <blue>187</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>187</red>
+                    <green>187</green>
+                    <blue>187</blue>
+                </color>
+            </property>
+            <property name="Style_1">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_2">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_3">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="symbol_1">
+                <enum>caCartesianPlot::NoSymbol</enum>
+            </property>
+            <property name="symbol_2">
+                <enum>caCartesianPlot::Rect</enum>
+            </property>
+            <property name="symbol_3">
+                <enum>caCartesianPlot::Triangle</enum>
+            </property>
+            <property name="color_1">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="channels_1">
+                <string>$(TIME);$(WAVE)</string>
+            </property>
+            <property name="XaxisScaling">
+                <enum>caCartesianPlot::Channel</enum>
+            </property>
+            <property name="YaxisScaling">
+                <enum>caCartesianPlot::Channel</enum>
+            </property>
+        </widget>
+        <zorder>caCartesianPlot_0</zorder>
+    </widget>
+</widget>
+</ui>
