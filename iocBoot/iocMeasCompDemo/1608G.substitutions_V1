@@ -1,0 +1,16 @@
+# asyn record
+file "$(ASYN)/db/asynRecord.db"
+{
+pattern
+{    P,       R,     PORT,   ADDR, IMAX, OMAX}
+{   1608G:,  asyn1, 1608G_1,    0,  80,    80}
+}
+
+# Analog outputs
+file "$(MEASCOMP)/measCompApp/Db/measCompAnalogOut.template"
+{
+pattern
+{    P,       R,   VAL,   PORT,   ADDR, EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{   1608G:,  Ao1,   0,  1608G_1,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{   1608G:,  Ao2,   0,  1608G_1,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+}

@@ -1,0 +1,21 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   1608G:,  Li,   0xFF,  1608G_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{    P,       R,   MASK,   PORT,    ADDR}
+{   1608G:,  Bi1,  0x01   1608G_1,     0}
+{   1608G:,  Bi2,  0x02   1608G_1,     0}
+{   1608G:,  Bi3,  0x04   1608G_1,     0}
+{   1608G:,  Bi4,  0x08   1608G_1,     0}
+{   1608G:,  Bi5,  0x10   1608G_1,     0}
+{   1608G:,  Bi6,  0x20   1608G_1,     0}
+{   1608G:,  Bi7,  0x40   1608G_1,     0}
+{   1608G:,  Bi8,  0x80   1608G_1,     0}
+}
+

@@ -1,0 +1,19 @@
+< envPaths
+
+## Register all support components
+dbLoadDatabase "../../dbd/measCompApp.dbd"
+measCompApp_registerRecordDeviceDriver pdbbase
+
+dbLoadTemplate("1608G.substitutions_V1")
+dbLoadTemplate("1608G.substitutions_V2")
+dbLoadTemplate("1608G.substitutions_V3")
+dbLoadTemplate("1608G.substitutions_V4")
+
+## Configure port driver
+# USB1608GConfig(portName,        # The name to give to this asyn port driver
+#                boardNum)        # The number of this board assigned by the Measurement Computing Instacal program 
+USB1608GConfig("1608G_1", 1)
+
+#asynSetTraceMask 1608G_1 -1 255
+
+iocInit

@@ -1,0 +1,14 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompPulseGen.template"
+{
+pattern
+{     P,         R,        PORT,    ADDR,  PREC}
+{   1608G:,  PulseGen1,  1608G_1,      0,     4}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/1608GCounter.template"
+{
+pattern
+{     P,         R,       PORT,    ADDR}
+{   1608G:,  Counter1,  1608G_1,      0}
+{   1608G:,  Counter2,  1608G_1,      1}
+}
