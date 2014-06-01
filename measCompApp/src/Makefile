@@ -19,6 +19,7 @@ LIBRARY_IOC_cygwin32 += measComp
 
 LIB_SRCS += drvC9513.cpp
 LIB_SRCS += drv1608G.cpp
+LIB_SRCS += drvUSBCTR.cpp
 
 measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
@@ -48,6 +49,7 @@ measCompApp_LIBS += measComp
 measCompApp_LIBS += std
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
+measCompApp_LIBS += mca
 measCompApp_LIBS += sscan
 measCompApp_LIBS += autosave
 measCompApp_LIBS += asyn
