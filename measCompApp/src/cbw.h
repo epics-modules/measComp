@@ -4,7 +4,7 @@
  *
  * C/C++ Windows header for Measurement Computing Universal Library
  *
- * (c) Copyright 1996-2009, Measurement Computing Corp.
+ * (c) Copyright 1996-2014, Measurement Computing Corp.
  * All rights reserved.
  *
  * This header file should be included in all C/C++ programs that will
@@ -20,7 +20,7 @@
 
 
 /* Current Revision Number */
-#define CURRENTREVNUM      6.10
+#define CURRENTREVNUM      6.3
 
 /* System error code */
 #define NOERRORS           0    /* No error occurred */
@@ -224,6 +224,7 @@
 #define BADBRIDGETYPE					1006    /* Invalid bridge type specified */
 #define BADLOADVAL						1007    /* Invalid load value specified */
 #define BADTICKSIZE						1008    /* Invalid tick size specified */
+#define	BADTRIGEVENT					1015	/* Invalid trigger event specified */
 
 
 #define AIFUNCTION      1    /* Analog Input Function    */
@@ -323,6 +324,7 @@
 #define INVALIDSTRUCTSIZE		346		/* Invalid structure size */
 #define LOSSOFDATA				347		/* EOF marker not found, possible loss of data */
 #define INVALIDBINARYFILE		348		/* File is not a valid MCC binary file */
+#define INVALIDDELIMITER		349		/* Invlid delimiter specified for CSV file */
 
 /* DOS errors are remapped by adding DOS_ERR_OFFSET to them */
 #define DOS_ERR_OFFSET      		500
@@ -414,6 +416,9 @@
 #define CTR16BIT		 0x0000	   /* Return 16-bit counter data */
 #define CTR32BIT		 0x0100	   /* Return 32-bit counter data */
 #define CTR48BIT		 0x0200	   /* Return 48-bit counter data */
+#define CTR64BIT		 0x0400	   /* Return 64-bit counter data */
+#define NOCLEAR			 0x0800	   /* Disables clearing counters when scan starts */
+
 
 #define ENABLED          1
 #define DISABLED         0
@@ -449,6 +454,11 @@
 #define ANALOG_SE		 8      // Analog channel, singel-ended mode
 #define ANALOG_DIFF		 9      // Analog channel, Differential mode
 #define SETPOINTSTATUS   	 10     // Setpoint status channel
+#define CTRBANK0		 11		// Bank 0 of counter
+#define CTRBANK1		 12		// Bank 1 of counter
+#define CTRBANK2		 13		// Bank 2 of counter
+#define CTRBANK3		 14		// Bank 3 of counter
+#define PADZERO			 15		// Dummy channel. Fills the corresponding data elements with zero 
 
 /* channel type flags*/
 #define SETPOINT_ENABLE  	0x100  // Enable setpoint detection
@@ -490,6 +500,8 @@
 #define BELOW_LEVEL		3
 #define EQ_LEVEL		4
 #define NE_LEVEL		5
+#define HIGH_LEVEL		6
+#define LOW_LEVEL		7
 
 /* trigger events */
 #define START_EVENT		0
@@ -803,6 +815,41 @@
 #define PRESCALER3      803
 #define PRESCALER4      804
 
+#define MINLIMITREG0        900
+#define MINLIMITREG1        901
+#define MINLIMITREG2        902
+#define MINLIMITREG3        903
+#define MINLIMITREG4        904
+#define MINLIMITREG5        905
+#define MINLIMITREG6        906
+#define MINLIMITREG7        907
+
+#define MAXLIMITREG0        1000
+#define MAXLIMITREG1        1001
+#define MAXLIMITREG2        1002
+#define MAXLIMITREG3        1003
+#define MAXLIMITREG4        1004
+#define MAXLIMITREG5        1005
+#define MAXLIMITREG6        1006
+#define MAXLIMITREG7        1007
+
+#define OUTPUTVAL0REG0		1100
+#define OUTPUTVAL0REG1		1101
+#define OUTPUTVAL0REG2		1102
+#define OUTPUTVAL0REG3		1103
+#define OUTPUTVAL0REG4		1104
+#define OUTPUTVAL0REG5		1105
+#define OUTPUTVAL0REG6		1106
+#define OUTPUTVAL0REG7		1107
+
+#define OUTPUTVAL1REG0		1200
+#define OUTPUTVAL1REG1		1201
+#define OUTPUTVAL1REG2		1202
+#define OUTPUTVAL1REG3		1203
+#define OUTPUTVAL1REG4		1204
+#define OUTPUTVAL1REG5		1205
+#define OUTPUTVAL1REG6		1206
+#define OUTPUTVAL1REG7		1207
 
 /* Counter Gate Control */
 #define NOGATE          0
@@ -851,17 +898,7 @@
 #define C_UP_DOWN       0x0020
 #define C_INDEX         0x0040
 
-/* USB-QUAD08 Counter registers */
-#define MAXLIMITREG0        0
-#define MAXLIMITREG1        1
-#define MAXLIMITREG2        2
-#define MAXLIMITREG3        3
-#define MAXLIMITREG4        4
-#define MAXLIMITREG5        5
-#define MAXLIMITREG6        6
-#define MAXLIMITREG7        7
-
-/* 25xx series counter mode constants */
+/* Scan counter mode constants */
 #define TOTALIZE	0x0000
 #define CLEAR_ON_READ	0x0001
 #define ROLLOVER	0x0000
@@ -883,6 +920,15 @@
 #define NO_RECYCLE_ON	0x4000
 #define MODULO_N_OFF	0x0000
 #define MODULO_N_ON		0x8000
+#define COUNT_DOWN_OFF				0x00000
+#define COUNT_DOWN_ON				0x10000
+#define INVERT_GATE					0x20000
+#define GATE_CONTROLS_DIR			0x40000
+#define GATE_CLEARS_CTR				0x80000
+#define GATE_TRIG_SRC				0x100000
+#define OUTPUT_ON					0x200000
+#define OUTPUT_INITIAL_STATE_LOW	0x000000
+#define OUTPUT_INITIAL_STATE_HIGH	0x400000
 
 #define PERIOD						0x0200
 #define PERIOD_MODE_X1				0x0000
@@ -893,17 +939,20 @@
 #define PERIOD_MODE_BIT_32			0x0004
 #define PERIOD_MODE_BIT_48			0x10000
 #define PERIOD_MODE_GATING_ON		0x0010
+#define PERIOD_MODE_INVERT_GATE		0x20000
 
-#define PULSEWIDTH					0x0300
-#define PULSEWIDTH_MODE_BIT_16		0x0000
-#define PULSEWIDTH_MODE_BIT_32		0x0004
-#define PULSEWIDTH_MODE_BIT_48		0x10000
-#define PULSEWIDTH_MODE_GATING_ON	0x0010
+#define PULSEWIDTH						0x0300
+#define PULSEWIDTH_MODE_BIT_16			0x0000
+#define PULSEWIDTH_MODE_BIT_32			0x0004
+#define PULSEWIDTH_MODE_BIT_48			0x10000
+#define PULSEWIDTH_MODE_GATING_ON		0x0010
+#define PULSEWIDTH_MODE_INVERT_GATE		0x20000
 
 #define TIMING						0x0400
 #define TIMING_MODE_BIT_16			0x0000
 #define TIMING_MODE_BIT_32			0x0004
 #define TIMING_MODE_BIT_48			0x10000
+#define TIMING_MODE_INVERT_GATE		0x20000
 
 #define ENCODER							0x0500
 #define ENCODER_MODE_X1					0x0000
@@ -976,6 +1025,8 @@
 #define TRIG_LOW            11
 #define TRIG_POS_EDGE       12
 #define TRIG_NEG_EDGE       13
+#define TRIG_RISING			14
+#define TRIG_FALLING		15
 
 /* Timer idle state */
 #define IDLE_LOW			0
@@ -1194,6 +1245,8 @@
 #define BIADRES				  291
 #define BIDACRES			  292
 
+#define BIADXFERMODE		  306
+
 
 /* Type of digital device information */
 #define DIBASEADR           0       /* Base address */
@@ -1292,6 +1345,10 @@
 // AI channel units in binary file
 #define UNITS_TEMPERATURE	0
 #define UNITS_RAW			1
+
+// Transfer Mode
+#define XFER_KERNEL			0
+#define XFER_USER			1
 
 
 #ifndef USHORT
@@ -1430,12 +1487,15 @@
                                    long FirstPoint, long Count);
     int EXTCCONV cbWinBufToArray (HGLOBAL MemHandle, USHORT *DataArray, 
 		                          long StartPt, long Count);
-     int EXTCCONV cbWinBufToArray32 (HGLOBAL MemHandle, ULONG *DataArray, 
-		                          long StartPt, long Count);
+	int EXTCCONV cbWinBufToArray32 (HGLOBAL MemHandle, ULONG *DataArray, 
+							  long StartPt, long Count);
 
-	  HGLOBAL EXTCCONV cbScaledWinBufAlloc (long NumPoints);
-     int EXTCCONV cbScaledWinBufToArray (HGLOBAL MemHandle, double *DataArray, 
-		                          long StartPt, long Count);
+	int EXTCCONV cbWinBufToArray64 (HGLOBAL MemHandle, ULONGLONG *DataArray, 
+							  long StartPt, long Count);
+
+	HGLOBAL EXTCCONV cbScaledWinBufAlloc (long NumPoints);
+	int EXTCCONV cbScaledWinBufToArray (HGLOBAL MemHandle, double *DataArray, 
+							  long StartPt, long Count);
 		
     int EXTCCONV cbWinArrayToBuf (USHORT *DataArray, HGLOBAL MemHandle, 
 		                          long StartPt, long Count);
