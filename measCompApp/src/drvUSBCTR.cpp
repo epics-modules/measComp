@@ -27,11 +27,6 @@ typedef enum {
     COUNTER_BITS32
 } USBCTRCounterBits_t;
 
-typedef enum {
-    ACQUIRE_MODE_MCS,
-    ACQUIRE_MODE_SCALER
-} USBCTRAcquireMode_t;
-
 static const char *driverName = "USBCTR";
 
 // Pulse output parameters
@@ -46,8 +41,6 @@ static const char *driverName = "USBCTR";
 #define counterCountsString       "COUNTER_VALUE"
 #define counterResetString        "COUNTER_RESET"
 #define counterBitsString         "COUNTER_BITS"
-
-#define acquireModeString         "ACQUIRE_MODE"
 
 // Trigger parameters
 #define triggerModeString         "TRIGGER_MODE"
@@ -106,8 +99,6 @@ protected:
   int counterReset_;
   int counterBits_;
   
-  int acquireMode_;
-
   // Trigger parameters
   int triggerMode_;
 
@@ -160,22 +151,22 @@ private:
   int forceCallback_;
   int numCounters_;
   int maxTimePoints_;
-  USBCTRAcquireMode_t currentAcquireMode_;
   epicsInt32 scalerCounts_[MAX_COUNTERS];
   epicsInt32 scalerPresetCounts_[MAX_COUNTERS];
   epicsInt32 *MCSBuffer_[MAX_COUNTERS];
   epicsFloat32 *MCSTimeBuffer_;
   HGLOBAL inputMemHandle_;
-  int numMCSChans_;
   bool pulseGenRunning_;
   bool scalerRunning_;
   bool MCSRunning_;
+  bool MCSErased_;
+  epicsTimeStamp startTime_;
+  double elapsedPrevious_;
   char errorMessage_[ERRSTRLEN];
 
   char *getErrorMessage(int error);
   int startPulseGenerator(int timerNum);
   int stopPulseGenerator(int timerNum);
-  int setAcquireMode(USBCTRAcquireMode_t acquireMode);
   int resetScaler();
   int startScaler();
   int readScaler();
@@ -185,6 +176,7 @@ private:
   int startMCS();
   int stopMCS();
   int readMCS();
+  int eraseMCS();
   int computeMCSTimes();
 };
 
@@ -208,7 +200,6 @@ USBCTR::USBCTR(const char *portName, int boardNum, int numCounters, int maxTimeP
     forceCallback_(1),
     numCounters_(numCounters),
     maxTimePoints_(maxTimePoints),
-    numMCSChans_(1),
     pulseGenRunning_(false),
     scalerRunning_(false),
     MCSRunning_(false)
@@ -231,8 +222,6 @@ USBCTR::USBCTR(const char *portName, int boardNum, int numCounters, int maxTimeP
   createParam(counterCountsString,             asynParamInt32, &counterCounts_);
   createParam(counterResetString,              asynParamInt32, &counterReset_);
   createParam(counterBitsString,               asynParamInt32, &counterBits_);
-
-  createParam(acquireModeString,               asynParamInt32, &acquireMode_);
 
   // Trigger parameters
   createParam(triggerModeString,               asynParamInt32, &triggerMode_);
@@ -372,118 +361,208 @@ int USBCTR::stopPulseGenerator(int timerNum)
 
 int USBCTR::startMCS()
 {
-  int firstChan, lastChan, numChans, numPoints;
-  int chan;
+  int numPoints;
   short gainArray[MAX_COUNTERS], chanArray[MAX_COUNTERS];
   int i;
-  int extTrigger, extClock, continuous, retrigger, burstMode;
+  int extTrigger;
   int status;
   int options;
-  long pointsPerSecond;
+  int mode;
   double dwell;
+  int firstCounter = 0;
+  int channelAdvance;
+  int lastCounter = numCounters_ - 1;
+  long count;
+  long rate;
   static const char *functionName = "startMCS";
   
-  getIntegerParam(MCSNumPoints_,  &numPoints);
-  getIntegerParam(MCSFirstChan_,  &firstChan);
-  getIntegerParam(MCSNumChans_,   &numChans);
-  numMCSChans_ = numChans;
+  getIntegerParam(mcaNumChannels_,  &numPoints);
   getIntegerParam(MCSExtTrigger_, &extTrigger);
-  getIntegerParam(MCSExtClock_,   &extClock);
-  getIntegerParam(MCSContinuous_, &continuous);
-  getIntegerParam(MCSRetrigger_,  &retrigger);
-  getIntegerParam(MCSBurstMode_,  &burstMode);
-  getDoubleParam(MCSDwell_, &dwell);
-  pointsPerSecond = (long)((1. / dwell) + 0.5);
+  getIntegerParam(mcaChannelAdvanceSource_,   &channelAdvance);
+  getDoubleParam(mcaDwellTime_, &dwell);
+  rate = (long)((1. / dwell) + 0.5);
+  count = numCounters_*numPoints;
   
-  options                  = BACKGROUND;
+  for (i=0; i<numCounters_; i++) {
+    mode = OUTPUT_ON | COUNT_DOWN_OFF | GATING_ON | INVERT_GATE;
+    status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
+                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
+        driverName, functionName, i, mode, status, getErrorMessage(status));
+    }
+  }
+  options                  = BACKGROUND | CTR32BIT;
   if (extTrigger) options |= EXTTRIGGER;
-  if (extClock)   options |= EXTCLOCK;
-  if (continuous) options |= CONTINUOUS;
-  lastChan = firstChan + numChans - 1;
+  if (channelAdvance == mcaChannelAdvance_External) 
+                  options |= EXTCLOCK;
   
   // Construct the gain array
-  for (i=0; i<numChans; i++) {
-    chan = firstChan + i;
-    chanArray[i] = chan;
+  for (i=0; i<numCounters_; i++) {
+    chanArray[i] = i;
     gainArray[i] = 0;
   }
-  status = cbAInScan(boardNum_, firstChan, lastChan, numMCSChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
-                     inputMemHandle_, options);                     
+  status = cbCInScan(boardNum_, firstCounter, lastCounter, count, &rate,
+                     inputMemHandle_, options);
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s ERROR calling cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d,"
-      " pointsPerSecond=%d, options=0x%x, status=%d, error=%s\n",
-      driverName, functionName, firstChan, lastChan, numPoints, 
-      pointsPerSecond, options, status, getErrorMessage(status));
-    return status;
+      "%s::%s error calling cbCInScan, firstCounter=%d, lastCounter=%d, count=%d, rate=%d,"
+      " inputMemHandle_=%p, options=0x%x, status=%d, error=%s\n",
+      driverName, functionName, firstCounter, lastCounter, count, rate,
+      inputMemHandle_, options, status, getErrorMessage(status));
+  }
+  setIntegerParam(MCSCurrentPoint_, 0);
+  MCSRunning_ = true;
+
+  // Convert back from rate to dwell, since value might have changed
+  dwell = (1. / rate);
+  setDoubleParam(mcaDwellTime_, dwell);
+  return 0;
+}
+
+int USBCTR::readMCS()
+{
+  int numValues;
+  int lastPoint;
+  int currentPoint;
+  int status;
+  int i, j;
+  short ctrStatus;
+  long ctrCount, ctrIndex;
+  epicsTimeStamp now;
+  int numTimePoints;
+  double presetReal, elapsedTime;
+  epicsInt32 *pCounts = (epicsInt32 *)inputMemHandle_;
+  static const char *functionName = "readMCS";
+  
+  getIntegerParam(MCSCurrentPoint_, &currentPoint);
+  status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
+  numValues = ctrIndex + 1;
+  // Get the index of the start of the last complete set of counts in the buffer
+  if (numValues < numCounters_) return 0;
+  lastPoint = (numValues/numCounters_ - 1) * numCounters_;
+  for (i=currentPoint; i<=lastPoint; i+= numCounters_) {
+    for (j=0; j<numCounters_; j++) {
+      MCSBuffer_[j][i] = pCounts[i*numCounters_ + j];
+    }
+  }
+  setIntegerParam(MCSCurrentPoint_, lastPoint);
+  if (ctrStatus == 0) {
+    MCSRunning_ = false;
   }
 
-  MCSRunning_ = true;
-  setIntegerParam(MCSRun_, 1);
-  asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s:%s: called cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%d, options=0x%x\n",
-    driverName, functionName, firstChan, lastChan, numPoints, pointsPerSecond, options);
+  getIntegerParam(mcaNumChannels_,    &numTimePoints);
+  getDoubleParam(mcaPresetRealTime_,  &presetReal);
+  getDoubleParam(mcaElapsedRealTime_, &elapsedTime);
+  asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
+            "%s:%s: enter: acquiring=%d, lastPoint=%d, currentPoint=%d, numTimePoints=%d\n",
+            driverName, functionName, MCSRunning_, lastPoint, currentPoint, numTimePoints);
 
-  // Convert back from pointsPerSecond to dwell, since value might have changed
-  dwell = (1. / pointsPerSecond);
-  setDoubleParam(MCSDwell_, dwell);
-  setDoubleParam(MCSTotalTime_, dwell*numPoints);
+  epicsTimeGetCurrent(&now);
+  elapsedTime = epicsTimeDiffInSeconds(&now, &startTime_);
+  if (MCSRunning_) {
+    if ((presetReal > 0) && (elapsedTime >= presetReal)) {
+      MCSRunning_ = false;
+      asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
+                "%s:%s:, stopped acquisition by preset real time\n",
+                driverName, functionName);
+    }
+  }
+
+  // Set elapsed times
+  for (i=0; i<numCounters_; i++) {
+    setDoubleParam(i, mcaElapsedRealTime_, elapsedTime);
+    setDoubleParam(i, mcaElapsedLiveTime_, elapsedTime);
+  }
+  
+  if (!MCSRunning_) {
+    stopMCS();
+    // Do callbacks on mcaAcquiring
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
+               "%s:%s:, acquisition complete, doing callbacks on mcaAcquiring\n",
+               driverName, functionName);
+    for (i=0; i<numCounters_; i++) {
+      setIntegerParam(i, mcaAcquiring_, 0);
+    }
+  }
+
+  // Do callbacks on all channels
+  for (i=0; i<numCounters_; i++) {
+    callParamCallbacks(i);
+  }
+
+  asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
+            "%s:%s: exit: MCSRunning=%d\n",
+            driverName, functionName, MCSRunning_);
+  return 0;
+}    
+
+int USBCTR::eraseMCS()
+{
+  int i;
+  int numTimePoints;
+  static const char *functionName="eraseMCS";
+
+  /* If we are already erased return */
+  if (MCSErased_) {
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
+              "%s:%s: already erased, skipping\n",
+              driverName, functionName);
+    return 0;
+  }
+  MCSErased_ = true;
+
+  getIntegerParam(mcaNumChannels_, &numTimePoints);
+
+  /* Reset pointers to start of buffer */
+  setIntegerParam(MCSCurrentPoint_, 0);
+
+  /* Reset the elapsed time and counts */
+  elapsedPrevious_ = 0.;
+  setIntegerParam(MCSCurrentPoint_, 0);
+  for (i=0; i<numCounters_; i++) {
+    memset(MCSBuffer_[i], 0, numCounters_ * numTimePoints * sizeof(epicsUInt32));
+    setDoubleParam(i, mcaElapsedLiveTime_, 0.0);
+    setDoubleParam(i, mcaElapsedRealTime_, 0.0);
+    setDoubleParam(i, mcaElapsedCounts_, 0.0);
+    callParamCallbacks(i);
+  }
+
+  /* Reset the start time.  This is necessary here because we may be
+   * acquiring, and AcqOn will not be called. Normally this is set in AcqOn.
+   */
+  epicsTimeGetCurrent(&startTime_);
+
   return 0;
 }
 
 int USBCTR::stopMCS()
 {
-  int autoRestart;
   int status;
   static const char *functionName = "stopMCS";
   
-  MCSRunning_ = false;
-  setIntegerParam(MCSRun_, 0);
-  readMCS();
-  getIntegerParam(MCSAutoRestart_, &autoRestart);
-  status = cbStopBackground(boardNum_, AIFUNCTION);
+  if (MCSRunning_) {
+    // Forced stop
+    MCSRunning_ = false;
+    readMCS();
+  }
+  status = cbStopBackground(boardNum_, CTRFUNCTION);
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s ERROR calling cbStopBackground(AIFUNCTION), status=%d, error=%s\n",
+      "%s::%s ERROR calling cbStopBackground(CTRFUNCTION), status=%d, error=%s\n",
       driverName, functionName, status, getErrorMessage(status));
   }
-  if (autoRestart)
-    status |= startMCS();
   return status;
 }
-
-int USBCTR::readMCS()
-{
-  int firstChan, lastChan;
-  int currentPoint;
-  int i, j;
-  epicsInt32 *pMCSIn = (epicsInt32 *)inputMemHandle_;
-  static const char *functionName = "readMCS";
-  
-  getIntegerParam(MCSFirstChan_,    &firstChan);
-  lastChan = firstChan + numMCSChans_ - 1;
-  getIntegerParam(MCSCurrentPoint_, &currentPoint);
-  for (i=0; i<currentPoint; i++) {
-    for (j=firstChan; j<=lastChan; j++) {
-      MCSBuffer_[j][i] = *pMCSIn++;
-    }
-  }
-  for (i=firstChan; i<=lastChan; i++) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-      "%s:%s:, doing callbacks on input %d, first value=%f\n", 
-      driverName, functionName, i, MCSBuffer_[i][0]);
-    doCallbacksInt32Array(MCSBuffer_[i], currentPoint, mcaData_, i);
-  }
-  return 0;
-}    
 
 int USBCTR::computeMCSTimes()
 {
   int numPoints, i;
   double dwell;
   
-  getIntegerParam(MCSNumPoints_, &numPoints);
-  getDoubleParam(MCSDwell_, &dwell);
+  getIntegerParam(mcaNumChannels_, &numPoints);
+  getDoubleParam(mcaDwellTime_, &dwell);
   for (i=0; i<numPoints; i++) {
     MCSTimeBuffer_[i] = (epicsFloat32) (i * dwell);
   }
@@ -503,7 +582,6 @@ int USBCTR::startScaler()
   int options = BACKGROUND | CONTINUOUS | CTR32BIT | SINGLEIO;
   static const char *functionName = "startScaler";
   
-  setAcquireMode(ACQUIRE_MODE_SCALER);
   for (i=0; i<numCounters_; i++) {
     mode = OUTPUT_ON | COUNT_DOWN_OFF | GATING_ON | INVERT_GATE;
     if (i == 0) mode = mode | RANGE_LIMIT_ON | NO_RECYCLE_ON;
@@ -531,7 +609,7 @@ int USBCTR::startScaler()
 int USBCTR::readScaler()
 {
   int numValues;
-  int i;
+  int i, j;
   int status;
   short ctrStatus;
   long ctrCount, ctrIndex;
@@ -549,13 +627,18 @@ int USBCTR::readScaler()
   // Get the index of the start of the last complete set of counts in the buffer
   if (numValues < numCounters_) return 0;
   lastIndex = (numValues/numCounters_ - 1) * numCounters_;
-  for (i=0; i<numCounters_; i++) {
-    scalerCounts_[i] = pCounts[lastIndex + i];
-    if ((scalerPresetCounts_[i] > 0) && (scalerCounts_[i] >= scalerPresetCounts_[i])) {
-      scalerDone = true;
+  for (i=0; i<=lastIndex; i+= numCounters_) {
+    for (j=0; j<numCounters_; j++) {
+      scalerCounts_[j] = pCounts[i+j];
+      if ((scalerPresetCounts_[j] > 0) && (scalerCounts_[j] >= scalerPresetCounts_[j])) {
+        scalerDone = true;
+      }
+    }
+    if (scalerDone) {
+      stopScaler();
+      break;
     }
   }
-  if (scalerDone) stopScaler();
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
     "%s::%s lastIndex=%d, scalerCounts_[0]=%d, scalerPresetCounts_[0]=%d\n",
     driverName, functionName, lastIndex, scalerCounts_[0], scalerPresetCounts_[0]);
@@ -624,76 +707,13 @@ int USBCTR::setScalerPresets()
   return 0;
 }
 
-int USBCTR::setAcquireMode(USBCTRAcquireMode_t acquireMode)
-{
-  int nChans;
-  int prescale;
-  int channelAdvanceSource;
-  double dwellTime;
-  static const char* functionName="setAcquireMode";
-
-  currentAcquireMode_ = acquireMode;
-  setIntegerParam(acquireMode_, acquireMode);
-
-  /* Enable or disable 50 MHz channel 1 reference pulses. */
-
-  /* Set the interrupt control register */
-  
-  /* Set the operation mode register */
-
-  switch (currentAcquireMode_) {
-    case ACQUIRE_MODE_MCS:
-      getIntegerParam(mcaNumChannels_, &nChans);
-      getIntegerParam(mcaChannelAdvanceSource_, &channelAdvanceSource);
-      getIntegerParam(mcaPrescale_, &prescale);
-      getDoubleParam(mcaDwellTime_, &dwellTime);
-
-      /* Clear all presets from scaler mode */
-      clearScalerPresets();
-      
-      /* Set the number of channels to acquire.  
-       * We could be resuming acquisition so subtract nextChan_ */
-
-      /* Set the LNE channel NOTE: This should allow other sources in the future */
-
-      if (channelAdvanceSource == mcaChannelAdvance_Internal) {
-        /* The SIS3820 requires the value in the LNE prescale register to be one
-         * less than the actual number of incoming signals. We do this adjustment
-         * here, so the user sees the actual number at the record level.
-         */
-      }
-      else if (channelAdvanceSource == mcaChannelAdvance_External) {
-        /* The SIS3820 requires the value in the LNE prescale register to be one
-         * less than the actual number of incoming signals. We do this adjustment
-         * here, so the user sees the actual number at the record level.
-         */
-      } 
-      else {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: unsupported channel advance source %d\n", 
-                  driverName, functionName, channelAdvanceSource);
-      }
-      break;
-      
-    case ACQUIRE_MODE_SCALER:
-      /* Clear the preset register from MCS mode */
-      
-      /* Set the LNE channel */
-
-      /* Disable channel in scaler mode. */
-
-      break;
-  }
-
-  callParamCallbacks();
-  return 0;
-}
-
 asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int addr;
   int function = pasynUser->reason;
   int status=0;
+  int numTimePoints;
+  int currentPoint;
   int i;
   static const char *functionName = "writeInt32";
 
@@ -756,7 +776,7 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   // MCA commands
-  getIntegerParam(mcaNumChannels_, &nChans);
+  getIntegerParam(mcaNumChannels_, &numTimePoints);
   if (function == mcaStartAcquire_) {
     if (scalerRunning_) {
       status = -1;
@@ -764,7 +784,8 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
     if (MCSRunning_) goto done;
     // If we have already completed acquisition due to nextChan_, don't start, signal error
-    if (nextChan_ >= nChans) {
+    getIntegerParam(MCSCurrentPoint_, &currentPoint);
+    if (currentPoint >= numTimePoints) {
         // Must toggle mcaAcquiring to 1 and back to 0 to signal SNL program to clear Acquiring
       setIntegerParam(mcaAcquiring_, 1);
       callParamCallbacks();
@@ -772,7 +793,7 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
       goto done;
     }
     setIntegerParam(mcaAcquiring_, 1);
-    erased_ = 0;
+    MCSErased_ = false;
     // Set the acquisition start time
     epicsTimeGetCurrent(&startTime_);
     // Start the hardware
@@ -780,9 +801,9 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
     
   else if (function == mcaStopAcquire_) {
-    scalerRunning_ goto done;
+    if (scalerRunning_) goto done;
     /* Stop data acquisition */
-    if (!MCARunning_) {
+    if (!MCSRunning_) {
       // We are not acquiring.
       status = asynSuccess;
       goto done;
@@ -803,11 +824,11 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
       goto done;
     }
     if (!MCSRunning_) goto done;
-    stopMCSAcquire();
+    stopMCS();
 
     asynPrint(pasynUser, ASYN_TRACE_FLOW,
-              "%s:%s: [%s signal=%d]: erased\n",
-              driverName, functionName, portName, signal);
+              "%s:%s: [%s addr=%d]: erased\n",
+              driverName, functionName, portName, addr);
 
     /* Erase the buffer in the private data structure */
     eraseMCS();
@@ -815,11 +836,11 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
     /* If device was acquiring, turn it back on */
     if (MCSRunning_) {
       startMCS();
-      MCSErased_ = 0;
+      MCSErased_ = false;
     }
   }
 
-  else if (command == mcaNumChannels_) {
+  else if (function == mcaNumChannels_) {
     /* Terminology warning:
      * This is the number of channels that are to be acquired. Channels
      * correspond to time bins or external channel advance triggers, as
@@ -829,19 +850,19 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
       setIntegerParam(mcaNumChannels_, maxTimePoints_);
       asynPrint(pasynUser, ASYN_TRACE_ERROR, 
                 "%s:%s:  # channels=%d too large, max=%d\n",
-                driverName, functionName, nChans, maxTimePoints_);
+                driverName, functionName, value, maxTimePoints_);
     }
   }
 
   callParamCallbacks(addr);
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s:%s, port %s, wrote %d to address %d\n",
-             driverName, functionName, this->portName, value, addr);
+             "%s:%s, port %s, function=%d, wrote %d to address %d\n",
+             driverName, functionName, this->portName, function, value, addr);
   } else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-             "%s:%s, port %s, ERROR writing %d to address %d, status=%d\n",
-             driverName, functionName, this->portName, value, addr, status);
+             "%s:%s, port %s, function=%d, ERROR writing %d to address %d, status=%d\n",
+             driverName, functionName, this->portName, function, value, addr, status);
   }
   done:
   return (status==0) ? asynSuccess : asynError;
@@ -892,7 +913,7 @@ asynStatus USBCTR::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   }
   
   // MCS functions
-  else if (function == MCSDwell_) {
+  else if (function == mcaDwellTime_) {
     computeMCSTimes();
   }
 
@@ -1025,7 +1046,7 @@ asynStatus USBCTR::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, si
   
   if (function == MCSTimeWF_) {
     inPtr = MCSTimeBuffer_;
-    getIntegerParam(MCSNumPoints_, &numPoints);
+    getIntegerParam(mcaNumChannels_, &numPoints);
   }
   else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
@@ -1048,9 +1069,6 @@ void USBCTR::pollerThread()
   epicsUInt32 newValue, changedBits, prevInput=0;
   unsigned short biVal;;
   int i;
-  int currentPoint;
-  long ctrCount, ctrIndex;
-  short ctrStatus;
   int status;
 
   while(1) { 
@@ -1074,12 +1092,8 @@ void USBCTR::pollerThread()
       readScaler();
     }
     
-    // Poll the status of the MCS input
-    status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
-    currentPoint = (ctrIndex / numMCSChans_) + 1;
-    setIntegerParam(MCSCurrentPoint_, currentPoint);
-    if (MCSRunning_ && (ctrStatus == 0)) { 
-      stopMCS();
+    if (MCSRunning_) {
+      readMCS();
     }
     
     for (i=0; i<MAX_SIGNALS; i++) {
