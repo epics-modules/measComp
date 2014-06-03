@@ -20,6 +20,7 @@ LIBRARY_IOC_cygwin32 += measComp
 LIB_SRCS += drvC9513.cpp
 LIB_SRCS += drv1608G.cpp
 LIB_SRCS += drvUSBCTR.cpp
+LIB_SRCS += USBCTR_SNL.st
 
 measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
