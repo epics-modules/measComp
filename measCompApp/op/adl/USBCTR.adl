@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=269
-		y=100
+		x=100
+		y=81
 		width=1090
 		height=735
 	}
@@ -1959,7 +1959,7 @@ rectangle {
 }
 "related display" {
 	object {
-		x=77
+		x=93
 		y=93
 		width=100
 		height=20
@@ -1972,4 +1972,46 @@ rectangle {
 	clr=14
 	bclr=51
 	label="Scaler"
+}
+text {
+	object {
+		x=100
+		y=137
+		width=84
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="MCS"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=52
+		y=132
+		width=180
+		height=65
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
+	}
+}
+"related display" {
+	object {
+		x=92
+		y=171
+		width=100
+		height=20
+	}
+	display[0] {
+		label="MCS"
+		name="USBCTR_MCS.adl"
+		args="P=USBCTR:MCS:,M=mca"
+	}
+	clr=14
+	bclr=51
+	label="MCS"
 }
