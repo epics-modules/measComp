@@ -19,7 +19,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 #              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program 
 #              numCounters)    # Number of counters to use
 #              maxTimePoints)  # Maximum number of time points for MCS
-USBCTRConfig("$(PORT)", 0, 8, 2048)
+USBCTRConfig("$(PORT)", 0, 2048)
 
 #asynSetTraceMask $(PORT) 0 255
 
