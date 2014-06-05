@@ -161,6 +161,50 @@ record(bo,"$(P)SetClientWait") {
 record(busy,"$(P)ClientWait") {
 }
 
+record(mbbo,"$(P)FirstCounter") {
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(OUT,  "@asyn($(PORT),0)MCS_FIRST_COUNTER")
+  field(ZRVL, "0")
+  field(ZRST, "CTR0")
+  field(ONVL, "1")
+  field(ONST, "CTR1")
+  field(TWVL, "2")
+  field(TWST, "CTR2")
+  field(THVL, "3")
+  field(THST, "CTR3")
+  field(FRVL, "4")
+  field(FRST, "CTR4")
+  field(FVVL, "5")
+  field(FVST, "CTR5")
+  field(SXVL, "6")
+  field(SXST, "CTR6")
+  field(SVVL, "7")
+  field(SVST, "CTR7")
+}
+
+record(mbbo,"$(P)LastCounter") {
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(OUT,  "@asyn($(PORT),0)MCS_LAST_COUNTER")
+  field(ZRVL, "0")
+  field(ZRST, "CTR0")
+  field(ONVL, "1")
+  field(ONST, "CTR1")
+  field(TWVL, "2")
+  field(TWST, "CTR2")
+  field(THVL, "3")
+  field(THST, "CTR3")
+  field(FRVL, "4")
+  field(FRST, "CTR4")
+  field(FVVL, "5")
+  field(FVST, "CTR5")
+  field(SXVL, "6")
+  field(SXST, "CTR6")
+  field(SVVL, "7")
+  field(SVST, "CTR7")
+}
+
 record(longin,"$(P)MaxChannels") {
   field(PINI, "YES")
   field(DTYP, "asynInt32")
