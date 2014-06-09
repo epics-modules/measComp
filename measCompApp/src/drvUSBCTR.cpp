@@ -398,6 +398,7 @@ int USBCTR::startMCS()
   int extTrigger;
   int status;
   int options;
+  int prescale;
   int mode;
   double dwell;
   int channelAdvance;
@@ -408,9 +409,17 @@ int USBCTR::startMCS()
   
   getIntegerParam(MCSFirstCounter_, &firstMCSCounter_);
   getIntegerParam(MCSLastCounter_,  &lastMCSCounter_);
+  getIntegerParam(mcaPrescale_, &prescale);
+  getIntegerParam(mcaChannelAdvanceSource_, &channelAdvance);
   numMCSCounters_ = (lastMCSCounter_ - firstMCSCounter_ + 1);
   for (i=firstMCSCounter_; i<=lastMCSCounter_; i++) {
     mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
+    if ((i == lastMCSCounter_) && (prescale > 0) && (channelAdvance == mcaChannelAdvance_External)) {
+      mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
+      status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+i, 0); 
+      status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+i, prescale); 
+      status = cbCLoad32(boardNum_, MAXLIMITREG0+i, prescale-1); 
+    }
     status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
                            CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     if (status) {
@@ -421,7 +430,6 @@ int USBCTR::startMCS()
   }
   getIntegerParam(mcaNumChannels_, &numPoints);
   getIntegerParam(MCSExtTrigger_, &extTrigger);
-  getIntegerParam(mcaChannelAdvanceSource_, &channelAdvance);
   getDoubleParam(mcaDwellTime_, &dwell);
   if (dwell > 1e-6) rateFactor = 1000.;
   rate = (long)((rateFactor / dwell) + 0.5);
