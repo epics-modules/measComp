@@ -417,7 +417,7 @@ int USBCTR::startMCS()
     if ((i == lastMCSCounter_) && (prescale > 0) && (channelAdvance == mcaChannelAdvance_External)) {
       mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
       status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+i, 0); 
-      status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+i, prescale); 
+      status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+i, prescale-1); 
       status = cbCLoad32(boardNum_, MAXLIMITREG0+i, prescale-1); 
     }
     status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
