@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp-1-1/measCompApp/op/adl/USBCTR_MCS.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/USBCTR_MCS.adl"
 	version=030107
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=155
 		y=131
 		width=680
-		height=525
+		height=400
 	}
 	clr=14
 	bclr=4
@@ -104,7 +104,7 @@ rectangle {
 		x=4
 		y=40
 		width=350
-		height=480
+		height=355
 	}
 	"basic attribute" {
 		clr=54
@@ -434,7 +434,7 @@ composite {
 composite {
 	object {
 		x=18
-		y=488
+		y=367
 		width=257
 		height=20
 	}
@@ -443,7 +443,7 @@ composite {
 		menu {
 			object {
 				x=18
-				y=488
+				y=367
 				width=100
 				height=20
 			}
@@ -456,7 +456,7 @@ composite {
 		text {
 			object {
 				x=125
-				y=488
+				y=367
 				width=90
 				height=20
 			}
@@ -468,7 +468,7 @@ composite {
 		"message button" {
 			object {
 				x=225
-				y=488
+				y=367
 				width=50
 				height=20
 			}
@@ -487,7 +487,7 @@ rectangle {
 		x=365
 		y=40
 		width=310
-		height=480
+		height=355
 	}
 	"basic attribute" {
 		clr=54
@@ -1089,15 +1089,51 @@ text {
 	}
 	textix="First counter"
 }
-menu {
+composite {
 	object {
 		x=18
 		y=287
+		width=257
+		height=20
+	}
+	"composite name"=""
+	children {
+		menu {
+			object {
+				x=18
+				y=287
+				width=100
+				height=20
+			}
+			control {
+				chan="$(P)LastCounter"
+				clr=14
+				bclr=51
+			}
+		}
+		text {
+			object {
+				x=125
+				y=287
+				width=150
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Last counter"
+		}
+	}
+}
+menu {
+	object {
+		x=18
+		y=312
 		width=100
 		height=20
 	}
 	control {
-		chan="$(P)LastCounter"
+		chan="$(P)PrescaleCounter"
 		clr=14
 		bclr=51
 	}
@@ -1105,12 +1141,12 @@ menu {
 text {
 	object {
 		x=125
-		y=287
+		y=312
 		width=150
 		height=20
 	}
 	"basic attribute" {
 		clr=14
 	}
-	textix="Last counter"
+	textix="Prescale counter"
 }
