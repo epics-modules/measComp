@@ -756,6 +756,17 @@ int USBCTR::setScalerPresets()
   int status;
   static const char *functionName = "setScalerPresets";
 
+  for (i=0; i<numCounters_; i++) {
+    getIntegerParam(i, scalerPresets_, &scalerPresetCounts_[i]);
+    if (scalerPresetCounts_[i] > 0) {
+      status = cbCLoad32(boardNum_, MAXLIMITREG0+i, scalerPresetCounts_[i]); 
+      if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+          "%s::%s error calling cbCLoad32, reg=%d, presetCounts=%d, status=%d, error=%s\n",
+          driverName, functionName, MAXLIMITREG0+i, scalerPresetCounts_[i], status, getErrorMessage(status));
+      }
+    }
+  }
   // For counter0 output register 0 and 1 control when the counter output goes low and high
   status = cbCLoad32(boardNum_, OUTPUTVAL0REG0, 0); 
   if (status) {
@@ -770,17 +781,6 @@ int USBCTR::setScalerPresets()
       driverName, functionName, OUTPUTVAL1REG0, scalerPresetCounts_[0], status, getErrorMessage(status));
   }
   
-  for (i=0; i<numCounters_; i++) {
-    getIntegerParam(i, scalerPresets_, &scalerPresetCounts_[i]);
-    if (scalerPresetCounts_[i] > 0) {
-      status = cbCLoad32(boardNum_, MAXLIMITREG0+i, scalerPresetCounts_[i]); 
-      if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-          "%s::%s error calling cbCLoad32, reg=%d, presetCounts=%d, status=%d, error=%s\n",
-          driverName, functionName, MAXLIMITREG0+i, scalerPresetCounts_[i], status, getErrorMessage(status));
-      }
-    }
-  }
   return 0;
 }
 
