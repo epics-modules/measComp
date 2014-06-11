@@ -7,6 +7,7 @@
 ###################################################################
 record(bo, "$(P)$(R)Run")
 {
+    field(PINI, "YES")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_RUN")
     field(ZNAM, "Stop")
@@ -32,6 +33,14 @@ record(ao, "$(P)$(R)Period")
     field(FLNK, "$(P)$(R)CalcFrequency")
 }
 
+record(ai, "$(P)$(R)Period_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))PULSE_PERIOD")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
 ###################################################################
 #  Calculate frequency based on new period                        # 
 ###################################################################
@@ -51,6 +60,13 @@ record(ao, "$(P)$(R)Frequency")
 {
     field(PREC, "$(PREC)")
     field(FLNK, "$(P)$(R)CalcPeriod PP MS")
+}
+
+record(calc, "$(P)$(R)Frequency_RBV")
+{
+    field(INPA, "$(P)$(R)Period_RBV CP MS")
+    field(CALC, "1/A")
+    field(PREC, "$(PREC)")
 }
 
 ###################################################################
@@ -77,6 +93,14 @@ record(ao, "$(P)$(R)Width")
     field(PREC, "$(PREC)")
 }
 
+record(ai, "$(P)$(R)Width_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))PULSE_WIDTH")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
 ###################################################################
 #  Pulse delay                                                    # 
 ###################################################################
@@ -87,6 +111,14 @@ record(ao, "$(P)$(R)Delay")
     field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_DELAY")
     field(VAL,  "0.")
     field(PREC, "$(PREC)")
+}
+
+record(ai, "$(P)$(R)Delay_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))PULSE_DELAY")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
 }
 
 ###################################################################
