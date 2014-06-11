@@ -51,6 +51,7 @@ static const char *driverName = "USBCTR";
 #define MCSTimeWFString           "MCS_TIME_WF"
 #define MCSFirstCounterString     "MCS_FIRST_COUNTER"
 #define MCSLastCounterString      "MCS_LAST_COUNTER"
+#define MCSPrescaleCounterString  "MCS_PRESCALE_COUNTER"
 
 // Model ID
 #define modelString               "MODEL"
@@ -59,7 +60,7 @@ static const char *driverName = "USBCTR";
 #define MAX_FREQUENCY   48e6
 #define MIN_DELAY       0.
 #define MAX_DELAY       67.11
-#define MAX_COUNTERS    8   // Number of counters on USB-CTR08
+#define MAX_COUNTERS    8   // Maximum mumber of counters on USB-CTR04/08
 #define NUM_TIMERS      4   // Number of timers on USB-CTR08
 #define NUM_IO_BITS     8   // Number of digital I/O bits on USB-CTR08
 #define MAX_SIGNALS     MAX_COUNTERS
@@ -113,6 +114,7 @@ protected:
   int MCSTimeWF_;
   int MCSFirstCounter_;
   int MCSLastCounter_;
+  int MCSPrescaleCounter_;
 
   // Command for EPICS MCA record
   int mcaStartAcquire_;
@@ -167,7 +169,7 @@ private:
   epicsInt16 *pCounts16_;
   int counterBits_;
   
-  bool pulseGenRunning_;
+  bool pulseGenRunning_[NUM_TIMERS];
   bool scalerRunning_;
   bool MCSRunning_;
   bool MCSErased_;
@@ -210,14 +212,13 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
     pollTime_(DEFAULT_POLL_TIME),
     forceCallback_(1),
     maxTimePoints_(maxTimePoints),
-    pulseGenRunning_(false),
     scalerRunning_(false),
     MCSRunning_(false)
 {
   int i;
   char boardName[BOARDNAMELEN];
   //static const char *functionName = "USBCTR";
-    
+   
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
   createParam(pulseGenPeriodString,          asynParamFloat64, &pulseGenPeriod_);
@@ -245,6 +246,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
   createParam(MCSTimeWFString,          asynParamFloat32Array, &MCSTimeWF_);
   createParam(MCSFirstCounterString,           asynParamInt32, &MCSFirstCounter_);
   createParam(MCSLastCounterString,            asynParamInt32, &MCSLastCounter_);
+  createParam(MCSPrescaleCounterString,        asynParamInt32, &MCSPrescaleCounter_);
 
   // MCA record parameters
   createParam(mcaStartAcquireString,                asynParamInt32, &mcaStartAcquire_);
@@ -282,7 +284,6 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
 
   setIntegerParam(MCSFirstCounter_, 0);
   cbGetBoardName(boardNum_, boardName);
-  printf("Board name = %s\n", boardName);
   if (strcmp(boardName, "USB-CTR08") == 0) {
     setIntegerParam(model_, 0);
     numCounters_ = 8;
@@ -310,8 +311,16 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
   setIntegerParam(scalerDone_, 1);
   setIntegerParam(scalerChannels_, numCounters_);
   setIntegerParam(MCSMaxPoints_, maxTimePoints_);
+  setIntegerParam(mcaNumChannels_, maxTimePoints_);
   resetScaler();
   clearScalerPresets();
+  MCSErased_ = false;
+  eraseMCS();
+
+  // Put pulse generators in known state
+  for (i=0; i<NUM_TIMERS; i++) {
+    stopPulseGenerator(i);
+  }
 
   /* Start the thread to poll counters and digital inputs and do callbacks to 
    * device support */
@@ -363,7 +372,7 @@ int USBCTR::startPulseGenerator(int timerNum)
   }
   // We may not have gotten the frequency, dutyCycle, and delay we asked for, set the actual values
   // in the parameter library
-  pulseGenRunning_ = true;
+  pulseGenRunning_[timerNum] = true;
   period = 1. / frequency;
   width = period * dutyCycle;
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
@@ -380,7 +389,7 @@ int USBCTR::stopPulseGenerator(int timerNum)
   int status;
   static const char *functionName = "stopPulseGenerator";
 
-  pulseGenRunning_ = false;
+  pulseGenRunning_[timerNum] = false;
   status = cbPulseOutStop(boardNum_, timerNum);
   if (status != 0) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -399,6 +408,7 @@ int USBCTR::startMCS()
   int status;
   int options;
   int prescale;
+  int prescaleCounter;
   int mode;
   double dwell;
   int channelAdvance;
@@ -406,26 +416,35 @@ int USBCTR::startMCS()
   long rate;
   double rateFactor=1.0;
   static const char *functionName = "startMCS";
-  
-  getIntegerParam(MCSFirstCounter_, &firstMCSCounter_);
-  getIntegerParam(MCSLastCounter_,  &lastMCSCounter_);
+
+  getIntegerParam(MCSFirstCounter_,   &firstMCSCounter_);
+  getIntegerParam(MCSLastCounter_,     &lastMCSCounter_);
+  getIntegerParam(MCSPrescaleCounter_, &prescaleCounter);
   getIntegerParam(mcaPrescale_, &prescale);
   getIntegerParam(mcaChannelAdvanceSource_, &channelAdvance);
   numMCSCounters_ = (lastMCSCounter_ - firstMCSCounter_ + 1);
   for (i=firstMCSCounter_; i<=lastMCSCounter_; i++) {
     mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
-    if ((i == lastMCSCounter_) && (prescale > 0) && (channelAdvance == mcaChannelAdvance_External)) {
-      mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
-      status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+i, 0); 
-      status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+i, prescale-1); 
-      status = cbCLoad32(boardNum_, MAXLIMITREG0+i, prescale-1); 
-    }
     status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
                            CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     if (status) {
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
         "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
         driverName, functionName, i, mode, status, getErrorMessage(status));
+    }
+  }
+  
+  if ((channelAdvance == mcaChannelAdvance_External) && (prescale > 1) ) {
+    mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
+    status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0); 
+    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1); 
+    status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1); 
+    status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
+                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
+        driverName, functionName, prescaleCounter, mode, status, getErrorMessage(status));
     }
   }
   getIntegerParam(mcaNumChannels_, &numPoints);
@@ -785,13 +804,13 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
     if (value) {
       status = startPulseGenerator(addr);
     } 
-    else if (!value && pulseGenRunning_) {
+    else if (!value && pulseGenRunning_[addr]) {
       status = stopPulseGenerator(addr);
     }
   }
   if ((function == pulseGenCount_) ||
       (function == pulseGenIdleState_)) {
-    if (pulseGenRunning_) {
+    if (pulseGenRunning_[addr]) {
       status = stopPulseGenerator(addr);
       status |= startPulseGenerator(addr);
     }
@@ -963,7 +982,7 @@ asynStatus USBCTR::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   if ((function == pulseGenPeriod_)    ||
       (function == pulseGenWidth_)     ||
       (function == pulseGenDelay_)) {
-    if (pulseGenRunning_) {
+    if (pulseGenRunning_[addr]) {
       status = stopPulseGenerator(addr);
       status |= startPulseGenerator(addr);
     }
@@ -1172,6 +1191,10 @@ void USBCTR::report(FILE *fp, int details)
   fprintf(fp, "  Port: %s, board number=%d\n", 
           this->portName, boardNum_);
   if (details >= 1) {
+    fprintf(fp, "  Pulse generators:\n");
+    for (i=0; i<NUM_TIMERS; i++) {
+      fprintf(fp, "    %d: Running:%d\n", i, pulseGenRunning_[i]);
+    }
     fprintf(fp, "  numCounters: %d\n", numCounters_);
     fprintf(fp, "  Scaler:\n");
     fprintf(fp, "    Running: %d\n", scalerRunning_);
