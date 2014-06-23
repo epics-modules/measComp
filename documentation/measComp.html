@@ -19,19 +19,28 @@
   <p>
     Models supported in <b>measComp</b> include:</p>
   <ul>
-    <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx">USB-4303</a>.
-      This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
-      of which contains 5 16-bit counter/timer units. The driver supports independent
-      control of each counter/timer unit, but it also supports the EPICS scaler record
-      with 4 32-bit counters, a 16-bit preset timer, and one 16-bit counter. The device
-      also contains 8 binary outputs, 8 binary inputs, which are supported with standard
-      EPICS bi, bo, longin, and longout records.</li>
+    <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx">USB-CTR08</a>.
+      This device is an 8-channel counter/timer module. The driver supports the EPICS
+      scaler record with 8 32-bit counters. Counter 0 can be used as a preset counter
+      that controls the other 7 counters, the same as the Joerger VSC or the SIS3820.
+      The driver also supports using the USB-CTR08 in multi-channel scaler (MCS) mode
+      like the SIS3820, with internal or external channel advance and dwell times as short
+      as 250 ns. The device also contains 4 programmable pulse generators, and 8 digital
+      I/O bits, which are supported with standard EPICS records.</li>
     <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx">USB-1608GX-2AO</a>.
       analog I/O module. This device contains 16 single-ended/8 differential 16-bit analog
       inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs and
       outputs can each be run at 500 kHz. The driver supports simple analog I/O, 2 waveform
       generators using the analog outputs, an 8 or 16 channel waveform digitizer using
       the analog inputs, binary I/O, and a pulse generator.</li>
+    <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx">USB-4303</a>.
+      This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
+      of which contains 5 16-bit counter/timer units. The driver supports independent
+      control of each counter/timer unit, but it also supports the EPICS scaler record
+      with 4 32-bit counters, a 16-bit preset timer, and one 16-bit counter. The device
+      also contains 8 binary outputs, 8 binary inputs, which are supported with standard
+      EPICS bi, bo, longin, and longout records. NOTE: This module is obsolete and is
+      no longer be available. Use the USB-CTR08 instead.</li>
   </ul>
   <p>
     Please email any comments and bug reports to <a href="mailto:%20rivers@cars.uchicago.edu">
@@ -58,11 +67,25 @@
       </tr>
       <tr>
         <td>
+          1-1</td>
+        <td>
+          23-June-2014</td>
+        <td>
+          <a href="http://cars.uchicago.edu/software/pub/measCompR1-1.tgz">measCompR1-1.tgz</a>
+        </td>
+        <td>
+          <a href="measCompDoc.html">measCompDoc</a></td>
+        <td>
+          <a href="measCompReleaseNotes.html">Release notes</a></td>
+      </tr>
+      <tr>
+        <td>
           1-0</td>
         <td>
           28-November-2011</td>
         <td>
-          <a href="http://cars.uchicago.edu/software/pub/measCompR1-0.tgz">measCompR1-0.tgz</a></td>
+          <a href="http://cars.uchicago.edu/software/pub/measCompR1-0.tgz">measCompR1-0.tgz</a>
+        </td>
         <td>
           <a href="measCompDoc.html">measCompDoc</a></td>
         <td>
@@ -83,6 +106,81 @@
           Release needed</th>
         <th>
           Required for</th>
+      </tr>
+      <tr>
+        <td rowspan="9">
+          1-1</td>
+        <td>
+          EPICS base</td>
+        <td>
+          3.14.12.4</td>
+        <td>
+          Base support</td>
+      </tr>
+      <tr>
+        <td>
+          asyn</td>
+        <td>
+          4-23</td>
+        <td>
+          Driver and device support</td>
+      </tr>
+      <tr>
+        <td>
+          autosave</td>
+        <td>
+          5-1</td>
+        <td>
+          Save/restore support</td>
+      </tr>
+      <tr>
+        <td>
+          busy</td>
+        <td>
+          1-6</td>
+        <td>
+          Busy record support</td>
+      </tr>
+      <tr>
+        <td>
+          mca</td>
+        <td>
+          7-4</td>
+        <td>
+          mca record support.</td>
+      </tr>
+      <tr>
+        <td>
+          std</td>
+        <td>
+          3-2</td>
+        <td>
+          Scaler record support.</td>
+      </tr>
+      <tr>
+        <td>
+          seq</td>
+        <td>
+          2.1.10</td>
+        <td>
+          State notation language sequencer. Used in MCS mode with USB-CTR08 and for std.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          calc</td>
+        <td>
+          3-2</td>
+        <td>
+          Record support for transform record, used by scaler record databases in std</td>
+      </tr>
+      <tr>
+        <td>
+          sscan</td>
+        <td>
+          2-9</td>
+        <td>
+          Scanning support. Required by calc for recDynLink.</td>
       </tr>
       <tr>
         <td rowspan="8">
@@ -132,7 +230,8 @@
         <td>
           2.0.12</td>
         <td>
-          State notation language sequencer. Needed by std, not directly used by measComp.</td>
+          State notation language sequencer. Needed by std, not directly used by measComp.
+        </td>
       </tr>
       <tr>
         <td>
