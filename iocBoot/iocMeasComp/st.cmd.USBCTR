@@ -32,7 +32,7 @@ dbLoadRecords("$(STD)/stdApp/Db/scaler.db", "P=USBCTR:, S=scaler1, DTYP=Asyn Sca
 dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT)")
 
 # Load either MCA or waveform records below
-# The number of records loaded must be the same as MAX_SIGNALS defined above
+# The number of records loaded must be the same as MAX_COUNTERS defined above
 
 # Load the MCA records
 dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)1,  DTYP=asynMCA, INP=@asyn($(PORT) 0),  PREC=3, CHANS=$(MAX_POINTS)")
