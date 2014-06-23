@@ -12,12 +12,13 @@
 #include <math.h>
 
 #include <iocsh.h>
-#include <epicsExport.h>
 #include <epicsThread.h>
 
 #include <asynPortDriver.h>
 
 #include "cbw.h"
+
+#include <epicsExport.h>
 
 static const char *driverName = "USB1608G";
 
