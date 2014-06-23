@@ -119,14 +119,6 @@ record(ao,"$(P)Dwell") {
   field(PREC, "3")
 }
 
-record(ao,"$(P)PresetReal") {
-  field(PINI, "YES")
-  field(DTYP, "asynFloat64")
-  field(OUT,  "@asyn($(PORT),0)MCA_PRESET_REAL")
-  field(VAL,  "0")
-  field(PREC, "3")
-}
-
 record(bo,"$(P)ChannelAdvance") {
   field(PINI, "YES")
   field(DTYP, "asynInt32")
