@@ -10,7 +10,7 @@
     <h1>
       measComp: EPICS Drivers for Measurement Computing Devices</h1>
     <h2>
-      November 28, 2011</h2>
+      June 10, 2014</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -20,9 +20,10 @@
     Introduction</h2>
   <p>
     This package provides EPICS drivers for the some of the USB I/O modules from Measurement
-    Computing. Currently the USB-4303 counter/timer module and the USB-1608G-2A0 analog
+    Computing. Currently the USB-CTR04/08 and USB-4303 counter/timer modules and the USB-1608G-2A0 analog
     input/output module are supported. Each of these drivers is documented separately.</p>
   <ul>
+    <li><a href="measCompUSBCTRDoc.html">USB-CTR04/08 driver</a></li>
     <li><a href="measComp1608GDoc.html">USB-1608GX-2A0 driver</a></li>
     <li><a href="measComp4303Doc.html">USB-4303 driver</a></li>
   </ul>
@@ -30,7 +31,7 @@
     This module is currently only supported on Windows, with the win32-x86, windows-x64,
     and cygwin-x86 EPICS architectures. The driver uses the Measurement Computing "Universal
     Library", which is only available on Windows. Measurement Computing does not offer
-    Linux support for the USB-4303. They do have a new message based library they call
+    Linux support for the USB-CTR04/08 or USB-4303. They do have a new message based library they call
     DAQFlex, which runs on Windows, Linux, and Mac. It currently only supports a few
     of their newer modules, including the USB-1608G series. The software architecture
     of this package is quite nice, and the source code for the drivers is provided.
