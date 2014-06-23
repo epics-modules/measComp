@@ -22,6 +22,8 @@ LIB_SRCS += drv1608G.cpp
 LIB_SRCS += drvUSBCTR.cpp
 LIB_SRCS += USBCTR_SNL.st
 
+measComp_LIBS += asyn
+measComp_LIBS += seq pv
 measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # Note, the following files were manually copied from the Measurement Computing/DAQ/C directory.
@@ -56,10 +58,13 @@ measCompApp_LIBS += autosave
 measCompApp_LIBS += asyn
 measCompApp_LIBS += seq pv
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+measComp_LIBS += cbw32
 measCompApp_LIBS += cbw32
 else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
+measComp_LIBS += cbw32
 measCompApp_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+measComp_LIBS += cbw64
 measCompApp_LIBS += cbw64
 endif
 # Finally link to the EPICS Base libraries
