@@ -12,7 +12,6 @@
 */
 
 #include <iocsh.h>
-#include <epicsExport.h>
 #include <epicsThread.h>
 
 #include <asynPortDriver.h>
@@ -20,6 +19,8 @@
 #include <devScalerAsyn.h>
 
 #include "cbw.h"
+
+#include <epicsExport.h>
 
 static const char *driverName = "C9513";
 
