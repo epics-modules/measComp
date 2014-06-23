@@ -67,7 +67,6 @@ static const char *driverName = "USBCTR";
 #define MAX_SIGNALS     MAX_COUNTERS
 
 #define DEFAULT_POLL_TIME 0.01
-#define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
 
 /** This is the class definition for the USBCTR class
   */
