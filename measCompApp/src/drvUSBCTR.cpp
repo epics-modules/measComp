@@ -193,7 +193,7 @@ private:
   int computeMCSTimes();
 };
 
-#define NUM_PARAMS (&LAST_USBCTR_PARAM - &FIRST_USBCTR_PARAM + 1)
+#define NUM_PARAMS ((int)(&LAST_USBCTR_PARAM - &FIRST_USBCTR_PARAM + 1))
 
 static void pollerThreadC(void * pPvt)
 {
@@ -1074,7 +1074,7 @@ asynStatus USBCTR::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
     int numCopy;
     getIntegerParam(mcaNumChannels_, &nChans);
     getIntegerParam(MCSCurrentPoint_, &currentPoint);
-    numCopy = numRead;
+    numCopy = (int)numRead;
     if (numCopy > nChans) numCopy = nChans;
     // We copy all the channels but we only report nchans
     // This ensures the entire array is correct even if it was not set to zero at the start
