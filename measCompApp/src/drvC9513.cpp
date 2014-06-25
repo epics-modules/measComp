@@ -140,7 +140,7 @@ private:
   int setupPulseGenerator(int pulserNum);
 };
 
-#define NUM_PARAMS (&LAST_C9513_PARAM - &FIRST_C9513_PARAM + 1)
+#define NUM_PARAMS ((int)(&LAST_C9513_PARAM - &FIRST_C9513_PARAM + 1))
 
 static void pollerThreadC(void * pPvt)
 {
