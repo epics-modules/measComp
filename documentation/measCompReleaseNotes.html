@@ -9,10 +9,32 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
-    Release 1-1 (Feb. XXX, 2012)</h2>
+    Release 1-1 (June 25, 2014)</h2>
   <ul>
+    <li>Added support for the new USB-CTR04/08 counter/timer modules. This includes support
+      for the EPICS scaler record (similar to the Joerger VSC and SIS3820), and multi-channel
+      scaler mode (similar to the SIS3820). This device can replace the SIS3820 in most
+      applications for $429, which is less than 10% of the cost of the SIS3820.</li>
+    <li>Updated from release 6.1 to 6.3 of the Measurement Computing Universal Library.</li>
+    <li>Added dependency on synApps mca module for USB-CTR08 driver.</li>
     <li>Added more fields to the measCompAnalogIn_settings.req and measCompAnalogOut_settings.req
       files for save/restore.</li>
+    <li>Added _RBV (readback) fields for pulse generator Period, Frequency, Width, and
+      Delay since the requested value may not match the actual value due to hardware limitations.</li>
+    <li>Add new demoSrc directory that contains a tutorial/demo on how to write a driver
+      using asynPortDriver. The example is based on the USB-1608GX-2AO. It includes:
+      <ul>
+        <li>6 versions of the demo driver source code, starting with a very simple 132 line
+          driver that just does 2 analog output records, and ending with the full driver that
+          is 1255 lines and has waveform digitizer and waveform generator support, etc.</li>
+        <li>A new iocMeasCompDemo directory with the various versions of the startup script.</li>
+        <li>New medm files (measCompDemoTop.adl, 1608G_V[1,2,3,4,5].adl).</li>
+        <li>New files in the documentation directory, measCompDriverTalk.pdf and measCompTutorial.pdf
+          that were presented at an EPICS class on writing drivers based on asynPortDriver.</li>
+      </ul>
+    </li>
+    <li>Added the Run record to measCompPulseGen_settings.req, so it remembers the run/stop
+      state.</li>
   </ul>
   <h2 style="text-align: center">
     Release 1-0 (Nov. 28, 2011)</h2>
