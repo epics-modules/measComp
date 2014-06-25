@@ -64,7 +64,7 @@ private:
   int boardNum_;
 };
 
-#define NUM_PARAMS (&LAST_USB1608G_PARAM - &FIRST_USB1608G_PARAM + 1)
+#define NUM_PARAMS ((int)(&LAST_USB1608G_PARAM - &FIRST_USB1608G_PARAM + 1))
 
 /** Constructor for the USB1608G class
   */

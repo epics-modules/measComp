@@ -72,7 +72,7 @@ private:
   int forceCallback_;
 };
 
-#define NUM_PARAMS (&LAST_USB1608G_PARAM - &FIRST_USB1608G_PARAM + 1)
+#define NUM_PARAMS ((int)(&LAST_USB1608G_PARAM - &FIRST_USB1608G_PARAM + 1))
 
 static void pollerThreadC(void * pPvt)
 {
