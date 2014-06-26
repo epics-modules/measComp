@@ -464,8 +464,8 @@ int USBCTR::startMCS()
   options   |= BACKGROUND;
   if (rateFactor > 1.0) 
     options |= HIGHRESRATE;
-//  if (extTrigger) 
-//  options |= EXTTRIGGER;
+  // Always enable external trigger.  If trigger input is not connected set TriggerMode=Low.
+  options |= EXTTRIGGER;
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
   
