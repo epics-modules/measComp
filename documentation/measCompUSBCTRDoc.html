@@ -31,6 +31,7 @@
     </li>
     <li><a href="#Wiring">Wiring</a></li>
     <li><a href="#Performance">Performance measurements</a> </li>
+    <li><a href="#Restrictions">Restrictions</a> </li>
   </ul>
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
@@ -459,7 +460,19 @@ create_monitor_set("auto_settings.req",30)
     <li>An external channel advance can be "prescaled" (frequency divided by N) by connecting
       it to a counter input that is outside the range of FirstCounter to LastCounter.
       This counter is assigned to the PrescaleCounter record. The Counter Output of the
-      PrescaleCounter must be connected to the External Clock Input on the USB-CTR module.</li>
+      PrescaleCounter must be connected to the External Clock Input on the USB-CTR module.
+      I have asked Measurment Computing to consider adding a prescale register for the
+      CLKI signal in a future firmware version, but I don't know if this will be done.</li>
+    <li>To achieve the shortest dwell times the counter must be read in 16-bit mode rather
+      than 32-bit mode. This is handled automatically by the driver. If the dwell time
+      is less than 100 microseconds the counters are read in 16-bit mode, while for longer
+      dwell times they are read in 32-bit mode. There is no possible loss of data when
+      reading in 16-bit mode because at the maximum count rate of 48 MHz only 4800 counts
+      can occur in 100 microseconds, which is much less than the 16-bit limit. NOTE: When
+      using external channel advance the Dwell record should be set to the approximate
+      time between external pulses. This will cause the correct 32-bit/16-bit switch to
+      occur so that the minimum dwell time can be reached and so the counters don't overflow
+      16-bits for longer dwell times.</li>
   </ul>
   <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
     <tbody>
@@ -928,6 +941,35 @@ This is cheaper and simpler than using LEMO tees and short cables on the BC-020 
     exactly 8000000 pulses at 8 MHz to channel 0 with a 1 ms internal dwell time the
     total number of counts in the MCA record was 8000000. This means that no pulses
     were lost during the 1000 channel advances that happened during this time.</p>
+  <h2 id="Restrictions" style="text-align: center">
+    Restrictions</h2>
+  <p>
+    The USB-CTR08 has many capabilities that are not currently available in the EPICS
+    driver.</p>
+  <ul>
+    <li>The EPICS driver only uses the Totalize mode of the counters. With the scaler
+      record it does a one-shot totalize, while in the MCS mode it totalizes into time-bins.
+      The USB-CTR08 is also capable of running in 3 other modes.
+      <ol>
+        <li>In Period mode it measures the time between the rising or falling edges of successive
+          input pulses.</li>
+        <li>In Pulse Width measurement mode it measures the time between the rising and falling
+          edges of a each pulse.</li>
+        <li>In Timing Mode it measures the time between an event on the counter input and
+          another event on the counter gate.</li>
+      </ol>
+      None of these modes are currently supported by the EPICS driver, but they could
+      be added in a future release.</li>
+    <li>In Totalize mode each counter has many options in how it works: count up/down,
+      gate clears counter, gate controls counter direction, preset counts where the output
+      signal goes high/low, polarity of the output, etc. These options are not currently
+      exposed in the EPICS driver.</li>
+    <li>The EPICS driver only works in 32-bit counter depth mode. The USB-CTR08 can count
+      with a 64-bit counter depth. EPICS does not currently have support for 64-bit integer
+      data types, so this cannot be supported.</li>
+    <li>To work with the scaler record the counter 0 output must be wired to the gate
+      inputs of counters 1-7 as discussed above.</li>
+  </ul>
   <hr />
   <address>
     Suggestions and Comments to:
