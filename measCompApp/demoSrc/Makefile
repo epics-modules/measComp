@@ -13,18 +13,18 @@ DBD += measCompDemoSupport.dbd
 #=============================
 # Build the IOC application
 
-PROD_IOC_WIN32 += measCompAppV1
-measCompAppV1_SRCS += drv1608G_V1
-PROD_IOC_WIN32 += measCompAppV2
-measCompAppV2_SRCS += drv1608G_V2
-PROD_IOC_WIN32 += measCompAppV3
-measCompAppV3_SRCS += drv1608G_V3
-PROD_IOC_WIN32 += measCompAppV4
-measCompAppV4_SRCS += drv1608G_V4
-PROD_IOC_WIN32 += measCompAppV5
-measCompAppV5_SRCS += drv1608G_V5
-PROD_IOC_WIN32 += measCompApp
-measCompApp_SRCS += drv1608G
+PROD_IOC_WIN32 += measCompDemoAppV1
+measCompDemoAppV1_SRCS += drv1608G_V1
+PROD_IOC_WIN32 += measCompDemoAppV2
+measCompDemoAppV2_SRCS += drv1608G_V2
+PROD_IOC_WIN32 += measCompDemoAppV3
+measCompDemoAppV3_SRCS += drv1608G_V3
+PROD_IOC_WIN32 += measCompDemoAppV4
+measCompDemoAppV4_SRCS += drv1608G_V4
+PROD_IOC_WIN32 += measCompDemoAppV5
+measCompDemoAppV5_SRCS += drv1608G_V5
+PROD_IOC_WIN32 += measCompDemoApp
+measCompDemoApp_SRCS += drv1608G
 
 PROD_SRCS += measCompDemoApp_registerRecordDeviceDriver.cpp
 PROD_SRCS += measCompDemoAppMain.cpp
