@@ -947,6 +947,10 @@ This is cheaper and simpler than using LEMO tees and short cables on the BC-020 
     The USB-CTR08 has many capabilities that are not currently available in the EPICS
     driver.</p>
   <ul>
+    <li>The EPICS driver only works on Windows, because it requires the Measurement Computing
+      Univeral Library which is only available for Windows. Some of the newer Measurement
+      Computing modules have a messaging interface and can be used on Linux, but the USB-CTR08
+      does not (yet?) have a messaging interface.</li>
     <li>The EPICS driver only uses the Totalize mode of the counters. With the scaler
       record it does a one-shot totalize, while in the MCS mode it totalizes into time-bins.
       The USB-CTR08 is also capable of running in 3 other modes.
