@@ -12,7 +12,7 @@
     <h1>
       Including USB-4303, PCI-CTR10, CIO-CTR10, and PC104-CTR10</h1>
     <h2>
-      November 28, 2011</h2>
+      December 5, 2014</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -28,6 +28,11 @@
   </ul>
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
+  <p>
+    <em>NOTE:</em> The Measurement Computing USB-4303 is no longer available. It has
+    been replaced with the USB-CTR04/08 which has higher performance and more features..
+    See the documentation for the <a href="measCompUSBCTRDoc.html">EPICS measCompUSBCTR
+      driver</a> for more information.</p>
   <p>
     This is an <a href="http://www.aps.anl.gov/epics">EPICS</a> driver for the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx">
       USB-4303</a> counter/timer module from <a href="http://www.mccdaq.com">Measurement
@@ -110,7 +115,8 @@ dbLoadTemplate("C9513.substitutions")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b></td>
+          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -128,7 +134,8 @@ dbLoadTemplate("C9513.substitutions")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b></td>
+          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -146,7 +153,8 @@ dbLoadTemplate("C9513.substitutions")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b></td>
+          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -158,7 +166,8 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           DIGITAL_OUTPUT</td>
         <td>
-          Digital output value. The MASK parameter in the INP link defines which bit is used.</td>
+          Digital output value. The MASK parameter in the INP link defines which bit is used.
+        </td>
       </tr>
       <tr>
         <td>
@@ -175,7 +184,8 @@ dbLoadTemplate("C9513.substitutions")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b></td>
+          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -229,8 +239,7 @@ dbLoadTemplate("C9513.substitutions")
           "1" (1)<br />
           "2" (2)<br />
           "..."<br />
-          "16" (0)
-        </td>
+          "16" (0) </td>
       </tr>
       <tr>
         <td>
@@ -277,8 +286,7 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           Choices are:<br />
           "Disable"<br />
-          "Enable"
-        </td>
+          "Enable" </td>
       </tr>
       <tr>
         <td>
@@ -294,8 +302,7 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           Choices are:<br />
           "Disable"<br />
-          "Enable"
-        </td>
+          "Enable" </td>
       </tr>
       <tr>
         <td>
@@ -311,8 +318,7 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           Choices are:<br />
           "Disable"<br />
-          "Enable"
-        </td>
+          "Enable" </td>
       </tr>
       <tr>
         <td>
@@ -326,8 +332,7 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           ALARM_REG1</td>
         <td>
-          Alarm register 1 value.
-        </td>
+          Alarm register 1 value. </td>
       </tr>
       <tr>
         <td>
@@ -341,8 +346,7 @@ dbLoadTemplate("C9513.substitutions")
         <td>
           ALARM_REG2</td>
         <td>
-          Alarm register 2 value.
-        </td>
+          Alarm register 2 value. </td>
       </tr>
     </tbody>
   </table>
@@ -359,7 +363,8 @@ dbLoadTemplate("C9513.substitutions")
     <tbody>
       <tr>
         <td align="center" colspan="5">
-          <b>C9513_counter.template. This database is loaded once for CTS9513 counter channel.</b></td>
+          <b>C9513_counter.template. This database is loaded once for CTS9513 counter channel.</b>
+        </td>
       </tr>
       <tr>
         <th>
@@ -711,7 +716,8 @@ dbLoadTemplate("C9513.substitutions")
           PULSE_COUNT</td>
         <td>
           Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
-          until Run is set to 0. NOTE: this is currently not implemented for CTS9513 counters.</td>
+          until Run is set to 0. NOTE: this is currently not implemented for CTS9513 counters.
+        </td>
       </tr>
       <tr>
         <td>
