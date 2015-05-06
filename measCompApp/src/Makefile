@@ -11,7 +11,7 @@ DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-LIBRARY_IOC_cygwin32 += measComp
+#LIBRARY_IOC_cygwin32 += measComp
 
 # Compile and add the code to the support library
 # Link locally-provided code into the support library,
@@ -30,8 +30,8 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 INC += cbw.h
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 LIB_INSTALLS += ../cbw32.lib
-else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-LIB_INSTALLS += ../cbw32.lib
+#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
+#LIB_INSTALLS += ../cbw32.lib
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 LIB_INSTALLS += ../cbw64.lib
 endif
@@ -40,7 +40,7 @@ endif
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-PROD_IOC_cygwin32 += measCompApp
+#PROD_IOC_cygwin32 += measCompApp
 
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
@@ -60,9 +60,9 @@ measCompApp_LIBS += seq pv
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 measComp_LIBS += cbw32
 measCompApp_LIBS += cbw32
-else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-measComp_LIBS += cbw32
-measCompApp_LIBS += cbw32
+#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
+#measComp_LIBS += cbw32
+#measCompApp_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 measComp_LIBS += cbw64
 measCompApp_LIBS += cbw64
@@ -71,12 +71,12 @@ endif
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 PROD_IOC_WIN32 += test_1608G_1
-PROD_IOC_cygwin32 += test_1608G_1
+#PROD_IOC_cygwin32 += test_1608G_1
 test_1608G_1_SRCS += test_1608G_1.c
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 test_1608G_1_LIBS += cbw32
-else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-test_1608G_1_LIBS += cbw32
+#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
+#test_1608G_1_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 test_1608G_1_LIBS += cbw64
 endif
