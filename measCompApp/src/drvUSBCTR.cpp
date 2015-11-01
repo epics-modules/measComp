@@ -72,7 +72,7 @@ static const char *driverName = "USBCTR";
   */
 class USBCTR : public asynPortDriver {
 public:
-  USBCTR(const char *portName, int boardNum, int maxTimePoints);
+  USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime);
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -201,7 +201,7 @@ static void pollerThreadC(void * pPvt)
     pUSBCTR->pollerThread();
 }
 
-USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
+USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime)
   : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask,
@@ -209,7 +209,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     boardNum_(boardNum),
-    pollTime_(DEFAULT_POLL_TIME),
+    pollTime_((pollTime > 0.) ? pollTime : DEFAULT_POLL_TIME),
     forceCallback_(1),
     maxTimePoints_(maxTimePoints),
     scalerRunning_(false),
@@ -218,7 +218,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints)
   int i;
   char boardName[BOARDNAMELEN];
   //static const char *functionName = "USBCTR";
-   
+     
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
   createParam(pulseGenPeriodString,          asynParamFloat64, &pulseGenPeriod_);
@@ -1188,8 +1188,8 @@ void USBCTR::report(FILE *fp, int details)
   int currentPoint;
   
   asynPortDriver::report(fp, details);
-  fprintf(fp, "  Port: %s, board number=%d\n", 
-          this->portName, boardNum_);
+  fprintf(fp, "  Port: %s, board number=%d, pollTime=%f\n", 
+          this->portName, boardNum_, pollTime_);
   if (details >= 1) {
     fprintf(fp, "  Pulse generators:\n");
     for (i=0; i<NUM_TIMERS; i++) {
@@ -1212,9 +1212,9 @@ void USBCTR::report(FILE *fp, int details)
 
 /** Configuration command, called directly or from iocsh */
 extern "C" int USBCTRConfig(const char *portName, int boardNum, 
-                            int maxTimePoints)
+                            int maxTimePoints, double pollTime)
 {
-  new USBCTR(portName, boardNum, maxTimePoints);
+  new USBCTR(portName, boardNum, maxTimePoints, pollTime);
   return(asynSuccess);
 }
 
@@ -1222,13 +1222,15 @@ extern "C" int USBCTRConfig(const char *portName, int boardNum,
 static const iocshArg configArg0 = { "Port name",             iocshArgString};
 static const iocshArg configArg1 = { "Board number",          iocshArgInt};
 static const iocshArg configArg2 = { "Max. # of time points", iocshArgInt};
+static const iocshArg configArg3 = { "Poll time",             iocshArgDouble};
 static const iocshArg * const configArgs[] = {&configArg0,
                                               &configArg1,
-                                              &configArg2};
-static const iocshFuncDef configFuncDef = {"USBCTRConfig",3,configArgs};
+                                              &configArg2,
+                                              &configArg3};
+static const iocshFuncDef configFuncDef = {"USBCTRConfig",4,configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-  USBCTRConfig(args[0].sval, args[1].ival, args[2].ival);
+  USBCTRConfig(args[0].sval, args[1].ival, args[2].ival, args[3].dval);
 }
 
 void drvUSBCTRRegister(void)
