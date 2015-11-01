@@ -18,7 +18,7 @@ LIBRARY_IOC_WIN32 += measComp
 # rather than directly into the IOC application.
 
 LIB_SRCS += drvC9513.cpp
-LIB_SRCS += drv1608G.cpp
+LIB_SRCS += drvMultiFunction.cpp
 LIB_SRCS += drvUSBCTR.cpp
 LIB_SRCS += USBCTR_SNL.st
 
