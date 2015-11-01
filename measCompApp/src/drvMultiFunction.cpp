@@ -1,12 +1,17 @@
-/* drvUSB1608G.cpp
+/* drvMultiFunction.cpp
  *
- * Driver for Measurement Computing USB-1608G multi-function DAQ board using asynPortDriver base class
+ * Driver for Measurement Computing multi-function DAQ board using asynPortDriver base class
+ * Boards currently supported include:
+ *   USB-1608GX-2A0
+ *   USB-2408-2A0
  *
  * This driver supports simple analog in/out, digital in/out bit and word, timer (digital pulse generator), counter,
  *   waveform out (aribtrary waveform generator), and waveform in (digital oscilloscope)
  *
+ * This driver was previously name drv1608G.cpp but was renamed because it now supports several models.
+ *
  * Mark Rivers
- * November 5, 2011
+ * November 1, 2015
 */
 
 #include <math.h>
@@ -20,7 +25,7 @@
 
 #include <epicsExport.h>
 
-static const char *driverName = "USB1608G";
+static const char *driverName = "MultiFunction";
 
 typedef enum {
   waveTypeUser,
@@ -105,16 +110,11 @@ typedef enum {
 #define digitalInputString        "DIGITAL_INPUT"
 #define digitalOutputString       "DIGITAL_OUTPUT"
 
-#define MIN_FREQUENCY   0.0149
-#define MAX_FREQUENCY   32e6
-#define MIN_DELAY       0.
-#define MAX_DELAY       67.11
-#define NUM_ANALOG_IN   16  // Number analog inputs on 1608G
-#define NUM_ANALOG_OUT  2   // Number of analog outputs on 1608G
-#define NUM_COUNTERS    2   // Number of counters on 1608G
-#define NUM_TIMERS      1   // Number of timers on 1608G
-#define NUM_IO_BITS     8   // Number of digital I/O bits on 1608G
-#define MAX_SIGNALS     NUM_ANALOG_IN
+// MAX_ANALOG_IN and MAX_ANALOG_OUT may need to be changed if additional models are added with larger numbers
+// These are used as a convenience for allocating small arrays of pointers, not large amounts of data
+#define MAX_ANALOG_IN   16
+#define MAX_ANALOG_OUT  2
+#define MAX_SIGNALS     MAX_ANALOG_IN
 
 #define USB_2408_2A0   254
 #define USB_1608GX_2A0 274
@@ -125,11 +125,11 @@ typedef enum {
 
 #define PI 3.14159265
 
-/** This is the class definition for the USB1608G class
+/** This is the class definition for the MultiFunction class
   */
-class USB1608G : public asynPortDriver {
+class MultiFunction : public asynPortDriver {
 public:
-  USB1608G(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints);
+  MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints);
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -147,7 +147,7 @@ public:
 protected:
   // Pulse generator parameters
   int pulseGenRun_;
-  #define FIRST_USB1608G_PARAM pulseGenRun_
+  #define FIRST_MultiFunction_PARAM pulseGenRun_
   int pulseGenPeriod_;
   int pulseGenWidth_;
   int pulseGenDelay_;
@@ -219,20 +219,29 @@ protected:
   int digitalDirection_;
   int digitalInput_;
   int digitalOutput_;
-  #define LAST_USB1608G_PARAM digitalOutput_
+  #define LAST_MultiFunction_PARAM digitalOutput_
 
 private:
   int boardNum_;
   int boardType_;
   char boardName_[BOARDNAMELEN];
+  int numAnalogIn_;
+  int numAnalogOut_;
+  int numCounters_;
+  int numTimers_;
+  int numIOBits_;
+  double minPulseGenFrequency_;
+  double maxPulseGenFrequency_;
+  double minPulseGenDelay_;
+  double maxPulseGenDelay_;
   double pollTime_;
   int forceCallback_;
   size_t maxInputPoints_;
   size_t maxOutputPoints_;
-  epicsFloat64 *waveDigBuffer_[NUM_ANALOG_IN];
+  epicsFloat64 *waveDigBuffer_[MAX_ANALOG_IN];
   epicsFloat32 *waveDigTimeBuffer_;
-  epicsFloat32 *waveGenIntBuffer_[NUM_ANALOG_OUT];
-  epicsFloat32 *waveGenUserBuffer_[NUM_ANALOG_OUT];
+  epicsFloat32 *waveGenIntBuffer_[MAX_ANALOG_OUT];
+  epicsFloat32 *waveGenUserBuffer_[MAX_ANALOG_OUT];
   epicsFloat32 *waveGenUserTimeBuffer_;
   epicsFloat32 *waveGenIntTimeBuffer_;
   int digitalIOPort_;
@@ -256,15 +265,15 @@ private:
   int defineWaveform(int channel);
 };
 
-#define NUM_PARAMS ((int)(&LAST_USB1608G_PARAM - &FIRST_USB1608G_PARAM + 1))
+#define NUM_PARAMS ((int)(&LAST_MultiFunction_PARAM - &FIRST_MultiFunction_PARAM + 1))
 
 static void pollerThreadC(void * pPvt)
 {
-    USB1608G *pUSB1608G = (USB1608G *)pPvt;
-    pUSB1608G->pollerThread();
+    MultiFunction *pMultiFunction = (MultiFunction *)pPvt;
+    pMultiFunction->pollerThread();
 }
 
-USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints)
+MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints)
   : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask, 
@@ -282,7 +291,7 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
     waveDigRunning_(0)
 {
   int i;
-  static const char *functionName = "USB1608G";
+  static const char *functionName = "MultiFunction";
   
   // Get the board number and board name
   cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE, &boardType_);
@@ -290,9 +299,23 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
   switch (boardType_) {
     case USB_2408_2A0:
       digitalIOPort_ = FIRSTPORTA;
+      numAnalogIn_  = 8;
+      numAnalogOut_ = 2;
+      numCounters_  = 2;
+      numTimers_    = 0;
+      numIOBits_    = 8;
       break;
     case USB_1608GX_2A0:
       digitalIOPort_ = AUXPORT;
+      numAnalogIn_  = 16;
+      numAnalogOut_ = 2;
+      numCounters_  = 2;
+      numTimers_    = 1;
+      numIOBits_    = 8;
+      minPulseGenFrequency_ = 0.0149;
+      maxPulseGenFrequency_ = 32e6;
+      minPulseGenDelay_ = 0.;
+      maxPulseGenDelay_ = 67.11;
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -376,18 +399,18 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
   createParam(digitalOutputString,     asynParamUInt32Digital, &digitalOutput_);
 
   // Allocate memory for the input and output buffers
-  for (i=0; i<NUM_ANALOG_IN; i++) {
+  for (i=0; i<numAnalogIn_; i++) {
     waveDigBuffer_[i]  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   }
-  for (i=0; i<NUM_ANALOG_OUT; i++) {
+  for (i=0; i<numAnalogOut_; i++) {
     waveGenIntBuffer_[i]  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
     waveGenUserBuffer_[i] = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   }
   waveGenUserTimeBuffer_ = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveGenIntTimeBuffer_  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveDigTimeBuffer_     = (epicsFloat32 *) calloc(maxInputPoints_,  sizeof(epicsFloat32));
-  inputMemHandle_  = cbScaledWinBufAlloc(maxInputPoints  * NUM_ANALOG_IN);
-  outputMemHandle_ = cbWinBufAlloc(maxOutputPoints * NUM_ANALOG_OUT);
+  inputMemHandle_  = cbScaledWinBufAlloc(maxInputPoints  * numAnalogIn_);
+  outputMemHandle_ = cbWinBufAlloc(maxOutputPoints * numAnalogOut_);
   
   // Set values of some parameters that need to be set because init record order is not predictable
   // or because the corresponding records are PINI=NO.
@@ -400,14 +423,14 @@ USB1608G::USB1608G(const char *portName, int boardNum, int maxInputPoints, int m
 
   /* Start the thread to poll counters and digital inputs and do callbacks to 
    * device support */
-  epicsThreadCreate("USB1608GPoller",
+  epicsThreadCreate("MultiFunctionPoller",
                     epicsThreadPriorityLow,
                     epicsThreadGetStackSize(epicsThreadStackMedium),
                     (EPICSTHREADFUNC)pollerThreadC,
                     this);
 }
 
-int USB1608G::startPulseGenerator()
+int MultiFunction::startPulseGenerator()
 {
   int status=0;
   double frequency, period, width, delay;
@@ -423,14 +446,14 @@ int USB1608G::startPulseGenerator()
   getIntegerParam(timerNum, pulseGenIdleState_, &idleState);
   
   frequency = 1./period;
-  if (frequency < MIN_FREQUENCY) frequency = MIN_FREQUENCY;
-  if (frequency > MAX_FREQUENCY) frequency = MAX_FREQUENCY;
+  if (frequency < minPulseGenFrequency_) frequency = minPulseGenFrequency_;
+  if (frequency > maxPulseGenFrequency_) frequency = maxPulseGenFrequency_;
   dutyCycle = width * frequency;
   period = 1. / frequency;
   if (dutyCycle <= 0.) dutyCycle = .0001;
   if (dutyCycle >= 1.) dutyCycle = .9999;
-  if (delay < MIN_DELAY) delay = MIN_DELAY;
-  if (delay > MAX_DELAY) delay = MAX_DELAY;
+  if (delay < minPulseGenDelay_) delay = minPulseGenDelay_;
+  if (delay > maxPulseGenDelay_) delay = maxPulseGenDelay_;
 
   status = cbPulseOutStart(boardNum_, timerNum, &frequency, &dutyCycle, count, &delay, idleState, 0);
   if (status != 0) {
@@ -453,13 +476,13 @@ int USB1608G::startPulseGenerator()
   return 0;
 }
 
-int USB1608G::stopPulseGenerator()
+int MultiFunction::stopPulseGenerator()
 {
   pulseGenRunning_ = 0;
   return cbPulseOutStop(boardNum_, 0);
 }
 
-int USB1608G::defineWaveform(int channel)
+int MultiFunction::defineWaveform(int channel)
 {
   int waveType;
   int numPoints;
@@ -531,7 +554,7 @@ int USB1608G::defineWaveform(int channel)
   return 0;
 }
  
-int USB1608G::startWaveGen()
+int MultiFunction::startWaveGen()
 {
   int status=0;
   int numPoints;
@@ -545,7 +568,7 @@ int USB1608G::startWaveGen()
   double offset, scale;
   double userOffset, userAmplitude;
   double dwell;
-  epicsFloat32* inPtr[NUM_ANALOG_OUT];
+  epicsFloat32* inPtr[MAX_ANALOG_OUT];
   epicsUInt16 *outPtr;
   static const char *functionName = "startWaveGen";
   
@@ -554,7 +577,7 @@ int USB1608G::startWaveGen()
   getIntegerParam(waveGenContinuous_, &continuous);
   getIntegerParam(waveGenRetrigger_,  &retrigger);
  
-  for (i=0; i<NUM_ANALOG_OUT; i++) {
+  for (i=0; i<numAnalogOut_; i++) {
     getIntegerParam(i, waveGenEnable_, &enable);
     if (!enable) continue;
     getIntegerParam(i, waveGenWaveType_,  &waveType);
@@ -643,14 +666,14 @@ int USB1608G::startWaveGen()
   return status;
 }
   
-int USB1608G::stopWaveGen()
+int MultiFunction::stopWaveGen()
 {
   waveGenRunning_ = 0;
   setIntegerParam(waveGenRun_, 0);
   return cbStopBackground(boardNum_, AOFUNCTION);
 }
 
-int USB1608G::computeWaveGenTimes()
+int MultiFunction::computeWaveGenTimes()
 {
   int numPoints, i;
   double dwell;
@@ -671,11 +694,11 @@ int USB1608G::computeWaveGenTimes()
   return 0;
 }
 
-int USB1608G::startWaveDig()
+int MultiFunction::startWaveDig()
 {
   int firstChan, lastChan, numChans, numPoints;
   int chan, range;
-  short gainArray[NUM_ANALOG_IN], chanArray[NUM_ANALOG_IN];
+  short gainArray[MAX_ANALOG_IN], chanArray[MAX_ANALOG_IN];
   int i;
   int extTrigger, extClock, continuous, retrigger, burstMode;
   int status;
@@ -743,7 +766,7 @@ int USB1608G::startWaveDig()
   return 0;
 }
 
-int USB1608G::stopWaveDig()
+int MultiFunction::stopWaveDig()
 {
   int autoRestart;
   int status;
@@ -758,7 +781,7 @@ int USB1608G::stopWaveDig()
   return status;
 }
 
-int USB1608G::readWaveDig()
+int MultiFunction::readWaveDig()
 {
   int firstChan, lastChan;
   int currentPoint;
@@ -783,7 +806,7 @@ int USB1608G::readWaveDig()
   return 0;
 }    
 
-int USB1608G::computeWaveDigTimes()
+int MultiFunction::computeWaveDigTimes()
 {
   int numPoints, i;
   double dwell;
@@ -798,7 +821,7 @@ int USB1608G::computeWaveDigTimes()
 }
 
 
-asynStatus USB1608G::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
+asynStatus MultiFunction::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
 {
   int function = pasynUser->reason;
 
@@ -813,7 +836,7 @@ asynStatus USB1608G::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 
   }
 }
 
-asynStatus USB1608G::writeInt32(asynUser *pasynUser, epicsInt32 value)
+asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int addr;
   int function = pasynUser->reason;
@@ -929,7 +952,7 @@ asynStatus USB1608G::writeInt32(asynUser *pasynUser, epicsInt32 value)
 }
 
 
-asynStatus USB1608G::readInt32(asynUser *pasynUser, epicsInt32 *value)
+asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
 {
   int addr;
   int function = pasynUser->reason;
@@ -963,7 +986,7 @@ asynStatus USB1608G::readInt32(asynUser *pasynUser, epicsInt32 *value)
   return (status==0) ? asynSuccess : asynError;
 }
 
-asynStatus USB1608G::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
+asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
   int addr;
   int function = pasynUser->reason;
@@ -1019,7 +1042,7 @@ asynStatus USB1608G::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   return (status==0) ? asynSuccess : asynError;
 }
 
-asynStatus USB1608G::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask)
+asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask)
 {
   int function = pasynUser->reason;
   int status=0;
@@ -1031,7 +1054,7 @@ asynStatus USB1608G::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, 
   setUIntDigitalParam(function, value, mask);
   if (function == digitalDirection_) {
     outValue = (value == 0) ? DIGITALIN : DIGITALOUT; 
-    for (i=0; i<NUM_IO_BITS; i++) {
+    for (i=0; i<numIOBits_; i++) {
       if ((mask & (1<<i)) != 0) {
         status = cbDConfigBit(boardNum_, digitalIOPort_, i, outValue);
       }
@@ -1040,7 +1063,7 @@ asynStatus USB1608G::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, 
 
   else if (function == digitalOutput_) {
     getUIntDigitalParam(digitalDirection_, &direction, 0xFFFFFFFF);
-    for (i=0, outMask=1; i<NUM_IO_BITS; i++, outMask = (outMask<<1)) {
+    for (i=0, outMask=1; i<numIOBits_; i++, outMask = (outMask<<1)) {
       // Only write the value if the mask has this bit set and the direction for that bit is output (1)
       outValue = ((value &outMask) == 0) ? 0 : 1; 
       if ((mask & outMask & direction) != 0) {
@@ -1062,7 +1085,7 @@ asynStatus USB1608G::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, 
   return (status==0) ? asynSuccess : asynError;
 }
 
-asynStatus USB1608G::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements, size_t *nIn)
+asynStatus MultiFunction::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements, size_t *nIn)
 {
   int function = pasynUser->reason;
   int addr;
@@ -1072,10 +1095,10 @@ asynStatus USB1608G::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, 
   
   this->getAddress(pasynUser, &addr);
   
-  if (addr >= NUM_ANALOG_OUT) {
+  if (addr >= numAnalogOut_) {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
       "%s:%s: ERROR: addr=%d max=%d\n",
-      driverName, functionName, addr, NUM_ANALOG_OUT-1);
+      driverName, functionName, addr, numAnalogOut_-1);
     return asynError;
   }
   // Assume WaveGen function, WaveDig numPoints handled below
@@ -1105,7 +1128,7 @@ asynStatus USB1608G::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, 
   return asynSuccess;
 }
 
-asynStatus USB1608G::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn)
+asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn)
 {
   int function = pasynUser->reason;
   int addr;
@@ -1115,10 +1138,10 @@ asynStatus USB1608G::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, 
   this->getAddress(pasynUser, &addr);
   
   if (function == waveDigVoltWF_) {
-    if (addr >= NUM_ANALOG_IN) {
+    if (addr >= numAnalogIn_) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s:%s: ERROR: addr=%d max=%d\n",
-        driverName, functionName, addr, NUM_ANALOG_IN-1);
+        driverName, functionName, addr, numAnalogIn_-1);
       return asynError;
     } 
     *nIn = nElements;
@@ -1135,7 +1158,7 @@ asynStatus USB1608G::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, 
   }
 }
 
-asynStatus USB1608G::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements)
+asynStatus MultiFunction::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements)
 {
   int function = pasynUser->reason;
   int addr;
@@ -1144,10 +1167,10 @@ asynStatus USB1608G::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value,
   this->getAddress(pasynUser, &addr);
   
   if (function == waveGenUserWF_) {
-    if ((addr >= NUM_ANALOG_OUT) || (nElements > maxOutputPoints_)) {
+    if ((addr >= numAnalogOut_) || (nElements > maxOutputPoints_)) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s:%s: ERROR: addr=%d max=%d, nElements=%d max=%d\n",
-        driverName, functionName, addr, NUM_ANALOG_OUT-1, nElements, maxOutputPoints_);
+        driverName, functionName, addr, numAnalogOut_-1, nElements, maxOutputPoints_);
       return asynError;
     } 
     memcpy(waveGenUserBuffer_[addr], value, nElements*sizeof(epicsFloat32)); 
@@ -1162,7 +1185,7 @@ asynStatus USB1608G::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value,
   return asynSuccess;
 }
 
-void USB1608G::pollerThread()
+void MultiFunction::pollerThread()
 {
   /* This function runs in a separate thread.  It waits for the poll
    * time */
@@ -1194,7 +1217,7 @@ void USB1608G::pollerThread()
     }
     
     // Read the counter inputs
-    for (i=0; i<NUM_COUNTERS; i++) {
+    for (i=0; i<numCounters_; i++) {
       status = cbCIn32(boardNum_, i, &countVal);
       if (status)
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
@@ -1228,7 +1251,7 @@ void USB1608G::pollerThread()
 }
 
 /* Report  parameters */
-void USB1608G::report(FILE *fp, int details)
+void MultiFunction::report(FILE *fp, int details)
 {
   int i;
   int counts;
@@ -1238,7 +1261,7 @@ void USB1608G::report(FILE *fp, int details)
           this->portName, boardNum_);
   if (details >= 1) {
     fprintf(fp, "  counterCounts = ");
-    for (i=0; i<NUM_COUNTERS; i++)
+    for (i=0; i<numCounters_; i++)
       getIntegerParam(i, counterCounts_, &counts); 
       fprintf(fp, " %d", counts);
     fprintf(fp, "\n");
@@ -1246,11 +1269,11 @@ void USB1608G::report(FILE *fp, int details)
 }
 
 /** Configuration command, called directly or from iocsh */
-extern "C" int USB1608GConfig(const char *portName, int boardNum, 
+extern "C" int MultiFunctionConfig(const char *portName, int boardNum, 
                               int maxInputPoints, int maxOutputPoints)
 {
-  USB1608G *pUSB1608G = new USB1608G(portName, boardNum, maxInputPoints, maxOutputPoints);
-  pUSB1608G = NULL;  /* This is just to avoid compiler warnings */
+  MultiFunction *pMultiFunction = new MultiFunction(portName, boardNum, maxInputPoints, maxOutputPoints);
+  pMultiFunction = NULL;  /* This is just to avoid compiler warnings */
   return(asynSuccess);
 }
 
@@ -1263,17 +1286,17 @@ static const iocshArg * const configArgs[] = {&configArg0,
                                               &configArg1,
                                               &configArg2,
                                               &configArg3};
-static const iocshFuncDef configFuncDef = {"USB1608GConfig",4,configArgs};
+static const iocshFuncDef configFuncDef = {"MultiFunctionConfig",4,configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-  USB1608GConfig(args[0].sval, args[1].ival, args[2].ival, args[3].ival);
+  MultiFunctionConfig(args[0].sval, args[1].ival, args[2].ival, args[3].ival);
 }
 
-void drvUSB1608GRegister(void)
+void drvMultiFunctionRegister(void)
 {
   iocshRegister(&configFuncDef,configCallFunc);
 }
 
 extern "C" {
-epicsExportRegistrar(drvUSB1608GRegister);
+epicsExportRegistrar(drvMultiFunctionRegister);
 }
