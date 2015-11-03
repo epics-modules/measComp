@@ -1,0 +1,59 @@
+record(ai,"$(P)$(R)")
+{
+    field(SCAN, "$(SCAN)")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))TEMPERATURE_IN_VALUE")
+    field(PREC, "$(PREC)")
+}
+
+record(mbbo,"$(P)$(R)Scale")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TEMPERATURE_SCALE")
+    field(ZRVL, "0")
+    field(ZRST, "Celsius")
+    field(ONVL, "1")
+    field(ONST, "Fahrenheit")
+    field(TWVL, "2")
+    field(TWST, "Kelvin")
+    field(THVL, "4")
+    field(THST, "Volts")
+    field(FRVL, "5")
+    field(FRST, "Noscale")
+}
+
+record(mbbo,"$(P)$(R)TCType")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))THERMOCOUPLE_TYPE")
+    field(ZRVL, "1")
+    field(ZRST, "Type J")
+    field(ONVL, "2")
+    field(ONST, "Type K")
+    field(TWVL, "3")
+    field(TWST, "Type T")
+    field(THVL, "4")
+    field(THST, "Type E")
+    field(FRVL, "5")
+    field(FRST, "Type R")
+    field(FVVL, "6")
+    field(FVST, "Type S")
+    field(SXVL, "7")
+    field(SXST, "Type B")
+    field(SVVL, "8")
+    field(SVST, "Type N")
+}
+
+record(mbbo,"$(P)$(R)Filter")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TEMPERATURE_FILTER")
+    field(ZRVL, "0")
+    field(ZRST, "Filter")
+    field(ONVL, "0x400")
+    field(ONST, "No filter")
+}
+
