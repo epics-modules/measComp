@@ -1,0 +1,10 @@
+< envPaths
+
+## Register all support components
+dbLoadDatabase "../../dbd/measCompApp.dbd"
+measCompApp_registerRecordDeviceDriver pdbbase
+
+dbLoadTemplate("1608G.substitutions.big")
+
+< st.cmd.common
+
