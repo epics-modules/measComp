@@ -1,0 +1,718 @@
+
+file {
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTemperatureSetup.adl"
+	version=030107
+}
+display {
+	object {
+		x=738
+		y=57
+		width=370
+		height=270
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+text {
+	object {
+		x=46
+		y=10
+		width=192
+		height=25
+	}
+	"basic attribute" {
+		clr=54
+	}
+	textix="Temp. setup $(P)"
+	align="horiz. centered"
+}
+composite {
+	object {
+		x=25
+		y=40
+		width=80
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=45
+				y=40
+				width=40
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Mode"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=25
+				y=65
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)1Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=90
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)2Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=115
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)3Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=140
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)4Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=165
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)5Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=190
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)6Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=215
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)7Mode"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=25
+				y=240
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)8Mode"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=10
+		y=64
+		width=10
+		height=196
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=10
+				y=64
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="1"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=89
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="2"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=115
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="3"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=140
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="4"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=165
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="5"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=190
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="6"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=215
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="7"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=240
+				width=10
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="8"
+			align="horiz. right"
+		}
+	}
+}
+composite {
+	object {
+		x=280
+		y=40
+		width=80
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=285
+				y=40
+				width=70
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Filter"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=280
+				y=65
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)1Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=90
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)2Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=115
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)3Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=140
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)4Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=165
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)5Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=190
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)6Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=215
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)7Filter"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=280
+				y=240
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)8Filter"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=110
+		y=40
+		width=80
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=115
+				y=40
+				width=70
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="TC Type"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=110
+				y=65
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)1TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=90
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)2TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=115
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)3TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=140
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)4TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=165
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)5TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=190
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)6TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=215
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)7TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=110
+				y=240
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti)8TCType"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
+text {
+	object {
+		x=210
+		y=40
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Scale"
+	align="horiz. right"
+}
+menu {
+	object {
+		x=195
+		y=65
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)1Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=90
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)2Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=115
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)3Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=140
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)4Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=165
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)5Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=190
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)6Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=215
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)7Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=195
+		y=240
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)8Scale"
+		clr=14
+		bclr=51
+	}
+}
