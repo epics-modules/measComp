@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-1-1/measCompApp/op/adl/measCompTop.adl"
 	version=030107
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=388
 		y=55
 		width=212
-		height=100
+		height=125
 	}
 	clr=14
 	bclr=4
@@ -122,7 +122,7 @@ display {
 "related display" {
 	object {
 		x=30
-		y=65
+		y=90
 		width=150
 		height=20
 	}
@@ -134,4 +134,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-CTR08"
+}
+"related display" {
+	object {
+		x=30
+		y=65
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-2408 module"
+		name="USB2408_module.adl"
+		args="P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-2408"
 }
