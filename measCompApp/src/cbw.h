@@ -4,7 +4,7 @@
  *
  * C/C++ Windows header for Measurement Computing Universal Library
  *
- * (c) Copyright 1996-2014, Measurement Computing Corp.
+ * (c) Copyright 1996-2015, Measurement Computing Corp.
  * All rights reserved.
  *
  * This header file should be included in all C/C++ programs that will
@@ -20,7 +20,7 @@
 
 
 /* Current Revision Number */
-#define CURRENTREVNUM      6.3
+#define CURRENTREVNUM      6.50
 
 /* System error code */
 #define NOERRORS           0    /* No error occurred */
@@ -224,7 +224,29 @@
 #define BADBRIDGETYPE					1006    /* Invalid bridge type specified */
 #define BADLOADVAL						1007    /* Invalid load value specified */
 #define BADTICKSIZE						1008    /* Invalid tick size specified */
+#define BTHCONNECTIONFAILED				1013	/* Bluetooth connection failed */
+#define INVALIDBTHFRAME					1014	/* Invalid Bluetooth frame */
 #define	BADTRIGEVENT					1015	/* Invalid trigger event specified */
+#define NETCONNECTIONFAILED				1016	/* Network connection failed */
+#define DATASOCKETCONNECTIONFAILED		1017	/* Data socket connection failed */
+#define INVALIDNETFRAME					1018	/* Invalid Network frame */
+#define NETTIMEOUT						1019	/* Network device did not respond within expected time */
+#define NETDEVNOTFOUND					1020	/* Network device not found */
+#define INVALIDCONNECTIONCODE			1021	/* Invalid connection code */
+#define CONNECTIONCODEIGNORED			1022	/* Connection code ignored */
+#define NETDEVINUSE						1023	/* Network device already in use */
+#define NETDEVINUSEBYANOTHERPROC		1024	/* Network device already in use by another process */
+#define SOCKETDISCONNECTED				1025	/* Socket Disconnected */
+#define BOARDNUMINUSE				    1026	/* Board Number already in use */
+#define DEVALREADYCREATED				1027	/* Specified DAQ device already created */
+#define BOARDNOTEXIST					1028    /* Tried to release a board which doesn't exist */
+#define INVALIDNETHOST					1029    /* Invalid host specified */
+#define INVALIDNETPORT					1030    /* Invalid port specified */
+#define INVALIDIFC						1031	/* Invalid interface specified */
+#define INVALIDAIINPUTMODE				1032	/* Invalid input mode specified */
+#define AIINPUTMODENOTCONFIGURABLE		1033    /* Input mode not configurable */
+#define INVALIDEXTPACEREDGE				1034	/* Invalid external pacer edge */
+#define CMREXCEEDED						1035	/* Common-mode voltage range exceeded */
 
 
 #define AIFUNCTION      1    /* Analog Input Function    */
@@ -303,7 +325,7 @@
 #define BAD_RTD_CONVERSION      325     /* Overflow in RTD calculation */
 #define NO_PCI_BIOS             326     /* PCI BIOS not present in the PC */
 #define BAD_PCI_INDEX           327     /* Invalid PCI board index passed to PCI BIOS */
-#define NO_PCI_BOARD			328		/* Can't detact specified PCI board */
+#define NO_PCI_BOARD			328		/* Specified PCI board not detected*/
 #define PCI_ASSIGN_FAILED		329		/* PCI resource assignment failed */
 #define PCI_NO_ADDRESS			330     /* No PCI address returned */
 #define PCI_NO_IRQ				331		/* No PCI IRQ returned */
@@ -318,13 +340,15 @@
 #define CANT_GET_PCM_CFG        340     /* IOCTL call failed on VDD_API_GET_PCM_CFG */
 #define CANT_GET_PCM_CCSR		341		/* IOCTL call failed on VDD_API_GET_PCM_CCSR */
 #define CANT_GET_PCI_INFO		342		/* IOCTL call failed on VDD_API_GET_PCI_INFO */
-#define NO_USB_BOARD			343		/* Can't detect specified USB board */
+#define NO_USB_BOARD			343		/* Specified USB board not detected*/
 #define NOMOREFILES				344		/* No more files in the directory */
 #define BADFILENUMBER			345		/* Invalid file number */
 #define INVALIDSTRUCTSIZE		346		/* Invalid structure size */
 #define LOSSOFDATA				347		/* EOF marker not found, possible loss of data */
 #define INVALIDBINARYFILE		348		/* File is not a valid MCC binary file */
 #define INVALIDDELIMITER		349		/* Invlid delimiter specified for CSV file */
+#define NO_BTH_BOARD			350		/* Specified Bluetooth board not detected*/
+#define NO_NET_BOARD			351		/* Specified Network board not detected*/
 
 /* DOS errors are remapped by adding DOS_ERR_OFFSET to them */
 #define DOS_ERR_OFFSET      		500
@@ -356,7 +380,7 @@
 #define ERRSTRLEN          256
 
 /* Maximum length of board name */
-#define BOARDNAMELEN       25
+#define BOARDNAMELEN       64
 
 /* Status values */
 #define IDLE             0
@@ -394,6 +418,7 @@
 
 #define BYTEXFER         0x0000    /* Digital IN/OUT a byte at a time */
 #define WORDXFER         0x0100    /* Digital IN/OUT a word at a time */
+#define DWORDXFER        0x0200    /* Digital IN/OUT a double word at a time */
 
 #define INDIVIDUAL       0x0000    /* Individual D/A output */
 #define SIMULTANEOUS     0x0200    /* Simultaneous D/A output */
@@ -407,6 +432,7 @@
 #define BURSTMODE        0x1000    /* Enable burst mode */
 
 #define NOTODINTS        0x2000    /* Disbale time-of-day interrupts */
+#define WAITFORNEWDATA   0x2000    /* Wait for new data to become available */
 
 #define EXTTRIGGER       0x4000     /* A/D is triggered externally */
 
@@ -539,6 +565,8 @@
 
 /* Types of digital I/O Ports */
 #define AUXPORT          1
+#define AUXPORT0         1
+#define AUXPORT1         2
 #define FIRSTPORTA       10
 #define FIRSTPORTB       11
 #define FIRSTPORTCL      12
@@ -573,7 +601,14 @@
 #define EIGHTHPORTCL     40
 #define EIGHTHPORTCH     41
 
-/* Selectable analog input modes */
+
+/* Analog input modes */
+#define DIFFERENTIAL        0
+#define SINGLE_ENDED        1
+#define GROUNDED	    16
+
+
+/* Selectable analog input modes (PCI-6000 series) */
 #define RSE             0x1000      /* Referenced Single-Ended */
 #define NRSE            0x2000      /* Non-Referenced Single-Ended */
 #define DIFF            0x4000      /* Differential */
@@ -1027,6 +1062,14 @@
 #define TRIG_NEG_EDGE       13
 #define TRIG_RISING			14
 #define TRIG_FALLING		15
+#define TRIG_PATTERN_EQ		16
+#define TRIG_PATTERN_NE		17
+#define TRIG_PATTERN_ABOVE	18
+#define TRIG_PATTERN_BELOW	19
+
+/* External Pacer Edge */
+#define EXT_PACER_EDGE_RISING	1
+#define EXT_PACER_EDGE_FALLING	2
 
 /* Timer idle state */
 #define IDLE_LOW			0
@@ -1201,7 +1244,7 @@
 #define BICTLRNUM            206     /* MetraBus controller board number */
 #define BIPWRJMPR            207     /* MetraBus controller board Pwr jumper */
 #define BINUMTEMPCHANS       208     /* Number of Temperature channels */
-#define BIADTRIGSRC          209     /* Analog trigger source */
+#define BIADTRIGSRC          209     /* A/D trigger source */
 #define BIBNCSRC             210     /* BNC source */ 
 #define BIBNCTHRESHOLD       211     /* BNC Threshold 2.5V or 0.0V */
 #define BIBURSTMODE          212     /* Board supports BURSTMODE */
@@ -1217,12 +1260,15 @@
 #define BISRCADPACER         223    /* Source A/D Pacer output */
 #define BIMFGSERIALNUM       224    /* Manufacturers 8-byte serial number */
 #define BIPCIREVID           225    /* Revision Number stored in PCI header */
+#define BIEXTCLKTYPE         227    
 #define BIDIALARMMASK        230
 
 #define BINETIOTIMEOUT       247
+#define BIDACFORCESENSE		 250
 
 #define BISYNCMODE           251    /* Sync mode */
 
+#define BICALTABLETYPE       254
 #define BIDIDEBOUNCESTATE    255    /* Digital inputs reset state */
 #define BIDIDEBOUNCETIME     256      /* Digital inputs debounce Time */
 
@@ -1232,12 +1278,14 @@
 #define BIRSS                 261
 #define BINODEID              262
 #define BIDEVNOTES            263
+#define BIINTEDGE			  265
 
 #define BIADCSETTLETIME		  270
 
 #define BIFACTORYID           272
 #define BIHTTPPORT			  273
 #define BIHIDELOGINDLG		  274
+#define BITEMPSCALE           280
 #define BIDACTRIGCOUNT		  284	/* Number of samples to generate per trigger in retrigger mode */
 #define BIADTIMINGMODE		  285
 #define BIRTDCHANTYPE		  286
@@ -1246,6 +1294,29 @@
 #define BIDACRES			  292
 
 #define BIADXFERMODE		  306
+#define BINETCONNECTCODE	  341
+#define BIDITRIGCOUNT         343    /* Number of digital input samples to acquire per trigger */
+#define BIDOTRIGCOUNT         344    /* Number of digital output samples to generate per trigger */
+#define BIPATTERNTRIGPORT	  345
+#define BICHANTCTYPE		  347	   /* Channel thermocouple type */
+#define BIEXTINPACEREDGE	  348
+#define BIEXTOUTPACEREDGE	  349
+#define BIINPUTPACEROUT	      350		/* Enable/Disable input Pacer output */
+#define BIOUTPUTPACEROUT	  351		/* Enable/Disable output Pacer output */
+#define BITEMPAVG			  352
+#define BIEXCITATION	      353
+#define BICHANBRIDGETYPE	  354
+#define BIADCHANTYPE		  355
+#define BICHANRTDTYPE		  356
+#define BIDEVUNIQUEID		  357		/* Unique identifier of DAQ device */
+#define BIUSERDEVID			  358
+#define BIDEVVERSION		  359
+#define BITERMCOUNTSTATBIT	  360
+#define BIDETECTOPENTC		  361
+#define BIADDATARATE		  362
+#define BIDEVSERIALNUM		  363
+#define BIDEVMACADDR		  364
+#define BIUSERDEVIDNUM		  365
 
 
 /* Type of digital device information */
@@ -1298,6 +1369,57 @@
 #define MIMEMSIZE		    102		/* MEGA-FIFO module size */
 #define MIMEMCOUNT		    103		/* MEGA-FIFO # of modules */
 
+/* AI channel Types */
+#define AI_CHAN_TYPE_VOLTAGE				0
+#define AI_CHAN_TYPE_CURRENT				100
+#define AI_CHAN_TYPE_RESISTANCE_10K4W		201
+#define AI_CHAN_TYPE_RESISTANCE_1K4W		202
+#define AI_CHAN_TYPE_RESISTANCE_10K2W		203
+#define AI_CHAN_TYPE_RESISTANCE_1K2W		204
+#define AI_CHAN_TYPE_TC						300
+#define AI_CHAN_TYPE_RTD_1000OHM_4W			401
+#define AI_CHAN_TYPE_RTD_100OHM_4W			402
+#define AI_CHAN_TYPE_RTD_1000OHM_3W			403
+#define AI_CHAN_TYPE_RTD_100OHM_3W			404
+#define AI_CHAN_TYPE_QUART_BRIDGE_350OHM	501
+#define AI_CHAN_TYPE_QUART_BRIDGE_120OHM	502
+#define AI_CHAN_TYPE_HALF_BRIDGE			503
+#define AI_CHAN_TYPE_FULL_BRIDGE_62PT5mVV	504
+#define AI_CHAN_TYPE_FULL_BRIDGE_7PT8mVV	505
+
+
+/* Thermocouple Types */
+#define TC_TYPE_J		1
+#define TC_TYPE_K		2
+#define TC_TYPE_T		3
+#define TC_TYPE_E		4
+#define TC_TYPE_R		5
+#define TC_TYPE_S		6
+#define TC_TYPE_B		7
+#define TC_TYPE_N		8
+
+/* Bridge Types */
+#define BRIDGE_FULL		 1
+#define BRIDGE_HALF		 2
+#define BRIDGE_QUARTER	 3
+
+/* Platinum RTD Types */
+#define RTD_CUSTOM		0x00
+#define RTD_PT_3750		0x01
+#define RTD_PT_3851		0x02
+#define RTD_PT_3911		0x03
+#define RTD_PT_3916		0x04
+#define RTD_PT_3920		0x05
+#define RTD_PT_3928		0x06
+#define RTD_PT_3850		0x07
+
+/* Version types */
+
+#define VER_FW_MAIN				0
+#define VER_FW_MEASUREMENT		1
+#define VER_FW_RADIO			2
+#define VER_FPGA				3
+#define VER_FW_MEASUREMENT_EXP	4
 
 
 /* Types of events */
@@ -1350,10 +1472,44 @@
 #define XFER_KERNEL			0
 #define XFER_USER			1
 
+// Clock type
+#define CONTINUOUS_CLK		1
+#define GATED_CLK			2
+
+// Calibration Table types
+#define CAL_TABLE_FACTORY	0
+#define CAL_TABLE_FIELD		1
+
 
 #ifndef USHORT
   typedef unsigned short USHORT;
 #endif
+
+
+typedef enum
+{
+	USB_IFC = 1 << 0,
+	BLUETOOTH_IFC = 1 << 1,
+	ETHERNET_IFC = 1 << 2,
+	ANY_IFC  = USB_IFC | BLUETOOTH_IFC | ETHERNET_IFC
+} DaqDeviceInterface;
+
+#pragma pack(1) 
+
+typedef struct 
+{
+	CHAR					ProductName[64];
+	UINT					ProductID;			// product ID
+	DaqDeviceInterface		InterfaceType;		// USB, BLUETOOTH, ...
+	CHAR					DevString[64];
+	CHAR					UniqueID[64];		// unique identifier for device. Serial number for USB deivces and MAC address for  bth and net devices
+	ULONGLONG				NUID;				// numeric representation of uniqueID
+	CHAR					Reserved[512];		// reserved for the future.
+												
+} DaqDeviceDescriptor;
+
+#pragma pack()
+
 
 #define EXTCCONV 	__stdcall
 
@@ -1446,14 +1602,19 @@
     int EXTCCONV cbDBitIn (int BoardNum, int PortType, int BitNum, 
                            USHORT *BitValue);
     int EXTCCONV cbDBitOut (int BoardNum, int PortType, int BitNum, USHORT BitValue);
-    int EXTCCONV cbDConfigPort (int BoardNum, int PortNum, int Direction);
-    int EXTCCONV cbDConfigBit (int BoardNum, int PortNum, int BitNum, int Direction);
-    int EXTCCONV cbDIn (int BoardNum, int PortNum, USHORT *DataValue);
-    int EXTCCONV cbDInScan (int BoardNum, int PortNum, long Count, long *Rate,
+    int EXTCCONV cbDConfigPort (int BoardNum, int PortType, int Direction);
+    int EXTCCONV cbDConfigBit (int BoardNum, int PortType, int BitNum, int Direction);
+    int EXTCCONV cbDIn (int BoardNum, int PortType, USHORT *DataValue);
+	int EXTCCONV cbDIn32 (int BoardNum, int PortType, UINT *DataValue);
+    int EXTCCONV cbDInScan (int BoardNum, int PortType, long Count, long *Rate,
                             HGLOBAL MemHandle, int Options);
-    int EXTCCONV cbDOut(int BoardNum, int PortNum, USHORT DataValue);
-    int EXTCCONV cbDOutScan (int BoardNum, int PortNum, long Count, long *Rate,
+    int EXTCCONV cbDOut(int BoardNum, int PortType, USHORT DataValue);
+	int EXTCCONV cbDOut32(int BoardNum, int PortType, UINT DataValue);
+    int EXTCCONV cbDOutScan (int BoardNum, int PortType, long Count, long *Rate,
                              HGLOBAL MemHandle, int Options);
+	int EXTCCONV cbDInArray (int BoardNum, int LowPort, int HighPort, ULONG *DataArray);
+	int EXTCCONV cbDOutArray (int BoardNum, int LowPort, int HighPort, ULONG *DataArray);
+	int EXTCCONV cbDClearAlarm (int BoardNum, int PortType, UINT Mask);
     int EXTCCONV cbErrHandling (int ErrReporting, int ErrHandling);
     int EXTCCONV cbFileAInScan (int BoardNum, int LowChan, int HighChan,
                                 long Count, long *Rate, int Gain, 
@@ -1486,21 +1647,23 @@
     int EXTCCONV cbMemReadPretrig (int BoardNum, USHORT *DataBuffer,
                                    long FirstPoint, long Count);
     int EXTCCONV cbWinBufToArray (HGLOBAL MemHandle, USHORT *DataArray, 
-		                          long StartPt, long Count);
+		                          long FirstPoint, long Count);
 	int EXTCCONV cbWinBufToArray32 (HGLOBAL MemHandle, ULONG *DataArray, 
-							  long StartPt, long Count);
+							  long FirstPoint, long Count);
 
 	int EXTCCONV cbWinBufToArray64 (HGLOBAL MemHandle, ULONGLONG *DataArray, 
-							  long StartPt, long Count);
+							  long FirstPoint, long Count);
 
 	HGLOBAL EXTCCONV cbScaledWinBufAlloc (long NumPoints);
 	int EXTCCONV cbScaledWinBufToArray (HGLOBAL MemHandle, double *DataArray, 
-							  long StartPt, long Count);
+							  long FirstPoint, long Count);
 		
     int EXTCCONV cbWinArrayToBuf (USHORT *DataArray, HGLOBAL MemHandle, 
-		                          long StartPt, long Count);
+		                          long FirstPoint, long Count);
+	int EXTCCONV cbWinArrayToBuf32 (ULONG *DataArray, HGLOBAL MemHandle, 
+		                          long FirstPoint, long Count);
 	int EXTCCONV cbScaledWinArrayToBuf (double *DataArray, HGLOBAL MemHandle, 
-		                          long StartPt, long Count);
+		                          long FirstPoint, long Count);
 
     HGLOBAL EXTCCONV cbWinBufAlloc (long NumPoints);
     HGLOBAL EXTCCONV cbWinBufAlloc32 (long NumPoints);
@@ -1609,6 +1772,17 @@
 	int EXTCCONV cbDeviceLogout(int BoardNum);
 
 	int EXTCCONV cbTEDSRead(int BoardNum, int Chan, BYTE* DataBuffer, long *Count, int Options);
+
+	int EXTCCONV cbAInputMode(int BoardNum, int InputMode);
+	int EXTCCONV cbAChanInputMode(int BoardNum, int Chan, int InputMode);
+
+	int EXTCCONV cbIgnoreInstaCal();
+	int EXTCCONV cbCreateDaqDevice(int BdNum, DaqDeviceDescriptor DeviceDescriptor);
+	int EXTCCONV cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescriptor* Inventory, INT* NumberOfDevices);
+	int EXTCCONV cbReleaseDaqDevice(int BdNum);
+	int EXTCCONV cbGetBoardNumber (DaqDeviceDescriptor DeviceDescriptor);
+	int EXTCCONV cbGetNetDeviceDescriptor(CHAR* Host, INT Port, DaqDeviceDescriptor* DeviceDescriptor, INT Timeout);
+
 
 //****************************************************************************
 //   Legacy Function Prototypes: to revert to legacy calls, un-comment the
