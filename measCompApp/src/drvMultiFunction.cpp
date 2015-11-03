@@ -18,6 +18,7 @@
 
 #include <iocsh.h>
 #include <epicsThread.h>
+#include <epicsString.h>
 
 #include <asynPortDriver.h>
 
@@ -36,6 +37,10 @@ typedef enum {
   waveTypeRandom
 } waveType_t;
 
+// Board parameters
+#define modelNameString           "MODEL_NAME"
+#define modelNumberString         "MODEL_NUMBER"
+
 // Pulse output parameters
 #define pulseGenRunString         "PULSE_RUN"
 #define pulseGenPeriodString      "PULSE_PERIOD"
@@ -51,6 +56,13 @@ typedef enum {
 // Analog input parameters
 #define analogInValueString       "ANALOG_IN_VALUE"
 #define analogInRangeString       "ANALOG_IN_RANGE"
+#define analogInModeString        "ANALOG_IN_MODE"
+
+// Temperature parameters
+#define temperatureInValueString  "TEMPERATURE_IN_VALUE"
+#define thermocoupleTypeString    "THERMOCOUPLE_TYPE"
+#define temperatureScaleString    "TEMPERATURE_SCALE"
+#define temperatureFilterString   "TEMPERATURE_FILTER"
 
 // Waveform digitizer parameters - global
 #define waveDigDwellString        "WAVEDIG_DWELL"
@@ -74,6 +86,7 @@ typedef enum {
 
 // Analog output parameters
 #define analogOutValueString      "ANALOG_OUT_VALUE"
+#define analogOutRangeString      "ANALOG_OUT_RANGE"
 
 // Waveform generator parameters - global
 #define waveGenFreqString         "WAVEGEN_FREQ"
@@ -119,6 +132,51 @@ typedef enum {
 #define USB_2408_2A0   254
 #define USB_1608GX_2A0 274
 
+typedef struct {
+  char *enumString;
+  int  enumValue;
+} enumStruct_t;
+
+#define NUM_USB_1608G_INPUT_RANGES 4
+static const enumStruct_t inputRangeUSB_1608G[NUM_USB_1608G_INPUT_RANGES] = {
+  {"+= 10V", BIP10VOLTS},
+  {"+= 5V",  BIP5VOLTS},
+  {"+= 2V",  BIP2VOLTS},
+  {"+= 1V",  BIP1VOLTS}
+};
+
+#define NUM_USB_2408_INPUT_RANGES 8
+static const enumStruct_t inputRangeUSB_2408[NUM_USB_2408_INPUT_RANGES] = {
+  {"+= 10V",    BIP10VOLTS},
+  {"+= 5V",     BIP5VOLTS},
+  {"+= 2.5V",   BIP2PT5VOLTS},
+  {"+= 1.25V",  BIP1PT25VOLTS},
+  {"+= 0.625V", BIPPT625VOLTS},
+  {"+= 0.312V", BIPPT312VOLTS},
+  {"+= 0.156V", BIPPT156VOLTS},
+  {"+= 0.078V", BIPPT078VOLTS}
+};
+
+#define NUM_USB_1608G_OUTPUT_RANGES 1
+static const enumStruct_t outputRangeUSB_1608G[NUM_USB_1608G_OUTPUT_RANGES] = {
+  {"+= 10V", BIP10VOLTS}
+};
+
+#define NUM_USB_2408_OUTPUT_RANGES 1
+static const enumStruct_t outputRangeUSB_2408[NUM_USB_2408_OUTPUT_RANGES] = {
+  {"+= 10V", BIP10VOLTS}
+};
+
+#define NUM_USB_1608G_INPUT_MODES 1
+static const enumStruct_t inputModeUSB_1608G[NUM_USB_1608G_INPUT_MODES] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
+#define NUM_USB_2408_INPUT_MODES 2
+static const enumStruct_t inputModeUSB_2408[NUM_USB_2408_INPUT_MODES] = {
+  {"Volts",   AI_CHAN_TYPE_VOLTAGE},
+  {"TC deg.", AI_CHAN_TYPE_TC}
+};
 
 #define DEFAULT_POLL_TIME 0.01
 #define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
@@ -136,18 +194,24 @@ public:
   virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 *value);
   virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
   virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
+  virtual asynStatus readFloat64(asynUser *pasynUser, epicsFloat64 *value);
   virtual asynStatus writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask);
   virtual asynStatus readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements, size_t *nIn);
   virtual asynStatus writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements);
   virtual asynStatus readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn);
+  virtual asynStatus readEnum(asynUser *pasynUser, char *strings[], int values[], int severities[], size_t nElements, size_t *nIn);
   virtual void report(FILE *fp, int details);
   // These should be private but are called from C
   virtual void pollerThread(void);
 
 protected:
+  // Model parameters
+  int modelName_;
+  #define FIRST_MultiFunction_PARAM modelName_
+  int modelNumber_;
+
   // Pulse generator parameters
   int pulseGenRun_;
-  #define FIRST_MultiFunction_PARAM pulseGenRun_
   int pulseGenPeriod_;
   int pulseGenWidth_;
   int pulseGenDelay_;
@@ -161,6 +225,13 @@ protected:
   // Analog input parameters
   int analogInValue_;
   int analogInRange_;
+  int analogInMode_;
+  
+  // Temperature parameters
+  int temperatureInValue_;
+  int thermocoupleType_;
+  int temperatureScale_;
+  int temperatureFilter_;
   
   // Waveform digitizer parameters - global
   int waveDigDwell_;
@@ -184,6 +255,7 @@ protected:
 
   // Analog output parameters
   int analogOutValue_;
+  int analogOutRange_;
   
   // Waveform generator parameters - global
   int waveGenFreq_;
@@ -225,8 +297,12 @@ private:
   int boardNum_;
   int boardType_;
   char boardName_[BOARDNAMELEN];
+  int digitalIOPort_;
+  int digitalIOConfigurable_;
   int numAnalogIn_;
   int numAnalogOut_;
+  int ADCResolution_;
+  int DACResolution_;
   int numCounters_;
   int numTimers_;
   int numIOBits_;
@@ -244,7 +320,6 @@ private:
   epicsFloat32 *waveGenUserBuffer_[MAX_ANALOG_OUT];
   epicsFloat32 *waveGenUserTimeBuffer_;
   epicsFloat32 *waveGenIntTimeBuffer_;
-  int digitalIOPort_;
   HGLOBAL inputMemHandle_;
   HGLOBAL outputMemHandle_;
   
@@ -275,8 +350,10 @@ static void pollerThreadC(void * pPvt)
 
 MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints)
   : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask | asynDrvUserMask,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynFloat64Mask, 
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
+                      asynFloat64Mask       | asynEnumMask       | asynDrvUserMask,
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
+                      asynFloat64Mask       | asynEnumMask, 
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     boardNum_(boardNum),
@@ -291,39 +368,13 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
     waveDigRunning_(0)
 {
   int i;
+  int inMask, outMask;
   static const char *functionName = "MultiFunction";
-  
-  // Get the board number and board name
-  cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE, &boardType_);
-  cbGetBoardName(boardNum_, boardName_);
-  switch (boardType_) {
-    case USB_2408_2A0:
-      digitalIOPort_ = FIRSTPORTA;
-      numAnalogIn_  = 8;
-      numAnalogOut_ = 2;
-      numCounters_  = 2;
-      numTimers_    = 0;
-      numIOBits_    = 8;
-      break;
-    case USB_1608GX_2A0:
-      digitalIOPort_ = AUXPORT;
-      numAnalogIn_  = 16;
-      numAnalogOut_ = 2;
-      numCounters_  = 2;
-      numTimers_    = 1;
-      numIOBits_    = 8;
-      minPulseGenFrequency_ = 0.0149;
-      maxPulseGenFrequency_ = 32e6;
-      minPulseGenDelay_ = 0.;
-      maxPulseGenDelay_ = 67.11;
-      break;
-    default:
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s::%s error, unknown board type=%d\n", 
-        driverName, functionName, boardType_);
-      break;
-  }
- 
+   
+  // Model parameters
+  createParam(modelNameString,                 asynParamOctet, &modelName_);
+  createParam(modelNumberString,               asynParamInt32, &modelNumber_);
+
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
   createParam(pulseGenPeriodString,          asynParamFloat64, &pulseGenPeriod_);
@@ -339,7 +390,14 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   // Analog input parameters
   createParam(analogInValueString,             asynParamInt32, &analogInValue_);
   createParam(analogInRangeString,             asynParamInt32, &analogInRange_);
+  createParam(analogInModeString,              asynParamInt32, &analogInMode_);
   
+  // Temperature parameters
+  createParam(temperatureInValueString,      asynParamFloat64, &temperatureInValue_);
+  createParam(thermocoupleTypeString,          asynParamInt32, &thermocoupleType_);
+  createParam(temperatureScaleString,          asynParamInt32, &temperatureScale_);
+  createParam(temperatureFilterString,         asynParamInt32, &temperatureFilter_);
+ 
   // Waveform digitizer parameters - global
   createParam(waveDigDwellString,            asynParamFloat64, &waveDigDwell_);
   createParam(waveDigTotalTimeString,        asynParamFloat64, &waveDigTotalTime_);
@@ -362,6 +420,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
 
   // Analog output parameters
   createParam(analogOutValueString,            asynParamInt32, &analogOutValue_);
+  createParam(analogOutRangeString,            asynParamInt32, &analogOutRange_);
   
   // Waveform generator parameters - global
   createParam(waveGenFreqString,             asynParamFloat64, &waveGenFreq_);
@@ -397,6 +456,40 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   createParam(digitalDirectionString,  asynParamUInt32Digital, &digitalDirection_);
   createParam(digitalInputString,      asynParamUInt32Digital, &digitalInput_);
   createParam(digitalOutputString,     asynParamUInt32Digital, &digitalOutput_);
+
+  // Get the board number and board name
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE,  &boardType_);
+  setIntegerParam(modelNumber_, boardType_);
+  cbGetBoardName(boardNum_, boardName_);
+  setStringParam(modelName_, boardName_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMADCHANS, &numAnalogIn_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMDACHANS, &numAnalogOut_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,      &ADCResolution_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,     &DACResolution_);
+  cbGetConfig(DIGITALINFO, boardNum_, 0, DIDEVTYPE, &digitalIOPort_);
+  cbGetConfig(DIGITALINFO, boardNum_, 0, DIINMASK,  &inMask);
+  cbGetConfig(DIGITALINFO, boardNum_, 0, DIOUTMASK, &outMask);
+  cbGetConfig(DIGITALINFO, boardNum_, 0, DINUMBITS, &numIOBits_);
+  digitalIOConfigurable_ = ((inMask & outMask) == 0);
+  switch (boardType_) {
+    case USB_2408_2A0:
+      numCounters_  = 2;
+      numTimers_    = 0;
+      break;
+    case USB_1608GX_2A0:
+      numCounters_  = 2;
+      numTimers_    = 1;
+      minPulseGenFrequency_ = 0.0149;
+      maxPulseGenFrequency_ = 32e6;
+      minPulseGenDelay_ = 0.;
+      maxPulseGenDelay_ = 67.11;
+      break;
+    default:
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error, unknown board type=%d\n", 
+        driverName, functionName, boardType_);
+      break;
+  }
 
   // Allocate memory for the input and output buffers
   for (i=0; i<numAnalogIn_; i++) {
@@ -825,15 +918,19 @@ asynStatus MultiFunction::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsI
 {
   int function = pasynUser->reason;
 
-  // Both the analog outputs and analog inputs are 16-bit devices
-  if ((function == analogOutValue_) ||
-      (function == analogInValue_)) {
+  
+  if (function == analogOutValue_) {
     *low = 0;
-    *high = 65535;
-    return(asynSuccess);
-  } else {
+    *high = (1 << DACResolution_) - 1;
+  } 
+  else if (function == analogInValue_) {
+    *low = 0;
+    *high = (1 << ADCResolution_) - 1;
+  }
+  else {
     return(asynError);
   }
+  return(asynSuccess);
 }
 
 asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
@@ -846,8 +943,21 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   this->getAddress(pasynUser, &addr);
   setIntegerParam(addr, function, value);
 
+  // Analog input functions
+  if (function == analogInMode_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADCHANTYPE, value);
+    // It seems to be necessary to reprogram the thermocouple type when switching from volts to TC
+    int tcType;
+    getIntegerParam(addr, thermocoupleType_, &tcType);
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, tcType);
+  }
+
+  else if (function == thermocoupleType_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
+  }
+
   // Pulse generator functions
-  if (function == pulseGenRun_) {
+  else if (function == pulseGenRun_) {
     // Allow starting a run even if it thinks its running,
     // since there is no way to know when it got done if Count!=0
     if (value) {
@@ -857,8 +967,8 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       status = stopPulseGenerator();
     }
   }
-  if ((function == pulseGenCount_) ||
-      (function == pulseGenIdleState_)) {
+  else if ((function == pulseGenCount_) ||
+           (function == pulseGenIdleState_)) {
     if (pulseGenRunning_) {
       status = stopPulseGenerator();
       status |= startPulseGenerator();
@@ -866,38 +976,38 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   // Counter functions
-  if (function == counterReset_) {
+  else if (function == counterReset_) {
     // LOADREG0=0, LOADREG1=1, so we use addr
     status = cbCLoad32(boardNum_, addr, 0);
   }
   
   // Trigger functions
-  if (function == triggerMode_) {
+  else if (function == triggerMode_) {
     status = cbSetTrigger(boardNum_, value, 0, 0);
   }
 
   // Waveform digitizer functions
-  if (function == waveDigRun_) {
+  else if (function == waveDigRun_) {
     if (value && !waveDigRunning_)
       status = startWaveDig();
     else if (!value && waveDigRunning_) 
       status = stopWaveDig();
   }
   
-  if (function == waveDigReadWF_) {
+  else if (function == waveDigReadWF_) {
     readWaveDig();
   }
 
-  if (function == waveDigNumPoints_) {
+  else if (function == waveDigNumPoints_) {
     computeWaveDigTimes();
   }
   
-  if (function == waveDigTriggerCount_) {
+  else if (function == waveDigTriggerCount_) {
     status = cbSetConfig(BOARDINFO, boardNum_, 0, BIADTRIGCOUNT, value);
   }
 
   // Analog output functions
-  if (function == analogOutValue_) {
+  else if (function == analogOutValue_) {
     if (waveGenRunning_) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s:%s: ERROR cannot write analog outputs while waveform generator is running.\n",
@@ -908,14 +1018,14 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   // Waveform generator functions
-  if (function == waveGenRun_) {
+  else if (function == waveGenRun_) {
     if (value && !waveGenRunning_)
       status = startWaveGen();
     else if (!value && waveGenRunning_) 
       status = stopWaveGen();
   }
 
-  if ((function == waveGenWaveType_)      ||
+  else if ((function == waveGenWaveType_) ||
       (function == waveGenUserNumPoints_) ||
       (function == waveGenIntNumPoints_)  ||
       (function == waveGenEnable_)        ||
@@ -929,15 +1039,16 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
 
+  else if (function == waveGenTriggerCount_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, 0, BIDACTRIGCOUNT, value);
+  }
+
+  // This is a separate if statement because these cases are also treated above
   if ((function == waveGenUserNumPoints_) ||
       (function == waveGenIntNumPoints_)) {
     computeWaveGenTimes();
   }
   
-  if (function == waveGenTriggerCount_) {
-    status = cbSetConfig(BOARDINFO, boardNum_, 0, BIDACTRIGCOUNT, value);
-  }
-
   callParamCallbacks(addr);
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
@@ -957,9 +1068,11 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
   int addr;
   int function = pasynUser->reason;
   int status=0;
-  unsigned short shortVal;
+  int mode;
+  epicsUInt16 shortVal;
+  ULONG ulongVal;
   int range;
-  //static const char *functionName = "readInt32";
+  static const char *functionName = "readInt32";
 
   this->getAddress(pasynUser, &addr);
 
@@ -967,14 +1080,27 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
   if (function == analogInValue_) {
     if (waveDigRunning_) return asynSuccess;
     getIntegerParam(addr, analogInRange_, &range);
+    getIntegerParam(addr, analogInMode_, &mode);
+    if (mode != AI_CHAN_TYPE_VOLTAGE) return asynSuccess;
     // NOTE: There is something wrong with their driver.  
     // If cbAIn is just called once there is a large error due apparently
     // to not allowing settling time before reading.  For now we read twice
     // which removes the error.
-    status = cbAIn(boardNum_, addr, range, &shortVal);
-    status = cbAIn(boardNum_, addr, range, &shortVal);
-    *value = shortVal;
+    if (ADCResolution_ <= 16) {
+      status = cbAIn(boardNum_, addr, range, &shortVal);
+      status = cbAIn(boardNum_, addr, range, &shortVal);
+      *value = shortVal;
+    } else {
+      status = cbAIn32(boardNum_, addr, range, &ulongVal, 0);
+      status = cbAIn32(boardNum_, addr, range, &ulongVal, 0);
+      *value = (epicsInt32)ulongVal;
+    }
     setIntegerParam(addr, analogInValue_, *value);
+    if (status) {
+      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+        "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR reading status=%d\n",
+          driverName, functionName, this->portName, function, addr, range, status);
+    }
   }
 
   // Other functions we call the base class method
@@ -1007,11 +1133,11 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   }
   
   // Waveform generator functions
-  if ((function == waveGenUserDwell_)  ||
-      (function == waveGenIntDwell_)   ||
-      (function == waveGenPulseWidth_) ||
-      (function == waveGenAmplitude_)  ||
-      (function == waveGenOffset_)) {
+  else if ((function == waveGenUserDwell_)  ||
+           (function == waveGenIntDwell_)   ||
+           (function == waveGenPulseWidth_) ||
+           (function == waveGenAmplitude_)  ||
+           (function == waveGenOffset_)) {
     defineWaveform(addr);
     if (waveGenRunning_) {
       status = stopWaveGen();
@@ -1024,6 +1150,7 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
     computeWaveDigTimes();
   }
 
+  // This is a separate if statement because these cases are also treated above
   if ((function == waveGenUserDwell_)  ||
       (function == waveGenIntDwell_)) {
     computeWaveGenTimes();
@@ -1042,6 +1169,51 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   return (status==0) ? asynSuccess : asynError;
 }
 
+asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
+{
+  int addr;
+  int function = pasynUser->reason;
+  int status=0;
+  int mode;
+  int scale;
+  float fVal;
+  int filter=0;
+  static const char *functionName = "readFloat64";
+
+  this->getAddress(pasynUser, &addr);
+
+  // Temperature input function
+  if (function == temperatureInValue_) {
+    if (waveDigRunning_) return asynSuccess;
+    getIntegerParam(addr, analogInMode_, &mode);
+    getIntegerParam(addr, temperatureScale_, &scale);
+    getIntegerParam(addr, temperatureFilter_, &filter);
+    if (mode != AI_CHAN_TYPE_TC) return asynSuccess;
+    status = cbTIn(boardNum_, addr, scale, &fVal, filter);
+    if (status == OPENCONNECTION) {
+      // This is an "expected" error if the thermocouple is broken or disconnected
+      // Don't print error message, just set temp to -9999.
+      fVal = -9999.;
+      status = 0;
+    }
+    *value = fVal;
+    setDoubleParam(addr, temperatureInValue_, *value);
+    if (status) {
+      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+        "%s::%s, port %s, function=%d, addr=%d, scale=%d, filter=%d, ERROR reading status=%d\n",
+          driverName, functionName, this->portName, function, addr, scale, filter, status);
+    }
+  }
+
+  // Other functions we call the base class method
+  else {
+     status = asynPortDriver::readFloat64(pasynUser, value);
+  }
+
+  callParamCallbacks(addr);
+  return (status==0) ? asynSuccess : asynError;
+}
+
 asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask)
 {
   int function = pasynUser->reason;
@@ -1056,7 +1228,13 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
     outValue = (value == 0) ? DIGITALIN : DIGITALOUT; 
     for (i=0; i<numIOBits_; i++) {
       if ((mask & (1<<i)) != 0) {
-        status = cbDConfigBit(boardNum_, digitalIOPort_, i, outValue);
+        if (digitalIOConfigurable_) {
+          status = cbDConfigBit(boardNum_, digitalIOPort_, i, outValue);
+        }
+        else {
+          // Cannot program direction.  Set open collector output to 0.
+          status = cbDBitOut(boardNum_, digitalIOPort_, i, 0);
+        }
       }
     }
   }
@@ -1075,12 +1253,12 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
   callParamCallbacks();
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s:%s, port %s, wrote outValue=0x%x, value=0x%x, mask=0x%x, direction=0x%x\n",
-             driverName, functionName, this->portName, outValue, value, mask, direction);
+             "%s:%s, port %s, function=%d, wrote outValue=0x%x, function=%d, value=0x%x, mask=0x%x, direction=0x%x\n",
+             driverName, functionName, this->portName, function, outValue, value, mask, direction);
   } else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-             "%s:%s, port %s, ERROR writing outValue=0x%x, value=0x%x, mask=0x%x, direction=0x%x, status=%d\n",
-             driverName, functionName, this->portName, outValue, value, mask, direction, status);
+             "%s:%s, port %s, function=%d, ERROR writing outValue=0x%x, value=0x%x, mask=0x%x, direction=0x%x, status=%d\n",
+             driverName, functionName, this->portName, function, outValue, value, mask, direction, status);
   }
   return (status==0) ? asynSuccess : asynError;
 }
@@ -1184,6 +1362,64 @@ asynStatus MultiFunction::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *v
 
   return asynSuccess;
 }
+
+asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int values[], int severities[], size_t nElements, size_t *nIn)
+{
+  int function = pasynUser->reason;
+  size_t i;
+  const enumStruct_t *pEnum;
+  int numEnums;
+
+  if (function == analogInRange_) {
+    switch (boardType_) {
+      case USB_1608GX_2A0:
+        pEnum = inputRangeUSB_1608G;
+        numEnums = NUM_USB_1608G_INPUT_RANGES;
+        break;
+      case USB_2408_2A0:
+        pEnum = inputRangeUSB_2408;
+        numEnums = NUM_USB_2408_INPUT_RANGES;
+        break;
+    }
+  }
+  else if (function == analogOutRange_) {
+    switch (boardType_) {
+      case USB_1608GX_2A0:
+        pEnum = outputRangeUSB_1608G;
+        numEnums = NUM_USB_1608G_OUTPUT_RANGES;
+        break;
+      case USB_2408_2A0:
+        pEnum = outputRangeUSB_2408;
+        numEnums = NUM_USB_2408_OUTPUT_RANGES;
+        break;
+    }
+  }
+  else if (function == analogInMode_) {
+    switch (boardType_) {
+      case USB_1608GX_2A0:
+        pEnum = inputModeUSB_1608G;
+        numEnums = NUM_USB_1608G_INPUT_MODES;
+        break;
+      case USB_2408_2A0:
+        pEnum = inputModeUSB_2408;
+        numEnums = NUM_USB_2408_INPUT_MODES;
+        break;
+    }
+  }
+  else {
+      *nIn = 0;
+      return asynError;
+  }
+  for (i=0; ((i<numEnums) && (i<nElements)); i++) {
+    if (strings[i]) free(strings[i]);
+    strings[i] = epicsStrDup(pEnum[i].enumString);
+    values[i] = pEnum[i].enumValue;
+    severities[i] = 0;
+  }
+  *nIn = i;
+  return asynSuccess;   
+}
+
 
 void MultiFunction::pollerThread()
 {
