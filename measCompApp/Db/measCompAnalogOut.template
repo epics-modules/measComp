@@ -14,6 +14,14 @@ record(ao,"$(P)$(R)") {
     field(VAL,  "$(VAL)")
 }
 
+# Note: the driver constructs these enum fields based on model.
+record(mbbo,"$(P)$(R)Range")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_RANGE")
+}
+
 record(ao,"$(P)$(R)Return") {
     field(DTYP, "asynInt32")
     field(DISV, "0")
