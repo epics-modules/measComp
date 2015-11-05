@@ -466,6 +466,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   cbGetConfig(BOARDINFO, boardNum_, 0, BINUMDACHANS, &numAnalogOut_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,      &ADCResolution_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,     &DACResolution_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BICINUMDEVS,  &numCounters_);
   cbGetConfig(DIGITALINFO, boardNum_, 0, DIDEVTYPE, &digitalIOPort_);
   cbGetConfig(DIGITALINFO, boardNum_, 0, DIINMASK,  &inMask);
   cbGetConfig(DIGITALINFO, boardNum_, 0, DIOUTMASK, &outMask);
@@ -473,11 +474,9 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   digitalIOConfigurable_ = ((inMask & outMask) == 0);
   switch (boardType_) {
     case USB_2408_2A0:
-      numCounters_  = 2;
       numTimers_    = 0;
       break;
     case USB_1608GX_2A0:
-      numCounters_  = 2;
       numTimers_    = 1;
       minPulseGenFrequency_ = 0.0149;
       maxPulseGenFrequency_ = 32e6;
@@ -1491,15 +1490,30 @@ void MultiFunction::report(FILE *fp, int details)
 {
   int i;
   int counts;
-  
+
   asynPortDriver::report(fp, details);
-  fprintf(fp, "  Port: %s, board number=%d\n", 
-          this->portName, boardNum_);
+  fprintf(fp, "  Port: %s, board number=%d, board ID=%d, board type=%s\n", 
+          this->portName, boardNum_, boardType_, boardName_);
   if (details >= 1) {
+    fprintf(fp, "  # analog inputs    = %d\n", numAnalogIn_);
+    fprintf(fp, "  analog input bits  = %d\n", ADCResolution_);
+    fprintf(fp, "  # analog outputs   = %d\n", numAnalogOut_);
+    fprintf(fp, "  analog output bits = %d\n", DACResolution_);
+    fprintf(fp, "  digital I/O port   = %d\n", digitalIOPort_);
+    fprintf(fp, "  # digital I/O bits = %d\n", numIOBits_);
+    fprintf(fp, "  DIO configurable   = %d\n", digitalIOConfigurable_);
+    fprintf(fp, "  # timers           = %d\n", numTimers_);
+    if (numTimers_ > 0) {
+      fprintf(fp, "  pulse generator\n");
+      fprintf(fp, "    frequency range  = %f : %f\n", minPulseGenFrequency_, maxPulseGenFrequency_);
+      fprintf(fp, "    delay range      = %f : %f\n", minPulseGenDelay_, maxPulseGenDelay_);
+    }
+    fprintf(fp, "  # counters         = %d", numCounters_);
     fprintf(fp, "  counterCounts = ");
-    for (i=0; i<numCounters_; i++)
+    for (i=0; i<numCounters_; i++) {
       getIntegerParam(i, counterCounts_, &counts); 
       fprintf(fp, " %d", counts);
+    }
     fprintf(fp, "\n");
   }
 }
