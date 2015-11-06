@@ -4,14 +4,14 @@
 dbLoadDatabase "../../dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-dbLoadTemplate("USB2408.substitutions")
-
 # Configure port driver
 # MultiFunctionConfig(portName,        # The name to give to this asyn port driver
 #                     boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
 #                     maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                     maxOutputPoints) # Maximum number of output points for waveform generator
 MultiFunctionConfig("USB2408_1", 0, 1048576, 1048576)
+
+dbLoadTemplate("USB2408.substitutions")
 
 #asynSetTraceMask USB2408_1 -1 255
 
