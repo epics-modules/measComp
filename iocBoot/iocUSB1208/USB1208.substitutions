@@ -1,0 +1,99 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{          P,    R,   MASK,       PORT,  ADDR}
+{   USB1208:,  Li1, 0xFFFF,  USB1208_1,     0}
+{   USB1208:,  Li2, 0xFFFF,  USB1208_1,     1}
+}
+
+# This device is a bit confusing.  
+# For input we read 8-bit word data from ADDR=0,1
+# For output we write bit data which must use ADDR=0
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{          P,    R,   MASK,        PORT,  ADDR}
+{   USB1208:,   Bi1,  0x01,   USB1208_1,     0}
+{   USB1208:,   Bi2,  0x02,   USB1208_1,     0}
+{   USB1208:,   Bi3,  0x04,   USB1208_1,     0}
+{   USB1208:,   Bi4,  0x08,   USB1208_1,     0}
+{   USB1208:,   Bi5,  0x10,   USB1208_1,     0}
+{   USB1208:,   Bi6,  0x20,   USB1208_1,     0}
+{   USB1208:,   Bi7,  0x40,   USB1208_1,     0}
+{   USB1208:,   Bi8,  0x80,   USB1208_1,     0}
+{   USB1208:,   Bi9,  0x01,   USB1208_1,     1}
+{   USB1208:,  Bi10,  0x02,   USB1208_1,     1}
+{   USB1208:,  Bi11,  0x04,   USB1208_1,     1}
+{   USB1208:,  Bi12,  0x08,   USB1208_1,     1}
+{   USB1208:,  Bi13,  0x10,   USB1208_1,     1}
+{   USB1208:,  Bi14,  0x20,   USB1208_1,     1}
+{   USB1208:,  Bi15,  0x40,   USB1208_1,     1}
+{   USB1208:,  Bi16,  0x80,   USB1208_1,     1}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+{
+pattern
+{          P,    R,   MASK,       PORT,  ADDR}
+{   USB1208:,  Lo1, 0xFFFF,  USB1208_1,     0}
+{   USB1208:,  Lo2, 0xFFFF,  USB1208_1,     1}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{          P,    R,    MASK,        PORT,  ADDR}
+{   USB1208:,   Bo1,    0x1,   USB1208_1,     0}
+{   USB1208:,   Bo2,    0x2,   USB1208_1,     0}
+{   USB1208:,   Bo3,    0x4,   USB1208_1,     0}
+{   USB1208:,   Bo4,    0x8,   USB1208_1,     0}
+{   USB1208:,   Bo5,   0x10,   USB1208_1,     0}
+{   USB1208:,   Bo6,   0x20,   USB1208_1,     0}
+{   USB1208:,   Bo7,   0x40,   USB1208_1,     0}
+{   USB1208:,   Bo8,   0x80,   USB1208_1,     0}
+{   USB1208:,   Bo9,  0x100,   USB1208_1,     0}
+{   USB1208:,  Bo10,  0x200,   USB1208_1,     0}
+{   USB1208:,  Bo11,  0x400,   USB1208_1,     0}
+{   USB1208:,  Bo12,  0x800,   USB1208_1,     0}
+{   USB1208:,  Bo13, 0x1000,   USB1208_1,     0}
+{   USB1208:,  Bo14, 0x2000,   USB1208_1,     0}
+{   USB1208:,  Bo15, 0x4000,   USB1208_1,     0}
+{   USB1208:,  Bo16, 0x8000,   USB1208_1,     0}
+}
+
+# Direction bits on binary I/O
+#  VAL 0=input, 1=output
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
+{
+pattern
+{          P,    R,   MASK,  VAL,       PORT,  ADDR}
+{   USB1208:,  Bd1, 0xFFFF,    0,  USB1208_1,     0}
+{   USB1208:,  Bd2, 0xFFFF,    0,  USB1208_1,     1}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/1608GCounter.template"
+{
+pattern
+{          P,         R,       PORT,   ADDR}
+{   USB1208:,  Counter1,  USB1208_1,      0}
+}
+
+# Analog inputs
+file "$(MEASCOMP)/measCompApp/Db/measCompAnalogIn.template"
+{
+pattern
+{          P,     R,      PORT, ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
+{   USB1208:,   Ai1, USB1208_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{   USB1208:,   Ai2, USB1208_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{   USB1208:,   Ai3, USB1208_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{   USB1208:,   Ai4, USB1208_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+}
+
+# Analog outputs
+file "$(MEASCOMP)/measCompApp/Db/measCompAnalogOut.template"
+{
+pattern
+{          P,    R, VAL,       PORT, ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{   USB1208:,  Ao1,   0,  USB1208_1,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{   USB1208:,  Ao2,   0,  USB1208_1,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+}
