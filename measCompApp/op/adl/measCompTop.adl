@@ -8,7 +8,7 @@ display {
 		x=388
 		y=55
 		width=212
-		height=125
+		height=150
 	}
 	clr=14
 	bclr=4
@@ -106,7 +106,7 @@ display {
 "related display" {
 	object {
 		x=30
-		y=40
+		y=65
 		width=150
 		height=20
 	}
@@ -122,7 +122,7 @@ display {
 "related display" {
 	object {
 		x=30
-		y=90
+		y=115
 		width=150
 		height=20
 	}
@@ -138,7 +138,7 @@ display {
 "related display" {
 	object {
 		x=30
-		y=65
+		y=90
 		width=150
 		height=20
 	}
@@ -150,4 +150,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-2408"
+}
+"related display" {
+	object {
+		x=30
+		y=40
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-1208LS module"
+		name="USB1208LS_module.adl"
+		args="P=USB1208:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
+	}
+	clr=14
+	bclr=51
+	label="USB-1208LS"
 }
