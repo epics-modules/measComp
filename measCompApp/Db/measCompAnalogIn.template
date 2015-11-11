@@ -21,10 +21,10 @@ record(mbbo,"$(P)$(R)Range")
 }
 
 # Note: the driver constructs these enum fields based on model.
-record(mbbo,"$(P)$(R)Mode")
+record(mbbo,"$(P)$(R)Type")
 {
     field(PINI, "YES")
     field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_IN_MODE")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_IN_TYPE")
 }
 
