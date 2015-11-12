@@ -27,12 +27,24 @@
       like the SIS3820, with internal or external channel advance and dwell times as short
       as 250 ns. The device also contains 4 programmable pulse generators, and 8 digital
       I/O bits, which are supported with standard EPICS records.</li>
+    <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx">USB-1208LS</a>.
+      analog I/O module. This device contains 8 single-ended/4 differential 12-bit analog
+      inputs, 2 10-bit analog outputs, and 16 binary input/outputs. The driver supports
+      simple analog I/O, binary I/O, and a counter input.</li>
     <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx">USB-1608GX-2AO</a>.
       analog I/O module. This device contains 16 single-ended/8 differential 16-bit analog
       inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs and
       outputs can each be run at 500 kHz. The driver supports simple analog I/O, 2 waveform
       generators using the analog outputs, an 8 or 16 channel waveform digitizer using
-      the analog inputs, binary I/O, and a pulse generator.</li>
+      the analog inputs, binary I/O, 2 counter inputs, and a pulse generator.</li>
+    <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx">USB-2408-2AO</a>.
+      analog I/O module. This device contains 16 single-ended/8 differential 24-bit analog
+      inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs can
+      measure either temperature or voltage. Thermocouple types B, E, J, K, N, R, S and
+      T are supported. The analog inputs and outputs can each be run at 1 kHz. The driver
+      supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
+      or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
+      inputs.</li>
     <li>The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx">USB-4303</a>.
       This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
       of which contains 5 16-bit counter/timer units. The driver supports independent
@@ -49,8 +61,8 @@
     Where to find it</h2>
   <p>
     You can download the software from the links in the table below. The software can
-    also be accessed through the <a href="https://subversion.xor.aps.anl.gov/synApps/measComp">
-      APS BCDA Subversion repository</a>.</p>
+    also be accessed through the <a href="https://github.com/epics-modules/measComp">github
+      repository</a>.</p>
   <table border="1" summary="Where to find the software">
     <tbody>
       <tr align="center">
@@ -67,12 +79,25 @@
       </tr>
       <tr>
         <td>
+          1-2</td>
+        <td>
+          XXX-November-2015</td>
+        <td>
+          <a href="https://github.com/epics-modules/measComp/releases/tag/R1-2">R1-2 tar and
+            zip files</a> </td>
+        <td>
+          <a href="measCompDoc.html">measCompDoc</a></td>
+        <td>
+          <a href="measCompReleaseNotes.html">Release notes</a></td>
+      </tr>
+      <tr>
+        <td>
           1-1</td>
         <td>
           26-June-2014</td>
         <td>
-          <a href="http://cars.uchicago.edu/software/pub/measCompR1-1.tgz">measCompR1-1.tgz</a>
-        </td>
+          <a href="https://github.com/epics-modules/measComp/releases/tag/R1-1">R1-1 tar and
+            zip files</a> </td>
         <td>
           <a href="measCompDoc.html">measCompDoc</a></td>
         <td>
@@ -84,8 +109,8 @@
         <td>
           28-November-2011</td>
         <td>
-          <a href="http://cars.uchicago.edu/software/pub/measCompR1-0.tgz">measCompR1-0.tgz</a>
-        </td>
+          <a href="https://github.com/epics-modules/measComp/releases/tag/R1-0">R1-0 tar and
+            zip files</a> </td>
         <td>
           <a href="measCompDoc.html">measCompDoc</a></td>
         <td>
@@ -106,6 +131,81 @@
           Release needed</th>
         <th>
           Required for</th>
+      </tr>
+      <tr>
+        <td rowspan="9">
+          1-2</td>
+        <td>
+          EPICS base</td>
+        <td>
+          3.14.12.5</td>
+        <td>
+          Base support</td>
+      </tr>
+      <tr>
+        <td>
+          asyn</td>
+        <td>
+          4-27</td>
+        <td>
+          Driver and device support</td>
+      </tr>
+      <tr>
+        <td>
+          autosave</td>
+        <td>
+          5-7-1</td>
+        <td>
+          Save/restore support</td>
+      </tr>
+      <tr>
+        <td>
+          busy</td>
+        <td>
+          1-6-1</td>
+        <td>
+          Busy record support</td>
+      </tr>
+      <tr>
+        <td>
+          mca</td>
+        <td>
+          7-6</td>
+        <td>
+          mca record support.</td>
+      </tr>
+      <tr>
+        <td>
+          std</td>
+        <td>
+          3-4</td>
+        <td>
+          Scaler record support.</td>
+      </tr>
+      <tr>
+        <td>
+          seq</td>
+        <td>
+          2.2.23</td>
+        <td>
+          State notation language sequencer. Used in MCS mode with USB-CTR08 and for std.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          calc</td>
+        <td>
+          3-4-2-1</td>
+        <td>
+          Record support for transform record, used by scaler record databases in std</td>
+      </tr>
+      <tr>
+        <td>
+          sscan</td>
+        <td>
+          2-10-1</td>
+        <td>
+          Scanning support. Required by calc for recDynLink.</td>
       </tr>
       <tr>
         <td rowspan="9">
