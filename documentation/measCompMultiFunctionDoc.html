@@ -8,9 +8,9 @@
 <body>
   <div style="text-align: center">
     <h1>
-      Driver for the Measurement Computing USB-1608GX-2A0</h1>
+      Driver for Measurement Computing Multi-Function Devices</h1>
     <h2>
-      November 28, 2011</h2>
+      February 10, 2016</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -28,13 +28,27 @@
   <h2 id="Introduction" style="text-align: center">
     Introduction</h2>
   <p>
-    This is an <a href="http://www.aps.anl.gov/epics">EPICS</a> driver for the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx">
-      USB-1608GX-2AO</a> analog input/output module from <a href="http://www.mccdaq.com">
-        Measurement Computing </a>The driver is written in C++, and consists of a class
-    that inherits from <a href="http://www.aps.anl.gov/epics/modules/soft/asyn/R4-18/asynPortDriver.html">
+    This is an <a href="http://www.aps.anl.gov/epics">EPICS</a> driver for the multi-function
+    devices from <a href="http://www.mccdaq.com">Measurement Computing </a>These multi-function
+    devices support support analog in, thermocouple in, analog out, binary I/O, counters,
+    and timers. Not all devices have all of these capabilities. The driver is written
+    in C++, and consists of a class that inherits from <a href="http://www.aps.anl.gov/epics/modules/soft/asyn/R4-27/asynPortDriver.html">
       asynPortDriver</a>, which is part of the EPICS <a href="http://www.aps.anl.gov/epics/modules/soft/asyn">
         asyn</a> module.
   </p>
+  <p>
+    The driver is written to be general, so that it can be used with any Measurement
+    Computing multi-function module. It uses the introspection capabilities of their
+    UL library to query many of the device features. However, there are some features
+    that cannot be queried, so the driver does require small modifications to be be
+    used with a new model. The models that the driver currently supports are:</p>
+  <ul>
+    <li><a href="#USB-1608GX-2A0">USB-1608GX-2A0</a></li>
+    <li><a href="#USB-2408-2A0">USB-2408-2A0</a></li>
+    <li><a href="#USB-1208LS">USB-1208LS</a></li>
+  </ul>
+  <h2 id="USB-1208-2A0" style="text-align: center">
+    USB-1608GX-2A0</h2>
   <div style="text-align: center">
     <h3>
       Photo of USB-1608GX-2A0</h3>
@@ -87,27 +101,123 @@
   <div style="text-align: center">
     <h3>
       1608G_module.adl</h3>
-    <img alt="1608G_module.png" src="1608G_module.png" /></div>
+    <img alt="USB1608G_module.png" src="USB1608G_module.png" /></div>
+  <h2 id="USB-2408-2AO" style="text-align: center; padding: 1cm;">
+    USB-2408-2AO</h2>
+  <div style="text-align: center">
+    <h3>
+      Photo of USB-2408-2A0</h3>
+    <img alt="USB-2408-2A0.jpg" src="USB-2408-2AO.jpg" /></div>
+  <p>
+    This module has the following features:</p>
+  <ul>
+    <li>24-bit analog inputs
+      <ul>
+        <li>16 single-ended channels or 8 differential channels</li>
+        <li>Programmable per-channel range: 8 ranges from +-0.078V to +-10V</li>
+        <li>Thermocouple support for 8 channels with cold-junction compensation. Types J,
+          K, T, E, R, S, B, or N.</li>
+        <li>1 kHz total maximum input rate, i.e. 1 channel at 1 kHz, 8 channels at 125 Hz,
+          etc.</li>
+        <li>Input FIFO, unlimited waveform length</li>
+      </ul>
+    </li>
+    <li>16-bit analog outputs
+      <ul>
+        <li>2 channels, fixed +-10V range</li>
+        <li>1000 Hz total maximum input rate, i.e. 1 channel at 1000 Hz, 2 channels at 500
+          Hz</li>
+        <li>Output FIFO, unlimited waveform length</li>
+      </ul>
+    </li>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>8 signals, individually programmable as inputs or outputs</li>
+      </ul>
+    </li>
+    <li>Counters
+      <ul>
+        <li>2 inputs</li>
+        <li>1 MHz maximum rate, 32-bit registers</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    The following is the main medm screen for controlling the USB-2408-2A0.</p>
+  <div style="text-align: center">
+    <h3>
+      2408_module.adl</h3>
+    <img alt="USB2408_module.png" src="USB2408_module.png" /></div>
+  <p>
+    The following is the main medm screen for configuring the analog/temperature inputs
+    on the USB-2408-2A0.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompTemperatureSetup.adl</h3>
+    <img alt="measCompTemperatureSetup.png" src="measCompTemperatureSetup.png" /></div>
+  <h2 id="USB-1208LS" style="text-align: center; padding: 1cm;">
+    USB-1208LS</h2>
+  <div style="text-align: center">
+    <h3>
+      Photo of USB-1208LS</h3>
+    <img alt="USB-1208LS.jpg" src="USB-1208LS.jpg" /></div>
+  <p>
+    This module has the following features when used with the EPICS driver:</p>
+  <ul>
+    <li>12-bit analog inputs
+      <ul>
+        <li>4 differential channels</li>
+        <li>Programmable per-channel range: 8 ranges from +-1V to +-20V</li>
+        <li>50 Hz maximum sampling rate</li>
+      </ul>
+    </li>
+    <li>10-bit analog outputs
+      <ul>
+        <li>2 channels, fixed 0 to +5V range</li>
+        <li>100 Hz maximum input rate</li>
+      </ul>
+    </li>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>16 signals, programmable as inputs or outputs in groups of 8</li>
+      </ul>
+    </li>
+    <li>Counters
+      <ul>
+        <li>1 input</li>
+        <li>1 MHz maximum rate, 32-bit register</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    The following is the main medm screen for controlling the USB-1208LS.</p>
+  <div style="text-align: center">
+    <h3>
+      1608G_module.adl</h3>
+    <img alt="USB1208LS_module.png" src="USB1208LS_module.png" /></div>
   <h2 id="Configuration" style="text-align: center">
     Configuration</h2>
   <p>
-    The following lines are needed in the EPICS startup script for the USB-1608GX-2AO.</p>
+    The following lines are needed in the EPICS startup script for the multifunction
+    driver.</p>
   <pre>
 ## Configure port driver
-# USB1608GConfig(portName,        # The name to give to this asyn port driver
-#                boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
-#                maxInputPoints,  # Maximum number of input points for waveform digitizer
-#                maxOutputPoints) # Maximum number of output points for waveform generator
-USB1608GConfig("1608G_1", 1, 1048576, 1048576)
+# MultiFunctionConfig(portName,        # The name to give to this asyn port driver
+#                     boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
+#                     maxInputPoints,  # Maximum number of input points for waveform digitizer
+#                     maxOutputPoints) # Maximum number of output points for waveform generator
+MultiFunctionConfig("1608G_1", 1, 1048576, 1048576)
 dbLoadTemplate("1608G.substitutions.big")
 </pre>
   <p>
-    The measComp module comes with an example iocBoot/iocMeasComp directory that contains
-    example startup scripts and example substitutions files.</p>
+    The measComp module comes with example iocBoot/ directories that contain example
+    startup scripts and example substitutions files. These directories are iocUSB1208,
+    iocUSB1608G, iocUSB2408, iocUSBC9513, iocUSBCTR, and iocMeasCompDemo.</p>
   <h2 id="Databases" style="text-align: center">
     Databases</h2>
   <p>
-    The following tables list the database template files that are used with the USB-1608GX-2A0.</p>
+    The following tables list the database template files that are used with the multi-function
+    modules.</p>
   <h3 style="text-align: center">
     Analog I/O Functions</h3>
   <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
@@ -126,7 +236,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompAnalogIn.template. This database is loaded once for each analog input channel.</b></td>
+          <b>measCompAnalogIn.template. This database is loaded once for each analog input channel.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -153,8 +264,208 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           ANALOG_IN_RANGE</td>
         <td>
-          Input range for this analog input channel. Choices are "+-1V" (0), "+-2V" (1), "+-5V"
-          (2), "+-10V" (3).</td>
+          Input range for this analog input channel. Choices are determined at run time based
+          on the model in use.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Type</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_IN_TYPE</td>
+        <td>
+          Input type (e.g. "Volts", "TC deg", etc.) for this analog input channel. Choices
+          are determined at run time based on the model in use.</td>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompAnalogOut.template. This database is loaded once for each analog input
+            channel.</b></td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          ai</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_OUT_VALUE</td>
+        <td>
+          Analog output value. This is converted from engineering units to the 16-bit unsigned
+          integer device units for the driver using the EGUL and EGUF fields.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Range</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_OUT_RANGE</td>
+        <td>
+          Output range for this analog output channel. Choices are determined at run time
+          based on the model in use.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Return</td>
+        <td>
+          ai</td>
+        <td>
+          asynInt32</td>
+        <td>
+          ANALOG_OUT_VALUE</td>
+        <td>
+          Analog output value to return to at the end of a pulse. This is converted from engineering
+          units to the 16-bit unsigned integer device units for the driver using the EGUL
+          and EGUF fields.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Pulse</td>
+        <td>
+          bo</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          Choices are "Normal" and "Pulse". In Normal mode the Return record is ignored. In
+          Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
+          writing the $(P)$(R)Return value.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TweakVal</td>
+        <td>
+          ao</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          The amount by which to tweak the out when the Tweak record is processed.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TweakUp</td>
+        <td>
+          calcout</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          Tweaks the output up by TweakVal.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TweakDown</td>
+        <td>
+          calcout</td>
+        <td>
+          N.A.</td>
+        <td>
+          N.A.</td>
+        <td>
+          Tweaks the output down by TweakVal.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    The following is the medm screen for controlling the analog input records for the
+    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    to be in volts, they can be in any units such as "percent", "degrees", etc.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompAiSetup.adl</h3>
+    <img alt="measCompAiSetup.png" src="measCompAiSetup.png" /></div>
+  <p>
+    The following is the medm screen for controlling the analog output records for the
+    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    to be in volts, they can be in any units such as "percent", "degrees", etc. The
+    drive limits can be more restrictive than the full +-10V output range of the analog
+    outputs.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompAoSetup.adl</h3>
+    <img alt="measCompAoSetup.png" src="measCompAoSetup.png" /></div>
+  <h3 style="text-align: center">
+    Temperature Functions</h3>
+  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
+    <tbody>
+      <tr>
+        <th>
+          EPICS record name</th>
+        <th>
+          EPICS record type</th>
+        <th>
+          asyn interface</th>
+        <th>
+          drvInfo string</th>
+        <th>
+          Description</th>
+      </tr>
+      <tr>
+        <td align="center" colspan="5">
+          <b>measCompTemperatureIn.template. This database is loaded once for each temperature
+            input channel.</b> </td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)</td>
+        <td>
+          ai</td>
+        <td>
+          asynFloat64</td>
+        <td>
+          TEMPERATURE_IN_VALUE</td>
+        <td>
+          Temperature input value. This field should be periodically scanned, since it is
+          not currently polled in the driver, so I/O Intr scanning cannot be used.</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Scale</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          TEMPERATURE_SCALE</td>
+        <td>
+          Temperature scale (units) for this temperature input channel. Choices are "Celsius"
+          (0), "Fahrenheit" (1), "Kelvin" (2), "Volts" (4), and "Noscale" (5).</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)TCType</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          THERMOCOUPLE_TYPE</td>
+        <td>
+          Thermocouple type. Choices are "Type J" (1), "Type K" (2), "Type T" (3), "Type 4"
+          (4), "Type R" (5), "Type S" (6), "Type B" (7), "Type N" (8)</td>
+      </tr>
+      <tr>
+        <td>
+          $(P)$(R)Filter</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          TEMPERATURE_FILTER</td>
+        <td>
+          Temperature filter. Choices are "Filter" (0) and "No filter" (0x400)</td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -276,7 +587,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b></td>
+          <b>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -294,7 +606,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b></td>
+          <b>measCompLongIn.template. This database is loaded once for each binary I/O register.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -312,7 +625,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b></td>
+          <b>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -324,7 +638,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           DIGITAL_OUTPUT</td>
         <td>
-          Digital output value. The MASK parameter in the INP link defines which bit is used.</td>
+          Digital output value. The MASK parameter in the INP link defines which bit is used.
+        </td>
       </tr>
       <tr>
         <td>
@@ -341,7 +656,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b></td>
+          <b>measCompLongOut.template. This database is loaded once for each binary I/O register.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -371,7 +687,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompBinaryDir.template. This database is loaded once for each binary I/O bit.</b></td>
+          <b>measCompBinaryDir.template. This database is loaded once for each binary I/O bit.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -407,7 +724,8 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompPulseGen.template. This database is loaded once for each pulse generator.</b></td>
+          <b>measCompPulseGen.template. This database is loaded once for each pulse generator.</b>
+        </td>
       </tr>
       <tr>
         <td>
@@ -462,7 +780,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           PULSE_WIDTH</td>
         <td>
-          Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).</td>
+          Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).
+        </td>
       </tr>
       <tr>
         <td>
@@ -548,7 +867,8 @@ dbLoadTemplate("1608G.substitutions.big")
           WAVEDIG_FIRST_CHAN</td>
         <td>
           First channel to digitize. "1" (0) to "8" (7). The database currently assumes differential
-          inputs, so only 8 inputs are available, though this can easily be extended to 16.</td>
+          inputs, so only 8 inputs are available, though this can easily be extended to 16.
+        </td>
       </tr>
       <tr>
         <td>
@@ -600,7 +920,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           WAVEDIG_DWELL</td>
         <td>
-          The time per point in seconds. The minimum time is 2 microseconds times NumChans.</td>
+          The time per point in seconds. The minimum time is 2 microseconds times NumChans.
+        </td>
       </tr>
       <tr>
         <td>
@@ -728,7 +1049,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           WAVEDIG_RUN</td>
         <td>
-          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform digitizer.</td>
+          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform digitizer.
+        </td>
       </tr>
       <tr>
         <td>
@@ -743,7 +1065,8 @@ dbLoadTemplate("1608G.substitutions.big")
           Values are "Done" (0) and "Read" (1). This reads the waveform data from the device
           buffers into the waveform records. Note that the driver always reads device when
           acquisition stops, so for quick acquisitions this record can be Passive. To see
-          partial data during long acquisitions this record can be periodically processed.</td>
+          partial data during long acquisitions this record can be periodically processed.
+        </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -1049,7 +1372,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           WAVEGEN_RUN</td>
         <td>
-          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform generator.</td>
+          Values are "Stop" (0) and "Run" (1). This starts and stops the waveform generator.
+        </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -1093,7 +1417,8 @@ dbLoadTemplate("1608G.substitutions.big")
         <td>
           WAVEGEN_ENABLE</td>
         <td>
-          Values are "Disable" and "Enable". Controls whether channel N output is enabled.</td>
+          Values are "Disable" and "Enable". Controls whether channel N output is enabled.
+        </td>
       </tr>
       <tr>
         <td>
@@ -1108,7 +1433,8 @@ dbLoadTemplate("1608G.substitutions.big")
           Controls the waveform type on channel N. Values are "User-defined" and "Sin wave",
           "Square wave", "Sawtooth", "Pulse", or "Random". Note that if any channel is "User-defined"
           then all channels must be. Note that all internally predefined waveforms are symmetric
-          about 0 volts. To output unipolar signals the Offset should be set to +-Amplitude/2.</td>
+          about 0 volts. To output unipolar signals the Offset should be set to +-Amplitude/2.
+        </td>
       </tr>
       <tr>
         <td>
