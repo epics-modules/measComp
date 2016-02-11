@@ -15,12 +15,26 @@ like the SIS3820, with internal or external channel advance and dwell times as s
 as 250 ns. The device also contains 4 programmable pulse generators, and 8 digital
 I/O bits, which are supported with standard EPICS records.
 
+* The [USB-1208LS] (http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx).
+This device has 8 single-ended/4 differential 12-bit analog
+inputs, 2 10-bit analog outputs, and 16 binary input/outputs. The driver supports
+simple analog I/O, binary I/O, and a counter input.</li>
+
 * The [USB-1608GX-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx).
 analog I/O module. This device contains 16 single-ended/8 differential 16-bit analog
 inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs and
 outputs can each be run at 500 kHz. The driver supports simple analog I/O, 2 waveform
 generators using the analog outputs, an 8 or 16 channel waveform digitizer using
 the analog inputs, binary I/O, and a pulse generator.
+
+* The [USB-2408-2AO] (http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx).
+This device contains 16 single-ended/8 differential 24-bit analog inputs, 
+2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs can
+measure either temperature or voltage. Thermocouple types B, E, J, K, N, R, S and
+T are supported. The analog inputs and outputs can each be run at 1 kHz. The driver
+supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
+or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
+inputs.</li>
 
 * The [USB-4303](http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx).
 This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
