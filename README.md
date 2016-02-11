@@ -43,7 +43,7 @@ control of each counter/timer unit, but it also supports the EPICS scaler record
 with 4 32-bit counters, a 16-bit preset timer, and one 16-bit counter. The device
 also contains 8 binary outputs, 8 binary inputs, which are supported with standard
 EPICS bi, bo, longin, and longout records. NOTE: This module is obsolete and is
-no longer be available. Use the USB-CTR08 instead.
+no longer available. Use the USB-CTR08 instead.
  
 Additional information:
 * [Home page](http://cars.uchicago.edu/software/epics/measComp.html)
