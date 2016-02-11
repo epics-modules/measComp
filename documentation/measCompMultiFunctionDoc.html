@@ -43,15 +43,16 @@
     that cannot be queried, so the driver does require small modifications to be be
     used with a new model. The models that the driver currently supports are:</p>
   <ul>
-    <li><a href="#USB-1608GX-2A0">USB-1608GX-2A0</a></li>
-    <li><a href="#USB-2408-2A0">USB-2408-2A0</a></li>
+    <li><a href="#USB-1608GX-2AO">USB-1608GX-2AO</a></li>
+    <li><a href="#USB-2408-2AO">USB-2408-2AO</a></li>
     <li><a href="#USB-1208LS">USB-1208LS</a></li>
   </ul>
-  <h2 id="USB-1208-2A0" style="text-align: center">
-    USB-1608GX-2A0</h2>
+  <hr />
+  <h2 id="USB-1608GX-2AO" style="text-align: center">
+    USB-1608GX-2AO</h2>
   <div style="text-align: center">
     <h3>
-      Photo of USB-1608GX-2A0</h3>
+      Photo of USB-1608GX-2AO</h3>
     <img alt="USB-1608GX-2AO.jpg" src="USB-1608GX-2AO.jpg" /></div>
   <p>
     This module has the following features:</p>
@@ -97,17 +98,18 @@
     </li>
   </ul>
   <p>
-    The following is the main medm screen for controlling the USB-1608GX-2A0.</p>
+    The following is the main medm screen for controlling the USB-1608GX-2AO.</p>
   <div style="text-align: center">
     <h3>
       1608G_module.adl</h3>
     <img alt="USB1608G_module.png" src="USB1608G_module.png" /></div>
+  <hr />
   <h2 id="USB-2408-2AO" style="text-align: center; padding: 1cm;">
     USB-2408-2AO</h2>
   <div style="text-align: center">
     <h3>
-      Photo of USB-2408-2A0</h3>
-    <img alt="USB-2408-2A0.jpg" src="USB-2408-2AO.jpg" /></div>
+      Photo of USB-2408-2AO</h3>
+    <img alt="USB-2408-2AO.jpg" src="USB-2408-2AO.jpg" /></div>
   <p>
     This module has the following features:</p>
   <ul>
@@ -143,18 +145,12 @@
     </li>
   </ul>
   <p>
-    The following is the main medm screen for controlling the USB-2408-2A0.</p>
+    The following is the main medm screen for controlling the USB-2408-2AO.</p>
   <div style="text-align: center">
     <h3>
       2408_module.adl</h3>
     <img alt="USB2408_module.png" src="USB2408_module.png" /></div>
-  <p>
-    The following is the main medm screen for configuring the analog/temperature inputs
-    on the USB-2408-2A0.</p>
-  <div style="text-align: center">
-    <h3>
-      measCompTemperatureSetup.adl</h3>
-    <img alt="measCompTemperatureSetup.png" src="measCompTemperatureSetup.png" /></div>
+  <hr />
   <h2 id="USB-1208LS" style="text-align: center; padding: 1cm;">
     USB-1208LS</h2>
   <div style="text-align: center">
@@ -379,15 +375,22 @@ dbLoadTemplate("1608G.substitutions.big")
   </table>
   <p>
     The following is the medm screen for controlling the analog input records for the
-    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    USB-1608GX-2AO. Note that the engineering units limits (EGUL and EGUF) do not have
     to be in volts, they can be in any units such as "percent", "degrees", etc.</p>
   <div style="text-align: center">
     <h3>
       measCompAiSetup.adl</h3>
     <img alt="measCompAiSetup.png" src="measCompAiSetup.png" /></div>
   <p>
+    The following is the main medm screen for configuring the analog/temperature inputs
+    on the USB-2408-2AO.</p>
+  <div style="text-align: center">
+    <h3>
+      measCompTemperatureSetup.adl</h3>
+    <img alt="measCompTemperatureSetup.png" src="measCompTemperatureSetup.png" /></div>
+  <p>
     The following is the medm screen for controlling the analog output records for the
-    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    USB-1608GX-2AO. Note that the engineering units limits (EGUL and EGUF) do not have
     to be in volts, they can be in any units such as "percent", "degrees", etc. The
     drive limits can be more restrictive than the full +-10V output range of the analog
     outputs.</p>
@@ -553,7 +556,7 @@ dbLoadTemplate("1608G.substitutions.big")
   </table>
   <p>
     The following is the medm screen for controlling the analog input records for the
-    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    USB-1608GX-2AO. Note that the engineering units limits (EGUL and EGUF) do not have
     to be in volts, they can be in any units such as "percent", "degrees", etc.</p>
   <div style="text-align: center">
     <h3>
@@ -561,7 +564,7 @@ dbLoadTemplate("1608G.substitutions.big")
     <img alt="measCompAiSetup.png" src="measCompAiSetup.png" /></div>
   <p>
     The following is the medm screen for controlling the analog output records for the
-    USB-1608GX-2A0. Note that the engineering units limits (EGUL and EGUF) do not have
+    USB-1608GX-2AO. Note that the engineering units limits (EGUL and EGUF) do not have
     to be in volts, they can be in any units such as "percent", "degrees", etc. The
     drive limits can be more restrictive than the full +-10V output range of the analog
     outputs.</p>
@@ -1529,7 +1532,7 @@ dbLoadTemplate("1608G.substitutions.big")
   <h2 id="Wiring" style="text-align: center">
     Wiring to BCDA BC-020 LEMO Breakout Panels</h2>
   <p>
-    The following photo shows the BCDA BC-020 LEMO breakout panels wired to the USB-1608GX-2A0.
+    The following photo shows the BCDA BC-020 LEMO breakout panels wired to the USB-1608GX-2AO.
     These are the lower 2 BC-020 panels in this photo. A BC-020 with a BC-026 daughter
     card is used for the analog signals (lower left), and a BC-020 with a BC-087 daughter
     card for the digital signals (lower right).</p>
@@ -1537,8 +1540,8 @@ dbLoadTemplate("1608G.substitutions.big")
     <h3>
       BC-020 LEMO breakout panels</h3>
     <img alt="measCompBC-020.jpg" src="measCompBC-020.jpg" /></div>
-  <h3 id="USB-1608GX-2A0_wiring">
-    USB-1608GX-2A0 Wiring to Two BCDA BC-020 LEMO Breakout Panels</h3>
+  <h3 id="USB-1608GX-2AO_wiring">
+    USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels</h3>
   <pre>      Digital I/O using BC-087 daughter card
 
 50-pin ribbon      USB-1608GX      BC-020   EPICS Function
@@ -1613,7 +1616,7 @@ and the "Analog input N -" lines are connected to the Lemo shell.
     outputs and analog inputs of the USB-1608GX-2AO. The test configuration was with
     Analog Output 0 connected to Analog Input 0, and also to a Keithley 2700 digital
     multimeter. The Keithley is a 6.5 digit (22 bit) device, so it can be used to measure
-    the accuracy of the USB-1608GX-2A0 analog output, and provide the "true" value to
+    the accuracy of the USB-1608GX-2AO analog output, and provide the "true" value to
     measure the accuracy of the analog input. The 1608GX analog inputs records and the
     Keithley input had SCAN=0.1 second, so new readings were being made at 10Hz. The
     following IDL test program was used to drive the analog output from -10V to +10V
