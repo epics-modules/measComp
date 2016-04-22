@@ -20,7 +20,7 @@
 
 
 /* Current Revision Number */
-#define CURRENTREVNUM      6.50
+#define CURRENTREVNUM      6.51
 
 /* System error code */
 #define NOERRORS           0    /* No error occurred */
@@ -567,6 +567,7 @@
 #define AUXPORT          1
 #define AUXPORT0         1
 #define AUXPORT1         2
+#define AUXPORT2         3
 #define FIRSTPORTA       10
 #define FIRSTPORTB       11
 #define FIRSTPORTCL      12
@@ -1264,6 +1265,7 @@
 #define BIDIALARMMASK        230
 
 #define BINETIOTIMEOUT       247
+#define BIADCHANAIMODE		 249
 #define BIDACFORCESENSE		 250
 
 #define BISYNCMODE           251    /* Sync mode */
@@ -1294,6 +1296,8 @@
 #define BIDACRES			  292
 
 #define BIADXFERMODE		  306
+#define BICTRTRIGCOUNT		  307
+#define BIDAQITRIGCOUNT		  308
 #define BINETCONNECTCODE	  341
 #define BIDITRIGCOUNT         343    /* Number of digital input samples to acquire per trigger */
 #define BIDOTRIGCOUNT         344    /* Number of digital output samples to generate per trigger */
@@ -1317,6 +1321,7 @@
 #define BIDEVSERIALNUM		  363
 #define BIDEVMACADDR		  364
 #define BIUSERDEVIDNUM		  365
+#define BIADAIMODE			  373
 
 
 /* Type of digital device information */
@@ -1330,6 +1335,7 @@
 #define DICURVAL            7      /* Current value of outputs */
 #define DIINMASK            8      /* Input bit mask for port */
 #define DIOUTMASK           9      /* Output bit mask for port */
+#define DIDISABLEDIRCHECK	13	   /* Disables checking port/bit direction in cbDOut and cbDBitOut functions */
 
 /* Types of counter device information */
 #define CIBASEADR           0       /* Base address */
