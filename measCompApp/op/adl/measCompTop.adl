@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-1-1/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-1-2/measCompApp/op/adl/measCompTop.adl"
 	version=030107
 }
 display {
 	object {
 		x=388
-		y=55
+		y=54
 		width=212
-		height=150
+		height=175
 	}
 	clr=14
 	bclr=4
@@ -166,4 +166,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-1208LS"
+}
+"related display" {
+	object {
+		x=30
+		y=140
+		width=150
+		height=20
+	}
+	display[0] {
+		label="TC32 module"
+		name="TC32_module.adl"
+		args="P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti"
+	}
+	clr=14
+	bclr=51
+	label="TC32"
 }
