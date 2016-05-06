@@ -1055,8 +1055,8 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // NOTE:
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
     // will often hang if more than 6 channels are being configured.
-    // This makes no sense, and the problem cannot be reproduced in the testTC32.c test application
-    epicsThreadSleep(0.01);
+    // This makes no sense.  The problem cannot be reproduced in the testTC32.c test application
+    if (boardType_ == TC32) epicsThreadSleep(0.01);
     status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
   }
 
