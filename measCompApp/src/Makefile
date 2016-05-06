@@ -71,14 +71,19 @@ endif
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 PROD_IOC_WIN32 += test_1608G_1
-#PROD_IOC_cygwin32 += test_1608G_1
 test_1608G_1_SRCS += test_1608G_1.c
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 test_1608G_1_LIBS += cbw32
-#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-#test_1608G_1_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 test_1608G_1_LIBS += cbw64
+endif
+
+PROD_IOC_WIN32 += testTC32
+testTC32_SRCS += testTC32.c
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+testTC32_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+testTC32_LIBS += cbw64
 endif
 
 
