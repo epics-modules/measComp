@@ -22,8 +22,3 @@ asynSetTraceIOMask TC32_1 -1 2
 iocInit
 
 create_monitor_set("auto_settings.req",30,"P=TC32:")
-
-# Need to force the time arrays to process because the records are scan=I/O Intr
-# but asynPortDriver does not do array callbacks before iocInit.
-
-#dbpf USB2408:WaveDigDwell.PROC 1
