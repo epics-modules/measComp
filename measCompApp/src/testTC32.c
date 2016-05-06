@@ -18,6 +18,8 @@ main(int argc, char* argv[])
   boardNum    = atoi(argv[1]);
   numInputs   = atoi(argv[2]);
   sleepTimeMs = atoi(argv[3]);
+  
+  printf("boardNum=%d, numInputs=%d, sleepTimeMs=%d\n", boardNum, numInputs, sleepTimeMs);
 
   /* Set the thermocouple type */
   for (i=0; i<numInputs; i++) {
