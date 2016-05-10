@@ -135,9 +135,10 @@ typedef enum {
   USB_1208LS     = 122,
   USB_2408_2A0   = 254,
   USB_1608GX_2A0 = 274,
-  TC32           = 305
+  USB_TC32       = 305,
+  ETH_TC32       = 306
 } boardType_t;
-#define MAX_BOARD_TYPES 4
+#define MAX_BOARD_TYPES 5
 
 typedef struct {
   char *enumString;
@@ -230,7 +231,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
-  {TC32,           inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
+  {USB_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
+                   outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
+                   inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
+  {ETH_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
 };
@@ -569,7 +573,8 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 67.11;
       break;
-    case TC32:
+    case USB_TC32:
+    case ETH_TC32:
       numTimers_    = 0;
       for (i=0; i<MAX_TEMPERATURE_IN; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
@@ -1056,7 +1061,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
     // will often hang if more than 6 channels are being configured.
     // This makes no sense.  The problem cannot be reproduced in the testTC32.c test application
-    if (boardType_ == TC32) epicsThreadSleep(0.01);
+    if ((boardType_ == USB_TC32) || (boardType_ == ETH_TC32)) epicsThreadSleep(0.01);
     status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
   }
 
