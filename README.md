@@ -18,7 +18,7 @@ I/O bits, which are supported with standard EPICS records.
 * The [USB-1208LS] (http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx).
 This device has 8 single-ended/4 differential 12-bit analog
 inputs, 2 10-bit analog outputs, and 16 binary input/outputs. The driver supports
-simple analog I/O, binary I/O, and a counter input.</li>
+simple analog I/O, binary I/O, and a counter input.
 
 * The [USB-1608GX-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx).
 analog I/O module. This device contains 16 single-ended/8 differential 16-bit analog
@@ -34,7 +34,15 @@ measure either temperature or voltage. Thermocouple types B, E, J, K, N, R, S an
 T are supported. The analog inputs and outputs can each be run at 1 kHz. The driver
 supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
 or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
-inputs.</li>
+inputs.
+
+* The [TC-32 thermocouple module] 
+(http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx)
+This device contains 32 thermocouple inputs, 8 binary inputs and 32 binary outputs.
+Thermocouple types B, E, J, K, N, R, S and T are supported.
+The binary outputs can be controlled by the driver or can be configured to be an
+alarm output controlled by the corresponding thermocouple input. USB and Ethernet
+interfaces are both provided, and either can be used.
 
 * The [USB-4303](http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx).
 This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
