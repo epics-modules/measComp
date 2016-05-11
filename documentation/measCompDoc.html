@@ -10,7 +10,7 @@
     <h1>
       measComp: EPICS Drivers for Measurement Computing Devices</h1>
     <h2>
-      November 11, 2015</h2>
+      May 10, 2016</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -21,29 +21,26 @@
   <p>
     This package provides EPICS drivers for the some of the USB I/O modules from Measurement
     Computing. Currently the USB-CTR04/08 and USB-4303 counter/timer, and multi-function
-    modules (USB-1208LS, USB-1608GX-2A0, USB-2408-2A0) are supported. The multi-function
-    modules support analog input/output, temperature input (USB-2408-2A0 only), digital
-    input/output, pulse counters, and pulse generators (USB-1608GX-2A0 only) These drivers
-    are documented separately.</p>
+    modules (USB-1208LS, USB-1608GX-2A0, USB-2408-2A0, TC-32) are supported. The multi-function
+    modules support analog input/output (not TC-32), temperature input (USB-2408-2A0
+    and TC-32), digital input/output, pulse counters (not TC-32), and pulse generators
+    (USB-1608GX-2A0 only) These drivers are documented separately.</p>
   <ul>
     <li><a href="measCompUSBCTRDoc.html">USB-CTR04/08 driver</a></li>
     <li><a href="measCompMultiFunctionDoc.html">Multi-function module driver</a></li>
     <li><a href="measComp4303Doc.html">USB-4303 driver</a></li>
   </ul>
   <p>
-    This module is currently only supported on Windows, with the win32-x86, windows-x64,
-    and cygwin-x86 EPICS architectures. The driver uses the Measurement Computing "Universal
-    Library", which is only available on Windows. Measurement Computing does not offer
-    Linux support for the USB-CTR04/08 or USB-4303. They do have a new message based
-    library they call DAQFlex, which runs on Windows, Linux, and Mac. It currently only
-    supports a few of their newer modules, including the USB-1608G series. The software
-    architecture of this package is quite nice, and the source code for the drivers
-    is provided. Unfortunately it is implemented in the C# programming language. C#
-    is supported on Linux and Mac OSX with the "Mono" compiler package.&nbsp; My understanding
-    is that it is difficult to call C# from C/C++, which is what the rest of EPICS is
-    written in, and for this reason I have not used DAQFlex in this EPICS module. In
-    principle one could rewrite the C# drivers in C++ and then use this new API with
-    EPICS on Linux, Mac and other platforms that have an underlying USB library.</p>
+    This module is currently only supported on Windows, with the win32-x86, win32-x66-static,
+    windows-x64, windows-x64-static, and cygwin-x86 EPICS architectures. The driver
+    uses the Measurement Computing "Universal Library", which is only available on Windows.
+    Note that there is Linux support for many Measurement Computing devices available,
+    including all of those supported in this module, from <a href="ftp://lx10.tx.ncsu.edu/pub/Linux/drivers">
+      Warren J. Jasper at North Carolina State University (NCSU).</a>. However, the
+    API is completely different from the Universal Library, and these drivers only run
+    on Linux, not Windows. They also do not support some of the high-performance streaming
+    features of the Windows drivers. It would certainly be possible to write EPICS drivers
+    for Linux using these low-level drivers from NCSU.</p>
   <hr />
   <address>
     Suggestions and Comments to:

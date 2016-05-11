@@ -1,0 +1,116 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{       P,    R,   MASK,    PORT,  ADDR}
+{   TC32:,  Li0,   0xFF,  TC32_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{       P,    R,  MASK,   ZNAM,       ZSV, ONAM,   OSV,   PORT,  ADDR}
+{   TC32:,  Bi0,  0x01,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi1,  0x02,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi2,  0x04,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi3,  0x08,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi4,  0x10,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi5,  0x20,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi6,  0x40,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{   TC32:,  Bi7,  0x80,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{       P,    R,     MASK,       PORT,  ADDR}
+{   TC32:,  Li1,  0xFFFFFFFF,  TC32_1,     1}
+}
+
+# Set the mask on the longout to 0x7FFFFFFF because we set bit 31 to
+# alarm status on temperature 31 and so we can't write to it
+file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+{
+pattern
+{       P,   R,      MASK,       PORT,  ADDR}
+{   TC32:, Lo1,   0x7FFFFFFF,  TC32_1,     1}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{       P,    R,    MASK,     ZNAM,       ZSV, ONAM,   OSV, PINI,  PORT,  ADDR}
+{   TC32:,  Bo0,  0x00000001,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo1,  0x00000002,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo2,  0x00000004,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo3,  0x00000008,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo4,  0x00000010,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo5,  0x00000020,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo6,  0x00000040,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo7,  0x00000080,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo8,  0x00000100,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo9,  0x00000200,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo10, 0x00000400,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo11, 0x00000800,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo12, 0x00001000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo13, 0x00002000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo14, 0x00004000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo15, 0x00008000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo16, 0x00010000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo17, 0x00020000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo18, 0x00040000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo19, 0x00080000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo20, 0x00100000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo21, 0x00200000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo22, 0x00400000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo23, 0x00800000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo24, 0x01000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo25, 0x02000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo26, 0x04000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo27, 0x08000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo28, 0x10000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo29, 0x20000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{   TC32:,  Bo30, 0x40000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+# Set PINI=NO on Bo31 because we configured it as an alarm input, can't write
+{   TC32:,  Bo31, 0x80000000,  Low,  NO_ALARM, High, MAJOR,  NO, TC32_1,     1}
+}
+
+
+# Temperature inputs
+file "$(MEASCOMP)/measCompApp/Db/measCompTemperatureIn.template"
+{
+pattern
+{       P,     R,    PORT, ADDR,        SCAN, PREC}
+{   TC32:,   Ti0,  TC32_1,    0,  "1 second",    2}
+{   TC32:,   Ti1,  TC32_1,    1,  "1 second",    2}
+{   TC32:,   Ti2,  TC32_1,    2,  "1 second",    2}
+{   TC32:,   Ti3,  TC32_1,    3,  "1 second",    2}
+{   TC32:,   Ti4,  TC32_1,    4,  "1 second",    2}
+{   TC32:,   Ti5,  TC32_1,    5,  "1 second",    2}
+{   TC32:,   Ti6,  TC32_1,    6,  "1 second",    2}
+{   TC32:,   Ti7,  TC32_1,    7,  "1 second",    2}
+{   TC32:,   Ti8,  TC32_1,    8,  "1 second",    2}
+{   TC32:,   Ti9,  TC32_1,    9,  "1 second",    2}
+{   TC32:,   Ti10, TC32_1,   10,  "1 second",    2}
+{   TC32:,   Ti11, TC32_1,   11,  "1 second",    2}
+{   TC32:,   Ti12, TC32_1,   12,  "1 second",    2}
+{   TC32:,   Ti13, TC32_1,   13,  "1 second",    2}
+{   TC32:,   Ti14, TC32_1,   14,  "1 second",    2}
+{   TC32:,   Ti15, TC32_1,   15,  "1 second",    2}
+{   TC32:,   Ti16, TC32_1,   16,  "1 second",    2}
+{   TC32:,   Ti17, TC32_1,   17,  "1 second",    2}
+{   TC32:,   Ti18, TC32_1,   18,  "1 second",    2}
+{   TC32:,   Ti19, TC32_1,   19,  "1 second",    2}
+{   TC32:,   Ti20, TC32_1,   20,  "1 second",    2}
+{   TC32:,   Ti21, TC32_1,   21,  "1 second",    2}
+{   TC32:,   Ti22, TC32_1,   22,  "1 second",    2}
+{   TC32:,   Ti23, TC32_1,   23,  "1 second",    2}
+{   TC32:,   Ti24, TC32_1,   24,  "1 second",    2}
+{   TC32:,   Ti25, TC32_1,   25,  "1 second",    2}
+{   TC32:,   Ti26, TC32_1,   26,  "1 second",    2}
+{   TC32:,   Ti27, TC32_1,   27,  "1 second",    2}
+{   TC32:,   Ti28, TC32_1,   28,  "1 second",    2}
+{   TC32:,   Ti29, TC32_1,   29,  "1 second",    2}
+{   TC32:,   Ti30, TC32_1,   30,  "1 second",    2}
+{   TC32:,   Ti31, TC32_1,   31,  "1 second",    2}
+}
+
