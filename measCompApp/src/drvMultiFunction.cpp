@@ -132,14 +132,15 @@ typedef enum {
 #define MAX_SIGNALS     MAX_TEMPERATURE_IN
 
 typedef enum {
-  USB_1208LS     = 122,
-  USB_1208FS     = 130,
-  USB_2408_2A0   = 254,
-  USB_1608GX_2A0 = 274,
-  USB_TC32       = 305,
-  ETH_TC32       = 306
+  USB_1208LS         = 122,
+  USB_1208FS         = 130,
+  USB_2408_2A0       = 254,
+  USB_1608GX_2A0     = 274,
+  USB_1608GX_2A0_NEW = 310,
+  USB_TC32           = 305,
+  ETH_TC32           = 306
 } boardType_t;
-#define MAX_BOARD_TYPES 6
+#define MAX_BOARD_TYPES 7
 
 typedef struct {
   char *enumString;
@@ -253,12 +254,18 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
+  {USB_1608GX_2A0_NEW, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
+
   {USB_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
+
   {ETH_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
@@ -390,6 +397,7 @@ private:
   int ADCResolution_;
   int DACResolution_;
   int numCounters_;
+  int firstCounter_;
   int numTimers_;
   int numIOPorts_;
   int numTempChans_;
@@ -551,6 +559,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
 
   // Get the board number and board name
   cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE,  &boardType_);
+
   setIntegerParam(modelNumber_, boardType_);
   cbGetBoardName(boardNum_, boardName_);
   setStringParam(modelName_, boardName_);
@@ -558,7 +567,6 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   cbGetConfig(BOARDINFO, boardNum_, 0, BINUMDACHANS,    &numAnalogOut_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,         &ADCResolution_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,        &DACResolution_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BICINUMDEVS,     &numCounters_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,     &numIOPorts_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTempChans_);
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
@@ -579,6 +587,8 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   switch (boardType_) {
     case USB_1208LS:
       numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
       // The rules for bit configurable above don't work for this model                
@@ -589,6 +599,8 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       break;
     case USB_1208FS:
       numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
       // The rules for bit configurable above don't work for this model                
@@ -599,10 +611,15 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       break;
     case USB_2408_2A0:
       numTimers_    = 0;
+      numCounters_  = 2;
+      firstCounter_ = 0;
       analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
       break;
     case USB_1608GX_2A0:
+    case USB_1608GX_2A0_NEW:
       numTimers_    = 1;
+      numCounters_  = 2;
+      firstCounter_ = 0;
       minPulseGenFrequency_ = 0.0149;
       maxPulseGenFrequency_ = 32e6;
       minPulseGenDelay_ = 0.;
@@ -611,6 +628,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
     case USB_TC32:
     case ETH_TC32:
       numTimers_    = 0;
+      numCounters_  = 0;
       for (i=0; i<MAX_TEMPERATURE_IN; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
@@ -1602,11 +1620,11 @@ void MultiFunction::pollerThread()
     
     // Read the counter inputs
     for (i=0; i<numCounters_; i++) {
-      status = cbCIn32(boardNum_, i, &countVal);
+      status = cbCIn32(boardNum_, firstCounter_ + i, &countVal);
       if (status)
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbCIn32, status=%d\n", 
-                  driverName, functionName, status);
+                  "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
+                  driverName, functionName, i, status);
       setIntegerParam(i, counterCounts_, countVal);
     }
     
@@ -1665,6 +1683,7 @@ void MultiFunction::report(FILE *fp, int details)
       fprintf(fp, "    delay range      = %f : %f\n", minPulseGenDelay_, maxPulseGenDelay_);
     }
     fprintf(fp, "  # counters         = %d", numCounters_);
+    fprintf(fp, "  first counter      = %d", firstCounter_);
     fprintf(fp, "  counterCounts = ");
     for (i=0; i<numCounters_; i++) {
       getIntegerParam(i, counterCounts_, &counts); 
