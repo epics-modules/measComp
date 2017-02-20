@@ -134,13 +134,14 @@ typedef enum {
 typedef enum {
   USB_1208LS         = 122,
   USB_1208FS         = 130,
-  USB_2408_2A0       = 254,
+  USB_1608G          = 308,
   USB_1608GX_2A0     = 274,
   USB_1608GX_2A0_NEW = 310,
+  USB_2408_2A0       = 254,
   USB_TC32           = 305,
   ETH_TC32           = 306
 } boardType_t;
-#define MAX_BOARD_TYPES 7
+#define MAX_BOARD_TYPES 8
 
 typedef struct {
   char *enumString;
@@ -249,6 +250,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1208FS,     inputRangeUSB_1208FS,  sizeof(inputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    inputTypeUSB_1208FS,   sizeof(inputTypeUSB_1208FS)/sizeof(enumStruct_t)},
+
+  {USB_1608G,      inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
   {USB_1608GX_2A0, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
@@ -615,6 +620,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       firstCounter_ = 0;
       analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
       break;
+    case USB_1608G:
     case USB_1608GX_2A0:
     case USB_1608GX_2A0_NEW:
       numTimers_    = 1;
