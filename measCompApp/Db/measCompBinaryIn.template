@@ -2,7 +2,9 @@ record(bi, "$(P)$(R)")
 {
     field(DTYP, "asynUInt32Digital")
     field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_INPUT")
-    field(ZNAM, "Low")
-    field(ONAM, "High")
+    field(ZNAM, "$(ZNAM=Low)")
+    field(ZSV,  "$(ZSV=NO_ALARM)")
+    field(ONAM, "$(ONAM=High)")
+    field(OSV,  "$(OSV=NO_ALARM)")
     field(SCAN, "I/O Intr")
 }

@@ -126,16 +126,22 @@ typedef enum {
 // MAX_ANALOG_IN and MAX_ANALOG_OUT may need to be changed if additional models are added with larger numbers
 // These are used as a convenience for allocating small arrays of pointers, not large amounts of data
 #define MAX_ANALOG_IN   16
+#define MAX_TEMPERATURE_IN 32
 #define MAX_ANALOG_OUT  2
 #define MAX_IO_PORTS    2
-#define MAX_SIGNALS     MAX_ANALOG_IN
+#define MAX_SIGNALS     MAX_TEMPERATURE_IN
 
 typedef enum {
-  USB_1208LS     = 122,
-  USB_2408_2A0   = 254,
-  USB_1608GX_2A0 = 274
+  USB_1208LS         = 122,
+  USB_1208FS         = 130,
+  USB_1608G          = 308,
+  USB_1608GX_2A0     = 274,
+  USB_1608GX_2A0_NEW = 310,
+  USB_2408_2A0       = 254,
+  USB_TC32           = 305,
+  ETH_TC32           = 306
 } boardType_t;
-#define MAX_BOARD_TYPES 3
+#define MAX_BOARD_TYPES 8
 
 typedef struct {
   char *enumString;
@@ -161,6 +167,24 @@ static const enumStruct_t inputTypeUSB_1208LS[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
+static const enumStruct_t inputRangeUSB_1208FS[] = {
+  {"+= 20V",   BIP20VOLTS},
+  {"+= 10V",   BIP10VOLTS},
+  {"+= 5V",    BIP5VOLTS},
+  {"+= 4V",    BIP4VOLTS},
+  {"+= 2.5V",  BIP2PT5VOLTS},
+  {"+= 2V",    BIP2VOLTS},
+  {"+= 1.25V", BIP1PT25VOLTS},
+  {"+= 1V",    BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_1208FS[] = {
+  {"+= 10V", UNI4VOLTS}
+};
+
+static const enumStruct_t inputTypeUSB_1208FS[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
 static const enumStruct_t inputRangeUSB_1608G[] = {
   {"+= 10V", BIP10VOLTS},
   {"+= 5V",  BIP5VOLTS},
@@ -196,6 +220,18 @@ static const enumStruct_t inputTypeUSB_2408[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
+static const enumStruct_t inputRangeTC32[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeTC32[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeTC32[] = {
+  {"TC deg.", AI_CHAN_TYPE_TC}
+};
+
 typedef struct {
   boardType_t boardType;
   const enumStruct_t *pInputRange;
@@ -210,12 +246,34 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1208LS,     inputRangeUSB_1208LS,  sizeof(inputRangeUSB_1208LS)/sizeof(enumStruct_t),
                    outputRangeUSB_1208LS, sizeof(outputRangeUSB_1208LS)/sizeof(enumStruct_t),
                    inputTypeUSB_1208LS,   sizeof(inputTypeUSB_1208LS)/sizeof(enumStruct_t)},
+
+  {USB_1208FS,     inputRangeUSB_1208FS,  sizeof(inputRangeUSB_1208FS)/sizeof(enumStruct_t),
+                   outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
+                   inputTypeUSB_1208FS,   sizeof(inputTypeUSB_1208FS)/sizeof(enumStruct_t)},
+
+  {USB_1608G,      inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
   {USB_1608GX_2A0, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
+  {USB_1608GX_2A0_NEW, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
+
+  {USB_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
+                   outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
+                   inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
+
+  {ETH_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
+                   outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
+                   inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
 };
 
 #define DEFAULT_POLL_TIME 0.01
@@ -344,8 +402,10 @@ private:
   int ADCResolution_;
   int DACResolution_;
   int numCounters_;
+  int firstCounter_;
   int numTimers_;
   int numIOPorts_;
+  int numTempChans_;
   int digitalIOPort_[MAX_IO_PORTS];
   int digitalIOBitConfigurable_[MAX_IO_PORTS];
   int digitalIOPortConfigurable_[MAX_IO_PORTS];
@@ -504,15 +564,16 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
 
   // Get the board number and board name
   cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE,  &boardType_);
+
   setIntegerParam(modelNumber_, boardType_);
   cbGetBoardName(boardNum_, boardName_);
   setStringParam(modelName_, boardName_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMADCHANS, &numAnalogIn_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMDACHANS, &numAnalogOut_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,      &ADCResolution_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,     &DACResolution_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BICINUMDEVS,  &numCounters_);
-  cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,  &numIOPorts_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMADCHANS,    &numAnalogIn_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMDACHANS,    &numAnalogOut_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,         &ADCResolution_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,        &DACResolution_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,     &numIOPorts_);
+  cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTempChans_);
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
     cbGetConfig(DIGITALINFO, boardNum_, i, DIDEVTYPE, &digitalIOPort_[i]);
@@ -531,6 +592,20 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   switch (boardType_) {
     case USB_1208LS:
       numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 1;
+      // For output need to address all bits using first port
+      numIOBits_[0] = 16;
+      // The rules for bit configurable above don't work for this model                
+      digitalIOPortConfigurable_[0] = 1;
+      digitalIOPortConfigurable_[1] = 1;
+      digitalIOBitConfigurable_[0] = 0;
+      digitalIOPortConfigurable_[1] = 1;
+      break;
+    case USB_1208FS:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
       // The rules for bit configurable above don't work for this model                
@@ -541,14 +616,32 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       break;
     case USB_2408_2A0:
       numTimers_    = 0;
+      numCounters_  = 2;
+      firstCounter_ = 0;
       analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
       break;
+    case USB_1608G:
     case USB_1608GX_2A0:
+    case USB_1608GX_2A0_NEW:
       numTimers_    = 1;
+      numCounters_  = 2;
+      firstCounter_ = 0;
       minPulseGenFrequency_ = 0.0149;
       maxPulseGenFrequency_ = 32e6;
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 67.11;
+      break;
+    case USB_TC32:
+    case ETH_TC32:
+      numTimers_    = 0;
+      numCounters_  = 0;
+      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
+      // Digital I/O port 0 is input only
+      setUIntDigitalParam(0, digitalDirection_, 0, 0xFFFFFFFF);
+      // Digital I/O port 1 is output and temperature alarms
+      setUIntDigitalParam(1, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -1023,6 +1116,11 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   else if (function == thermocoupleType_) {
+    // NOTE:
+    // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
+    // will often hang if more than 6 channels are being configured.
+    // This makes no sense.  The problem cannot be reproduced in the testTC32.c test application
+    if ((boardType_ == USB_TC32) || (boardType_ == ETH_TC32)) epicsThreadSleep(0.01);
     status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
   }
 
@@ -1293,7 +1391,6 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
   epicsUInt32 outValue=0, outMask, direction=0;
   static const char *functionName = "writeUInt32Digital";
 
-
   this->getAddress(pasynUser, &addr);
   setUIntDigitalParam(addr, function, value, mask);
   if (function == digitalDirection_) {
@@ -1322,7 +1419,11 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
     getUIntDigitalParam(addr, digitalDirection_, &direction, 0xFFFFFFFF);
     if ((mask & direction) == digitalIOMask_[addr]) {
       // Use word I/O if all bits are outputs and we are writing all bits
-      status = cbDOut(boardNum_, digitalIOPort_[addr], value & mask);
+      if (numIOBits_[addr] > 16) {
+        status = cbDOut32(boardNum_, digitalIOPort_[addr], value & mask);
+      } else {
+        status = cbDOut(boardNum_, digitalIOPort_[addr], value & mask);
+      }
     }
     else {
       // Use bit I/O if we are not writing all bits
@@ -1455,6 +1556,7 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
   size_t i;
   const enumStruct_t *pEnum;
   int numEnums;
+  static const char *functionName = "readEnum";
 
   if (function == analogInRange_) {
     pEnum    = pBoardEnums_->pInputRange;
@@ -1489,7 +1591,8 @@ void MultiFunction::pollerThread()
    * time */
   static const char *functionName = "pollerThread";
   epicsUInt32 newValue, changedBits, prevInput[MAX_IO_PORTS];
-  unsigned short biVal;;
+  epicsUInt16 biVal16;
+  epicsUInt32 biVal32;
   int i;
   int currentPoint;
   unsigned long countVal;
@@ -1502,12 +1605,17 @@ void MultiFunction::pollerThread()
     
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
-      status = cbDIn(boardNum_, digitalIOPort_[i], &biVal);
+      if (numIOBits_[i] > 16) {
+        status = cbDIn32(boardNum_, digitalIOPort_[i], &biVal32);
+      } else {
+        status = cbDIn(boardNum_, digitalIOPort_[i], &biVal16);
+        biVal32 = biVal16;
+      }
       if (status) 
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
                   "%s:%s: ERROR calling cbDIn, status=%d\n", 
                   driverName, functionName, status);
-      newValue = biVal;
+      newValue = biVal32;
       changedBits = newValue ^ prevInput[i];
       if (forceCallback_ || (changedBits != 0)) {
         prevInput[i] = newValue;
@@ -1518,11 +1626,11 @@ void MultiFunction::pollerThread()
     
     // Read the counter inputs
     for (i=0; i<numCounters_; i++) {
-      status = cbCIn32(boardNum_, i, &countVal);
+      status = cbCIn32(boardNum_, firstCounter_ + i, &countVal);
       if (status)
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbCIn32, status=%d\n", 
-                  driverName, functionName, status);
+                  "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
+                  driverName, functionName, i, status);
       setIntegerParam(i, counterCounts_, countVal);
     }
     
@@ -1564,6 +1672,7 @@ void MultiFunction::report(FILE *fp, int details)
     fprintf(fp, "  analog input bits  = %d\n", ADCResolution_);
     fprintf(fp, "  analog outputs     = %d\n", numAnalogOut_);
     fprintf(fp, "  analog output bits = %d\n", DACResolution_);
+    fprintf(fp, "  temperature inputs = %d\n", numTempChans_);
     fprintf(fp, "  digital I/O ports  = %d\n", numIOPorts_);
     for (i=0; i<numIOPorts_; i++) {
       fprintf(fp, "  digital I/O port     %d\n", i);
@@ -1580,6 +1689,7 @@ void MultiFunction::report(FILE *fp, int details)
       fprintf(fp, "    delay range      = %f : %f\n", minPulseGenDelay_, maxPulseGenDelay_);
     }
     fprintf(fp, "  # counters         = %d", numCounters_);
+    fprintf(fp, "  first counter      = %d", firstCounter_);
     fprintf(fp, "  counterCounts = ");
     for (i=0; i<numCounters_; i++) {
       getIntegerParam(i, counterCounts_, &counts); 
