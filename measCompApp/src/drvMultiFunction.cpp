@@ -134,6 +134,7 @@ typedef enum {
 typedef enum {
   USB_1208LS         = 122,
   USB_1208FS         = 130,
+  USB_231            = 297,
   USB_1608G          = 308,
   USB_1608GX_2A0     = 274,
   USB_1608GX_2A0_NEW = 310,
@@ -141,7 +142,7 @@ typedef enum {
   USB_TC32           = 305,
   ETH_TC32           = 306
 } boardType_t;
-#define MAX_BOARD_TYPES 8
+#define MAX_BOARD_TYPES 9
 
 typedef struct {
   char *enumString;
@@ -185,6 +186,26 @@ static const enumStruct_t outputRangeUSB_1208FS[] = {
 static const enumStruct_t inputTypeUSB_1208FS[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
+
+static const enumStruct_t inputRangeUSB_231[] = {
+  {"+= 20V",   BIP20VOLTS},
+  {"+= 10V",   BIP10VOLTS},
+  {"+= 5V",    BIP5VOLTS},
+  {"+= 4V",    BIP4VOLTS},
+  {"+= 2.5V",  BIP2PT5VOLTS},
+  {"+= 2V",    BIP2VOLTS},
+  {"+= 1.25V", BIP1PT25VOLTS},
+  {"+= 1V",    BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_231[] = {
+  {"+= 10V", UNI5VOLTS}
+};
+
+static const enumStruct_t inputTypeUSB_231[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
 static const enumStruct_t inputRangeUSB_1608G[] = {
   {"+= 10V", BIP10VOLTS},
   {"+= 5V",  BIP5VOLTS},
@@ -250,6 +271,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1208FS,     inputRangeUSB_1208FS,  sizeof(inputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    inputTypeUSB_1208FS,   sizeof(inputTypeUSB_1208FS)/sizeof(enumStruct_t)},
+
+  {USB_231,        inputRangeUSB_231,     sizeof(inputRangeUSB_231)/sizeof(enumStruct_t),
+                   outputRangeUSB_231,    sizeof(outputRangeUSB_231)/sizeof(enumStruct_t),
+                   inputTypeUSB_231,      sizeof(inputTypeUSB_231)/sizeof(enumStruct_t)},
 
   {USB_1608G,      inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
@@ -608,6 +633,18 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
+      // The rules for bit configurable above don't work for this model                
+      digitalIOPortConfigurable_[0] = 1;
+      digitalIOPortConfigurable_[1] = 1;
+      digitalIOBitConfigurable_[0] = 0;
+      digitalIOPortConfigurable_[1] = 1;
+      break;
+    case USB_231:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      // For output need to address all bits using first port
+      numIOBits_[0] = 8;
       // The rules for bit configurable above don't work for this model                
       digitalIOPortConfigurable_[0] = 1;
       digitalIOPortConfigurable_[1] = 1;

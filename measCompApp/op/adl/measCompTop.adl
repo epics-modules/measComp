@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTop.adl"
+	name="D:\epics\synApps\support\measComp\measCompApp\op\adl\measCompTop.adl"
 	version=030109
 }
 display {
@@ -113,7 +113,7 @@ display {
 	display[0] {
 		label="USB-1608G module"
 		name="1608G_module.adl"
-		args="P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ct=Counter,Wd=WaveDig,Pg=PulseGen1,Tg=Trig"
+		args="P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig"
 	}
 	clr=14
 	bclr=51
@@ -191,11 +191,11 @@ display {
 		height=20
 	}
 	display[0] {
-		label="USB-1608G-2A0 module"
-		name="1608G_2A0_module.adl"
-		args="P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig"
+		label="USB-231 module"
+		name="USB231_module.adl"
+		args="P=USB231:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
 	}
 	clr=14
 	bclr=51
-	label="USB-1608G-2A0"
+	label="USB-231"
 }
