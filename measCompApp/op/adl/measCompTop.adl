@@ -1,14 +1,14 @@
 
 file {
-	name="D:\epics\synApps\support\measComp\measCompApp\op\adl\measCompTop.adl"
+	name="/home/epics/devel/measComp-1-3-1/measCompApp/op/adl/measCompTop.adl"
 	version=030109
 }
 display {
 	object {
-		x=388
-		y=54
+		x=628
+		y=61
 		width=212
-		height=200
+		height=225
 	}
 	clr=14
 	bclr=4
@@ -122,38 +122,6 @@ display {
 "related display" {
 	object {
 		x=30
-		y=140
-		width=150
-		height=20
-	}
-	display[0] {
-		label="USB-CTR08 module"
-		name="USBCTR.adl"
-		args="P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig"
-	}
-	clr=14
-	bclr=51
-	label="USB-CTR08"
-}
-"related display" {
-	object {
-		x=30
-		y=115
-		width=150
-		height=20
-	}
-	display[0] {
-		label="USB-2408 module"
-		name="USB2408_module.adl"
-		args="P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
-	}
-	clr=14
-	bclr=51
-	label="USB-2408"
-}
-"related display" {
-	object {
-		x=30
 		y=40
 		width=150
 		height=20
@@ -175,6 +143,38 @@ display {
 		height=20
 	}
 	display[0] {
+		label="USB-CTR08 module"
+		name="USBCTR.adl"
+		args="P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-CTR08"
+}
+"related display" {
+	object {
+		x=30
+		y=140
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-2408 module"
+		name="USB2408_module.adl"
+		args="P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-2408"
+}
+"related display" {
+	object {
+		x=30
+		y=190
+		width=150
+		height=20
+	}
+	display[0] {
 		label="TC32 module"
 		name="TC32_module.adl"
 		args="P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti"
@@ -186,7 +186,7 @@ display {
 "related display" {
 	object {
 		x=30
-		y=90
+		y=115
 		width=150
 		height=20
 	}
@@ -198,4 +198,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-231"
+}
+"related display" {
+	object {
+		x=30
+		y=90
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-1608G-2A0 module"
+		name="1608G_2A0_module.adl"
+		args="P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-1608G-2A0"
 }
