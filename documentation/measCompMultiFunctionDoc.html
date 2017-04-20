@@ -10,7 +10,7 @@
     <h1>
       Driver for Measurement Computing Multi-Function Devices</h1>
     <h2>
-      May 10, 2016</h2>
+      April 20, 2017</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -44,11 +44,10 @@
     that cannot be queried, so the driver does require small modifications to be be
     used with a new model. The models that the driver currently supports are:</p>
   <ul>
-    <li><a href="#USB-1608GX-2AO">USB-1608GX-2AO</a></li>
+    <li><a href="#USB-1608GX-2AO">USB-1608G and USB-1608GX-2AO</a></li>
     <li><a href="#USB-2408-2AO">USB-2408-2AO</a></li>
     <li><a href="#TC-32">TC-32</a></li>
-    <li><a href="#USB-1208LS">USB-1208LS and USB-1208FS</a></li>
-	<li>USB-231 (based on USB-1208 support)</li>
+    <li><a href="#USB-1208LS">USB-1208LS, USB-1208FS, and USB-231</a></li>
   </ul>
   <hr />
   <h2 id="USB-1608GX-2AO" style="text-align: center">
@@ -102,7 +101,13 @@
   </ul>
   <p>
     More information can be found in the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx">
-      Measurement Computing product description.</a>
+      USB-1608GX-2AO product description.</a>
+  </p>
+  <p>
+    The USB-1608G is very similar to the USB-1608GX-2AO except that it does not have
+    any analog outputs and the analog inputs are limited to 250 kHz rather than 500
+    kHz. More information can be found in the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1608G.aspx">
+      USB-1608G product description.</a>
   </p>
   <p>
     The following is the main medm screen for controlling the USB-1608GX-2AO.</p>
@@ -153,7 +158,7 @@
   </ul>
   <p>
     More information can be found in the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx">
-      Measurement Computing product description.</a>
+      USB-2408-2AO product description.</a>
   </p>
   <p>
     The following is the main medm screen for controlling the USB-2408-2AO.</p>
@@ -193,7 +198,7 @@
   </ul>
   <p>
     More information can be found in the <a href="http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx">
-      Measurement Computing product description.</a>
+      TC-32 product description.</a>
   </p>
   <p>
     The following is the main medm screen for controlling the TC-32.</p>
@@ -239,13 +244,18 @@
   </ul>
   <p>
     More information can be found in the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx">
-      Measurement Computing product description.</a>
+      USB-1208LS product description.</a>
+  </p>
+  <p>
+    The <a href="http://www.mccdaq.com/usb-data-acquisition/USB-1208HS.aspx">USB-1208HS</a>
+    and <a href="http://www.mccdaq.com/usb-data-acquisition/USB-230-Series.aspx">USB-231</a>
+    are similar devices but with higher performance.
   </p>
   <p>
     The following is the main medm screen for controlling the USB-1208LS.</p>
   <div style="text-align: center">
     <h3>
-      1608G_module.adl</h3>
+      USB1208LS_module.adl</h3>
     <img alt="USB1208LS_module.png" src="USB1208LS_module.png" /></div>
   <h2 id="Configuration" style="text-align: center">
     Configuration</h2>
