@@ -81,7 +81,6 @@ public:
 protected:
   // Per counter parameters
   int C9513GateControl_; 
-  #define FIRST_C9513_PARAM C9513GateControl_
   int C9513CounterEdge_;
   int C9513CountSource_;
   int C9513SpecialGate_;
@@ -119,7 +118,6 @@ protected:
   int scalerPresets_;
   int scalerArm_;
   int scalerDone_;  
-  #define LAST_C9513_PARAM scalerDone_
 
 private:
   int boardNum_;
@@ -140,8 +138,6 @@ private:
   int setupPulseGenerator(int pulserNum);
 };
 
-#define NUM_PARAMS ((int)(&LAST_C9513_PARAM - &FIRST_C9513_PARAM + 1))
-
 static void pollerThreadC(void * pPvt)
 {
     C9513 *pC9513 = (C9513 *)pPvt;
@@ -149,7 +145,7 @@ static void pollerThreadC(void * pPvt)
 }
 
 C9513::C9513(const char *portName, int boardNum, int numChips)
-  : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
+  : asynPortDriver(portName, MAX_SIGNALS, 
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat64Mask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynFloat64Mask, 
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */

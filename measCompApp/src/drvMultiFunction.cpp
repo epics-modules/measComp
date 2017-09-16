@@ -330,7 +330,6 @@ public:
 protected:
   // Model parameters
   int modelName_;
-  #define FIRST_MultiFunction_PARAM modelName_
   int modelNumber_;
 
   // Pulse generator parameters
@@ -414,7 +413,6 @@ protected:
   int digitalDirection_;
   int digitalInput_;
   int digitalOutput_;
-  #define LAST_MultiFunction_PARAM digitalOutput_
 
 private:
   int boardNum_;
@@ -479,7 +477,7 @@ static void pollerThreadC(void * pPvt)
 }
 
 MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints)
-  : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
+  : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
                       asynFloat64Mask       | asynEnumMask       | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 

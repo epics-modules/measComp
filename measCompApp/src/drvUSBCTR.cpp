@@ -88,7 +88,6 @@ public:
 protected:
   // Pulse generator parameters
   int pulseGenRun_;
-  #define FIRST_USBCTR_PARAM pulseGenRun_
   int pulseGenPeriod_;
   int pulseGenWidth_;
   int pulseGenDelay_;
@@ -149,7 +148,6 @@ protected:
 
 // Model ID
   int model_;
-  #define LAST_USBCTR_PARAM model_
 
 private:
   int boardNum_;
@@ -193,8 +191,6 @@ private:
   int computeMCSTimes();
 };
 
-#define NUM_PARAMS ((int)(&LAST_USBCTR_PARAM - &FIRST_USBCTR_PARAM + 1))
-
 static void pollerThreadC(void * pPvt)
 {
     USBCTR *pUSBCTR = (USBCTR *)pPvt;
@@ -202,7 +198,7 @@ static void pollerThreadC(void * pPvt)
 }
 
 USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime)
-  : asynPortDriver(portName, MAX_SIGNALS, NUM_PARAMS, 
+  : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask,
       // Note: ASYN_CANBLOCK must not be set because the scaler record does not work with asynchronous device support 
