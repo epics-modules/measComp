@@ -9,6 +9,20 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 1-4 (September 18, 2017)</h2>
+  <ul>
+    <li>Added support to drvMultiFunction for the USB-1608G. This is similar to the previously
+      supported USB-1608GX-2A0 except that is is 250 kHz vs 500 kHz, and does not have
+      the 2 analog output ports.</li>
+    <li>Added support for new version of USB-1608GX-2A0 which is functionally the same
+      but has a different board type identifier.</li>
+    <li>Renamed the iocBoot/iocUSB1608G to iocUSB1608G-2A0, and added new iocUSB1608 directory
+      for the USB-1608G.</li>
+    <li>Added support to drvMultiFunction for the USB-231, and a new iocUSB231 directory.</li>
+    <li>Removed parameter counting and NUM_PARAMS argument to asynPortDriver constructor
+      in all drivers. These are not needed in asyn R4-32.</li>
+  </ul>
+  <h2 style="text-align: center">
     Release 1-3-1 (May 12, 2016)</h2>
   <ul>
     <li>Added support to drvMultiFunction for the USB-1208FS.</li>
@@ -28,8 +42,8 @@
     <li>Added support for the USB-1208LS and USB-2408-2A0.</li>
     <li>Renamed the drv1608G driver to drvMultiFunction because it is now designed to
       handle any multi-function model. It currently supports the USB-1208LS, USB-2408-2A0,
-      and USB-1608GX-2A0.
-      <li>Updated from release 6.3 to 6.5 of the Measurement Computing Universal Library.</li>
+      and USB-1608GX-2A0.</li>
+    <li>Updated from release 6.3 to 6.5 of the Measurement Computing Universal Library.</li>
   </ul>
   <h2 style="text-align: center">
     Release 1-1 (June 26, 2014)</h2>
