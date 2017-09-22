@@ -52,8 +52,7 @@ supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
 or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
 inputs.
 
-* The [TC-32 thermocouple module] 
-(http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx)
+* The [TC-32 thermocouple module](http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx)
 This device contains 32 thermocouple inputs, 8 binary inputs and 32 binary outputs.
 Thermocouple types B, E, J, K, N, R, S and T are supported.
 The binary outputs can be controlled by the driver or can be configured to be an
