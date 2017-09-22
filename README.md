@@ -15,19 +15,35 @@ like the SIS3820, with internal or external channel advance and dwell times as s
 as 250 ns. The device also contains 4 programmable pulse generators, and 8 digital
 I/O bits, which are supported with standard EPICS records.
 
-* The [USB-1208LS] (http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx).
+* The [USB-1208LS](http://www.mccdaq.com/usb-data-acquisition/USB-1208LS.aspx).
 This device has 8 single-ended/4 differential 12-bit analog
 inputs, 2 10-bit analog outputs, and 16 binary input/outputs. The driver supports
 simple analog I/O, binary I/O, and a counter input.
 
-* The [USB-1608GX-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx).
+* The [USB-1208HS](http://www.mccdaq.com/usb-data-acquisition/USB-1208HS.aspx).
+This device has 8 single-ended/4 differential 13-bit analog
+inputs, 16 binary input/outputs, and 2 counters. The driver supports
+simple analog I/O, binary I/O, and a counter input.
+
+* The [USB-231](http://www.mccdaq.com/usb-data-acquisition/USB-231.aspx).
+This device has 8 single-ended/4 differential 16-bit analog
+inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs 
+can be run at 50 kHz, and the analog outputs at 5 kHz. The driver supports simple analog I/O, 
+2 waveform generators using the analog outputs, an 4 or 8 channel waveform digitizer using
+the analog inputs, and binary I/O.
+
+* The [USB-1608GX-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-1608GX-2AO.aspx)
 analog I/O module. This device contains 16 single-ended/8 differential 16-bit analog
 inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs and
 outputs can each be run at 500 kHz. The driver supports simple analog I/O, 2 waveform
 generators using the analog outputs, an 8 or 16 channel waveform digitizer using
 the analog inputs, binary I/O, and a pulse generator.
 
-* The [USB-2408-2AO] (http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx).
+* The [USB-1608G](http://www.mccdaq.com/usb-data-acquisition/USB-1608G.aspx)
+analog I/O module. This is similar to the USB-1608GX-2AO except that it runs at
+250 kHz rather than 500 kHz, and does not have the 2 analog outputs.
+
+* The [USB-2408-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx).
 This device contains 16 single-ended/8 differential 24-bit analog inputs, 
 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs can
 measure either temperature or voltage. Thermocouple types B, E, J, K, N, R, S and
