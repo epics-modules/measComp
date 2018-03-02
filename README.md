@@ -43,6 +43,18 @@ the analog inputs, binary I/O, and a pulse generator.
 analog I/O module. This is similar to the USB-1608GX-2AO except that it runs at
 250 kHz rather than 500 kHz, and does not have the 2 analog outputs.
 
+* The [E1608] (https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
+analog I/O module. This is an Ethernet device with 8 single-ended/4
+differential 16-bit analog inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs
+can be run at 250 kHz. The driver supports simple analog I/O, an 4 or 8 channel
+waveform digitizer using the analog inputs, binary I/O, and 1 counter input.
+
+* The [USB-231] (https://www.mccdaq.com/usb-data-acquisition/USB-230-Series.aspx)
+analog I/O module. This device contains 8 single-ended/4 differential
+16-bit analog inputs, 2 16-bit analog outputs, a 32-bit counter input, and 8 binary
+input/outputs. The driver supports simple analog I/O, binary I/O, and a counter
+input.
+
 * The [USB-2408-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx).
 This device contains 16 single-ended/8 differential 24-bit analog inputs, 
 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs can
