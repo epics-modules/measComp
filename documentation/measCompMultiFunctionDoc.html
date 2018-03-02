@@ -10,7 +10,7 @@
     <h1>
       Driver for Measurement Computing Multi-Function Devices</h1>
     <h2>
-      September 18, 2017</h2>
+      March 2, 2018</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -45,6 +45,7 @@
     used with a new model. The models that the driver currently supports are:</p>
   <ul>
     <li><a href="#USB-1608GX-2AO">USB-1608G and USB-1608GX-2AO</a></li>
+    <li><a href="#E1608">E1608</a></li>
     <li><a href="#USB-2408-2AO">USB-2408-2AO</a></li>
     <li><a href="#TC-32">TC-32</a></li>
     <li><a href="#USB-1208LS">USB-1208LS, USB-1208FS, and USB-231</a></li>
@@ -115,6 +116,55 @@
     <h3>
       1608G_module.adl</h3>
     <img alt="USB1608G_module.png" src="USB1608G_module.png" /></div>
+  <hr />
+  <h2 id="E1608" style="text-align: center">
+    E1608</h2>
+  <div style="text-align: center">
+    <h3>
+      Photo of E1608</h3>
+    <img alt="E1608.jpg" src="E1608.jpg" /></div>
+  <p>
+    This module costs $525 and has the following features:</p>
+  <ul>
+    <li>16-bit analog inputs
+      <ul>
+        <li>8 single-ended channels or 4 differential channels</li>
+        <li>Programmable per-channel range: +-1V, +-2V, +-5V, +-10V</li>
+        <li>250 kHz total maximum input rate, i.e. 1 channel at 250 kHz, 2 channels at 125
+          kHz, etc.</li>
+        <li>Internal or external trigger.</li>
+        <li>Internal or external clock for input signals.</li>
+        <li>Input FIFO, unlimited waveform length</li>
+      </ul>
+    </li>
+    <li>16-bit analog outputs
+      <ul>
+        <li>2 channels, fixed +-10V range</li>
+        <li>No output waveform capability</li>
+      </ul>
+    </li>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>8 signals, individually programmable as inputs or outputs</li>
+      </ul>
+    </li>
+    <li>Counter
+      <ul>
+        <li>1 input</li>
+        <li>10 MHz maximum rate, 32-bit register</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    More information can be found in the <a href="https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series">
+      E1608 product description.</a>
+  </p>
+  <p>
+    The following is the main medm screen for controlling the E1608.</p>
+  <div style="text-align: center">
+    <h3>
+      E1608_module.adl</h3>
+    <img alt="E1608_module.png" src="E1608_module.png" /></div>
   <hr />
   <h2 id="USB-2408-2AO" style="text-align: center; padding: 1cm;">
     USB-2408-2AO</h2>
