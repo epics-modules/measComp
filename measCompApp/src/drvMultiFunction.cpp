@@ -140,9 +140,10 @@ typedef enum {
   USB_1608GX_2A0_NEW = 310,
   USB_2408_2A0       = 254,
   USB_TC32           = 305,
-  ETH_TC32           = 306
+  ETH_TC32           = 306,
+  E_1608             = 303,
+  MAX_BOARD_TYPES
 } boardType_t;
-#define MAX_BOARD_TYPES 9
 
 typedef struct {
   char *enumString;
@@ -241,6 +242,21 @@ static const enumStruct_t inputTypeUSB_2408[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
+static const enumStruct_t inputRangeE_1608[] = {
+  {"+= 10V", BIP10VOLTS},
+  {"+= 5V",  BIP5VOLTS},
+  {"+= 2V",  BIP2VOLTS},
+  {"+= 1V",  BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeE_1608[] = {
+  {"+= 10V", BIP10VOLTS}
+};
+
+static const enumStruct_t inputTypeE_1608[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
 static const enumStruct_t inputRangeTC32[] = {
   {"N.A.", 0}
 };
@@ -287,6 +303,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1608GX_2A0_NEW, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
+  {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
+                   outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
+                   inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
 
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
@@ -665,6 +685,11 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       maxPulseGenFrequency_ = 32e6;
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 67.11;
+      break;
+    case E_1608:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
       break;
     case USB_TC32:
     case ETH_TC32:
