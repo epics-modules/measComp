@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-1-4/measCompApp/op/adl/measCompTop.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=628
 		y=61
 		width=212
-		height=250
+		height=275
 	}
 	clr=14
 	bclr=4
@@ -151,80 +151,69 @@ display {
 	bclr=51
 	label="USB-1608G-2A0"
 }
-composite {
+"related display" {
+	object {
+		x=30
+		y=190
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-CTR08 module"
+		name="USBCTR.adl"
+		args="P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-CTR08"
+}
+"related display" {
+	object {
+		x=30
+		y=165
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-2408 module"
+		name="USB2408_module.adl"
+		args="P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
+	}
+	clr=14
+	bclr=51
+	label="USB-2408"
+}
+"related display" {
+	object {
+		x=30
+		y=215
+		width=150
+		height=20
+	}
+	display[0] {
+		label="TC32 module"
+		name="TC32_module.adl"
+		args="P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti"
+	}
+	clr=14
+	bclr=51
+	label="TC32"
+}
+"related display" {
 	object {
 		x=30
 		y=140
 		width=150
-		height=95
+		height=20
 	}
-	"composite name"=""
-	children {
-		"related display" {
-			object {
-				x=30
-				y=190
-				width=150
-				height=20
-			}
-			display[0] {
-				label="USB-CTR08 module"
-				name="USBCTR.adl"
-				args="P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig"
-			}
-			clr=14
-			bclr=51
-			label="USB-CTR08"
-		}
-		"related display" {
-			object {
-				x=30
-				y=165
-				width=150
-				height=20
-			}
-			display[0] {
-				label="USB-2408 module"
-				name="USB2408_module.adl"
-				args="P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
-			}
-			clr=14
-			bclr=51
-			label="USB-2408"
-		}
-		"related display" {
-			object {
-				x=30
-				y=215
-				width=150
-				height=20
-			}
-			display[0] {
-				label="TC32 module"
-				name="TC32_module.adl"
-				args="P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti"
-			}
-			clr=14
-			bclr=51
-			label="TC32"
-		}
-		"related display" {
-			object {
-				x=30
-				y=140
-				width=150
-				height=20
-			}
-			display[0] {
-				label="USB-231 module"
-				name="USB231_module.adl"
-				args="P=USB231:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
-			}
-			clr=14
-			bclr=51
-			label="USB-231"
-		}
+	display[0] {
+		label="USB-231 module"
+		name="USB231_module.adl"
+		args="P=USB231:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
 	}
+	clr=14
+	bclr=51
+	label="USB-231"
 }
 "related display" {
 	object {
@@ -241,4 +230,20 @@ composite {
 	clr=14
 	bclr=51
 	label="E-1608"
+}
+"related display" {
+	object {
+		x=30
+		y=240
+		width=150
+		height=20
+	}
+	display[0] {
+		label="E-TC module"
+		name="ETC_module.adl"
+		args="P=ETC:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter"
+	}
+	clr=14
+	bclr=51
+	label="E-TC"
 }
