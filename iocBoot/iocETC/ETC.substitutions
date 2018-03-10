@@ -1,0 +1,79 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{      P,   R,   MASK,   PORT,  ADDR}
+{   ETC:,  Li,   0xFF,  ETC_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{      P,   R,   MASK,    PORT,  ADDR}
+{   ETC:,  Bi1,  0x01,   ETC_1,     0}
+{   ETC:,  Bi2,  0x02,   ETC_1,     0}
+{   ETC:,  Bi3,  0x04,   ETC_1,     0}
+{   ETC:,  Bi4,  0x08,   ETC_1,     0}
+{   ETC:,  Bi5,  0x10,   ETC_1,     0}
+{   ETC:,  Bi6,  0x20,   ETC_1,     0}
+{   ETC:,  Bi7,  0x40,   ETC_1,     0}
+{   ETC:,  Bi8,  0x80,   ETC_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+{
+pattern
+{      P,   R,   MASK,   PORT,  ADDR}
+{   ETC:,  Lo,   0xFF,  ETC_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{      P,    R,  MASK,    PORT,  ADDR}
+{   ETC:,  Bo1,  0x01,   ETC_1,     0}
+{   ETC:,  Bo2,  0x02,   ETC_1,     0}
+{   ETC:,  Bo3,  0x04,   ETC_1,     0}
+{   ETC:,  Bo4,  0x08,   ETC_1,     0}
+{   ETC:,  Bo5,  0x10,   ETC_1,     0}
+{   ETC:,  Bo6,  0x20,   ETC_1,     0}
+{   ETC:,  Bo7,  0x40,   ETC_1,     0}
+{   ETC:,  Bo8,  0x80,   ETC_1,     0}
+}
+
+# Direction bits on binary I/O
+#  VAL 0=input, 1=output
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
+{
+pattern
+{      P,    R,  MASK,  VAL,   PORT,  ADDR}
+{   ETC:,  Bd1,  0x01,    0,  ETC_1,     0}
+{   ETC:,  Bd2,  0x02,    0,  ETC_1,     0}
+{   ETC:,  Bd3,  0x04,    0,  ETC_1,     0}
+{   ETC:,  Bd4,  0x08,    0,  ETC_1,     0}
+{   ETC:,  Bd5,  0x10,    1,  ETC_1,     0}
+{   ETC:,  Bd6,  0x20,    1,  ETC_1,     0}
+{   ETC:,  Bd7,  0x40,    1,  ETC_1,     0}
+{   ETC:,  Bd8,  0x80,    1,  ETC_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompCounter.template"
+{
+pattern
+{      P,         R,   PORT,   ADDR}
+{   ETC:,  Counter1,  ETC_1,      0}
+}
+
+# Temperature inputs
+file "$(MEASCOMP)/measCompApp/Db/measCompTemperatureIn.template"
+{
+pattern
+{      P,    R,    PORT, ADDR,        SCAN, PREC}
+{   ETC:,   Ti0,  ETC_1,    0,  "1 second",    2}
+{   ETC:,   Ti1,  ETC_1,    1,  "1 second",    2}
+{   ETC:,   Ti2,  ETC_1,    2,  "1 second",    2}
+{   ETC:,   Ti3,  ETC_1,    3,  "1 second",    2}
+{   ETC:,   Ti4,  ETC_1,    4,  "1 second",    2}
+{   ETC:,   Ti5,  ETC_1,    5,  "1 second",    2}
+{   ETC:,   Ti6,  ETC_1,    6,  "1 second",    2}
+{   ETC:,   Ti7,  ETC_1,    7,  "1 second",    2}
+}
