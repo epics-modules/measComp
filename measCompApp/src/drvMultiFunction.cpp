@@ -1,9 +1,6 @@
 /* drvMultiFunction.cpp
  *
  * Driver for Measurement Computing multi-function DAQ board using asynPortDriver base class
- * Boards currently supported include:
- *   USB-1608GX-2A0
- *   USB-2408-2A0
  *
  * This driver supports simple analog in/out, digital in/out bit and word, timer (digital pulse generator), counter,
  *   waveform out (aribtrary waveform generator), and waveform in (digital oscilloscope)
@@ -142,6 +139,7 @@ typedef enum {
   USB_TC32           = 305,
   ETH_TC32           = 306,
   E_1608             = 303,
+  E_TC               = 312,
   MAX_BOARD_TYPES
 } boardType_t;
 
@@ -269,6 +267,18 @@ static const enumStruct_t inputTypeTC32[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
+static const enumStruct_t inputRangeE_TC[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeE_TC[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeE_TC[] = {
+  {"TC deg.", AI_CHAN_TYPE_TC}
+};
+
 typedef struct {
   boardType_t boardType;
   const enumStruct_t *pInputRange;
@@ -319,6 +329,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {ETH_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
+
+  {E_TC,           inputRangeE_TC,        sizeof(inputRangeE_TC)/sizeof(enumStruct_t),
+                   outputRangeE_TC,       sizeof(outputRangeE_TC)/sizeof(enumStruct_t),
+                   inputTypeE_TC,         sizeof(inputTypeE_TC)/sizeof(enumStruct_t)},
 };
 
 #define DEFAULT_POLL_TIME 0.01
@@ -702,6 +716,14 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       setUIntDigitalParam(0, digitalDirection_, 0, 0xFFFFFFFF);
       // Digital I/O port 1 is output and temperature alarms
       setUIntDigitalParam(1, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
+      break;
+    case E_TC:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
