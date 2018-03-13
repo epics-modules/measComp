@@ -17,15 +17,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#ifdef _WIN32
+  #include <osiSock.h>
+#else
+  #include <unistd.h>
+  #include <sys/socket.h>
+  #include <sys/select.h>
+  #include <sys/time.h>
+  #include <netinet/in.h>
+  #include <arpa/inet.h>
+#endif
 #include <string.h>
 #include <stdbool.h>
-#include <sys/socket.h>
-#include <sys/select.h>
-#include <sys/time.h>
 #include <sys/types.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include "E-1608.h"
 
 #include <fcntl.h>
@@ -77,7 +81,7 @@ int main(int argc, char**argv)
     device_info.device.Address.sin_family = AF_INET;
     device_info.device.Address.sin_port = htons(COMMAND_PORT);
     device_info.device.Address.sin_addr.s_addr = INADDR_ANY;
-    if (inet_aton(argv[1], &device_info.device.Address.sin_addr) == 0) {
+    if (inet_pton(AF_INET, argv[1], &device_info.device.Address.sin_addr) == 0) {
       printf("Improper destination address.\n");
       return -1;
     }
