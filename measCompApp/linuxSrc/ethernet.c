@@ -16,10 +16,13 @@
 */
 
 #include <stdio.h>
-#include <unistd.h>
+#ifdef _WIN32
+  #define close(SOCK) closesocket(SOCK)
+#else
+  #include <unistd.h>
+#endif
 #include <stdbool.h>
 #include <string.h>
-#include <sys/time.h>
 #include <sys/types.h>
 #include "ethernet.h"
 
@@ -41,11 +44,13 @@ static int recvfromTimeOut(int sock, long sec, long usec)
 
 void printDeviceInfo(EthernetDeviceInfo *device_info)
 {
+  char buffer[INET_ADDRSTRLEN];
   printf("   Found device: %s\n", device_info->NetBIOS_Name);
   printf("   MAC: %02X:%02X:%02X:%02X:%02X:%02X\n",
 	 device_info->MAC[0], device_info->MAC[1], device_info->MAC[2],
 	 device_info->MAC[3], device_info->MAC[4], device_info->MAC[5]);
-  printf("   IP: %s\n", inet_ntoa(device_info->Address.sin_addr));
+  inet_ntop(AF_INET, &(device_info->Address.sin_addr), buffer, sizeof(buffer));
+  printf("   IP: %s\n", buffer);
   printf("   Product ID: 0x%04X\n", device_info->ProductID);
   printf("   FW version: %02X.%02X\n", 
 	 (unsigned char)(device_info->FirmwareVersion >> 8),
@@ -55,7 +60,8 @@ void printDeviceInfo(EthernetDeviceInfo *device_info)
 	 (unsigned char)(device_info->BootloaderVersion));
   printf("   Command Port: %d\n", device_info->CommandPort);
   printf("   Status: %s\n", (device_info->Status == 0) ? "Available" : "In Use");
-  printf("   Remote host: %s\n\n", inet_ntoa(device_info->RemoteHost.sin_addr));
+  inet_ntop(AF_INET, &(device_info->RemoteHost.sin_addr), buffer, sizeof(buffer));
+  printf("   Remote host: %s\n\n", buffer);
 }
 
 int discoverDevice(EthernetDeviceInfo *device_info, uint16_t productID)
@@ -79,7 +85,7 @@ int discoverDevice(EthernetDeviceInfo *device_info, uint16_t productID)
   }
   // set the broadcast option
   broadcast = 1;
-  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast)) < 0) {
+  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (void *)&broadcast, sizeof(broadcast)) < 0) {
     perror("discoverDevice: Error setting socket options");
     close(sock);
     return -1;
@@ -172,7 +178,7 @@ int discoverDevices(EthernetDeviceInfo *devices_info[], uint16_t productID, int 
 
   // set the broadcast option
   broadcast = 1;
-  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast)) < 0) {
+  if (setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (void *)&broadcast, sizeof(broadcast)) < 0) {
     perror("discoverDevices: Error setting socket options");
     close(sock);
     return -1;
@@ -336,7 +342,7 @@ int receiveMessage(int sock, void *message, int maxLength, unsigned long timeout
 
   // set a receive timeout
   val = timeout + 100;
-  setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &val, sizeof(unsigned long));
+  setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (void *)&val, sizeof(unsigned long));
 
   timeout_s = timeout / 1000;
   timeout_us = (timeout - (timeout_s*1000)) * 1000;

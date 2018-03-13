@@ -23,11 +23,22 @@
 extern "C" { 
 #endif
 
-#include <unistd.h>
-#include <sys/socket.h>
-#include <sys/select.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#ifdef _WIN32
+  #include <stdint.h>
+  #include <osiSock.h>
+  /*
+   * winsock2.h changes the structure alignment to 4 if
+   * WIN32 isnt set which can be a source of confusion
+   */
+  #ifndef WIN32
+  #   define WIN32
+  #endif
+  #include <winsock2.h>
+#else
+  #include <sys/socket.h>
+  #include <netinet/in.h>
+  #include <arpa/inet.h>
+#endif
 
 
 #define DISCOVER_PORT   54211
