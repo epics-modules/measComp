@@ -19,7 +19,11 @@
 #include "drvMca.h"
 #include "devScalerAsyn.h"
 
-#include "cbw.h"
+#ifdef linux
+  #include "cbw_linux.h"
+#else
+  #include "cbw.h"
+#endif
 
 #include <epicsExport.h>
 
@@ -408,8 +412,8 @@ int USBCTR::startMCS()
   int mode;
   double dwell;
   int channelAdvance;
-  long count;
-  long rate;
+  LONG count;
+  LONG rate;
   double rateFactor=1.0;
   static const char *functionName = "startMCS";
 
@@ -473,7 +477,7 @@ int USBCTR::startMCS()
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s called cbCInScan, firstMCSCounter=%d, lastMCSCounter=%d, count=%d, rate=%ld,"
+    "%s::%s called cbCInScan, firstMCSCounter=%d, lastMCSCounter=%d, count=%d, rate=%d,"
     " inputMemHandle_=%p, options=0x%x, status=%d\n",
     driverName, functionName, firstMCSCounter_, lastMCSCounter_, count, rate,
     inputMemHandle_, options, status);
@@ -510,7 +514,7 @@ int USBCTR::readMCS()
   getIntegerParam(mcaNumChannels_,  &numTimePoints);
   status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s cbGetStatus returned ctrStatus=%d, ctrCount=%d, ctrIndex=%d\n",
+    "%s::%s cbGetStatus returned ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, ctrStatus, ctrCount, ctrIndex);
   if (ctrStatus == 0) {
     MCSRunning_ = false;
@@ -565,7 +569,7 @@ int USBCTR::eraseMCS()
 {
   int i;
   int numTimePoints;
-  static const char *functionName="eraseMCS";
+  //static const char *functionName="eraseMCS";
 
   /* If we are already erased return */
   if (MCSErased_) {
@@ -635,8 +639,8 @@ int USBCTR::startScaler()
   int status;
   int i;
   int mode;
-  long count = 20 * numCounters_;
-  long rate = 100;
+  LONG count = 20 * numCounters_;
+  LONG rate = 100;
   int firstCounter = 0;
   int lastCounter = numCounters_ - 1;
   int options = BACKGROUND | CONTINUOUS | CTR32BIT | SINGLEIO;
@@ -680,7 +684,7 @@ int USBCTR::readScaler()
   // Poll the status of the counter scan 
   status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
-    "%s::%s called cbGetStatus, ctrStatus=%d, ctrCount=%d, ctrIndex=%d\n",
+    "%s::%s called cbGetStatus, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, ctrStatus, ctrCount, ctrIndex);
   numValues = ctrIndex + 1;
   // Get the index of the start of the last complete set of counts in the buffer
@@ -992,7 +996,7 @@ asynStatus USBCTR::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   callParamCallbacks(addr);
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s:%s, port %s, wrote %d to address %d\n",
+             "%s:%s, port %s, wrote %f to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
@@ -1059,7 +1063,7 @@ asynStatus USBCTR::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
   pasynManager->getAddr(pasynUser, &signal);
   asynPrint(pasynUser, ASYN_TRACE_FLOW, 
             "%s:%s: entry, command=%d, signal=%d, numRead=%d, &data=%p\n", 
-            driverName, functionName, command, signal, numRead, data);
+            driverName, functionName, command, signal, (int)numRead, data);
 
   if (command == mcaData_) {
     /* Transfer the data from the private driver structure to the supplied data
@@ -1081,7 +1085,7 @@ asynStatus USBCTR::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
     if (*numActual == 0) *numActual = 1;
     asynPrint(pasynUser, ASYN_TRACE_FLOW, 
               "%s:%s: [signal=%d]: read %d chans (numRead=%d, numCopy=%d, currentPoint=%d, nChans=%d)\n",  
-              driverName, functionName, signal, *numActual, numRead, numCopy, currentPoint, nChans);
+              driverName, functionName, signal, (int)*numActual, (int)numRead, numCopy, currentPoint, nChans);
     }
   else if (command == scalerRead_) {
     for (i=0; (i<numRead && i<(size_t)numCounters_); i++) {
@@ -1093,8 +1097,8 @@ asynStatus USBCTR::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
     *numActual = numRead;
     asynPrint(pasynUser, ASYN_TRACE_FLOW, 
               "%s:%s: scalerReadCommand: read %d chans, data=%d %d %d %d %d %d %d %d\n", 
-              driverName, functionName, numRead, data[0], data[1], data[2], data[3], 
-                                                 data[4], data[5], data[6], data[7]);
+              driverName, functionName, (int)numRead, data[0], data[1], data[2], data[3], 
+                                                      data[4], data[5], data[6], data[7]);
   }
   else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
