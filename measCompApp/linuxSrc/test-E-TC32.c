@@ -16,7 +16,9 @@
 */
 
 #include <stdio.h>
-#include <unistd.h>
+#ifndef _WIN32
+  #include <unistd.h>
+#endif
 #include <string.h>
 #include <stdbool.h>
 #include <sys/socket.h>
