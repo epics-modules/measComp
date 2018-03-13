@@ -16,7 +16,6 @@
 */
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
