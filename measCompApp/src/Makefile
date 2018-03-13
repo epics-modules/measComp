@@ -7,10 +7,13 @@ include $(TOP)/configure/CONFIG
 #=============================
 # Build the IOC support library
 
+USR_CXXFLAGS_Linux += -Wno-write-strings
+
 DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
+LIBRARY_IOC_Linux+= measComp
 #LIBRARY_IOC_cygwin32 += measComp
 
 # Compile and add the code to the support library
@@ -40,7 +43,7 @@ endif
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-#PROD_IOC_cygwin32 += measCompApp
+PROD_IOC_Linux += measCompApp
 
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
@@ -49,6 +52,7 @@ measCompApp_SRCS += measCompAppMain.cpp
 
 # Link in the code from the support library
 measCompApp_LIBS += measComp
+measCompApp_LIBS_Linux += measCompLinux
 measCompApp_LIBS += std
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
@@ -58,14 +62,11 @@ measCompApp_LIBS += autosave
 measCompApp_LIBS += asyn
 measCompApp_LIBS += seq pv
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-measComp_LIBS += cbw32
-measCompApp_LIBS += cbw32
-#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-#measComp_LIBS += cbw32
-#measCompApp_LIBS += cbw32
+  measComp_LIBS += cbw32
+  measCompApp_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-measComp_LIBS += cbw64
-measCompApp_LIBS += cbw64
+  measComp_LIBS += cbw64
+  measCompApp_LIBS += cbw64
 endif
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
