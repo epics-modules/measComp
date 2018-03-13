@@ -18,7 +18,11 @@
 
 #include <devScalerAsyn.h>
 
-#include "cbw.h"
+#ifdef linux
+  #include "cbw_linux.h"
+#else
+  #include "cbw.h"
+#endif
 
 #include <epicsExport.h>
 
@@ -496,7 +500,7 @@ int C9513::setupPulseGenerator(int counterNum)
   if (i == MAX_FREQUENCIES) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: pulse period=%f is outside allowed range for counter %d\n",
-              driverName, functionName, period, counterNum+1, status);
+              driverName, functionName, period, counterNum+1);
   }
   setIntegerParam(counterNum, C9513CountSource_, FREQ1+i);
   widthCount = (int)(width / clockPeriod + 0.5);
@@ -504,7 +508,7 @@ int C9513::setupPulseGenerator(int counterNum)
   if ((periodCount - widthCount) < 2) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: incompatible period=%f and width=%f for counter %d\n",
-              driverName, functionName, period, width, counterNum+1, status);
+              driverName, functionName, period, width, counterNum+1);
   }
   if (idleState == 0) {
     setIntegerParam(counterNum, C9513HoldReg_, widthCount);
@@ -599,7 +603,7 @@ asynStatus C9513::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   callParamCallbacks(addr);
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s:%s, port %s, wrote %d to address %d\n",
+             "%s:%s, port %s, wrote %f to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR, 
@@ -653,7 +657,7 @@ asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
   pasynManager->getAddr(pasynUser, &signal);
   asynPrint(pasynUser, ASYN_TRACE_FLOW, 
             "%s:%s: entry, command=%d, signal=%d, numRead=%d, &data=%p\n", 
-            driverName, functionName, command, signal, numRead, data);
+            driverName, functionName, command, signal, (int)numRead, data);
 
   if ((command == scalerRead_) && (numRead > 0)) {
     readScalers();
@@ -666,7 +670,7 @@ asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
     *numActual = numRead;
     asynPrint(pasynUser, ASYN_TRACE_FLOW, 
               "%s:%s: scalerReadCommand: read %d chans, channel[0]=%d\n", 
-              driverName, functionName, numRead, data[0]);
+              driverName, functionName, (int)numRead, data[0]);
   }
   else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
@@ -686,7 +690,7 @@ void C9513::pollerThread()
   unsigned short temp;
   int i;
   int pollCounter;
-  unsigned long count;
+  ULONG count;
   int status;
 
   while(1) { 
@@ -732,9 +736,8 @@ void C9513::report(FILE *fp, int details)
 /** Configuration command, called directly or from iocsh */
 extern "C" int C9513Config(const char *portName, int boardNum, int numChips)
 {
-  C9513 *pC9513 = new C9513(portName, boardNum, numChips);
-  pC9513 = NULL;  /* This is just to avoid compiler warnings */
-  return(asynSuccess);
+  new C9513(portName, boardNum, numChips);
+  return asynSuccess;
 }
 
 
