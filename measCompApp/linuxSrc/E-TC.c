@@ -16,7 +16,9 @@
 */
 
 #include <stdio.h>
-#include <unistd.h>
+#ifndef _WIN32
+  #include <unistd.h>
+#endif
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
