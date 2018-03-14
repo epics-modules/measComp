@@ -12,6 +12,8 @@
  *
  *
  **************************************************************************/
+#ifndef cbwLinuxInclude
+#define cbwLinuxInclude
 
 #if !defined (NT_DRIVER) && !defined (WIN95_DRIVER) && !defined(linux)
 #include <windows.h>
@@ -1828,3 +1830,5 @@ typedef struct
 #endif
 
 #endif  /* ifndef NT_DRIVER */
+
+#endif /* cbwLinuxInclude */
