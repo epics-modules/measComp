@@ -762,8 +762,6 @@ printf("numIOPorts=%d\n", numIOPorts_);
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
 
-report(stdout, 1);
-
   /* Start the thread to poll counters and digital inputs and do callbacks to 
    * device support */
   epicsThreadCreate("MultiFunctionPoller",
