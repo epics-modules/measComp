@@ -18,7 +18,8 @@ LIB_SRCS += E-1608.c
 LIB_SRCS += E-DIO24.c 
 LIB_SRCS += E-TC32.c 
 LIB_SRCS += E-TC.c
-LIB_SRCS_Linux += cbw_linux.cpp
+LIB_SRCS_Linux += mcBoard.cpp
+LIB_SRCS_Linux += mcBoard_E-TC.cpp
 
 PROD_IOC_Linux += test-E-1608 
 PROD_IOC_Linux += test-E-DIO24 
