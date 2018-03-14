@@ -2,108 +2,12 @@
 #include <vector>
 
 #include "cbw_linux.h"
-#include "E-TC.h"
+#include "mcBoard_E-TC.h"
 
-#define MAX_ADDRESS_LEN 100
 
-class mcBoard {
-public:
-    mcBoard(const char *address) {
-        strncpy(address_, address, sizeof(address_)-1);
-    }
-    int getBoardName(char *BoardName) {
-        strcpy(BoardName, boardName_);
-        return NOERRORS;
-    }
-    virtual int getConfig(int InfoType, int DevNum, int ConfigItem, int *ConfigVal) {
-        switch (InfoType) {
-        case BOARDINFO:
-            switch (ConfigItem) {
-            case BIBOARDTYPE:
-                *ConfigVal = biBoardType_;
-                break;        
-            case BINUMADCHANS:
-                *ConfigVal = biNumADCChans_;
-                break;
-            case BIADRES:
-                *ConfigVal = biADCRes_;
-                break;
-            case BINUMDACHANS:
-                *ConfigVal = biNumDACChans_;
-                break;
-            case BIDACRES:
-                *ConfigVal = biDACRes_;
-                break;
-            case BINUMTEMPCHANS:
-                *ConfigVal = biNumTempChans_;
-                break;
-            case BIDINUMDEVS:
-                *ConfigVal = biDInNumDevs_;
-                break;
-        }
-        break;
-
-        case DIGITALINFO:
-            switch(ConfigItem) {
-            case DIDEVTYPE:
-                *ConfigVal = diDevType_;
-                break;
-            case DIINMASK:
-                *ConfigVal = diInMask_;
-                break;
-            case DIOUTMASK:
-                *ConfigVal = diOutMask_;
-                break;
-            case DINUMBITS:
-                *ConfigVal = diNumBits_;
-                break;
-            }
-        break;
-        }
-printf("address=%s, boardName=%s, boardType=%d, numTempChans=%d, DInNumDevs=%d\n",
-address_, boardName_, biBoardType_, biNumTempChans_, biDInNumDevs_);
-printf("getConfig InfoType=%d, ConfigItem=%d, *ConfigVal=%d\n",
-InfoType, ConfigItem, *ConfigVal);
-        return NOERRORS;
-    }
-
-protected:
-    char address_[MAX_ADDRESS_LEN];
-    char boardName_[BOARDNAMELEN];
-    int biBoardType_;
-    int biNumADCChans_;
-    int biADCRes_;
-    int biNumDACChans_;
-    int biDACRes_;
-    int biNumTempChans_;
-    int biDInNumDevs_;
-    int diDevType_;
-    int diInMask_;
-    int diOutMask_;
-    int diNumBits_;
-};
-
-class mcE_TC : mcBoard {
-public:
-    mcE_TC(const char *address)
-      : mcBoard(address) {
-        strcpy(boardName_, "E-TC");
-        biBoardType_    = ETC_PID;
-        biNumADCChans_  = 0;
-        biADCRes_       = 0;
-        biNumDACChans_  = 0;
-        biDACRes_       = 0;
-        biNumTempChans_ = 8;
-        biDInNumDevs_   = 1;
-        diDevType_      = AUXPORT;
-        diInMask_       = 0;
-        diOutMask_      = 0;
-        diNumBits_      = 8;
-    }
-
-private:
-    DeviceInfo_TC deviceInfo;
-};
+mcBoard::mcBoard(const char *address) {
+    strncpy(address_, address, sizeof(address_)-1);
+}
 
 std::vector<mcBoard*> boardList;
 
@@ -123,6 +27,54 @@ int cbAddBoard(const char *boardName, const char *address)
     return NOERRORS;
 }
 
+int mcBoard::getConfig(int InfoType, int DevNum, int ConfigItem, int *ConfigVal) {
+    switch (InfoType) {
+    case BOARDINFO:
+        switch (ConfigItem) {
+        case BIBOARDTYPE:
+            *ConfigVal = biBoardType_;
+            break;        
+        case BINUMADCHANS:
+            *ConfigVal = biNumADCChans_;
+            break;
+        case BIADRES:
+            *ConfigVal = biADCRes_;
+            break;
+        case BINUMDACHANS:
+            *ConfigVal = biNumDACChans_;
+            break;
+        case BIDACRES:
+            *ConfigVal = biDACRes_;
+            break;
+        case BINUMTEMPCHANS:
+            *ConfigVal = biNumTempChans_;
+            break;
+        case BIDINUMDEVS:
+            *ConfigVal = biDInNumDevs_;
+            break;
+    }
+    break;
+
+    case DIGITALINFO:
+        switch(ConfigItem) {
+        case DIDEVTYPE:
+            *ConfigVal = diDevType_;
+            break;
+        case DIINMASK:
+            *ConfigVal = diInMask_;
+            break;
+        case DIOUTMASK:
+            *ConfigVal = diOutMask_;
+            break;
+        case DINUMBITS:
+            *ConfigVal = diNumBits_;
+            break;
+        }
+    break;
+    }
+    return NOERRORS;
+}
+
 int cbGetConfig(int InfoType, int BoardNum, int DevNum, 
                 int ConfigItem, int *ConfigVal)
 {
@@ -131,14 +83,22 @@ int cbGetConfig(int InfoType, int BoardNum, int DevNum,
     return pBoard->getConfig(InfoType, DevNum, ConfigItem, ConfigVal);
 }
 
-int cbSetConfig(int InfoType, int BoardNum, int DevNum, 
-                int ConfigItem, int ConfigVal)
+int mcBoard::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal)
 {
-    static const char *functionName = "cbSetConfig";
-    printf("Function %s not supported\n", functionName);
+    printf("Function cbSetConfig not supported\n");
     return NOERRORS;
 }
+int cbSetConfig(int InfoType, int BoardNum, int DevNum, int ConfigItem, int ConfigVal)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->setConfig(InfoType, DevNum, ConfigItem, ConfigVal);
+}
 
+int mcBoard::getBoardName(char *BoardName) {
+    strcpy(BoardName, boardName_);
+    return NOERRORS;
+}
 int cbGetBoardName(int BoardNum, char *BoardName)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -181,12 +141,16 @@ int cbStopIOBackground(int BoardNum, int FunctionType)
     return NOERRORS;
 }
 
-int cbGetIOStatus(int BoardNum, short *Status, long *CurCount,
-                  long *CurIndex,int FunctionType)
+int mcBoard::getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
 {
-    static const char *functionName = "cbGetIOStatus";
-    printf("Function %s not supported\n", functionName);
+    printf("cbGetIOStatus not supported\n");
     return NOERRORS;
+}
+int cbGetIOStatus(int BoardNum, short *Status, long *CurCount, long *CurIndex,int FunctionType)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->getIOStatus(Status, CurCount, CurIndex, FunctionType);
 }
 
       
@@ -260,18 +224,28 @@ int cbC9513Init(int BoardNum, int ChipNum, int FOutDivider,
     return NOERRORS;
 }
 
-int cbCIn32(int BoardNum, int CounterNum, ULONG *Count)
+int mcBoard::cIn32(int CounterNum, ULONG *Count)
 {
-    static const char *functionName = "cbCIn32";
-    printf("Function %s not supported\n", functionName);
+    printf("cbCIn32 is not supported\n");
     return NOERRORS;
 }
+int cbCIn32(int BoardNum, int CounterNum, ULONG *Count)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cIn32(CounterNum, Count);
+}
 
+int mcBoard::cLoad32(int RegNum, ULONG LoadValue)
+{
+    printf("Function cbCLoad32 not supported\n");
+    return NOERRORS;
+}
 int cbCLoad32(int BoardNum, int RegNum, ULONG LoadValue)
 {
-    static const char *functionName = "cbCLoad32";
-    printf("Function %s not supported\n", functionName);
-    return NOERRORS;
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cLoad32(RegNum, LoadValue);
 }
 
 int cbCInScan(int BoardNum, int FirstCtr,int LastCtr, LONG Count,
@@ -293,11 +267,16 @@ int cbCConfigScan(int BoardNum, int CounterNum, int Mode,int DebounceTime,
 
 
 // Digital I/O functions
+int mcBoard::dBitOut(int PortType, int BitNum, USHORT BitValue)
+{
+    printf("Function cbDBitOut not supported\n");
+    return NOERRORS;
+}
 int cbDBitOut(int BoardNum, int PortType, int BitNum, USHORT BitValue)
 {
-    static const char *functionName = "cbDBitOut";
-    printf("Function %s not supported\n", functionName);
-    return NOERRORS;
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->dBitOut(PortType, BitNum, BitValue);
 }
 
 int cbDConfigPort(int BoardNum, int PortType, int Direction)
@@ -307,18 +286,27 @@ int cbDConfigPort(int BoardNum, int PortType, int Direction)
     return NOERRORS;
 }
 
-int cbDConfigBit(int BoardNum, int PortType, int BitNum, int Direction)
+int mcBoard::dConfigBit(int PortType, int BitNum, int Direction)
 {
-    static const char *functionName = "cbDConfigBit";
-    printf("Function %s not supported\n", functionName);
+    printf("Function cbDConfigBit not supported\n");
     return NOERRORS;
 }
+int cbDConfigBit(int BoardNum, int PortType, int BitNum, int Direction)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->dConfigBit(PortType, BitNum, Direction);
+}
 
+int mcBoard::dIn(int PortType, USHORT *DataValue) {
+    printf("cbDIn is not supported\n");
+    return NOERRORS;
+}
 int cbDIn(int BoardNum, int PortType, USHORT *DataValue)
 {
-    static const char *functionName = "cbDIn";
-    printf("Function %s not supported\n", functionName);
-    return NOERRORS;
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->dIn(PortType, DataValue);
 }
 
 int cbDIn32(int BoardNum, int PortType, UINT *DataValue)
@@ -359,13 +347,18 @@ int cbPulseOutStop(int BoardNum, int TimerNum)
     return NOERRORS;
 }
 
+
 // Temperature functions
-int cbTIn(int BoardNum, int Chan, int Scale, float *TempValue,
-          int Options)
+int mcBoard::tIn(int Chan, int Scale, float *TempValue, int Options)
 {
-    static const char *functionName = "cbTIn";
-    printf("Function %s not supported\n", functionName);
+    printf("cbTIn is not supported\n");
     return NOERRORS;
+}
+int cbTIn(int BoardNum, int Chan, int Scale, float *TempValue, int Options)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->tIn(Chan, Scale, TempValue, Options);
 }
 
 // Trigger functions
