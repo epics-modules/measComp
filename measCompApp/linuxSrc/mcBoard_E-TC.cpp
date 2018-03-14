@@ -110,7 +110,18 @@ int mcE_TC::dBitOut(int PortType, int BitNum, USHORT BitValue)
 
 int mcE_TC::dConfigBit(int PortType, int BitNum, int Direction)
 {
-    uint8_t value = 0x1 << BitNum;
+    uint8_t value;
+    uint8_t mask = 0x1 << BitNum;
+    // Read the current output register
+    if (!DConfigR_E_TC(&deviceInfo_, &value)) {
+        return BADBOARD;
+    }
+    // Set or clear the bit
+    if (Direction == DIGITALIN) {
+        value |= mask;
+    } else {
+        value &= ~mask;
+    }
     if (!DConfigW_E_TC(&deviceInfo_, value)) {
         return BADBOARD;
     }
@@ -130,8 +141,30 @@ int mcE_TC::dIn(int PortType, USHORT *DataValue)
 int mcE_TC::tIn(int Chan, int Scale, float *TempValue, int Options)
 {
     uint8_t channelMask = 0x1 << Chan;
-    if (!Tin_E_TC(&deviceInfo_, channelMask, CELSIUS, 0, TempValue)) {
+    uint8_t units;
+    switch (Scale) {
+    case VOLTS:
+        units = VOLTAGE;
+        break;
+    case NOSCALE:
+        units = ADC_CODE;
+        break;
+    default:
+        units = CELSIUS;
+        break;
+    }
+    if (!Tin_E_TC(&deviceInfo_, channelMask, units, 0, TempValue)) {
         return BADBOARD;
+    }
+    switch (Scale) {
+    case KELVIN:
+        *TempValue += 273.15;
+        break;
+    case FAHRENHEIT:
+        *TempValue = (*TempValue * 1.8) + 32;
+        break;
+    default:
+        break;
     }
     return NOERRORS;
 }
