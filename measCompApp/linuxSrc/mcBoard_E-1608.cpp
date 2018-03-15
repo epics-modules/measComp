@@ -8,11 +8,11 @@ mcE_1608::mcE_1608(const char *address)
 {
     strcpy(boardName_, "E-1608");
     biBoardType_    = E1608_PID;
-    biNumADCChans_  = 0;
-    biADCRes_       = 0;
-    biNumDACChans_  = 0;
-    biDACRes_       = 0;
-    biNumTempChans_ = 8;
+    biNumADCChans_  = 8;
+    biADCRes_       = 16;
+    biNumDACChans_  = 2;
+    biDACRes_       = 16;
+    biNumTempChans_ = 0;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
     diInMask_       = 0;
@@ -20,10 +20,14 @@ mcE_1608::mcE_1608(const char *address)
     diNumBits_      = 8;
     
     // Open Ethernet socket
+    deviceInfo_.device.connectCode = 0x0;   // default connect code
+    deviceInfo_.device.frameID = 0;         // zero out the frameID
+    deviceInfo_.queue[0] = 0;               // set count in gain queue to zero
+    deviceInfo_.timeout = 1000;             // set default timeout to 1000 ms.
     deviceInfo_.device.Address.sin_family = AF_INET;
     deviceInfo_.device.Address.sin_port = htons(COMMAND_PORT);
     deviceInfo_.device.Address.sin_addr.s_addr = INADDR_ANY;
-    if (inet_aton(address_, &deviceInfo_.device.Address.sin_addr) == 0) {
+    if (inet_pton(AF_INET, address_, &deviceInfo_.device.Address.sin_addr) == 0) {
         printf("Improper destination address.\n");
         return;
     }
