@@ -3,6 +3,7 @@
 
 #include "cbw_linux.h"
 #include "mcBoard_E-TC.h"
+#include "mcBoard_E-1608.h"
 
 
 mcBoard::mcBoard(const char *address) {
@@ -18,6 +19,9 @@ int cbAddBoard(const char *boardName, const char *address)
     mcBoard *pBoard;
     if (strcmp(boardName, "E-TC") ==0) {
         pBoard = (mcBoard *)new mcE_TC(address);
+    }
+    else if (strcmp(boardName, "E-1608") ==0) {
+        pBoard = (mcBoard *)new mcE_1608(address);
     }
     else {
         printf("Unknown board type %s\n", boardName);
@@ -155,11 +159,16 @@ int cbGetIOStatus(int BoardNum, short *Status, long *CurCount, long *CurIndex,in
 
       
 // Analog I/O functions
+int mcBoard::aIn(int Chan, int Gain, USHORT *DataValue)
+{
+    printf("Function cbAIn not supported\n");
+    return NOERRORS;
+}
 int cbAIn(int BoardNum, int Chan, int Gain, USHORT *DataValue)
 {
-    static const char *functionName = "cbAIn";
-    printf("Function %s not supported\n", functionName);
-    return NOERRORS;
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->aIn(Chan, Gain, DataValue);
 }
 
 int cbAIn32(int BoardNum, int Chan, int Gain, ULONG *DataValue, int Options)
@@ -186,11 +195,16 @@ int cbALoadQueue(int BoardNum, short *ChanArray, short *GainArray,
     return NOERRORS;
 }
 
+int mcBoard::aOut(int Chan, int Gain, USHORT DataValue)
+{
+    printf("Function cbAOut not supported\n");
+    return NOERRORS;
+}
 int cbAOut(int BoardNum, int Chan, int Gain, USHORT DataValue)
 {
-    static const char *functionName = "cbAOut";
-    printf("Function %s not supported\n", functionName);
-    return NOERRORS;
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->aOut(Chan, Gain, DataValue);
 }
 
 int cbAOutScan(int BoardNum, int LowChan, int HighChan, 
