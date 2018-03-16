@@ -13,6 +13,9 @@ public:
     virtual int setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal);
     virtual int getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType);
     virtual int aIn(int Chan, int Gain, USHORT *DataValue);
+    virtual int aInScan(int LowChan, int HighChan, long Count, long *Rate, 
+                        int Gain, HGLOBAL MemHandle, int Options);
+    virtual int aLoadQueue(short *ChanArray, short *GainArray, int NumChans);
     virtual int aOut(int Chan, int Gain, USHORT DataValue);
     virtual int cIn32(int CounterNum, ULONG *Count);
     virtual int cLoad32(int RegNum, ULONG LoadValue);
