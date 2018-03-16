@@ -10,6 +10,9 @@ public:
     int setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal);
     int getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType);
     int aIn(int Chan, int Gain, USHORT *DataValue);
+    int aInScan(int LowChan, int HighChan, long Count, long *Rate, 
+                int Gain, HGLOBAL MemHandle, int Options);
+    int aLoadQueue(short *ChanArray, short *GainArray, int NumChans);
     int aOut(int Chan, int Gain, USHORT DataValue);
     int cIn32(int CounterNum, ULONG *Count);
     int cLoad32(int RegNum, ULONG LoadValue);
