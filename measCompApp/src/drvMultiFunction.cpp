@@ -634,7 +634,6 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,         &ADCResolution_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,        &DACResolution_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,     &numIOPorts_);
-printf("numIOPorts=%d\n", numIOPorts_);
   cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTempChans_);
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
@@ -1812,7 +1811,7 @@ static void configCallFunc(const iocshArgBuf *args)
 #ifdef _WIN32
 int cbAddBoard(const char *boardName, const char *address)
 {
-    printf("cdAddBoard not implemented on Windows\n");
+    printf("cbAddBoard not implemented on Windows\n");
     return 0;
 }
 #endif
@@ -1821,7 +1820,7 @@ static const iocshArg addBoardArg0 = { "Model name",      iocshArgString};
 static const iocshArg addBoardArg1 = { "Address",         iocshArgString};
 static const iocshArg * const addBoardArgs[] = {&addBoardArg0,
                                                 &addBoardArg1};
-static const iocshFuncDef addBoardFuncDef = {"cdAddBoard",2,addBoardArgs};
+static const iocshFuncDef addBoardFuncDef = {"cbAddBoard",2,addBoardArgs};
 static void addBoardCallFunc(const iocshArgBuf *args)
 {
   cbAddBoard(args[0].sval, args[1].sval);
