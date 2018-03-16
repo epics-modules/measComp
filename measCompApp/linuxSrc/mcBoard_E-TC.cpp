@@ -29,7 +29,7 @@ mcE_TC::mcE_TC(const char *address)
     }
 
     if ((deviceInfo_.device.sock = openDevice(inet_addr(inet_ntoa(deviceInfo_.device.Address.sin_addr)),
-			    deviceInfo_.device.connectCode)) < 0) {
+                                              deviceInfo_.device.connectCode)) < 0) {
         printf("Error opening socket\n");
         return;
     }
@@ -68,24 +68,24 @@ int mcE_TC::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
 int mcE_TC::getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
 {
     // Needs to be implemented
-	  return NOERRORS;
+      return NOERRORS;
 }
 
 int mcE_TC::cIn32(int CounterNum, ULONG *Count)
 {
-	  if (!CounterR_E_TC(&deviceInfo_)) {
-	     return BADBOARD;
-	  }
-	  *Count = deviceInfo_.counter;
-	  return NOERRORS;
+      if (!CounterR_E_TC(&deviceInfo_)) {
+         return BADBOARD;
+      }
+      *Count = deviceInfo_.counter;
+      return NOERRORS;
 }
 
 int mcE_TC::cLoad32(int RegNum, ULONG LoadValue)
 {
-	  if (!ResetCounter_E_TC(&deviceInfo_)) {
-	     return BADBOARD;
-	  }
-	  return NOERRORS;
+      if (!ResetCounter_E_TC(&deviceInfo_)) {
+         return BADBOARD;
+      }
+      return NOERRORS;
 }
 
 int mcE_TC::dBitOut(int PortType, int BitNum, USHORT BitValue)
