@@ -178,21 +178,30 @@ int cbAIn32(int BoardNum, int Chan, int Gain, ULONG *DataValue, int Options)
     return NOERRORS;
 }
 
-int cbAInScan(int BoardNum, int LowChan, int HighChan, long Count,
-              long *Rate, int Gain, HGLOBAL MemHandle, 
-              int Options)
+int mcBoard::aInScan(int LowChan, int HighChan, long Count, long *Rate, 
+                     int Gain, HGLOBAL MemHandle, int Options)
 {
-    static const char *functionName = "cbAInScan";
-    printf("Function %s not supported\n", functionName);
+    printf("Function cbAInScan not supported\n");
     return NOERRORS;
 }
-
-int cbALoadQueue(int BoardNum, short *ChanArray, short *GainArray, 
-                 int NumChans)
+int cbAInScan(int BoardNum, int LowChan, int HighChan, long Count,
+              long *Rate, int Gain, HGLOBAL MemHandle, int Options)
 {
-    static const char *functionName = "cbALoadQueue";
-    printf("Function %s not supported\n", functionName);
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->aInScan(LowChan, HighChan, Count, Rate, Gain, MemHandle, Options);
+}
+
+int mcBoard::aLoadQueue(short *ChanArray, short *GainArray, int NumChans)
+{
+    printf("Function cbALoadQueue not supported\n");
     return NOERRORS;
+}
+int cbALoadQueue(int BoardNum, short *ChanArray, short *GainArray, int NumChans)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->aLoadQueue(ChanArray, GainArray, NumChans);
 }
 
 int mcBoard::aOut(int Chan, int Gain, USHORT DataValue)
