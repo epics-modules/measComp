@@ -41,7 +41,7 @@ mcE_1608::mcE_1608(const char *address)
     buildGainTableAOut_E1608(&deviceInfo_);
 }
 
-int mcE_1608::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
+int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
     switch (InfoType) {
     case BOARDINFO:
         switch (ConfigItem) {
@@ -61,7 +61,7 @@ int mcE_1608::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal)
     return NOERRORS;
 }
 
-int mcE_1608::getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
+int mcE_1608::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
 {
     // Needs to be implemented
     return NOERRORS;
@@ -83,7 +83,7 @@ static int gainToRange(int Gain)
         return BADRANGE;
     }
 }
-int mcE_1608::aIn(int Chan, int Gain, USHORT *DataValue)
+int mcE_1608::cbAIn(int Chan, int Gain, USHORT *DataValue)
 {
     uint16_t value;
     int range = gainToRange(Gain);
@@ -98,7 +98,7 @@ int mcE_1608::aIn(int Chan, int Gain, USHORT *DataValue)
     return NOERRORS;
 }
 
-int mcE_1608::aInScan(int LowChan, int HighChan, long Count, long *Rate, 
+int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
                       int Gain, HGLOBAL MemHandle, int Options)
 {
     uint8_t options = 0x0;
@@ -113,7 +113,7 @@ printf("mcE_1608::aInScan Count=%ld, frequency=%f, Options=0x%x\n", Count, frequ
     return NOERRORS;
 }
 
-int mcE_1608::aLoadQueue(short *ChanArray, short *GainArray, int NumChans)
+int mcE_1608::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
 {
     deviceInfo_.queue[0] = NumChans;
     int range;
@@ -133,7 +133,7 @@ int mcE_1608::aLoadQueue(short *ChanArray, short *GainArray, int NumChans)
     return NOERRORS;
 }
 
-int mcE_1608::aOut(int Chan, int Gain, USHORT DataValue)
+int mcE_1608::cbAOut(int Chan, int Gain, USHORT DataValue)
 {
       if (!AOut_E1608(&deviceInfo_, Chan, DataValue)) {
          return BADBOARD;
@@ -141,7 +141,7 @@ int mcE_1608::aOut(int Chan, int Gain, USHORT DataValue)
       return NOERRORS;
 }
 
-int mcE_1608::cIn32(int CounterNum, ULONG *Count)
+int mcE_1608::cbCIn32(int CounterNum, ULONG *Count)
 {
     uint32_t counts;
       if (!CounterR_E1608(&deviceInfo_, &counts)) {
@@ -151,7 +151,7 @@ int mcE_1608::cIn32(int CounterNum, ULONG *Count)
       return NOERRORS;
 }
 
-int mcE_1608::cLoad32(int RegNum, ULONG LoadValue)
+int mcE_1608::cbCLoad32(int RegNum, ULONG LoadValue)
 {
       if (!ResetCounter_E1608(&deviceInfo_)) {
          return BADBOARD;
@@ -159,7 +159,7 @@ int mcE_1608::cLoad32(int RegNum, ULONG LoadValue)
       return NOERRORS;
 }
 
-int mcE_1608::dBitOut(int PortType, int BitNum, USHORT BitValue)
+int mcE_1608::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
@@ -179,7 +179,7 @@ int mcE_1608::dBitOut(int PortType, int BitNum, USHORT BitValue)
     return NOERRORS;
 }
 
-int mcE_1608::dConfigBit(int PortType, int BitNum, int Direction)
+int mcE_1608::cbDConfigBit(int PortType, int BitNum, int Direction)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
@@ -199,7 +199,7 @@ int mcE_1608::dConfigBit(int PortType, int BitNum, int Direction)
     return NOERRORS;
 }
 
-int mcE_1608::dIn(int PortType, USHORT *DataValue)
+int mcE_1608::cbDIn(int PortType, USHORT *DataValue)
 {
     uint8_t value;
     if (!DIn_E1608(&deviceInfo_, &value)) {

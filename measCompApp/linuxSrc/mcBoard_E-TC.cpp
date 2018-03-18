@@ -41,7 +41,7 @@ mcE_TC::mcE_TC(const char *address)
     }
 }
 
-int mcE_TC::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
+int mcE_TC::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
     switch (InfoType) {
     case BOARDINFO:
         switch (ConfigItem) {
@@ -65,13 +65,13 @@ int mcE_TC::setConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
     return NOERRORS;
 }
 
-int mcE_TC::getIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
+int mcE_TC::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
 {
     // Needs to be implemented
       return NOERRORS;
 }
 
-int mcE_TC::cIn32(int CounterNum, ULONG *Count)
+int mcE_TC::cbCIn32(int CounterNum, ULONG *Count)
 {
       if (!CounterR_E_TC(&deviceInfo_)) {
          return BADBOARD;
@@ -80,7 +80,7 @@ int mcE_TC::cIn32(int CounterNum, ULONG *Count)
       return NOERRORS;
 }
 
-int mcE_TC::cLoad32(int RegNum, ULONG LoadValue)
+int mcE_TC::cbCLoad32(int RegNum, ULONG LoadValue)
 {
       if (!ResetCounter_E_TC(&deviceInfo_)) {
          return BADBOARD;
@@ -88,7 +88,7 @@ int mcE_TC::cLoad32(int RegNum, ULONG LoadValue)
       return NOERRORS;
 }
 
-int mcE_TC::dBitOut(int PortType, int BitNum, USHORT BitValue)
+int mcE_TC::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
@@ -108,7 +108,7 @@ int mcE_TC::dBitOut(int PortType, int BitNum, USHORT BitValue)
     return NOERRORS;
 }
 
-int mcE_TC::dConfigBit(int PortType, int BitNum, int Direction)
+int mcE_TC::cbDConfigBit(int PortType, int BitNum, int Direction)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
@@ -128,7 +128,7 @@ int mcE_TC::dConfigBit(int PortType, int BitNum, int Direction)
     return NOERRORS;
 }
 
-int mcE_TC::dIn(int PortType, USHORT *DataValue)
+int mcE_TC::cbDIn(int PortType, USHORT *DataValue)
 {
     uint8_t value;
     if (!DIn_E_TC(&deviceInfo_, &value)) {
@@ -138,7 +138,7 @@ int mcE_TC::dIn(int PortType, USHORT *DataValue)
     return NOERRORS;
 }
 
-int mcE_TC::tIn(int Chan, int Scale, float *TempValue, int Options)
+int mcE_TC::cbTIn(int Chan, int Scale, float *TempValue, int Options)
 {
     uint8_t channelMask = 0x1 << Chan;
     uint8_t units;
