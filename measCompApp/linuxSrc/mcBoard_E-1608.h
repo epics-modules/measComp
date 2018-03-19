@@ -1,6 +1,9 @@
 #ifndef mcBoard_E_1608Include
 #define mcBoard_E_1608Include
 
+#include <thread>
+#include <mutex>
+
 #include "mcBoard.h"
 #include "E-1608.h"
 
@@ -8,7 +11,7 @@ class mcE_1608 : mcBoard {
 public:
     mcE_1608(const char *address);
     int cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal);
-    int cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType);
+    int cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType);
     int cbAIn(int Chan, int Gain, USHORT *DataValue);
     int cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
                 int Gain, HGLOBAL MemHandle, int Options);
@@ -20,8 +23,21 @@ public:
     int cbDConfigBit(int PortType, int BitNum, int Direction);
     int cbDIn(int PortType, USHORT *DataValue);
 
+    void readThread();
+
 private:
     DeviceInfo_E1608 deviceInfo_;
+    std::thread *pReadThread_;
+    std::mutex *pReadMutex_;
+    bool aiScanAcquiring_;
+    bool aiScanIsScaled_;
+    double *aiScanScaledBuffer_;
+    uint16_t *aiScanUnscaledBuffer_;
+    int aiScanTotalElements_;
+    int aiScanCurrentPoint_;
+    int aiScanCurrentIndex_;
+    int aiScanNumChans_;
 };
 
 #endif /* mcBoard_E_1608Include */
+
