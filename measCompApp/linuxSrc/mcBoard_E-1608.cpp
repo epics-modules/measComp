@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
+#include <condition_variable>
 
 #include "mcBoard_E-1608.h"
 
@@ -55,13 +56,11 @@ mcE_1608::mcE_1608(const char *address)
     buildGainTableAOut_E1608(&deviceInfo_);
     
     pReadThread_ = new std::thread(readThreadC, this);
-    pReadMutex_ = new std::mutex();
 }
 
 
 void mcE_1608::readThread()
 {
-    struct timespec ts;
     int bytesReceived = 0;
     int sock;
     int totalBytesToRead;
@@ -74,14 +73,13 @@ void mcE_1608::readThread()
     int correctedData;
     int timeout = deviceInfo_.timeout;
 
-    ts.tv_sec = 0;
-    ts.tv_nsec = 10000000;  // 10 ms
-    pReadMutex_->lock();
     while (1) {
-        pReadMutex_->unlock();
-        nanosleep(&ts, 0);
-        pReadMutex_->lock();
+        readMutex_.unlock();
+        std::unique_lock<std::mutex> lk(startMutex_);
+        acquireStart_.wait(lk);
+        lk.unlock();
         if (!aiScanAcquiring_) continue;
+        readMutex_.lock();
         sock = deviceInfo_.device.scan_sock;
         if (sock < 0) {
             printf("Error no scan sock\n");
@@ -96,9 +94,9 @@ void mcE_1608::readThread()
         rawBuffer = (uint16_t *)calloc(aiScanTotalElements_, sizeof(uint16_t));
 
         do {
-            pReadMutex_->unlock();
+            readMutex_.unlock();
             bytesReceived = receiveMessage(sock, &rawBuffer[totalBytesReceived/2], totalBytesToRead - totalBytesReceived, timeout);
-            pReadMutex_->lock();
+            readMutex_.lock();
             // Check to see if acquisition was aborted
             if (!aiScanAcquiring_) break;
             if (bytesReceived <= 0) {  // error
@@ -165,11 +163,11 @@ int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVa
 int mcE_1608::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType)
 {
     if (FunctionType == AIFUNCTION) {
-        pReadMutex_->lock();
+        readMutex_.lock();
         *Status = aiScanAcquiring_ ? 1 : 0;
         *CurCount = aiScanCurrentPoint_;
         *CurIndex = aiScanCurrentIndex_ - 1;
-        pReadMutex_->unlock();
+        readMutex_.unlock();
     }
     return NOERRORS;
 
@@ -179,9 +177,9 @@ int mcE_1608::cbStopIOBackground(int FunctionType)
 {
     if (FunctionType == AIFUNCTION) {
         AInScanStop_E1608(&deviceInfo_, 0);
-        pReadMutex_->lock();
+        readMutex_.lock();
         aiScanAcquiring_ = false;
-        pReadMutex_->unlock();
+        readMutex_.unlock();
     }
     return NOERRORS;
 }
@@ -247,6 +245,7 @@ int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
         return BADBOARD;
     }
     aiScanAcquiring_ = true;
+    acquireStart_.notify_one();
     return NOERRORS;
 }
 

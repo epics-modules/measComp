@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 
 #include "mcBoard.h"
 #include "E-1608.h"
@@ -39,7 +40,9 @@ public:
 private:
     DeviceInfo_E1608 deviceInfo_;
     std::thread *pReadThread_;
-    std::mutex *pReadMutex_;
+    std::mutex readMutex_;
+    std::mutex startMutex_;
+    std::condition_variable acquireStart_;
 
     bool aiScanAcquiring_;
     bool aiScanIsScaled_;
