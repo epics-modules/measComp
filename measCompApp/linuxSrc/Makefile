@@ -11,7 +11,7 @@ INC += cbw_linux.h
 
 LIBRARY_IOC += measCompLinux
 
-USR_CXXFLAGS_Linux += -Wno-write-strings
+USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++11
 
 LIB_SRCS += ethernet.c 
 LIB_SRCS += E-1608.c 
