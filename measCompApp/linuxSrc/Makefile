@@ -11,7 +11,9 @@ INC += cbw_linux.h
 
 LIBRARY_IOC += measCompLinux
 
-USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++11
+# -std=c++11 is preferred over -std=c++0x but is not supported on gcc 4.4
+#USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++11
+USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++0x
 
 LIB_SRCS += ethernet.c 
 LIB_SRCS += E-1608.c 
