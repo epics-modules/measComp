@@ -1,10 +1,20 @@
 #include <stdio.h>
+#include <math.h>
+#include <unistd.h>
+#include <thread>
+#include <chrono>
+#include <mutex>
 
 #include "mcBoard_E-1608.h"
 
+static void readThreadC(void *pPvt)
+{
+    mcE_1608 *pmcE_1608 = (mcE_1608*) pPvt;
+    pmcE_1608->readThread();
+}
 
 mcE_1608::mcE_1608(const char *address)
-  : mcBoard(address) 
+  : mcBoard(address)
 {
     strcpy(boardName_, "E-1608");
     biBoardType_    = E1608_PID;
@@ -18,6 +28,9 @@ mcE_1608::mcE_1608(const char *address)
     diInMask_       = 0;
     diOutMask_      = 0;
     diNumBits_      = 8;
+    
+    aiScanAcquiring_ = false;
+    aiScanCurrentPoint_ = 0;
     
     // Open Ethernet socket
     deviceInfo_.device.connectCode = 0x0;   // default connect code
@@ -39,6 +52,89 @@ mcE_1608::mcE_1608(const char *address)
     }
     buildGainTableAIn_E1608(&deviceInfo_);
     buildGainTableAOut_E1608(&deviceInfo_);
+    
+    pReadThread_ = new std::thread(readThreadC, this);
+    pReadMutex_ = new std::mutex();
+}
+
+
+void mcE_1608::readThread()
+{
+    struct timespec ts;
+    int bytesReceived = 0;
+    int sock;
+    int totalBytesToRead;
+    int totalBytesReceived;
+    int currentChannel;
+    int channel;
+    int range;
+    uint16_t *rawBuffer=0;
+    uint16_t rawData;
+    int correctedData;
+    int timeout = deviceInfo_.timeout;
+
+    ts.tv_sec = 0;
+    ts.tv_nsec = 10000000;  // 10 ms
+    pReadMutex_->lock();
+printf("ReadThread entry\n");
+    while (1) {
+        pReadMutex_->unlock();
+        nanosleep(&ts, 0);
+        pReadMutex_->lock();
+        if (!aiScanAcquiring_) continue;
+        sock = deviceInfo_.device.scan_sock;
+        if (sock < 0) {
+            printf("Error no scan sock\n");
+            continue;
+        }
+        totalBytesToRead = aiScanTotalElements_*2;
+        totalBytesReceived = 0;
+        aiScanCurrentPoint_ = 0;
+        aiScanCurrentIndex_ = 0;
+        currentChannel = 0;
+        if (rawBuffer) free (rawBuffer);
+        rawBuffer = (uint16_t *)calloc(aiScanTotalElements_, sizeof(uint16_t));
+
+        do {
+            pReadMutex_->unlock();
+            bytesReceived = receiveMessage(sock, &rawBuffer[totalBytesReceived/2], totalBytesToRead - totalBytesReceived, timeout);
+            pReadMutex_->lock();
+            if (bytesReceived <= 0) {  // error
+                printf("Error in mcE_1608::readThread: totalBytesReceived = %d totalBytesToRead = %d \n", totalBytesReceived, totalBytesToRead);
+                continue;
+            }
+            totalBytesReceived += bytesReceived;
+            int newPoints = bytesReceived / 2;
+            for (int i=0; i<newPoints; i++) {
+                rawData = rawBuffer[aiScanCurrentPoint_];
+                channel = deviceInfo_.queue[2*currentChannel+1];
+                range = deviceInfo_.queue[2*currentChannel+2];
+                if (channel < DF) {  // single ended
+                    correctedData = rint(rawData*deviceInfo_.table_AInSE[range].slope + deviceInfo_.table_AInSE[range].intercept);
+                } else {  // differential
+                    correctedData = rint(rawData*deviceInfo_.table_AInDF[range].slope + deviceInfo_.table_AInDF[range].intercept);
+                }
+                if (correctedData > 65536) {
+                    correctedData = 65535;  // max value
+                } else if (correctedData < 0) {
+                    correctedData = 0;
+                }
+                if (aiScanIsScaled_) {
+                    aiScanScaledBuffer_[aiScanCurrentPoint_] = volts_E1608(correctedData, range);
+                } else {
+                    aiScanUnscaledBuffer_[aiScanCurrentPoint_] = correctedData;
+                }
+                aiScanCurrentPoint_++;
+                currentChannel ++;
+                if (currentChannel >= aiScanNumChans_) {
+                    currentChannel = 0;
+                    aiScanCurrentIndex_++;
+                }
+            };
+        } while (totalBytesReceived < totalBytesToRead);
+        aiScanAcquiring_ = false;
+        close(sock);
+    }
 }
 
 int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
@@ -61,10 +157,17 @@ int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVa
     return NOERRORS;
 }
 
-int mcE_1608::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
+int mcE_1608::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType)
 {
-    // Needs to be implemented
+    if (FunctionType == AIFUNCTION) {
+        pReadMutex_->lock();
+        *Status = aiScanAcquiring_ ? 1 : 0;
+        *CurCount = aiScanCurrentPoint_;
+        *CurIndex = aiScanCurrentIndex_;
+        pReadMutex_->unlock();
+    }
     return NOERRORS;
+
 }
 
 static int gainToRange(int Gain)
@@ -104,12 +207,23 @@ int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
     uint8_t options = 0x0;
     // We assume that aLoadQueue has previously been called and deviceInfo_.queue[0] contains number of channels
     // being scanned.
-    double frequency = *Rate * deviceInfo_.queue[0];
+    aiScanNumChans_ = deviceInfo_.queue[0];
+    double frequency = *Rate * aiScanNumChans_;
+    aiScanTotalElements_ = Count;
+    if (Options & SCALEDATA) {
+        aiScanScaledBuffer_ = (double *)MemHandle;
+        aiScanIsScaled_ = true;
+    } else {
+        aiScanUnscaledBuffer_ = (uint16_t *)MemHandle;
+        aiScanIsScaled_ = false;
+    }
+    uint32_t scanPoints = Count / aiScanNumChans_;
 printf("mcE_1608::aInScan Count=%ld, frequency=%f, Options=0x%x\n", Count, frequency, Options);
-    if (!AInScanStart_E1608(&deviceInfo_, (uint32_t)Count, frequency, options)) {
+    if (!AInScanStart_E1608(&deviceInfo_, scanPoints, frequency, options)) {
         printf("Error calling AInStartScan_E1608\n");
         return BADBOARD;
     }
+    aiScanAcquiring_ = true;
     return NOERRORS;
 }
 
