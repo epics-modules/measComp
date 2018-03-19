@@ -31,6 +31,7 @@ mcE_1608::mcE_1608(const char *address)
     
     aiScanAcquiring_ = false;
     aiScanCurrentPoint_ = 0;
+    aiScanCurrentIndex_ = 0;
     
     // Open Ethernet socket
     deviceInfo_.device.connectCode = 0x0;   // default connect code
@@ -76,7 +77,6 @@ void mcE_1608::readThread()
     ts.tv_sec = 0;
     ts.tv_nsec = 10000000;  // 10 ms
     pReadMutex_->lock();
-printf("ReadThread entry\n");
     while (1) {
         pReadMutex_->unlock();
         nanosleep(&ts, 0);
@@ -99,6 +99,8 @@ printf("ReadThread entry\n");
             pReadMutex_->unlock();
             bytesReceived = receiveMessage(sock, &rawBuffer[totalBytesReceived/2], totalBytesToRead - totalBytesReceived, timeout);
             pReadMutex_->lock();
+            // Check to see if acquisition was aborted
+            if (!aiScanAcquiring_) break;
             if (bytesReceived <= 0) {  // error
                 printf("Error in mcE_1608::readThread: totalBytesReceived = %d totalBytesToRead = %d \n", totalBytesReceived, totalBytesToRead);
                 continue;
@@ -106,7 +108,7 @@ printf("ReadThread entry\n");
             totalBytesReceived += bytesReceived;
             int newPoints = bytesReceived / 2;
             for (int i=0; i<newPoints; i++) {
-                rawData = rawBuffer[aiScanCurrentPoint_];
+                rawData = rawBuffer[aiScanCurrentIndex_];
                 channel = deviceInfo_.queue[2*currentChannel+1];
                 range = deviceInfo_.queue[2*currentChannel+2];
                 if (channel < DF) {  // single ended
@@ -120,17 +122,17 @@ printf("ReadThread entry\n");
                     correctedData = 0;
                 }
                 if (aiScanIsScaled_) {
-                    aiScanScaledBuffer_[aiScanCurrentPoint_] = volts_E1608(correctedData, range);
+                    aiScanScaledBuffer_[aiScanCurrentIndex_] = volts_E1608(correctedData, range);
                 } else {
-                    aiScanUnscaledBuffer_[aiScanCurrentPoint_] = correctedData;
+                    aiScanUnscaledBuffer_[aiScanCurrentIndex_] = correctedData;
                 }
-                aiScanCurrentPoint_++;
+                aiScanCurrentIndex_++;
                 currentChannel ++;
                 if (currentChannel >= aiScanNumChans_) {
                     currentChannel = 0;
-                    aiScanCurrentIndex_++;
+                    aiScanCurrentPoint_++;
                 }
-            };
+             };
         } while (totalBytesReceived < totalBytesToRead);
         aiScanAcquiring_ = false;
         close(sock);
@@ -139,20 +141,23 @@ printf("ReadThread entry\n");
 
 int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
     switch (InfoType) {
-    case BOARDINFO:
+      case BOARDINFO:
         switch (ConfigItem) {
+          case BIADTRIGCOUNT:
+            aiScanTrigCount_ = ConfigVal;
+            break;
 
-        default:
-            printf("mcBoardE_T-1608::setConfig error unknown ConfigItem %d\n", ConfigItem);
+          default:
+            printf("mcE_1608::cbSetConfig error unknown ConfigItem %d\n", ConfigItem);
             return BADCONFIGITEM;
             break;
-    }
-    break;
+        }
+        break;
     
-    default:
-        printf("mcBoardE_T-1608::setConfig error unknown InfoType %d\n", InfoType);
+      default:
+        printf("mcE_1608::cbSetConfig error unknown InfoType %d\n", InfoType);
         return BADCONFIGTYPE;
-    break;
+        break;
     }
     return NOERRORS;
 }
@@ -163,11 +168,22 @@ int mcE_1608::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int F
         pReadMutex_->lock();
         *Status = aiScanAcquiring_ ? 1 : 0;
         *CurCount = aiScanCurrentPoint_;
-        *CurIndex = aiScanCurrentIndex_;
+        *CurIndex = aiScanCurrentIndex_ - 1;
         pReadMutex_->unlock();
     }
     return NOERRORS;
 
+}
+
+int mcE_1608::cbStopIOBackground(int FunctionType)
+{
+    if (FunctionType == AIFUNCTION) {
+        AInScanStop_E1608(&deviceInfo_, 0);
+        pReadMutex_->lock();
+        aiScanAcquiring_ = false;
+        pReadMutex_->unlock();
+    }
+    return NOERRORS;
 }
 
 static int gainToRange(int Gain)
@@ -204,11 +220,20 @@ int mcE_1608::cbAIn(int Chan, int Gain, USHORT *DataValue)
 int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
                       int Gain, HGLOBAL MemHandle, int Options)
 {
-    uint8_t options = 0x0;
+    double frequency;
+    uint8_t options=0;
+
     // We assume that aLoadQueue has previously been called and deviceInfo_.queue[0] contains number of channels
     // being scanned.
     aiScanNumChans_ = deviceInfo_.queue[0];
-    double frequency = *Rate * aiScanNumChans_;
+    if (Options & EXTCLOCK) {
+        frequency = 0;
+    } else {
+        frequency = *Rate * aiScanNumChans_;
+    }
+    if (Options & EXTTRIGGER) {
+      options = aiScanTrigType_ << 2;
+    }
     aiScanTotalElements_ = Count;
     if (Options & SCALEDATA) {
         aiScanScaledBuffer_ = (double *)MemHandle;
@@ -217,9 +242,7 @@ int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
         aiScanUnscaledBuffer_ = (uint16_t *)MemHandle;
         aiScanIsScaled_ = false;
     }
-    uint32_t scanPoints = Count / aiScanNumChans_;
-printf("mcE_1608::aInScan Count=%ld, frequency=%f, Options=0x%x\n", Count, frequency, Options);
-    if (!AInScanStart_E1608(&deviceInfo_, scanPoints, frequency, options)) {
+    if (!AInScanStart_E1608(&deviceInfo_, 0, frequency, options)) {
         printf("Error calling AInStartScan_E1608\n");
         return BADBOARD;
     }
@@ -320,5 +343,27 @@ int mcE_1608::cbDIn(int PortType, USHORT *DataValue)
         return BADBOARD;
     }
     *DataValue = value;
+    return NOERRORS;
+}
+
+int mcE_1608::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold)
+{
+    switch (TrigType) {
+      case TRIG_POS_EDGE:
+          aiScanTrigType_ = 1;
+          break;
+      case TRIG_NEG_EDGE:
+          aiScanTrigType_ = 2;
+          break;
+      case TRIG_HIGH:
+          aiScanTrigType_ = 3;
+          break;
+      case TRIG_LOW:
+          aiScanTrigType_ = 4;
+          break;
+      default:
+          printf("mcE_1608::cbSetTrigger unknown TrigType %d\n", TrigType);
+          return BADTRIGTYPE;
+    }
     return NOERRORS;
 }
