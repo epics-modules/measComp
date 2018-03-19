@@ -9,14 +9,32 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
-    Release 1-6 (March XXX, 2018)</h2>
+    Release 2-0 (March XXX, 2018)</h2>
   <ul>
+    <li>Added support for Linux. Previously measComp was limited to running on Windows
+      because it uses the Measurement Computing Universal Library (UL), which is available
+      only on Windows. The Linux support is designed as follows:
+      <ul>
+        <li>It uses the [low-level Linux drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).</li>
+        <li>On top of these drivers the module provides a layer that emulates the Measurement
+          Computing Windows UL library.</li>
+        <li>The EPICS drivers thus always use the UL API and are identical on Linux and Windows.</li>
+        <li>The Linux UL layer is independent of EPICS, and uses std::thread and std::mutex
+          to provide the required threading and mutex capabilities. These methods require
+          C++11, and so will not build with very old compilers. They do build with gcc 4.8.5
+          (e.g. RHEL 7/Centos 7), and gcc 4.4.7 (e.g. RHEL 6/Centos 6).</li>
+        <li>Currently only the E-1608 and E-TC models are supported on Linux. Support for
+          other modules is straightforward to add and can be done as the need arises.</li>
+      </ul>
+    </li>
     <li>Added support to drvMultiFunction for the E-TC. This is an Ethernet module with
-      8 thermocouple inputs (type B, E, J, K, N, R, S, T), digital I/O, and a counter. 
-      Added new medm screen ETC_module.adl and new iocBoot directory, iocETC. 
-      This device is useful in applications where
-      the length limitation of USB and/or the ability to move around without an attached
-      computer are important. </li>
+      8 thermocouple inputs (type B, E, J, K, N, R, S, T), digital I/O, and a counter.
+      Added new medm screen ETC_module.adl and new iocBoot directory, iocETC. This device
+      is useful in applications where the length limitation of USB and/or the ability
+      to move around without an attached computer are important. </li>
+    <li>Improved the support for the E-1608 to include fast analog input, i.e. waveform
+      digitizer support.</li>
+  </ul>
   <h2 style="text-align: center">
     Release 1-5 (March 2, 2018)</h2>
   <ul>
