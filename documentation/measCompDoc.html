@@ -10,7 +10,7 @@
     <h1>
       measComp: EPICS Drivers for Measurement Computing Devices</h1>
     <h2>
-      March 2, 2018</h2>
+      March 19, 2018</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -23,25 +23,26 @@
     Computing. Currently the USB-CTR04/08 and USB-4303 counter/timer, and multi-function
     modules (USB-1208LS, USB-1208FS, USB-1608G, USB-1608GX-2A0, USB-231, USB-2408-2A0,
     TC-32) are supported. The multi-function modules support analog input/output (not
-    TC-32), temperature input (USB-2408-2A0 and TC-32), digital input/output, pulse
-    counters (not TC-32), and pulse generators (USB-1608G and USB-1608GX-2A0) These
-    drivers are documented separately.</p>
+    TC-32), temperature input (USB-2408-2AO, E-TC, and TC-32), digital input/output,
+    pulse counters (not TC-32), and pulse generators (USB-1608G and USB-1608GX-2A0)
+    These drivers are documented separately.</p>
   <ul>
     <li><a href="measCompUSBCTRDoc.html">USB-CTR04/08 driver</a></li>
     <li><a href="measCompMultiFunctionDoc.html">Multi-function module driver</a></li>
     <li><a href="measComp4303Doc.html">USB-4303 driver</a></li>
   </ul>
   <p>
-    This module is currently only supported on Windows, with the win32-x86, win32-x66-static,
-    windows-x64, windows-x64-static, and cygwin-x86 EPICS architectures. The driver
-    uses the Measurement Computing "Universal Library", which is only available on Windows.
-    Note that there is Linux support for many Measurement Computing devices available,
-    including all of those supported in this module, from <a href="ftp://lx10.tx.ncsu.edu/pub/Linux/drivers">
-      Warren J. Jasper at North Carolina State University (NCSU).</a>. However, the
-    API is completely different from the Universal Library, and these drivers only run
-    on Linux, not Windows. They also do not support some of the high-performance streaming
-    features of the Windows drivers. It would certainly be possible to write EPICS drivers
-    for Linux using these low-level drivers from NCSU.</p>
+    This module is supported on both Windows and Linux, 64-bit and 32-bit. On Windows
+    it uses the Measurement Computing "Universal Library" (UL), which is only available
+    on Windows. On Linux it uses the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
+    On top of these drivers the module provides a layer that emulates the Windows UL
+    library from Measurement Computing. The EPICS drivers thus always use the UL API
+    and are identical on Linux and Windows. The Linux UL layer is independent of EPICS,
+    and uses std::thread and std::mutex to provide the required threading and mutex
+    capabilities. These methods require C++11, and so will not build with very old compilers.
+    They do build with gcc 4.8.5 on RHEL 7/Centos 7, and gcc 4.4.7 on RHEL 6/Centos
+    6. Currently only the E-1608 and E-TC models are supported on Linux. Support for
+    other modules is straightforward to add and can be done as the demand arises.</p>
   <hr />
   <address>
     Suggestions and Comments to:
