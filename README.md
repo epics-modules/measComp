@@ -1,9 +1,17 @@
 An [EPICS](http://www.aps.anl.gov/epics/) 
-module that supports USB I/O modules from [Measurement Computing](http://www.mccdaq.com).
+module that supports USB and Ethernet I/O modules from [Measurement Computing](http://www.mccdaq.com).
 
-This module is currently only supported on Windows, with the win32-x86, windows-x64,
-and cygwin-x86 EPICS architectures. The driver uses the Measurement Computing "Universal
-Library", which is only available on Windows. 
+This module is supported on both Windows and Linux, 64-bit and 32-bit. 
+On Windows it uses the Measurement Computing "Universal Library" (UL), which is only available on Windows.
+
+On Linux it uses the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
+On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
+The EPICS drivers thus always use the UL API and are identical on Linux and Windows.
+The Linux UL layer is independent of EPICS, and uses std::thread and std::mutex to provide the required
+threading and mutex capabilities.  These methods require C++11, and so will not build with very old compilers.
+They do build with gcc 4.8.5 on RHEL 7/Centos 7, and gcc 4.4.7 on RHEL 6/Centos 6.
+Currently only the E-1608 and E-TC models are supported on Linux.  Support for other modules is straightforward
+to add and can be done as the demand arises.
 
 Models supported in measComp include:
 * The [USB-CTR08](http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx).
@@ -43,7 +51,7 @@ the analog inputs, binary I/O, and a pulse generator.
 analog I/O module. This is similar to the USB-1608GX-2AO except that it runs at
 250 kHz rather than 500 kHz, and does not have the 2 analog outputs.
 
-* The [E1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
+* The [E-1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
 analog I/O module. This is an Ethernet device with 8 single-ended/4
 differential 16-bit analog inputs, 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs
 can be run at 250 kHz. The driver supports simple analog I/O, an 4 or 8 channel
@@ -57,6 +65,10 @@ T are supported. The analog inputs and outputs can each be run at 1 kHz. The dri
 supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
 or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
 inputs.
+
+* The [E-TC](https://www.mccdaq.com/ethernet-data-acquisition/thermocouple-input/24-bit-daq/E-TC.aspx)
+thermocouple module. This is an Ethernet device with 8 24-bit thermopouple inputs, a 32-bit counter and 8 binary input/outputs. 
+The driver supports temperature measurements at up to 4 Hz, binary I/O, and 1 counter input.
 
 * The [TC-32 thermocouple module](http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx)
 This device contains 32 thermocouple inputs, 8 binary inputs and 32 binary outputs.
