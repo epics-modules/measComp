@@ -71,7 +71,11 @@ int mcBoard::cbGetBoardName(char *BoardName)
 
 int mcBoard::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
 {
-    printf("cbGetIOStatus not supported\n");
+    // Most unimplemented functions print an error message.  This one does not because it may be called
+    // for devices even if they don't support it so the base class sets everything to 0.
+    *Status = 0;
+    *CurCount = 0;
+    *CurIndex = 0;
     return NOERRORS;
 }
 
@@ -90,7 +94,7 @@ int mcBoard::cbAIn(int Chan, int Gain, USHORT *DataValue)
 
 int mcBoard::cbAIn32(int Chan, int Gain, ULONG *DataValue, int Options)
 {
-    printf("Function cbAIn not supported\n");
+    printf("Function cbAIn32 not supported\n");
     return NOERRORS;
 }
 
