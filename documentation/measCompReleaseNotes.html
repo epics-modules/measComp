@@ -23,8 +23,10 @@
           to provide the required threading and mutex capabilities. These methods require
           C++11, and so will not build with very old compilers. They do build with gcc 4.8.5
           (e.g. RHEL 7/Centos 7), and gcc 4.4.7 (e.g. RHEL 6/Centos 6).</li>
-        <li>Currently only the E-1608 and E-TC models are supported on Linux. Support for
-          other modules is straightforward to add and can be done as the need arises.</li>
+        <li>Currently only the E-1608, E-TC, and E-TC32 models are supported on Linux. The
+          E-1608 and E-TC support have been tested, but the E-TC32 support has not been tested.
+          Support for other modules is straightforward to add and can be done as the need
+          arises.</li>
       </ul>
     </li>
     <li>Added support to drvMultiFunction for the E-TC. This is an Ethernet module with
