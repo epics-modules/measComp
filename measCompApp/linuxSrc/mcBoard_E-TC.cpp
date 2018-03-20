@@ -65,12 +65,6 @@ int mcE_TC::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal)
     return NOERRORS;
 }
 
-int mcE_TC::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType)
-{
-    // Needs to be implemented
-      return NOERRORS;
-}
-
 int mcE_TC::cbCIn32(int CounterNum, ULONG *Count)
 {
       if (!CounterR_E_TC(&deviceInfo_)) {
