@@ -8,7 +8,6 @@ class mcE_TC : mcBoard {
 public:
     mcE_TC(const char *address);
     int cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal);
-    int cbGetIOStatus(short *Status, long *CurCount, long *CurIndex,int FunctionType);
     int cbCIn32(int CounterNum, ULONG *Count);
     int cbCLoad32(int RegNum, ULONG LoadValue);
     int cbDBitOut(int PortType, int BitNum, USHORT BitValue);
