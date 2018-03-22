@@ -81,7 +81,7 @@ extern "C" {
 #define BASE                (0x1) // Base unit
 #define EXP                 (0x2) // expansion unit
 
-#define CELSIUS             (0x0) // read in Celsius
+#define UNITS_CELSIUS       (0x0) // read in Celsius
 #define VOLTAGE             (0x1) // read in Voltage
 #define ADC_CODE            (0x2) // uncalibraded
   
