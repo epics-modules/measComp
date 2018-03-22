@@ -9,7 +9,7 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
-    Release 2-0 (March XXX, 2018)</h2>
+    Release 2-0 (March 22, 2018)</h2>
   <ul>
     <li>Added support for Linux. Previously measComp was limited to running on Windows
       because it uses the Measurement Computing Universal Library (UL), which is available
@@ -27,15 +27,19 @@
           E-1608 and E-TC support have been tested, but the E-TC32 support has not been tested.
           Support for other modules is straightforward to add and can be done as the need
           arises.</li>
+        R2-0 is backwards compatible with previous releases but was given a new major release
+        number because of all the new code that was added to support Linux.
       </ul>
     </li>
     <li>Added support to drvMultiFunction for the E-TC. This is an Ethernet module with
       8 thermocouple inputs (type B, E, J, K, N, R, S, T), digital I/O, and a counter.
       Added new medm screen ETC_module.adl and new iocBoot directory, iocETC. This device
       is useful in applications where the length limitation of USB and/or the ability
-      to move around without an attached computer are important. </li>
+      to move around without an attached computer are important. This module has Linux
+      support.</li>
     <li>Improved the support for the E-1608 to include fast analog input, i.e. waveform
-      digitizer support.</li>
+      digitizer support. Also added Linux support for this module.</li>
+    <li>Added Linux support for the TC-32 module using Ethernet. This is not yet tested.</li>
   </ul>
   <h2 style="text-align: center">
     Release 1-5 (March 2, 2018)</h2>
