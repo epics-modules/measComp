@@ -29,16 +29,6 @@ measComp_LIBS += asyn
 measComp_LIBS += seq pv
 measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-# Note, the following files were manually copied from the Measurement Computing/DAQ/C directory.
-INC += cbw.h
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-LIB_INSTALLS += ../cbw32.lib
-#else ifeq (cygwin-x86, $(findstring cygwin-x86, $(T_A)))
-#LIB_INSTALLS += ../cbw32.lib
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-LIB_INSTALLS += ../cbw64.lib
-endif
-
 #=============================
 # Build the IOC application
 
@@ -52,7 +42,8 @@ measCompApp_SRCS += measCompAppMain.cpp
 
 # Link in the code from the support library
 measCompApp_LIBS += measComp
-measCompApp_LIBS_Linux += measCompLinux
+measCompApp_LIBS_Linux += measCompLinuxDrivers
+measCompApp_LIBS_Linux += cbw_linux
 measCompApp_LIBS += std
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
