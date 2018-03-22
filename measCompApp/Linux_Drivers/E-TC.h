@@ -37,7 +37,7 @@ extern "C" {
 
 // Temperature Input Commands
 #define TIN                 (0x10) // Read single thermocouple channel
-#define CJC                 (0x11) // Read single CJC sensor
+#define CMD_CJC             (0x11) // Read single CJC sensor
 #define TIN_CONFIG_R        (0x12) // Read temperature channel configuration
 #define TIN_CONFIG_W        (0x13) // Write temperature channel configuration
 #define TIN_STATUS          (0x14) // Read temperature channel data status
@@ -85,7 +85,7 @@ extern "C" {
 #define NETWORK_CONFIG      (0x54) // Read the current network configuration
 #define FIRMWARE_UPGRADE    (0x60) // Enter firmware upgrade mode
 
-#define CELSIUS             (0x0) // read in Celsius
+#define UNITS_CELSIUS       (0x0) // read in Celsius
 #define VOLTAGE             (0x1) // read in Voltage
 #define ADC_CODE            (0x2) // uncalibraded
 
