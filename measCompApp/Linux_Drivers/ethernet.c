@@ -295,6 +295,7 @@ int openDevice(uint32_t addr, uint32_t connectCode)
     case 0:  // timed out
     case -1: //  error    
       close (sock);
+      perror("openDevice: recvFromTimeOut returned timeout or error");
       return -1;
       break;
     default:  // got a reply
@@ -302,6 +303,8 @@ int openDevice(uint32_t addr, uint32_t connectCode)
       if ((bytesReceived == 2) && (msg[0] = 'C') && (msg[1] == 0)) {
 	break;
       } else {
+        printf("openDevice: Unexpected reply from device, bytesReceived=%d, msg[0]=%c msg[1]=%d\n", 
+                bytesReceived, msg[0], msg[1]);
 	close(sock);
 	return -1;
       }
