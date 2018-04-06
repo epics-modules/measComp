@@ -20,6 +20,8 @@ mcE_TC32::mcE_TC32(const char *address)
     diNumBits_      = 8;
     
     // Open Ethernet socket
+    deviceInfo_.device.connectCode = 0x0;   // default connect code
+    deviceInfo_.device.frameID = 0;         // zero out the frameID
     deviceInfo_.device.Address.sin_family = AF_INET;
     deviceInfo_.device.Address.sin_port = htons(COMMAND_PORT);
     deviceInfo_.device.Address.sin_addr.s_addr = INADDR_ANY;
