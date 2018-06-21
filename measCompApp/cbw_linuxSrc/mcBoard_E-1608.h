@@ -1,9 +1,8 @@
 #ifndef mcBoard_E_1608Include
 #define mcBoard_E_1608Include
 
-#include <thread>
-#include <mutex>
-#include <condition_variable>
+#include <epicsThread.h>
+#include <epicsEvent.h>
 
 #include "mcBoard.h"
 #include "E-1608.h"
@@ -39,10 +38,9 @@ public:
 
 private:
     DeviceInfo_E1608 deviceInfo_;
-    std::thread *pReadThread_;
-    std::mutex readMutex_;
-    std::mutex startMutex_;
-    std::condition_variable acquireStart_;
+    epicsThreadId readThreadId_;
+    epicsMutex readMutex_;
+    epicsEventId acquireStartEvent_;
 
     bool aiScanAcquiring_;
     bool aiScanIsScaled_;
