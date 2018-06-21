@@ -42,8 +42,8 @@ measCompApp_SRCS += measCompAppMain.cpp
 
 # Link in the code from the support library
 measCompApp_LIBS += measComp
-measCompApp_LIBS_Linux += measCompLinuxDrivers
 measCompApp_LIBS_Linux += cbw_linux
+measCompApp_LIBS_Linux += measCompLinuxDrivers
 measCompApp_LIBS += std
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
