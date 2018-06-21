@@ -11,10 +11,6 @@ INC += cbw_linux.h
 
 LIBRARY_IOC += cbw_linux
 
-# -std=c++11 is preferred over -std=c++0x but is not supported on gcc 4.4
-#USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++11
-USR_CXXFLAGS_Linux += -Wno-write-strings -std=c++0x
-
 LIB_SRCS_Linux += cbw_linux.cpp
 LIB_SRCS_Linux += mcBoard.cpp
 LIB_SRCS_Linux += mcBoard_E-TC.cpp
