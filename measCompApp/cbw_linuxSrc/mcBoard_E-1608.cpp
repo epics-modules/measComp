@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
-#include <thread>
-#include <chrono>
-#include <mutex>
-#include <condition_variable>
+
+#include <epicsThread.h>
+#include <epicsMutex.h>
 
 #include "mcBoard_E-1608.h"
 
@@ -55,7 +54,11 @@ mcE_1608::mcE_1608(const char *address)
     buildGainTableAIn_E1608(&deviceInfo_);
     buildGainTableAOut_E1608(&deviceInfo_);
     
-    pReadThread_ = new std::thread(readThreadC, this);
+    readThreadId_ = epicsThreadCreate("measCompReadThread",
+                                      epicsThreadPriorityMedium,
+                                      epicsThreadGetStackSize(epicsThreadStackMedium),
+                                      (EPICSTHREADFUNC)readThreadC,
+                                      this);
 }
 
 
@@ -74,10 +77,7 @@ void mcE_1608::readThread()
     int timeout = deviceInfo_.timeout;
 
     while (1) {
-        readMutex_.unlock();
-        std::unique_lock<std::mutex> lk(startMutex_);
-        acquireStart_.wait(lk);
-        lk.unlock();
+        epicsEventWait(acquireStartEvent_);
         if (!aiScanAcquiring_) continue;
         readMutex_.lock();
         sock = deviceInfo_.device.scan_sock;
@@ -245,7 +245,7 @@ int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
         return BADBOARD;
     }
     aiScanAcquiring_ = true;
-    acquireStart_.notify_one();
+    epicsEventSignal(acquireStartEvent_);
     return NOERRORS;
 }
 
