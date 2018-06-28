@@ -9,8 +9,11 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
-    Release 2-1 (April XXX, 2018)</h2>
+    Release 2-1 (June 28, 2018)</h2>
   <ul>
+    <li>Changed from using std::thread and std::mutex to using epicsThread, epicsMutex,
+      and epicsEvent from the EPICS libCom library. This allows it to build on older compilers,
+      and is easier to understand.</li>
     <li>Rearranged code directories.
       <ul>
         <li>Split linuxSrc into cbw_linuxSrc (which contains the cbw library emulation for
