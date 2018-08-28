@@ -54,6 +54,8 @@ mcE_1608::mcE_1608(const char *address)
     buildGainTableAIn_E1608(&deviceInfo_);
     buildGainTableAOut_E1608(&deviceInfo_);
     
+    acquireStartEvent_ = epicsEventCreate(epicsEventEmpty);
+    
     readThreadId_ = epicsThreadCreate("measCompReadThread",
                                       epicsThreadPriorityMedium,
                                       epicsThreadGetStackSize(epicsThreadStackMedium),
