@@ -131,7 +131,7 @@ bool TinConfigW_E_TC(DeviceInfo_TC *device_info);
 bool TinStatus_E_TC(DeviceInfo_TC *device_info);
 bool OTDStatus_E_TC(DeviceInfo_TC *device_info);
 bool MeasureConfigR_E_TC(DeviceInfo_TC *device_info);
-bool MeasureConfigW_E_TC32(DeviceInfo_TC *device_info);
+bool MeasureConfigW_E_TC(DeviceInfo_TC *device_info);
 bool MeasureModeR_E_TC(DeviceInfo_TC *device_info);
 bool MeasureModeW_E_TC(DeviceInfo_TC *device_info);
 bool FactoryCoefficientsR_E_TC(DeviceInfo_TC *device_info);
