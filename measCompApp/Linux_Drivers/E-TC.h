@@ -107,7 +107,7 @@ typedef struct DeviceInfo_TC_t {
   uint8_t wait;               // 0 - return current value, 1 - wait for new value before returning.
   float Tin_values[8];        // the values read from the configured channels
   float CJC_offsets[8];       // the per channel CJC user offsets
-  float CJC_value[2];        // the CJC values in Celsius.
+  float CJC_value[2];         // the CJC values in Celsius.
   uint8_t config_values[8];   // the configuration value of each channel (type of thermocouple);
   uint8_t alarm_status;       // the alarm status of each channel
   uint8_t alarm_config[8];    // the alarm configuration
@@ -168,7 +168,7 @@ bool FirmwareUpgrade_E_TC(DeviceInfo_TC *device_info);
 #ifdef __cplusplus
 } /* closing brace for extern "C" */
 #endif
-#endif // E_TC32_H
+#endif // E_TC_H
 
 /* 
     Configuration memory map
