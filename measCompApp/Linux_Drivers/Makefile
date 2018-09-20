@@ -20,7 +20,7 @@ LIB_SRCS += E-TC.c
 
 PROD_IOC_Linux += test-E-1608 
 PROD_IOC_Linux += test-E-DIO24 
-PROD_IOC_Liunx += test-E-TC32 
+PROD_IOC_Linux += test-E-TC32 
 PROD_IOC_Linux += test-E-TC
 
 PROD_LIBS += measCompLinuxDrivers
