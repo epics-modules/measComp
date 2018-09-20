@@ -4,6 +4,7 @@
 #include "cbw_linux.h"
 #include "mcBoard.h"
 #include "mcBoard_E-TC.h"
+#include "mcBoard_E-TC32.h"
 #include "mcBoard_E-1608.h"
 
 
@@ -16,6 +17,9 @@ int cbAddBoard(const char *boardName, const char *address)
     mcBoard *pBoard;
     if (strcmp(boardName, "E-TC") ==0) {
         pBoard = (mcBoard *)new mcE_TC(address);
+    }
+    else if (strcmp(boardName, "E-TC32") ==0) {
+        pBoard = (mcBoard *)new mcE_TC32(address);
     }
     else if (strcmp(boardName, "E-1608") ==0) {
         pBoard = (mcBoard *)new mcE_1608(address);
