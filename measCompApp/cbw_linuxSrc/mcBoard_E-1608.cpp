@@ -79,6 +79,7 @@ void mcE_1608::readThread()
     int timeout = deviceInfo_.timeout;
 
     while (1) {
+        readMutex_.unlock();
         epicsEventWait(acquireStartEvent_);
         if (!aiScanAcquiring_) continue;
         readMutex_.lock();
