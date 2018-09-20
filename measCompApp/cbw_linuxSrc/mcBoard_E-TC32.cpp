@@ -99,7 +99,7 @@ int mcE_TC32::cbDIn(int PortType, USHORT *DataValue)
 
 int mcE_TC32::cbTIn(int Chan, int Scale, float *TempValue, int Options)
 {
-    uint8_t channelMask = 0x1 << Chan;
+    uint8_t channel = Chan;
     uint8_t units;
     switch (Scale) {
     case VOLTS:
@@ -112,7 +112,7 @@ int mcE_TC32::cbTIn(int Chan, int Scale, float *TempValue, int Options)
         units = CELSIUS;
         break;
     }
-    if (!Tin_E_TC32(&deviceInfo_, channelMask, units, 0, TempValue)) {
+    if (!Tin_E_TC32(&deviceInfo_, channel, units, 0, TempValue)) {
         return BADBOARD;
     }
     switch (Scale) {
