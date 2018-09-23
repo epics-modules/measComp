@@ -9,6 +9,18 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-1-2 (September XXX, 2018)</h2>
+  <ul>
+    <li>Updated to latest version of Warren Jasper's Linux drivers, and applied patches.
+      Pushed patches back to his repository where he has merged them.</li>
+    <li>Added support for E-TC32 to measComp library on Linux. Previously it was not supported
+      due to a conflict with E-TC.h.</li>
+    <li>Fixed bug in Linux support for E-TC32. It was not passing the channel number correctly
+      when reading the temperature.</li>
+    <li>Fixed bug in Linux support for E-1608. It was not releasing mutex when it should,
+      error introduced in R2-1.</li>
+  </ul>
+  <h2 style="text-align: center">
     Release 2-1-1 (August 29, 2018)</h2>
   <ul>
     <li>Fixed bug in E-1608 driver, it was not creating epicsEvent in constructor.</li>
