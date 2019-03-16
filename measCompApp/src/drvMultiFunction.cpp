@@ -1697,10 +1697,12 @@ void MultiFunction::pollerThread()
         status = cbDIn(boardNum_, digitalIOPort_[i], &biVal16);
         biVal32 = biVal16;
       }
-      if (status) 
+      if (status) {
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
                   "%s:%s: ERROR calling cbDIn, status=%d\n", 
                   driverName, functionName, status);
+        goto error;
+      }
       newValue = biVal32;
       changedBits = newValue ^ prevInput[i];
       if (forceCallback_ || (changedBits != 0)) {
@@ -1713,15 +1715,23 @@ void MultiFunction::pollerThread()
     // Read the counter inputs
     for (i=0; i<numCounters_; i++) {
       status = cbCIn32(boardNum_, firstCounter_ + i, &countVal);
-      if (status)
+      if (status) {
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
                   "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
                   driverName, functionName, i, status);
+        goto error;
+      }
       setIntegerParam(i, counterCounts_, countVal);
     }
     
     // Poll the status of the waveform generator output
     status = cbGetStatus(boardNum_, &aoStatus, &aoCount, &aoIndex, AOFUNCTION);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                driverName, functionName, status);
+      goto error;
+    }
     currentPoint = (aoIndex / numWaveGenChans_) + 1;
     setIntegerParam(waveGenCurrentPoint_, currentPoint);
     if (waveGenRunning_ && (aoStatus == 0)) {
@@ -1730,6 +1740,18 @@ void MultiFunction::pollerThread()
     
     // Poll the status of the waveform digitzer input
     status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                driverName, functionName, status);
+      // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
+      // Need to stop and start the waveform digitizer if it was running
+      if ((status == DEADDEV) && waveDigRunning_) {
+        stopWaveDig();
+        startWaveDig();
+      }
+      goto error;
+    }
     currentPoint = (aiIndex / numWaveDigChans_) + 1;
     setIntegerParam(waveDigCurrentPoint_, currentPoint);
     if (waveDigRunning_ && (aiStatus == 0)) { 
@@ -1739,6 +1761,7 @@ void MultiFunction::pollerThread()
     for (i=0; i<MAX_SIGNALS; i++) {
       callParamCallbacks(i);
     }
+error:
     unlock();
     epicsThreadSleep(pollTime_);
   }
