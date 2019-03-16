@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/../../../../measComp/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-2-1/measCompApp/op/adl/measCompTop.adl"
 	version=030109
 }
 display {
@@ -223,9 +223,14 @@ display {
 		height=20
 	}
 	display[0] {
-		label="E-1608 module"
+		label="E-1608 module #1"
 		name="E1608_module.adl"
 		args="P=E1608:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Tg=Trig"
+	}
+	display[1] {
+		label="E-1608 module #2"
+		name="E1608_module.adl"
+		args="P=E1608_1:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Tg=Trig"
 	}
 	clr=14
 	bclr=51
