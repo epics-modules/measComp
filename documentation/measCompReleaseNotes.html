@@ -9,6 +9,18 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-3 (March XXX, 2019)</h2>
+  <ul>
+    <li>Improved behavior for E-1608 when there are brief network outages. If the waveform
+      digitizer was running when the outage occurred it would stop and not restart when
+      the network recovered. This has been fixed, and tested with the E-1608 on both Linux
+      and Windows.</li>
+    <li>Added Makefile to produce autoconverted OPI files from medm to edm, CSS/BOY, and
+      caQtDM. Added/updated the autoconverted files for these.</li>
+  </ul>
+  <h1 style="text-align: center">
+    measComp Release Notes</h1>
+  <h2 style="text-align: center">
     Release 2-2 (October 4, 2018)</h2>
   <ul>
     <li>Modified Ethernet support on Linux to be tolerant of brief network outages. Previously
