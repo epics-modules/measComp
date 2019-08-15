@@ -86,7 +86,7 @@ USBCTRConfig("$(PORT)", 0, 2048)
 dbLoadTemplate("USBCTR.substitutions")
 
 # This loads the scaler record and supporting records
-dbLoadRecords("$(STD)/stdApp/Db/scaler.db", "P=USBCTR:, S=scaler1, DTYP=Asyn Scaler, OUT=@asyn(USBCTR), FREQ=10000000")
+dbLoadRecords("$(SCALER)/db/scaler.db", "P=USBCTR:, S=scaler1, DTYP=Asyn Scaler, OUT=@asyn(USBCTR), FREQ=10000000")
 
 # This database provides the support for the MCS functions
 dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT)")
@@ -413,11 +413,12 @@ create_monitor_set("auto_settings.req",30)
   <h3 id="ScalerSupport" style="text-align: center">
     Scaler Record Support</h3>
   <p>
-    The USBCTR driver provides support for the EPICS scaler record via the devScalerAsyn.c
-    device support in the <a href="http://www.aps.anl.gov/bcda/synApps">synApps</a>
-    <a href="http://www.aps.anl.gov/bcda/synApps/std/std.html">std</a> module. It supports
-    up to 8 channels. The following wiring connections must be made in order for counters
-    1-8 to be stopped by counter 0, as is normally desired.</p>
+    The USBCTR driver supports the EPICS scaler record via the devScalerAsyn.c device
+    support originally from the <a href="http://www.aps.anl.gov/bcda/synApps">synApps</a>
+    <a href="http://www.aps.anl.gov/bcda/synApps/std/std.html">std</a> module but which has
+    been moved into the <a href="https://github.com/epics-modules/scaler">scaler</a>
+    module. It supports up to 8 channels. The following wiring connections must be made in
+    order for counters 1-8 to be stopped by counter 0, as is normally desired.</p>
   <ul>
     <li>Counter 0 Output must be connected to the Gate input on Counters 1-7.</li>
   </ul>
