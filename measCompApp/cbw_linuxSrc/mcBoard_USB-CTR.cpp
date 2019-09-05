@@ -192,26 +192,18 @@ int mcUSB_CTR::cbStopIOBackground(int FunctionType)
     }
     return NOERRORS;
 }
-
+*/
 int mcUSB_CTR::cbCIn32(int CounterNum, ULONG *Count)
 {
-    uint32_t counts;
-      if (!CounterR_E1608(&deviceInfo_, &counts)) {
-         return BADBOARD;
-      }
-      *Count = counts;
-      return NOERRORS;
+    *Count = usbCounter_USB_CTR(deviceHandle_, CounterNum);  
+    return NOERRORS;
 }
 
 int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
 {
-      if (!ResetCounter_E1608(&deviceInfo_)) {
-         return BADBOARD;
-      }
-      return NOERRORS;
+    usbCounterSet_USB_CTR(deviceHandle_, RegNum, LoadValue);
+    return NOERRORS;
 }
-
-*/
 
 int mcUSB_CTR::cbPulseOutStart(int TimerNum, double *Frequency, 
                     double *DutyCycle, unsigned int PulseCount, 
@@ -270,26 +262,27 @@ int mcUSB_CTR::cbDIn(int PortType, USHORT *DataValue)
     *DataValue = value;
     return NOERRORS;
 }
-/*
+
 int mcUSB_CTR::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold)
 {
+    uint8_t trigger;
     switch (TrigType) {
       case TRIG_POS_EDGE:
-          aiScanTrigType_ = 1;
+          trigger = 1;
           break;
       case TRIG_NEG_EDGE:
-          aiScanTrigType_ = 2;
+          trigger = 2;
           break;
       case TRIG_HIGH:
-          aiScanTrigType_ = 3;
+          trigger = 3;
           break;
       case TRIG_LOW:
-          aiScanTrigType_ = 4;
+          trigger = 4;
           break;
       default:
           printf("mcUSB_CTR::cbSetTrigger unknown TrigType %d\n", TrigType);
           return BADTRIGTYPE;
     }
+    usbTriggerConfig_USB_CTR(deviceHandle_, trigger);
     return NOERRORS;
 }
-*/

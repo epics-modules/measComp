@@ -23,22 +23,21 @@ public:
     int cbDConfigBit(int PortType, int BitNum, int Direction);
 
     int cbDIn(int PortType, USHORT *DataValue);
-/*
+
     // Trigger functions
     virtual int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
-*/
 
     // Pulse functions
     int cbPulseOutStart(int TimerNum, double *Frequency, 
                         double *DutyCycle, unsigned int PulseCount, 
                         double *InitialDelay, int IdleState, int Options);
     int cbPulseOutStop(int TimerNum);
-/*
+
 
     // Counter functions
     int cbCIn32(int CounterNum, ULONG *Count);
     int cbCLoad32(int RegNum, ULONG LoadValue);
-    int cbCInScan(int FirstCtr,int LastCtr, LONG Count,
+/*    int cbCInScan(int FirstCtr,int LastCtr, LONG Count,
                           LONG *Rate, HGLOBAL MemHandle, ULONG Options);
     int cbCConfigScan(int CounterNum, int Mode,int DebounceTime,
                       int DebounceMode, int EdgeDetection,
