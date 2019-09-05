@@ -6,7 +6,7 @@ include $(TOP)/configure/CONFIG
 
 LIBRARY_IOC_Linux += measCompLinuxDrivers
 
-INC += ethernet.h
+INC += mccEthernet.h
 INC += pmd.h
 INC += E-1608.h
 INC += E-DIO24.h
@@ -14,7 +14,7 @@ INC += E-TC.h
 INC += E-TC32.h
 INC += usb-ctr.h
 
-LIB_SRCS += ethernet.c 
+LIB_SRCS += mccEthernet.c 
 LIB_SRCS += pmd.c
 LIB_SRCS += E-1608.c 
 LIB_SRCS += E-DIO24.c 
