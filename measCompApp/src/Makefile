@@ -59,6 +59,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   measComp_LIBS += cbw64
   measCompApp_LIBS += cbw64
 endif
+measCompApp_SYS_LIBS_Linux += hidapi-libusb usb-1.0
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
