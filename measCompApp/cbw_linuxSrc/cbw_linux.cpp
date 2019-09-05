@@ -6,6 +6,7 @@
 #include "mcBoard_E-TC.h"
 #include "mcBoard_E-TC32.h"
 #include "mcBoard_E-1608.h"
+#include "mcBoard_USB-CTR.h"
 
 
 std::vector<mcBoard*> boardList;
@@ -23,6 +24,9 @@ int cbAddBoard(const char *boardName, const char *address)
     }
     else if (strcmp(boardName, "E-1608") ==0) {
         pBoard = (mcBoard *)new mcE_1608(address);
+    }
+    else if (strcmp(boardName, "USB-CTR") ==0) {
+        pBoard = (mcBoard *)new mcUSB_CTR(address);
     }
     else {
         printf("Unknown board type %s\n", boardName);
