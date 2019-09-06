@@ -8,24 +8,27 @@
 #include "pmd.h"
 #include "usb-ctr.h"
 
+typedef enum {
+    mcUSB_CTR_32bit,
+    mcUSB_CTR_16bit
+} mcUSB_CTR_DataType;
+
 class mcUSB_CTR : mcBoard {
 public:
     mcUSB_CTR(const char *address);
-/*
-    // System functions
-    int cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal);
+
+
+    // Scan functions
     int cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType);
     int cbStopIOBackground(int FunctionType);
 
-*/
     // Digital I/O functions
     int cbDBitOut(int PortType, int BitNum, USHORT BitValue);
     int cbDConfigBit(int PortType, int BitNum, int Direction);
-
     int cbDIn(int PortType, USHORT *DataValue);
 
     // Trigger functions
-    virtual int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
+    int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
 
     // Pulse functions
     int cbPulseOutStart(int TimerNum, double *Frequency, 
@@ -37,13 +40,12 @@ public:
     // Counter functions
     int cbCIn32(int CounterNum, ULONG *Count);
     int cbCLoad32(int RegNum, ULONG LoadValue);
-/*    int cbCInScan(int FirstCtr,int LastCtr, LONG Count,
-                          LONG *Rate, HGLOBAL MemHandle, ULONG Options);
+    int cbCInScan(int FirstCtr,int LastCtr, LONG Count,
+                  LONG *Rate, HGLOBAL MemHandle, ULONG Options);
     int cbCConfigScan(int CounterNum, int Mode,int DebounceTime,
                       int DebounceMode, int EdgeDetection,
                       int TickSize, int MappedChannel);
 
-*/
     void readThread();
 
 private:
@@ -53,16 +55,16 @@ private:
     epicsEventId acquireStartEvent_;
 
     bool ctrScanAcquiring_;
-    bool ctrScanIsScaled_;
-    double *ctrScanScaledBuffer_;
-    uint16_t *aiScanUnscaledBuffer_;
-    int ctrScanTotalElements_;
+    uint16_t *ctrScanBuffer_;
+    int ctrScanNumPoints_;
+    int ctrScanNumCounters_;
+    int ctrScanNumElements_;
+    bool ctrScanDataType_;
     int ctrScanCurrentPoint_;
     int ctrScanCurrentIndex_;
-    int ctrScanNumChans_;
     int ctrScanTrigType_;
 
 };
 
-#endif /* mcBoard_USB_CTRInclude */
+#endif // mcBoard_USB_CTRInclude
 
