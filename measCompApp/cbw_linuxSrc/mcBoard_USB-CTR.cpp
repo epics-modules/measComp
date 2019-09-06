@@ -8,7 +8,7 @@
 
 #include "mcBoard_USB-CTR.h"
 
-#define CLOCK_FREQ 48000000
+#define CLOCK_FREQ 96000000
 
 static const char *driverName = "mcUSB_CTR";
 
@@ -57,8 +57,8 @@ mcUSB_CTR::mcUSB_CTR(const char *address)
         return;
     }
     
+    usbInit_CTR(deviceHandle_);
     acquireStartEvent_ = epicsEventCreate(epicsEventEmpty);
-
 
     readThreadId_ = epicsThreadCreate("measCompReadThread",
                                       epicsThreadPriorityMedium,
@@ -70,156 +70,240 @@ mcUSB_CTR::mcUSB_CTR(const char *address)
 
 void mcUSB_CTR::readThread()
 {
-}
-/*
-    int bytesReceived = 0;
-    int sock;
-    int totalBytesToRead;
-    int totalBytesReceived;
-    int currentChannel;
-    int channel;
-    int range;
     uint16_t *rawBuffer=0;
-    uint16_t rawData;
-    int correctedData;
-    int timeout = deviceInfo_.timeout;
+    static const char *functionName = "readThread";
 
     while (1) {
         readMutex_.unlock();
         epicsEventWait(acquireStartEvent_);
-        if (!aiScanAcquiring_) continue;
+        if (!ctrScanAcquiring_) continue;
         readMutex_.lock();
-        sock = deviceInfo_.device.scan_sock;
-        if (sock < 0) {
-            printf("Error no scan sock\n");
-            continue;
-        }
-        totalBytesToRead = aiScanTotalElements_*2;
-        totalBytesReceived = 0;
-        aiScanCurrentPoint_ = 0;
-        aiScanCurrentIndex_ = 0;
-        currentChannel = 0;
+        ctrScanCurrentPoint_ = 0;
+        ctrScanCurrentIndex_ = 0;
         if (rawBuffer) free (rawBuffer);
-        rawBuffer = (uint16_t *)calloc(aiScanTotalElements_, sizeof(uint16_t));
+        rawBuffer = (uint16_t *)calloc(ctrScanNumPoints_*ctrScanNumElements_, sizeof(uint32_t)); // Can hold 16-bit or 32-bit data
 
-        do {
+        while (ctrScanAcquiring_) {
             readMutex_.unlock();
-            bytesReceived = receiveMessage(sock, &rawBuffer[totalBytesReceived/2], totalBytesToRead - totalBytesReceived, timeout);
+            int numRead = ctrScanNumPoints_;
+            printf("%s::%s Calling usbScanRead_USB_CTR numRead=%d, lastElement=%d, rawBuffer=%p\n", 
+                   driverName, functionName, numRead, ctrScanNumElements_-1, rawBuffer);
+            int status = usbScanRead_USB_CTR(deviceHandle_, numRead, ctrScanNumElements_-1, rawBuffer);
+            printf("%s::%s usbScanRead_USB_CTR returned %d\n", driverName, functionName, status);
             readMutex_.lock();
             // Check to see if acquisition was aborted
-            if (!aiScanAcquiring_) break;
-            if (bytesReceived <= 0) {  // error
-                printf("Error in mcUSB_CTR::readThread: totalBytesReceived = %d totalBytesToRead = %d \n", totalBytesReceived, totalBytesToRead);
+            if (!ctrScanAcquiring_) break;
+            if (status != 0) {  // error
+                printf("%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, status);
                 continue;
             }
-            totalBytesReceived += bytesReceived;
-            int newPoints = bytesReceived / 2;
-            for (int i=0; i<newPoints; i++) {
-                rawData = rawBuffer[aiScanCurrentIndex_];
-                channel = deviceInfo_.queue[2*currentChannel+1];
-                range = deviceInfo_.queue[2*currentChannel+2];
-                if (channel < DF) {  // single ended
-                    correctedData = rint(rawData*deviceInfo_.table_AInSE[range].slope + deviceInfo_.table_AInSE[range].intercept);
-                } else {  // differential
-                    correctedData = rint(rawData*deviceInfo_.table_AInDF[range].slope + deviceInfo_.table_AInDF[range].intercept);
+            switch (ctrScanDataType_) {
+              case mcUSB_CTR_32bit: {
+                uint32_t *pIn = (uint32_t *)rawBuffer;
+                uint32_t *pOut = (uint32_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
+                for (int point=0; point<numRead; point++) {
+                    for (int counter=0; counter<ctrScanNumCounters_; counter++) {
+                        *pOut++ = *pIn++;
+                        ctrScanCurrentPoint_++;
+                        ctrScanCurrentIndex_++;
+                    }
                 }
-                if (correctedData > 65536) {
-                    correctedData = 65535;  // max value
-                } else if (correctedData < 0) {
-                    correctedData = 0;
+                break; 
+              }
+              case mcUSB_CTR_16bit: {
+                uint16_t *pIn = (uint16_t *)rawBuffer;
+                uint16_t *pOut = (uint16_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
+                for (int point=0; point<numRead; point++) {
+                    for (int counter=0; counter<ctrScanNumCounters_; counter++) {
+                        *pOut++ = *pIn++;
+                        ctrScanCurrentPoint_++;
+                        ctrScanCurrentIndex_++;
+                    }
                 }
-                if (aiScanIsScaled_) {
-                    aiScanScaledBuffer_[aiScanCurrentIndex_] = volts_E1608(correctedData, range);
-                } else {
-                    aiScanUnscaledBuffer_[aiScanCurrentIndex_] = correctedData;
-                }
-                aiScanCurrentIndex_++;
-                currentChannel ++;
-                if (currentChannel >= aiScanNumChans_) {
-                    currentChannel = 0;
-                    aiScanCurrentPoint_++;
-                }
-             };
-        } while (totalBytesReceived < totalBytesToRead);
-        aiScanAcquiring_ = false;
-        close(sock);
-    }
-}
-
-int mcUSB_CTR::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
-    switch (InfoType) {
-      case BOARDINFO:
-        switch (ConfigItem) {
-          case BIADTRIGCOUNT:
-            aiScanTrigCount_ = ConfigVal;
-            break;
-
-          default:
-            printf("mcUSB_CTR::cbSetConfig error unknown ConfigItem %d\n", ConfigItem);
-            return BADCONFIGITEM;
-            break;
+                break;
+              }
+            }                
         }
-        break;
-    
-      default:
-        printf("mcUSB_CTR::cbSetConfig error unknown InfoType %d\n", InfoType);
-        return BADCONFIGTYPE;
-        break;
     }
-    return NOERRORS;
 }
+
 
 int mcUSB_CTR::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType)
 {
-    if (FunctionType == AIFUNCTION) {
+    static const char *functionName = "cbGetIOStatus";
+
+    if (FunctionType == CTRFUNCTION) {
         readMutex_.lock();
-        *Status = aiScanAcquiring_ ? 1 : 0;
-        *CurCount = aiScanCurrentPoint_;
-        *CurIndex = aiScanCurrentIndex_ - 1;
+        *Status = ctrScanAcquiring_ ? 1 : 0;
+        *CurCount = ctrScanCurrentPoint_;
+        *CurIndex = ctrScanCurrentIndex_ - 1;
         readMutex_.unlock();
     }
+    printf("%s::%s returing Status=%d CurCount=%d, CurIndex=%d, FunctionType=%d\n", 
+    driverName, functionName, *Status, (int)*CurCount, (int)*CurIndex, FunctionType);
     return NOERRORS;
-
 }
+
 
 int mcUSB_CTR::cbStopIOBackground(int FunctionType)
 {
-    if (FunctionType == AIFUNCTION) {
-        AInScanStop_E1608(&deviceInfo_, 0);
+    static const char *functionName = "cbStopIOBackground";
+
+    if (FunctionType == CTRFUNCTION) {
+        printf("%s::%s Calling usbScanStop_USB_CTR\n", driverName, functionName);
+        usbScanStop_USB_CTR(deviceHandle_);
         readMutex_.lock();
-        aiScanAcquiring_ = false;
+        ctrScanAcquiring_ = false;
         readMutex_.unlock();
     }
     return NOERRORS;
 }
-*/
+
 int mcUSB_CTR::cbCIn32(int CounterNum, ULONG *Count)
 {
+    //static const char *functionName = "cbCIn32";
+
     *Count = usbCounter_USB_CTR(deviceHandle_, CounterNum);  
     return NOERRORS;
 }
 
 int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
 {
-    usbCounterSet_USB_CTR(deviceHandle_, RegNum, LoadValue);
+    //static const char *functionName = "cbCLoad32";
+
+    uint8_t index=0;
+    int reg = RegNum & 0xffffff00;
+    int counterNum = RegNum & 0x000000ff;
+    switch (reg) {
+      case OUTPUTVAL0REG0:
+      case OUTPUTVAL1REG0:
+          if (RegNum == OUTPUTVAL1REG0) index=1;
+          usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
+          break;
+      case MINLIMITREG0:
+      case MAXLIMITREG0:
+          if (RegNum == MAXLIMITREG0) index=1;
+          usbCounterLimitValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
+          break;
+      case LOADREG0:
+      case LOADREG1:
+          if (RegNum == LOADREG1) index=1;
+          usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
+          break;      
+    }
     return NOERRORS;
 }
 
+
+int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
+                         LONG *Rate, HGLOBAL MemHandle, ULONG Options) 
+{
+    ScanList list;
+    int numCounters = LastCtr - FirstCtr + 1;
+    uint8_t scanOptions=0;
+    int scanCount = Count/numCounters;
+    static const char *functionName = "cbCInScan";
+
+    int numElements=0;
+    for (int i=0; i<numCounters; i++) {
+        // Each counter has 4 banks of 16-bit registers that can be scanned in any order.
+        // Bank 0 contains bit 0-15, Bank 1 contains bit 16-31, Bank 2 contains bit 32-47
+        // and Bank 4 contains bit 48-63.  If bit(5) is set to 1, this element will
+        // be a read of the DIO, otherwise it will use the specified counter and bank.
+        // ScanList[33] channel configuration:
+        // bit(0-2): Counter Nuber (0-7)
+        // bit(3-4): Counter Bank (0-3)
+        // bit(5): 1 = DIO,  0 = Counter
+        // bit(6): 1 = Fill with 16-bits of 0's,  0 = normal (This allows for the creation
+        // of a 32 or 64-bit element of the DIO when it is mixed with 32 or 64-bit elements of counters)
+
+        list.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
+        list.scanList[numElements++] |= (0x3 & 0) << 3;       // Bank 0 (bits 0-15))
+        if (Options & CTR32BIT) {
+            list.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
+            list.scanList[numElements++] |= (0x3 & 1) << 3;       // Bank 1 (bits 16-31))
+        }
+    }
+    ctrScanAcquiring_ = true;
+    ctrScanBuffer_ = (uint16_t *)MemHandle;
+    list.lastElement = numElements - 1;
+    ctrScanNumPoints_ = scanCount;
+    ctrScanNumCounters_ = numCounters;
+    ctrScanNumElements_ = numElements;
+    ctrScanDataType_ = (Options & CTR32BIT) ? mcUSB_CTR_32bit : mcUSB_CTR_16bit;
+
+    printf("%s::%s calling usbScanConfigW_USB_CTR lastElement=%d, list[0]=%d, list[1]=%d\n",
+    driverName, functionName, list.lastElement, list.scanList[0], list.scanList[1]);
+    usbScanConfigW_USB_CTR(deviceHandle_, list.lastElement, list);
+    usbScanConfigR_USB_CTR(deviceHandle_, list.lastElement, &list);
+
+    
+    if (Options & EXTTRIGGER) scanOptions |= 0x1 << 3;
+    if (Options & CONTINUOUS) scanCount = 0;
+    printf("%s::%s calling usbScanStart_USB_CTR scanCount=%d, *Rate=%d, scanOptions=0x%x\n",
+    driverName, functionName, scanCount, *Rate, scanOptions);
+    usbScanStart_USB_CTR(deviceHandle_, scanCount, 0, (double)*Rate, scanOptions);
+
+    epicsEventSignal(acquireStartEvent_);
+    return NOERRORS;                         
+}
+
+
+int mcUSB_CTR::cbCConfigScan(int CounterNum, int Mode,int DebounceTime,
+                             int DebounceMode, int EdgeDetection,
+                             int TickSize, int MappedChannel)
+{
+    CounterParams params;
+    static const char *functionName = "cbCConfigScan";
+
+    params.counter = CounterNum;
+    if (Mode & CLEAR_ON_READ)  params.counterOptions |= USB_CTR_CLEAR_ON_READ;
+    if (Mode & NO_RECYCLE_ON)  params.counterOptions |= USB_CTR_NO_RECYCLE;
+    if (Mode & COUNT_DOWN_ON)  params.counterOptions |= USB_CTR_COUNT_DOWN;
+    if (Mode & RANGE_LIMIT_ON) params.counterOptions |= USB_CTR_RANGE_LIMIT;
+    if (EdgeDetection & 
+        CTR_FALLING_EDGE)      params.counterOptions |= USB_CTR_FALLING_EDGE;
+
+    params.modeOptions |= (TickSize << 4);
+
+    if (Mode & GATING_ON)   params.gateOptions |= 1;
+    if (Mode & INVERT_GATE) params.gateOptions |= 2; // Need to check the logic
+
+    if (Mode & OUTPUT_ON)                 params.outputOptions |= 1;
+    if (Mode & OUTPUT_INITIAL_STATE_HIGH) params.outputOptions |= 2;
+
+    if (DebounceMode == CTR_TRIGGER_BEFORE_STABLE) params.debounce |= 0x10;
+    if (DebounceTime != CTR_DEBOUNCE_NONE)         params.debounce |= (0x0f | (DebounceTime >> 1));
+
+    printf("%s::%s calling usbCounterParamsW_USB_CTR CounterNum=%d, params.counterOptions=0x%x, params.gateOptions=0x%x, params.outputOptions=0x%x, params.debounce=0x%x\n",
+    driverName, functionName, CounterNum, params.counterOptions, params.gateOptions, params.outputOptions, params.debounce);
+    usbCounterParamsW_USB_CTR(deviceHandle_, CounterNum, params);
+
+    return NOERRORS;
+}
+
+
 int mcUSB_CTR::cbPulseOutStart(int TimerNum, double *Frequency, 
                     double *DutyCycle, unsigned int PulseCount, 
-                    double *InitialDelay, int IdleState, int Options) {
-    TimerParams timerParams;
-    timerParams.timer = TimerNum;
-    timerParams.period = round(CLOCK_FREQ / *Frequency);
-    timerParams.pulseWidth = round(*DutyCycle * CLOCK_FREQ / *Frequency);
-    timerParams.count = PulseCount;
-    timerParams.delay = *InitialDelay * CLOCK_FREQ;
-    usbTimerParamsW_USB_CTR(deviceHandle_, TimerNum, timerParams);
+                    double *InitialDelay, int IdleState, int Options)
+{
+    TimerParams params;
+    //static const char *functionName = "cbPulseOutStart";
+
+    params.timer = TimerNum;
+    params.period = round(CLOCK_FREQ / *Frequency) - 1;
+    params.pulseWidth = round(*DutyCycle * CLOCK_FREQ / *Frequency) - 1;
+    params.count = PulseCount;
+    params.delay = *InitialDelay * CLOCK_FREQ;
+    usbTimerParamsW_USB_CTR(deviceHandle_, TimerNum, params);
 	  usbTimerControlW_USB_CTR(deviceHandle_, TimerNum, 1);
 	  return NOERRORS;
 }
 
-int mcUSB_CTR::cbPulseOutStop(int TimerNum) {
+int mcUSB_CTR::cbPulseOutStop(int TimerNum) 
+{
+    //static const char *functionName = "cbPulseOutStop";
+
 	  usbTimerControlW_USB_CTR(deviceHandle_, TimerNum, 0);
     return NOERRORS;
 }
@@ -228,6 +312,8 @@ int mcUSB_CTR::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 {
     uint16_t value;
     uint16_t mask = 0x1 << BitNum;
+    //static const char *functionName = "cbDBitOut";
+
     // Read the current output register
 	  value = usbDLatchR_USB_CTR(deviceHandle_);
     // Set or clear the bit
@@ -244,6 +330,8 @@ int mcUSB_CTR::cbDConfigBit(int PortType, int BitNum, int Direction)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
+    //static const char *functionName = "cbDConfigBit";
+
     // Read the current tristate register
     value = usbDTristateR_USB_CTR(deviceHandle_);
     // Set or clear the bit
@@ -258,14 +346,19 @@ int mcUSB_CTR::cbDConfigBit(int PortType, int BitNum, int Direction)
 
 int mcUSB_CTR::cbDIn(int PortType, USHORT *DataValue)
 {
+    //static const char *functionName = "cbDIn";
+
     uint16_t value = usbDPort_USB_CTR(deviceHandle_);
     *DataValue = value;
     return NOERRORS;
 }
 
+
 int mcUSB_CTR::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold)
 {
     uint8_t trigger;
+    //static const char *functionName = "cbSetTrigger";
+
     switch (TrigType) {
       case TRIG_POS_EDGE:
           trigger = 1;
