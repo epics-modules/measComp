@@ -65,6 +65,13 @@ int cbGetErrMsg(int ErrCode, char *ErrMsg)
     return NOERRORS;
 }
 
+int cbSetAsynUser(int BoardNum, asynUser *pasynUser)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cbSetAsynUser(pasynUser);
+}
+
 HGLOBAL cbWinBufAlloc(long NumPoints)
 {
     return calloc(NumPoints, sizeof(short));
