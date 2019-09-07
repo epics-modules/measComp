@@ -585,7 +585,7 @@ void usbScanConfigW_USB_CTR(libusb_device_handle *udev, uint8_t lastElement, Sca
   }
 }
 
-void usbScanStart_USB_CTR(libusb_device_handle *udev, uint32_t count, uint32_t retrig_count, double frequency, uint8_t options)
+void usbScanStart_USB_CTR(libusb_device_handle *udev, uint32_t count, uint32_t retrig_count, double frequency, uint8_t packet_size, uint8_t options)
 {
   /*
     count:         the total number of scans to perform (0 for continuous scan)
@@ -661,7 +661,8 @@ void usbScanStart_USB_CTR(libusb_device_handle *udev, uint32_t count, uint32_t r
   memcpy(&data[0], &count, 4);
   memcpy(&data[4], &retrig_count, 4);
   memcpy(&data[8], &pacer_period, 4);
-  data[12] = wMaxPacketSize - 1;
+  if (packet_size == 0) packet_size = wMaxPacketSize/2;
+  data[12] = packet_size-1;
   data[13] = options;
 
   ret = libusb_control_transfer(udev, requesttype, SCAN_START, 0x0, 0x0,(unsigned char *) data, sizeof(data), HS_DELAY);
@@ -712,7 +713,7 @@ int usbScanRead_USB_CTR(libusb_device_handle *udev, int count, int lastElement, 
   if (count > 0) {
     nbytes = count*(lastElement+1)*2; 
   } else {             // continuous mode
-    nbytes = wMaxPacketSize/2;
+    nbytes = wMaxPacketSize;
   }
 
   ret = libusb_bulk_transfer(udev, LIBUSB_ENDPOINT_IN|6, (unsigned char *) data, nbytes, &transferred, HS_DELAY);
@@ -721,7 +722,7 @@ int usbScanRead_USB_CTR(libusb_device_handle *udev, int count, int lastElement, 
     perror("usbScanRead_USB_CTR: error in usb_bulk_transfer.");
   }
   if (transferred != nbytes) {
-    fprintf(stderr, "usbAInScanRead_USB_CTR: number of bytes transferred = %d, nbytes = %d\n", transferred, nbytes);
+    fprintf(stderr, "usbScanRead_USB_CTR: number of bytes transferred = %d, nbytes = %d\n", transferred, nbytes);
   }
 
   if (count == 0) {
