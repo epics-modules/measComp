@@ -63,6 +63,13 @@ int mcBoard::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal
     return NOERRORS;
 }
 
+int mcBoard::cbSetAsynUser(asynUser *pasynUser)
+{
+    pasynUser_ = pasynUser;
+    return NOERRORS;
+}
+
+
 int mcBoard::cbGetBoardName(char *BoardName) 
 {
     strcpy(BoardName, boardName_);
