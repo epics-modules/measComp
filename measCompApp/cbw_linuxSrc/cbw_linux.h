@@ -2,7 +2,9 @@
 #define cbwLinuxInclude
 
 #ifdef linux
+  #include <asynDriver.h>
   int cbAddBoard(const char *boardName, const char *address);
+  int cbSetAsynUser(int boardNum, asynUser *pasynUser);
   #include <stdlib.h>
   #include <string.h>
   typedef char CHAR;
