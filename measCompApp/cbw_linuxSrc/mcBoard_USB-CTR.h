@@ -56,6 +56,7 @@ private:
 
     bool ctrScanAcquiring_;
     uint16_t *ctrScanBuffer_;
+    uint16_t *ctrScanRawBuffer_;
     int ctrScanNumPoints_;
     int ctrScanNumCounters_;
     int ctrScanNumElements_;
