@@ -691,11 +691,10 @@ void C9513::pollerThread()
   int i;
   int pollCounter;
   ULONG count;
-  int status;
 
   while(1) { 
     lock();
-    status = cbDIn(boardNum_, AUXPORT, &temp);
+    cbDIn(boardNum_, AUXPORT, &temp);
     newValue = temp;
     changedBits = newValue ^ prevInput;
     if (forceCallback_ || (changedBits != 0)) {
@@ -706,7 +705,7 @@ void C9513::pollerThread()
     for (i=0; i<numCounters_; i++) {
       getIntegerParam(i, C9513PollCounter_, &pollCounter);
       if (pollCounter) {
-        status = cbCIn32(boardNum_, i+1, &count);
+        cbCIn32(boardNum_, i+1, &count);
         setIntegerParam(i, C9513CounterValue_, count);
         callParamCallbacks(i);
       }
