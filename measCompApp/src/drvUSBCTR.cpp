@@ -218,7 +218,8 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   int i;
   char boardName[BOARDNAMELEN];
   //static const char *functionName = "USBCTR";
-     
+  cbSetAsynUser(boardNum_, pasynUserSelf);
+
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
   createParam(pulseGenPeriodString,          asynParamFloat64, &pulseGenPeriod_);
