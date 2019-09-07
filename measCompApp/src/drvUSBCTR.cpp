@@ -218,7 +218,10 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   int i;
   char boardName[BOARDNAMELEN];
   //static const char *functionName = "USBCTR";
+  
+#ifdef linux
   cbSetAsynUser(boardNum_, pasynUserSelf);
+#endif
 
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
@@ -403,7 +406,6 @@ int USBCTR::stopPulseGenerator(int timerNum)
 int USBCTR::startMCS()
 {
   int numPoints;
-  short gainArray[MAX_COUNTERS], chanArray[MAX_COUNTERS];
   int i;
   int extTrigger;
   int status;
@@ -470,11 +472,6 @@ int USBCTR::startMCS()
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
   
-  // Construct the gain array
-  for (i=firstMCSCounter_; i<=lastMCSCounter_; i++) {
-    chanArray[i] = i;
-    gainArray[i] = 0;
-  }
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
@@ -515,8 +512,8 @@ int USBCTR::readMCS()
   getIntegerParam(mcaNumChannels_,  &numTimePoints);
   status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s cbGetStatus returned ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
-    driverName, functionName, ctrStatus, ctrCount, ctrIndex);
+    "%s::%s cbGetStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
+    driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
   if (ctrStatus == 0) {
     MCSRunning_ = false;
   }
@@ -685,8 +682,8 @@ int USBCTR::readScaler()
   // Poll the status of the counter scan 
   status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW, 
-    "%s::%s called cbGetStatus, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
-    driverName, functionName, ctrStatus, ctrCount, ctrIndex);
+    "%s::%s called cbGetStatus, status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
+    driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
   numValues = ctrIndex + 1;
   // Get the index of the start of the last complete set of counts in the buffer
   if (numValues < numCounters_) return 0;
