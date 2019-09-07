@@ -8,11 +8,6 @@
 #include "pmd.h"
 #include "usb-ctr.h"
 
-typedef enum {
-    mcUSB_CTR_32bit,
-    mcUSB_CTR_16bit
-} mcUSB_CTR_DataType;
-
 class mcUSB_CTR : mcBoard {
 public:
     mcUSB_CTR(const char *address);
@@ -55,12 +50,14 @@ private:
     epicsEventId acquireStartEvent_;
 
     bool ctrScanAcquiring_;
+    bool ctrScanComplete_;
     uint16_t *ctrScanBuffer_;
     uint16_t *ctrScanRawBuffer_;
     int ctrScanNumPoints_;
     int ctrScanNumCounters_;
     int ctrScanNumElements_;
-    bool ctrScanDataType_;
+    int ctrScanDataType_;
+    bool ctrScanSingleIO_;
     int ctrScanCurrentPoint_;
     int ctrScanCurrentIndex_;
     int ctrScanTrigType_;
