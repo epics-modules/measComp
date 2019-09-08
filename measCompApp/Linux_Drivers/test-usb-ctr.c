@@ -185,7 +185,7 @@ int main (int argc, char **argv)
 	usbTimerDelayW_USB_CTR(udev, timer, 0);
 	usbTimerControlW_USB_CTR(udev, timer, 0x1);
 
-	usbScanStart_USB_CTR(udev, count, 0, frequency, 0);
+	usbScanStart_USB_CTR(udev, count, 0, frequency, 0, 0);
         usbScanRead_USB_CTR(udev, count, scanList.lastElement, data);
 	usbTimerControlW_USB_CTR(udev, timer, 0x0);
 
