@@ -154,7 +154,7 @@ int main (int argc, char **argv)
 	printf("Testing scan input\n");
 	printf("Connect Timer 1 to Counter 1\n");
 	count = 2048;       // total number of scans to perform
-	frequency = 100;  // scan rate at 1000 Hz
+	frequency = 1000;  // scan rate at 1000 Hz
 
 	// Set up the scan list (use 4 counter 0-3)
 	for (counter = 0; counter < 4; counter++) {
@@ -190,9 +190,13 @@ int main (int argc, char **argv)
 	usbScanStart_USB_CTR(udev, count, 0, frequency, 0, 0);
 	uint16_t *pData = data;
 	int readingsRemaining = count;
+	for (i=0; i<sizeof(data)/sizeof(data[0]); i++) data[i] = 0;
 	while (readingsRemaining > 0) {
       int status = usbScanRead_USB_CTR(udev, readingsPerChunk, scanList.lastElement, pData);
-      if (status != 0) printf("Error calling usbScanRead_USB_CTR = %d\n", status);
+      if (status != 0) {
+         printf("Error calling usbScanRead_USB_CTR = %d\n", status);
+         break;
+      }
       printf("Read %d points OK, points remaining = %d\n", readingsPerChunk, readingsRemaining);
       pData += readingsPerChunk * wordsPerReading;
       readingsRemaining -= readingsPerChunk;
