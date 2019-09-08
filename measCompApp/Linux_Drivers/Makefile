@@ -27,6 +27,8 @@ PROD_IOC_Linux += test-E-DIO24
 PROD_IOC_Linux += test-E-TC32 
 PROD_IOC_Linux += test-E-TC
 PROD_IOC_Linux += test-usb-ctr
+PROD_IOC_Linux += test-usb-ctr-scaler
+PROD_IOC_Linux += test-usb-ctr-mcs
 
 PROD_LIBS += measCompLinuxDrivers
 PROD_SYS_LIBS += hidapi-libusb usb-1.0
