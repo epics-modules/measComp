@@ -729,9 +729,10 @@ int usbScanRead_USB_CTR(libusb_device_handle *udev, int count, int lastElement, 
     return ret;
   }
 
+  int dummy;
   // if nbytes is a multiple of wMaxPacketSize the device will send a zero byte packet.
   if ((nbytes%wMaxPacketSize) == 0) {
-    libusb_bulk_transfer(udev, LIBUSB_ENDPOINT_IN|6, (unsigned char *) value, 2, &ret, 100);
+    libusb_bulk_transfer(udev, LIBUSB_ENDPOINT_IN|6, (unsigned char *) value, 2, &dummy, 100);
   }
 
   status = usbStatus_USB_CTR(udev);
