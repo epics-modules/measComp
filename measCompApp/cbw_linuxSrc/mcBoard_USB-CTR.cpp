@@ -82,6 +82,7 @@ void mcUSB_CTR::readThread()
         readMutex_.lock();
         ctrScanCurrentPoint_ = 0;
         ctrScanCurrentIndex_ = 0;
+        int pointsRemaining = ctrScanNumPoints_;
 
         while (ctrScanAcquiring_) {
             ctrScanComplete_ = false;
@@ -89,18 +90,24 @@ void mcUSB_CTR::readThread()
             if (ctrScanSingleIO_) {
                 numRead = 1;
             } else {
-                numRead = ctrScanNumPoints_;
+                numRead = 128;
             }
             readMutex_.unlock();
+            asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+                "%s::%s usbScanRead_USB_CTR reading %d points\n", 
+                driverName, functionName, numRead);
             int status = usbScanRead_USB_CTR(deviceHandle_, numRead, ctrScanNumElements_-1, ctrScanRawBuffer_);
             readMutex_.lock();
-            // Check to see if acquisition was aborted
-            if (!ctrScanAcquiring_) break;
             if (status != 0) {  // error
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
                     "%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, status);
                 continue;
             }
+            asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+                "%s::%s usbScanRead_USB_CTR read %d points OK\n", 
+                driverName, functionName, numRead);
+            // Check to see if acquisition was aborted
+            if (!ctrScanAcquiring_) break;
             switch (ctrScanDataType_) {
               case CTR32BIT: {
                 uint32_t *pIn = (uint32_t *)ctrScanRawBuffer_;
@@ -126,7 +133,16 @@ void mcUSB_CTR::readThread()
                 }
                 break;
               }
-            }                
+            }       
+            pointsRemaining -= numRead;
+            asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+                "%s::%s pointRemaining=%d\n", 
+                driverName, functionName, pointsRemaining);
+            //  If the desired number of points have been collected in MCS mode stop
+            if (!ctrScanSingleIO_ && (pointsRemaining == 0)) {
+                ctrScanAcquiring_ = false;
+                break;
+            }
         }
         ctrScanComplete_ = true;
     }
@@ -135,7 +151,7 @@ void mcUSB_CTR::readThread()
 
 int mcUSB_CTR::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int FunctionType)
 {
-    static const char *functionName = "cbGetIOStatus";
+    //static const char *functionName = "cbGetIOStatus";
 
     if (FunctionType == CTRFUNCTION) {
         readMutex_.lock();
@@ -144,9 +160,9 @@ int mcUSB_CTR::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int 
         *CurIndex = ctrScanCurrentIndex_ - 1;
         readMutex_.unlock();
     }
-    asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-        "%s::%s returning Status=%d CurCount=%d, CurIndex=%d, FunctionType=%d\n", 
-        driverName, functionName, *Status, (int)*CurCount, (int)*CurIndex, FunctionType);
+    //asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+    //    "%s::%s returning Status=%d CurCount=%d, CurIndex=%d, FunctionType=%d\n", 
+    //    driverName, functionName, *Status, (int)*CurCount, (int)*CurIndex, FunctionType);
     return NOERRORS;
 }
 
@@ -156,8 +172,6 @@ int mcUSB_CTR::cbStopIOBackground(int FunctionType)
     static const char *functionName = "cbStopIOBackground";
 
     if (FunctionType == CTRFUNCTION) {
-asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER,
-    "%s::%s waiting for poller to complete\n", driverName, functionName);
         readMutex_.lock();
         ctrScanAcquiring_ = false;
         // Wait for the poller to exit
@@ -252,10 +266,13 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
         packetSize = numElements;
     } else {
         ctrScanSingleIO_ = false;
+//        packetSize = 16 * numElements;
         packetSize = 0;
     }
     if (Options & EXTTRIGGER) scanOptions |= 0x1 << 3;
     if (Options & CONTINUOUS) scanCount = 0;
+    double scanRate = *Rate;
+    if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
 
     // Make sure the FIFO is cleared
     usbScanStop_USB_CTR(deviceHandle_);
@@ -267,10 +284,9 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
         driverName, functionName, list.lastElement, list.scanList[0], list.scanList[1], list.scanList[4], list.scanList[3]);
     usbScanConfigW_USB_CTR(deviceHandle_, list.lastElement, list);
     
-    double scanRate = *Rate;
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-        "%s::%s calling usbScanStart_USB_CTR scanCount=%d, retrigCount=0, scanRate=%f, scanOptions=0x%x\n",
-        driverName, functionName, scanCount, scanRate, scanOptions);
+        "%s::%s calling usbScanStart_USB_CTR scanCount=%d, retrigCount=%d, scanRate=%f, packetSize=%d scanOptions=0x%x\n",
+        driverName, functionName, scanCount, 0, scanRate, packetSize, scanOptions);
     usbScanStart_USB_CTR(deviceHandle_, scanCount, 0, scanRate, packetSize, scanOptions);
 
     if (ctrScanRawBuffer_) free(ctrScanRawBuffer_);
@@ -337,7 +353,9 @@ int mcUSB_CTR::cbPulseOutStart(int TimerNum, double *Frequency,
     params.count = PulseCount;
     params.delay = *InitialDelay * CLOCK_FREQ;
     usbTimerParamsW_USB_CTR(deviceHandle_, TimerNum, params);
-	  usbTimerControlW_USB_CTR(deviceHandle_, TimerNum, 1);
+    uint8_t control = 1;
+    if (IdleState == 1) control |= 0x1 << 2;
+	  usbTimerControlW_USB_CTR(deviceHandle_, TimerNum, control);
 	  return NOERRORS;
 }
 
