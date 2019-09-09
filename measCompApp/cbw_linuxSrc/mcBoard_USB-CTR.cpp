@@ -86,33 +86,28 @@ void mcUSB_CTR::readThread()
 
         while (ctrScanAcquiring_) {
             ctrScanComplete_ = false;
-            int numRead;
-            if (ctrScanSingleIO_) {
-                numRead = 1;
-            } else {
-                numRead = 128;
-            }
             readMutex_.unlock();
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-                "%s::%s usbScanRead_USB_CTR reading %d points\n", 
-                driverName, functionName, numRead);
-            int status = usbScanRead_USB_CTR(deviceHandle_, numRead, ctrScanNumElements_-1, ctrScanRawBuffer_);
+                "%s::%s calling usbScanRead_USB_CTR \n", 
+                driverName, functionName);
+            int bytesRead = usbScanRead_USB_CTR(deviceHandle_, 0, ctrScanNumElements_-1, ctrScanRawBuffer_);
+            int pointsRead = bytesRead/(ctrScanNumElements_*2);
             readMutex_.lock();
-            if (status != 0) {  // error
+            if (bytesRead <= 0) {  // error
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
-                    "%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, status);
+                    "%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, bytesRead);
                 continue;
             }
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s usbScanRead_USB_CTR read %d points OK\n", 
-                driverName, functionName, numRead);
+                driverName, functionName, pointsRead);
             // Check to see if acquisition was aborted
             if (!ctrScanAcquiring_) break;
             switch (ctrScanDataType_) {
               case CTR32BIT: {
                 uint32_t *pIn = (uint32_t *)ctrScanRawBuffer_;
                 uint32_t *pOut = (uint32_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
-                for (int point=0; point<numRead; point++) {
+                for (int point=0; point<pointsRead; point++) {
                     for (int counter=0; counter<ctrScanNumCounters_; counter++) {
                         *pOut++ = *pIn++;
                         ctrScanCurrentPoint_++;
@@ -124,7 +119,7 @@ void mcUSB_CTR::readThread()
               case CTR16BIT: {
                 uint16_t *pIn = (uint16_t *)ctrScanRawBuffer_;
                 uint16_t *pOut = (uint16_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
-                for (int point=0; point<numRead; point++) {
+                for (int point=0; point<pointsRead; point++) {
                     for (int counter=0; counter<ctrScanNumCounters_; counter++) {
                         *pOut++ = *pIn++;
                         ctrScanCurrentPoint_++;
@@ -134,7 +129,7 @@ void mcUSB_CTR::readThread()
                 break;
               }
             }       
-            pointsRemaining -= numRead;
+            pointsRemaining -= pointsRead;
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s pointRemaining=%d\n", 
                 driverName, functionName, pointsRemaining);
@@ -217,7 +212,8 @@ int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
       case LOADREG0:
       case LOADREG1:
           if (RegNum == LOADREG1) index=1;
-          usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
+          // I don't know what function should be called for this
+          //usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
           break;      
     }
     return NOERRORS;
@@ -266,8 +262,7 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
         packetSize = numElements;
     } else {
         ctrScanSingleIO_ = false;
-//        packetSize = 16 * numElements;
-        packetSize = 0;
+        packetSize = (256/numElements) * numElements;
     }
     if (Options & EXTTRIGGER) scanOptions |= 0x1 << 3;
     if (Options & CONTINUOUS) scanCount = 0;
@@ -292,7 +287,6 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     if (ctrScanRawBuffer_) free(ctrScanRawBuffer_);
     ctrScanRawBuffer_ = (uint16_t *)calloc(ctrScanNumPoints_*ctrScanNumElements_, sizeof(uint32_t)); // Can hold 16-bit or 32-bit data
     epicsEventSignal(acquireStartEvent_);
-
 
     return NOERRORS;                         
 }
