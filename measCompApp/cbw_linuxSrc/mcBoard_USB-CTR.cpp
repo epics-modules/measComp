@@ -193,25 +193,34 @@ int mcUSB_CTR::cbCIn32(int CounterNum, ULONG *Count)
 
 int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
 {
-    //static const char *functionName = "cbCLoad32";
+    static const char *functionName = "cbCLoad32";
 
     uint8_t index=0;
-    int reg = RegNum & 0xffffff00;
-    int counterNum = RegNum & 0x000000ff;
+    int reg = (RegNum/100)*100;
+    int counterNum = RegNum - reg;
     switch (reg) {
       case OUTPUTVAL0REG0:
       case OUTPUTVAL1REG0:
-          if (RegNum == OUTPUTVAL1REG0) index=1;
+          if (reg == OUTPUTVAL1REG0) index=1;
+          asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+              "%s::%s calling usbCounterOutValuesW_USB_CTR counterNum=%d, index=%d, value=%d\n",
+              driverName, functionName, counterNum, index, LoadValue);
           usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
           break;
       case MINLIMITREG0:
       case MAXLIMITREG0:
-          if (RegNum == MAXLIMITREG0) index=1;
+          if (reg == MAXLIMITREG0) index=1;
+          asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+              "%s::%s calling usbCounterLimitValuesW_USB_CTR counterNum=%d, index=%d, value=%d\n",
+              driverName, functionName, counterNum, index, LoadValue);
           usbCounterLimitValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
           break;
       case LOADREG0:
       case LOADREG1:
-          if (RegNum == LOADREG1) index=1;
+          if (reg == LOADREG1) index=1;
+          asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
+              "%s::%s got LOADREG0 or LOADREG1 command, don't know what to do counterNum=%d, index=%d, value=%ul\n",
+              driverName, functionName, counterNum, index, LoadValue);
           // I don't know what function should be called for this
           //usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
           break;      
@@ -268,6 +277,7 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     if (Options & CONTINUOUS) scanCount = 0;
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
+    if (Options & EXTCLOCK) scanRate = 0;
 
     // Make sure the FIFO is cleared
     usbScanStop_USB_CTR(deviceHandle_);
