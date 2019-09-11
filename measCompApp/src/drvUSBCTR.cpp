@@ -454,7 +454,7 @@ int USBCTR::startMCS()
   getIntegerParam(MCSExtTrigger_, &extTrigger);
   getDoubleParam(mcaDwellTime_, &dwell);
   if (dwell > 1e-6) rateFactor = 1000.;
-  rate = (long)((rateFactor / dwell) + 0.5);
+  rate = (LONG)((rateFactor / dwell) + 0.5);
   count =  numMCSCounters_ * numPoints;
   
   if (dwell > 1e-4) {
@@ -474,7 +474,7 @@ int USBCTR::startMCS()
   // At long dwell times read use a single buffer for reading the data
   if (dwell >= 0.05)
     options |= SINGLEIO;
-  
+ 
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
@@ -482,6 +482,9 @@ int USBCTR::startMCS()
     " inputMemHandle_=%p, options=0x%x, status=%d\n",
     driverName, functionName, firstMCSCounter_, lastMCSCounter_, count, rate,
     inputMemHandle_, options, status);
+  // The actual dwell time can be different from requested due to clock granularity
+  setDoubleParam(mcaDwellTime_, rateFactor/rate);
+ 
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s error calling cbCInScan, firstMCSCounter=%d, lastMCSCounter=%d, count=%d, rate=%d,"
@@ -1188,7 +1191,6 @@ void USBCTR::report(FILE *fp, int details)
   int i;
   int currentPoint;
   
-  asynPortDriver::report(fp, details);
   fprintf(fp, "  Port: %s, board number=%d, pollTime=%f\n", 
           this->portName, boardNum_, pollTime_);
   if (details >= 1) {
@@ -1209,6 +1211,7 @@ void USBCTR::report(FILE *fp, int details)
     getIntegerParam(MCSCurrentPoint_, &currentPoint);
     fprintf(fp, "    currentPoint: %d\n", currentPoint);
   }
+  asynPortDriver::report(fp, details);
 }
 
 /** Configuration command, called directly or from iocsh */
