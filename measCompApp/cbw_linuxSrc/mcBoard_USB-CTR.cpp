@@ -280,6 +280,10 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     }
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
+    uint32_t pacer_period = rint((96.E6/scanRate) - 1);
+    scanRate = 96.e6 / (pacer_period + 1);
+    *Rate = (Options & HIGHRESRATE) ? scanRate * 1000 : scanRate;
+
     if (Options & EXTCLOCK) scanRate = 0;
 
     // Make sure the FIFO is cleared
@@ -359,6 +363,8 @@ int mcUSB_CTR::cbPulseOutStart(int TimerNum, double *Frequency,
     params.pulseWidth = round(*DutyCycle * CLOCK_FREQ / *Frequency) - 1;
     params.count = PulseCount;
     params.delay = *InitialDelay * CLOCK_FREQ;
+    *DutyCycle = (params.pulseWidth + 1) * *Frequency / CLOCK_FREQ;
+    *Frequency = CLOCK_FREQ / (params.period + 1);
     usbTimerParamsW_USB_CTR(deviceHandle_, TimerNum, params);
     uint8_t control = 1;
     if (IdleState == 1) control |= 0x1 << 2;
