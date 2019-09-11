@@ -96,7 +96,8 @@ void mcUSB_CTR::readThread()
             if (bytesRead <= 0) {  // error
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
                     "%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, bytesRead);
-                continue;
+                ctrScanAcquiring_ = false;
+                break;
             }
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s usbScanRead_USB_CTR read %d points OK\n", 
@@ -134,7 +135,7 @@ void mcUSB_CTR::readThread()
                 "%s::%s pointRemaining=%d\n", 
                 driverName, functionName, pointsRemaining);
             //  If the desired number of points have been collected in MCS mode stop
-            if (!ctrScanSingleIO_ && (pointsRemaining == 0)) {
+            if (!ctrScanContinuous_ && (pointsRemaining == 0)) {
                 ctrScanAcquiring_ = false;
                 break;
             }
@@ -267,14 +268,16 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     ctrScanNumElements_ = numElements;
     ctrScanDataType_ = (Options & CTR32BIT) ? CTR32BIT : CTR16BIT;
     if (Options & SINGLEIO) {
-        ctrScanSingleIO_ = true;
         packetSize = numElements;
     } else {
-        ctrScanSingleIO_ = false;
         packetSize = (256/numElements) * numElements;
     }
     if (Options & EXTTRIGGER) scanOptions |= 0x1 << 3;
-    if (Options & CONTINUOUS) scanCount = 0;
+    ctrScanContinuous_ = false;
+    if (Options & CONTINUOUS) {
+        scanCount = 0;
+        ctrScanContinuous_ = true;
+    }
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
     if (Options & EXTCLOCK) scanRate = 0;
@@ -335,7 +338,7 @@ int mcUSB_CTR::cbCConfigScan(int CounterNum, int Mode,int DebounceTime,
     if (DebounceTime != CTR_DEBOUNCE_NONE)         params.debounce |= (0x0f | (DebounceTime >> 1));
 
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-        "%s::%s calling usbCounterParamsW_USB_CTR CounterNum=%d"
+        "%s::%s calling usbCounterParamsW_USB_CTR CounterNum=%d, "
         "params.counterOptions=0x%x, params.gateOptions=0x%x, params.outputOptions=0x%x, params.debounce=0x%x\n",
         driverName, functionName, CounterNum, params.counterOptions, params.gateOptions, params.outputOptions, params.debounce);
     usbCounterParamsW_USB_CTR(deviceHandle_, CounterNum, params);
