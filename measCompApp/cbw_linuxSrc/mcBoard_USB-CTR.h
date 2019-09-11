@@ -57,7 +57,7 @@ private:
     int ctrScanNumCounters_;
     int ctrScanNumElements_;
     int ctrScanDataType_;
-    bool ctrScanSingleIO_;
+    bool ctrScanContinuous_;
     int ctrScanCurrentPoint_;
     int ctrScanCurrentIndex_;
     int ctrScanTrigType_;
