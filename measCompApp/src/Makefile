@@ -79,6 +79,19 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 testTC32_LIBS += cbw64
 endif
 
+PROD_IOC += testFreqDiv
+testFreqDiv_LIBS_Linux += cbw_linux
+testFreqDiv_LIBS_Linux += measCompLinuxDrivers
+testFreqDiv_LIBS += asyn
+testFreqDiv_SRCS += testFreqDiv.cpp
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+testFreqDiv_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+testFreqDiv_LIBS += cbw64
+endif
+testFreqDiv_SYS_LIBS_Linux += hidapi-libusb usb-1.0
+# Finally link to the EPICS Base libraries
+testFreqDiv_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 #=============================
 
