@@ -464,13 +464,16 @@ int USBCTR::startMCS()
     counterBits_ = 16;
     options = CTR16BIT;
   }
-  options   |= BACKGROUND;
-  if (rateFactor > 1.0) 
+  options |= BACKGROUND;
+  if (rateFactor > 1.0)
     options |= HIGHRESRATE;
   // Always enable external trigger.  If trigger input is not connected set TriggerMode=Low.
   options |= EXTTRIGGER;
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
+  // At long dwell times read use a single buffer for reading the data
+  if (dwell >= 0.05)
+    options |= SINGLEIO;
   
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
@@ -550,7 +553,7 @@ int USBCTR::readMCS()
   
   if (!MCSRunning_) {
     stopMCS();
-    for (i=firstMCSCounter_; i<=lastMCSCounter_; i++) {
+    for (i=0; i<numCounters_; i++) {
       setIntegerParam(i, mcaAcquiring_, 0);
     }
   }
