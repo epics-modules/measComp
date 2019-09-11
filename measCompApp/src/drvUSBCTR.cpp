@@ -524,14 +524,14 @@ int USBCTR::readMCS()
   lastPoint = ctrIndex / numMCSCounters_ + 1;
   if (counterBits_ == 32) {
     for (i=currentPoint; i<lastPoint; i++) {
-      for (j=firstMCSCounter_; j<=lastMCSCounter_; j++) {
-        MCSBuffer_[j][i] = pCounts32_[i*numMCSCounters_ + j];
+      for (j=0; j<numMCSCounters_; j++) {
+        MCSBuffer_[firstMCSCounter_+j][i] = pCounts32_[i*numMCSCounters_ + j];
       }
     }
   } else {
     for (i=currentPoint; i<lastPoint; i++) {
-      for (j=firstMCSCounter_; j<=lastMCSCounter_; j++) {
-        MCSBuffer_[j][i] = pCounts16_[i*numMCSCounters_ + j];
+      for (j=0; j<numMCSCounters_; j++) {
+        MCSBuffer_[firstMCSCounter_+j][i] = pCounts16_[i*numMCSCounters_ + j];
       }
     }
   }
