@@ -40,7 +40,8 @@ mcUSB_CTR::mcUSB_CTR(const char *address)
     ctrScanCurrentIndex_ = 0;
     ctrScanBuffer_ = 0;
     ctrScanRawBuffer_ = 0;
-    
+    memset(&scanData_, 0, sizeof(scanData_));    
+
     if (libusb_init(NULL) < 0) {
         printf("%s::%s Failed to initialize libusb\n", driverName, functionName);
         return;
@@ -83,6 +84,7 @@ void mcUSB_CTR::readThread()
         ctrScanCurrentPoint_ = 0;
         ctrScanCurrentIndex_ = 0;
         int pointsRemaining = ctrScanNumPoints_;
+        ScanData scanData;
 
         while (ctrScanAcquiring_) {
             ctrScanComplete_ = false;
@@ -90,7 +92,7 @@ void mcUSB_CTR::readThread()
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s calling usbScanRead_USB_CTR \n", 
                 driverName, functionName);
-            int bytesRead = usbScanRead_USB_CTR(deviceHandle_, 0, ctrScanNumElements_-1, ctrScanRawBuffer_);
+            int bytesRead = usbScanRead_USB_CTR(deviceHandle_, scanData, ctrScanRawBuffer_);
             readMutex_.lock();
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {  // error
@@ -233,11 +235,8 @@ int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
 int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
                          LONG *Rate, HGLOBAL MemHandle, ULONG Options) 
 {
-    ScanList list;
     int numCounters = LastCtr - FirstCtr + 1;
-    uint8_t scanOptions=0;
     int scanCount = Count/numCounters;
-    int packetSize;
     static const char *functionName = "cbCInScan";
 
     int numElements=0;
@@ -253,29 +252,30 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
         // bit(6): 1 = Fill with 16-bits of 0's,  0 = normal (This allows for the creation
         // of a 32 or 64-bit element of the DIO when it is mixed with 32 or 64-bit elements of counters)
 
-        list.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
-        list.scanList[numElements++] |= (0x3 & 0) << 3;       // Bank 0 (bits 0-15))
+        scanData_.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
+        scanData_.scanList[numElements++] |= (0x3 & 0) << 3;       // Bank 0 (bits 0-15))
         if (Options & CTR32BIT) {
-            list.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
-            list.scanList[numElements++] |= (0x3 & 1) << 3;       // Bank 1 (bits 16-31))
+            scanData_.scanList[numElements]    = 0x7 & (FirstCtr + i); // Counter number
+            scanData_.scanList[numElements++] |= (0x3 & 1) << 3;       // Bank 1 (bits 16-31))
         }
     }
     ctrScanAcquiring_ = true;
     ctrScanBuffer_ = (uint16_t *)MemHandle;
-    list.lastElement = numElements - 1;
+    scanData_.lastElement = numElements - 1;
     ctrScanNumPoints_ = scanCount;
     ctrScanNumCounters_ = numCounters;
     ctrScanNumElements_ = numElements;
     ctrScanDataType_ = (Options & CTR32BIT) ? CTR32BIT : CTR16BIT;
+    scanData_.mode = 0;
     if (Options & SINGLEIO) {
-        packetSize = numElements;
-    } else {
-        packetSize = (256/numElements) * numElements;
+        scanData_.mode |= USB_CTR_SINGLEIO;
     }
-    if (Options & EXTTRIGGER) scanOptions |= 0x1 << 3;
+    scanData_.options = 0;
+    if (Options & EXTTRIGGER) scanData_.options |= 0x1 << 3;
     ctrScanContinuous_ = false;
+    scanData_.count = scanCount;
     if (Options & CONTINUOUS) {
-        scanCount = 0;
+        scanData_.mode |= USB_CTR_CONTINUOUS_SCAN;
         ctrScanContinuous_ = true;
     }
     double scanRate = *Rate;
@@ -285,6 +285,7 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     *Rate = (Options & HIGHRESRATE) ? scanRate * 1000 : scanRate;
 
     if (Options & EXTCLOCK) scanRate = 0;
+    scanData_.frequency = scanRate;
 
     // Make sure the FIFO is cleared
     usbScanStop_USB_CTR(deviceHandle_);
@@ -293,13 +294,13 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
 
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
         "%s::%s calling usbScanConfigW_USB_CTR lastElement=%d, list[0-3]=0x%x, 0x%x, 0x%x, 0x%x\n",
-        driverName, functionName, list.lastElement, list.scanList[0], list.scanList[1], list.scanList[4], list.scanList[3]);
-    usbScanConfigW_USB_CTR(deviceHandle_, list.lastElement, list);
+        driverName, functionName, scanData_.lastElement, scanData_.scanList[0], scanData_.scanList[1], scanData_.scanList[2], scanData_.scanList[3]);
+    usbScanConfigW_USB_CTR(deviceHandle_, scanData_);
     
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
         "%s::%s calling usbScanStart_USB_CTR scanCount=%d, retrigCount=%d, scanRate=%f, packetSize=%d scanOptions=0x%x\n",
-        driverName, functionName, scanCount, 0, scanRate, packetSize, scanOptions);
-    usbScanStart_USB_CTR(deviceHandle_, scanCount, 0, scanRate, packetSize, scanOptions);
+        driverName, functionName, scanCount, 0, scanRate, scanData_.packet_size, scanData_.options);
+    usbScanStart_USB_CTR(deviceHandle_, &scanData_);
 
     if (ctrScanRawBuffer_) free(ctrScanRawBuffer_);
     ctrScanRawBuffer_ = (uint16_t *)calloc(ctrScanNumPoints_*ctrScanNumElements_, sizeof(uint32_t)); // Can hold 16-bit or 32-bit data

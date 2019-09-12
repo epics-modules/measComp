@@ -61,6 +61,7 @@ private:
     int ctrScanCurrentPoint_;
     int ctrScanCurrentIndex_;
     int ctrScanTrigType_;
+    ScanData scanData_;
 
 };
 
