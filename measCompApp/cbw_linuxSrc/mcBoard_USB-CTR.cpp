@@ -96,8 +96,8 @@ void mcUSB_CTR::readThread()
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {
                 // In most cases it is an error if bytesRead <= 0
-                // However in external trigger mode this may be normal since we can't predict when triggers will come
-                if (scanData_.frequency == 0) {
+                // However in external trigger mode this may be normal since we can't predict when first trigger will come
+                if ((scanData_.frequency == 0) && (ctrScanCurrentPoint_ == 0)){
                     continue;
                 }
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
