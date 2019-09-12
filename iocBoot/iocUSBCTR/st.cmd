@@ -26,7 +26,7 @@ asynSetMinTimerPeriod(0.001)
 #              maxTimePoints)  # Maximum number of time points for MCS
 USBCTRConfig("$(PORT)", 0, 2048, .01)
 
-#asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACEIO_DRIVER|TRACE_FLOW)
+asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACEIO_DRIVER)
 
 dbLoadTemplate("USBCTR.substitutions")
 
