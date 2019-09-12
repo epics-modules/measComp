@@ -94,7 +94,12 @@ void mcUSB_CTR::readThread()
             int bytesRead = usbScanRead_USB_CTR(deviceHandle_, scanData_, ctrScanRawBuffer_);
             readMutex_.lock();
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
-            if (bytesRead <= 0) {  // error
+            if (bytesRead <= 0) {
+                // In most cases it is an error if bytesRead <= 0
+                // However in external trigger mode this may be normal since we can't predict when triggers will come
+                if (scanData_.frequency == 0) {
+                    continue;
+                }
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
                     "%s::%s Error calling usbScanRead_USB_CTR = %d\n", driverName, functionName, bytesRead);
                 ctrScanAcquiring_ = false;
@@ -220,9 +225,9 @@ int mcUSB_CTR::cbCLoad32(int RegNum, ULONG LoadValue)
       case LOADREG0:
       case LOADREG1:
           if (reg == LOADREG1) index=1;
-          asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
-              "%s::%s got LOADREG0 or LOADREG1 command, don't know what to do counterNum=%d, index=%d, value=%ul\n",
-              driverName, functionName, counterNum, index, LoadValue);
+          //asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
+          //    "%s::%s got LOADREG0 or LOADREG1 command, don't know what to do counterNum=%d, index=%d, value=%ul\n",
+          //    driverName, functionName, counterNum, index, LoadValue);
           // I don't know what function should be called for this
           //usbCounterOutValuesW_USB_CTR(deviceHandle_, counterNum, index, LoadValue);
           break;      
