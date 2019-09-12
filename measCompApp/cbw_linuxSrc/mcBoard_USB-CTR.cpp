@@ -84,7 +84,6 @@ void mcUSB_CTR::readThread()
         ctrScanCurrentPoint_ = 0;
         ctrScanCurrentIndex_ = 0;
         int pointsRemaining = ctrScanNumPoints_;
-        ScanData scanData;
 
         while (ctrScanAcquiring_) {
             ctrScanComplete_ = false;
@@ -92,7 +91,7 @@ void mcUSB_CTR::readThread()
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s calling usbScanRead_USB_CTR \n", 
                 driverName, functionName);
-            int bytesRead = usbScanRead_USB_CTR(deviceHandle_, scanData, ctrScanRawBuffer_);
+            int bytesRead = usbScanRead_USB_CTR(deviceHandle_, scanData_, ctrScanRawBuffer_);
             readMutex_.lock();
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {  // error
@@ -275,9 +274,9 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     ctrScanContinuous_ = false;
     scanData_.count = scanCount;
     if (Options & CONTINUOUS) {
-        scanData_.mode |= USB_CTR_CONTINUOUS_SCAN;
         ctrScanContinuous_ = true;
     }
+    scanData_.mode |= USB_CTR_CONTINUOUS_SCAN;
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
     uint32_t pacer_period = rint((96.E6/scanRate) - 1);
@@ -298,9 +297,12 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     usbScanConfigW_USB_CTR(deviceHandle_, scanData_);
     
     asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-        "%s::%s calling usbScanStart_USB_CTR scanCount=%d, retrigCount=%d, scanRate=%f, packetSize=%d scanOptions=0x%x\n",
-        driverName, functionName, scanCount, 0, scanRate, scanData_.packet_size, scanData_.options);
+        "%s::%s calling usbScanStart_USB_CTR count=%d, retrig_count=%d, mode=0x%x, frequency=%f, packet_size=%d options=0x%x\n",
+        driverName, functionName, scanData_.count, scanData_.retrig_count, scanData_.mode, scanData_.frequency, scanData_.packet_size, scanData_.options);
     usbScanStart_USB_CTR(deviceHandle_, &scanData_);
+    asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+        "%s::%s after calling usbScanStart_USB_CTR count=%d, retrig_count=%d, mode=0x%x, frequency=%f, packet_size=%d options=0x%x\n",
+        driverName, functionName, scanData_.count, scanData_.retrig_count, scanData_.mode, scanData_.frequency, scanData_.packet_size, scanData_.options);
 
     if (ctrScanRawBuffer_) free(ctrScanRawBuffer_);
     ctrScanRawBuffer_ = (uint16_t *)calloc(ctrScanNumPoints_*ctrScanNumElements_, sizeof(uint32_t)); // Can hold 16-bit or 32-bit data
