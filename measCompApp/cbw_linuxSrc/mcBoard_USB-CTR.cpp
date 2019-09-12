@@ -275,6 +275,10 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
         scanData_.mode |= USB_CTR_SINGLEIO;
     }
     scanData_.options = 0;
+    // Bit 0=0 clears counter at start, so the first time point is always 0.
+    // Bit 0=1 does not clear counter, but then the first point is a large random number
+    //     because the counter is always counting if it is not gated.
+    // We don't set this bit because 0 is better than large random number.
     if (Options & EXTTRIGGER) scanData_.options |= 0x1 << 3;
     ctrScanContinuous_ = false;
     scanData_.count = scanCount;
