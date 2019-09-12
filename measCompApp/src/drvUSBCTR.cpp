@@ -503,7 +503,7 @@ int USBCTR::startMCS()
 
 int USBCTR::readMCS()
 {
-  int lastPoint;
+  int lastPoint=0;
   int currentPoint;
   int status;
   int i, j;
@@ -523,18 +523,19 @@ int USBCTR::readMCS()
   if (ctrStatus == 0) {
     MCSRunning_ = false;
   }
-  if (ctrIndex < 0) return 0;
-  lastPoint = ctrIndex / numMCSCounters_ + 1;
-  if (counterBits_ == 32) {
-    for (i=currentPoint; i<lastPoint; i++) {
-      for (j=0; j<numMCSCounters_; j++) {
-        MCSBuffer_[firstMCSCounter_+j][i] = pCounts32_[i*numMCSCounters_ + j];
+  if (ctrIndex >= 0) {
+    lastPoint = ctrIndex / numMCSCounters_ + 1;
+    if (counterBits_ == 32) {
+      for (i=currentPoint; i<lastPoint; i++) {
+        for (j=0; j<numMCSCounters_; j++) {
+          MCSBuffer_[firstMCSCounter_+j][i] = pCounts32_[i*numMCSCounters_ + j];
+        }
       }
-    }
-  } else {
-    for (i=currentPoint; i<lastPoint; i++) {
-      for (j=0; j<numMCSCounters_; j++) {
-        MCSBuffer_[firstMCSCounter_+j][i] = pCounts16_[i*numMCSCounters_ + j];
+    } else {
+      for (i=currentPoint; i<lastPoint; i++) {
+        for (j=0; j<numMCSCounters_; j++) {
+          MCSBuffer_[firstMCSCounter_+j][i] = pCounts16_[i*numMCSCounters_ + j];
+        }
       }
     }
   }
