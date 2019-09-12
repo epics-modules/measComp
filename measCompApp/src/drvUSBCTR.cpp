@@ -299,6 +299,8 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   } else {
     printf("Unknown model\n");
   }
+  firstMCSCounter_ = 0;
+  lastMCSCounter_ = numCounters_-1;
   
   // Allocate memory for the input buffers
   for (i=0; i<numCounters_; i++) {
