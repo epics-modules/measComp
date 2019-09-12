@@ -274,9 +274,10 @@ int mcUSB_CTR::cbCInScan(int FirstCtr,int LastCtr, LONG Count,
     ctrScanContinuous_ = false;
     scanData_.count = scanCount;
     if (Options & CONTINUOUS) {
+        scanData_.count = 0;
         ctrScanContinuous_ = true;
     }
-    scanData_.mode |= USB_CTR_CONTINUOUS_SCAN;
+    scanData_.mode |= USB_CTR_CONTINUOUS_READOUT;
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
     uint32_t pacer_period = rint((96.E6/scanRate) - 1);
