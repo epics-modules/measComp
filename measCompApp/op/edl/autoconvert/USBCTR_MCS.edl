@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 155
-y 131
+x 267
+y 164
 w 680
-h 400
+h 395
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -32,7 +32,7 @@ minor 1
 release 1
 x 217
 y 68
-w 65
+w 70
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -52,7 +52,7 @@ release 0
 x 5
 y 41
 w 348
-h 353
+h 348
 lineColor rgb 2560 0 47104
 fillColor rgb 2560 0 47104
 lineWidth 2
@@ -79,9 +79,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 40
+x 0
 y 5
-w 599
+w 679
 h 24
 lineColor rgb 2560 0 47104
 fill
@@ -95,9 +95,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 160
+x 0
 y 6
-w 360
+w 680
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "center"
@@ -108,19 +108,6 @@ value {
   "USB-CTR08 MCS Control  $(P)"
 }
 endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 162
-w 217
-h 20
-
-beginGroup
 
 # (Text Control)
 object activeXTextDspClass
@@ -167,24 +154,6 @@ value {
 }
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 137
-w 230
-h 20
-
-beginGroup
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
@@ -228,24 +197,6 @@ value {
 }
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 187
-w 207
-h 20
-
-beginGroup
-
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
@@ -278,7 +229,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 125
+x 228
 y 187
 w 100
 h 20
@@ -290,24 +241,6 @@ value {
   "Dwell time"
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 212
-w 248
-h 20
-
-beginGroup
 
 # (Text Control)
 object activeXTextDspClass
@@ -343,7 +276,7 @@ minor 1
 release 1
 x 125
 y 212
-w 141
+w 130
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -353,24 +286,6 @@ value {
   "Ext. prescale"
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 28
-y 112
-w 157
-h 20
-
-beginGroup
 
 # (Group)
 object activeGroupClass
@@ -456,48 +371,6 @@ value {
 }
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 367
-w 257
-h 20
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 125
-y 367
-w 90
-h 20
-font "helvetica-medium-r-14.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Read rate"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -507,7 +380,7 @@ release 0
 x 366
 y 41
 w 308
-h 353
+h 323
 lineColor rgb 2560 0 47104
 fillColor rgb 2560 0 47104
 lineWidth 2
@@ -521,7 +394,7 @@ minor 1
 release 1
 x 439
 y 55
-w 120
+w 140
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -540,7 +413,7 @@ minor 1
 release 1
 x 439
 y 80
-w 180
+w 200
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -557,16 +430,16 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 439
-y 105
-w 180
+x 125
+y 237
+w 220
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Individual Plots 9-16"
+  "Channel advance source"
 }
 endObjectProperties
 
@@ -576,16 +449,16 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 439
-y 130
-w 180
+x 125
+y 262
+w 130
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Individual Plots 17-24"
+  "First counter"
 }
 endObjectProperties
 
@@ -595,16 +468,16 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 439
-y 155
-w 180
+x 125
+y 287
+w 120
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Individual Plots 25-32"
+  "Last counter"
 }
 endObjectProperties
 
@@ -614,8 +487,32 @@ beginObjectProperties
 major 4
 minor 7
 release 0
+x 123
+y 187
+w 100
+h 20
+controlPv "$(P)Dwell_RBV"
+format "exponential"
+font "helvetica-medium-r-14.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
 x 375
-y 232
+y 157
 w 80
 h 20
 controlPv "$(P)CurrentChannel"
@@ -639,8 +536,8 @@ major 4
 minor 1
 release 1
 x 460
-y 232
-w 180
+y 157
+w 150
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -658,8 +555,8 @@ major 4
 minor 1
 release 1
 x 460
-y 257
-w 160
+y 182
+w 150
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -677,8 +574,8 @@ major 4
 minor 1
 release 1
 x 460
-y 282
-w 160
+y 207
+w 110
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -696,7 +593,7 @@ major 4
 minor 1
 release 1
 x 460
-y 307
+y 232
 w 110
 h 20
 font "helvetica-medium-r-14.0"
@@ -715,7 +612,7 @@ major 4
 minor 0
 release 0
 x 376
-y 345
+y 270
 w 235
 h 20
 
@@ -728,7 +625,7 @@ major 4
 minor 7
 release 0
 x 376
-y 345
+y 270
 w 130
 h 20
 controlPv "$(P)SNL_Connected"
@@ -753,7 +650,7 @@ major 4
 minor 1
 release 1
 x 511
-y 345
+y 270
 w 100
 h 20
 font "helvetica-medium-r-14.0"
@@ -777,7 +674,7 @@ major 4
 minor 0
 release 0
 x 376
-y 370
+y 295
 w 276
 h 20
 
@@ -790,7 +687,7 @@ major 4
 minor 7
 release 0
 x 376
-y 370
+y 295
 w 130
 h 20
 controlPv "$(P)Model"
@@ -814,7 +711,7 @@ major 4
 minor 1
 release 1
 x 511
-y 370
+y 295
 w 141
 h 20
 font "helvetica-medium-r-14.0"
@@ -838,7 +735,7 @@ major 4
 minor 0
 release 0
 x 375
-y 205
+y 130
 w 245
 h 22
 
@@ -851,7 +748,7 @@ major 4
 minor 1
 release 1
 x 460
-y 206
+y 131
 w 160
 h 20
 font "helvetica-medium-r-14.0"
@@ -870,7 +767,7 @@ major 4
 minor 7
 release 0
 x 375
-y 205
+y 130
 w 80
 h 22
 controlPv "$(P)NuseAll"
@@ -901,7 +798,7 @@ major 4
 minor 7
 release 0
 x 375
-y 180
+y 105
 w 80
 h 20
 controlPv "$(P)MaxChannels"
@@ -925,8 +822,8 @@ major 4
 minor 1
 release 1
 x 460
-y 180
-w 160
+y 105
+w 180
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -937,19 +834,6 @@ value {
 }
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 237
-w 257
-h 20
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -957,78 +841,17 @@ major 4
 minor 1
 release 1
 x 125
-y 237
-w 176
+y 362
+w 90
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Channel advance source"
+  "Read rate"
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 125
-y 262
-w 150
-h 20
-font "helvetica-medium-r-14.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "First counter"
-}
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 287
-w 257
-h 20
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 125
-y 287
-w 150
-h 20
-font "helvetica-medium-r-14.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Last counter"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
 # (Static Text)
 object activeXTextClass
@@ -1038,7 +861,7 @@ minor 1
 release 1
 x 125
 y 312
-w 150
+w 160
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -1046,6 +869,25 @@ bgColor index 3
 useDisplayBg
 value {
   "Prescale counter"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 125
+y 337
+w 200
+h 20
+font "helvetica-medium-r-14.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "First point handling"
 }
 endObjectProperties
 
@@ -1154,159 +996,12 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 18
-y 162
-w 217
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 137
-w 230
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 187
-w 207
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 212
-w 248
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 28
-y 112
-w 157
-h 20
-
-beginGroup
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 28
 y 112
 w 90
 h 20
 
 beginGroup
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 367
-w 257
-h 20
-
-beginGroup
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 367
-w 100
-h 20
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)ReadAll.SCAN"
-indicatorPv "$(P)ReadAll.SCAN"
-font "helvetica-medium-r-12.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 225
-y 367
-w 50
-h 20
-fgColor rgb 0 0 0
-onColor rgb 29440 57088 65280
-offColor rgb 29440 57088 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)DoReadAll.VAL"
-pressValue "1"
-releaseValue 
-onLabel "Read"
-offLabel "Read"
-3d
-useEnumNumeric
-font "helvetica-medium-r-12.0"
-endObjectProperties
 
 endGroup
 
@@ -1405,184 +1100,64 @@ replaceSymbols {
 }
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
+# (Menu Button)
+object activeMenuButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 375
-y 105
-w 60
+x 18
+y 237
+w 100
 h 20
 fgColor rgb 0 0 0
-bgColor rgb 47872 47872 47872
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
-font "helvetica-medium-r-8.0"
-icon
-numPvs 16
-numDsps 8
-displayFileName {
-  0 SIS38XX_plot.edl
-  1 SIS38XX_plot.edl
-  2 SIS38XX_plot.edl
-  3 SIS38XX_plot.edl
-  4 SIS38XX_plot.edl
-  5 SIS38XX_plot.edl
-  6 SIS38XX_plot.edl
-  7 SIS38XX_plot.edl
-}
-menuLabel {
-  0 Channel 9
-  1 Channel 10
-  2 Channel 11
-  3 Channel 12
-  4 Channel 13
-  5 Channel 4
-  6 Channel 15
-  7 Channel 16
-}
-symbols {
-  0 "P=$(P),M=mca9"
-  1 "P=$(P),M=mca10"
-  2 "P=$(P),M=mca11"
-  3 "P=$(P),M=mca12"
-  4 "P=$(P),M=mca13"
-  5 "P=$(P),M=mca14"
-  6 "P=$(P),M=mca15"
-  7 "P=$(P),M=mca16"
-}
-replaceSymbols {
-  0 1
-  1 1
-  2 1
-  3 1
-  4 1
-  5 1
-  6 1
-  7 1
-}
+controlPv "$(P)ChannelAdvance"
+indicatorPv "$(P)ChannelAdvance"
+font "helvetica-medium-r-12.0"
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
+# (Menu Button)
+object activeMenuButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 375
-y 130
-w 60
+x 18
+y 262
+w 100
 h 20
 fgColor rgb 0 0 0
-bgColor rgb 47872 47872 47872
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
-font "helvetica-medium-r-8.0"
-icon
-numPvs 16
-numDsps 8
-displayFileName {
-  0 SIS38XX_plot.edl
-  1 SIS38XX_plot.edl
-  2 SIS38XX_plot.edl
-  3 SIS38XX_plot.edl
-  4 SIS38XX_plot.edl
-  5 SIS38XX_plot.edl
-  6 SIS38XX_plot.edl
-  7 SIS38XX_plot.edl
-}
-menuLabel {
-  0 Channel 17
-  1 Channel 18
-  2 Channel 19
-  3 Channel 20
-  4 Channel 21
-  5 Channel 22
-  6 Channel 23
-  7 Channel 24
-}
-symbols {
-  0 "P=$(P),M=mca17"
-  1 "P=$(P),M=mca18"
-  2 "P=$(P),M=mca19"
-  3 "P=$(P),M=mca20"
-  4 "P=$(P),M=mca21"
-  5 "P=$(P),M=mca22"
-  6 "P=$(P),M=mca23"
-  7 "P=$(P),M=mca24"
-}
-replaceSymbols {
-  0 1
-  1 1
-  2 1
-  3 1
-  4 1
-  5 1
-  6 1
-  7 1
-}
+controlPv "$(P)FirstCounter"
+indicatorPv "$(P)FirstCounter"
+font "helvetica-medium-r-12.0"
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
+# (Menu Button)
+object activeMenuButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 375
-y 155
-w 60
+x 18
+y 287
+w 100
 h 20
 fgColor rgb 0 0 0
-bgColor rgb 47872 47872 47872
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
-font "helvetica-medium-r-8.0"
-icon
-numPvs 16
-numDsps 8
-displayFileName {
-  0 SIS38XX_plot.edl
-  1 SIS38XX_plot.edl
-  2 SIS38XX_plot.edl
-  3 SIS38XX_plot.edl
-  4 SIS38XX_plot.edl
-  5 SIS38XX_plot.edl
-  6 SIS38XX_plot.edl
-  7 SIS38XX_plot.edl
-}
-menuLabel {
-  0 Channel 25
-  1 Channel 26
-  2 Channel 27
-  3 Channel 28
-  4 Channel 29
-  5 Channel 30
-  6 Channel 31
-  7 Channel 32
-}
-symbols {
-  0 "P=$(P),M=mca25"
-  1 "P=$(P),M=mca26"
-  2 "P=$(P),M=mca27"
-  3 "P=$(P),M=mca28"
-  4 "P=$(P),M=mca29"
-  5 "P=$(P),M=mca30"
-  6 "P=$(P),M=mca31"
-  7 "P=$(P),M=mca32"
-}
-replaceSymbols {
-  0 1
-  1 1
-  2 1
-  3 1
-  4 1
-  5 1
-  6 1
-  7 1
-}
+controlPv "$(P)LastCounter"
+indicatorPv "$(P)LastCounter"
+font "helvetica-medium-r-12.0"
 endObjectProperties
 
 # (Menu Button)
@@ -1592,7 +1167,7 @@ major 4
 minor 0
 release 0
 x 375
-y 257
+y 182
 w 80
 h 20
 fgColor rgb 0 0 0
@@ -1612,7 +1187,7 @@ major 4
 minor 0
 release 0
 x 375
-y 282
+y 207
 w 80
 h 20
 fgColor rgb 0 0 0
@@ -1632,7 +1207,7 @@ major 4
 minor 0
 release 0
 x 376
-y 307
+y 232
 w 80
 h 20
 fgColor rgb 0 0 0
@@ -1663,7 +1238,7 @@ major 4
 minor 0
 release 0
 x 376
-y 345
+y 270
 w 235
 h 20
 
@@ -1680,7 +1255,7 @@ major 4
 minor 0
 release 0
 x 376
-y 370
+y 295
 w 276
 h 20
 
@@ -1697,7 +1272,7 @@ major 4
 minor 0
 release 0
 x 375
-y 205
+y 130
 w 245
 h 22
 
@@ -1707,18 +1282,6 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 237
-w 257
-h 20
-
-beginGroup
 
 # (Menu Button)
 object activeMenuButtonClass
@@ -1727,7 +1290,7 @@ major 4
 minor 0
 release 0
 x 18
-y 237
+y 362
 w 100
 h 20
 fgColor rgb 0 0 0
@@ -1735,72 +1298,35 @@ bgColor rgb 29440 57088 65280
 inconsistentColor rgb 17920 17920 17920
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
-controlPv "$(P)ChannelAdvance"
-indicatorPv "$(P)ChannelAdvance"
+controlPv "$(P)ReadAll.SCAN"
+indicatorPv "$(P)ReadAll.SCAN"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
-# (Menu Button)
-object activeMenuButtonClass
+# (Message Button)
+object activeMessageButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 18
-y 262
-w 100
+x 225
+y 362
+w 50
 h 20
 fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)FirstCounter"
-indicatorPv "$(P)FirstCounter"
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)DoReadAll.VAL"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
 font "helvetica-medium-r-12.0"
 endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 287
-w 257
-h 20
-
-beginGroup
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 18
-y 287
-w 100
-h 20
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)LastCounter"
-indicatorPv "$(P)LastCounter"
-font "helvetica-medium-r-12.0"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
 # (Menu Button)
 object activeMenuButtonClass
@@ -1819,6 +1345,26 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 controlPv "$(P)PrescaleCounter"
 indicatorPv "$(P)PrescaleCounter"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 18
+y 337
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)Point0Action"
+indicatorPv "$(P)Point0Action"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
