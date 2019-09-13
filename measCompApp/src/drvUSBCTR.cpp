@@ -27,6 +27,12 @@
 
 #include <epicsExport.h>
 
+typedef enum {
+  MCSPoint0Clear,
+  MCSPoint0NoClear,
+  MCSPoint0Skip
+} MCSPoint0Action_t;
+
 static const char *driverName = "USBCTR";
 
 // Pulse output parameters
@@ -57,6 +63,7 @@ static const char *driverName = "USBCTR";
 #define MCSFirstCounterString     "MCS_FIRST_COUNTER"
 #define MCSLastCounterString      "MCS_LAST_COUNTER"
 #define MCSPrescaleCounterString  "MCS_PRESCALE_COUNTER"
+#define MCSPoint0ActionString     "MCS_POINT0_ACTION"
 
 // Model ID
 #define modelString               "MODEL"
@@ -118,6 +125,7 @@ protected:
   int MCSFirstCounter_;
   int MCSLastCounter_;
   int MCSPrescaleCounter_;
+  int MCSPoint0Action_;
 
   // Command for EPICS MCA record
   int mcaStartAcquire_;
@@ -251,6 +259,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   createParam(MCSFirstCounterString,           asynParamInt32, &MCSFirstCounter_);
   createParam(MCSLastCounterString,            asynParamInt32, &MCSLastCounter_);
   createParam(MCSPrescaleCounterString,        asynParamInt32, &MCSPrescaleCounter_);
+  createParam(MCSPoint0ActionString,           asynParamInt32, &MCSPoint0Action_);
 
   // MCA record parameters
   createParam(mcaStartAcquireString,                asynParamInt32, &mcaStartAcquire_);
@@ -415,6 +424,7 @@ int USBCTR::startMCS()
   int prescale;
   int prescaleCounter;
   int mode;
+  int point0Action;
   double dwell;
   int channelAdvance;
   LONG count;
@@ -455,8 +465,11 @@ int USBCTR::startMCS()
   getIntegerParam(mcaNumChannels_, &numPoints);
   getIntegerParam(MCSExtTrigger_, &extTrigger);
   getDoubleParam(mcaDwellTime_, &dwell);
+  getIntegerParam(MCSPoint0Action_, &point0Action);
   if (dwell > 1e-6) rateFactor = 1000.;
   rate = (LONG)((rateFactor / dwell) + 0.5);
+  if (point0Action == MCSPoint0Skip)
+    numPoints++;
   count =  numMCSCounters_ * numPoints;
   
   if (dwell > 1e-4) {
@@ -476,6 +489,9 @@ int USBCTR::startMCS()
   // At long dwell times read use a single buffer for reading the data
   if (dwell >= 0.05)
     options |= SINGLEIO;
+
+  if (point0Action == MCSPoint0NoClear)
+    options |= NOCLEAR;
  
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
@@ -508,16 +524,18 @@ int USBCTR::readMCS()
   int lastPoint=0;
   int currentPoint;
   int status;
-  int i, j;
+  int i;
   short ctrStatus;
   long ctrCount, ctrIndex;
   epicsTimeStamp now;
   int numTimePoints;
+  int point0Action;
   double presetReal, elapsedTime;
   static const char *functionName = "readMCS";
   
   getIntegerParam(MCSCurrentPoint_, &currentPoint);
   getIntegerParam(mcaNumChannels_,  &numTimePoints);
+  getIntegerParam(MCSPoint0Action_, &point0Action);
   status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
     "%s::%s cbGetStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
@@ -527,21 +545,23 @@ int USBCTR::readMCS()
   }
   if (ctrIndex >= 0) {
     lastPoint = ctrIndex / numMCSCounters_ + 1;
-    if (counterBits_ == 32) {
-      for (i=currentPoint; i<lastPoint; i++) {
-        for (j=0; j<numMCSCounters_; j++) {
-          MCSBuffer_[firstMCSCounter_+j][i] = pCounts32_[i*numMCSCounters_ + j];
+    
+    int inPtr = currentPoint;
+    if (point0Action == MCSPoint0Skip) {
+      inPtr++;
+    }
+    for(; inPtr < lastPoint; inPtr++) {
+      for (i=0; i<numMCSCounters_; i++) {
+        if (counterBits_ == 32) {
+          MCSBuffer_[firstMCSCounter_+i][currentPoint] = pCounts32_[inPtr*numMCSCounters_ + i];
+        } else {
+          MCSBuffer_[firstMCSCounter_+i][currentPoint] = pCounts16_[inPtr*numMCSCounters_ + i];
         }
       }
-    } else {
-      for (i=currentPoint; i<lastPoint; i++) {
-        for (j=0; j<numMCSCounters_; j++) {
-          MCSBuffer_[firstMCSCounter_+j][i] = pCounts16_[i*numMCSCounters_ + j];
-        }
-      }
+      currentPoint++;
     }
   }
-  setIntegerParam(MCSCurrentPoint_, lastPoint);
+  setIntegerParam(MCSCurrentPoint_, currentPoint);
 
   getDoubleParam(mcaPresetRealTime_,  &presetReal);
   getDoubleParam(mcaElapsedRealTime_, &elapsedTime);
