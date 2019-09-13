@@ -226,6 +226,18 @@ record(mbbo,"$(P)PrescaleCounter") {
   field(SVST, "CTR7")
 }
 
+record(mbbo,"$(P)Point0Action") {
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(OUT,  "@asyn($(PORT),0)MCS_POINT0_ACTION")
+  field(ZRVL, "0")
+  field(ZRST, "Clear")
+  field(ONVL, "1")
+  field(ONST, "No clear")
+  field(TWVL, "2")
+  field(TWST, "Skip")
+}
+
 record(longin,"$(P)MaxChannels") {
   field(PINI, "YES")
   field(DTYP, "asynInt32")
