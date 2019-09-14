@@ -10,7 +10,7 @@
     <h1>
       Driver for the Measurement Computing USB-CTR08</h1>
     <h2>
-      December 5, 2014</h2>
+      September 14, 2019</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -40,7 +40,7 @@
     This is an <a href="http://www.aps.anl.gov/epics">EPICS</a> driver for the <a href="http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx">
       USB-CTR04 and USB-CTR08</a> counter/timer module from <a href="http://www.mccdaq.com">
         Measurement Computing </a>The driver is written in C++, and consists of a class
-    that inherits from <a href="http://www.aps.anl.gov/epics/modules/soft/asyn/R4-22/asynPortDriver.html">
+    that inherits from <a href="http://www.aps.anl.gov/epics/modules/soft/asyn/R4-36/asynPortDriver.html">
       asynPortDriver</a>, which is part of the EPICS <a href="http://www.aps.anl.gov/epics/modules/soft/asyn">
         asyn</a> module.
   </p>
@@ -75,13 +75,20 @@
   <p>
     The following lines are needed in the EPICS startup script for the USBCTR.</p>
   <pre>
+# This line is for Linux only
+cbAddBoard("USB-CTR", "")
+
+## Set the minimum sleep time to 1 ms
+asynSetMinTimerPeriod(0.001)
+
 ## Configure port driver
 # USBCTRConfig(portName,       # The name to give to this asyn port driver
-#              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program 
+#              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program or cbAddBoard above
 #              maxTimePoints)  # Maximum number of time points for MCS
-USBCTRConfig("$(PORT)", 0, 2048)
+#              pollingTime)    # Delay in the polling thread
+USBCTRConfig("$(PORT)", 0, 2048, .01)
 
-#asynSetTraceMask $(PORT) 0 255
+#asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACEIO_DRIVER)
 
 dbLoadTemplate("USBCTR.substitutions")
 
@@ -116,7 +123,6 @@ dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)8,  DTYP
 
 asynSetTraceIOMask($(PORT),0,2)
 #asynSetTraceFile("$(PORT)",0,"$(MODEL).out")
-#asynSetTraceMask("$(PORT)",0,0xff)
 
 < save_restore.cmd
 save_restoreSet_status_prefix($(PREFIX))
@@ -125,12 +131,10 @@ dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
 iocInit
 
 seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(FIELD)")
-
-create_monitor_set("auto_settings.req",30)
 </pre>
   <p>
-    The measComp module comes with an example iocBoot/iocMeasComp directory that contains
-    example startup scripts and example substitutions files.</p>
+    The measComp module comes with an example iocBoot/iocUSBCTR directory that contains
+    and example startup script and example substitution files.</p>
   <h2 id="Databases" style="text-align: center">
     Databases</h2>
   <p>
@@ -141,15 +145,20 @@ create_monitor_set("auto_settings.req",30)
     <tbody>
       <tr>
         <th>
-          EPICS record name</th>
+          EPICS record name
+        </th>
         <th>
-          EPICS record type</th>
+          EPICS record type
+        </th>
         <th>
-          asyn interface</th>
+          asyn interface
+        </th>
         <th>
-          drvInfo string</th>
+          drvInfo string
+        </th>
         <th>
-          Description</th>
+          Description
+        </th>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -282,15 +291,20 @@ create_monitor_set("auto_settings.req",30)
       </tr>
       <tr>
         <th>
-          EPICS record name</th>
+          EPICS record name
+        </th>
         <th>
-          EPICS record type</th>
+          EPICS record type
+        </th>
         <th>
-          asyn interface</th>
+          asyn interface
+        </th>
         <th>
-          drvInfo string</th>
+          drvInfo string
+        </th>
         <th>
-          Description</th>
+          Description
+        </th>
       </tr>
       <tr>
         <td>
@@ -426,7 +440,7 @@ create_monitor_set("auto_settings.req",30)
     gates. Counters 1-7 can also be set as preset counters, and the scaler record will
     stop counting when any of these preset values (.PR2-.PR8) are exceeded. However,
     unlike the .PR1 preset, these presets are done in software in the driver polling
-    routine. This polling routine runs at 100 Hz, and whenever a preset is exceeded
+    routine. The device sends readings at 100 Hz, and whenever a preset is exceeded
     counting is stopped. Each of the counters will have counted for exactly the same
     amount of time, but the actual count time could be up to 0.01 seconds longer than
     the time when the preset was reached.</p>
@@ -459,11 +473,11 @@ create_monitor_set("auto_settings.req",30)
       External Clock Input (CLKI)on the USB-CTR module. The minimum dwell time (period)
       of this signal is described above.</li>
     <li>An external channel advance can be "prescaled" (frequency divided by N) by connecting
-      it to a counter input that is outside the range of FirstCounter to LastCounter.
-      This counter is assigned to the PrescaleCounter record. The Counter Output of the
-      PrescaleCounter must be connected to the External Clock Input on the USB-CTR module.
-      I have asked Measurment Computing to consider adding a prescale register for the
-      CLKI signal in a future firmware version, but I don't know if this will be done.</li>
+      it to a counter input. This counter is assigned to the PrescaleCounter record. The
+      Counter Output of the PrescaleCounter must be connected to the External Clock Input
+      on the USB-CTR module. I have asked Measurment Computing to consider adding a prescale
+      register for the CLKI signal in a future firmware version, but I don't know if this
+      will be done.</li>
     <li>To achieve the shortest dwell times the counter must be read in 16-bit mode rather
       than 32-bit mode. This is handled automatically by the driver. If the dwell time
       is less than 100 microseconds the counters are read in 16-bit mode, while for longer
@@ -483,15 +497,20 @@ create_monitor_set("auto_settings.req",30)
       </tr>
       <tr>
         <th>
-          EPICS record name</th>
+          EPICS record name
+        </th>
         <th>
-          EPICS record type</th>
+          EPICS record type
+        </th>
         <th>
-          asyn interface</th>
+          asyn interface
+        </th>
         <th>
-          drvInfo string</th>
+          drvInfo string
+        </th>
         <th>
-          Description</th>
+          Description
+        </th>
       </tr>
       <tr>
         <td>
@@ -711,6 +730,36 @@ create_monitor_set("auto_settings.req",30)
       </tr>
       <tr>
         <td>
+          $(P)$(R)Point0Action</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          MCS_POINT0_ACTION</td>
+        <td>
+          Controls how the first time point in the MCS scan is handled. The USB-CTR always
+          reads the current scaler counts as soon as MCS acquisition begins, rather than after
+          the first channel advance occurs. This record selects one of the following 3 modes:
+          <ul>
+            <li>"Clear" (0) In this mode the scalers are cleared to 0 before they are read. This
+              means that the counts in first time point for each counter will be 0.</li>
+            <li>"No clear" (1) In this mode the scalers are not cleared before they are read.
+              This means that there will normally be a large number of counts in the first time
+              point, since the counters will have been counting since they were last cleared.</li>
+            <li>"Skip" (2) In this mode the first time point will be skipped, i.e. not read into
+              the mca or waveform records. The first time point will thus contain the counts after
+              MCS acquisition was started until the first channel advance signal is received,
+              either internal or external. This is probably the mode that will be most useful.
+              However, it does require N+1 channel advance signals rather than N. This is handled
+              by the driver for internal channel advance. But for external channel advance the
+              user must ensure that N+1 pulses are sent. For example if NUseAll=2000 then 2001
+              pulses must be sent before acquisition will stop.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
           $(P)$(R)MaxChannels</td>
         <td>
           longin</td>
@@ -746,15 +795,20 @@ create_monitor_set("auto_settings.req",30)
       </tr>
       <tr>
         <th>
-          EPICS record name</th>
+          EPICS record name
+        </th>
         <th>
-          EPICS record type</th>
+          EPICS record type
+        </th>
         <th>
-          asyn interface</th>
+          asyn interface
+        </th>
         <th>
-          drvInfo string</th>
+          drvInfo string
+        </th>
         <th>
-          Description</th>
+          Description
+        </th>
       </tr>
       <tr>
         <td>
@@ -952,10 +1006,6 @@ This is cheaper and simpler than using LEMO tees and short cables on the BC-020 
   <h2 id="Restrictions" style="text-align: center">
     Restrictions</h2>
   <ul>
-    <li>The EPICS driver only works on Windows, because it requires the Measurement Computing
-      Univeral Library which is only available for Windows. Some of the newer Measurement
-      Computing modules have a messaging interface and can be used on Linux, but the USB-CTR08
-      does not (yet?) have a messaging interface.</li>
     <li>The EPICS driver only uses the Totalize mode of the counters. With the scaler
       record it does a one-shot totalize, while in the MCS mode it totalizes into time-bins.
       The USB-CTR08 is also capable of running in 3 other modes.
@@ -974,7 +1024,7 @@ This is cheaper and simpler than using LEMO tees and short cables on the BC-020 
       signal goes high/low, polarity of the output, etc. These options are not currently
       exposed in the EPICS driver.</li>
     <li>The EPICS driver only works in 32-bit counter depth mode. The USB-CTR08 can count
-      with a 64-bit counter depth. EPICS does not currently have support for 64-bit integer
+      with a 64-bit counter depth. asyn does not currently have support for 64-bit integer
       data types, so this cannot be supported.</li>
     <li>To work with the scaler record the counter 0 output must be wired to the gate
       inputs of counters 1-7 as discussed above.</li>
