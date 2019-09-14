@@ -9,6 +9,22 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-4 (September 14, 2019)</h2>
+  <ul>
+    <li>Improvements to USB-CTR04/08 support
+      <ul>
+        <li>Added support for Linux.</li>
+        <li>Added Dwell_RBV record to show the actual dwell time which can be different from
+          requested.</li>
+        <li>Added Point0Action record to control how the first time point in an MCS scan is
+          handled. Choices are "Clear", "No clear", and "Skip".</li>
+        <li>Fixed bugs when FirstCounter!=0 or LastCounter!=7.</li>
+        <li>Fixed initialization bug which was causing random crashes at startup.</li>
+        <li>Improved update rate at long dwell times.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2 style="text-align: center">
     Release 2-3 (August 9, 2019)</h2>
   <ul>
     <li>Improved behavior for E-1608 when there are brief network outages. If the waveform
