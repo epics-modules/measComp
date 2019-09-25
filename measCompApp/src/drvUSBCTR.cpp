@@ -73,6 +73,8 @@ static const char *driverName = "USBCTR";
 #define MIN_DELAY       0.
 #define MAX_DELAY       67.11
 #define MAX_COUNTERS    8   // Maximum mumber of counters on USB-CTR04/08
+#define MAX_MCS_COUNTERS (MAX_COUNTERS + 1) // +1 for collecting the digital I/O in MCS mode
+#define MAX_DAQ_LEN     2*MAX_MCS_COUNTERS // Each counter can take 2 words
 #define NUM_TIMERS      4   // Number of timers on USB-CTR08
 #define NUM_IO_BITS     8   // Number of digital I/O bits on USB-CTR08
 #define MAX_SIGNALS     MAX_COUNTERS
@@ -172,7 +174,11 @@ private:
   int maxTimePoints_;
   epicsInt32 scalerCounts_[MAX_COUNTERS];
   epicsInt32 scalerPresetCounts_[MAX_COUNTERS];
-  epicsInt32 *MCSBuffer_[MAX_COUNTERS];
+  epicsInt32 *MCSBuffer_[MAX_MCS_COUNTERS];
+  short chanArray_[MAX_DAQ_LEN];
+  short chanTypeArray_[MAX_DAQ_LEN];
+  short gainArray_[MAX_DAQ_LEN];
+  
   epicsFloat32 *MCSTimeBuffer_;
   HGLOBAL inputMemHandle_;
   epicsInt32 *pCounts32_;
@@ -312,11 +318,11 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   lastMCSCounter_ = numCounters_-1;
   
   // Allocate memory for the input buffers
-  for (i=0; i<numCounters_; i++) {
+  for (i=0; i<MAX_MCS_COUNTERS; i++) {
     MCSBuffer_[i]  = (epicsInt32 *) calloc(maxTimePoints_,  sizeof(epicsInt32));
   }
   MCSTimeBuffer_   = (epicsFloat32 *) calloc(maxTimePoints_,  sizeof(epicsFloat32));
-  inputMemHandle_  = cbWinBufAlloc32(maxTimePoints  * numCounters_);
+  inputMemHandle_  = cbWinBufAlloc32(maxTimePoints  * MAX_MCS_COUNTERS);
   pCounts32_ = (epicsInt32 *)inputMemHandle_;
   pCounts16_ = (epicsInt16 *)inputMemHandle_;
   
@@ -427,8 +433,10 @@ int USBCTR::startMCS()
   int point0Action;
   double dwell;
   int channelAdvance;
-  LONG count;
-  LONG rate;
+  long count;
+  long rate;
+  long pretrigCount = 0;
+  int chanCount;
   double rateFactor=1.0;
   static const char *functionName = "startMCS";
 
@@ -470,20 +478,20 @@ int USBCTR::startMCS()
   rate = (LONG)((rateFactor / dwell) + 0.5);
   if (point0Action == MCSPoint0Skip)
     numPoints++;
-  count =  numMCSCounters_ * numPoints;
   
+  options = 0;
   if (dwell > 1e-4) {
     counterBits_ = 32;
-    options = CTR32BIT;
+//    options = CTR32BIT;
   } else {
     counterBits_ = 16;
-    options = CTR16BIT;
+//    options = CTR16BIT;
   }
   options |= BACKGROUND;
   if (rateFactor > 1.0)
     options |= HIGHRESRATE;
   // Always enable external trigger.  If trigger input is not connected set TriggerMode=Low.
-  options |= EXTTRIGGER;
+//  options |= EXTTRIGGER;
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
   // At long dwell times read use a single buffer for reading the data
@@ -493,21 +501,40 @@ int USBCTR::startMCS()
   if (point0Action == MCSPoint0NoClear)
     options |= NOCLEAR;
  
-  status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
-                     inputMemHandle_, options);
+  for (i=0, chanCount=0; i<numMCSCounters_; i++, chanCount++) {
+      chanArray_[chanCount] = firstMCSCounter_ + i;
+      chanTypeArray_[chanCount] = CTRBANK0;
+      if (counterBits_ == 16) continue;
+      chanCount++;
+      chanArray_[chanCount] = firstMCSCounter_ + i;
+      chanTypeArray_[chanCount] = CTRBANK1;
+  }
+  if (counterBits_ == 32) { // Add padding for binary data
+      chanArray_[chanCount] = 0;
+      chanTypeArray_[chanCount] = PADZERO;
+      chanCount++;
+  }
+  chanArray_[chanCount] = AUXPORT;
+  chanTypeArray_[chanCount] = DIGITAL8;
+  chanCount++;
+  numMCSCounters_++; // TO ADD DIO DATA
+  count = chanCount * numPoints;
+  
+  status = cbDaqInScan(boardNum_, chanArray_, chanTypeArray_, gainArray_, chanCount, &rate,
+                       &pretrigCount, &count, inputMemHandle_, options);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s called cbCInScan, firstMCSCounter=%d, lastMCSCounter=%d, count=%d, rate=%d,"
+    "%s::%s called cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
     " inputMemHandle_=%p, options=0x%x, status=%d\n",
-    driverName, functionName, firstMCSCounter_, lastMCSCounter_, count, rate,
+    driverName, functionName, chanCount, count, rate,
     inputMemHandle_, options, status);
   // The actual dwell time can be different from requested due to clock granularity
   setDoubleParam(mcaDwellTime_, rateFactor/rate);
  
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s error calling cbCInScan, firstMCSCounter=%d, lastMCSCounter=%d, count=%d, rate=%d,"
+      "%s::%s error calling cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
       " inputMemHandle_=%p, options=0x%x, status=%d, error=%s\n",
-      driverName, functionName, firstMCSCounter_, lastMCSCounter_, count, rate,
+      driverName, functionName, chanCount, count, rate,
       inputMemHandle_, options, status, getErrorMessage(status));
   }
   setIntegerParam(MCSCurrentPoint_, 0);
@@ -536,7 +563,7 @@ int USBCTR::readMCS()
   getIntegerParam(MCSCurrentPoint_, &currentPoint);
   getIntegerParam(mcaNumChannels_,  &numTimePoints);
   getIntegerParam(MCSPoint0Action_, &point0Action);
-  status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
+  status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, DAQIFUNCTION);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
     "%s::%s cbGetStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
@@ -544,6 +571,7 @@ int USBCTR::readMCS()
     MCSRunning_ = false;
   }
   if (ctrIndex >= 0) {
+    if (counterBits_ == 32) ctrIndex /= 2;
     lastPoint = ctrIndex / numMCSCounters_ + 1;
     
     int inPtr = currentPoint;
