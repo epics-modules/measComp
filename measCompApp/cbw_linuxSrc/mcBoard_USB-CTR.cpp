@@ -96,8 +96,9 @@ void mcUSB_CTR::readThread()
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {
                 // In most cases it is an error if bytesRead <= 0
-                // However in external trigger mode this may be normal since we can't predict when first trigger will come
-                if ((scanData_.frequency == 0) && (ctrScanCurrentPoint_ == 0)){
+                // However in external channel advance or external trigger mode this may be normal since we can't predict when the first pulse will come
+                // Ignore the error if this is the first point in the scan.
+                if (ctrScanCurrentPoint_ == 0){
                     continue;
                 }
                 asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
@@ -155,7 +156,7 @@ int mcUSB_CTR::cbGetIOStatus(short *Status, long *CurCount, long *CurIndex, int 
 {
     //static const char *functionName = "cbGetIOStatus";
 
-    if (FunctionType == CTRFUNCTION) {
+    if ((FunctionType == CTRFUNCTION) || (FunctionType == DAQIFUNCTION)){
         readMutex_.lock();
         *Status = ctrScanAcquiring_ ? 1 : 0;
         *CurCount = ctrScanCurrentPoint_;
@@ -439,7 +440,7 @@ int mcUSB_CTR::cbDIn(int PortType, USHORT *DataValue)
 int mcUSB_CTR::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold)
 {
     uint8_t trigger;
-    //static const char *functionName = "cbSetTrigger";
+    static const char *functionName = "cbSetTrigger";
 
     switch (TrigType) {
       case TRIG_POS_EDGE:
@@ -455,9 +456,124 @@ int mcUSB_CTR::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThresh
           trigger = 4;
           break;
       default:
-          asynPrint(pasynUser_, ASYN_TRACE_ERROR, "mcUSB_CTR::cbSetTrigger unknown TrigType %d\n", TrigType);
+          asynPrint(pasynUser_, ASYN_TRACE_ERROR, "%s::%s unknown TrigType %d\n", driverName, functionName, TrigType);
           return BADTRIGTYPE;
     }
     usbTriggerConfig_USB_CTR(deviceHandle_, trigger);
     return NOERRORS;
 }
+
+// Daq functions
+int mcUSB_CTR::cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
+                           long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options)
+{
+    static const char *functionName = "cbDaqInScan";
+
+    for (int i=0; i<ChanCount; i++) {
+        // Each counter has 4 banks of 16-bit registers that can be scanned in any order.
+        // Bank 0 contains bit 0-15, Bank 1 contains bit 16-31, Bank 2 contains bit 32-47
+        // and Bank 4 contains bit 48-63.  If bit(5) is set to 1, this element will
+        // be a read of the DIO, otherwise it will use the specified counter and bank.
+        // ScanList[33] channel configuration:
+        // bit(0-2): Counter Nuber (0-7)
+        // bit(3-4): Counter Bank (0-3)
+        // bit(5): 1 = DIO,  0 = Counter
+        // bit(6): 1 = Fill with 16-bits of 0's,  0 = normal (This allows for the creation
+        // of a 32 or 64-bit element of the DIO when it is mixed with 32 or 64-bit elements of counters)
+        scanData_.scanList[i] = 0x7 & ChanArray[i]; // Counter number
+        switch (ChanTypeArray[i]) {
+          case CTRBANK0:
+            scanData_.scanList[i] |= (0x3 & 0) << 3;     // Bank 0 (bits 0-15))
+            break;
+          case CTRBANK1:
+            scanData_.scanList[i] |= (0x3 & 1) << 3;     // Bank 1 (bits 16-31))
+            break;
+          case DIGITAL8:
+            scanData_.scanList[i] = (1 << 5);           // Bit 5 is DIO
+            break;
+          case PADZERO:
+            scanData_.scanList[i] = (1 << 6);           // Bit 6 is padding
+            break;
+        }
+    }
+    ctrScanDataType_ = CTR16BIT;
+    ctrScanAcquiring_ = true;
+    ctrScanBuffer_ = (uint16_t *)MemHandle;
+    scanData_.lastElement = ChanCount - 1;
+    ctrScanNumPoints_ =   *TotalCount/ChanCount;
+    ctrScanNumCounters_ = ChanCount;
+    ctrScanNumElements_ = ChanCount;
+    scanData_.mode = 0;
+    if (Options & SINGLEIO) {
+        scanData_.mode |= USB_CTR_SINGLEIO;
+    }
+    scanData_.options = 0;
+    if (Options & NOCLEAR)    scanData_.options |= 0x1;
+    if (Options & EXTTRIGGER) scanData_.options |= 0x1 << 3;
+    ctrScanContinuous_ = false;
+    scanData_.count = ctrScanNumPoints_;
+    if (Options & CONTINUOUS) {
+        scanData_.count = 0;
+        ctrScanContinuous_ = true;
+    }
+    scanData_.mode |= USB_CTR_CONTINUOUS_READOUT;
+    double scanRate = *Rate;
+    if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
+    uint32_t pacer_period = rint((96.E6/scanRate) - 1);
+    scanRate = 96.e6 / (pacer_period + 1);
+    *Rate = (Options & HIGHRESRATE) ? scanRate * 1000 : scanRate;
+
+    if (Options & EXTCLOCK) scanRate = 0;
+    scanData_.frequency = scanRate;
+
+    // Make sure the FIFO is cleared
+    usbScanStop_USB_CTR(deviceHandle_);
+    usbScanClearFIFO_USB_CTR(deviceHandle_);
+    usbScanBulkFlush_USB_CTR(deviceHandle_, 5);
+
+    asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+        "%s::%s calling usbScanConfigW_USB_CTR lastElement=%d, list[0-3]=0x%x, 0x%x, 0x%x, 0x%x\n",
+        driverName, functionName, scanData_.lastElement, scanData_.scanList[0], scanData_.scanList[1], scanData_.scanList[2], scanData_.scanList[3]);
+    usbScanConfigW_USB_CTR(deviceHandle_, scanData_);
+    
+    asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+        "%s::%s calling usbScanStart_USB_CTR count=%d, retrig_count=%d, mode=0x%x, frequency=%f, packet_size=%d options=0x%x\n",
+        driverName, functionName, scanData_.count, scanData_.retrig_count, scanData_.mode, scanData_.frequency, scanData_.packet_size, scanData_.options);
+    usbScanStart_USB_CTR(deviceHandle_, &scanData_);
+    asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+        "%s::%s after calling usbScanStart_USB_CTR count=%d, retrig_count=%d, mode=0x%x, frequency=%f, packet_size=%d options=0x%x\n",
+        driverName, functionName, scanData_.count, scanData_.retrig_count, scanData_.mode, scanData_.frequency, scanData_.packet_size, scanData_.options);
+
+    if (ctrScanRawBuffer_) free(ctrScanRawBuffer_);
+    ctrScanRawBuffer_ = (uint16_t *)calloc(ctrScanNumPoints_*ctrScanNumElements_, sizeof(uint32_t)); // Can hold 16-bit or 32-bit data
+    epicsEventSignal(acquireStartEvent_);
+    return NOERRORS;
+}
+
+int mcUSB_CTR::cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+                               int Gain, float Level, float Variance, int TrigEvent)
+{
+    uint8_t trigger;
+    static const char *functionName = "cbDaqSetTrigger";
+
+    switch (TrigSense) {
+      case RISING_EDGE:
+          trigger = 3;
+          break;
+      case FALLING_EDGE:
+          trigger = 1;
+          break;
+      case HIGH_LEVEL:
+          trigger = 2;
+          break;
+      case LOW_LEVEL:
+          trigger = 0;
+          break;
+      default:
+          asynPrint(pasynUser_, ASYN_TRACE_ERROR, "%s::%s unknown TrigSense %d\n", driverName, functionName, TrigSense);
+          return BADTRIGTYPE;
+    }
+    usbTriggerConfig_USB_CTR(deviceHandle_, trigger);
+    return NOERRORS;
+}
+
