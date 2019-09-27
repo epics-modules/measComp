@@ -58,7 +58,6 @@ static const char *driverName = "USBCTR";
 // MCS parameters other than those in drvMca.h
 #define MCSCurrentPointString     "MCS_CURRENT_POINT"
 #define MCSMaxPointsString        "MCS_MAX_POINTS"
-#define MCSExtTriggerString       "MCS_EXT_TRIGGER"
 #define MCSTimeWFString           "MCS_TIME_WF"
 #define MCSCounterEnableString    "MCS_COUNTER_ENABLE"
 #define MCSPrescaleCounterString  "MCS_PRESCALE_COUNTER"
@@ -77,7 +76,7 @@ static const char *driverName = "USBCTR";
 #define MAX_DAQ_LEN     2*MAX_MCS_COUNTERS // Each counter can take 2 words
 #define NUM_TIMERS      4   // Number of timers on USB-CTR08
 #define NUM_IO_BITS     8   // Number of digital I/O bits on USB-CTR08
-#define MAX_SIGNALS     MAX_COUNTERS
+#define MAX_SIGNALS     MAX_MCS_COUNTERS
 
 #define DEFAULT_POLL_TIME 0.01
 
@@ -122,7 +121,6 @@ protected:
   // MCS parameters other than those in drvMca.h
   int MCSCurrentPoint_;
   int MCSMaxPoints_;
-  int MCSExtTrigger_;
   int MCSTimeWF_;
   int MCSCounterEnable_;
   int MCSPrescaleCounter_;
@@ -258,9 +256,8 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   // MCS parameters other than those in drvMca.h
   createParam(MCSCurrentPointString,           asynParamInt32, &MCSCurrentPoint_);
   createParam(MCSMaxPointsString,              asynParamInt32, &MCSMaxPoints_);
-  createParam(MCSExtTriggerString,             asynParamInt32, &MCSExtTrigger_);
   createParam(MCSTimeWFString,          asynParamFloat32Array, &MCSTimeWF_);
-  createParam(MCSCounterEnableString,          asynParamInt32, &MCSCounterEnable_);
+  createParam(MCSCounterEnableString,  asynParamUInt32Digital, &MCSCounterEnable_);
   createParam(MCSPrescaleCounterString,        asynParamInt32, &MCSPrescaleCounter_);
   createParam(MCSPoint0ActionString,           asynParamInt32, &MCSPoint0Action_);
 
@@ -298,16 +295,13 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   // Model ID
   createParam(modelString,                          asynParamInt32, &model_);                     /* int32, read */
 
-  setIntegerParam(MCSFirstCounter_, 0);
   cbGetBoardName(boardNum_, boardName);
   if (strcmp(boardName, "USB-CTR08") == 0) {
     setIntegerParam(model_, 0);
     numCounters_ = 8;
-    setIntegerParam(MCSCounterEnable_, 0xff);
   } else if (strcmp(boardName, "USB-CTR04") == 0) {
     setIntegerParam(model_, 1);
     numCounters_ = 4;
-    setIntegerParam(MCSCounterEnable_, 0xff);
   } else {
     printf("Unknown model\n");
   }
@@ -317,7 +311,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
     MCSBuffer_[i]  = (epicsInt32 *) calloc(maxTimePoints_,  sizeof(epicsInt32));
   }
   MCSTimeBuffer_   = (epicsFloat32 *) calloc(maxTimePoints_,  sizeof(epicsFloat32));
-  inputMemHandle_  = cbWinBufAlloc32(maxTimePoints  * MAX_MCS_COUNTERS);
+  inputMemHandle_  = cbWinBufAlloc32((maxTimePoints+1)  * MAX_MCS_COUNTERS); // +1 allows for skipping first point
   pCounts32_ = (epicsInt32 *)inputMemHandle_;
   pCounts16_ = (epicsInt16 *)inputMemHandle_;
   
@@ -331,6 +325,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   resetScaler();
   clearScalerPresets();
   MCSErased_ = false;
+
   eraseMCS();
 
   // Put pulse generators in known state
@@ -419,8 +414,8 @@ int USBCTR::startMCS()
 {
   int numPoints;
   int i;
-  int extTrigger;
   int status;
+  epicsUInt32 counterEnable;
   int options;
   int prescale;
   int prescaleCounter;
@@ -435,17 +430,18 @@ int USBCTR::startMCS()
   double rateFactor=1.0;
   static const char *functionName = "startMCS";
 
-  getIntegerParam(MCSCounterEnable_,  &mcsCounterEnable_);
   getIntegerParam(MCSPrescaleCounter_, &prescaleCounter);
   getIntegerParam(mcaPrescale_, &prescale);
   getIntegerParam(mcaChannelAdvanceSource_, &channelAdvance);
+  getUIntDigitalParam(MCSCounterEnable_,  &counterEnable, 0xFFFFFFFF);
+
   for (i=0; i<MAX_MCS_COUNTERS; i++) {
-    mcsCounterEnable_[i] = (mcsCounterEnable & (1<<i)) ? true : false;
+    mcsCounterEnable_[i] = (counterEnable & (1<<i)) ? true : false;
   }
-  numMCSCounters = 0;
+  numMCSCounters_ = 0;
   for (i=0; i<numCounters_; i++) {
     if (!mcsCounterEnable_[i]) continue;
-    numMCSCounters++;
+    numMCSCounters_++;
     mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
     status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
                            CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
@@ -470,7 +466,6 @@ int USBCTR::startMCS()
     }
   }
   getIntegerParam(mcaNumChannels_, &numPoints);
-  getIntegerParam(MCSExtTrigger_, &extTrigger);
   getDoubleParam(mcaDwellTime_, &dwell);
   getIntegerParam(MCSPoint0Action_, &point0Action);
   if (dwell > 1e-6) rateFactor = 1000.;
@@ -487,14 +482,13 @@ int USBCTR::startMCS()
   options |= BACKGROUND;
   if (rateFactor > 1.0)
     options |= HIGHRESRATE;
-  // Always enable external trigger.  If trigger input is not connected set TriggerMode=Low.
-//  options |= EXTTRIGGER;
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
   // At long dwell times read use a single buffer for reading the data
   if (dwell >= 0.05)
     options |= SINGLEIO;
-
+  // Always use EXTTRIGGER
+  options |= EXTTRIGGER;
   if (point0Action == MCSPoint0NoClear)
     options |= NOCLEAR;
  
@@ -508,19 +502,19 @@ int USBCTR::startMCS()
     chanTypeArray_[chanCount] = CTRBANK1;
     chanCount++;
   }
-  if (mcsCounterEnable[DIGITAL_IO_COUNTER]) {
+  if (mcsCounterEnable_[DIGITAL_IO_COUNTER]) {
     numMCSCounters_++;
-    if (counterBits_ == 32) { // Add padding for binary data
-        chanArray_[chanCount] = 0;
-        chanTypeArray_[chanCount] = PADZERO;
-        chanCount++;
-    }
     chanArray_[chanCount] = AUXPORT;
     chanTypeArray_[chanCount] = DIGITAL8;
     chanCount++;
+    if (counterBits_ == 32) { // Add padding for binary data
+      chanArray_[chanCount] = 0;
+      chanTypeArray_[chanCount] = PADZERO;
+      chanCount++;
+    }
   }
-  count = chanCount * numPoints;
   
+  count = chanCount * numPoints;
   status = cbDaqInScan(boardNum_, chanArray_, chanTypeArray_, gainArray_, chanCount, &rate,
                        &pretrigCount, &count, inputMemHandle_, options);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
@@ -552,7 +546,7 @@ int USBCTR::readMCS()
   int lastPoint=0;
   int currentPoint;
   int status;
-  int i;
+  int i, j;
   short ctrStatus;
   long ctrCount, ctrIndex;
   epicsTimeStamp now;
@@ -580,13 +574,16 @@ int USBCTR::readMCS()
       inPtr++;
     }
     for(; inPtr < lastPoint; inPtr++) {
-      for (i=0; i<nMAX_MCS_COUNTERS; i++) {
+      for (i=0, j=0; i<MAX_MCS_COUNTERS; i++) {
         if (!mcsCounterEnable_[i]) continue;
         if (counterBits_ == 32) {
-          MCSBuffer_[i][currentPoint] = pCounts32_[inPtr*numMCSCounters_ + i];
+          MCSBuffer_[i][currentPoint] = pCounts32_[inPtr*numMCSCounters_ + j];
+          // There seems to be a bug in PADZERO and it is actually giving coounter0 value not 0
+          if (i == DIGITAL_IO_COUNTER) MCSBuffer_[i][currentPoint] &= 0xff;
         } else {
-          MCSBuffer_[i][currentPoint] = pCounts16_[inPtr*numMCSCounters_ + i];
+          MCSBuffer_[i][currentPoint] = pCounts16_[inPtr*numMCSCounters_ + j];
         }
+        j++;
       }
       currentPoint++;
     }
@@ -602,7 +599,7 @@ int USBCTR::readMCS()
   }
 
   // Set elapsed times
-  for (i=0; i<=MAX_MCS_COUNTERS; i++) {
+  for (i=0; i<MAX_MCS_COUNTERS; i++) {
     setDoubleParam(i, mcaElapsedRealTime_, elapsedTime);
     setDoubleParam(i, mcaElapsedLiveTime_, elapsedTime);
   }
@@ -642,7 +639,7 @@ int USBCTR::eraseMCS()
   /* Reset the elapsed time and counts */
   elapsedPrevious_ = 0.;
   setIntegerParam(MCSCurrentPoint_, 0);
-  for (i=0; i<MAX_MCS_COUNTERS_; i++) {
+  for (i=0; i<MAX_MCS_COUNTERS; i++) {
     memset(MCSBuffer_[i], 0, numTimePoints * sizeof(epicsUInt32));
     setDoubleParam(i, mcaElapsedLiveTime_, 0.0);
     setDoubleParam(i, mcaElapsedRealTime_, 0.0);
@@ -881,7 +878,7 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
   
   // Trigger functions
   if (function == triggerMode_) {
-    status = cbSetTrigger(boardNum_, value, 0, 0);
+    status = cbDaqSetTrigger(boardNum_, TRIG_EXTTTL, value, 0, CTRBANK0, 0, 0, 0, START_EVENT);
   }
 
   // Scaler functions
@@ -1111,12 +1108,14 @@ asynStatus USBCTR::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
                                   size_t numRead, size_t *numActual)
 {
   int signal;
-  int command = pasynUser->reason;
+  int command;
+  const char *paramName;
   asynStatus status = asynSuccess;
   int currentPoint;
   size_t i;
   static const char* functionName="readInt32Array";
 
+  parseAsynUser(pasynUser, &command, &signal, &paramName);
   pasynManager->getAddr(pasynUser, &signal);
   asynPrint(pasynUser, ASYN_TRACE_FLOW, 
             "%s:%s: entry, command=%d, signal=%d, numRead=%d, &data=%p\n", 
