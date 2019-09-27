@@ -19,7 +19,7 @@ option -c;
 %%#include <string.h>
 
 /* Maximum number of counters supported */
-#define MAX_COUNTERS 8
+#define MAX_COUNTERS 9
 
 int i;
 int n;
