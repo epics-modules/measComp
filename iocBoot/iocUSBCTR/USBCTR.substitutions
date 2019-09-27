@@ -79,12 +79,3 @@ pattern
 {   USBCTR:,  Counter7,  USBCTR,      6}
 {   USBCTR:,  Counter8,  USBCTR,      7}
 }
-
-# Trigger
-file "$(MEASCOMP)/measCompApp/Db/measCompTrigger.template"
-{
-pattern
-{     P,       R,          PORT,    ADDR}
-{   USBCTR:,  Trig,       USBCTR,      0}
-}
-
