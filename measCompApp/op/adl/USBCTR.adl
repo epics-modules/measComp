@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/devel/measComp-2-3/measCompApp/op/adl/USBCTR.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/USBCTR.adl"
 	version=030109
 }
 display {
 	object {
-		x=997
-		y=128
+		x=841
+		y=171
 		width=580
 		height=670
 	}
@@ -763,191 +763,121 @@ composite {
 	object {
 		x=15
 		y=595
-		width=550
+		width=180
 		height=65
 	}
 	"composite name"=""
 	children {
-		composite {
+		text {
+			object {
+				x=63
+				y=600
+				width=84
+				height=25
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Scaler"
+			align="horiz. right"
+		}
+		rectangle {
 			object {
 				x=15
 				y=595
 				width=180
 				height=65
 			}
-			"composite name"=""
-			children {
-				text {
-					object {
-						x=63
-						y=600
-						width=84
-						height=25
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="Scaler"
-					align="horiz. right"
-				}
-				rectangle {
-					object {
-						x=15
-						y=595
-						width=180
-						height=65
-					}
-					"basic attribute" {
-						clr=14
-						fill="outline"
-						width=1
-					}
-				}
-				"related display" {
-					object {
-						x=55
-						y=630
-						width=100
-						height=20
-					}
-					display[0] {
-						label="Scaler"
-						name="scaler_full.adl"
-						args="P=USBCTR:,S=scaler1"
-					}
-					clr=14
-					bclr=51
-					label="Scaler"
-				}
+			"basic attribute" {
+				clr=14
+				fill="outline"
+				width=1
 			}
 		}
-		composite {
+		"related display" {
 			object {
-				x=200
-				y=595
-				width=180
-				height=65
+				x=55
+				y=630
+				width=100
+				height=20
 			}
-			"composite name"=""
-			children {
-				text {
-					object {
-						x=248
-						y=600
-						width=84
-						height=25
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="MCS"
-					align="horiz. centered"
-				}
-				rectangle {
-					object {
-						x=200
-						y=595
-						width=180
-						height=65
-					}
-					"basic attribute" {
-						clr=14
-						fill="outline"
-						width=1
-					}
-				}
-				"related display" {
-					object {
-						x=240
-						y=630
-						width=100
-						height=20
-					}
-					display[0] {
-						label="MCS"
-						name="USBCTR_MCS.adl"
-						args="P=USBCTR:MCS:,M=mca"
-					}
-					clr=14
-					bclr=51
-					label="MCS"
-				}
+			display[0] {
+				label="Scaler"
+				name="scaler_full.adl"
+				args="P=USBCTR:,S=scaler1"
 			}
+			clr=14
+			bclr=51
+			label="Scaler"
 		}
-		composite {
-			object {
-				x=385
-				y=595
-				width=180
-				height=65
-			}
-			"composite name"=""
-			children {
-				text {
-					object {
-						x=433
-						y=600
-						width=84
-						height=25
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="Trigger"
-					align="horiz. right"
-				}
-				rectangle {
-					object {
-						x=385
-						y=595
-						width=180
-						height=65
-					}
-					"basic attribute" {
-						clr=14
-						fill="outline"
-						width=1
-					}
-				}
-				composite {
-					object {
-						x=393
-						y=630
-						width=165
-						height=20
-					}
-					"composite name"=""
-					children {
-						text {
-							object {
-								x=393
-								y=630
-								width=40
-								height=20
-							}
-							"basic attribute" {
-								clr=14
-							}
-							textix="Mode"
-							align="horiz. right"
-						}
-						menu {
-							object {
-								x=438
-								y=630
-								width=120
-								height=20
-							}
-							control {
-								chan="$(P)$(Tg)Mode"
-								clr=14
-								bclr=51
-							}
-						}
-					}
-				}
-			}
-		}
+	}
+}
+text {
+	object {
+		x=248
+		y=600
+		width=84
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="MCS"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=200
+		y=595
+		width=180
+		height=65
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
+	}
+}
+"related display" {
+	object {
+		x=240
+		y=630
+		width=100
+		height=20
+	}
+	display[0] {
+		label="MCS"
+		name="USBCTR_MCS.adl"
+		args="P=USBCTR:MCS:,M=mca"
+	}
+	clr=14
+	bclr=51
+	label="MCS"
+}
+text {
+	object {
+		x=409
+		y=600
+		width=132
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Asyn record"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=385
+		y=595
+		width=180
+		height=65
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
 	}
 }
 text {
@@ -1941,4 +1871,20 @@ text {
 	format="exponential"
 	limits {
 	}
+}
+"related display" {
+	object {
+		x=435
+		y=630
+		width=80
+		height=20
+	}
+	display[0] {
+		label="asyn record"
+		name="asynRecord.adl"
+		args="P=$(P), R=Asyn"
+	}
+	clr=14
+	bclr=51
+	label="asyn"
 }

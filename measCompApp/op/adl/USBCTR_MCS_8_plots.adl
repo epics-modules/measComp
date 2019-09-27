@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/mca/mcaApp/op/adl/SIS38XX_8_plots.adl"
-	version=030102
+	name="/home/epics/devel/measComp/measCompApp/op/adl/USBCTR_MCS_8_plots.adl"
+	version=030109
 }
 display {
 	object {
 		x=425
 		y=132
-		width=800
-		height=820
+		width=775
+		height=940
 	}
 	clr=14
 	bclr=4
@@ -89,20 +89,9 @@ display {
 }
 rectangle {
 	object {
-		x=250
-		y=36
-		width=300
-		height=25
-	}
-	"basic attribute" {
-		clr=54
-	}
-}
-rectangle {
-	object {
-		x=250
-		y=7
-		width=300
+		x=0
+		y=0
+		width=800
 		height=25
 	}
 	"basic attribute" {
@@ -111,358 +100,9 @@ rectangle {
 }
 text {
 	object {
-		x=298
-		y=9
-		width=204
-		height=25
-	}
-	"basic attribute" {
-		clr=0
-	}
-	textix="SIS38XX MCS Plots"
-	align="horiz. centered"
-}
-"cartesian plot" {
-	object {
-		x=406
-		y=75
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(E)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(E).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=406
-		y=453
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(G)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(G).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=406
-		y=642
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(H)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(H).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=406
-		y=264
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(F)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(F).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-text {
-	object {
-		x=591
-		y=58
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(E)"
-}
-text {
-	object {
-		x=591
-		y=247
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(F)"
-}
-text {
-	object {
-		x=591
-		y=436
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(G)"
-}
-text {
-	object {
-		x=591
-		y=625
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(H)"
-}
-"cartesian plot" {
-	object {
-		x=15
-		y=75
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(A)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(A).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=15
-		y=264
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(B)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(B).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=15
-		y=642
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(D)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(D).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-"cartesian plot" {
-	object {
-		x=15
-		y=453
-		width=380
-		height=159
-	}
-	plotcom {
-		title="$(P)$(C)"
-		xlabel="channel"
-		ylabel="counts"
-		clr=14
-		bclr=2
-	}
-	style="line"
-	erase_oldest="plot last n pts"
-	trace[0] {
-		ydata="$(P)$(C).VAL"
-		data_clr=27
-	}
-	x_axis {
-		rangeStyle="auto-scale"
-	}
-	y1_axis {
-		rangeStyle="auto-scale"
-	}
-	y2_axis {
-		rangeStyle="auto-scale"
-	}
-}
-text {
-	object {
-		x=200
-		y=58
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(A)"
-}
-text {
-	object {
-		x=200
-		y=247
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(B)"
-}
-text {
-	object {
-		x=200
-		y=436
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(C)"
-}
-text {
-	object {
-		x=200
-		y=625
-		width=10
-		height=20
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="$(D)"
-}
-text {
-	object {
-		x=275
-		y=36
-		width=250
+		x=0
+		y=0
+		width=800
 		height=25
 	}
 	"basic attribute" {
@@ -470,4 +110,510 @@ text {
 	}
 	textix="$(P)$(A)-$(H)"
 	align="horiz. centered"
+}
+"cartesian plot" {
+	object {
+		x=197
+		y=771
+		width=380
+		height=159
+	}
+	plotcom {
+		title="$(P)$(I)"
+		xlabel="channel"
+		ylabel="counts"
+		clr=14
+		bclr=2
+	}
+	style="line"
+	erase_oldest="plot last n pts"
+	trace[0] {
+		ydata="$(P)$(I).VAL"
+		data_clr=27
+		yaxis=0
+	}
+	x_axis {
+		rangeStyle="auto-scale"
+	}
+	y1_axis {
+		rangeStyle="auto-scale"
+	}
+	y2_axis {
+		rangeStyle="auto-scale"
+	}
+}
+text {
+	object {
+		x=287
+		y=754
+		width=200
+		height=20
+	}
+	"basic attribute" {
+		clr=54
+	}
+	textix="$(I)"
+	align="horiz. centered"
+}
+composite {
+	object {
+		x=5
+		y=30
+		width=380
+		height=719
+	}
+	"composite name"=""
+	children {
+		composite {
+			object {
+				x=5
+				y=30
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=5
+						y=47
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(A)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(A).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=95
+						y=30
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(A)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=5
+				y=211
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=5
+						y=228
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(B)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(B).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=95
+						y=211
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(B)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=5
+				y=392
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=5
+						y=409
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(C)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(C).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=95
+						y=392
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(C)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=5
+				y=573
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=5
+						y=590
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(D)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(D).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=95
+						y=573
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(D)"
+					align="horiz. centered"
+				}
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=390
+		y=30
+		width=382
+		height=719
+	}
+	"composite name"=""
+	children {
+		composite {
+			object {
+				x=392
+				y=30
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=392
+						y=47
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(E)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(E).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=482
+						y=30
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(E)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=390
+				y=211
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=390
+						y=228
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(F)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(F).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=482
+						y=211
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(F)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=390
+				y=392
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=390
+						y=409
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(G)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(G).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=482
+						y=392
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(G)"
+					align="horiz. centered"
+				}
+			}
+		}
+		composite {
+			object {
+				x=390
+				y=573
+				width=380
+				height=176
+			}
+			"composite name"=""
+			children {
+				"cartesian plot" {
+					object {
+						x=390
+						y=590
+						width=380
+						height=159
+					}
+					plotcom {
+						title="$(P)$(H)"
+						xlabel="channel"
+						ylabel="counts"
+						clr=14
+						bclr=2
+					}
+					style="line"
+					erase_oldest="plot last n pts"
+					trace[0] {
+						ydata="$(P)$(H).VAL"
+						data_clr=27
+						yaxis=0
+					}
+					x_axis {
+						rangeStyle="auto-scale"
+					}
+					y1_axis {
+						rangeStyle="auto-scale"
+					}
+					y2_axis {
+						rangeStyle="auto-scale"
+					}
+				}
+				text {
+					object {
+						x=482
+						y=573
+						width=200
+						height=20
+					}
+					"basic attribute" {
+						clr=54
+					}
+					textix="$(H)"
+					align="horiz. centered"
+				}
+			}
+		}
+	}
 }

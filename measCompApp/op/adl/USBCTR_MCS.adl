@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-3/measCompApp/op/adl/USBCTR_MCS.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/USBCTR_MCS.adl"
 	version=030109
 }
 display {
 	object {
-		x=267
-		y=164
+		x=259
+		y=161
 		width=680
-		height=395
+		height=420
 	}
 	clr=14
 	bclr=4
@@ -104,7 +104,7 @@ rectangle {
 		x=4
 		y=40
 		width=350
-		height=350
+		height=375
 	}
 	"basic attribute" {
 		clr=54
@@ -399,16 +399,7 @@ rectangle {
 	display[0] {
 		label="Inputs 1-8"
 		name="USBCTR_MCS_8_plots.adl"
-		args="P=$(P)mca,A=1,B=2,C=3,D=4,E=5,F=6,G=7,H=8"
-	}
-	display[1] {
-		args="P=$(P)mca,A=9,B=10,C=11,D=12,E=13,F=14,G=15,H=16"
-	}
-	display[2] {
-		args="P=$(P)mca,A=17,B=18,C=19,D=20,E=21,F=22,G=23,H=24"
-	}
-	display[3] {
-		args="P=$(P)mca,A=25,B=26,C=27,D=28,E=29,F=30,G=31,H=32"
+		args="P=$(P)mca,A=1,B=2,C=3,D=4,E=5,F=6,G=7,H=8,I=9"
 	}
 	clr=14
 	bclr=4
@@ -433,44 +424,49 @@ text {
 		height=20
 	}
 	display[0] {
-		label="Channel 1"
+		label="Counter 1"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca1"
 	}
 	display[1] {
-		label="Channel 2"
+		label="Counter 2"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca2"
 	}
 	display[2] {
-		label="Channel 3"
+		label="Counter 3"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca3"
 	}
 	display[3] {
-		label="Channel 4"
+		label="Counter 4"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca4"
 	}
 	display[4] {
-		label="Channel 5"
+		label="Counter 5"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca5"
 	}
 	display[5] {
-		label="Channel 6"
+		label="Counter 6"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca6"
 	}
 	display[6] {
-		label="Channel 7"
+		label="Counter 7"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca7"
 	}
 	display[7] {
-		label="Channel 8"
+		label="Counter 8"
 		name="SIS38XX_plot.adl"
 		args="P=$(P), M=mca8"
+	}
+	display[8] {
+		label="Digital I/O"
+		name="SIS38XX_plot.adl"
+		args="P=$(P), M=mca9"
 	}
 	clr=14
 	bclr=4
@@ -479,13 +475,13 @@ text {
 	object {
 		x=439
 		y=80
-		width=200
+		width=160
 		height=20
 	}
 	"basic attribute" {
 		clr=14
 	}
-	textix="Individual Plots 1-8"
+	textix="Individual Plots"
 }
 menu {
 	object {
@@ -512,55 +508,17 @@ text {
 	}
 	textix="Channel advance source"
 }
-menu {
-	object {
-		x=18
-		y=262
-		width=100
-		height=20
-	}
-	control {
-		chan="$(P)FirstCounter"
-		clr=14
-		bclr=51
-	}
-}
 text {
 	object {
-		x=125
-		y=262
-		width=130
+		x=288
+		y=282
+		width=60
 		height=20
 	}
 	"basic attribute" {
 		clr=14
 	}
-	textix="First counter"
-}
-menu {
-	object {
-		x=18
-		y=287
-		width=100
-		height=20
-	}
-	control {
-		chan="$(P)LastCounter"
-		clr=14
-		bclr=51
-	}
-}
-text {
-	object {
-		x=125
-		y=287
-		width=120
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Last counter"
+	textix="Enable"
 }
 "text update" {
 	object {
@@ -830,46 +788,6 @@ text {
 menu {
 	object {
 		x=18
-		y=362
-		width=100
-		height=20
-	}
-	control {
-		chan="$(P)ReadAll.SCAN"
-		clr=14
-		bclr=51
-	}
-}
-text {
-	object {
-		x=125
-		y=362
-		width=90
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Read rate"
-}
-"message button" {
-	object {
-		x=225
-		y=362
-		width=50
-		height=20
-	}
-	control {
-		chan="$(P)DoReadAll.VAL"
-		clr=14
-		bclr=51
-	}
-	label="Read"
-	press_msg="1"
-}
-menu {
-	object {
-		x=18
 		y=312
 		width=100
 		height=20
@@ -916,4 +834,305 @@ text {
 		clr=14
 	}
 	textix="First point handling"
+}
+"choice button" {
+	object {
+		x=18
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter1Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=27
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+}
+"choice button" {
+	object {
+		x=48
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter2Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=57
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+}
+"choice button" {
+	object {
+		x=78
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter3Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=87
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="3"
+}
+"choice button" {
+	object {
+		x=108
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter4Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=117
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="4"
+}
+"choice button" {
+	object {
+		x=138
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter5Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=147
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="5"
+}
+"choice button" {
+	object {
+		x=168
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter6Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=177
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="6"
+}
+"choice button" {
+	object {
+		x=198
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter7Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=207
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="7"
+}
+"choice button" {
+	object {
+		x=228
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSCounter8Enable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=237
+		y=259
+		width=7
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="8"
+}
+"choice button" {
+	object {
+		x=258
+		y=275
+		width=25
+		height=30
+	}
+	control {
+		chan="$(P)MCSDIOEnable"
+		clr=14
+		bclr=51
+	}
+}
+text {
+	object {
+		x=260
+		y=259
+		width=21
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="DIO"
+}
+text {
+	object {
+		x=125
+		y=363
+		width=170
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Ext. trigger mode"
+}
+menu {
+	object {
+		x=18
+		y=362
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P)TrigMode"
+		clr=14
+		bclr=51
+	}
+}
+composite {
+	object {
+		x=18
+		y=387
+		width=257
+		height=20
+	}
+	"composite name"=""
+	children {
+		menu {
+			object {
+				x=18
+				y=387
+				width=100
+				height=20
+			}
+			control {
+				chan="$(P)ReadAll.SCAN"
+				clr=14
+				bclr=51
+			}
+		}
+		text {
+			object {
+				x=125
+				y=387
+				width=90
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Read rate"
+		}
+		"message button" {
+			object {
+				x=225
+				y=387
+				width=50
+				height=20
+			}
+			control {
+				chan="$(P)DoReadAll.VAL"
+				clr=14
+				bclr=51
+			}
+			label="Read"
+			press_msg="1"
+		}
+	}
 }

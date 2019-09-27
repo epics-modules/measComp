@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 997
-y 128
+x 841
+y 171
 w 580
 h 670
 font "helvetica-medium-r-18.0"
@@ -685,19 +685,6 @@ minor 0
 release 0
 x 15
 y 595
-w 550
-h 65
-
-beginGroup
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 595
 w 180
 h 65
 
@@ -742,19 +729,6 @@ endGroup
 endObjectProperties
 
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 200
-y 595
-w 180
-h 65
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -789,41 +763,23 @@ lineColor rgb 0 0 0
 fillColor rgb 0 0 0
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 385
-y 595
-w 180
-h 65
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 433
+x 409
 y 600
-w 84
+w 132
 h 25
 font "helvetica-medium-r-18.0"
-fontAlign "right"
+fontAlign "center"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Trigger"
+  "Asyn record"
 }
 endObjectProperties
 
@@ -840,54 +796,6 @@ h 64
 lineColor rgb 0 0 0
 fillColor rgb 0 0 0
 endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 393
-y 630
-w 165
-h 20
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 382
-y 630
-w 51
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Mode"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
 
 # (Static Text)
 object activeXTextClass
@@ -2471,18 +2379,6 @@ minor 0
 release 0
 x 15
 y 595
-w 550
-h 65
-
-beginGroup
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 595
 w 180
 h 65
 
@@ -2525,18 +2421,6 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 200
-y 595
-w 180
-h 65
-
-beginGroup
 
 # (Related Display)
 object relatedDisplayClass
@@ -2570,70 +2454,6 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 385
-y 595
-w 180
-h 65
-
-beginGroup
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 393
-y 630
-w 165
-h 20
-
-beginGroup
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 438
-y 630
-w 120
-h 20
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Tg)Mode"
-indicatorPv "$(P)$(Tg)Mode"
-font "helvetica-medium-r-12.0"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
 
 # (Menu Button)
 object activeMenuButtonClass
@@ -2913,5 +2733,38 @@ offLabel "Start"
 3d
 useEnumNumeric
 font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 435
+y 630
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "asyn"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 asynRecord.edl
+}
+menuLabel {
+  0 asyn record
+}
+symbols {
+  0 "P=$(P),R=Asyn"
+}
+replaceSymbols {
+  0 1
+}
 endObjectProperties
 
