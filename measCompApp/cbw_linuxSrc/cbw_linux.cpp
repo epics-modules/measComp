@@ -289,3 +289,21 @@ int cbSetTrigger(int BoardNum, int TrigType, USHORT LowThreshold,
     return pBoard->cbSetTrigger(TrigType, LowThreshold, HighThreshold);
 }
 
+// Daq functions
+int cbDaqInScan(int BoardNum, short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
+                long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cbDaqInScan(ChanArray, ChanTypeArray, GainArray, ChanCount, Rate,
+							                 PretrigCount, TotalCount, MemHandle, Options);
+}
+
+int cbDaqSetTrigger(int BoardNum, int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+                    int Gain, float Level, float Variance, int TrigEvent)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cbDaqSetTrigger(TrigSource, TrigSense, TrigChan, ChanType, 
+							                     Gain, Level, Variance, TrigEvent);
+}
