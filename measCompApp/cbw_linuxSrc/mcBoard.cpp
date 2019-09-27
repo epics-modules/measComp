@@ -249,3 +249,20 @@ int mcBoard::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshol
     printf("cbSetTrigger is not supported\n");
     return NOERRORS;
 }
+
+// Daq functions
+int mcBoard::cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
+                         long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options)
+{
+    printf("cbDaqInScan is not supported\n");
+    return NOERRORS;
+}
+
+
+int mcBoard::cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+                             int Gain, float Level, float Variance, int TrigEvent)
+{
+    printf("cbDaqSetTrigger is not supported\n");
+    return NOERRORS;
+}
+
