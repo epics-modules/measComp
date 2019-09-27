@@ -12,15 +12,17 @@
  *
  *
  **************************************************************************/
+#ifndef CBW_H
+#define CBW_H
 
-#if defined(_WIN32) && !defined (NT_DRIVER) && !defined (WIN95_DRIVER)
+#if !defined (NT_DRIVER) && !defined (WIN95_DRIVER)
 #include <windows.h>
 #include <time.h>
 #endif
 
 
 /* Current Revision Number */
-#define CURRENTREVNUM      6.51
+#define CURRENTREVNUM      6.7
 
 /* System error code */
 #define NOERRORS           0    /* No error occurred */
@@ -485,6 +487,8 @@
 #define CTRBANK2		 13		// Bank 2 of counter
 #define CTRBANK3		 14		// Bank 3 of counter
 #define PADZERO			 15		// Dummy channel. Fills the corresponding data elements with zero 
+#define DIGITAL			 16
+#define CTR				 17
 
 /* channel type flags*/
 #define SETPOINT_ENABLE  	0x100  // Enable setpoint detection
@@ -1007,7 +1011,7 @@
 #define ENCODER_MODE_MODULO_N_OFF		0x0000
 #define ENCODER_MODE_MODULO_N_ON		0x8000
 
-// obsolete encoder mode constants, use preferred constants above.
+// deprecated encoder mode constants, use preferred constants above.
 #define LATCH_ON_Z		0x0008
 #define CLEAR_ON_Z_OFF	0x0000
 #define CLEAR_ON_Z_ON	0x0020
@@ -1045,6 +1049,11 @@
 #define CTR_TICK208PT3ns        1
 #define CTR_TICK2083PT3ns       2
 #define CTR_TICK20833PT3ns      3
+
+#define CTR_TICK20ns        10
+#define CTR_TICK200ns       11
+#define CTR_TICK2000ns      12
+#define CTR_TICK20000ns     13
 
 /* Types of triggers */
 #define TRIGABOVE           0
@@ -1433,10 +1442,17 @@
 #define ON_EXTERNAL_INTERRUPT		0x0002
 #define ON_PRETRIGGER				0x0004
 #define ON_DATA_AVAILABLE			0x0008
-#define ON_END_OF_AI_SCAN			0x0010
-#define ON_END_OF_AO_SCAN			0x0020
+#define ON_END_OF_AI_SCAN			0x0010	// deprecated, use ON_END_OF_INPUT_SCAN
+#define ON_END_OF_AO_SCAN			0x0020	// deprecated, use ON_END_OF_OUTPUT_SCAN
+#define ON_END_OF_INPUT_SCAN		0x0010  
+#define ON_END_OF_OUTPUT_SCAN		0x0020  
 #define ON_CHANGE_DI             0x0040
 #define ALL_EVENT_TYPES          0xffff
+
+
+
+
+
 
 #define NUM_EVENT_TYPES		6
 #define MAX_NUM_EVENT_TYPES 32
@@ -1534,7 +1550,7 @@ typedef struct
     {
 #endif  
 
-#if defined (_WIN32) || defined (linux)
+#if defined (_WIN32)
 	/* Win32 prototypes */
 
 #ifdef EVENTCALLBACK
@@ -1809,3 +1825,5 @@ typedef struct
 #endif
 
 #endif  /* ifndef NT_DRIVER */
+
+#endif
