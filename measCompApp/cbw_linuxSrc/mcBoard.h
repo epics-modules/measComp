@@ -61,6 +61,12 @@ public:
     // Trigger functions
     virtual int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
 
+    // Daq functions
+    virtual int cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
+                            long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options);
+    virtual int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+                                int Gain, float Level, float Variance, int TrigEvent);
+
 protected:
     char address_[MAX_ADDRESS_LEN];
     char boardName_[BOARDNAMELEN];
