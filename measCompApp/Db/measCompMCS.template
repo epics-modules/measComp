@@ -160,48 +160,83 @@ record(bo,"$(P)SetClientWait") {
 record(busy,"$(P)ClientWait") {
 }
 
-record(mbbo,"$(P)FirstCounter") {
+record(mbboDirect,"$(P)MCSCounterEnable") {
   field(PINI, "YES")
-  field(DTYP, "asynInt32")
-  field(OUT,  "@asyn($(PORT),0)MCS_FIRST_COUNTER")
-  field(ZRVL, "0")
-  field(ZRST, "CTR0")
-  field(ONVL, "1")
-  field(ONST, "CTR1")
-  field(TWVL, "2")
-  field(TWST, "CTR2")
-  field(THVL, "3")
-  field(THST, "CTR3")
-  field(FRVL, "4")
-  field(FRST, "CTR4")
-  field(FVVL, "5")
-  field(FVST, "CTR5")
-  field(SXVL, "6")
-  field(SXST, "CTR6")
-  field(SVVL, "7")
-  field(SVST, "CTR7")
+  field(DTYP, "asynUInt32Digital")
+  field(OUT,  "@asynMask($(PORT),0,0xFFFFFFFF)MCS_COUNTER_ENABLE")
+  field(VAL, "0x1FF")
 }
 
-record(mbbo,"$(P)LastCounter") {
+record(bo, "$(P)MCSCounter1Enable") {
   field(PINI, "YES")
-  field(DTYP, "asynInt32")
-  field(OUT,  "@asyn($(PORT),0)MCS_LAST_COUNTER")
-  field(ZRVL, "0")
-  field(ZRST, "CTR0")
-  field(ONVL, "1")
-  field(ONST, "CTR1")
-  field(TWVL, "2")
-  field(TWST, "CTR2")
-  field(THVL, "3")
-  field(THST, "CTR3")
-  field(FRVL, "4")
-  field(FRST, "CTR4")
-  field(FVVL, "5")
-  field(FVST, "CTR5")
-  field(SXVL, "6")
-  field(SXST, "CTR6")
-  field(SVVL, "7")
-  field(SVST, "CTR7")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B0 PP")
+}
+
+record(bo, "$(P)MCSCounter2Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B1 PP")
+}
+
+record(bo, "$(P)MCSCounter3Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B2 PP")
+}
+
+record(bo, "$(P)MCSCounter4Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B3 PP")
+}
+
+record(bo, "$(P)MCSCounter5Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B4 PP")
+}
+
+record(bo, "$(P)MCSCounter6Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B5 PP")
+}
+
+record(bo, "$(P)MCSCounter7Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B6 PP")
+}
+
+record(bo, "$(P)MCSCounter8Enable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B7 PP")
+}
+
+record(bo, "$(P)MCSDIOEnable") {
+  field(PINI, "YES")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "1")
+  field(OUT, "$(P)MCSCounterEnable.B8 PP")
 }
 
 record(mbbo,"$(P)PrescaleCounter") {
@@ -255,6 +290,19 @@ record(mbbi, "$(P)Model") {
   field(ONST, "USB-CTR04")
 }
 
+record(mbbo,"$(P)TrigMode") {
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0)TRIGGER_MODE")
+    field(ZRVL, "0")
+    field(ZRST, "Rising edge")
+    field(ONVL, "1")
+    field(ONST, "Falling edge")
+    field(TWVL, "6")
+    field(TWST, "High level")
+    field(THVL, "7")
+    field(THST, "Low level")
+}
 
 # asyn record for debugging
 record(asyn, "$(P)Asyn") {
