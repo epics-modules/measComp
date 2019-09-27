@@ -41,6 +41,12 @@ public:
                       int DebounceMode, int EdgeDetection,
                       int TickSize, int MappedChannel);
 
+    // Daq functions
+    int cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
+                    long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options);
+    int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+                        int Gain, float Level, float Variance, int TrigEvent);
+
     void readThread();
 
 private:
