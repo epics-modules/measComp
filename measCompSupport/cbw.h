@@ -15,7 +15,7 @@
 #ifndef CBW_H
 #define CBW_H
 
-#if !defined (NT_DRIVER) && !defined (WIN95_DRIVER)
+#if defined(_WIN32) && !defined (NT_DRIVER) && !defined (WIN95_DRIVER)
 #include <windows.h>
 #include <time.h>
 #endif
@@ -1550,7 +1550,7 @@ typedef struct
     {
 #endif  
 
-#if defined (_WIN32)
+#if defined (_WIN32) || defined (linux)
 	/* Win32 prototypes */
 
 #ifdef EVENTCALLBACK
