@@ -27,7 +27,6 @@
         <li><a href="#PulseGen">Pulse Generator Functions</a></li>
         <li><a href="#ScalerSupport">Scaler Record Support</a></li>
         <li><a href="#MCSSupport">Multi-Channel Scaler (MCS) Support</a></li>
-        <li><a href="#Trigger">Trigger Support</a></li>
       </ul>
     </li>
     <li><a href="#Wiring">Wiring</a></li>
@@ -83,12 +82,11 @@ asynSetMinTimerPeriod(0.001)
 
 ## Configure port driver
 # USBCTRConfig(portName,       # The name to give to this asyn port driver
-#              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program or cbAddBoard above
+#              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program
 #              maxTimePoints)  # Maximum number of time points for MCS
-#              pollingTime)    # Delay in the polling thread
 USBCTRConfig("$(PORT)", 0, 2048, .01)
 
-#asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACEIO_DRIVER)
+#asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACE_FLOW|TRACEIO_DRIVER)
 
 dbLoadTemplate("USBCTR.substitutions")
 
@@ -102,24 +100,26 @@ dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), P
 # The number of records loaded must be the same as MAX_COUNTERS defined above
 
 # Load the MCA records
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)1,  DTYP=asynMCA, INP=@asyn($(PORT) 0),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)2,  DTYP=asynMCA, INP=@asyn($(PORT) 1),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)3,  DTYP=asynMCA, INP=@asyn($(PORT) 2),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)4,  DTYP=asynMCA, INP=@asyn($(PORT) 3),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)5,  DTYP=asynMCA, INP=@asyn($(PORT) 4),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)6,  DTYP=asynMCA, INP=@asyn($(PORT) 5),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)7,  DTYP=asynMCA, INP=@asyn($(PORT) 6),  PREC=3, CHANS=$(MAX_POINTS)")
-dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)8,  DTYP=asynMCA, INP=@asyn($(PORT) 7),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)1,  DTYP=asynMCA, INP=@asyn($(PORT) 0),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)2,  DTYP=asynMCA, INP=@asyn($(PORT) 1),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)3,  DTYP=asynMCA, INP=@asyn($(PORT) 2),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)4,  DTYP=asynMCA, INP=@asyn($(PORT) 3),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)5,  DTYP=asynMCA, INP=@asyn($(PORT) 4),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)6,  DTYP=asynMCA, INP=@asyn($(PORT) 5),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)7,  DTYP=asynMCA, INP=@asyn($(PORT) 6),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)8,  DTYP=asynMCA, INP=@asyn($(PORT) 7),  PREC=3, CHANS=$(MAX_POINTS)")
+#dbLoadRecords("$(MCA)/mcaApp/Db/simple_mca.db", "P=$(PREFIX), M=$(RNAME)9,  DTYP=asynMCA, INP=@asyn($(PORT) 8),  PREC=3, CHANS=$(MAX_POINTS)")
 
 # This loads the waveform records
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)1,  INP=@asyn($(PORT) 0),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)2,  INP=@asyn($(PORT) 1),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)3,  INP=@asyn($(PORT) 2),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)4,  INP=@asyn($(PORT) 3),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)5,  INP=@asyn($(PORT) 4),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)6,  INP=@asyn($(PORT) 5),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)7,  INP=@asyn($(PORT) 6),  CHANS=$(MAX_POINTS)")
-#dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)8,  INP=@asyn($(PORT) 7),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)1,  INP=@asyn($(PORT) 0),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)2,  INP=@asyn($(PORT) 1),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)3,  INP=@asyn($(PORT) 2),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)4,  INP=@asyn($(PORT) 3),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)5,  INP=@asyn($(PORT) 4),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)6,  INP=@asyn($(PORT) 5),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)7,  INP=@asyn($(PORT) 6),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)8,  INP=@asyn($(PORT) 7),  CHANS=$(MAX_POINTS)")
+dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RNAME)9,  INP=@asyn($(PORT) 8),  CHANS=$(MAX_POINTS)")
 
 asynSetTraceIOMask($(PORT),0,2)
 #asynSetTraceFile("$(PORT)",0,"$(MODEL).out")
@@ -130,7 +130,8 @@ dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
 
 iocInit
 
-seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(FIELD)")
+seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_COUNTERS=$(MAX_COUNTERS), FIELD=$(FIELD)")
+create_monitor_set("auto_settings.req",30)
 </pre>
   <p>
     The measComp module comes with an example iocBoot/iocUSBCTR directory that contains
@@ -691,28 +692,28 @@ seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(F
       </tr>
       <tr>
         <td>
-          $(P)$(R)FirstCounter</td>
+          $(P)$(R))MCSCounterNEnable (N=1-8)</td>
         <td>
-          mbbo</td>
+          bo</td>
         <td>
           asynInt32</td>
         <td>
-          MCS_FIRST_COUNTER</td>
+          N.A.</td>
         <td>
-          The first counter channel to use in MCS mode. 0="CNTR0" ... 7="CNTR7".</td>
+          Enable counter N in MCS mode. Choices are "No" (0) and "Yes" (1).</td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)LastCounter</td>
+          $(P)$(R))MCSDIOEnable</td>
         <td>
-          mbbo</td>
+          bo</td>
         <td>
           asynInt32</td>
         <td>
-          MCS_LAST_COUNTER</td>
+          N.A.</td>
         <td>
-          The last counter channel to use in MCS mode. 0="CNTR0" ... 7="CNTR7". Must be &gt;=
-          FirstCounter.</td>
+          Enable collecting digital I/O word in MCS mode. Choices are "No" (0) and "Yes" (1).
+        </td>
       </tr>
       <tr>
         <td>
@@ -725,8 +726,7 @@ seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(F
           MCS_PRESCALE_COUNTER</td>
         <td>
           The counter channel to use for prescaling the external channel advance in MCS mode.
-          0="CNTR0" ... 7="CNTR7". This channel must be either &lt;FirstChannel or &gt;LastChannel.
-        </td>
+          0="CNTR0" ... 7="CNTR7". </td>
       </tr>
       <tr>
         <td>
@@ -760,6 +760,30 @@ seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(F
       </tr>
       <tr>
         <td>
+          $(P)$(R)TrigMode</td>
+        <td>
+          mbbo</td>
+        <td>
+          asynInt32</td>
+        <td>
+          TRIGGER_MODE</td>
+        <td>
+          Controls trigger of the MCS scan. Choices are:
+          <ul>
+            <li>"Rising edge" (0)</li>
+            <li>"Falling edge" (1)</li>
+            <li>"High level" (2)</li>
+            <li>"Low level" (3)</li>
+          </ul>
+          The trigger can be used to trigger MCS acquisition from an external trigger signal.
+          The MCS must be first started with the StartAll record. Acquisition will start when
+          the specfied trigger condition is met. The MCS acquisition is always done in triggered
+          mode. If triggered acquisition is not desired then simply do not connect any signal
+          to the Trigger Input and set Mode="Low". This will cause the trigger condition to
+          always be satisfied. </td>
+      </tr>
+      <tr>
+        <td>
           $(P)$(R)MaxChannels</td>
         <td>
           longin</td>
@@ -782,51 +806,6 @@ seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_SIGNALS=$(MAX_COUNTERS), FIELD=$(F
           MODEL</td>
         <td>
           The model number of the counter module. 0="USB-CRT08", 1="USB-CTR04".</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="Trigger" style="text-align: center">
-    Trigger Functions</h3>
-  <table border="1" cellpadding="2" cellspacing="2" style="text-align: left">
-    <tbody>
-      <tr>
-        <td align="center" colspan="5">
-          <b>measCompTrigger.template. This database is loaded once per module.</b></td>
-      </tr>
-      <tr>
-        <th>
-          EPICS record name
-        </th>
-        <th>
-          EPICS record type
-        </th>
-        <th>
-          asyn interface
-        </th>
-        <th>
-          drvInfo string
-        </th>
-        <th>
-          Description
-        </th>
-      </tr>
-      <tr>
-        <td>
-          $(P)$(R)Mode</td>
-        <td>
-          mbbo</td>
-        <td>
-          asynInt32</td>
-        <td>
-          TRIGGER_MODE</td>
-        <td>
-          The mode of the external trigger input. Choices are "Positive edge", "Negative edge",
-          "High", and "Low". The trigger can be used to trigger MCS acquisition from an external
-          trigger signal. The MCS must be first started with the StartAll record. Acquisition
-          will start when the specfied trigger condition is met. The MCS acquisition is always
-          done in triggered mode. If triggered acquisition is not desired then simply do not
-          connect any signal to the Trigger Input and set Mode="Low". This will cause the
-          trigger condition to always be satisfied.</td>
       </tr>
     </tbody>
   </table>
