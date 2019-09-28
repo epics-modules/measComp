@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/USBCTR.adl"
+	name="/home/epics/devel/measComp-2-4/measCompApp/op/adl/USBCTR.adl"
 	version=030109
 }
 display {
@@ -1882,7 +1882,7 @@ text {
 	display[0] {
 		label="asyn record"
 		name="asynRecord.adl"
-		args="P=$(P), R=Asyn"
+		args="P=$(P), R=MCS:Asyn"
 	}
 	clr=14
 	bclr=51
