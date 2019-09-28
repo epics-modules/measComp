@@ -664,7 +664,8 @@ void usbScanStart_USB_CTR(libusb_device_handle *udev, ScanData *scanData)
   } else if (scanData->mode & USB_CTR_SINGLEIO) {
     packet_size = scanData->lastElement+1;
   } else if (scanData->mode & USB_CTR_CONTINUOUS_READOUT) {
-    packet_size = (((wMaxPacketSize/(scanData->lastElement+1))*(scanData->lastElement+1)) / 2);
+    int bytesPerReading = 2*(scanData->lastElement+1);
+    packet_size = ((wMaxPacketSize / bytesPerReading) * bytesPerReading) / 2;
   } else {
     packet_size = wMaxPacketSize/2;
   }
