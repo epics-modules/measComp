@@ -62,6 +62,8 @@ mcUSB_CTR::mcUSB_CTR(const char *address)
     
     usbInit_CTR(deviceHandle_);
     acquireStartEvent_ = epicsEventCreate(epicsEventEmpty);
+    
+    ringBuffer_ = epicsRingBytesCreate(1024);
 
     readThreadId_ = epicsThreadCreate("measCompReadThread",
                                       epicsThreadPriorityMedium,
@@ -95,8 +97,6 @@ void mcUSB_CTR::readThread()
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s usbScanRead_USB_CTR read %d bytes\n", 
                 driverName, functionName, bytesRead);
-            readMutex_.lock();
-            int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {
                 // In most cases it is an error if bytesRead <= 0
                 // However in external channel advance or external trigger mode this may be normal since we can't predict when the first pulse will come
@@ -109,16 +109,29 @@ void mcUSB_CTR::readThread()
                 ctrScanAcquiring_ = false;
                 break;
             }
+            readMutex_.lock();
+            // Copy the data to the ring buffer
+            int numCopied = epicsRingBytesPut(ringBuffer_, (char *)ctrScanRawBuffer_, bytesRead);
+            if (numCopied != bytesRead) {
+                asynPrint(pasynUser_, ASYN_TRACE_ERROR, 
+                    "%s::%s Error ring buffer overflow copying %d bytes\n", driverName, functionName, bytesRead);
+            }
+            int bytesAvailable = epicsRingBytesUsedBytes(ringBuffer_);
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
-                "%s::%s usbScanRead_USB_CTR read %d points OK\n", 
-                driverName, functionName, pointsRead);
+                "%s::%s usbScanRead_USB_CTR %d bytes available\n", 
+                driverName, functionName, bytesAvailable);
             // Check to see if acquisition was aborted
             if (!ctrScanAcquiring_) break;
+            int pointsAvailable = 0;
             switch (ctrScanDataType_) {
               case CTR32BIT: {
-                uint32_t *pIn = (uint32_t *)ctrScanRawBuffer_;
+                int bytesPerReading = ctrScanNumElements_ * sizeof(uint32_t);
+                pointsAvailable = bytesAvailable / bytesPerReading;
+                if (pointsAvailable == 0) continue;
+                epicsRingBytesGet(ringBuffer_, counterBuffer_, pointsAvailable * bytesPerReading);
+                uint32_t *pIn = (uint32_t *)counterBuffer_;
                 uint32_t *pOut = (uint32_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
-                for (int point=0; point<pointsRead; point++) {
+                for (int point=0; point<pointsAvailable; point++) {
                     for (int counter=0; counter<ctrScanNumCounters_; counter++) {
                         *pOut++ = *pIn++;
                         ctrScanCurrentPoint_++;
@@ -128,9 +141,13 @@ void mcUSB_CTR::readThread()
                 break; 
               }
               case CTR16BIT: {
-                uint16_t *pIn = (uint16_t *)ctrScanRawBuffer_;
+                int bytesPerReading = ctrScanNumElements_ * sizeof(uint16_t);
+                pointsAvailable = bytesAvailable / bytesPerReading;
+                if (pointsAvailable == 0) continue;
+                epicsRingBytesGet(ringBuffer_, counterBuffer_, pointsAvailable * bytesPerReading);
+                uint16_t *pIn = (uint16_t *)counterBuffer_;
                 uint16_t *pOut = (uint16_t *)ctrScanBuffer_ + ctrScanCurrentPoint_;
-                for (int point=0; point<pointsRead; point++) {
+                for (int point=0; point<pointsAvailable; point++) {
                     for (int counter=0; counter<ctrScanNumCounters_; counter++) {
                         *pOut++ = *pIn++;
                         ctrScanCurrentPoint_++;
@@ -140,7 +157,7 @@ void mcUSB_CTR::readThread()
                 break;
               }
             }       
-            pointsRemaining -= pointsRead;
+            pointsRemaining -= pointsAvailable;
             asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
                 "%s::%s pointRemaining=%d\n", 
                 driverName, functionName, pointsRemaining);
@@ -509,6 +526,10 @@ int mcUSB_CTR::cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainAr
     scanData_.mode = 0;
     if (Options & SINGLEIO) {
         scanData_.mode |= USB_CTR_SINGLEIO;
+    } else {
+        scanData_.mode |= USB_CTR_CONTINUOUS_READOUT;
+        scanData_.mode |= USB_CTR_FORCE_PACKET_SIZE;
+        scanData_.packet_size = 256;
     }
     scanData_.options = 0;
     if (Options & NOCLEAR)    scanData_.options |= 0x1;
@@ -519,7 +540,6 @@ int mcUSB_CTR::cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainAr
         scanData_.count = 0;
         ctrScanContinuous_ = true;
     }
-    scanData_.mode |= USB_CTR_CONTINUOUS_READOUT;
     double scanRate = *Rate;
     if (Options & HIGHRESRATE) scanRate = scanRate/1000.;
     uint32_t pacer_period = rint((96.E6/scanRate) - 1);
