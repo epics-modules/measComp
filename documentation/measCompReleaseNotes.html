@@ -9,6 +9,24 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-5 (September XXX, 2019)</h2>
+  <ul>
+    <li>Improvements to USB-CTR04/08 support
+      <ul>
+        <li>Added support for reading the 8 digital I/O bits in the MCS scan. This allows
+          capturing the status of input and output bits during a scan. There are now 9 MCS
+          spectra: 8 for the counters and 1 for the digital I/O.</li>
+        <li>Added ability to select counters to use in the MCS on an individual basis, rather
+          than the first and last counter to use. This also applies to the digital I/O word.</li>
+        <li>Fixed bugs on Linux when the number of counters selected was not a power of 2.
+          The data could be wrong and it would stop before the number of channels to collect
+          was reached.</li>
+      </ul>
+    </li>
+    <li>Updated the version of the Measurement Computing Windows UL library from 6.51
+      to 6.7.</li>
+  </ul>
+  <h2 style="text-align: center">
     Release 2-4 (September 14, 2019)</h2>
   <ul>
     <li>Improvements to USB-CTR04/08 support
