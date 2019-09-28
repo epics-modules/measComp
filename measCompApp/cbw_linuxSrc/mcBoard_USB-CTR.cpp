@@ -92,6 +92,9 @@ void mcUSB_CTR::readThread()
                 "%s::%s calling usbScanRead_USB_CTR \n", 
                 driverName, functionName);
             int bytesRead = usbScanRead_USB_CTR(deviceHandle_, scanData_, ctrScanRawBuffer_);
+            asynPrint(pasynUser_, ASYN_TRACEIO_DRIVER, 
+                "%s::%s usbScanRead_USB_CTR read %d bytes\n", 
+                driverName, functionName, bytesRead);
             readMutex_.lock();
             int pointsRead = bytesRead/(ctrScanNumElements_*2);
             if (bytesRead <= 0) {
