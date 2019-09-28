@@ -2,6 +2,7 @@
 #define mcBoard_USB_CTRInclude
 
 #include <epicsThread.h>
+#include <epicsRingBytes.h>
 #include <epicsEvent.h>
 
 #include "mcBoard.h"
@@ -53,6 +54,8 @@ private:
     libusb_device_handle *deviceHandle_;
     epicsThreadId readThreadId_;
     epicsMutex readMutex_;
+    epicsRingBytesId ringBuffer_;
+    char counterBuffer_[1024];
     epicsEventId acquireStartEvent_;
 
     bool ctrScanAcquiring_;
