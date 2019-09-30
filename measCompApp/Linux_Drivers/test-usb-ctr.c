@@ -61,6 +61,7 @@ int main (int argc, char **argv)
   uint8_t options;
   uint8_t timer;
   uint8_t debounce;
+  uint8_t control;
 
   int count;
   int numCounters = 4;
@@ -76,6 +77,10 @@ int main (int argc, char **argv)
   ScanData scanData;
   uint16_t data[32000];
   uint64_t counter_data[8];     // 64 bit counts
+
+  uint64_t Count;
+  double Period;
+  double Frequency;
 
   udev = NULL;
 
@@ -113,6 +118,7 @@ int main (int argc, char **argv)
     printf("Hit 'P' to print out the counter parameters\n");
     printf("Hit 'i' for scan input\n");
     printf("Hit 'C' for continuous scan input\n");
+    printf("Hit 'f' for frequency count\n");
     printf("Hit 'd' to test digital I/O\n");
     printf("Hit 'D' to set counter debounce\n");
     printf("Hit 'r' to reset the device\n");
@@ -159,14 +165,21 @@ int main (int argc, char **argv)
 	printf("Connect Timer 1 to Counter 1\n");
 	count = 100;       // total number of scans to perform
 	frequency = 1000;  // scan rate at 1000 Hz
-	numCounters = 4;
+	numCounters = 5;   // 4 counters and 1 DIO padded with zeros
 
 	// Set up the scan list (use 4 counter 0-3)
-	for (counter = 0; counter < numCounters; counter++) {
+	for (counter = 0; counter < numCounters-1; counter++) {
 	  for (bank = 0; bank < numBanks; bank++) {
 	    scanData.scanList[numBanks*counter + bank] = (counter & 0x7) | (bank & 0x3) << 3 | (0x2 << 5);
 	  }
 	}
+	counter = numCounters - 1;
+
+	//	scanData.scanList[counter*numBanks]   =  USB_CTR_ZERO_FILL;
+        scanData.scanList[counter*numBanks]   =  USB_CTR_SCAN_DIO;
+	scanData.scanList[counter*numBanks+1] =  USB_CTR_ZERO_FILL;
+	scanData.scanList[counter*numBanks+2] =  USB_CTR_ZERO_FILL;
+	scanData.scanList[counter*numBanks+3] =  USB_CTR_ZERO_FILL;
 	scanData.lastElement = numCounters*numBanks - 1;
 	usbScanConfigW_USB_CTR(udev,scanData);
 	usbScanConfigR_USB_CTR(udev, &scanData);
@@ -209,17 +222,19 @@ int main (int argc, char **argv)
              }
 	  }
 	  printf("Scan: %d     ", i);
-	  for (counter = 0; counter < numCounters; counter++) {
+	  for (counter = 0; counter < numCounters-1; counter++) {
             printf("%lld   ", (long long)counter_data[counter]);
           }
+	  offset = (i+1)*numCounters*numBanks - numBanks;
+	  printf("    %#x %#x %#x %#x", data[offset], data[offset+1], data[offset+2], data[offset+3]);
           printf("\n");
 	}
 	break;
       case 'C':
 	printf("Testing continuous scan input\n");
 	printf("Connect Timer 1 to Counter 1\n");
-	count = 0;          // set to 0 for continuous scan.  Returns 256 samples per read
-	frequency = 10;     // scan rate at 10000 Hz
+	count = 0;             // set to 0 for continuous scan.  Returns 63 samples per read
+	frequency = 10000;     // scan rate at 10000 Hz
 	numCounters = 7;
         numBanks = 4;
 
@@ -282,6 +297,34 @@ int main (int argc, char **argv)
 	usbScanClearFIFO_USB_CTR(udev);
 	usbScanBulkFlush_USB_CTR(udev, 5);
 	usbTimerControlW_USB_CTR(udev, timer, 0x0);
+	break;
+      case 'f':
+	printf("Testing frequency count\n");
+	printf("Connect Timer 1 to Counter 1\n");
+	// set up the timer to generate some pulses
+	timer = 1;
+	timer_frequency = 1000.;   // 1000 Hz
+	period = 96.E6/timer_frequency - 1;	
+	usbTimerPeriodW_USB_CTR(udev, timer, period);
+	usbTimerPulseWidthW_USB_CTR(udev, timer, period / 2);
+	usbTimerCountW_USB_CTR(udev, timer, 0);
+	usbTimerDelayW_USB_CTR(udev, timer, 0);
+	usbTimerControlW_USB_CTR(udev, timer, 0x1);
+
+	// configure counter 1
+	counter = 1;
+        usbCounterSet_USB_CTR(udev, counter, 0x0);       // set counter to 0
+        usbCounterModeW_USB_CTR(udev, counter, USB_CTR_PERIOD | USB_CTR_PERIOD_MODE_1000X);
+        usbCounterOptionsW_USB_CTR(udev, counter, 0);    // count on rising edge
+        usbCounterGateConfigW_USB_CTR(udev, counter, 0); // deable gate
+        usbCounterOutConfigW_USB_CTR(udev, counter, 0);  // output off
+
+	sleep(2);
+	Count = usbCounter_USB_CTR(udev, counter);
+	Period = Count*20.83E-9/1000.;
+	Frequency = 1./Period;
+	printf("count = %lld    period = %f    frequency = %.1lf Hz  timer frequency = %.1lf Hz\n",
+	       (long long) Count, Period, Frequency, timer_frequency);
 	break;
       case 'd':
         printf("\nTesting Digital I/O...\n");
@@ -375,8 +418,12 @@ int main (int argc, char **argv)
 	usbTimerCountW_USB_CTR(udev, timer, 0);
 	usbTimerDelayW_USB_CTR(udev, timer, 0);
 	usbTimerControlW_USB_CTR(udev, timer, 0x1);
+	usbTimerControlR_USB_CTR(udev, timer, &control);
+	printf("Timer control = %hhd\n", control);
 	toContinue();
 	usbTimerControlW_USB_CTR(udev, timer, 0x0);
+	usbTimerControlR_USB_CTR(udev, timer, &control);
+	printf("Timer control = %hhd\n", control);
         break;
       case 'T':
 	for (i = 0; i < 4; i++) {

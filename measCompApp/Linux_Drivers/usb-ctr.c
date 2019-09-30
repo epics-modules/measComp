@@ -599,7 +599,6 @@ void usbScanStart_USB_CTR(libusb_device_handle *udev, ScanData *scanData)
       bit 5:   Reserved
       bit 6:   1 = retrigger mode,  0 = normal trigger
       bit 7:   Reserved
-    scanQueueSize:  The size of the scan queue which is lastElement + 1 [1-33];
  
     Notes:
 
@@ -648,9 +647,9 @@ void usbScanStart_USB_CTR(libusb_device_handle *udev, ScanData *scanData)
 
   uint8_t requesttype = (HOST_TO_DEVICE | VENDOR_TYPE | DEVICE_RECIPIENT);
   uint8_t data[14];
-  uint32_t pacer_period;    //  pacer timer period value (0 for external clock)
-  uint16_t packet_size;     //  number of samples to transfer at a time.
-
+  uint32_t pacer_period;                           //  pacer timer period value (0 for external clock)
+  uint16_t packet_size;                            //  number of samples to transfer at a time.
+  int bytesPerScan = (scanData->lastElement+1)*2;  // number of bytes transferred in one scan
   int ret;
 
   if (scanData->frequency == 0) {
@@ -658,27 +657,26 @@ void usbScanStart_USB_CTR(libusb_device_handle *udev, ScanData *scanData)
   } else {
     pacer_period = rint((96.E6/scanData->frequency) - 1);
   }
+  
+  if (scanData->count == 0) {
+    scanData->mode |= USB_CTR_CONTINUOUS_READOUT;
+  }
 
   if (scanData->mode & USB_CTR_FORCE_PACKET_SIZE) {
     packet_size = scanData->packet_size;
   } else if (scanData->mode & USB_CTR_SINGLEIO) {
     packet_size = scanData->lastElement+1;
   } else if (scanData->mode & USB_CTR_CONTINUOUS_READOUT) {
-    int bytesPerReading = 2*(scanData->lastElement+1);
-    packet_size = ((wMaxPacketSize / bytesPerReading) * bytesPerReading) / 2;
+    packet_size = (( (wMaxPacketSize/bytesPerScan) * bytesPerScan) / 2);
   } else {
     packet_size = wMaxPacketSize/2;
   }
   scanData->packet_size = packet_size;
 
-  if (scanData->count == 0) {
-    scanData->mode |= USB_CTR_CONTINUOUS_READOUT;
-  }
-
   memcpy(&data[0], &scanData->count, 4);
   memcpy(&data[4], &scanData->retrig_count, 4);
   memcpy(&data[8], &pacer_period, 4);
-  data[12] = packet_size-1;
+  data[12] = (uint8_t) packet_size - 1;  // force to uint8_t since in the range 0-255.
   data[13] = scanData->options;
 
   ret = libusb_control_transfer(udev, requesttype, SCAN_START, 0x0, 0x0,(unsigned char *) data, sizeof(data), HS_DELAY);
@@ -726,7 +724,6 @@ int usbScanRead_USB_CTR(libusb_device_handle *udev, ScanData scanData, uint16_t 
   int transferred;
   uint16_t status;
 
-
   if ((scanData.mode & USB_CTR_CONTINUOUS_READOUT) || (scanData.mode & USB_CTR_SINGLEIO)) {
     nbytes = 2*(scanData.packet_size);
   } else {
@@ -736,6 +733,7 @@ int usbScanRead_USB_CTR(libusb_device_handle *udev, ScanData scanData, uint16_t 
   ret = libusb_bulk_transfer(udev, LIBUSB_ENDPOINT_IN|6, (unsigned char *) data, nbytes, &transferred, HS_DELAY);
 
   if (transferred != nbytes) {
+    fprintf(stderr, "usbScanRead_USB_CTR: number of bytes transferred = %d, nbytes = %d\n", transferred, nbytes);
     return transferred;
   }
 
@@ -781,12 +779,16 @@ void usbTimerControlR_USB_CTR(libusb_device_handle *udev, uint8_t timer,  uint8_
                bits 3-7: reserved
   */
   uint8_t requesttype = (DEVICE_TO_HOST | VENDOR_TYPE | DEVICE_RECIPIENT);
+  int ret;
 
   if (timer > USB_CTR_NTIMER) {
     printf("usbTimerControlR_USB_CTR: timer >= %d\n", USB_CTR_NTIMER);
     return;
   }
-  libusb_control_transfer(udev, requesttype, TIMER_CONTROL, 0x0, timer, (unsigned char *) control, sizeof(control), HS_DELAY);
+  ret = libusb_control_transfer(udev, requesttype, TIMER_CONTROL, 0x0, timer, (unsigned char *) control, sizeof(uint8_t), HS_DELAY);
+  if (ret < 0) {
+    perror("usbTimerControlR_USB_CTR: error in reading timer control byte.");
+  }
 }
 
 void usbTimerControlW_USB_CTR(libusb_device_handle *udev, uint8_t timer, uint8_t control)
