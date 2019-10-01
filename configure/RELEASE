@@ -25,7 +25,6 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 SUPPORT=/corvette/home/epics/devel
--include $(TOP)/../configure/SUPPORT.$(EPICS_HOST_ARCH)
 
 ASYN=$(SUPPORT)/asyn-4-36
 CALC=$(SUPPORT)/calc-3-7-3
@@ -41,8 +40,13 @@ MEASCOMP=$(SUPPORT)/measComp-2-4
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/corvette/usr/local/epics-devel/base-7.0.3
--include $(TOP)/../configure/EPICS_BASE.$(EPICS_HOST_ARCH)
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
 #RULES=/path/to/epics/support/module/rules/x-y
+
+# These lines allow developers to override these RELEASE settings
+# without having to modify this file directly.
+-include $(TOP)/../RELEASE.local
+-include $(TOP)/../RELEASE.$(EPICS_HOST_ARCH).local
+-include $(TOP)/configure/RELEASE.local
