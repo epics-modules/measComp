@@ -86,6 +86,7 @@ void mcUSB_CTR::readThread()
         ctrScanCurrentPoint_ = 0;
         ctrScanCurrentIndex_ = 0;
         int pointsRemaining = ctrScanNumPoints_;
+        epicsRingBytesFlush(ringBuffer_);
 
         while (ctrScanAcquiring_) {
             ctrScanComplete_ = false;
