@@ -625,10 +625,6 @@ int USBCTR::eraseMCS()
   int numTimePoints;
   //static const char *functionName="eraseMCS";
 
-  /* If we are already erased return */
-  if (MCSErased_) {
-    return 0;
-  }
   MCSErased_ = true;
 
   getIntegerParam(mcaNumChannels_, &numTimePoints);
@@ -638,7 +634,6 @@ int USBCTR::eraseMCS()
 
   /* Reset the elapsed time and counts */
   elapsedPrevious_ = 0.;
-  setIntegerParam(MCSCurrentPoint_, 0);
   for (i=0; i<MAX_MCS_COUNTERS; i++) {
     memset(MCSBuffer_[i], 0, numTimePoints * sizeof(epicsUInt32));
     setDoubleParam(i, mcaElapsedLiveTime_, 0.0);
@@ -967,6 +962,7 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
 
+  done:
   callParamCallbacks(addr);
   if (status == 0) {
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
@@ -977,7 +973,6 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
              "%s:%s, port %s, function=%d, ERROR writing %d to address %d, status=%d\n",
              driverName, functionName, this->portName, function, value, addr, status);
   }
-  done:
   return (status==0) ? asynSuccess : asynError;
 }
 
