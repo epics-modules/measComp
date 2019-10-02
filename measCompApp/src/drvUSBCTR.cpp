@@ -578,7 +578,7 @@ int USBCTR::readMCS()
         if (!mcsCounterEnable_[i]) continue;
         if (counterBits_ == 32) {
           MCSBuffer_[i][currentPoint] = pCounts32_[inPtr*numMCSCounters_ + j];
-          // There seems to be a bug in PADZERO and it is actually giving coounter0 value not 0
+          // There seems to be a bug in PADZERO and it is actually giving counter0 value not 0
           if (i == DIGITAL_IO_COUNTER) MCSBuffer_[i][currentPoint] &= 0xff;
         } else {
           MCSBuffer_[i][currentPoint] = pCounts16_[inPtr*numMCSCounters_ + j];
@@ -944,18 +944,6 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   else if (function == mcaErase_) {
-    /* Erase.
-     * Do the complete erase, but we keep
-     * a flag that says we have been erased since acquire was
-     * last started, so we only do it once.
-     */
-    /* If MCS is acquiring, turn it off */
-    if (scalerRunning_) {
-      status = -1;
-      goto done;
-    }
-    stopMCS();
-
     asynPrint(pasynUser, ASYN_TRACE_FLOW,
               "%s:%s: [%s addr=%d]: erased\n",
               driverName, functionName, portName, addr);
@@ -963,11 +951,6 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
     /* Erase the buffer in the private data structure */
     eraseMCS();
 
-    /* If device was acquiring, turn it back on */
-    if (MCSRunning_) {
-      startMCS();
-      MCSErased_ = false;
-    }
   }
 
   else if (function == mcaNumChannels_) {
