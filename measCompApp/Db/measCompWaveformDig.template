@@ -76,6 +76,18 @@ record(waveform, "$(P)$(R)TimeWF")
 }
 
 ###################################################################
+#  Absolute timebase waveform record                                       #
+###################################################################
+record(waveform, "$(P)$(R)AbsTimeWF")
+{
+    field(FTVL, "DOUBLE")
+    field(DTYP, "asynFloat64ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_ABS_TIME_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
 #  Current point                                                  # 
 ###################################################################
 record(longin, "$(P)$(R)CurrentPoint")
