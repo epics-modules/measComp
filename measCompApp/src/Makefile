@@ -32,7 +32,7 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 #=============================
 # Build the IOC application
 
-#PROD_IOC_WIN32 += measCompApp
+PROD_IOC_WIN32 += measCompApp
 PROD_IOC_Linux += measCompApp
 
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
