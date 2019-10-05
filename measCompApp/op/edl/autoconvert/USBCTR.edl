@@ -677,28 +677,15 @@ endGroup
 endObjectProperties
 
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 595
-w 180
-h 65
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 63
+x 69
 y 600
-w 84
+w 72
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "right"
@@ -724,20 +711,15 @@ lineColor rgb 0 0 0
 fillColor rgb 0 0 0
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 248
+x 261
 y 600
-w 84
+w 58
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "center"
@@ -2371,18 +2353,6 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 595
-w 180
-h 65
-
-beginGroup
 
 # (Related Display)
 object relatedDisplayClass
@@ -2410,17 +2380,12 @@ menuLabel {
   0 Scaler
 }
 symbols {
-  0 "P=USBCTR:,S=scaler1"
+  0 "P=$(P),S=scaler1"
 }
 replaceSymbols {
   0 1
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
 # (Related Display)
 object relatedDisplayClass
@@ -2448,7 +2413,7 @@ menuLabel {
   0 MCS
 }
 symbols {
-  0 "P=USBCTR:MCS:,M=mca"
+  0 "P=$(P)MCS:,M=mca"
 }
 replaceSymbols {
   0 1
