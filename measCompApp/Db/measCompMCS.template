@@ -304,6 +304,18 @@ record(mbbo,"$(P)TrigMode") {
     field(THST, "Low level")
 }
 
+###################################################################
+#  Absolute timebase waveform record                              #
+###################################################################
+record(waveform, "$(P)AbsTimeWF")
+{
+    field(FTVL, "DOUBLE")
+    field(DTYP, "asynFloat64ArrayIn")
+    field(INP,  "@asyn($(PORT),0)MCS_ABS_TIME_WF")
+    field(NELM, "$(MAX_POINTS)")
+    field(SCAN, "I/O Intr")
+}
+
 # asyn record for debugging
 record(asyn, "$(P)Asyn") {
   field(PORT, "$(PORT)")
