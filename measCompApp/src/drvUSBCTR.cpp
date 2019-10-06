@@ -13,6 +13,7 @@
 
 #include <iocsh.h>
 #include <epicsThread.h>
+#include <epicsTime.h>
 
 #include <asynPortDriver.h>
 
@@ -59,6 +60,7 @@ static const char *driverName = "USBCTR";
 #define MCSCurrentPointString     "MCS_CURRENT_POINT"
 #define MCSMaxPointsString        "MCS_MAX_POINTS"
 #define MCSTimeWFString           "MCS_TIME_WF"
+#define MCSAbsTimeWFString        "MCS_ABS_TIME_WF"
 #define MCSCounterEnableString    "MCS_COUNTER_ENABLE"
 #define MCSPrescaleCounterString  "MCS_PRESCALE_COUNTER"
 #define MCSPoint0ActionString     "MCS_POINT0_ACTION"
@@ -79,6 +81,7 @@ static const char *driverName = "USBCTR";
 #define MAX_SIGNALS     MAX_MCS_COUNTERS
 
 #define DEFAULT_POLL_TIME 0.01
+#define SINGLEIO_THRESHOLD_TIME 0.01  // Above this time uses SINGLEIO, below uses block I/O.
 
 /** This is the class definition for the USBCTR class
   */
@@ -93,6 +96,7 @@ public:
   virtual asynStatus writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask);
   virtual asynStatus readInt32Array(asynUser *pasynUser, epicsInt32 *value, size_t nElements, size_t *nIn);
   virtual asynStatus readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements, size_t *nIn);
+  virtual asynStatus readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn);
   virtual void report(FILE *fp, int details);
   // These should be private but are called from C
   virtual void pollerThread(void);
@@ -122,6 +126,7 @@ protected:
   int MCSCurrentPoint_;
   int MCSMaxPoints_;
   int MCSTimeWF_;
+  int MCSAbsTimeWF_;
   int MCSCounterEnable_;
   int MCSPrescaleCounter_;
   int MCSPoint0Action_;
@@ -176,6 +181,7 @@ private:
   short gainArray_[MAX_DAQ_LEN];
   
   epicsFloat32 *MCSTimeBuffer_;
+  epicsFloat64 *MCSAbsTimeBuffer_;
   HGLOBAL inputMemHandle_;
   epicsInt32 *pCounts32_;
   epicsInt16 *pCounts16_;
@@ -213,8 +219,8 @@ static void pollerThreadC(void * pPvt)
 
 USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime)
   : asynPortDriver(portName, MAX_SIGNALS,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynDrvUserMask,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask,
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynDrvUserMask,
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask,
       // Note: ASYN_CANBLOCK must not be set because the scaler record does not work with asynchronous device support 
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
@@ -257,6 +263,7 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   createParam(MCSCurrentPointString,           asynParamInt32, &MCSCurrentPoint_);
   createParam(MCSMaxPointsString,              asynParamInt32, &MCSMaxPoints_);
   createParam(MCSTimeWFString,          asynParamFloat32Array, &MCSTimeWF_);
+  createParam(MCSAbsTimeWFString,       asynParamFloat64Array, &MCSAbsTimeWF_);
   createParam(MCSCounterEnableString,  asynParamUInt32Digital, &MCSCounterEnable_);
   createParam(MCSPrescaleCounterString,        asynParamInt32, &MCSPrescaleCounter_);
   createParam(MCSPoint0ActionString,           asynParamInt32, &MCSPoint0Action_);
@@ -310,7 +317,8 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   for (i=0; i<MAX_MCS_COUNTERS; i++) {
     MCSBuffer_[i]  = (epicsInt32 *) calloc(maxTimePoints_,  sizeof(epicsInt32));
   }
-  MCSTimeBuffer_   = (epicsFloat32 *) calloc(maxTimePoints_,  sizeof(epicsFloat32));
+  MCSTimeBuffer_    = (epicsFloat32 *) calloc(maxTimePoints_,  sizeof(epicsFloat32));
+  MCSAbsTimeBuffer_ = (epicsFloat64 *) calloc(maxTimePoints_,  sizeof(epicsFloat64));
   inputMemHandle_  = cbWinBufAlloc32((maxTimePoints+1)  * MAX_MCS_COUNTERS); // +1 allows for skipping first point
   pCounts32_ = (epicsInt32 *)inputMemHandle_;
   pCounts16_ = (epicsInt16 *)inputMemHandle_;
@@ -485,7 +493,7 @@ int USBCTR::startMCS()
   if (channelAdvance == mcaChannelAdvance_External) 
     options |= EXTCLOCK;
   // At long dwell times read use a single buffer for reading the data
-  if (dwell >= 0.05)
+  if (dwell >= SINGLEIO_THRESHOLD_TIME)
     options |= SINGLEIO;
   // Always use EXTTRIGGER
   options |= EXTTRIGGER;
@@ -573,6 +581,8 @@ int USBCTR::readMCS()
     if (point0Action == MCSPoint0Skip) {
       inPtr++;
     }
+    epicsTimeStamp now;
+    epicsTimeGetCurrent(&now);
     for(; inPtr < lastPoint; inPtr++) {
       for (i=0, j=0; i<MAX_MCS_COUNTERS; i++) {
         if (!mcsCounterEnable_[i]) continue;
@@ -585,6 +595,7 @@ int USBCTR::readMCS()
         }
         j++;
       }
+      MCSAbsTimeBuffer_[currentPoint] = now.secPastEpoch + now.nsec/1.e9;
       currentPoint++;
     }
   }
@@ -1167,6 +1178,33 @@ asynStatus USBCTR::readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, si
   *nIn = nElements;
   if (*nIn > (size_t) numPoints) *nIn = (size_t) numPoints;
   memcpy(value, inPtr, *nIn*sizeof(epicsFloat32)); 
+
+  return asynSuccess;
+}
+
+asynStatus USBCTR::readFloat64Array(asynUser *pasynUser, epicsFloat64 *value, size_t nElements, size_t *nIn)
+{
+  int function = pasynUser->reason;
+  int addr;
+  int numPoints;
+  epicsFloat64 *inPtr;
+  static const char *functionName = "readFloat6Array";
+  
+  this->getAddress(pasynUser, &addr);
+  
+  if (function == MCSAbsTimeWF_) {
+    inPtr = MCSAbsTimeBuffer_;
+    getIntegerParam(mcaNumChannels_, &numPoints);
+  }
+  else {
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
+      "%s:%s: ERROR: unknown function=%d\n",
+      driverName, functionName, function);
+    return asynError;
+  }
+  *nIn = nElements;
+  if (*nIn > (size_t) numPoints) *nIn = (size_t) numPoints;
+  memcpy(value, inPtr, *nIn*sizeof(epicsFloat64)); 
 
   return asynSuccess;
 }
