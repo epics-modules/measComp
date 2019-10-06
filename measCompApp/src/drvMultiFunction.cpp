@@ -539,7 +539,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   int i, j;
   int inMask, outMask;
   static const char *functionName = "MultiFunction";
-   
+  
   // Model parameters
   createParam(modelNameString,                 asynParamOctet, &modelName_);
   createParam(modelNumberString,               asynParamInt32, &modelNumber_);
@@ -1691,11 +1691,15 @@ void MultiFunction::pollerThread()
   ULONG countVal;
   long aoCount, aoIndex, aiCount, aiIndex;
   short aoStatus, aiStatus;
+  epicsTimeStamp now;
+  epicsTimeStamp startTime;
+  int numReadings;
   int status;
 
   while(1) { 
     lock();
-    
+    epicsTimeGetCurrent(&startTime);
+
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
       if (numIOBits_[i] > 16) {
@@ -1759,14 +1763,14 @@ void MultiFunction::pollerThread()
       }
       goto error;
     }
-    if (waveDigRunning_ && aiIndex >= 0) {
-      epicsTimeStamp now;
+    int currentPoint;
+    getIntegerParam(waveDigCurrentPoint_, &currentPoint);
+    numReadings = aiCount/numWaveDigChans_;
+    if (waveDigRunning_ && numReadings > currentPoint) {
       epicsTimeGetCurrent(&now);
       int firstChan;
       getIntegerParam(waveDigFirstChan_, &firstChan);
       int lastChan = firstChan + numWaveDigChans_ - 1;
-      int currentPoint;
-      getIntegerParam(waveDigCurrentPoint_, &currentPoint);
       epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_ + currentPoint*numWaveDigChans_;
       int lastPoint = aiIndex / numWaveDigChans_ + 1;
       for(; currentPoint < lastPoint; currentPoint++) {
@@ -1786,7 +1790,11 @@ void MultiFunction::pollerThread()
     }
 error:
     unlock();
-    epicsThreadSleep(pollTime_);
+    epicsTimeGetCurrent(&now);
+    double diffTime = epicsTimeDiffInSeconds(&now, &startTime);
+    double sleepTime = pollTime_ - diffTime;
+    if (sleepTime < 0.001) sleepTime = 0.001;
+    epicsThreadSleep(sleepTime);
   }
 }
 
