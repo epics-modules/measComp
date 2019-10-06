@@ -34,7 +34,7 @@ dbLoadTemplate("USBCTR.substitutions")
 dbLoadRecords("$(STD)/stdApp/Db/scaler.db", "P=USBCTR:, S=scaler1, DTYP=Asyn Scaler, OUT=@asyn(USBCTR), FREQ=10000000")
 
 # This database provides the support for the MCS functions
-dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT)")
+dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT), MAX_POINTS=$(MAX_POINTS)")
 
 # Load either MCA or waveform records below
 # The number of records loaded must be the same as MAX_COUNTERS defined above
