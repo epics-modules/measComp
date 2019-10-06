@@ -38,6 +38,8 @@ monitor ReadArrays; evflag ReadArraysMon; sync ReadArrays ReadArraysMon;
 int     HardwareAcquiring; assign HardwareAcquiring to "{P}HardwareAcquiring";
 monitor HardwareAcquiring; evflag HardwareAcquiringMon; sync HardwareAcquiring HardwareAcquiringMon;
 
+int     MCSAbsTimeWF; assign MCSAbsTimeWF to "{P}AbsTimeWF.PROC";
+
 int     SNL_Connected;  assign SNL_Connected      to "{P}SNL_Connected";
 int     AsynDebug;      assign AsynDebug          to "{P}Asyn.TB1";
 monitor AsynDebug;
@@ -91,6 +93,8 @@ ss mca_control {
         ReadArray[i] = 1;
         pvPut(ReadArray[i]);
       }
+      MCSAbsTimeWF = 1;
+      pvPut(MCSAbsTimeWF);
       ReadArrays = 0;
       pvPut(ReadArrays);
     } state monitor_changes
@@ -104,6 +108,8 @@ ss mca_control {
           ReadArray[i] = 1;
           pvPut(ReadArray[i], SYNC);
         }
+        MCSAbsTimeWF = 1;
+        pvPut(MCSAbsTimeWF);
         /* Clear the Acquiring busy record */
         Acquiring = 0;
         pvPut(Acquiring);
