@@ -1440,19 +1440,27 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
 
   // Temperature input function
   if (function == temperatureInValue_) {
-    if (waveDigRunning_) return asynSuccess;
-    getIntegerParam(addr, analogInType_, &type);
-    getIntegerParam(addr, temperatureScale_, &scale);
-    getIntegerParam(addr, temperatureFilter_, &filter);
-    if (type != AI_CHAN_TYPE_TC) return asynSuccess;
-    status = cbTIn(boardNum_, addr, scale, &fVal, filter);
-    if (status == OPENCONNECTION) {
-      // This is an "expected" error if the thermocouple is broken or disconnected
-      // Don't print error message, just set temp to -9999.
-      fVal = -9999.;
-      status = 0;
+    if (waveDigRunning_) {
+      int currentPoint;
+      getIntegerParam(waveDigCurrentPoint_, &currentPoint);
+      if (currentPoint > 0) {
+        *value = waveDigBuffer_[addr][currentPoint-1];
+      }
     }
-    *value = fVal;
+    else {
+      getIntegerParam(addr, analogInType_, &type);
+      getIntegerParam(addr, temperatureScale_, &scale);
+      getIntegerParam(addr, temperatureFilter_, &filter);
+      if (type != AI_CHAN_TYPE_TC) return asynSuccess;
+      status = cbTIn(boardNum_, addr, scale, &fVal, filter);
+      if (status == OPENCONNECTION) {
+        // This is an "expected" error if the thermocouple is broken or disconnected
+        // Don't print error message, just set temp to -9999.
+        fVal = -9999.;
+        status = 0;
+      }
+      *value = fVal;
+    }
     setDoubleParam(addr, temperatureInValue_, *value);
     if (status) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR, 
@@ -1775,7 +1783,7 @@ void MultiFunction::pollerThread()
       int lastPoint = aiIndex / numWaveDigChans_ + 1;
       for(; currentPoint < lastPoint; currentPoint++) {
         for (int j=firstChan; j<=lastChan; j++) {
-            waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
+          waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
         }
         waveDigAbsTimeBuffer_[currentPoint] = now.secPastEpoch + now.nsec/1.e9;
       }
