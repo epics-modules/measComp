@@ -13,8 +13,9 @@ DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-LIBRARY_IOC_Linux+= measComp
-#LIBRARY_IOC_cygwin32 += measComp
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  LIBRARY_IOC_Linux+= measComp
+endif
 
 # Compile and add the code to the support library
 # Link locally-provided code into the support library,
@@ -33,8 +34,9 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-PROD_IOC_Linux += measCompApp
-
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  PROD_IOC_Linux += measCompApp
+endif
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
 # Build the main IOC entry point on workstation OSs.
@@ -66,25 +68,28 @@ measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 PROD_IOC_WIN32 += test_1608G_1
 test_1608G_1_SRCS += test_1608G_1.c
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-test_1608G_1_LIBS += cbw32
+  test_1608G_1_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-test_1608G_1_LIBS += cbw64
+  test_1608G_1_LIBS += cbw64
 endif
 
 PROD_IOC_WIN32 += testTC32
 testTC32_SRCS += testTC32.c
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-testTC32_LIBS += cbw32
+  testTC32_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-testTC32_LIBS += cbw64
+  testTC32_LIBS += cbw64
 endif
 
-PROD_IOC += testPadZero
+PROD_IOC_WIN32 += testPadZero
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  PROD_IOC_Linux += testPadZero
+endif
 testPadZero_SRCS += testPadZero.cpp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-testPadZero_LIBS += cbw32
+  testPadZero_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-testPadZero_LIBS += cbw64
+  testPadZero_LIBS += cbw64
 endif
 testPadZero_LIBS_Linux += cbw_linux asyn 
 testPadZero_LIBS_Linux += measCompLinuxDrivers

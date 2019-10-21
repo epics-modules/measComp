@@ -4,7 +4,9 @@ include $(TOP)/configure/CONFIG
 #----------------------------------------
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
-LIBRARY_IOC_Linux += measCompLinuxDrivers
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  LIBRARY_IOC_Linux += measCompLinuxDrivers
+endif
 
 INC += mccEthernet.h
 INC += pmd.h
@@ -22,13 +24,16 @@ LIB_SRCS += E-TC32.c
 LIB_SRCS += E-TC.c
 LIB_SRCS += usb-ctr.c
 
-PROD_IOC_Linux += test-E-1608 
-PROD_IOC_Linux += test-E-DIO24 
-PROD_IOC_Linux += test-E-TC32 
-PROD_IOC_Linux += test-E-TC
-PROD_IOC_Linux += test-usb-ctr
-#PROD_IOC_Linux += test-usb-ctr-scaler
-#PROD_IOC_Linux += test-usb-ctr-mcs
+
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  PROD_IOC_Linux += test-E-1608 
+  PROD_IOC_Linux += test-E-DIO24 
+  PROD_IOC_Linux += test-E-TC32 
+  PROD_IOC_Linux += test-E-TC
+  PROD_IOC_Linux += test-usb-ctr
+  #PROD_IOC_Linux += test-usb-ctr-scaler
+  #PROD_IOC_Linux += test-usb-ctr-mcs
+endif
 
 PROD_LIBS += measCompLinuxDrivers
 PROD_SYS_LIBS += hidapi-libusb usb-1.0
