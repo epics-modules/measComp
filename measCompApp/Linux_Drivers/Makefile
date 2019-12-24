@@ -4,7 +4,7 @@ include $(TOP)/configure/CONFIG
 #----------------------------------------
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   LIBRARY_IOC_Linux += measCompLinuxDrivers
 endif
 
@@ -25,7 +25,7 @@ LIB_SRCS += E-TC.c
 LIB_SRCS += usb-ctr.c
 
 
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += test-E-1608 
   PROD_IOC_Linux += test-E-DIO24 
   PROD_IOC_Linux += test-E-TC32 

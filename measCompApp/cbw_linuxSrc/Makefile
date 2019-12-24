@@ -9,7 +9,7 @@ include $(TOP)/configure/CONFIG
 
 INC += cbw_linux.h
 
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   LIBRARY_IOC_Linux += cbw_linux
 endif
 

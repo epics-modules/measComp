@@ -13,7 +13,7 @@ DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   LIBRARY_IOC_Linux+= measComp
 endif
 
@@ -34,7 +34,7 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += measCompApp
 endif
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
@@ -82,7 +82,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 
 PROD_IOC_WIN32 += testPadZero
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += testPadZero
 endif
 testPadZero_SRCS += testPadZero.cpp
