@@ -1,0 +1,2375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>E1608_module</name>
+  <x>290</x>
+  <y>120</y>
+  <width>570</width>
+  <height>720</height>
+  <background_color>
+    <color red="187" green="187" blue="187">
+    </color>
+  </background_color>
+  <grid_visible>false</grid_visible>
+  <grid_step_x>5</grid_step_x>
+  <widget type="label" version="2.0.0">
+    <name>text #6</name>
+    <text>E-1608  $(P)</text>
+    <y>5</y>
+    <width>570</width>
+    <height>25</height>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <foreground_color>
+      <color red="10" green="0" blue="184">
+      </color>
+    </foreground_color>
+    <horizontal_alignment>1</horizontal_alignment>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #9</name>
+    <x>5</x>
+    <y>40</y>
+    <width>560</width>
+    <height>675</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="group" version="2.0.0">
+      <name>composite #12</name>
+      <width>295</width>
+      <height>165</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #15</name>
+        <width>295</width>
+        <height>165</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #18</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ai)1.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ai)1.PROC</pv_name>
+        <text>Read</text>
+        <x>213</x>
+        <y>35</y>
+        <width>74</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #21</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ai)2.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ai)2.PROC</pv_name>
+        <text>Read</text>
+        <x>213</x>
+        <y>60</y>
+        <width>74</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #24</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ai)3.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ai)3.PROC</pv_name>
+        <text>Read</text>
+        <x>213</x>
+        <y>85</y>
+        <width>74</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #27</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ai)4.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ai)4.PROC</pv_name>
+        <text>Read</text>
+        <x>213</x>
+        <y>110</y>
+        <width>74</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #30</name>
+        <pv_name>$(P)$(Ai)1.SCAN</pv_name>
+        <x>118</x>
+        <y>36</y>
+        <width>90</width>
+        <height>18</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #33</name>
+        <pv_name>$(P)$(Ai)2.SCAN</pv_name>
+        <x>118</x>
+        <y>61</y>
+        <width>90</width>
+        <height>18</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #36</name>
+        <pv_name>$(P)$(Ai)3.SCAN</pv_name>
+        <x>118</x>
+        <y>86</y>
+        <width>90</width>
+        <height>18</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #39</name>
+        <pv_name>$(P)$(Ai)4.SCAN</pv_name>
+        <x>118</x>
+        <y>111</y>
+        <width>90</width>
+        <height>18</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #42</name>
+        <pv_name>$(P)$(Ai)1</pv_name>
+        <x>23</x>
+        <y>36</y>
+        <width>90</width>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #46</name>
+        <pv_name>$(P)$(Ai)2</pv_name>
+        <x>23</x>
+        <y>61</y>
+        <width>90</width>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #50</name>
+        <pv_name>$(P)$(Ai)3</pv_name>
+        <x>23</x>
+        <y>86</y>
+        <width>90</width>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #54</name>
+        <pv_name>$(P)$(Ai)4</pv_name>
+        <x>23</x>
+        <y>111</y>
+        <width>90</width>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #58</name>
+        <text>1</text>
+        <x>8</x>
+        <y>35</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #61</name>
+        <text>2</text>
+        <x>8</x>
+        <y>60</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #64</name>
+        <text>3</text>
+        <x>8</x>
+        <y>85</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #67</name>
+        <text>4</text>
+        <x>8</x>
+        <y>110</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #70</name>
+        <text>Analog input</text>
+        <x>76</x>
+        <y>5</y>
+        <width>144</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="group" version="2.0.0">
+        <name>composite #73</name>
+        <x>43</x>
+        <y>139</y>
+        <width>211</width>
+        <height>20</height>
+        <style>3</style>
+        <transparent>true</transparent>
+        <widget type="action_button" version="3.0.0">
+          <name>related display #76</name>
+          <actions>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)1</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 1</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)2</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 2</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)3</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 3</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)4</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 4</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)5</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 5</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)6</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 6</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)7</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 7</description>
+            </action>
+            <action type="open_display">
+              <file>measCompADCStripChart.opi</file>
+              <macros>
+                <ADC>$(P)$(Ai)8</ADC>
+              </macros>
+              <target>tab</target>
+              <description>Input 8</description>
+            </action>
+          </actions>
+          <text>Strip charts</text>
+          <width>113</width>
+          <height>20</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+        </widget>
+        <widget type="action_button" version="3.0.0">
+          <name>related display #86</name>
+          <actions>
+            <action type="open_display">
+              <file>measCompAiSetup.opi</file>
+              <target>tab</target>
+              <description>Input 1</description>
+            </action>
+          </actions>
+          <text>Configure</text>
+          <x>118</x>
+          <width>93</width>
+          <height>20</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+        </widget>
+      </widget>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #89</name>
+      <x>37</x>
+      <y>360</y>
+      <width>220</width>
+      <height>60</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #92</name>
+        <text>1</text>
+        <x>11</x>
+        <y>35</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #95</name>
+        <pv_name>$(P)$(Ct)1Counts</pv_name>
+        <x>25</x>
+        <y>36</y>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #99</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ct)1Reset</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ct)1Reset</pv_name>
+        <text>Reset</text>
+        <x>135</x>
+        <y>35</y>
+        <width>74</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #102</name>
+        <text>Counter</text>
+        <x>62</x>
+        <y>4</y>
+        <width>96</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #105</name>
+        <width>220</width>
+        <height>60</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #108</name>
+      <y>520</y>
+      <width>560</width>
+      <height>155</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #111</name>
+        <text>Outputs</text>
+        <x>30</x>
+        <y>87</y>
+        <width>70</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #114</name>
+        <pv_name>$(P)$(Bo)2</pv_name>
+        <x>150</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #117</name>
+        <pv_name>$(P)$(Bo)3</pv_name>
+        <x>190</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #120</name>
+        <pv_name>$(P)$(Bo)4</pv_name>
+        <x>230</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #123</name>
+        <pv_name>$(P)$(Bo)5</pv_name>
+        <x>270</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #126</name>
+        <pv_name>$(P)$(Bo)6</pv_name>
+        <x>310</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #129</name>
+        <pv_name>$(P)$(Bo)7</pv_name>
+        <x>350</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #132</name>
+        <pv_name>$(P)$(Bo)8</pv_name>
+        <x>390</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #135</name>
+        <pv_name>$(P)$(Bo)1</pv_name>
+        <x>110</x>
+        <y>82</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #138</name>
+        <text>Direction</text>
+        <x>10</x>
+        <y>123</y>
+        <width>90</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #141</name>
+        <pv_name>$(P)$(Bd)2</pv_name>
+        <x>150</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #144</name>
+        <pv_name>$(P)$(Bd)3</pv_name>
+        <x>190</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #147</name>
+        <pv_name>$(P)$(Bd)4</pv_name>
+        <x>230</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #150</name>
+        <pv_name>$(P)$(Bd)5</pv_name>
+        <x>270</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #153</name>
+        <pv_name>$(P)$(Bd)6</pv_name>
+        <x>310</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #156</name>
+        <pv_name>$(P)$(Bd)7</pv_name>
+        <x>350</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #159</name>
+        <pv_name>$(P)$(Bd)8</pv_name>
+        <x>390</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="choice" version="2.0.0">
+        <name>choice button #162</name>
+        <pv_name>$(P)$(Bd)1</pv_name>
+        <x>110</x>
+        <y>118</y>
+        <width>35</width>
+        <height>30</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <horizontal>false</horizontal>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+        <items>
+          <item>Item 1</item>
+          <item>Item 2</item>
+        </items>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #165</name>
+        <pv_name>$(P)$(Lo)</pv_name>
+        <x>435</x>
+        <y>87</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>4</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #169</name>
+        <text>Inputs</text>
+        <x>40</x>
+        <y>57</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #172</name>
+        <x>158</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)2.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #176</name>
+        <x>158</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)2.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #180</name>
+        <x>198</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)3.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #184</name>
+        <x>198</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)3.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #188</name>
+        <x>238</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)4.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #192</name>
+        <x>238</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)4.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #196</name>
+        <x>278</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)5.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #200</name>
+        <x>278</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)5.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #204</name>
+        <x>318</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)6.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #208</name>
+        <x>318</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)6.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #212</name>
+        <x>358</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)7.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #216</name>
+        <x>358</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)7.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #220</name>
+        <x>398</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)8.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #224</name>
+        <x>398</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)8.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #228</name>
+        <x>118</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)1.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #232</name>
+        <x>118</x>
+        <y>55</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)1.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #236</name>
+        <text>1</text>
+        <x>158</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #239</name>
+        <text>2</text>
+        <x>198</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #242</name>
+        <text>3</text>
+        <x>238</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #245</name>
+        <text>4</text>
+        <x>278</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #248</name>
+        <text>5</text>
+        <x>318</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #251</name>
+        <text>6</text>
+        <x>358</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #254</name>
+        <text>7</text>
+        <x>398</x>
+        <y>33</y>
+        <width>20</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #257</name>
+        <text>0</text>
+        <x>123</x>
+        <y>33</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #260</name>
+        <pv_name>$(P)$(Li)</pv_name>
+        <x>435</x>
+        <y>57</y>
+        <height>18</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>4</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #264</name>
+        <text>Digital I/O</text>
+        <x>206</x>
+        <y>3</y>
+        <width>132</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <auto_size>true</auto_size>
+      </widget>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #267</name>
+        <width>560</width>
+        <height>155</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #270</name>
+      <y>170</y>
+      <width>295</width>
+      <height>115</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #273</name>
+        <text>Analog output</text>
+        <x>69</x>
+        <y>5</y>
+        <width>156</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #276</name>
+        <width>295</width>
+        <height>115</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>related display #279</name>
+        <actions>
+          <action type="open_display">
+            <file>measCompAoSetup.opi</file>
+            <target>tab</target>
+            <description>Input 1</description>
+          </action>
+        </actions>
+        <text>Configure</text>
+        <x>101</x>
+        <y>86</y>
+        <width>93</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #282</name>
+        <text>2</text>
+        <x>7</x>
+        <y>61</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #285</name>
+        <pv_name>$(P)$(Ao)2</pv_name>
+        <x>22</x>
+        <y>61</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="scrollbar" version="2.0.0">
+        <name>valuator #289</name>
+        <pv_name>$(P)$(Ao)2</pv_name>
+        <x>107</x>
+        <y>61</y>
+        <width>80</width>
+        <bar_length>1.0</bar_length>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #293</name>
+        <pv_name>$(P)$(Ao)2TweakVal</pv_name>
+        <x>210</x>
+        <y>61</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #297</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
+        <text>&gt;</text>
+        <x>273</x>
+        <y>61</y>
+        <width>15</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #300</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
+        <text>&lt;</text>
+        <x>192</x>
+        <y>61</y>
+        <width>15</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #303</name>
+        <text>1</text>
+        <x>7</x>
+        <y>35</y>
+        <width>10</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #306</name>
+        <pv_name>$(P)$(Ao)1</pv_name>
+        <x>22</x>
+        <y>35</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="scrollbar" version="2.0.0">
+        <name>valuator #310</name>
+        <pv_name>$(P)$(Ao)1</pv_name>
+        <x>107</x>
+        <y>35</y>
+        <width>80</width>
+        <bar_length>1.0</bar_length>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #314</name>
+        <pv_name>$(P)$(Ao)1TweakVal</pv_name>
+        <x>210</x>
+        <y>35</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #318</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
+        <text>&gt;</text>
+        <x>273</x>
+        <y>35</y>
+        <width>15</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #321</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
+        <text>&lt;</text>
+        <x>192</x>
+        <y>35</y>
+        <width>15</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #324</name>
+      <x>57</x>
+      <y>290</y>
+      <width>180</width>
+      <height>65</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #327</name>
+        <text>Trigger</text>
+        <x>48</x>
+        <y>5</y>
+        <width>84</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #330</name>
+        <width>180</width>
+        <height>65</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #333</name>
+        <text>Mode</text>
+        <x>8</x>
+        <y>35</y>
+        <width>40</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #336</name>
+        <pv_name>$(P)$(Tg)Mode</pv_name>
+        <x>53</x>
+        <y>35</y>
+        <width>120</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #339</name>
+      <x>300</x>
+      <width>260</width>
+      <height>515</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #342</name>
+        <text>Waveform digitzer</text>
+        <x>17</x>
+        <y>5</y>
+        <width>216</width>
+        <height>25</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #345</name>
+        <width>260</width>
+        <height>515</height>
+        <line_width>1</line_width>
+        <line_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="0" blue="0">
+          </color>
+        </background_color>
+        <transparent>true</transparent>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>related display #348</name>
+        <actions>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)1VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 1</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)2VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 2</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)3VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 3</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)4VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 4</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)5VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 5</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)6VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 6</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)7VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 7</description>
+          </action>
+          <action type="open_display">
+            <file>measCompWaveDigPlot.opi</file>
+            <macros>
+              <TIME>$(P)$(Wd)TimeWF</TIME>
+              <WAVE>$(P)$(Wd)8VoltWF</WAVE>
+            </macros>
+            <target>tab</target>
+            <description>Input 8</description>
+          </action>
+        </actions>
+        <text>Plots</text>
+        <x>74</x>
+        <y>485</y>
+        <width>113</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #358</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Wd)Run</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Wd)Run</pv_name>
+        <text>Start</text>
+        <x>30</x>
+        <y>460</y>
+        <width>60</width>
+        <height>20</height>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #361</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Wd)Run</pv_name>
+            <value>0</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Wd)Run</pv_name>
+        <text>Stop</text>
+        <x>95</x>
+        <y>460</y>
+        <width>60</width>
+        <height>20</height>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #364</name>
+        <text>Running</text>
+        <x>160</x>
+        <y>460</y>
+        <width>70</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="251" green="243" blue="74">
+          </color>
+        </foreground_color>
+        <auto_size>true</auto_size>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Wd)Run</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #368</name>
+        <text>Done</text>
+        <x>160</x>
+        <y>460</y>
+        <width>40</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </foreground_color>
+        <auto_size>true</auto_size>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Wd)Run</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #372</name>
+        <pv_name>$(P)$(Wd)CurrentPoint</pv_name>
+        <x>146</x>
+        <y>35</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="10" green="0" blue="184">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="187" green="187" blue="187">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #376</name>
+        <pv_name>$(P)$(Wd)NumPoints</pv_name>
+        <x>146</x>
+        <y>60</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="10" green="0" blue="184">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="187" green="187" blue="187">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #380</name>
+        <text>Current point</text>
+        <x>11</x>
+        <y>35</y>
+        <width>130</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #383</name>
+        <text># points</text>
+        <x>61</x>
+        <y>60</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #386</name>
+        <pv_name>$(P)$(Wd)NumChans</pv_name>
+        <x>146</x>
+        <y>210</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #389</name>
+        <pv_name>$(P)$(Wd)FirstChan</pv_name>
+        <x>146</x>
+        <y>185</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #392</name>
+        <pv_name>$(P)$(Wd)NumPoints</pv_name>
+        <x>146</x>
+        <y>160</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #396</name>
+        <pv_name>$(P)$(Wd)Dwell</pv_name>
+        <x>146</x>
+        <y>135</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>5</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #400</name>
+        <text># chans</text>
+        <x>71</x>
+        <y>210</y>
+        <width>70</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #403</name>
+        <text>First chan</text>
+        <x>41</x>
+        <y>185</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #406</name>
+        <text># points</text>
+        <x>61</x>
+        <y>160</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #409</name>
+        <text>Time/point</text>
+        <x>41</x>
+        <y>135</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #412</name>
+        <text>Time/point</text>
+        <x>41</x>
+        <y>85</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #415</name>
+        <pv_name>$(P)$(Wd)Dwell</pv_name>
+        <x>146</x>
+        <y>85</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="10" green="0" blue="184">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="187" green="187" blue="187">
+          </color>
+        </background_color>
+        <format>5</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #419</name>
+        <text>Total time</text>
+        <x>41</x>
+        <y>110</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textupdate" version="2.0.0">
+        <name>text update #422</name>
+        <pv_name>$(P)$(Wd)TotalTime</pv_name>
+        <x>146</x>
+        <y>110</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <foreground_color>
+          <color red="10" green="0" blue="184">
+          </color>
+        </foreground_color>
+        <background_color>
+          <color red="187" green="187" blue="187">
+          </color>
+        </background_color>
+        <format>5</format>
+        <show_units>false</show_units>
+        <horizontal_alignment>2</horizontal_alignment>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #426</name>
+        <pv_name>$(P)$(Wd)ExtClock</pv_name>
+        <x>146</x>
+        <y>335</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #429</name>
+        <text>Clock</text>
+        <x>91</x>
+        <y>335</y>
+        <width>50</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #432</name>
+        <pv_name>$(P)$(Wd)Retrigger</pv_name>
+        <x>146</x>
+        <y>285</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #435</name>
+        <text>Retrigger</text>
+        <x>51</x>
+        <y>285</y>
+        <width>90</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #438</name>
+        <text>Trigger count</text>
+        <x>11</x>
+        <y>310</y>
+        <width>130</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #441</name>
+        <pv_name>$(P)$(Wd)TriggerCount</pv_name>
+        <x>146</x>
+        <y>311</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #445</name>
+        <text>Burst mode</text>
+        <x>42</x>
+        <y>235</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #448</name>
+        <pv_name>$(P)$(Wd)BurstMode</pv_name>
+        <x>147</x>
+        <y>235</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #451</name>
+        <text>Trigger</text>
+        <x>70</x>
+        <y>259</y>
+        <width>70</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #454</name>
+        <pv_name>$(P)$(Wd)ExtTrigger</pv_name>
+        <x>145</x>
+        <y>259</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #457</name>
+        <text>Read rate</text>
+        <x>51</x>
+        <y>410</y>
+        <width>90</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #460</name>
+        <pv_name>$(P)$(Wd)ReadWF.SCAN</pv_name>
+        <x>146</x>
+        <y>410</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #463</name>
+        <text>Read</text>
+        <x>101</x>
+        <y>435</y>
+        <width>40</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="action_button" version="3.0.0">
+        <name>message button #466</name>
+        <actions>
+          <action type="write_pv">
+            <pv_name>$(P)$(Wd)ReadWF.PROC</pv_name>
+            <value>1</value>
+            <description>Write</description>
+          </action>
+        </actions>
+        <pv_name>$(P)$(Wd)ReadWF.PROC</pv_name>
+        <text>Read</text>
+        <x>146</x>
+        <y>435</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #469</name>
+        <pv_name>$(P)$(Wd)Continuous</pv_name>
+        <x>146</x>
+        <y>360</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #472</name>
+        <text>Continuous</text>
+        <x>41</x>
+        <y>360</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #475</name>
+        <pv_name>$(P)$(Wd)AutoRestart</pv_name>
+        <x>146</x>
+        <y>385</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #478</name>
+        <text>Auto restart</text>
+        <x>21</x>
+        <y>385</y>
+        <width>120</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+    </widget>
+  </widget>
+</display>
