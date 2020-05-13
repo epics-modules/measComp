@@ -6,6 +6,7 @@
 #include "mcBoard_E-TC.h"
 #include "mcBoard_E-TC32.h"
 #include "mcBoard_E-1608.h"
+#include "mcBoard_E-DIO24.h"
 #include "mcBoard_USB-CTR.h"
 
 
@@ -25,6 +26,9 @@ int cbAddBoard(const char *boardName, const char *address)
     else if (strcmp(boardName, "E-1608") ==0) {
         pBoard = (mcBoard *)new mcE_1608(address);
     }
+    else if (strcmp(boardName, "E-DIO24") ==0) {
+        pBoard = (mcBoard *)new mcE_DIO24(address);
+    }    
     else if (strcmp(boardName, "USB-CTR") ==0) {
         pBoard = (mcBoard *)new mcUSB_CTR(address);
     }
@@ -289,21 +293,3 @@ int cbSetTrigger(int BoardNum, int TrigType, USHORT LowThreshold,
     return pBoard->cbSetTrigger(TrigType, LowThreshold, HighThreshold);
 }
 
-// Daq functions
-int cbDaqInScan(int BoardNum, short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
-                long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options)
-{
-    if (BoardNum >= (int)boardList.size()) return BADBOARD;
-    mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbDaqInScan(ChanArray, ChanTypeArray, GainArray, ChanCount, Rate,
-							                 PretrigCount, TotalCount, MemHandle, Options);
-}
-
-int cbDaqSetTrigger(int BoardNum, int TrigSource, int TrigSense, int TrigChan, int ChanType, 
-                    int Gain, float Level, float Variance, int TrigEvent)
-{
-    if (BoardNum >= (int)boardList.size()) return BADBOARD;
-    mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbDaqSetTrigger(TrigSource, TrigSense, TrigChan, ChanType, 
-							                     Gain, Level, Variance, TrigEvent);
-}

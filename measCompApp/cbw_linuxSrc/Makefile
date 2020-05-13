@@ -9,16 +9,20 @@ include $(TOP)/configure/CONFIG
 
 INC += cbw_linux.h
 
-ifeq ($(HAVE_HIDAPI), YES)
-  LIBRARY_IOC_Linux += cbw_linux
-endif
+USR_CXXFLAGS_Linux += -fmax-errors=20
 
-LIB_SRCS += cbw_linux.cpp
-LIB_SRCS += mcBoard.cpp
-LIB_SRCS += mcBoard_E-TC.cpp
-LIB_SRCS += mcBoard_E-TC32.cpp
-LIB_SRCS += mcBoard_E-1608.cpp
-LIB_SRCS += mcBoard_USB-CTR.cpp
+LIBRARY_IOC += cbw_linux
+
+LIB_SRCS_Linux += cbw_linux.cpp
+LIB_SRCS_Linux += mcBoard.cpp
+LIB_SRCS_Linux += mcBoard_E-TC.cpp
+LIB_SRCS_Linux += mcBoard_E-TC32.cpp
+LIB_SRCS_Linux += mcBoard_E-1608.cpp
+LIB_SRCS_Linux += mcBoard_E-DIO24.cpp
+LIB_SRCS_Linux += mcBoard_USB-CTR.cpp
+
+PROD_LIBS += $(EPICS_BASE_IOC_LIBS)
+
 
 #=============================
 

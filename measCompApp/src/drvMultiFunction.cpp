@@ -81,7 +81,6 @@ typedef enum {
 #define waveDigBurstModeString    "WAVEDIG_BURST_MODE"
 #define waveDigRunString          "WAVEDIG_RUN"
 #define waveDigTimeWFString       "WAVEDIG_TIME_WF"
-#define waveDigAbsTimeWFString    "WAVEDIG_ABS_TIME_WF"
 #define waveDigReadWFString       "WAVEDIG_READ_WF"
 // Waveform digitizer parameters - per input
 #define waveDigVoltWFString       "WAVEDIG_VOLT_WF"
@@ -144,6 +143,7 @@ typedef enum {
   USB_TC32           = 305,
   ETH_TC32           = 306,
   E_1608             = 303,
+  E_DIO24            = 311,
   E_TC               = 312,
   MAX_BOARD_TYPES
 } boardType_t;
@@ -260,6 +260,21 @@ static const enumStruct_t inputTypeE_1608[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
+static const enumStruct_t inputRangeE_DIO24[] = {
+  {"+= 10V", BIP10VOLTS},
+  {"+= 5V",  BIP5VOLTS},
+  {"+= 2V",  BIP2VOLTS},
+  {"+= 1V",  BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeE_DIO24[] = {
+  {"+= 10V", BIP10VOLTS}
+};
+
+static const enumStruct_t inputTypeE_DIO24[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
 static const enumStruct_t inputRangeTC32[] = {
   {"N.A.", 0}
 };
@@ -323,6 +338,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
                    inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
 
+  {E_DIO24,        inputRangeE_DIO24,      sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
+                   outputRangeE_DIO24,     sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
+                   inputTypeE_DIO24,       sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
+                   
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
@@ -410,7 +429,6 @@ protected:
   int waveDigBurstMode_;
   int waveDigRun_;
   int waveDigTimeWF_;
-  int waveDigAbsTimeWF_;
   int waveDigReadWF_;
   // Waveform digitizer parameters - per input
   int waveDigVoltWF_;
@@ -484,7 +502,6 @@ private:
   size_t maxOutputPoints_;
   epicsFloat64 *waveDigBuffer_[MAX_ANALOG_IN];
   epicsFloat32 *waveDigTimeBuffer_;
-  epicsFloat64 *waveDigAbsTimeBuffer_;
   epicsFloat32 *waveGenIntBuffer_[MAX_ANALOG_OUT];
   epicsFloat32 *waveGenUserBuffer_[MAX_ANALOG_OUT];
   epicsFloat32 *waveGenUserTimeBuffer_;
@@ -539,7 +556,7 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   int i, j;
   int inMask, outMask;
   static const char *functionName = "MultiFunction";
-  
+   
   // Model parameters
   createParam(modelNameString,                 asynParamOctet, &modelName_);
   createParam(modelNumberString,               asynParamInt32, &modelNumber_);
@@ -583,7 +600,6 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   createParam(waveDigBurstModeString,          asynParamInt32, &waveDigBurstMode_);
   createParam(waveDigRunString,                asynParamInt32, &waveDigRun_);
   createParam(waveDigTimeWFString,      asynParamFloat32Array, &waveDigTimeWF_);
-  createParam(waveDigAbsTimeWFString,   asynParamFloat64Array, &waveDigAbsTimeWF_);
   createParam(waveDigReadWFString,             asynParamInt32, &waveDigReadWF_);
   // Waveform digitizer parameters - per input
   createParam(waveDigVoltWFString,      asynParamFloat32Array, &waveDigVoltWF_);
@@ -713,6 +729,11 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       numCounters_  = 1;
       firstCounter_ = 0;
       break;
+    case E_DIO24:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      break;    
     case USB_TC32:
     case ETH_TC32:
       numTimers_    = 0;
@@ -753,7 +774,6 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   waveGenUserTimeBuffer_ = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveGenIntTimeBuffer_  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveDigTimeBuffer_     = (epicsFloat32 *) calloc(maxInputPoints_,  sizeof(epicsFloat32));
-  waveDigAbsTimeBuffer_  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   inputMemHandle_  = cbScaledWinBufAlloc(maxInputPoints  * numAnalogIn_);
   outputMemHandle_ = cbWinBufAlloc(maxOutputPoints * numAnalogOut_);
   
@@ -1072,7 +1092,6 @@ int MultiFunction::startWaveDig()
   if (retrigger)  options |= RETRIGMODE;
   if (burstMode)  options |= BURSTMODE;
   lastChan = firstChan + numChans - 1;
-  setIntegerParam(waveDigCurrentPoint_, 0);
   
   // Construct the gain array
   for (i=0; i<numChans; i++) {
@@ -1131,20 +1150,24 @@ int MultiFunction::readWaveDig()
 {
   int firstChan, lastChan;
   int currentPoint;
-  int i;
+  int i, j;
+  epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_;
   static const char *functionName = "readWaveDig";
   
   getIntegerParam(waveDigFirstChan_,    &firstChan);
   lastChan = firstChan + numWaveDigChans_ - 1;
   getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-
+  for (i=0; i<currentPoint; i++) {
+    for (j=firstChan; j<=lastChan; j++) {
+      waveDigBuffer_[j][i] = *pAnalogIn++;
+    }
+  }
   for (i=firstChan; i<=lastChan; i++) {
     asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
       "%s:%s:, doing callbacks on input %d, first value=%f\n", 
       driverName, functionName, i, waveDigBuffer_[i][0]);
     doCallbacksFloat64Array(waveDigBuffer_[i], currentPoint, waveDigVoltWF_, i);
   }
-  doCallbacksFloat64Array(waveDigAbsTimeBuffer_, currentPoint, waveDigAbsTimeWF_, 0);
   return 0;
 }    
 
@@ -1440,27 +1463,19 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
 
   // Temperature input function
   if (function == temperatureInValue_) {
-    if (waveDigRunning_) {
-      int currentPoint;
-      getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-      if (currentPoint > 0) {
-        *value = waveDigBuffer_[addr][currentPoint-1];
-      }
+    if (waveDigRunning_) return asynSuccess;
+    getIntegerParam(addr, analogInType_, &type);
+    getIntegerParam(addr, temperatureScale_, &scale);
+    getIntegerParam(addr, temperatureFilter_, &filter);
+    if (type != AI_CHAN_TYPE_TC) return asynSuccess;
+    status = cbTIn(boardNum_, addr, scale, &fVal, filter);
+    if (status == OPENCONNECTION) {
+      // This is an "expected" error if the thermocouple is broken or disconnected
+      // Don't print error message, just set temp to -9999.
+      fVal = -9999.;
+      status = 0;
     }
-    else {
-      getIntegerParam(addr, analogInType_, &type);
-      getIntegerParam(addr, temperatureScale_, &scale);
-      getIntegerParam(addr, temperatureFilter_, &filter);
-      if (type != AI_CHAN_TYPE_TC) return asynSuccess;
-      status = cbTIn(boardNum_, addr, scale, &fVal, filter);
-      if (status == OPENCONNECTION) {
-        // This is an "expected" error if the thermocouple is broken or disconnected
-        // Don't print error message, just set temp to -9999.
-        fVal = -9999.;
-        status = 0;
-      }
-      *value = fVal;
-    }
+    *value = fVal;
     setDoubleParam(addr, temperatureInValue_, *value);
     if (status) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR, 
@@ -1594,7 +1609,6 @@ asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *va
   int function = pasynUser->reason;
   int addr;
   int numPoints;
-  epicsFloat64 *inPtr;
   static const char *functionName = "readFloat64Array";
   
   this->getAddress(pasynUser, &addr);
@@ -1605,11 +1619,12 @@ asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *va
         "%s:%s: ERROR: addr=%d max=%d\n",
         driverName, functionName, addr, numAnalogIn_-1);
       return asynError;
-    }
-    inPtr = waveDigBuffer_[addr];
-  }
-  else if (function == waveDigAbsTimeWF_) {
-    inPtr = waveDigAbsTimeBuffer_;
+    } 
+    *nIn = nElements;
+    getIntegerParam(waveDigNumPoints_, &numPoints);
+    if (*nIn > (size_t)numPoints) *nIn = numPoints;
+    memcpy(value, waveDigBuffer_[addr], *nIn*sizeof(epicsFloat64));
+    return asynSuccess; 
   }
   else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
@@ -1617,11 +1632,6 @@ asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *va
       driverName, functionName, function);
     return asynError;
   }
-  *nIn = nElements;
-  getIntegerParam(waveDigNumPoints_, &numPoints);
-  if (*nIn > (size_t)numPoints) *nIn = numPoints;
-  memcpy(value, inPtr, *nIn*sizeof(epicsFloat64));
-  return asynSuccess; 
 }
 
 asynStatus MultiFunction::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements)
@@ -1699,15 +1709,11 @@ void MultiFunction::pollerThread()
   ULONG countVal;
   long aoCount, aoIndex, aiCount, aiIndex;
   short aoStatus, aiStatus;
-  epicsTimeStamp now;
-  epicsTimeStamp startTime;
-  int numReadings;
   int status;
 
   while(1) { 
     lock();
-    epicsTimeGetCurrent(&startTime);
-
+    
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
       if (numIOBits_[i] > 16) {
@@ -1771,24 +1777,8 @@ void MultiFunction::pollerThread()
       }
       goto error;
     }
-    int currentPoint;
-    getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-    numReadings = aiCount/numWaveDigChans_;
-    if (waveDigRunning_ && numReadings > currentPoint) {
-      epicsTimeGetCurrent(&now);
-      int firstChan;
-      getIntegerParam(waveDigFirstChan_, &firstChan);
-      int lastChan = firstChan + numWaveDigChans_ - 1;
-      epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_ + currentPoint*numWaveDigChans_;
-      int lastPoint = aiIndex / numWaveDigChans_ + 1;
-      for(; currentPoint < lastPoint; currentPoint++) {
-        for (int j=firstChan; j<=lastChan; j++) {
-          waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
-        }
-        waveDigAbsTimeBuffer_[currentPoint] = now.secPastEpoch + now.nsec/1.e9;
-      }
-      setIntegerParam(waveDigCurrentPoint_, currentPoint);
-    }
+    currentPoint = (aiIndex / numWaveDigChans_) + 1;
+    setIntegerParam(waveDigCurrentPoint_, currentPoint);
     if (waveDigRunning_ && (aiStatus == 0)) { 
       stopWaveDig();
     }
@@ -1798,11 +1788,7 @@ void MultiFunction::pollerThread()
     }
 error:
     unlock();
-    epicsTimeGetCurrent(&now);
-    double diffTime = epicsTimeDiffInSeconds(&now, &startTime);
-    double sleepTime = pollTime_ - diffTime;
-    if (sleepTime < 0.001) sleepTime = 0.001;
-    epicsThreadSleep(sleepTime);
+    epicsThreadSleep(pollTime_);
   }
 }
 
