@@ -10,7 +10,7 @@ The EPICS drivers thus always use the UL API and are identical on Linux and Wind
 The Linux UL layer is independent of EPICS, and uses std::thread and std::mutex to provide the required
 threading and mutex capabilities.  These methods require C++11, and so will not build with very old compilers.
 They do build with gcc 4.8.5 on RHEL 7/Centos 7, and gcc 4.4.7 on RHEL 6/Centos 6.
-Currently only the E-1608, E-TC, E-TC32, and USB-CTR08 models are supported on Linux.
+Currently only the E-1608, E-TC, E-TC32, E-DIO24, and USB-CTR08 models are supported on Linux.
 Support for other modules is straightforward to add and can be done as the demand arises.
 
 Models supported in measComp include:
@@ -85,7 +85,10 @@ with 4 32-bit counters, a 16-bit preset timer, and one 16-bit counter. The devic
 also contains 8 binary outputs, 8 binary inputs, which are supported with standard
 EPICS bi, bo, longin, and longout records. NOTE: This module is obsolete and is
 no longer available. Use the USB-CTR08 instead.
- 
+
+* The [E-DIO24 digital I/O module](https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series).
+This device contains 24 digital I/O lines and 1 counter.
+
 Additional information:
 * [Home page](https://cars.uchicago.edu/software/epics/measComp.html)
 * [Documentation](https://cars.uchicago.edu/software/epics/measCompDoc.html)
