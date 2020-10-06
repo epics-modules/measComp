@@ -144,6 +144,7 @@ typedef enum {
   USB_TC32           = 305,
   ETH_TC32           = 306,
   E_1608             = 303,
+  E_DIO24            = 311,
   E_TC               = 312,
   MAX_BOARD_TYPES
 } boardType_t;
@@ -260,6 +261,21 @@ static const enumStruct_t inputTypeE_1608[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
+static const enumStruct_t inputRangeE_DIO24[] = {
+  {"+= 10V", BIP10VOLTS},
+  {"+= 5V",  BIP5VOLTS},
+  {"+= 2V",  BIP2VOLTS},
+  {"+= 1V",  BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeE_DIO24[] = {
+  {"+= 10V", BIP10VOLTS}
+};
+
+static const enumStruct_t inputTypeE_DIO24[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
 static const enumStruct_t inputRangeTC32[] = {
   {"N.A.", 0}
 };
@@ -323,6 +339,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
                    inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
 
+  {E_DIO24,        inputRangeE_DIO24,      sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
+                   outputRangeE_DIO24,     sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
+                   inputTypeE_DIO24,       sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
+				   
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
@@ -713,6 +733,11 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       numCounters_  = 1;
       firstCounter_ = 0;
       break;
+    case E_DIO24:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      break; 	  
     case USB_TC32:
     case ETH_TC32:
       numTimers_    = 0;
