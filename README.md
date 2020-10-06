@@ -10,7 +10,7 @@ The EPICS drivers thus always use the UL API and are identical on Linux and Wind
 The Linux UL layer is independent of EPICS, and uses std::thread and std::mutex to provide the required
 threading and mutex capabilities.  These methods require C++11, and so will not build with very old compilers.
 They do build with gcc 4.8.5 on RHEL 7/Centos 7, and gcc 4.4.7 on RHEL 6/Centos 6.
-Currently only the E-1608, E-TC, and E-TC32 models are supported on Linux.
+Currently only the E-1608, E-TC, E-TC32, and USB-CTR08 models are supported on Linux.
 Support for other modules is straightforward to add and can be done as the demand arises.
 
 Models supported in measComp include:
