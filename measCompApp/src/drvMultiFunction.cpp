@@ -1768,56 +1768,60 @@ void MultiFunction::pollerThread()
       setIntegerParam(i, counterCounts_, countVal);
     }
     
-    // Poll the status of the waveform generator output
-    status = cbGetStatus(boardNum_, &aoStatus, &aoCount, &aoIndex, AOFUNCTION);
-    if (status) {
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
-                driverName, functionName, status);
-      goto error;
-    }
-    currentPoint = (aoIndex / numWaveGenChans_) + 1;
-    setIntegerParam(waveGenCurrentPoint_, currentPoint);
-    if (waveGenRunning_ && (aoStatus == 0)) {
-      stopWaveGen();
+    if (numAnalogOut_ > 0) {
+      // Poll the status of the waveform generator output
+      status = cbGetStatus(boardNum_, &aoStatus, &aoCount, &aoIndex, AOFUNCTION);
+      if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                  "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                  driverName, functionName, status);
+        goto error;
+      }
+      currentPoint = (aoIndex / numWaveGenChans_) + 1;
+      setIntegerParam(waveGenCurrentPoint_, currentPoint);
+      if (waveGenRunning_ && (aoStatus == 0)) {
+        stopWaveGen();
+      }
     }
     
-    // Poll the status of the waveform digitzer input
-    status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
-    if (status) {
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
-                driverName, functionName, status);
-      // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
-      // Need to stop and start the waveform digitizer if it was running
-      if ((status == DEADDEV) && waveDigRunning_) {
-        stopWaveDig();
-        startWaveDig();
-      }
-      goto error;
-    }
-    int currentPoint;
-    getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-    numReadings = aiCount/numWaveDigChans_;
-    if (waveDigRunning_ && numReadings > currentPoint) {
-      epicsTimeGetCurrent(&now);
-      int firstChan;
-      getIntegerParam(waveDigFirstChan_, &firstChan);
-      int lastChan = firstChan + numWaveDigChans_ - 1;
-      epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_ + currentPoint*numWaveDigChans_;
-      int lastPoint = aiIndex / numWaveDigChans_ + 1;
-      for(; currentPoint < lastPoint; currentPoint++) {
-        for (int j=firstChan; j<=lastChan; j++) {
-          waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
+    if (numAnalogIn_ > 0) {
+      // Poll the status of the waveform digitizer input
+      status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
+      if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                  "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                  driverName, functionName, status);
+        // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
+        // Need to stop and start the waveform digitizer if it was running
+        if ((status == DEADDEV) && waveDigRunning_) {
+          stopWaveDig();
+          startWaveDig();
         }
-        waveDigAbsTimeBuffer_[currentPoint] = now.secPastEpoch + now.nsec/1.e9;
+        goto error;
       }
-      setIntegerParam(waveDigCurrentPoint_, currentPoint);
+      int currentPoint;
+      getIntegerParam(waveDigCurrentPoint_, &currentPoint);
+      numReadings = aiCount/numWaveDigChans_;
+      if (waveDigRunning_ && numReadings > currentPoint) {
+        epicsTimeGetCurrent(&now);
+        int firstChan;
+        getIntegerParam(waveDigFirstChan_, &firstChan);
+        int lastChan = firstChan + numWaveDigChans_ - 1;
+        epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_ + currentPoint*numWaveDigChans_;
+        int lastPoint = aiIndex / numWaveDigChans_ + 1;
+        for(; currentPoint < lastPoint; currentPoint++) {
+          for (int j=firstChan; j<=lastChan; j++) {
+            waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
+          }
+          waveDigAbsTimeBuffer_[currentPoint] = now.secPastEpoch + now.nsec/1.e9;
+        }
+        setIntegerParam(waveDigCurrentPoint_, currentPoint);
+      }
+      if (waveDigRunning_ && (aiStatus == 0)) { 
+        stopWaveDig();
+      }
     }
-    if (waveDigRunning_ && (aiStatus == 0)) { 
-      stopWaveDig();
-    }
-    
+
     for (i=0; i<MAX_SIGNALS; i++) {
       callParamCallbacks(i);
     }
