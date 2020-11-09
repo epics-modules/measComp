@@ -10,7 +10,7 @@
     <h1>
       Driver for Measurement Computing Multi-Function Devices</h1>
     <h2>
-      March 22, 2018</h2>
+      November 9, 2020</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -50,6 +50,7 @@
     <li><a href="#E-TC">E-TC</a></li>
     <li><a href="#TC-32">TC-32</a></li>
     <li><a href="#USB-1208LS">USB-1208LS, USB-1208FS, and USB-231</a></li>
+    <li><a href="#E-DIO24">E-DIO24</a></li>
   </ul>
   <hr />
   <h2 id="USB-1608GX-2AO" style="text-align: center">
@@ -347,6 +348,31 @@
     <h3>
       USB1208LS_module.adl</h3>
     <img alt="USB1208LS_module.png" src="USB1208LS_module.png" /></div>
+  <h2 id="E_DIO24" style="text-align: center; padding: 1cm;">
+    E-DIO24</h2>
+  <div style="text-align: center">
+    <h3>
+      Photo of E-DIO24</h3>
+    <img alt="E-DIO24_500.jpg" src="E-DIO24_500.jpg" /></div>
+  <p>
+    This module costs $320 and has the following features:</p>
+  <ul>
+    <li>Digital inputs/outputs
+      <ul>
+        <li>24 signals, individuaully programmable as inputs or outputs</li>
+      </ul>
+    </li>
+    <li>Counters
+      <ul>
+        <li>1 input</li>
+        <li>10 MHz maximum rate, 32-bit register</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+    More information can be found in the <a href="https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series">
+      E-DIO24 product description.</a>
+  </p>
   <h2 id="Configuration" style="text-align: center">
     Configuration</h2>
   <p>
@@ -399,190 +425,139 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_IN_VALUE
-        </td>
+          ANALOG_IN_VALUE </td>
         <td>
           Analog input value. This is converted from the 16-bit unsigned integer device units
           from the driver to engineering units using the EGUL and EGUF fields. This field
           should be periodically scanned, since it is not currently polled in the driver,
-          so I/O Intr scanning cannot be used.
-        </td>
+          so I/O Intr scanning cannot be used. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Range
-        </td>
+          $(P)$(R)Range </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_IN_RANGE
-        </td>
+          ANALOG_IN_RANGE </td>
         <td>
           Input range for this analog input channel. Choices are determined at run time based
-          on the model in use.
-        </td>
+          on the model in use. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Type
-        </td>
+          $(P)$(R)Type </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_IN_TYPE
-        </td>
+          ANALOG_IN_TYPE </td>
         <td>
           Input type (e.g. "Volts", "TC deg", etc.) for this analog input channel. Choices
-          are determined at run time based on the model in use.
-        </td>
+          are determined at run time based on the model in use. </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
           <b>measCompAnalogOut.template. This database is loaded once for each analog input
-            channel.</b>
-        </td>
+            channel.</b> </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_OUT_VALUE
-        </td>
+          ANALOG_OUT_VALUE </td>
         <td>
           Analog output value. This is converted from engineering units to the 16-bit unsigned
-          integer device units for the driver using the EGUL and EGUF fields.
-        </td>
+          integer device units for the driver using the EGUL and EGUF fields. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Range
-        </td>
+          $(P)$(R)Range </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_OUT_RANGE
-        </td>
+          ANALOG_OUT_RANGE </td>
         <td>
           Output range for this analog output channel. Choices are determined at run time
-          based on the model in use.
-        </td>
+          based on the model in use. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Return
-        </td>
+          $(P)$(R)Return </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          ANALOG_OUT_VALUE
-        </td>
+          ANALOG_OUT_VALUE </td>
         <td>
           Analog output value to return to at the end of a pulse. This is converted from engineering
           units to the 16-bit unsigned integer device units for the driver using the EGUL
-          and EGUF fields.
-        </td>
+          and EGUF fields. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Pulse
-        </td>
+          $(P)$(R)Pulse </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
           Choices are "Normal" and "Pulse". In Normal mode the Return record is ignored. In
           Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
-          writing the $(P)$(R)Return value.
-        </td>
+          writing the $(P)$(R)Return value. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TweakVal
-        </td>
+          $(P)$(R)TweakVal </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          The amount by which to tweak the out when the Tweak record is processed.
-        </td>
+          The amount by which to tweak the out when the Tweak record is processed. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TweakUp
-        </td>
+          $(P)$(R)TweakUp </td>
         <td>
-          calcout
-        </td>
+          calcout </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          Tweaks the output up by TweakVal.
-        </td>
+          Tweaks the output up by TweakVal. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TweakDown
-        </td>
+          $(P)$(R)TweakDown </td>
         <td>
-          calcout
-        </td>
+          calcout </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          Tweaks the output down by TweakVal.
-        </td>
+          Tweaks the output down by TweakVal. </td>
       </tr>
     </tbody>
   </table>
@@ -628,79 +603,58 @@ dbLoadTemplate("1608G.substitutions.big")
       <tr>
         <td align="center" colspan="5">
           <b>measCompTemperatureIn.template. This database is loaded once for each temperature
-            input channel.</b>
-        </td>
+            input channel.</b> </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          TEMPERATURE_IN_VALUE
-        </td>
+          TEMPERATURE_IN_VALUE </td>
         <td>
           Temperature input value. This field should be periodically scanned, since it is
-          not currently polled in the driver, so I/O Intr scanning cannot be used.
-        </td>
+          not currently polled in the driver, so I/O Intr scanning cannot be used. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Scale
-        </td>
+          $(P)$(R)Scale </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          TEMPERATURE_SCALE
-        </td>
+          TEMPERATURE_SCALE </td>
         <td>
           Temperature scale (units) for this temperature input channel. Choices are "Celsius"
-          (0), "Fahrenheit" (1), "Kelvin" (2), "Volts" (4), and "Noscale" (5).
-        </td>
+          (0), "Fahrenheit" (1), "Kelvin" (2), "Volts" (4), and "Noscale" (5). </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TCType
-        </td>
+          $(P)$(R)TCType </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          THERMOCOUPLE_TYPE
-        </td>
+          THERMOCOUPLE_TYPE </td>
         <td>
           Thermocouple type. Choices are "Type J" (1), "Type K" (2), "Type T" (3), "Type 4"
-          (4), "Type R" (5), "Type S" (6), "Type B" (7), "Type N" (8)
-        </td>
+          (4), "Type R" (5), "Type S" (6), "Type B" (7), "Type N" (8) </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Filter
-        </td>
+          $(P)$(R)Filter </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          TEMPERATURE_FILTER
-        </td>
+          TEMPERATURE_FILTER </td>
         <td>
-          Temperature filter. Choices are "Filter" (0) and "No filter" (0x400)
-        </td>
+          Temperature filter. Choices are "Filter" (0) and "No filter" (0x400) </td>
       </tr>
     </tbody>
   </table>
@@ -739,22 +693,17 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          bi
-        </td>
+          bi </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_INPUT
-        </td>
+          DIGITAL_INPUT </td>
         <td>
           Digital input value. The MASK parameter in the INP link defines which bit is used.
           The binary inputs are polled by the driver poller thread, so these records should
-          have SCAN="I/O Intr".
-        </td>
+          have SCAN="I/O Intr". </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -763,22 +712,17 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          longin
-        </td>
+          longin </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_INPUT
-        </td>
+          DIGITAL_INPUT </td>
         <td>
           Digital input value as a word, rather than individual bits. The MASK parameter in
           the INP link defines which bits are used. The binary inputs are polled by the driver
-          poller thread, so this record should have SCAN="I/O Intr".
-        </td>
+          poller thread, so this record should have SCAN="I/O Intr". </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -787,38 +731,29 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_OUTPUT
-        </td>
+          DIGITAL_OUTPUT </td>
         <td>
           Digital output value. The MASK parameter in the INP link defines which bit is used.
         </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)_RBV
-        </td>
+          $(P)$(R)_RBV </td>
         <td>
-          bi
-        </td>
+          bi </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_OUTPUT
-        </td>
+          DIGITAL_OUTPUT </td>
         <td>
           Digital output value readback. The MASK parameter in the INP link defines which
-          bit is used.
-        </td>
+          bit is used. </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -827,39 +762,29 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_OUTPUT
-        </td>
+          DIGITAL_OUTPUT </td>
         <td>
           Digital output value as a word, rather than individual bits. The MASK parameter
-          in the INP link defines which bits are used.
-        </td>
+          in the INP link defines which bits are used. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)_RBV
-        </td>
+          $(P)$(R)_RBV </td>
         <td>
-          longin
-        </td>
+          longin </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_OUTPUT
-        </td>
+          DIGITAL_OUTPUT </td>
         <td>
           Digital output value readback as a word, rather than individual bits. The MASK parameter
-          in the INP link defines which bits are used.
-        </td>
+          in the INP link defines which bits are used. </td>
       </tr>
       <tr>
         <td align="center" colspan="5">
@@ -868,21 +793,16 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)
-        </td>
+          $(P)$(R) </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynUInt32Digital
-        </td>
+          asynUInt32Digital </td>
         <td>
-          DIGITAL_DIRECTION
-        </td>
+          DIGITAL_DIRECTION </td>
         <td>
           Direction of this I/O line, "In" (0) or "Out" (1). The MASK parameter in the INP
-          link defines which bit is used.
-        </td>
+          link defines which bit is used. </td>
       </tr>
     </tbody>
   </table>
@@ -915,131 +835,97 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)Run
-        </td>
+          $(P)$(R)Run </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynUInt32
-        </td>
+          asynUInt32 </td>
         <td>
-          PULSE_RUN
-        </td>
+          PULSE_RUN </td>
         <td>
           "Run" (1) starts the pulse generator, "Stop" (0) stops the pulse generator. Note
           that ideally this record should go back to 0 when the pulse generator is done, if
           it is outputting a finite number of pulses (see Count record). But unfortunately
           the Measurement Computing library does not have a way to query the status of the
-          timer to see if it is done, so this is not possible.
-        </td>
+          timer to see if it is done, so this is not possible. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Period
-        </td>
+          $(P)$(R)Period </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          PULSE_PERIOD
-        </td>
+          PULSE_PERIOD </td>
         <td>
           Pulse period, in seconds. The time between pulses can be defined either with the
           Period or with the Frequency; whenever one record is changed the other is updated
-          with the new calculated value.
-        </td>
+          with the new calculated value. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Frequency
-        </td>
+          $(P)$(R)Frequency </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
           Pulse frequency, in seconds. The Frequency calculates a new value of the Period,
-          and sends the period value to the driver.
-        </td>
+          and sends the period value to the driver. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Width
-        </td>
+          $(P)$(R)Width </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          PULSE_WIDTH
-        </td>
+          PULSE_WIDTH </td>
         <td>
           Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).
         </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Delay
-        </td>
+          $(P)$(R)Delay </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          PULSE_DELAY
-        </td>
+          PULSE_DELAY </td>
         <td>
-          Initial pulse delay in seconds after Run is set to 1.
-        </td>
+          Initial pulse delay in seconds after Run is set to 1. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Count
-        </td>
+          $(P)$(R)Count </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          PULSE_COUNT
-        </td>
+          PULSE_COUNT </td>
         <td>
           Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
-          until Run is set to 0.
-        </td>
+          until Run is set to 0. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)IdleState
-        </td>
+          $(P)$(R)IdleState </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          PULSE_IDLE_STATE
-        </td>
+          PULSE_IDLE_STATE </td>
         <td>
           The idle state of the pulse output line, "Low" (0) or "High" (1). This determines
-          the polarity of the pulse, i.e. positive going or negative going.
-        </td>
+          the polarity of the pulse, i.e. positive going or negative going. </td>
       </tr>
     </tbody>
   </table>
@@ -1071,35 +957,26 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)NumPoints
-        </td>
+          $(P)$(R)NumPoints </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_NUM_POINTS
-        </td>
+          WAVEDIG_NUM_POINTS </td>
         <td>
           Number of points to digitize. This cannot be more than the value of maxInputPoints
-          that was specified in USB1608GConfig.
-        </td>
+          that was specified in USB1608GConfig. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)FirstChan
-        </td>
+          $(P)$(R)FirstChan </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_FIRST_CHAN
-        </td>
+          WAVEDIG_FIRST_CHAN </td>
         <td>
           First channel to digitize. "1" (0) to "8" (7). The database currently assumes differential
           inputs, so only 8 inputs are available, though this can easily be extended to 16.
@@ -1107,143 +984,105 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)NumChans
-        </td>
+          $(P)$(R)NumChans </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_NUM_CHANS
-        </td>
+          WAVEDIG_NUM_CHANS </td>
         <td>
           Number of channels to digitize. "1" (0) to "8" (7). The maximum valid number is
           8-FirstChan+1. The database currently assumes differential inputs, so only 8 inputs
-          are available, though this can easily be extended to 16.
-        </td>
+          are available, though this can easily be extended to 16. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TimeWF
-        </td>
+          $(P)$(R)TimeWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat32Array
-        </td>
+          asynFloat32Array </td>
         <td>
-          WAVEDIG_TIME_WF
-        </td>
+          WAVEDIG_TIME_WF </td>
         <td>
           Timebase waveform. These values are calculated when Dwell or NumPoints are changed.
-          It is typically used as the X-axis in plots.
-        </td>
+          It is typically used as the X-axis in plots. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)CurrentPoint
-        </td>
+          $(P)$(R)CurrentPoint </td>
         <td>
-          longin
-        </td>
+          longin </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_CURRENT_POINT
-        </td>
+          WAVEDIG_CURRENT_POINT </td>
         <td>
           The current point being collected. This does not always increment by 1 because the
-          device can transfer data in blocks.
-        </td>
+          device can transfer data in blocks. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Dwell
-        </td>
+          $(P)$(R)Dwell </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEDIG_DWELL
-        </td>
+          WAVEDIG_DWELL </td>
         <td>
           The time per point in seconds. The minimum time is 2 microseconds times NumChans.
         </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TotalTime
-        </td>
+          $(P)$(R)TotalTime </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEDIG_TOTAL_TIME
-        </td>
+          WAVEDIG_TOTAL_TIME </td>
         <td>
-          The total time to digitize NumChans*NumPoints.
-        </td>
+          The total time to digitize NumChans*NumPoints. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ExtTrigger
-        </td>
+          $(P)$(R)ExtTrigger </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_EXT_TRIGGER
-        </td>
+          WAVEDIG_EXT_TRIGGER </td>
         <td>
-          The trigger source, "Internal" (0) or "External" (1).
-        </td>
+          The trigger source, "Internal" (0) or "External" (1). </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ExtClock
-        </td>
+          $(P)$(R)ExtClock </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_EXT_CLOCK
-        </td>
+          WAVEDIG_EXT_CLOCK </td>
         <td>
           The clock source, "Internal" (0) or "External" (1). If External is used then the
           Dwell record does not control the digitization rate, it is controlled by the external
           clock. However Dwell should be set to approximately the correct value if possible,
-          because that controls what type of data transfers the device uses.
-        </td>
+          because that controls what type of data transfers the device uses. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Continuous
-        </td>
+          $(P)$(R)Continuous </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_CONTINUOUS
-        </td>
+          WAVEDIG_CONTINUOUS </td>
         <td>
           Values are "One-shot" (0) or "Continuous" (1). This controls whether the device
           stops when acquisition is complete, or immediately begins another acquisition. Typically
@@ -1251,118 +1090,89 @@ dbLoadTemplate("1608G.substitutions.big")
           could be overwritten before the driver has a chance to read the data. One exception
           is when using Retrigger=Enable and TriggerCount less than NumPoints. In that case
           each trigger will only collect TriggerCount samples, and one wants to use Continuous
-          so that it collects the next TriggerCount samples on the next trigger input.
-        </td>
+          so that it collects the next TriggerCount samples on the next trigger input. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)AutoRestart
-        </td>
+          $(P)$(R)AutoRestart </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_AUTO_RESTART
-        </td>
+          WAVEDIG_AUTO_RESTART </td>
         <td>
           Values are "Disable" (0) and "Enable" (1). This controls whether the driver automatically
           starts another acquire when the previous one completes. This is different from Continuous
           mode described above, because this is a software restart that only happens after
-          the driver has read the buffer from the previous acquisition.
-        </td>
+          the driver has read the buffer from the previous acquisition. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Retrigger
-        </td>
+          $(P)$(R)Retrigger </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_RETRIGGER
-        </td>
+          WAVEDIG_RETRIGGER </td>
         <td>
           Values are "Disable" (0) and "Enable" (1). This controls whether the device rearms
-          the trigger input after a trigger is received.
-        </td>
+          the trigger input after a trigger is received. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TriggerCount
-        </td>
+          $(P)$(R)TriggerCount </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_TRIGGER_COUNT
-        </td>
+          WAVEDIG_TRIGGER_COUNT </td>
         <td>
           This controls how many samples are collected on each trigger input. 0 means collect
           NumPoint samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
-          then each time a trigger is received TriggerCount samples will be collected.
-        </td>
+          then each time a trigger is received TriggerCount samples will be collected. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)BurstMode
-        </td>
+          $(P)$(R)BurstMode </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_BURST_MODE
-        </td>
+          WAVEDIG_BURST_MODE </td>
         <td>
           Values are "Disable" (0) and "Enable" (1). This controls whether the device digitizes
           all NumChans channels as quickly as possible during each sample, or whether it digitizes
           successive channels at evenly spaced time intevals during the Dwell time. Enabling
           BurstMode means that all channels are digitized 2 microseconds apart. This can reduce
           the accuracy if the channels have very different voltages because of the settling
-          time and slew rate limitations of the system.
-        </td>
+          time and slew rate limitations of the system. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Run
-        </td>
+          $(P)$(R)Run </td>
         <td>
-          busy
-        </td>
+          busy </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_RUN
-        </td>
+          WAVEDIG_RUN </td>
         <td>
           Values are "Stop" (0) and "Run" (1). This starts and stops the waveform digitizer.
         </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ReadWF
-        </td>
+          $(P)$(R)ReadWF </td>
         <td>
-          busy
-        </td>
+          busy </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEDIG_READ_WF
-        </td>
+          WAVEDIG_READ_WF </td>
         <td>
           Values are "Done" (0) and "Read" (1). This reads the waveform data from the device
           buffers into the waveform records. Note that the driver always reads device when
@@ -1373,27 +1183,21 @@ dbLoadTemplate("1608G.substitutions.big")
       <tr>
         <td align="center" colspan="5">
           <b>measCompWaveformDigN.template. This database is loaded for each digitizer input
-            channel.</b>
-        </td>
+            channel.</b> </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)VoltWF
-        </td>
+          $(P)$(R)VoltWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat64Array
-        </td>
+          asynFloat64Array </td>
         <td>
-          WAVEDIG_VOLT_WF
-        </td>
+          WAVEDIG_VOLT_WF </td>
         <td>
           This waveform record contains the digitizer waveform data for channel N. This record
           has scan=I/O Intr, and it will process whenever acquisition completes, or whenever
-          the ReadWF record above processes. The data are in volts.
-        </td>
+          the ReadWF record above processes. The data are in volts. </td>
       </tr>
     </tbody>
   </table>
@@ -1434,349 +1238,255 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)NumPoints
-        </td>
+          $(P)$(R)NumPoints </td>
         <td>
-          longin
-        </td>
+          longin </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_NUM_POINTS
-        </td>
+          WAVEGEN_NUM_POINTS </td>
         <td>
           Number of points output waveform. The value of this record is equal to UserNumPoints
           if user-defined waveforms are selected, or IntNumPoints if internal predefined waveforms
-          are selected.
-        </td>
+          are selected. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)UserNumPoints
-        </td>
+          $(P)$(R)UserNumPoints </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_USER_NUM_POINTS
-        </td>
+          WAVEGEN_USER_NUM_POINTS </td>
         <td>
           Number of points in user-defined output waveforms. This cannot be more than the
-          value of maxOutputPoints that was specified in USB1608GConfig.
-        </td>
+          value of maxOutputPoints that was specified in USB1608GConfig. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)IntNumPoints
-        </td>
+          $(P)$(R)IntNumPoints </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_INT_NUM_POINTS
-        </td>
+          WAVEGEN_INT_NUM_POINTS </td>
         <td>
           Number of points in internal predefined output waveforms. This cannot be more than
-          the value of maxOutputPoints that was specified in USB1608GConfig.
-        </td>
+          the value of maxOutputPoints that was specified in USB1608GConfig. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)UserTimeWF
-        </td>
+          $(P)$(R)UserTimeWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat32Array
-        </td>
+          asynFloat32Array </td>
         <td>
-          WAVEDIG_USER_TIME_WF
-        </td>
+          WAVEDIG_USER_TIME_WF </td>
         <td>
           Timebase waveform for user-defined waveforms. These values are calculated when UserDwell
-          or UserNumPoints are changed. It is typically used as the X-axis in plots.
-        </td>
+          or UserNumPoints are changed. It is typically used as the X-axis in plots. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)IntTimeWF
-        </td>
+          $(P)$(R)IntTimeWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat32Array
-        </td>
+          asynFloat32Array </td>
         <td>
-          WAVEGEN_INT_TIME_WF
-        </td>
+          WAVEGEN_INT_TIME_WF </td>
         <td>
           Timebase waveform for internal predefined waveforms. These values are calculated
           when IntDwell or IntNumPoints are changed. It is typically used as the X-axis in
-          plots.
-        </td>
+          plots. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)CurrentPoint
-        </td>
+          $(P)$(R)CurrentPoint </td>
         <td>
-          longin
-        </td>
+          longin </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_CURRENT_POINT
-        </td>
+          WAVEGEN_CURRENT_POINT </td>
         <td>
           The current point being output. This does not always increment by 1 because the
-          device can transfer data in blocks.
-        </td>
+          device can transfer data in blocks. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Frequency
-        </td>
+          $(P)$(R)Frequency </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_FREQUENCY
-        </td>
+          WAVEGEN_FREQUENCY </td>
         <td>
           The output frequency (waveforms/second). The value of this record is equal to UserFrequency
           if user-defined waveforms are selected, or IntFrequency if internal predefined waveforms
-          are selected.
-        </td>
+          are selected. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Dwell
-        </td>
+          $(P)$(R)Dwell </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_DWELL
-        </td>
+          WAVEGEN_DWELL </td>
         <td>
           The output dwell time or period (seconds/sample). The value of this record is equal
           to UserDwell if user-defined waveforms are selected, or IntDwell if internal predefined
-          waveforms are selected.
-        </td>
+          waveforms are selected. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)UserDwell
-        </td>
+          $(P)$(R)UserDwell </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_USER_DWELL
-        </td>
+          WAVEGEN_USER_DWELL </td>
         <td>
           The output dwell time or period (seconds/sample) for user-defined waveforms. This
-          record is automatically changed if UserFrequency is modified.
-        </td>
+          record is automatically changed if UserFrequency is modified. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)IntDwell
-        </td>
+          $(P)$(R)IntDwell </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_INT_DWELL
-        </td>
+          WAVEGEN_INT_DWELL </td>
         <td>
           The output dwell time or period (seconds/sample) for internal predefined waveforms.
-          This record is automatically changed if IntFrequency is modified.
-        </td>
+          This record is automatically changed if IntFrequency is modified. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)UserFrequency
-        </td>
+          $(P)$(R)UserFrequency </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
           The output frequency (waveforms/second) for user-defined waveforms. This record
           computes UserDwell and writes to that record. This record is automatically changed
-          if UserDwell is modified.
-        </td>
+          if UserDwell is modified. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)IntFrequency
-        </td>
+          $(P)$(R)IntFrequency </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
-          N.A.
-        </td>
+          N.A. </td>
         <td>
           The output frequency (waveforms/second) for internal predefined waveforms. This
           record computes IntDwell and writes to that record. This record is automatically
-          changed if IntDwell is modified.
-        </td>
+          changed if IntDwell is modified. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TotalTime
-        </td>
+          $(P)$(R)TotalTime </td>
         <td>
-          ai
-        </td>
+          ai </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_TOTAL_TIME
-        </td>
+          WAVEGEN_TOTAL_TIME </td>
         <td>
-          The total time to output the waveforms. This is Dwell*NumPoints.
-        </td>
+          The total time to output the waveforms. This is Dwell*NumPoints. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ExtTrigger
-        </td>
+          $(P)$(R)ExtTrigger </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_EXT_TRIGGER
-        </td>
+          WAVEGEN_EXT_TRIGGER </td>
         <td>
-          The trigger source, "Internal" (0) or "External" (1).
-        </td>
+          The trigger source, "Internal" (0) or "External" (1). </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)ExtClock
-        </td>
+          $(P)$(R)ExtClock </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_EXT_CLOCK
-        </td>
+          WAVEGEN_EXT_CLOCK </td>
         <td>
           The clock source, "Internal" (0) or "External" (1). If External is used then the
           Dwell record does not control the output rate, it is controlled by the external
           clock. However Dwell should be set to approximately the correct value if possible,
-          because that controls what type of data transfers the device uses.
-        </td>
+          because that controls what type of data transfers the device uses. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Continuous
-        </td>
+          $(P)$(R)Continuous </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_CONTINUOUS
-        </td>
+          WAVEGEN_CONTINUOUS </td>
         <td>
           Values are "One-shot" (0) or "Continuous" (1). This controls whether the device
           stops when the output waveform is complete, or immediately begins again at the start
-          of the waveform.
-        </td>
+          of the waveform. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Retrigger
-        </td>
+          $(P)$(R)Retrigger </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_RETRIGGER
-        </td>
+          WAVEGEN_RETRIGGER </td>
         <td>
           Values are "Disable" (0) and "Enable" (1). This controls whether the device rearms
-          the trigger input after a trigger is received.
-        </td>
+          the trigger input after a trigger is received. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)TriggerCount
-        </td>
+          $(P)$(R)TriggerCount </td>
         <td>
-          longout
-        </td>
+          longout </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_TRIGGER_COUNT
-        </td>
+          WAVEGEN_TRIGGER_COUNT </td>
         <td>
           This controls how many values are output on each trigger input. 0 means output NumPoints
           samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
-          then each time a trigger is received TriggerCount samples will be output.
-        </td>
+          then each time a trigger is received TriggerCount samples will be output. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Run
-        </td>
+          $(P)$(R)Run </td>
         <td>
-          busy
-        </td>
+          busy </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_RUN
-        </td>
+          WAVEGEN_RUN </td>
         <td>
           Values are "Stop" (0) and "Run" (1). This starts and stops the waveform generator.
         </td>
@@ -1784,76 +1494,57 @@ dbLoadTemplate("1608G.substitutions.big")
       <tr>
         <td align="center" colspan="5">
           <b>measCompWaveformGenN.template. This database is loaded for each waveform generator
-            output channel.</b>
-        </td>
+            output channel.</b> </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)UserWF
-        </td>
+          $(P)$(R)UserWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat32Array
-        </td>
+          asynFloat32Array </td>
         <td>
-          WAVEGEN_USER_WF
-        </td>
+          WAVEGEN_USER_WF </td>
         <td>
           This waveform record contains the user-defined waveform generator data for channel
           N. The data are in volts. These data are typically generated by an EPICS Channel
-          Access client.
-        </td>
+          Access client. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)InternalWF
-        </td>
+          $(P)$(R)InternalWF </td>
         <td>
-          waveform
-        </td>
+          waveform </td>
         <td>
-          asynFloat32Array
-        </td>
+          asynFloat32Array </td>
         <td>
-          WAVEGEN_INT_WF
-        </td>
+          WAVEGEN_INT_WF </td>
         <td>
           This waveform record contains the internal predefined waveform generator data for
-          channel N. The data are in volts.
-        </td>
+          channel N. The data are in volts. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Enable
-        </td>
+          $(P)$(R)Enable </td>
         <td>
-          bo
-        </td>
+          bo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_ENABLE
-        </td>
+          WAVEGEN_ENABLE </td>
         <td>
           Values are "Disable" and "Enable". Controls whether channel N output is enabled.
         </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Type
-        </td>
+          $(P)$(R)Type </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          WAVEGEN_WAVE_TYPE
-        </td>
+          WAVEGEN_WAVE_TYPE </td>
         <td>
           Controls the waveform type on channel N. Values are "User-defined" and "Sin wave",
           "Square wave", "Sawtooth", "Pulse", or "Random". Note that if any channel is "User-defined"
@@ -1863,61 +1554,46 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td>
-          $(P)$(R)PulseWidth
-        </td>
+          $(P)$(R)PulseWidth </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_PULSE_WIDTH
-        </td>
+          WAVEGEN_PULSE_WIDTH </td>
         <td>
-          Controls the pulse width in seconds if Type is "Pulse".
-        </td>
+          Controls the pulse width in seconds if Type is "Pulse". </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Amplitude
-        </td>
+          $(P)$(R)Amplitude </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_AMPLITUDE
-        </td>
+          WAVEGEN_AMPLITUDE </td>
         <td>
           Controls the amplitude of the waveform. For internally predefined waveforms this
           directly controls the peak-to-peak amplitude in volts. For user-defined waveforms
           this is a scale factor that multiplies the values in the waveform, i.e. 1.0 outputs
           the user-defined waveform unchanged, 2.0 increases the amplitide by 2, etc. For
           both internal and used-defined waveforms changing the sign of the Amplitude controls
-          the polarity of the signal.
-        </td>
+          the polarity of the signal. </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Offset
-        </td>
+          $(P)$(R)Offset </td>
         <td>
-          ao
-        </td>
+          ao </td>
         <td>
-          asynFloat64
-        </td>
+          asynFloat64 </td>
         <td>
-          WAVEGEN_OFFSET
-        </td>
+          WAVEGEN_OFFSET </td>
         <td>
           Controls the offset of the waveform in volts. For user-defined waveforms, this value
           is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
-          1.0 adds 1 volt, etc.
-        </td>
+          1.0 adds 1 volt, etc. </td>
       </tr>
     </tbody>
   </table>
@@ -1954,26 +1630,20 @@ dbLoadTemplate("1608G.substitutions.big")
       </tr>
       <tr>
         <td align="center" colspan="5">
-          <b>measCompTrigger.template. This database is loaded once per module.</b>
-        </td>
+          <b>measCompTrigger.template. This database is loaded once per module.</b> </td>
       </tr>
       <tr>
         <td>
-          $(P)$(R)Mode
-        </td>
+          $(P)$(R)Mode </td>
         <td>
-          mbbo
-        </td>
+          mbbo </td>
         <td>
-          asynInt32
-        </td>
+          asynInt32 </td>
         <td>
-          TRIGGER_MODE
-        </td>
+          TRIGGER_MODE </td>
         <td>
           The mode of the external trigger input. Choices are "Positive edge", "Negative edge",
-          "High", and "Low".
-        </td>
+          "High", and "Low". </td>
       </tr>
     </tbody>
   </table>
@@ -2163,2817 +1833,2013 @@ end
       </tr>
       <tr>
         <td>
-          -10.00000
-        </td>
+          -10.00000 </td>
         <td>
-          -9.99930
-        </td>
+          -9.99930 </td>
         <td>
-          0.00084
-        </td>
+          0.00084 </td>
         <td>
-          -10.00008
-        </td>
+          -10.00008 </td>
       </tr>
       <tr>
         <td>
-          -9.90000
-        </td>
+          -9.90000 </td>
         <td>
-          -9.89978
-        </td>
+          -9.89978 </td>
         <td>
-          0.00130
-        </td>
+          0.00130 </td>
         <td>
-          -9.89972
-        </td>
+          -9.89972 </td>
       </tr>
       <tr>
         <td>
-          -9.80000
-        </td>
+          -9.80000 </td>
         <td>
-          -9.79986
-        </td>
+          -9.79986 </td>
         <td>
-          0.00126
-        </td>
+          0.00126 </td>
         <td>
-          -9.79994
-        </td>
+          -9.79994 </td>
       </tr>
       <tr>
         <td>
-          -9.70000
-        </td>
+          -9.70000 </td>
         <td>
-          -9.69964
-        </td>
+          -9.69964 </td>
         <td>
-          0.00134
-        </td>
+          0.00134 </td>
         <td>
-          -9.69987
-        </td>
+          -9.69987 </td>
       </tr>
       <tr>
         <td>
-          -9.60000
-        </td>
+          -9.60000 </td>
         <td>
-          -9.60018
-        </td>
+          -9.60018 </td>
         <td>
-          0.00123
-        </td>
+          0.00123 </td>
         <td>
-          -9.59979
-        </td>
+          -9.59979 </td>
       </tr>
       <tr>
         <td>
-          -9.50000
-        </td>
+          -9.50000 </td>
         <td>
-          -9.50057
-        </td>
+          -9.50057 </td>
         <td>
-          0.00099
-        </td>
+          0.00099 </td>
         <td>
-          -9.50003
-        </td>
+          -9.50003 </td>
       </tr>
       <tr>
         <td>
-          -9.40000
-        </td>
+          -9.40000 </td>
         <td>
-          -9.40020
-        </td>
+          -9.40020 </td>
         <td>
-          0.00117
-        </td>
+          0.00117 </td>
         <td>
-          -9.39997
-        </td>
+          -9.39997 </td>
       </tr>
       <tr>
         <td>
-          -9.30000
-        </td>
+          -9.30000 </td>
         <td>
-          -9.30010
-        </td>
+          -9.30010 </td>
         <td>
-          0.00080
-        </td>
+          0.00080 </td>
         <td>
-          -9.29991
-        </td>
+          -9.29991 </td>
       </tr>
       <tr>
         <td>
-          -9.20000
-        </td>
+          -9.20000 </td>
         <td>
-          -9.20046
-        </td>
+          -9.20046 </td>
         <td>
-          0.00105
-        </td>
+          0.00105 </td>
         <td>
-          -9.20013
-        </td>
+          -9.20013 </td>
       </tr>
       <tr>
         <td>
-          -9.10000
-        </td>
+          -9.10000 </td>
         <td>
-          -9.09996
-        </td>
+          -9.09996 </td>
         <td>
-          0.00118
-        </td>
+          0.00118 </td>
         <td>
-          -9.10009
-        </td>
+          -9.10009 </td>
       </tr>
       <tr>
         <td>
-          -9.00000
-        </td>
+          -9.00000 </td>
         <td>
-          -9.00035
-        </td>
+          -9.00035 </td>
         <td>
-          0.00122
-        </td>
+          0.00122 </td>
         <td>
-          -8.99999
-        </td>
+          -8.99999 </td>
       </tr>
       <tr>
         <td>
-          -8.90000
-        </td>
+          -8.90000 </td>
         <td>
-          -8.90016
-        </td>
+          -8.90016 </td>
         <td>
-          0.00079
-        </td>
+          0.00079 </td>
         <td>
-          -8.90021
-        </td>
+          -8.90021 </td>
       </tr>
       <tr>
         <td>
-          -8.80000
-        </td>
+          -8.80000 </td>
         <td>
-          -8.80061
-        </td>
+          -8.80061 </td>
         <td>
-          0.00118
-        </td>
+          0.00118 </td>
         <td>
-          -8.80019
-        </td>
+          -8.80019 </td>
       </tr>
       <tr>
         <td>
-          -8.70000
-        </td>
+          -8.70000 </td>
         <td>
-          -8.69996
-        </td>
+          -8.69996 </td>
         <td>
-          0.00138
-        </td>
+          0.00138 </td>
         <td>
-          -8.70007
-        </td>
+          -8.70007 </td>
       </tr>
       <tr>
         <td>
-          -8.60000
-        </td>
+          -8.60000 </td>
         <td>
-          -8.60044
-        </td>
+          -8.60044 </td>
         <td>
-          0.00112
-        </td>
+          0.00112 </td>
         <td>
-          -8.60030
-        </td>
+          -8.60030 </td>
       </tr>
       <tr>
         <td>
-          -8.50000
-        </td>
+          -8.50000 </td>
         <td>
-          -8.50004
-        </td>
+          -8.50004 </td>
         <td>
-          0.00098
-        </td>
+          0.00098 </td>
         <td>
-          -8.49992
-        </td>
+          -8.49992 </td>
       </tr>
       <tr>
         <td>
-          -8.40000
-        </td>
+          -8.40000 </td>
         <td>
-          -8.39973
-        </td>
+          -8.39973 </td>
         <td>
-          0.00103
-        </td>
+          0.00103 </td>
         <td>
-          -8.39985
-        </td>
+          -8.39985 </td>
       </tr>
       <tr>
         <td>
-          -8.30000
-        </td>
+          -8.30000 </td>
         <td>
-          -8.29975
-        </td>
+          -8.29975 </td>
         <td>
-          0.00132
-        </td>
+          0.00132 </td>
         <td>
-          -8.30009
-        </td>
+          -8.30009 </td>
       </tr>
       <tr>
         <td>
-          -8.20000
-        </td>
+          -8.20000 </td>
         <td>
-          -8.19965
-        </td>
+          -8.19965 </td>
         <td>
-          0.00108
-        </td>
+          0.00108 </td>
         <td>
-          -8.20003
-        </td>
+          -8.20003 </td>
       </tr>
       <tr>
         <td>
-          -8.10000
-        </td>
+          -8.10000 </td>
         <td>
-          -8.09986
-        </td>
+          -8.09986 </td>
         <td>
-          0.00115
-        </td>
+          0.00115 </td>
         <td>
-          -8.09995
-        </td>
+          -8.09995 </td>
       </tr>
       <tr>
         <td>
-          -8.00000
-        </td>
+          -8.00000 </td>
         <td>
-          -8.00040
-        </td>
+          -8.00040 </td>
         <td>
-          0.00079
-        </td>
+          0.00079 </td>
         <td>
-          -7.99990
-        </td>
+          -7.99990 </td>
       </tr>
       <tr>
         <td>
-          -7.90000
-        </td>
+          -7.90000 </td>
         <td>
-          -7.90021
-        </td>
+          -7.90021 </td>
         <td>
-          0.00088
-        </td>
+          0.00088 </td>
         <td>
-          -7.90012
-        </td>
+          -7.90012 </td>
       </tr>
       <tr>
         <td>
-          -7.80000
-        </td>
+          -7.80000 </td>
         <td>
-          -7.79950
-        </td>
+          -7.79950 </td>
         <td>
-          0.00107
-        </td>
+          0.00107 </td>
         <td>
-          -7.80002
-        </td>
+          -7.80002 </td>
       </tr>
       <tr>
         <td>
-          -7.70000
-        </td>
+          -7.70000 </td>
         <td>
-          -7.69998
-        </td>
+          -7.69998 </td>
         <td>
-          0.00099
-        </td>
+          0.00099 </td>
         <td>
-          -7.69999
-        </td>
+          -7.69999 </td>
       </tr>
       <tr>
         <td>
-          -7.60000
-        </td>
+          -7.60000 </td>
         <td>
-          -7.60018
-        </td>
+          -7.60018 </td>
         <td>
-          0.00092
-        </td>
+          0.00092 </td>
         <td>
-          -7.60024
-        </td>
+          -7.60024 </td>
       </tr>
       <tr>
         <td>
-          -7.50000
-        </td>
+          -7.50000 </td>
         <td>
-          -7.49990
-        </td>
+          -7.49990 </td>
         <td>
-          0.00080
-        </td>
+          0.00080 </td>
         <td>
-          -7.50011
-        </td>
+          -7.50011 </td>
       </tr>
       <tr>
         <td>
-          -7.40000
-        </td>
+          -7.40000 </td>
         <td>
-          -7.39986
-        </td>
+          -7.39986 </td>
         <td>
-          0.00097
-        </td>
+          0.00097 </td>
         <td>
-          -7.40004
-        </td>
+          -7.40004 </td>
       </tr>
       <tr>
         <td>
-          -7.30000
-        </td>
+          -7.30000 </td>
         <td>
-          -7.29992
-        </td>
+          -7.29992 </td>
         <td>
-          0.00101
-        </td>
+          0.00101 </td>
         <td>
-          -7.30027
-        </td>
+          -7.30027 </td>
       </tr>
       <tr>
         <td>
-          -7.20000
-        </td>
+          -7.20000 </td>
         <td>
-          -7.20006
-        </td>
+          -7.20006 </td>
         <td>
-          0.00085
-        </td>
+          0.00085 </td>
         <td>
-          -7.20019
-        </td>
+          -7.20019 </td>
       </tr>
       <tr>
         <td>
-          -7.10000
-        </td>
+          -7.10000 </td>
         <td>
-          -7.09953
-        </td>
+          -7.09953 </td>
         <td>
-          0.00100
-        </td>
+          0.00100 </td>
         <td>
-          -7.09982
-        </td>
+          -7.09982 </td>
       </tr>
       <tr>
         <td>
-          -7.00000
-        </td>
+          -7.00000 </td>
         <td>
-          -7.00060
-        </td>
+          -7.00060 </td>
         <td>
-          0.00088
-        </td>
+          0.00088 </td>
         <td>
-          -7.00006
-        </td>
+          -7.00006 </td>
       </tr>
       <tr>
         <td>
-          -6.90000
-        </td>
+          -6.90000 </td>
         <td>
-          -6.89986
-        </td>
+          -6.89986 </td>
         <td>
-          0.00097
-        </td>
+          0.00097 </td>
         <td>
-          -6.90001
-        </td>
+          -6.90001 </td>
       </tr>
       <tr>
         <td>
-          -6.80000
-        </td>
+          -6.80000 </td>
         <td>
-          -6.79988
-        </td>
+          -6.79988 </td>
         <td>
-          0.00089
-        </td>
+          0.00089 </td>
         <td>
-          -6.79992
-        </td>
+          -6.79992 </td>
       </tr>
       <tr>
         <td>
-          -6.70000
-        </td>
+          -6.70000 </td>
         <td>
-          -6.69984
-        </td>
+          -6.69984 </td>
         <td>
-          0.00107
-        </td>
+          0.00107 </td>
         <td>
-          -6.70013
-        </td>
+          -6.70013 </td>
       </tr>
       <tr>
         <td>
-          -6.60000
-        </td>
+          -6.60000 </td>
         <td>
-          -6.60017
-        </td>
+          -6.60017 </td>
         <td>
-          0.00091
-        </td>
+          0.00091 </td>
         <td>
-          -6.60010
-        </td>
+          -6.60010 </td>
       </tr>
       <tr>
         <td>
-          -6.50000
-        </td>
+          -6.50000 </td>
         <td>
-          -6.49958
-        </td>
+          -6.49958 </td>
         <td>
-          0.00088
-        </td>
+          0.00088 </td>
         <td>
-          -6.50003
-        </td>
+          -6.50003 </td>
       </tr>
       <tr>
         <td>
-          -6.40000
-        </td>
+          -6.40000 </td>
         <td>
-          -6.40043
-        </td>
+          -6.40043 </td>
         <td>
-          0.00105
-        </td>
+          0.00105 </td>
         <td>
-          -6.40025
-        </td>
+          -6.40025 </td>
       </tr>
       <tr>
         <td>
-          -6.30000
-        </td>
+          -6.30000 </td>
         <td>
-          -6.30005
-        </td>
+          -6.30005 </td>
         <td>
-          0.00088
-        </td>
+          0.00088 </td>
         <td>
-          -6.30020
-        </td>
+          -6.30020 </td>
       </tr>
       <tr>
         <td>
-          -6.20000
-        </td>
+          -6.20000 </td>
         <td>
-          -6.20008
-        </td>
+          -6.20008 </td>
         <td>
-          0.00085
-        </td>
+          0.00085 </td>
         <td>
-          -6.20009
-        </td>
+          -6.20009 </td>
       </tr>
       <tr>
         <td>
-          -6.10000
-        </td>
+          -6.10000 </td>
         <td>
-          -6.10016
-        </td>
+          -6.10016 </td>
         <td>
-          0.00076
-        </td>
+          0.00076 </td>
         <td>
-          -6.10032
-        </td>
+          -6.10032 </td>
       </tr>
       <tr>
         <td>
-          -6.00000
-        </td>
+          -6.00000 </td>
         <td>
-          -6.00052
-        </td>
+          -6.00052 </td>
         <td>
-          0.00068
-        </td>
+          0.00068 </td>
         <td>
-          -6.00026
-        </td>
+          -6.00026 </td>
       </tr>
       <tr>
         <td>
-          -5.90000
-        </td>
+          -5.90000 </td>
         <td>
-          -5.89963
-        </td>
+          -5.89963 </td>
         <td>
-          0.00077
-        </td>
+          0.00077 </td>
         <td>
-          -5.90018
-        </td>
+          -5.90018 </td>
       </tr>
       <tr>
         <td>
-          -5.80000
-        </td>
+          -5.80000 </td>
         <td>
-          -5.80050
-        </td>
+          -5.80050 </td>
         <td>
-          0.00076
-        </td>
+          0.00076 </td>
         <td>
-          -5.80043
-        </td>
+          -5.80043 </td>
       </tr>
       <tr>
         <td>
-          -5.70000
-        </td>
+          -5.70000 </td>
         <td>
-          -5.70013
-        </td>
+          -5.70013 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          -5.70003
-        </td>
+          -5.70003 </td>
       </tr>
       <tr>
         <td>
-          -5.60000
-        </td>
+          -5.60000 </td>
         <td>
-          -5.60006
-        </td>
+          -5.60006 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          -5.59995
-        </td>
+          -5.59995 </td>
       </tr>
       <tr>
         <td>
-          -5.50000
-        </td>
+          -5.50000 </td>
         <td>
-          -5.50008
-        </td>
+          -5.50008 </td>
         <td>
-          0.00082
-        </td>
+          0.00082 </td>
         <td>
-          -5.50021
-        </td>
+          -5.50021 </td>
       </tr>
       <tr>
         <td>
-          -5.40000
-        </td>
+          -5.40000 </td>
         <td>
-          -5.39989
-        </td>
+          -5.39989 </td>
         <td>
-          0.00090
-        </td>
+          0.00090 </td>
         <td>
-          -5.40015
-        </td>
+          -5.40015 </td>
       </tr>
       <tr>
         <td>
-          -5.30000
-        </td>
+          -5.30000 </td>
         <td>
-          -5.29982
-        </td>
+          -5.29982 </td>
         <td>
-          0.00081
-        </td>
+          0.00081 </td>
         <td>
-          -5.30005
-        </td>
+          -5.30005 </td>
       </tr>
       <tr>
         <td>
-          -5.20000
-        </td>
+          -5.20000 </td>
         <td>
-          -5.19997
-        </td>
+          -5.19997 </td>
         <td>
-          0.00087
-        </td>
+          0.00087 </td>
         <td>
-          -5.20032
-        </td>
+          -5.20032 </td>
       </tr>
       <tr>
         <td>
-          -5.10000
-        </td>
+          -5.10000 </td>
         <td>
-          -5.10021
-        </td>
+          -5.10021 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          -5.10025
-        </td>
+          -5.10025 </td>
       </tr>
       <tr>
         <td>
-          -5.00000
-        </td>
+          -5.00000 </td>
         <td>
-          -5.00011
-        </td>
+          -5.00011 </td>
         <td>
-          0.00054
-        </td>
+          0.00054 </td>
         <td>
-          -5.00011
-        </td>
+          -5.00011 </td>
       </tr>
       <tr>
         <td>
-          -4.90000
-        </td>
+          -4.90000 </td>
         <td>
-          -4.89986
-        </td>
+          -4.89986 </td>
         <td>
-          0.00071
-        </td>
+          0.00071 </td>
         <td>
-          -4.90035
-        </td>
+          -4.90035 </td>
       </tr>
       <tr>
         <td>
-          -4.80000
-        </td>
+          -4.80000 </td>
         <td>
-          -4.79976
-        </td>
+          -4.79976 </td>
         <td>
-          0.00070
-        </td>
+          0.00070 </td>
         <td>
-          -4.80027
-        </td>
+          -4.80027 </td>
       </tr>
       <tr>
         <td>
-          -4.70000
-        </td>
+          -4.70000 </td>
         <td>
-          -4.69960
-        </td>
+          -4.69960 </td>
         <td>
-          0.00082
-        </td>
+          0.00082 </td>
         <td>
-          -4.70021
-        </td>
+          -4.70021 </td>
       </tr>
       <tr>
         <td>
-          -4.60000
-        </td>
+          -4.60000 </td>
         <td>
-          -4.60090
-        </td>
+          -4.60090 </td>
         <td>
-          0.00054
-        </td>
+          0.00054 </td>
         <td>
-          -4.60043
-        </td>
+          -4.60043 </td>
       </tr>
       <tr>
         <td>
-          -4.50000
-        </td>
+          -4.50000 </td>
         <td>
-          -4.50050
-        </td>
+          -4.50050 </td>
         <td>
-          0.00072
-        </td>
+          0.00072 </td>
         <td>
-          -4.50035
-        </td>
+          -4.50035 </td>
       </tr>
       <tr>
         <td>
-          -4.40000
-        </td>
+          -4.40000 </td>
         <td>
-          -4.40012
-        </td>
+          -4.40012 </td>
         <td>
-          0.00076
-        </td>
+          0.00076 </td>
         <td>
-          -4.40032
-        </td>
+          -4.40032 </td>
       </tr>
       <tr>
         <td>
-          -4.30000
-        </td>
+          -4.30000 </td>
         <td>
-          -4.30039
-        </td>
+          -4.30039 </td>
         <td>
-          0.00045
-        </td>
+          0.00045 </td>
         <td>
-          -4.30053
-        </td>
+          -4.30053 </td>
       </tr>
       <tr>
         <td>
-          -4.20000
-        </td>
+          -4.20000 </td>
         <td>
-          -4.20005
-        </td>
+          -4.20005 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          -4.20016
-        </td>
+          -4.20016 </td>
       </tr>
       <tr>
         <td>
-          -4.10000
-        </td>
+          -4.10000 </td>
         <td>
-          -4.10010
-        </td>
+          -4.10010 </td>
         <td>
-          0.00068
-        </td>
+          0.00068 </td>
         <td>
-          -4.10010
-        </td>
+          -4.10010 </td>
       </tr>
       <tr>
         <td>
-          -4.00000
-        </td>
+          -4.00000 </td>
         <td>
-          -4.00012
-        </td>
+          -4.00012 </td>
         <td>
-          0.00062
-        </td>
+          0.00062 </td>
         <td>
-          -4.00004
-        </td>
+          -4.00004 </td>
       </tr>
       <tr>
         <td>
-          -3.90000
-        </td>
+          -3.90000 </td>
         <td>
-          -3.90018
-        </td>
+          -3.90018 </td>
         <td>
-          0.00060
-        </td>
+          0.00060 </td>
         <td>
-          -3.90023
-        </td>
+          -3.90023 </td>
       </tr>
       <tr>
         <td>
-          -3.80000
-        </td>
+          -3.80000 </td>
         <td>
-          -3.80002
-        </td>
+          -3.80002 </td>
         <td>
-          0.00059
-        </td>
+          0.00059 </td>
         <td>
-          -3.80021
-        </td>
+          -3.80021 </td>
       </tr>
       <tr>
         <td>
-          -3.70000
-        </td>
+          -3.70000 </td>
         <td>
-          -3.70019
-        </td>
+          -3.70019 </td>
         <td>
-          0.00049
-        </td>
+          0.00049 </td>
         <td>
-          -3.70009
-        </td>
+          -3.70009 </td>
       </tr>
       <tr>
         <td>
-          -3.60000
-        </td>
+          -3.60000 </td>
         <td>
-          -3.60027
-        </td>
+          -3.60027 </td>
         <td>
-          0.00056
-        </td>
+          0.00056 </td>
         <td>
-          -3.60032
-        </td>
+          -3.60032 </td>
       </tr>
       <tr>
         <td>
-          -3.50000
-        </td>
+          -3.50000 </td>
         <td>
-          -3.50042
-        </td>
+          -3.50042 </td>
         <td>
-          0.00063
-        </td>
+          0.00063 </td>
         <td>
-          -3.50025
-        </td>
+          -3.50025 </td>
       </tr>
       <tr>
         <td>
-          -3.40000
-        </td>
+          -3.40000 </td>
         <td>
-          -3.40017
-        </td>
+          -3.40017 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          -3.40016
-        </td>
+          -3.40016 </td>
       </tr>
       <tr>
         <td>
-          -3.30000
-        </td>
+          -3.30000 </td>
         <td>
-          -3.30043
-        </td>
+          -3.30043 </td>
         <td>
-          0.00045
-        </td>
+          0.00045 </td>
         <td>
-          -3.30042
-        </td>
+          -3.30042 </td>
       </tr>
       <tr>
         <td>
-          -3.20000
-        </td>
+          -3.20000 </td>
         <td>
-          -3.20034
-        </td>
+          -3.20034 </td>
         <td>
-          0.00064
-        </td>
+          0.00064 </td>
         <td>
-          -3.20033
-        </td>
+          -3.20033 </td>
       </tr>
       <tr>
         <td>
-          -3.10000
-        </td>
+          -3.10000 </td>
         <td>
-          -3.10027
-        </td>
+          -3.10027 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          -3.10027
-        </td>
+          -3.10027 </td>
       </tr>
       <tr>
         <td>
-          -3.00000
-        </td>
+          -3.00000 </td>
         <td>
-          -3.00047
-        </td>
+          -3.00047 </td>
         <td>
-          0.00043
-        </td>
+          0.00043 </td>
         <td>
-          -3.00052
-        </td>
+          -3.00052 </td>
       </tr>
       <tr>
         <td>
-          -2.90000
-        </td>
+          -2.90000 </td>
         <td>
-          -2.90025
-        </td>
+          -2.90025 </td>
         <td>
-          0.00060
-        </td>
+          0.00060 </td>
         <td>
-          -2.90045
-        </td>
+          -2.90045 </td>
       </tr>
       <tr>
         <td>
-          -2.80000
-        </td>
+          -2.80000 </td>
         <td>
-          -2.80021
-        </td>
+          -2.80021 </td>
         <td>
-          0.00044
-        </td>
+          0.00044 </td>
         <td>
-          -2.80003
-        </td>
+          -2.80003 </td>
       </tr>
       <tr>
         <td>
-          -2.70000
-        </td>
+          -2.70000 </td>
         <td>
-          -2.70033
-        </td>
+          -2.70033 </td>
         <td>
-          0.00038
-        </td>
+          0.00038 </td>
         <td>
-          -2.70032
-        </td>
+          -2.70032 </td>
       </tr>
       <tr>
         <td>
-          -2.60000
-        </td>
+          -2.60000 </td>
         <td>
-          -2.60011
-        </td>
+          -2.60011 </td>
         <td>
-          0.00058
-        </td>
+          0.00058 </td>
         <td>
-          -2.60024
-        </td>
+          -2.60024 </td>
       </tr>
       <tr>
         <td>
-          -2.50000
-        </td>
+          -2.50000 </td>
         <td>
-          -2.50001
-        </td>
+          -2.50001 </td>
         <td>
-          0.00063
-        </td>
+          0.00063 </td>
         <td>
-          -2.50010
-        </td>
+          -2.50010 </td>
       </tr>
       <tr>
         <td>
-          -2.40000
-        </td>
+          -2.40000 </td>
         <td>
-          -2.40015
-        </td>
+          -2.40015 </td>
         <td>
-          0.00051
-        </td>
+          0.00051 </td>
         <td>
-          -2.40032
-        </td>
+          -2.40032 </td>
       </tr>
       <tr>
         <td>
-          -2.30000
-        </td>
+          -2.30000 </td>
         <td>
-          -2.29960
-        </td>
+          -2.29960 </td>
         <td>
-          0.00043
-        </td>
+          0.00043 </td>
         <td>
-          -2.30023
-        </td>
+          -2.30023 </td>
       </tr>
       <tr>
         <td>
-          -2.20000
-        </td>
+          -2.20000 </td>
         <td>
-          -2.20050
-        </td>
+          -2.20050 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          -2.20019
-        </td>
+          -2.20019 </td>
       </tr>
       <tr>
         <td>
-          -2.10000
-        </td>
+          -2.10000 </td>
         <td>
-          -2.10040
-        </td>
+          -2.10040 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          -2.10041
-        </td>
+          -2.10041 </td>
       </tr>
       <tr>
         <td>
-          -2.00000
-        </td>
+          -2.00000 </td>
         <td>
-          -2.00012
-        </td>
+          -2.00012 </td>
         <td>
-          0.00054
-        </td>
+          0.00054 </td>
         <td>
-          -2.00034
-        </td>
+          -2.00034 </td>
       </tr>
       <tr>
         <td>
-          -1.90000
-        </td>
+          -1.90000 </td>
         <td>
-          -1.90018
-        </td>
+          -1.90018 </td>
         <td>
-          0.00044
-        </td>
+          0.00044 </td>
         <td>
-          -1.90028
-        </td>
+          -1.90028 </td>
       </tr>
       <tr>
         <td>
-          -1.80000
-        </td>
+          -1.80000 </td>
         <td>
-          -1.80026
-        </td>
+          -1.80026 </td>
         <td>
-          0.00044
-        </td>
+          0.00044 </td>
         <td>
-          -1.80050
-        </td>
+          -1.80050 </td>
       </tr>
       <tr>
         <td>
-          -1.70000
-        </td>
+          -1.70000 </td>
         <td>
-          -1.70025
-        </td>
+          -1.70025 </td>
         <td>
-          0.00062
-        </td>
+          0.00062 </td>
         <td>
-          -1.70042
-        </td>
+          -1.70042 </td>
       </tr>
       <tr>
         <td>
-          -1.60000
-        </td>
+          -1.60000 </td>
         <td>
-          -1.60043
-        </td>
+          -1.60043 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          -1.60036
-        </td>
+          -1.60036 </td>
       </tr>
       <tr>
         <td>
-          -1.50000
-        </td>
+          -1.50000 </td>
         <td>
-          -1.50054
-        </td>
+          -1.50054 </td>
         <td>
-          0.00044
-        </td>
+          0.00044 </td>
         <td>
-          -1.50061
-        </td>
+          -1.50061 </td>
       </tr>
       <tr>
         <td>
-          -1.40000
-        </td>
+          -1.40000 </td>
         <td>
-          -1.40035
-        </td>
+          -1.40035 </td>
         <td>
-          0.00037
-        </td>
+          0.00037 </td>
         <td>
-          -1.40021
-        </td>
+          -1.40021 </td>
       </tr>
       <tr>
         <td>
-          -1.30000
-        </td>
+          -1.30000 </td>
         <td>
-          -1.30001
-        </td>
+          -1.30001 </td>
         <td>
-          0.00043
-        </td>
+          0.00043 </td>
         <td>
-          -1.30015
-        </td>
+          -1.30015 </td>
       </tr>
       <tr>
         <td>
-          -1.20000
-        </td>
+          -1.20000 </td>
         <td>
-          -1.20006
-        </td>
+          -1.20006 </td>
         <td>
-          0.00035
-        </td>
+          0.00035 </td>
         <td>
-          -1.20036
-        </td>
+          -1.20036 </td>
       </tr>
       <tr>
         <td>
-          -1.10000
-        </td>
+          -1.10000 </td>
         <td>
-          -1.10024
-        </td>
+          -1.10024 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          -1.10029
-        </td>
+          -1.10029 </td>
       </tr>
       <tr>
         <td>
-          -1.00000
-        </td>
+          -1.00000 </td>
         <td>
-          -1.00035
-        </td>
+          -1.00035 </td>
         <td>
-          0.00052
-        </td>
+          0.00052 </td>
         <td>
-          -1.00022
-        </td>
+          -1.00022 </td>
       </tr>
       <tr>
         <td>
-          -0.90000
-        </td>
+          -0.90000 </td>
         <td>
-          -0.90056
-        </td>
+          -0.90056 </td>
         <td>
-          0.00036
-        </td>
+          0.00036 </td>
         <td>
-          -0.90046
-        </td>
+          -0.90046 </td>
       </tr>
       <tr>
         <td>
-          -0.80000
-        </td>
+          -0.80000 </td>
         <td>
-          -0.80052
-        </td>
+          -0.80052 </td>
         <td>
-          0.00050
-        </td>
+          0.00050 </td>
         <td>
-          -0.80040
-        </td>
+          -0.80040 </td>
       </tr>
       <tr>
         <td>
-          -0.70000
-        </td>
+          -0.70000 </td>
         <td>
-          -0.70011
-        </td>
+          -0.70011 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          -0.70032
-        </td>
+          -0.70032 </td>
       </tr>
       <tr>
         <td>
-          -0.60000
-        </td>
+          -0.60000 </td>
         <td>
-          -0.60029
-        </td>
+          -0.60029 </td>
         <td>
-          0.00036
-        </td>
+          0.00036 </td>
         <td>
-          -0.60056
-        </td>
+          -0.60056 </td>
       </tr>
       <tr>
         <td>
-          -0.50000
-        </td>
+          -0.50000 </td>
         <td>
-          -0.50056
-        </td>
+          -0.50056 </td>
         <td>
-          0.00035
-        </td>
+          0.00035 </td>
         <td>
-          -0.50050
-        </td>
+          -0.50050 </td>
       </tr>
       <tr>
         <td>
-          -0.40000
-        </td>
+          -0.40000 </td>
         <td>
-          -0.40031
-        </td>
+          -0.40031 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          -0.40042
-        </td>
+          -0.40042 </td>
       </tr>
       <tr>
         <td>
-          -0.30000
-        </td>
+          -0.30000 </td>
         <td>
-          -0.30042
-        </td>
+          -0.30042 </td>
         <td>
-          0.00030
-        </td>
+          0.00030 </td>
         <td>
-          -0.30065
-        </td>
+          -0.30065 </td>
       </tr>
       <tr>
         <td>
-          -0.20000
-        </td>
+          -0.20000 </td>
         <td>
-          -0.20053
-        </td>
+          -0.20053 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          -0.20058
-        </td>
+          -0.20058 </td>
       </tr>
       <tr>
         <td>
-          -0.10000
-        </td>
+          -0.10000 </td>
         <td>
-          -0.10037
-        </td>
+          -0.10037 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          -0.10050
-        </td>
+          -0.10050 </td>
       </tr>
       <tr>
         <td>
-          0.00000
-        </td>
+          0.00000 </td>
         <td>
-          0.00018
-        </td>
+          0.00018 </td>
         <td>
-          0.00030
-        </td>
+          0.00030 </td>
         <td>
-          -0.00009
-        </td>
+          -0.00009 </td>
       </tr>
       <tr>
         <td>
-          0.10000
-        </td>
+          0.10000 </td>
         <td>
-          0.09986
-        </td>
+          0.09986 </td>
         <td>
-          0.00046
-        </td>
+          0.00046 </td>
         <td>
-          0.09970
-        </td>
+          0.09970 </td>
       </tr>
       <tr>
         <td>
-          0.20000
-        </td>
+          0.20000 </td>
         <td>
-          0.19995
-        </td>
+          0.19995 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          0.19977
-        </td>
+          0.19977 </td>
       </tr>
       <tr>
         <td>
-          0.30000
-        </td>
+          0.30000 </td>
         <td>
-          0.30005
-        </td>
+          0.30005 </td>
         <td>
-          0.00035
-        </td>
+          0.00035 </td>
         <td>
-          0.29983
-        </td>
+          0.29983 </td>
       </tr>
       <tr>
         <td>
-          0.40000
-        </td>
+          0.40000 </td>
         <td>
-          0.39979
-        </td>
+          0.39979 </td>
         <td>
-          0.00046
-        </td>
+          0.00046 </td>
         <td>
-          0.39959
-        </td>
+          0.39959 </td>
       </tr>
       <tr>
         <td>
-          0.50000
-        </td>
+          0.50000 </td>
         <td>
-          0.49979
-        </td>
+          0.49979 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          0.49968
-        </td>
+          0.49968 </td>
       </tr>
       <tr>
         <td>
-          0.60000
-        </td>
+          0.60000 </td>
         <td>
-          0.60008
-        </td>
+          0.60008 </td>
         <td>
-          0.00028
-        </td>
+          0.00028 </td>
         <td>
-          0.59974
-        </td>
+          0.59974 </td>
       </tr>
       <tr>
         <td>
-          0.70000
-        </td>
+          0.70000 </td>
         <td>
-          0.69941
-        </td>
+          0.69941 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          0.69952
-        </td>
+          0.69952 </td>
       </tr>
       <tr>
         <td>
-          0.80000
-        </td>
+          0.80000 </td>
         <td>
-          0.79979
-        </td>
+          0.79979 </td>
         <td>
-          0.00019
-        </td>
+          0.00019 </td>
         <td>
-          0.79957
-        </td>
+          0.79957 </td>
       </tr>
       <tr>
         <td>
-          0.90000
-        </td>
+          0.90000 </td>
         <td>
-          0.89986
-        </td>
+          0.89986 </td>
         <td>
-          0.00037
-        </td>
+          0.00037 </td>
         <td>
-          0.89965
-        </td>
+          0.89965 </td>
       </tr>
       <tr>
         <td>
-          1.00000
-        </td>
+          1.00000 </td>
         <td>
-          0.99956
-        </td>
+          0.99956 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          0.99942
-        </td>
+          0.99942 </td>
       </tr>
       <tr>
         <td>
-          1.10000
-        </td>
+          1.10000 </td>
         <td>
-          1.09966
-        </td>
+          1.09966 </td>
         <td>
-          0.00051
-        </td>
+          0.00051 </td>
         <td>
-          1.09953
-        </td>
+          1.09953 </td>
       </tr>
       <tr>
         <td>
-          1.20000
-        </td>
+          1.20000 </td>
         <td>
-          1.19982
-        </td>
+          1.19982 </td>
         <td>
-          0.00045
-        </td>
+          0.00045 </td>
         <td>
-          1.19955
-        </td>
+          1.19955 </td>
       </tr>
       <tr>
         <td>
-          1.30000
-        </td>
+          1.30000 </td>
         <td>
-          1.29940
-        </td>
+          1.29940 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          1.29936
-        </td>
+          1.29936 </td>
       </tr>
       <tr>
         <td>
-          1.40000
-        </td>
+          1.40000 </td>
         <td>
-          1.39959
-        </td>
+          1.39959 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          1.39945
-        </td>
+          1.39945 </td>
       </tr>
       <tr>
         <td>
-          1.50000
-        </td>
+          1.50000 </td>
         <td>
-          1.49990
-        </td>
+          1.49990 </td>
         <td>
-          0.00035
-        </td>
+          0.00035 </td>
         <td>
-          1.49981
-        </td>
+          1.49981 </td>
       </tr>
       <tr>
         <td>
-          1.60000
-        </td>
+          1.60000 </td>
         <td>
-          1.59969
-        </td>
+          1.59969 </td>
         <td>
-          0.00035
-        </td>
+          0.00035 </td>
         <td>
-          1.59959
-        </td>
+          1.59959 </td>
       </tr>
       <tr>
         <td>
-          1.70000
-        </td>
+          1.70000 </td>
         <td>
-          1.69979
-        </td>
+          1.69979 </td>
         <td>
-          0.00052
-        </td>
+          0.00052 </td>
         <td>
-          1.69965
-        </td>
+          1.69965 </td>
       </tr>
       <tr>
         <td>
-          1.80000
-        </td>
+          1.80000 </td>
         <td>
-          1.80029
-        </td>
+          1.80029 </td>
         <td>
-          0.00016
-        </td>
+          0.00016 </td>
         <td>
-          1.79974
-        </td>
+          1.79974 </td>
       </tr>
       <tr>
         <td>
-          1.90000
-        </td>
+          1.90000 </td>
         <td>
-          1.89944
-        </td>
+          1.89944 </td>
         <td>
-          0.00050
-        </td>
+          0.00050 </td>
         <td>
-          1.89948
-        </td>
+          1.89948 </td>
       </tr>
       <tr>
         <td>
-          2.00000
-        </td>
+          2.00000 </td>
         <td>
-          1.99966
-        </td>
+          1.99966 </td>
         <td>
-          0.00047
-        </td>
+          0.00047 </td>
         <td>
-          1.99956
-        </td>
+          1.99956 </td>
       </tr>
       <tr>
         <td>
-          2.10000
-        </td>
+          2.10000 </td>
         <td>
-          2.09973
-        </td>
+          2.09973 </td>
         <td>
-          0.00045
-        </td>
+          0.00045 </td>
         <td>
-          2.09964
-        </td>
+          2.09964 </td>
       </tr>
       <tr>
         <td>
-          2.20000
-        </td>
+          2.20000 </td>
         <td>
-          2.19980
-        </td>
+          2.19980 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          2.19944
-        </td>
+          2.19944 </td>
       </tr>
       <tr>
         <td>
-          2.30000
-        </td>
+          2.30000 </td>
         <td>
-          2.29984
-        </td>
+          2.29984 </td>
         <td>
-          0.00044
-        </td>
+          0.00044 </td>
         <td>
-          2.29948
-        </td>
+          2.29948 </td>
       </tr>
       <tr>
         <td>
-          2.40000
-        </td>
+          2.40000 </td>
         <td>
-          2.40006
-        </td>
+          2.40006 </td>
         <td>
-          0.00023
-        </td>
+          0.00023 </td>
         <td>
-          2.39955
-        </td>
+          2.39955 </td>
       </tr>
       <tr>
         <td>
-          2.50000
-        </td>
+          2.50000 </td>
         <td>
-          2.49934
-        </td>
+          2.49934 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          2.49933
-        </td>
+          2.49933 </td>
       </tr>
       <tr>
         <td>
-          2.60000
-        </td>
+          2.60000 </td>
         <td>
-          2.59937
-        </td>
+          2.59937 </td>
         <td>
-          0.00038
-        </td>
+          0.00038 </td>
         <td>
-          2.59945
-        </td>
+          2.59945 </td>
       </tr>
       <tr>
         <td>
-          2.70000
-        </td>
+          2.70000 </td>
         <td>
-          2.69963
-        </td>
+          2.69963 </td>
         <td>
-          0.00054
-        </td>
+          0.00054 </td>
         <td>
-          2.69954
-        </td>
+          2.69954 </td>
       </tr>
       <tr>
         <td>
-          2.80000
-        </td>
+          2.80000 </td>
         <td>
-          2.79994
-        </td>
+          2.79994 </td>
         <td>
-          0.00032
-        </td>
+          0.00032 </td>
         <td>
-          2.79932
-        </td>
+          2.79932 </td>
       </tr>
       <tr>
         <td>
-          2.90000
-        </td>
+          2.90000 </td>
         <td>
-          2.90010
-        </td>
+          2.90010 </td>
         <td>
-          0.00033
-        </td>
+          0.00033 </td>
         <td>
-          2.89967
-        </td>
+          2.89967 </td>
       </tr>
       <tr>
         <td>
-          3.00000
-        </td>
+          3.00000 </td>
         <td>
-          3.00026
-        </td>
+          3.00026 </td>
         <td>
-          0.00021
-        </td>
+          0.00021 </td>
         <td>
-          2.99974
-        </td>
+          2.99974 </td>
       </tr>
       <tr>
         <td>
-          3.10000
-        </td>
+          3.10000 </td>
         <td>
-          3.09990
-        </td>
+          3.09990 </td>
         <td>
-          0.00027
-        </td>
+          0.00027 </td>
         <td>
-          3.09951
-        </td>
+          3.09951 </td>
       </tr>
       <tr>
         <td>
-          3.20000
-        </td>
+          3.20000 </td>
         <td>
-          3.19976
-        </td>
+          3.19976 </td>
         <td>
-          0.00041
-        </td>
+          0.00041 </td>
         <td>
-          3.19961
-        </td>
+          3.19961 </td>
       </tr>
       <tr>
         <td>
-          3.30000
-        </td>
+          3.30000 </td>
         <td>
-          3.30022
-        </td>
+          3.30022 </td>
         <td>
-          0.00022
-        </td>
+          0.00022 </td>
         <td>
-          3.29970
-        </td>
+          3.29970 </td>
       </tr>
       <tr>
         <td>
-          3.40000
-        </td>
+          3.40000 </td>
         <td>
-          3.39977
-        </td>
+          3.39977 </td>
         <td>
-          0.00061
-        </td>
+          0.00061 </td>
         <td>
-          3.39942
-        </td>
+          3.39942 </td>
       </tr>
       <tr>
         <td>
-          3.50000
-        </td>
+          3.50000 </td>
         <td>
-          3.49990
-        </td>
+          3.49990 </td>
         <td>
-          0.00045
-        </td>
+          0.00045 </td>
         <td>
-          3.49950
-        </td>
+          3.49950 </td>
       </tr>
       <tr>
         <td>
-          3.60000
-        </td>
+          3.60000 </td>
         <td>
-          3.59991
-        </td>
+          3.59991 </td>
         <td>
-          0.00068
-        </td>
+          0.00068 </td>
         <td>
-          3.59958
-        </td>
+          3.59958 </td>
       </tr>
       <tr>
         <td>
-          3.70000
-        </td>
+          3.70000 </td>
         <td>
-          3.69952
-        </td>
+          3.69952 </td>
         <td>
-          0.00039
-        </td>
+          0.00039 </td>
         <td>
-          3.69934
-        </td>
+          3.69934 </td>
       </tr>
       <tr>
         <td>
-          3.80000
-        </td>
+          3.80000 </td>
         <td>
-          3.79974
-        </td>
+          3.79974 </td>
         <td>
-          0.00052
-        </td>
+          0.00052 </td>
         <td>
-          3.79945
-        </td>
+          3.79945 </td>
       </tr>
       <tr>
         <td>
-          3.90000
-        </td>
+          3.90000 </td>
         <td>
-          3.89969
-        </td>
+          3.89969 </td>
         <td>
-          0.00043
-        </td>
+          0.00043 </td>
         <td>
-          3.89954
-        </td>
+          3.89954 </td>
       </tr>
       <tr>
         <td>
-          4.00000
-        </td>
+          4.00000 </td>
         <td>
-          3.99994
-        </td>
+          3.99994 </td>
         <td>
-          0.00029
-        </td>
+          0.00029 </td>
         <td>
-          3.99960
-        </td>
+          3.99960 </td>
       </tr>
       <tr>
         <td>
-          4.10000
-        </td>
+          4.10000 </td>
         <td>
-          4.09967
-        </td>
+          4.09967 </td>
         <td>
-          0.00042
-        </td>
+          0.00042 </td>
         <td>
-          4.09935
-        </td>
+          4.09935 </td>
       </tr>
       <tr>
         <td>
-          4.20000
-        </td>
+          4.20000 </td>
         <td>
-          4.19974
-        </td>
+          4.19974 </td>
         <td>
-          0.00063
-        </td>
+          0.00063 </td>
         <td>
-          4.19944
-        </td>
+          4.19944 </td>
       </tr>
       <tr>
         <td>
-          4.30000
-        </td>
+          4.30000 </td>
         <td>
-          4.29950
-        </td>
+          4.29950 </td>
         <td>
-          0.00058
-        </td>
+          0.00058 </td>
         <td>
-          4.29984
-        </td>
+          4.29984 </td>
       </tr>
       <tr>
         <td>
-          4.40000
-        </td>
+          4.40000 </td>
         <td>
-          4.39973
-        </td>
+          4.39973 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          4.39961
-        </td>
+          4.39961 </td>
       </tr>
       <tr>
         <td>
-          4.50000
-        </td>
+          4.50000 </td>
         <td>
-          4.50001
-        </td>
+          4.50001 </td>
         <td>
-          0.00055
-        </td>
+          0.00055 </td>
         <td>
-          4.49966
-        </td>
+          4.49966 </td>
       </tr>
       <tr>
         <td>
-          4.60000
-        </td>
+          4.60000 </td>
         <td>
-          4.60005
-        </td>
+          4.60005 </td>
         <td>
-          0.00048
-        </td>
+          0.00048 </td>
         <td>
-          4.59973
-        </td>
+          4.59973 </td>
       </tr>
       <tr>
         <td>
-          4.70000
-        </td>
+          4.70000 </td>
         <td>
-          4.70014
-        </td>
+          4.70014 </td>
         <td>
-          0.00043
-        </td>
+          0.00043 </td>
         <td>
-          4.69951
-        </td>
+          4.69951 </td>
       </tr>
       <tr>
         <td>
-          4.80000
-        </td>
+          4.80000 </td>
         <td>
-          4.79982
-        </td>
+          4.79982 </td>
         <td>
-          0.00059
-        </td>
+          0.00059 </td>
         <td>
-          4.79957
-        </td>
+          4.79957 </td>
       </tr>
       <tr>
         <td>
-          4.90000
-        </td>
+          4.90000 </td>
         <td>
-          4.89995
-        </td>
+          4.89995 </td>
         <td>
-          0.00069
-        </td>
+          0.00069 </td>
         <td>
-          4.89965
-        </td>
+          4.89965 </td>
       </tr>
       <tr>
         <td>
-          5.00000
-        </td>
+          5.00000 </td>
         <td>
-          4.99925
-        </td>
+          4.99925 </td>
         <td>
-          0.00059
-        </td>
+          0.00059 </td>
         <td>
-          4.99945
-        </td>
+          4.99945 </td>
       </tr>
       <tr>
         <td>
-          5.10000
-        </td>
+          5.10000 </td>
         <td>
-          5.09960
-        </td>
+          5.09960 </td>
         <td>
-          0.00066
-        </td>
+          0.00066 </td>
         <td>
-          5.09958
-        </td>
+          5.09958 </td>
       </tr>
       <tr>
         <td>
-          5.20000
-        </td>
+          5.20000 </td>
         <td>
-          5.19963
-        </td>
+          5.19963 </td>
         <td>
-          0.00087
-        </td>
+          0.00087 </td>
         <td>
-          5.19964
-        </td>
+          5.19964 </td>
       </tr>
       <tr>
         <td>
-          5.30000
-        </td>
+          5.30000 </td>
         <td>
-          5.29952
-        </td>
+          5.29952 </td>
         <td>
-          0.00072
-        </td>
+          0.00072 </td>
         <td>
-          5.29944
-        </td>
+          5.29944 </td>
       </tr>
       <tr>
         <td>
-          5.40000
-        </td>
+          5.40000 </td>
         <td>
-          5.39925
-        </td>
+          5.39925 </td>
         <td>
-          0.00084
-        </td>
+          0.00084 </td>
         <td>
-          5.39949
-        </td>
+          5.39949 </td>
       </tr>
       <tr>
         <td>
-          5.50000
-        </td>
+          5.50000 </td>
         <td>
-          5.49926
-        </td>
+          5.49926 </td>
         <td>
-          0.00059
-        </td>
+          0.00059 </td>
         <td>
-          5.49959
-        </td>
+          5.49959 </td>
       </tr>
       <tr>
         <td>
-          5.60000
-        </td>
+          5.60000 </td>
         <td>
-          5.59918
-        </td>
+          5.59918 </td>
         <td>
-          0.00065
-        </td>
+          0.00065 </td>
         <td>
-          5.59935
-        </td>
+          5.59935 </td>
       </tr>
       <tr>
         <td>
-          5.70000
-        </td>
+          5.70000 </td>
         <td>
-          5.70004
-        </td>
+          5.70004 </td>
         <td>
-          0.00073
-        </td>
+          0.00073 </td>
         <td>
-          5.69973
-        </td>
+          5.69973 </td>
       </tr>
       <tr>
         <td>
-          5.80000
-        </td>
+          5.80000 </td>
         <td>
-          5.79989
-        </td>
+          5.79989 </td>
         <td>
-          0.00081
-        </td>
+          0.00081 </td>
         <td>
-          5.79979
-        </td>
+          5.79979 </td>
       </tr>
       <tr>
         <td>
-          5.90000
-        </td>
+          5.90000 </td>
         <td>
-          5.89972
-        </td>
+          5.89972 </td>
         <td>
-          0.00087
-        </td>
+          0.00087 </td>
         <td>
-          5.89954
-        </td>
+          5.89954 </td>
       </tr>
       <tr>
         <td>
-          6.00000
-        </td>
+          6.00000 </td>
         <td>
-          6.00000
-        </td>
+          6.00000 </td>
         <td>
-          0.00076
-        </td>
+          0.00076 </td>
         <td>
-          5.99964
-        </td>
+          5.99964 </td>
       </tr>
       <tr>
         <td>
-          6.10000
-        </td>
+          6.10000 </td>
         <td>
-          6.10001
-        </td>
+          6.10001 </td>
         <td>
-          0.00038
-        </td>
+          0.00038 </td>
         <td>
-          6.09973
-        </td>
+          6.09973 </td>
       </tr>
       <tr>
         <td>
-          6.20000
-        </td>
+          6.20000 </td>
         <td>
-          6.19986
-        </td>
+          6.19986 </td>
         <td>
-          0.00047
-        </td>
+          0.00047 </td>
         <td>
-          6.19950
-        </td>
+          6.19950 </td>
       </tr>
       <tr>
         <td>
-          6.30000
-        </td>
+          6.30000 </td>
         <td>
-          6.29947
-        </td>
+          6.29947 </td>
         <td>
-          0.00071
-        </td>
+          0.00071 </td>
         <td>
-          6.29958
-        </td>
+          6.29958 </td>
       </tr>
       <tr>
         <td>
-          6.40000
-        </td>
+          6.40000 </td>
         <td>
-          6.39973
-        </td>
+          6.39973 </td>
         <td>
-          0.00077
-        </td>
+          0.00077 </td>
         <td>
-          6.39968
-        </td>
+          6.39968 </td>
       </tr>
       <tr>
         <td>
-          6.50000
-        </td>
+          6.50000 </td>
         <td>
-          6.49986
-        </td>
+          6.49986 </td>
         <td>
-          0.00068
-        </td>
+          0.00068 </td>
         <td>
-          6.49943
-        </td>
+          6.49943 </td>
       </tr>
       <tr>
         <td>
-          6.60000
-        </td>
+          6.60000 </td>
         <td>
-          6.60005
-        </td>
+          6.60005 </td>
         <td>
-          0.00091
-        </td>
+          0.00091 </td>
         <td>
-          6.59952
-        </td>
+          6.59952 </td>
       </tr>
       <tr>
         <td>
-          6.70000
-        </td>
+          6.70000 </td>
         <td>
-          6.69947
-        </td>
+          6.69947 </td>
         <td>
-          0.00085
-        </td>
+          0.00085 </td>
         <td>
-          6.69960
-        </td>
+          6.69960 </td>
       </tr>
       <tr>
         <td>
-          6.80000
-        </td>
+          6.80000 </td>
         <td>
-          6.79939
-        </td>
+          6.79939 </td>
         <td>
-          0.00065
-        </td>
+          0.00065 </td>
         <td>
-          6.79935
-        </td>
+          6.79935 </td>
       </tr>
       <tr>
         <td>
-          6.90000
-        </td>
+          6.90000 </td>
         <td>
-          6.89924
-        </td>
+          6.89924 </td>
         <td>
-          0.00083
-        </td>
+          0.00083 </td>
         <td>
-          6.89944
-        </td>
+          6.89944 </td>
       </tr>
       <tr>
         <td>
-          7.00000
-        </td>
+          7.00000 </td>
         <td>
-          6.99989
-        </td>
+          6.99989 </td>
         <td>
-          0.00074
-        </td>
+          0.00074 </td>
         <td>
-          6.99950
-        </td>
+          6.99950 </td>
       </tr>
       <tr>
         <td>
-          7.10000
-        </td>
+          7.10000 </td>
         <td>
-          7.09972
-        </td>
+          7.09972 </td>
         <td>
-          0.00091
-        </td>
+          0.00091 </td>
         <td>
-          7.09926
-        </td>
+          7.09926 </td>
       </tr>
       <tr>
         <td>
-          7.20000
-        </td>
+          7.20000 </td>
         <td>
-          7.20012
-        </td>
+          7.20012 </td>
         <td>
-          0.00074
-        </td>
+          0.00074 </td>
         <td>
-          7.19968
-        </td>
+          7.19968 </td>
       </tr>
       <tr>
         <td>
-          7.30000
-        </td>
+          7.30000 </td>
         <td>
-          7.30004
-        </td>
+          7.30004 </td>
         <td>
-          0.00073
-        </td>
+          0.00073 </td>
         <td>
-          7.29975
-        </td>
+          7.29975 </td>
       </tr>
       <tr>
         <td>
-          7.40000
-        </td>
+          7.40000 </td>
         <td>
-          7.39934
-        </td>
+          7.39934 </td>
         <td>
-          0.00061
-        </td>
+          0.00061 </td>
         <td>
-          7.39950
-        </td>
+          7.39950 </td>
       </tr>
       <tr>
         <td>
-          7.50000
-        </td>
+          7.50000 </td>
         <td>
-          7.50002
-        </td>
+          7.50002 </td>
         <td>
-          0.00073
-        </td>
+          0.00073 </td>
         <td>
-          7.49960
-        </td>
+          7.49960 </td>
       </tr>
       <tr>
         <td>
-          7.60000
-        </td>
+          7.60000 </td>
         <td>
-          7.60003
-        </td>
+          7.60003 </td>
         <td>
-          0.00074
-        </td>
+          0.00074 </td>
         <td>
-          7.59969
-        </td>
+          7.59969 </td>
       </tr>
       <tr>
         <td>
-          7.70000
-        </td>
+          7.70000 </td>
         <td>
-          7.69967
-        </td>
+          7.69967 </td>
         <td>
-          0.00101
-        </td>
+          0.00101 </td>
         <td>
-          7.69948
-        </td>
+          7.69948 </td>
       </tr>
       <tr>
         <td>
-          7.80000
-        </td>
+          7.80000 </td>
         <td>
-          7.79947
-        </td>
+          7.79947 </td>
         <td>
-          0.00089
-        </td>
+          0.00089 </td>
         <td>
-          7.79958
-        </td>
+          7.79958 </td>
       </tr>
       <tr>
         <td>
-          7.90000
-        </td>
+          7.90000 </td>
         <td>
-          7.89972
-        </td>
+          7.89972 </td>
         <td>
-          0.00094
-        </td>
+          0.00094 </td>
         <td>
-          7.89961
-        </td>
+          7.89961 </td>
       </tr>
       <tr>
         <td>
-          8.00000
-        </td>
+          8.00000 </td>
         <td>
-          8.00027
-        </td>
+          8.00027 </td>
         <td>
-          0.00083
-        </td>
+          0.00083 </td>
         <td>
-          7.99969
-        </td>
+          7.99969 </td>
       </tr>
       <tr>
         <td>
-          8.10000
-        </td>
+          8.10000 </td>
         <td>
-          8.09934
-        </td>
+          8.09934 </td>
         <td>
-          0.00090
-        </td>
+          0.00090 </td>
         <td>
-          8.09945
-        </td>
+          8.09945 </td>
       </tr>
       <tr>
         <td>
-          8.20000
-        </td>
+          8.20000 </td>
         <td>
-          8.19971
-        </td>
+          8.19971 </td>
         <td>
-          0.00095
-        </td>
+          0.00095 </td>
         <td>
-          8.19952
-        </td>
+          8.19952 </td>
       </tr>
       <tr>
         <td>
-          8.30000
-        </td>
+          8.30000 </td>
         <td>
-          8.29963
-        </td>
+          8.29963 </td>
         <td>
-          0.00112
-        </td>
+          0.00112 </td>
         <td>
-          8.29961
-        </td>
+          8.29961 </td>
       </tr>
       <tr>
         <td>
-          8.40000
-        </td>
+          8.40000 </td>
         <td>
-          8.39997
-        </td>
+          8.39997 </td>
         <td>
-          0.00073
-        </td>
+          0.00073 </td>
         <td>
-          8.39939
-        </td>
+          8.39939 </td>
       </tr>
       <tr>
         <td>
-          8.50000
-        </td>
+          8.50000 </td>
         <td>
-          8.49903
-        </td>
+          8.49903 </td>
         <td>
-          0.00089
-        </td>
+          0.00089 </td>
         <td>
-          8.49948
-        </td>
+          8.49948 </td>
       </tr>
       <tr>
         <td>
-          8.60000
-        </td>
+          8.60000 </td>
         <td>
-          8.59962
-        </td>
+          8.59962 </td>
         <td>
-          0.00080
-        </td>
+          0.00080 </td>
         <td>
-          8.59985
-        </td>
+          8.59985 </td>
       </tr>
       <tr>
         <td>
-          8.70000
-        </td>
+          8.70000 </td>
         <td>
-          8.69950
-        </td>
+          8.69950 </td>
         <td>
-          0.00109
-        </td>
+          0.00109 </td>
         <td>
-          8.69963
-        </td>
+          8.69963 </td>
       </tr>
       <tr>
         <td>
-          8.80000
-        </td>
+          8.80000 </td>
         <td>
-          8.79945
-        </td>
+          8.79945 </td>
         <td>
-          0.00084
-        </td>
+          0.00084 </td>
         <td>
-          8.79975
-        </td>
+          8.79975 </td>
       </tr>
       <tr>
         <td>
-          8.90000
-        </td>
+          8.90000 </td>
         <td>
-          8.89973
-        </td>
+          8.89973 </td>
         <td>
-          0.00111
-        </td>
+          0.00111 </td>
         <td>
-          8.89982
-        </td>
+          8.89982 </td>
       </tr>
       <tr>
         <td>
-          9.00000
-        </td>
+          9.00000 </td>
         <td>
-          8.99980
-        </td>
+          8.99980 </td>
         <td>
-          0.00083
-        </td>
+          0.00083 </td>
         <td>
-          8.99956
-        </td>
+          8.99956 </td>
       </tr>
       <tr>
         <td>
-          9.10000
-        </td>
+          9.10000 </td>
         <td>
-          9.09993
-        </td>
+          9.09993 </td>
         <td>
-          0.00071
-        </td>
+          0.00071 </td>
         <td>
-          9.09962
-        </td>
+          9.09962 </td>
       </tr>
       <tr>
         <td>
-          9.20000
-        </td>
+          9.20000 </td>
         <td>
-          9.19966
-        </td>
+          9.19966 </td>
         <td>
-          0.00098
-        </td>
+          0.00098 </td>
         <td>
-          9.19971
-        </td>
+          9.19971 </td>
       </tr>
       <tr>
         <td>
-          9.30000
-        </td>
+          9.30000 </td>
         <td>
-          9.29918
-        </td>
+          9.29918 </td>
         <td>
-          0.00090
-        </td>
+          0.00090 </td>
         <td>
-          9.29948
-        </td>
+          9.29948 </td>
       </tr>
       <tr>
         <td>
-          9.40000
-        </td>
+          9.40000 </td>
         <td>
-          9.39910
-        </td>
+          9.39910 </td>
         <td>
-          0.00097
-        </td>
+          0.00097 </td>
         <td>
-          9.39958
-        </td>
+          9.39958 </td>
       </tr>
       <tr>
         <td>
-          9.50000
-        </td>
+          9.50000 </td>
         <td>
-          9.49987
-        </td>
+          9.49987 </td>
         <td>
-          0.00106
-        </td>
+          0.00106 </td>
         <td>
-          9.49965
-        </td>
+          9.49965 </td>
       </tr>
       <tr>
         <td>
-          9.60000
-        </td>
+          9.60000 </td>
         <td>
-          9.59890
-        </td>
+          9.59890 </td>
         <td>
-          0.00102
-        </td>
+          0.00102 </td>
         <td>
-          9.59940
-        </td>
+          9.59940 </td>
       </tr>
       <tr>
         <td>
-          9.70000
-        </td>
+          9.70000 </td>
         <td>
-          9.70004
-        </td>
+          9.70004 </td>
         <td>
-          0.00110
-        </td>
+          0.00110 </td>
         <td>
-          9.69948
-        </td>
+          9.69948 </td>
       </tr>
       <tr>
         <td>
-          9.80000
-        </td>
+          9.80000 </td>
         <td>
-          9.79974
-        </td>
+          9.79974 </td>
         <td>
-          0.00105
-        </td>
+          0.00105 </td>
         <td>
-          9.79956
-        </td>
+          9.79956 </td>
       </tr>
       <tr>
         <td>
-          9.90000
-        </td>
+          9.90000 </td>
         <td>
-          9.89935
-        </td>
+          9.89935 </td>
         <td>
-          0.00112
-        </td>
+          0.00112 </td>
         <td>
-          9.89939
-        </td>
+          9.89939 </td>
       </tr>
       <tr>
         <td>
-          10.00000
-        </td>
+          10.00000 </td>
         <td>
-          9.99951
-        </td>
+          9.99951 </td>
         <td>
-          0.00058
-        </td>
+          0.00058 </td>
         <td>
-          9.99978
-        </td>
+          9.99978 </td>
       </tr>
     </tbody>
   </table>
