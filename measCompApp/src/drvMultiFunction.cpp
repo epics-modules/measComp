@@ -1710,7 +1710,6 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
   return asynSuccess;   
 }
 
-
 void MultiFunction::pollerThread()
 {
   /* This function runs in a separate thread.  It waits for the poll
@@ -1727,7 +1726,7 @@ void MultiFunction::pollerThread()
   epicsTimeStamp now;
   epicsTimeStamp startTime;
   int numReadings;
-  int status;
+  int status=0, prevStatus=0;
 
   while(1) { 
     lock();
@@ -1742,9 +1741,11 @@ void MultiFunction::pollerThread()
         biVal32 = biVal16;
       }
       if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbDIn, status=%d\n", 
-                  driverName, functionName, status);
+        if (!prevStatus) {
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                    "%s:%s: ERROR calling cbDIn, status=%d\n", 
+                    driverName, functionName, status);
+        }
         goto error;
       }
       newValue = biVal32;
@@ -1760,9 +1761,11 @@ void MultiFunction::pollerThread()
     for (i=0; i<numCounters_; i++) {
       status = cbCIn32(boardNum_, firstCounter_ + i, &countVal);
       if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
-                  driverName, functionName, i, status);
+        if (!prevStatus) {
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                    "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
+                    driverName, functionName, i, status);
+        }
         goto error;
       }
       setIntegerParam(i, counterCounts_, countVal);
@@ -1772,9 +1775,11 @@ void MultiFunction::pollerThread()
       // Poll the status of the waveform generator output
       status = cbGetStatus(boardNum_, &aoStatus, &aoCount, &aoIndex, AOFUNCTION);
       if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
-                  driverName, functionName, status);
+        if (!prevStatus) {
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                    "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                    driverName, functionName, status);
+        }
         goto error;
       }
       currentPoint = (aoIndex / numWaveGenChans_) + 1;
@@ -1788,9 +1793,11 @@ void MultiFunction::pollerThread()
       // Poll the status of the waveform digitizer input
       status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
       if (status) {
-        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                  "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
-                  driverName, functionName, status);
+        if (!prevStatus) {
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                    "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+                    driverName, functionName, status);
+        }
         // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
         // Need to stop and start the waveform digitizer if it was running
         if ((status == DEADDEV) && waveDigRunning_) {
@@ -1826,6 +1833,12 @@ void MultiFunction::pollerThread()
       callParamCallbacks(i);
     }
 error:
+    if (prevStatus && !status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
+                "%s:%s: device returned to normal status\n", 
+                driverName, functionName);
+    }
+    prevStatus = status;
     unlock();
     epicsTimeGetCurrent(&now);
     double diffTime = epicsTimeDiffInSeconds(&now, &startTime);
