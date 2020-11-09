@@ -81,8 +81,8 @@ void mcE_1608::readThread()
     while (1) {
         readMutex_.unlock();
         epicsEventWait(acquireStartEvent_);
-        if (!aiScanAcquiring_) continue;
         readMutex_.lock();
+        if (!aiScanAcquiring_) continue;
         sock = deviceInfo_.device.scan_sock;
         if (sock < 0) {
             printf("Error no scan sock\n");
