@@ -9,7 +9,7 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
-    Release 2-5 (September XXX, 2019)</h2>
+    Release 2-5 (November 9, 2020)</h2>
   <ul>
     <li>Improvements to USB-CTR04/08 support
       <ul>
@@ -18,13 +18,19 @@
           spectra: 8 for the counters and 1 for the digital I/O.</li>
         <li>Added ability to select counters to use in the MCS on an individual basis, rather
           than the first and last counter to use. This also applies to the digital I/O word.</li>
+        <li>Added an AbsTimeWF waveform record containing the absolute time of each point
+          in waveform digitizer and MCS scans.</li>
+        <li>Added support for cbDaqInScan and cbDaqSetTrigger on Linux.</li>
+        <li>Aded TrigMode record to control the trigger mode of DaqInScan.</li>
         <li>Fixed bugs on Linux when the number of counters selected was not a power of 2.
           The data could be wrong and it would stop before the number of channels to collect
           was reached.</li>
       </ul>
     </li>
+    <li>Added support for E-DIO24 module on Linux and Windows .</li>
+    <li>Added autoconverted OPI files for edm, caQtDM, CSS-Boy and CSS-Phoebus.</li>
     <li>Updated the version of the Measurement Computing Windows UL library from 6.51
-      to 6.7.</li>
+      to 6.72.</li>
   </ul>
   <h2 style="text-align: center">
     Release 2-4 (September 14, 2019)</h2>
