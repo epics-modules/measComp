@@ -90,6 +90,6 @@ no longer available. Use the USB-CTR08 instead.
 This device contains 24 digital I/O lines and 1 counter.
 
 Additional information:
-* [Home page](https://cars.uchicago.edu/software/epics/measComp.html)
-* [Documentation](https://cars.uchicago.edu/software/epics/measCompDoc.html)
-* [Release notes](https://cars.uchicago.edu/software/epics/measCompReleaseNotes.html)
+* [Home page](http://htmlpreview.github.com/?https://github.com/epics-modules/measComp/blob/master/documentation/measComp.html)
+* [Documentation](http://htmlpreview.github.com/?https://github.com/epics-modules/measComp/blob/master/documentation/measCompDoc.html)
+* [Release notes](http://htmlpreview.github.com/?https://github.com/epics-modules/measComp/blob/master/documentation/measCompReleaseNotes.html)
