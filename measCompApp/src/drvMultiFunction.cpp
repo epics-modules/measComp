@@ -1806,9 +1806,8 @@ void MultiFunction::pollerThread()
         }
         goto error;
       }
-      int currentPoint;
       getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-      numReadings = aiCount/numWaveDigChans_;
+      numReadings = aiIndex/numWaveDigChans_;
       if (waveDigRunning_ && numReadings > currentPoint) {
         epicsTimeGetCurrent(&now);
         int firstChan;
