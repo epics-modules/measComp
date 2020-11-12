@@ -485,7 +485,6 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
   int sock = device_info->device.sock;
   unsigned char buffer[64];
   unsigned char replyBuffer[64];
-  bool result = false;
   uint32_t pacer_period;
   int length;
   int dataCount = 9;
@@ -536,32 +535,52 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
 
   device_info->device.scan_sock = scan_sock;
 
-  if (sendMessage(sock, buffer, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+dataCount, 0) > 0) {
-    replyCount = 0;
-    if ((length = receiveMessage(sock, replyBuffer, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+replyCount, timeout)) > 0) {
-      // check response
-      if (length == MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+replyCount) {
-	if ((replyBuffer[MSG_INDEX_START] == buffer[0])                                  &&
-            (replyBuffer[MSG_INDEX_COMMAND] == (buffer[MSG_INDEX_COMMAND] | MSG_REPLY))  &&
-	    (replyBuffer[MSG_INDEX_FRAME] == buffer[2])                                  &&
-	    (replyBuffer[MSG_INDEX_STATUS] == MSG_SUCCESS)                               &&
-	    (replyBuffer[MSG_INDEX_COUNT_LOW] == (unsigned char) replyCount)             &&
-	    (replyBuffer[MSG_INDEX_COUNT_HIGH] == (unsigned char) (replyCount >> 8))     &&
-	    (replyBuffer[MSG_INDEX_DATA+replyCount] + calcChecksum(replyBuffer, MSG_HEADER_SIZE+replyCount) == 0xff)) {
-	  result = true;
-	}
-      }
-    }
-  }
-
-  // send ACK to start scan
-  if (result != true) {
-    printf("AInScanStart_E1608: Error sending start packet.  Status = %d\n", replyBuffer[MSG_INDEX_STATUS]);
+  if ((length = sendMessage(sock, buffer, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+dataCount, 0)) <= 0) {
+    printf("AInScanStart_E1608: Error calling sendMessage, length = %d\n", length);
     return false;
   }
+  replyCount = 0;
+  if ((length = receiveMessage(sock, replyBuffer, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+replyCount, timeout)) <= 0) {
+    printf("AInScanStart_E1608: Error calling receiveMessage, length = %d\n", length);
+    return false;
+  }
+  // check response
+  if (length != MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+replyCount) {
+    printf("AInScanStart_E1608: Error length = %d should be %d\n", length, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+replyCount);
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_START] != buffer[0]) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_START] = %d should be %d\n", replyBuffer[MSG_INDEX_START], buffer[0]);
+    return false;
+  }
+  if (replyBuffer[MSG_INDEX_COMMAND] != (buffer[MSG_INDEX_COMMAND] | MSG_REPLY)) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_COMMAND] = %d should be %d\n", replyBuffer[MSG_INDEX_COMMAND], buffer[MSG_INDEX_COMMAND] | MSG_REPLY);
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_FRAME] != buffer[2]) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_FRAME] = %d should be %d\n", replyBuffer[MSG_INDEX_FRAME], buffer[2]);
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_STATUS] != MSG_SUCCESS) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_STATUS] = %d should be %d\n", replyBuffer[MSG_INDEX_STATUS], MSG_SUCCESS);
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_COUNT_LOW] != (unsigned char) replyCount) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_COUNT_LOW] = %d should be %d\n", replyBuffer[MSG_INDEX_COUNT_LOW], (unsigned char) replyCount);
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_COUNT_HIGH] != (unsigned char) (replyCount >> 8)) {
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_COUNT_HIGH] = %d should be %d\n", replyBuffer[MSG_INDEX_COUNT_HIGH], (unsigned char) (unsigned char) (replyCount >> 8));
+    return false;
+  }
+	if (replyBuffer[MSG_INDEX_DATA+replyCount] + calcChecksum(replyBuffer, MSG_HEADER_SIZE+replyCount) != 0xff) {
+    printf("AInScanStart_E1608: Error bad checksum, should be 0xff\n");
+    return false;
+  }
+
   sendMessage(sock, 0x0, 1, 0);  // send a single byte;
 
-  return result;
+  return true;
 }
 
 int AInScanRead_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, uint8_t nChan, uint16_t *data)
