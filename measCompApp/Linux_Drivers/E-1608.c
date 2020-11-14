@@ -489,6 +489,7 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
   int length;
   int dataCount = 9;
   int replyCount;
+  int zero = 0;
   int timeout = device_info->timeout;
 
   if (sock < 0) {
@@ -578,7 +579,10 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     return false;
   }
 
-  sendMessage(sock, 0x0, 1, 0);  // send a single byte;
+  // send a single byte;
+  if ((length = sendMessage(sock, &zero, 1, 0)) != 1) { 
+    printf("AInScanStart_E1608: Error sending single byte, length = %d\n", length);
+  }
 
   return true;
 }
