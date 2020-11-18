@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
+#include <errno.h>
 #include "E-1608.h"
 
 void buildGainTableAIn_E1608(DeviceInfo_E1608 *device_info)
@@ -491,6 +493,8 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
   int replyCount;
   int zero = 0;
   int timeout = device_info->timeout;
+  struct timespec delayTime = {0, 1000000}; // 1 ms
+  struct timespec remainingTime;
 
   if (sock < 0) {
     return false;
@@ -532,6 +536,12 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     perror("AInScanStart_E1608: can not connect to device.");
     close(scan_sock);
     return false;
+  }
+
+  // It seems that a small delay is needed to the final ACK packet from Linux for the connect() call before
+  // starting the acquisition
+  while (nanosleep(&delayTime, &remainingTime) == -1 && errno == EINTR) {
+    delayTime = remainingTime;
   }
 
   device_info->device.scan_sock = scan_sock;
