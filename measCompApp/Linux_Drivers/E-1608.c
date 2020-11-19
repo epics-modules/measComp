@@ -20,8 +20,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
-#include <errno.h>
 #include "E-1608.h"
 
 void buildGainTableAIn_E1608(DeviceInfo_E1608 *device_info)
@@ -493,8 +491,7 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
   int replyCount;
   int zero = 0;
   int timeout = device_info->timeout;
-  struct timespec delayTime = {0, 1000000}; // 1 ms
-  struct timespec remainingTime;
+  int retries=0, max_retries=5;
 
   if (sock < 0) {
     return false;
@@ -509,17 +506,6 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     pacer_period = rint((80.E6 / frequency) - 1.0);
     device_info->scan_timeout = (1000 + nScan/(1000*frequency));
   }
-
-  buffer[MSG_INDEX_COMMAND]        = CMD_AIN_SCAN_START;
-  memcpy(&buffer[MSG_INDEX_DATA],   &nScan, 4);
-  memcpy(&buffer[MSG_INDEX_DATA+4], &pacer_period, 4);
-  memcpy(&buffer[MSG_INDEX_DATA+8], &options, 1);
-  buffer[MSG_INDEX_START]          = MSG_START;
-  buffer[MSG_INDEX_FRAME]          = device_info->device.frameID++;  // increment frame ID with every send
-  buffer[MSG_INDEX_STATUS]         = 0;
-  buffer[MSG_INDEX_COUNT_LOW]      = (unsigned char) (dataCount);
-  buffer[MSG_INDEX_COUNT_HIGH]     = (unsigned char) (dataCount >> 8);
-  buffer[MSG_INDEX_DATA+dataCount] = (unsigned char) 0xff - calcChecksum(buffer, MSG_INDEX_DATA+dataCount);
 
   // create a  scan socket
   if ((scan_sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
@@ -538,13 +524,19 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     return false;
   }
 
-  // It seems that a small delay is needed to the final ACK packet from Linux for the connect() call before
-  // starting the acquisition
-  while (nanosleep(&delayTime, &remainingTime) == -1 && errno == EINTR) {
-    delayTime = remainingTime;
-  }
-
   device_info->device.scan_sock = scan_sock;
+
+  retry:
+  buffer[MSG_INDEX_COMMAND]        = CMD_AIN_SCAN_START;
+  memcpy(&buffer[MSG_INDEX_DATA],   &nScan, 4);
+  memcpy(&buffer[MSG_INDEX_DATA+4], &pacer_period, 4);
+  memcpy(&buffer[MSG_INDEX_DATA+8], &options, 1);
+  buffer[MSG_INDEX_START]          = MSG_START;
+  buffer[MSG_INDEX_FRAME]          = device_info->device.frameID++;  // increment frame ID with every send
+  buffer[MSG_INDEX_STATUS]         = 0;
+  buffer[MSG_INDEX_COUNT_LOW]      = (unsigned char) (dataCount);
+  buffer[MSG_INDEX_COUNT_HIGH]     = (unsigned char) (dataCount >> 8);
+  buffer[MSG_INDEX_DATA+dataCount] = (unsigned char) 0xff - calcChecksum(buffer, MSG_INDEX_DATA+dataCount);
 
   if ((length = sendMessage(sock, buffer, MSG_HEADER_SIZE+MSG_CHECKSUM_SIZE+dataCount, 0)) <= 0) {
     printf("AInScanStart_E1608: Error calling sendMessage, length = %d\n", length);
@@ -565,7 +557,8 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     return false;
   }
   if (replyBuffer[MSG_INDEX_COMMAND] != (buffer[MSG_INDEX_COMMAND] | MSG_REPLY)) {
-    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_COMMAND] = %d should be %d\n", replyBuffer[MSG_INDEX_COMMAND], buffer[MSG_INDEX_COMMAND] | MSG_REPLY);
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_COMMAND] = %d should be %d\n", 
+           replyBuffer[MSG_INDEX_COMMAND], buffer[MSG_INDEX_COMMAND] | MSG_REPLY);
     return false;
   }
 	if (replyBuffer[MSG_INDEX_FRAME] != buffer[2]) {
@@ -573,7 +566,13 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     return false;
   }
 	if (replyBuffer[MSG_INDEX_STATUS] != MSG_SUCCESS) {
-    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_STATUS] = %d should be %d\n", replyBuffer[MSG_INDEX_STATUS], MSG_SUCCESS);
+	  if (retries++ < max_retries) {
+      printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_STATUS] = %d should be %d, retries=%d trying again\n",
+             replyBuffer[MSG_INDEX_STATUS], MSG_SUCCESS, retries);
+ 	    goto retry;
+ 	  }
+    printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_STATUS] = %d should be %d, retries=%d failure\n", 
+           replyBuffer[MSG_INDEX_STATUS], MSG_SUCCESS, retries);
     return false;
   }
 	if (replyBuffer[MSG_INDEX_COUNT_LOW] != (unsigned char) replyCount) {
