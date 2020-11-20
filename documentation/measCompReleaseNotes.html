@@ -9,6 +9,31 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-5-1 (November 20, 2020)</h2>
+  <ul>
+    <li>drvMultiFunction.cpp
+      <ul>
+        <li>Fixed bug in waveform digitizer mode, current channel was being calculated incorrrectly.</li>
+        <li>Improved poller to reduce the number of error messages when the device is not
+          available.</li>
+      </ul>
+    </li>
+    <li>E-1608::AInScanStart_E1608 (Linux)
+      <ul>
+        <li>Added 5 retries to start waveform acquisition. It appears that sometimes the connect()
+          has not actually completed before acquisition is started, and the device returns
+          a "not ready" status.</li>
+        <li>Improved error messages when acquisition does not start correctly.</li>
+        <li>Bug fix for 1-byte message not being sent correctly.</li>
+      </ul>
+    </li>
+    <li>mcBoard_E-1608.cpp (Linux)
+      <ul>
+        <li>Bug fix where lock was not taken when it should be.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2 style="text-align: center">
     Release 2-5 (November 9, 2020)</h2>
   <ul>
     <li>Improvements to USB-CTR04/08 support
