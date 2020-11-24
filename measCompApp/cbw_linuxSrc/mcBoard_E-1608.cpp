@@ -78,6 +78,7 @@ void mcE_1608::readThread()
     int correctedData;
     int timeout = deviceInfo_.timeout;
 
+    readMutex_.lock();
     while (1) {
         readMutex_.unlock();
         epicsEventWait(acquireStartEvent_);
