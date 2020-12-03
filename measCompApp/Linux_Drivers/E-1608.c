@@ -22,6 +22,8 @@
 #include <math.h>
 #include "E-1608.h"
 
+#define MAX_RETRIES 50
+
 void buildGainTableAIn_E1608(DeviceInfo_E1608 *device_info)
 {
   /* Builds a lookup table of calibration coefficients to translate values into voltages:
@@ -491,7 +493,7 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
   int replyCount;
   int zero = 0;
   int timeout = device_info->timeout;
-  int retries=0, max_retries=5;
+  int retries=0;
 
   if (sock < 0) {
     return false;
@@ -566,7 +568,7 @@ bool AInScanStart_E1608(DeviceInfo_E1608 *device_info, uint32_t nScan, double fr
     return false;
   }
 	if (replyBuffer[MSG_INDEX_STATUS] != MSG_SUCCESS) {
-	  if (retries++ < max_retries) {
+	  if (retries++ < MAX_RETRIES) {
       printf("AInScanStart_E1608: Error replyBuffer[MSG_INDEX_STATUS] = %d should be %d, retries=%d trying again\n",
              replyBuffer[MSG_INDEX_STATUS], MSG_SUCCESS, retries);
  	    goto retry;
