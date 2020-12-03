@@ -37,7 +37,7 @@ mcE_1608::mcE_1608(const char *address)
     deviceInfo_.device.connectCode = 0x0;   // default connect code
     deviceInfo_.device.frameID = 0;         // zero out the frameID
     deviceInfo_.queue[0] = 0;               // set count in gain queue to zero
-    deviceInfo_.timeout = 1000;             // set default timeout to 1000 ms.
+    deviceInfo_.timeout = 3000;             // set default timeout to 3000 ms.
     deviceInfo_.device.Address.sin_family = AF_INET;
     deviceInfo_.device.Address.sin_port = htons(COMMAND_PORT);
     deviceInfo_.device.Address.sin_addr.s_addr = INADDR_ANY;
