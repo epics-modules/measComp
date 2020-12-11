@@ -9,6 +9,40 @@
   <h1 style="text-align: center">
     measComp Release Notes</h1>
   <h2 style="text-align: center">
+    Release 2-6 (December 11, 2020)</h2>
+  <ul>
+    <li>mcBoard_E-1608.cpp (Linux)
+      <ul>
+        <li>Increased the timeout waiting for the module to respond from 1 second to 3 seconds.
+          This seems to have completely fixed errors on the units in the APS Vibration Measurement
+          System. Previously there were errors when polling the digital I/O bits and other
+          operations, and AInScanStart_E1608 would sometimes require more than 5 retries.
+        </li>
+        <li>Bug fix where lock was not taken when it should be.</li>
+      </ul>
+    </li>
+    <li>E-1608::AInScanStart_E1608 (Linux)
+      <ul>
+        <li>Changed the number of retries from 5 to 50. The APS Vibration Measurement System
+          was occasionally failing even after 5 retries. However, after increasing the timeout
+          from 1 to 3 seconds (see above) they have observed at most 1 retry, so this change
+          may not be necessary.</li>
+      </ul>
+    </li>
+    <li>iocBoot
+      <ul>
+        <li>Previously each iocBoot/* directory had its own copy of save_restore.cmd, and
+          they were all identical. Changed to using a single copy in iocBoot/save_restore.cmd.</li>
+      </ul>
+    </li>
+    <li>scaler record support
+      <ul>
+        <li>The support for the scaler record has been moved from the std module to the scaler
+          module. This required changes to a number of the files in measComp.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2 style="text-align: center">
     Release 2-5-1 (November 20, 2020)</h2>
   <ul>
     <li>drvMultiFunction.cpp
