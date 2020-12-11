@@ -55,7 +55,7 @@ dbLoadRecords ("${IOCSTATUS}/db/IocStatus.template", "IOC=${IOCNAME}")
 dbLoadRecords ("db/MEXDIO24IOC01.db")
 
 # TODO: Use our standard autosave setup
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 

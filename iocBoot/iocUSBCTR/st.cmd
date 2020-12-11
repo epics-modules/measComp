@@ -64,7 +64,7 @@ dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(PREFIX), R=$(RN
 asynSetTraceIOMask($(PORT),0,2)
 #asynSetTraceFile("$(PORT)",0,"$(MODEL).out")
 
-< save_restore.cmd
+< ../save_restore.cmd
 save_restoreSet_status_prefix($(PREFIX))
 dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
 

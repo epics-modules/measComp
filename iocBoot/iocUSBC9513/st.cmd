@@ -11,7 +11,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 C9513Config("C9513_1", 0, 2)
 dbLoadTemplate("C9513.substitutions")
 
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 

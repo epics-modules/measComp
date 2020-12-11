@@ -17,7 +17,7 @@ dbLoadTemplate("TC32.substitutions")
 asynSetTraceIOMask TC32_1 -1 2
 #asynSetTraceMask TC32_1 -1 255
 
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 

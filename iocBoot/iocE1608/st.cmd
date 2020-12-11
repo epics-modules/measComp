@@ -18,7 +18,7 @@ MultiFunctionConfig("E1608_1", 0, $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 dbLoadTemplate("E1608.substitutions")
 
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 

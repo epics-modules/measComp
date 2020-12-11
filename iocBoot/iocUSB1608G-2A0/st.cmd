@@ -19,7 +19,7 @@ MultiFunctionConfig("1608G_1", 0, $(INPUT_POINTS), $(OUTPUT_POINTS))
 dbLoadTemplate("1608G.substitutions.small")
 #dbLoadTemplate("1608G.substitutions.big")
 
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 

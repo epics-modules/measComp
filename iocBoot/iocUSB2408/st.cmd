@@ -15,7 +15,7 @@ dbLoadTemplate("USB2408.substitutions")
 
 #asynSetTraceMask USB2408_1 -1 255
 
-< save_restore.cmd
+< ../save_restore.cmd
 
 iocInit
 
