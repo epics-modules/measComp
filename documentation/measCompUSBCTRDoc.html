@@ -10,7 +10,7 @@
     <h1>
       Driver for the Measurement Computing USB-CTR08</h1>
     <h2>
-      September 14, 2019</h2>
+      December 11, 2020</h2>
     <h2>
       Mark Rivers</h2>
     <h2>
@@ -430,10 +430,10 @@ create_monitor_set("auto_settings.req",30)
   <p>
     The USBCTR driver supports the EPICS scaler record via the devScalerAsyn.c device
     support originally from the <a href="http://www.aps.anl.gov/bcda/synApps">synApps</a>
-    <a href="http://www.aps.anl.gov/bcda/synApps/std/std.html">std</a> module but which has
-    been moved into the <a href="https://github.com/epics-modules/scaler">scaler</a>
-    module. It supports up to 8 channels. The following wiring connections must be made in
-    order for counters 1-8 to be stopped by counter 0, as is normally desired.</p>
+    <a href="http://www.aps.anl.gov/bcda/synApps/std/std.html">std</a> module but which
+    has been moved into the <a href="https://github.com/epics-modules/scaler">scaler</a>
+    module. It supports up to 8 channels. The following wiring connections must be made
+    in order for counters 1-8 to be stopped by counter 0, as is normally desired.</p>
   <ul>
     <li>Counter 0 Output must be connected to the Gate input on Counters 1-7.</li>
   </ul>
