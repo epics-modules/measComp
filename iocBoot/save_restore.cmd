@@ -30,10 +30,10 @@ set_pass1_restoreFile("auto_settings.sav")
 
 # specify directories in which to to search for included request files
 # Note cdCommands defines 'startup', but envPaths does not
-set_requestfile_path(".",  "")
-set_requestfile_path(".",  "autosave")
-set_requestfile_path($(AUTOSAVE), "asApp/Db")
-set_requestfile_path($(CALC),     "calcApp/Db")
+set_requestfile_path(".",         "")
+set_requestfile_path(".",         "autosave")
+set_requestfile_path($(AUTOSAVE), "db")
+set_requestfile_path($(CALC),     "db")
 set_requestfile_path($(SCALER),   "db")
-set_requestfile_path($(SSCAN),    "sscanApp/Db")
-set_requestfile_path($(TOP),      "measCompApp/Db")
+set_requestfile_path($(SSCAN),    "db")
+set_requestfile_path($(TOP),      "db")
