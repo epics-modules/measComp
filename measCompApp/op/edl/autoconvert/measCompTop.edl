@@ -6,7 +6,7 @@ release 1
 x 628
 y 61
 w 212
-h 275
+h 300
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -44,10 +44,10 @@ buttonLabel "C9513"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 C9513_module.edl
+  0 "C9513_module.edl"
 }
 menuLabel {
-  0 C9513 module
+  0 "C9513 module"
 }
 symbols {
   0 "P=C9513:,R=Module:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo"
@@ -77,10 +77,10 @@ buttonLabel "USB-1608G"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 1608G_module.edl
+  0 "1608G_module.edl"
 }
 menuLabel {
-  0 USB-1608G module
+  0 "USB-1608G module"
 }
 symbols {
   0 "P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig"
@@ -110,10 +110,10 @@ buttonLabel "USB-1208LS"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 USB1208LS_module.edl
+  0 "USB1208LS_module.edl"
 }
 menuLabel {
-  0 USB-1208LS module
+  0 "USB-1208LS module"
 }
 symbols {
   0 "P=USB1208:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
@@ -143,10 +143,10 @@ buttonLabel "USB-1608G-2A0"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 1608G_2A0_module.edl
+  0 "1608G_2A0_module.edl"
 }
 menuLabel {
-  0 USB-1608G-2A0 module
+  0 "USB-1608G-2A0 module"
 }
 symbols {
   0 "P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig"
@@ -176,10 +176,10 @@ buttonLabel "USB-CTR08"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 USBCTR.edl
+  0 "USBCTR.edl"
 }
 menuLabel {
-  0 USB-CTR08 module
+  0 "USB-CTR08 module"
 }
 symbols {
   0 "P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig"
@@ -209,10 +209,10 @@ buttonLabel "USB-2408"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 USB2408_module.edl
+  0 "USB2408_module.edl"
 }
 menuLabel {
-  0 USB-2408 module
+  0 "USB-2408 module"
 }
 symbols {
   0 "P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig"
@@ -242,10 +242,10 @@ buttonLabel "TC32"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 TC32_module.edl
+  0 "TC32_module.edl"
 }
 menuLabel {
-  0 TC32 module
+  0 "TC32 module"
 }
 symbols {
   0 "P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti"
@@ -275,10 +275,10 @@ buttonLabel "USB-231"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 USB231_module.edl
+  0 "USB231_module.edl"
 }
 menuLabel {
-  0 USB-231 module
+  0 "USB-231 module"
 }
 symbols {
   0 "P=USB231:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen"
@@ -308,12 +308,12 @@ buttonLabel "E-1608"
 numPvs 4
 numDsps 2
 displayFileName {
-  0 E1608_module.edl
-  1 E1608_module.edl
+  0 "E1608_module.edl"
+  1 "E1608_module.edl"
 }
 menuLabel {
-  0 E-1608 module #1
-  1 E-1608 module #2
+  0 "E-1608 module #1"
+  1 "E-1608 module #2"
 }
 symbols {
   0 "P=E1608:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Tg=Trig"
@@ -345,13 +345,46 @@ buttonLabel "E-TC"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 ETC_module.edl
+  0 "ETC_module.edl"
 }
 menuLabel {
-  0 E-TC module
+  0 "E-TC module"
 }
 symbols {
   0 "P=ETC:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 265
+w 150
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "USB-TEMP-AI"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "USB_TEMP_AI_module.edl"
+}
+menuLabel {
+  0 "USB-TEMP-AI module"
+}
+symbols {
+  0 "P=USB_TEMP:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter"
 }
 replaceSymbols {
   0 1

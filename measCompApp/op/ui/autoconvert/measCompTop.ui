@@ -7,7 +7,7 @@
             <x>628</x>
             <y>61</y>
             <width>212</width>
-            <height>275</height>
+            <height>300</height>
         </rect>
     </property>
     <property name="styleSheet">
@@ -526,6 +526,48 @@ border-radius: 2px;
                 <string>false</string>
             </property>
         </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_10">
+            <property name="geometry">
+                <rect>
+                    <x>30</x>
+                    <y>265</y>
+                    <width>150</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>223</green>
+                    <blue>255</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>USB-TEMP-AI</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>USB-TEMP-AI module</string>
+            </property>
+            <property name="files">
+                <string>USB_TEMP_AI_module.adl</string>
+            </property>
+            <property name="args">
+                <string>P=USB_TEMP:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter</string>
+            </property>
+            <property name="removeParent">
+                <string>false</string>
+            </property>
+        </widget>
         <zorder>caRelatedDisplay_0</zorder>
         <zorder>caRelatedDisplay_1</zorder>
         <zorder>caRelatedDisplay_2</zorder>
@@ -536,6 +578,7 @@ border-radius: 2px;
         <zorder>caRelatedDisplay_7</zorder>
         <zorder>caRelatedDisplay_8</zorder>
         <zorder>caRelatedDisplay_9</zorder>
+        <zorder>caRelatedDisplay_10</zorder>
     </widget>
 </widget>
 </ui>
