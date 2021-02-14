@@ -146,6 +146,7 @@ typedef enum {
   E_1608             = 303,
   E_DIO24            = 311,
   E_TC               = 312,
+  USB_TEMP_AI        = 188,
   MAX_BOARD_TYPES
 } boardType_t;
 
@@ -300,6 +301,18 @@ static const enumStruct_t inputTypeE_TC[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
+static const enumStruct_t inputRangeUSB_TEMP_AI[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeUSB_TEMP_AI[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeUSB_TEMP_AI[] = {
+  {"TC deg.", AI_CHAN_TYPE_TC}
+};
+
 typedef struct {
   boardType_t boardType;
   const enumStruct_t *pInputRange;
@@ -358,6 +371,11 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {E_TC,           inputRangeE_TC,        sizeof(inputRangeE_TC)/sizeof(enumStruct_t),
                    outputRangeE_TC,       sizeof(outputRangeE_TC)/sizeof(enumStruct_t),
                    inputTypeE_TC,         sizeof(inputTypeE_TC)/sizeof(enumStruct_t)},
+
+  {USB_TEMP_AI,    inputRangeUSB_TEMP_AI, sizeof(inputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
+                   outputRangeUSB_TEMP_AI,sizeof(outputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
+                   inputTypeUSB_TEMP_AI,  sizeof(inputTypeUSB_TEMP_AI)/sizeof(enumStruct_t)},
+
 };
 
 #define DEFAULT_POLL_TIME 0.01
@@ -757,6 +775,11 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       for (i=0; i<MAX_TEMPERATURE_IN; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
+      break;
+    case USB_TEMP_AI:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
