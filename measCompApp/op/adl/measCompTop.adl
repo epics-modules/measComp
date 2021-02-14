@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp-2-1/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/measCompTop.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=628
 		y=61
 		width=212
-		height=275
+		height=300
 	}
 	clr=14
 	bclr=4
@@ -251,4 +251,20 @@ display {
 	clr=14
 	bclr=51
 	label="E-TC"
+}
+"related display" {
+	object {
+		x=30
+		y=265
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-TEMP-AI module"
+		name="USB_TEMP_AI_module.adl"
+		args="P=USB_TEMP:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter"
+	}
+	clr=14
+	bclr=51
+	label="USB-TEMP-AI"
 }
