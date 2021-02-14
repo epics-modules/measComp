@@ -1,0 +1,86 @@
+file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+{
+pattern
+{      P,   R,   MASK,   PORT,  ADDR}
+{   USB_TEMP:,  Li,   0xFF,  USB_TEMP_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{      P,        R,   MASK,    PORT,       ADDR}
+{   USB_TEMP:,  Bi1,  0x01,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi2,  0x02,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi3,  0x04,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi4,  0x08,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi5,  0x10,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi6,  0x20,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi7,  0x40,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bi8,  0x80,   USB_TEMP_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+{
+pattern
+{      P,        R,   MASK,   PORT,       ADDR}
+{   USB_TEMP:,  Lo,   0xFF,  USB_TEMP_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{      P,         R,  MASK,     PORT,      ADDR}
+{   USB_TEMP:,  Bo1,  0x01,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo2,  0x02,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo3,  0x04,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo4,  0x08,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo5,  0x10,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo6,  0x20,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo7,  0x40,   USB_TEMP_1,     0}
+{   USB_TEMP:,  Bo8,  0x80,   USB_TEMP_1,     0}
+}
+
+# Direction bits on binary I/O
+#  VAL 0=input, 1=output
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
+{
+pattern
+{      P,         R,  MASK,  VAL,     PORT,     ADDR}
+{   USB_TEMP:,  Bd1,  0x01,    0,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd2,  0x02,    0,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd3,  0x04,    0,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd4,  0x08,    0,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd5,  0x10,    1,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd6,  0x20,    1,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd7,  0x40,    1,  USB_TEMP_1,     0}
+{   USB_TEMP:,  Bd8,  0x80,    1,  USB_TEMP_1,     0}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompCounter.template"
+{
+pattern
+{      P,            R,       PORT,      ADDR}
+{   USB_TEMP:,  Counter1,  USB_TEMP_1,      0}
+}
+
+# Temperature inputs
+file "$(MEASCOMP)/measCompApp/Db/measCompTemperatureIn.template"
+{
+pattern
+{      P,          R,     PORT,    ADDR,     SCAN,    PREC}
+{   USB_TEMP:,   Ti1,  USB_TEMP_1,    0,  "1 second",    2}
+{   USB_TEMP:,   Ti2,  USB_TEMP_1,    1,  "1 second",    2}
+{   USB_TEMP:,   Ti3,  USB_TEMP_1,    2,  "1 second",    2}
+{   USB_TEMP:,   Ti4,  USB_TEMP_1,    3,  "1 second",    2}
+}
+
+# Analog inputs
+file "$(MEASCOMP)/measCompApp/Db/measCompAnalogIn.template"
+{
+pattern
+{          P,     R,      PORT,   ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
+{   USB_TEMP:,   Ai1, USB_TEMP_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{   USB_TEMP:,   Ai2, USB_TEMP_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{   USB_TEMP:,   Ai3, USB_TEMP_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{   USB_TEMP:,   Ai4, USB_TEMP_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+}
