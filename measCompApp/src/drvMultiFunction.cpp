@@ -59,6 +59,10 @@ typedef enum {
 #define analogInRangeString       "ANALOG_IN_RANGE"
 #define analogInTypeString        "ANALOG_IN_TYPE"
 
+// Voltage input parameters
+#define voltageInValueString      "VOLTAGE_IN_VALUE"
+#define voltageInRangeString      "VOLTAGE_IN_RANGE"
+
 // Temperature parameters
 #define temperatureInValueString  "TEMPERATURE_IN_VALUE"
 #define thermocoupleTypeString    "THERMOCOUPLE_TYPE"
@@ -426,6 +430,10 @@ protected:
   int analogInRange_;
   int analogInType_;
   
+  // Voltage input parameters
+  int voltageInValue_;
+  int voltageInRange_;
+  
   // Temperature parameters
   int temperatureInValue_;
   int thermocoupleType_;
@@ -598,6 +606,10 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   createParam(analogInValueString,             asynParamInt32, &analogInValue_);
   createParam(analogInRangeString,             asynParamInt32, &analogInRange_);
   createParam(analogInTypeString,              asynParamInt32, &analogInType_);
+
+  // Voltage input parameters
+  createParam(voltageInValueString,          asynParamFloat64, &voltageInValue_);
+  createParam(voltageInRangeString,            asynParamInt32, &voltageInRange_);
   
   // Temperature parameters
   createParam(temperatureInValueString,      asynParamFloat64, &temperatureInValue_);
@@ -780,6 +792,9 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
+      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -1482,6 +1497,8 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
   int scale;
   float fVal;
   int filter=0;
+  int range;
+  int options=0;
   static const char *functionName = "readFloat64";
 
   this->getAddress(pasynUser, &addr);
@@ -1512,8 +1529,19 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
     setDoubleParam(addr, temperatureInValue_, *value);
     if (status) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s::%s, port %s, function=%d, addr=%d, scale=%d, filter=%d, ERROR reading status=%d\n",
-          driverName, functionName, this->portName, function, addr, scale, filter, status);
+        "%s::%s, port %s, function=%d, addr=%d, scale=%d, filter=%d, ERROR from cbTIn status=%d\n",
+        driverName, functionName, this->portName, function, addr, scale, filter, status);
+    }
+  }
+  else if (function == voltageInValue_) {
+    getIntegerParam(addr, voltageInRange_, &range);
+    status = cbVIn(boardNum_, addr, range, &fVal, options);
+    *value = fVal;
+    setDoubleParam(addr, voltageInValue_, *value);
+    if (status) {
+      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+        "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR from cbVIn status=%d\n",
+        driverName, functionName, this->portName, function, addr, range, status);
     }
   }
 
@@ -1708,6 +1736,10 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
   //static const char *functionName = "readEnum";
 
   if (function == analogInRange_) {
+    pEnum    = pBoardEnums_->pInputRange;
+    numEnums = pBoardEnums_->numInputRange;
+  }
+  else if (function == voltageInRange_) {
     pEnum    = pBoardEnums_->pInputRange;
     numEnums = pBoardEnums_->numInputRange;
   }
