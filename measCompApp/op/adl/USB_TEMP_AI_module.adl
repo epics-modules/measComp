@@ -840,689 +840,605 @@ composite {
 		}
 	}
 }
-composite {
+rectangle {
 	object {
 		x=5
 		y=40
 		width=295
 		height=165
 	}
-	"composite name"=""
-	children {
-		rectangle {
-			object {
-				x=5
-				y=40
-				width=295
-				height=165
-			}
-			"basic attribute" {
-				clr=14
-				fill="outline"
-				width=1
-			}
-		}
-		"message button" {
-			object {
-				x=218
-				y=75
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ti)1.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=218
-				y=100
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ti)2.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=218
-				y=125
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ti)3.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=218
-				y=150
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ti)4.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		menu {
-			object {
-				x=123
-				y=76
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ti)1.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=123
-				y=101
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ti)2.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=123
-				y=126
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ti)3.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=123
-				y=151
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ti)4.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		"text update" {
-			object {
-				x=28
-				y=76
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ti)1"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=28
-				y=101
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ti)2"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=28
-				y=126
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ti)3"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=28
-				y=151
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ti)4"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		text {
-			object {
-				x=13
-				y=75
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="1"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=13
-				y=100
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="2"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=13
-				y=125
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="3"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=13
-				y=150
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="4"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=50
-				y=45
-				width=204
-				height=25
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Temperature input"
-			align="horiz. right"
-		}
-		composite {
-			object {
-				x=48
-				y=175
-				width=211
-				height=20
-			}
-			"composite name"=""
-			children {
-				"related display" {
-					object {
-						x=48
-						y=175
-						width=113
-						height=20
-					}
-					display[0] {
-						label="Input 1"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)1"
-					}
-					display[1] {
-						label="Input 2"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)2"
-					}
-					display[2] {
-						label="Input 3"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)3"
-					}
-					display[3] {
-						label="Input 4"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)4"
-					}
-					display[4] {
-						label="Input 5"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)5"
-					}
-					display[5] {
-						label="Input 6"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)6"
-					}
-					display[6] {
-						label="Input 7"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)7"
-					}
-					display[7] {
-						label="Input 8"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ti)8"
-					}
-					clr=14
-					bclr=51
-					label="Strip charts"
-				}
-				"related display" {
-					object {
-						x=166
-						y=175
-						width=93
-						height=20
-					}
-					display[0] {
-						label="Input 1"
-						name="measCompTemperatureSetup.adl"
-						args="P=$(P),Ai=$(Ai),Ti0=$(Ti)1,Ti1=$(Ti)2,Ti2=$(Ti)3,Ti3=$(Ti)4,Ti4=$(Ti)5,Ti5=$(Ti)6,Ti6=$(Ti)7,Ti7=$(Ti)8"
-					}
-					clr=14
-					bclr=51
-					label="Configure"
-				}
-			}
-		}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
 	}
 }
-composite {
+"message button" {
+	object {
+		x=218
+		y=75
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)1.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=218
+		y=100
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)2.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=218
+		y=125
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)3.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=218
+		y=150
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)4.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+menu {
+	object {
+		x=123
+		y=76
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)1.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=123
+		y=101
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)2.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=123
+		y=126
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)3.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=123
+		y=151
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti)4.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+"text update" {
+	object {
+		x=28
+		y=76
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ti)1"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=28
+		y=101
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ti)2"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=28
+		y=126
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ti)3"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=28
+		y=151
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ti)4"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=13
+		y=75
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+	align="horiz. right"
+}
+text {
+	object {
+		x=13
+		y=100
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+	align="horiz. right"
+}
+text {
+	object {
+		x=13
+		y=125
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="3"
+	align="horiz. right"
+}
+text {
+	object {
+		x=13
+		y=150
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="4"
+	align="horiz. right"
+}
+text {
+	object {
+		x=50
+		y=45
+		width=204
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Temperature input"
+	align="horiz. right"
+}
+"related display" {
+	object {
+		x=48
+		y=175
+		width=113
+		height=20
+	}
+	display[0] {
+		label="Input 1"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ti)1"
+	}
+	display[1] {
+		label="Input 2"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ti)2"
+	}
+	display[2] {
+		label="Input 3"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ti)3"
+	}
+	display[3] {
+		label="Input 4"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ti)4"
+	}
+	clr=14
+	bclr=51
+	label="Strip charts"
+}
+"related display" {
+	object {
+		x=166
+		y=175
+		width=93
+		height=20
+	}
+	display[0] {
+		label="Input 1"
+		name="measCompTemperatureSetup4.adl"
+		args="P=$(P),Ai=$(Ai),Ti0=$(Ti)1,Ti1=$(Ti)2,Ti2=$(Ti)3,Ti3=$(Ti)4,Ti4=$(Ti)5,Ti5=$(Ti)6,Ti6=$(Ti)7,Ti7=$(Ti)8"
+	}
+	clr=14
+	bclr=51
+	label="Configure"
+}
+rectangle {
 	object {
 		x=305
 		y=40
 		width=295
 		height=165
 	}
-	"composite name"=""
-	children {
-		rectangle {
-			object {
-				x=305
-				y=40
-				width=295
-				height=165
-			}
-			"basic attribute" {
-				clr=14
-				fill="outline"
-				width=1
-			}
-		}
-		"message button" {
-			object {
-				x=518
-				y=75
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)1.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=518
-				y=100
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)2.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=518
-				y=125
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)3.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=518
-				y=150
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)4.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		menu {
-			object {
-				x=423
-				y=76
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)1.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=423
-				y=101
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)2.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=423
-				y=126
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)3.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=423
-				y=151
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)4.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		"text update" {
-			object {
-				x=328
-				y=76
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)1"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=328
-				y=101
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)2"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=328
-				y=126
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)3"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=328
-				y=151
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)4"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		text {
-			object {
-				x=381
-				y=45
-				width=144
-				height=25
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Analog input"
-			align="horiz. right"
-		}
-		composite {
-			object {
-				x=348
-				y=175
-				width=211
-				height=20
-			}
-			"composite name"=""
-			children {
-				"related display" {
-					object {
-						x=348
-						y=175
-						width=113
-						height=20
-					}
-					display[0] {
-						label="Input 1"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)1"
-					}
-					display[1] {
-						label="Input 2"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)2"
-					}
-					display[2] {
-						label="Input 3"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)3"
-					}
-					display[3] {
-						label="Input 4"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)4"
-					}
-					display[4] {
-						label="Input 5"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)5"
-					}
-					display[5] {
-						label="Input 6"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)6"
-					}
-					display[6] {
-						label="Input 7"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)7"
-					}
-					display[7] {
-						label="Input 8"
-						name="measCompADCStripChart.adl"
-						args="ADC=$(P)$(Ai)8"
-					}
-					clr=14
-					bclr=51
-					label="Strip charts"
-				}
-				"related display" {
-					object {
-						x=466
-						y=175
-						width=93
-						height=20
-					}
-					display[0] {
-						label="Input 1"
-						name="measCompAiSetup.adl"
-						args="P=$(P),Ai=$(Ai)"
-					}
-					clr=14
-					bclr=51
-					label="Configure"
-				}
-			}
-		}
-		text {
-			object {
-				x=313
-				y=75
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="1"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=313
-				y=100
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="2"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=313
-				y=125
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="3"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=313
-				y=150
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="4"
-			align="horiz. right"
-		}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
 	}
+}
+"message button" {
+	object {
+		x=518
+		y=75
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)1.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=518
+		y=100
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)2.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=518
+		y=125
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)3.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=518
+		y=150
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)4.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+menu {
+	object {
+		x=423
+		y=76
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)1.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=423
+		y=101
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)2.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=423
+		y=126
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)3.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=423
+		y=151
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)4.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+"text update" {
+	object {
+		x=328
+		y=76
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)1"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=328
+		y=101
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)2"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=328
+		y=126
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)3"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=328
+		y=151
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)4"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=374
+		y=45
+		width=156
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Voltage input"
+	align="horiz. right"
+}
+"related display" {
+	object {
+		x=348
+		y=175
+		width=113
+		height=20
+	}
+	display[0] {
+		label="Input 1"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ai)1"
+	}
+	display[1] {
+		label="Input 2"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ai)2"
+	}
+	display[2] {
+		label="Input 3"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ai)3"
+	}
+	display[3] {
+		label="Input 4"
+		name="measCompADCStripChart.adl"
+		args="ADC=$(P)$(Ai)4"
+	}
+	clr=14
+	bclr=51
+	label="Strip charts"
+}
+"related display" {
+	object {
+		x=466
+		y=175
+		width=93
+		height=20
+	}
+	display[0] {
+		label="Input 1"
+		name="measCompVoltageSetup4.adl"
+		args="P=$(P),Ai=$(Ai)"
+	}
+	clr=14
+	bclr=51
+	label="Configure"
+}
+text {
+	object {
+		x=313
+		y=75
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+	align="horiz. right"
+}
+text {
+	object {
+		x=313
+		y=100
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+	align="horiz. right"
+}
+text {
+	object {
+		x=313
+		y=125
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="3"
+	align="horiz. right"
+}
+text {
+	object {
+		x=313
+		y=150
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="4"
+	align="horiz. right"
 }

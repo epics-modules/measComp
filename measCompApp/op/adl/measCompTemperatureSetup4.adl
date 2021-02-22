@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTemperatureSetup.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTemperatureSetup4.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=738
 		y=57
 		width=460
-		height=290
+		height=190
 	}
 	clr=14
 	bclr=4
@@ -87,21 +87,6 @@ display {
 		1a7309,
 	}
 }
-"text entry" {
-	object {
-		x=330
-		y=234
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti6).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
 text {
 	object {
 		x=0
@@ -114,36 +99,6 @@ text {
 	}
 	textix="Temp. setup $(P)"
 	align="horiz. centered"
-}
-"text entry" {
-	object {
-		x=395
-		y=259
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti7).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=330
-		y=259
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti7).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
 }
 text {
 	object {
@@ -206,58 +161,6 @@ menu {
 	}
 	control {
 		chan="$(P)$(Ti3)Filter"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=245
-		y=185
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti4)Filter"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=245
-		y=210
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti5)Filter"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=245
-		y=235
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti6)Filter"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=245
-		y=260
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti7)Filter"
 		clr=14
 		bclr=51
 	}
@@ -327,58 +230,6 @@ menu {
 		bclr=51
 	}
 }
-menu {
-	object {
-		x=75
-		y=185
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti4)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=210
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti5)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=235
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti6)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=260
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti7)TCType"
-		clr=14
-		bclr=51
-	}
-}
 text {
 	object {
 		x=175
@@ -440,58 +291,6 @@ menu {
 	}
 	control {
 		chan="$(P)$(Ti3)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=160
-		y=185
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti4)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=160
-		y=210
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti5)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=160
-		y=235
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti6)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=160
-		y=260
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti7)Scale"
 		clr=14
 		bclr=51
 	}
@@ -558,51 +357,6 @@ menu {
 }
 "text entry" {
 	object {
-		x=395
-		y=184
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti4).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=395
-		y=209
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti5).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=395
-		y=234
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti6).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
 		x=330
 		y=84
 		width=60
@@ -661,36 +415,6 @@ menu {
 	limits {
 	}
 }
-"text entry" {
-	object {
-		x=330
-		y=184
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti4).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=330
-		y=209
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti5).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
 text {
 	object {
 		x=348
@@ -730,118 +454,55 @@ text {
 	textix="Display"
 	align="horiz. right"
 }
-composite {
+text {
 	object {
 		x=10
 		y=84
 		width=60
-		height=196
+		height=20
 	}
-	"composite name"=""
-	children {
-		text {
-			object {
-				x=10
-				y=84
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti0)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=109
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti1)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=135
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti2)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=160
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti3)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=185
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti4)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=210
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti5)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=235
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti6)"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=10
-				y=260
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="$(Ti7)"
-			align="horiz. right"
-		}
+	"basic attribute" {
+		clr=14
 	}
+	textix="$(Ti0)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=109
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti1)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=135
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti2)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=160
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti3)"
+	align="horiz. right"
 }
