@@ -75,12 +75,12 @@ pattern
 }
 
 # Analog inputs
-file "$(MEASCOMP)/measCompApp/Db/measCompAnalogIn.template"
+file "$(MEASCOMP)/measCompApp/Db/measCompVoltageIn.template"
 {
 pattern
-{          P,     R,      PORT,   ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
-{   USB_TEMP:,   Ai1, USB_TEMP_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{   USB_TEMP:,   Ai2, USB_TEMP_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{   USB_TEMP:,   Ai3, USB_TEMP_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{   USB_TEMP:,   Ai4, USB_TEMP_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{          P,     R,      PORT,   ADDR,  LOPR, HOPR, RANGE,       SCAN, PREC}
+{   USB_TEMP:,   Ai1, USB_TEMP_1,    0,  -10.,  10.,   0,    "1 second",   5}
+{   USB_TEMP:,   Ai2, USB_TEMP_1,    1,  -10.,  10.,   0,    "1 second",   5}
+{   USB_TEMP:,   Ai3, USB_TEMP_1,    2,   -5.,   5.,   0,    "1 second",   5}
+{   USB_TEMP:,   Ai4, USB_TEMP_1,    3,   -5.,   5.,   0,    "1 second",   5}
 }
