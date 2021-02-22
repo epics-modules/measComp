@@ -1,0 +1,18 @@
+record(ai,"$(P)$(R)")
+{
+    field(SCAN, "$(SCAN)")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))VOLTAGE_IN_VALUE")
+    field(HOPR, "$(HOPR)")
+    field(LOPR, "$(LOPR)")
+    field(PREC, "$(PREC)")
+}
+
+# Note: the driver constructs these enum fields based on model.
+record(mbbo,"$(P)$(R)Range")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))VOLTAGE_IN_RANGE")
+    field(VAL,  "$(RANGE)")
+}
