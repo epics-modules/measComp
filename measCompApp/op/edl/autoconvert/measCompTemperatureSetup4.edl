@@ -6,7 +6,7 @@ release 1
 x 738
 y 57
 w 460
-h 290
+h 190
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -23,32 +23,6 @@ showGrid
 snapToGrid
 gridSize 4
 endScreenProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 330
-y 234
-w 60
-h 20
-controlPv "$(P)$(Ti6).LOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
 
 # (Static Text)
 object activeXTextClass
@@ -68,58 +42,6 @@ useDisplayBg
 value {
   "Temp. setup $(P)"
 }
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 395
-y 259
-w 60
-h 20
-controlPv "$(P)$(Ti7).HOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 330
-y 259
-w 60
-h 20
-controlPv "$(P)$(Ti7).LOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
 endObjectProperties
 
 # (Static Text)
@@ -292,84 +214,6 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 395
-y 184
-w 60
-h 20
-controlPv "$(P)$(Ti4).HOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 395
-y 209
-w 60
-h 20
-controlPv "$(P)$(Ti5).HOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 395
-y 234
-w 60
-h 20
-controlPv "$(P)$(Ti6).HOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
 x 330
 y 84
 w 60
@@ -468,58 +312,6 @@ newPos
 objType "controls"
 endObjectProperties
 
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 330
-y 184
-w 60
-h 20
-controlPv "$(P)$(Ti4).LOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 330
-y 209
-w 60
-h 20
-controlPv "$(P)$(Ti5).LOPR"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -579,19 +371,6 @@ value {
   "Display"
 }
 endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 84
-w 60
-h 196
-
-beginGroup
 
 # (Static Text)
 object activeXTextClass
@@ -673,91 +452,6 @@ value {
 }
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 185
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti4)"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 210
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti5)"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 235
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti6)"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 260
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti7)"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
 # (Menu Button)
 object activeMenuButtonClass
 beginObjectProperties
@@ -835,86 +529,6 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 controlPv "$(P)$(Ti3)Filter"
 indicatorPv "$(P)$(Ti3)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 185
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti4)Filter"
-indicatorPv "$(P)$(Ti4)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 210
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti5)Filter"
-indicatorPv "$(P)$(Ti5)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 235
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti6)Filter"
-indicatorPv "$(P)$(Ti6)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 260
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti7)Filter"
-indicatorPv "$(P)$(Ti7)Filter"
 font "helvetica-medium-r-10.0"
 endObjectProperties
 
@@ -1004,86 +618,6 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 75
-y 185
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti4)TCType"
-indicatorPv "$(P)$(Ti4)TCType"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 75
-y 210
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti5)TCType"
-indicatorPv "$(P)$(Ti5)TCType"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 75
-y 235
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti6)TCType"
-indicatorPv "$(P)$(Ti6)TCType"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 75
-y 260
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti7)TCType"
-indicatorPv "$(P)$(Ti7)TCType"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 160
 y 85
 w 80
@@ -1157,101 +691,4 @@ controlPv "$(P)$(Ti3)Scale"
 indicatorPv "$(P)$(Ti3)Scale"
 font "helvetica-medium-r-10.0"
 endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 160
-y 185
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti4)Scale"
-indicatorPv "$(P)$(Ti4)Scale"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 160
-y 210
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti5)Scale"
-indicatorPv "$(P)$(Ti5)Scale"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 160
-y 235
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti6)Scale"
-indicatorPv "$(P)$(Ti6)Scale"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 160
-y 260
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti7)Scale"
-indicatorPv "$(P)$(Ti7)Scale"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 84
-w 60
-h 196
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
 

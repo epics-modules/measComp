@@ -773,19 +773,6 @@ endGroup
 endObjectProperties
 
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 40
-w 295
-h 165
-
-beginGroup
-
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -996,42 +983,6 @@ value {
 }
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 48
-y 175
-w 211
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 305
-y 40
-w 295
-h 165
-
-beginGroup
-
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -1148,9 +1099,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 381
+x 374
 y 45
-w 144
+w 156
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "right"
@@ -1158,27 +1109,9 @@ fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "Analog input"
+  "Voltage input"
 }
 endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 348
-y 175
-w 211
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
 
 # (Static Text)
 object activeXTextClass
@@ -1259,11 +1192,6 @@ value {
   "4"
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -1643,18 +1571,6 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 40
-w 295
-h 165
-
-beginGroup
 
 # (Message Button)
 object activeMessageButtonClass
@@ -1835,18 +1751,6 @@ controlPv "$(P)$(Ti)4.SCAN"
 indicatorPv "$(P)$(Ti)4.SCAN"
 font "helvetica-medium-r-10.0"
 endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 48
-y 175
-w 211
-h 20
-
-beginGroup
 
 # (Related Display)
 object relatedDisplayClass
@@ -1865,47 +1769,31 @@ botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-12.0"
 icon
 buttonLabel "Strip charts"
-numPvs 16
-numDsps 8
+numPvs 8
+numDsps 4
 displayFileName {
   0 "measCompADCStripChart.edl"
   1 "measCompADCStripChart.edl"
   2 "measCompADCStripChart.edl"
   3 "measCompADCStripChart.edl"
-  4 "measCompADCStripChart.edl"
-  5 "measCompADCStripChart.edl"
-  6 "measCompADCStripChart.edl"
-  7 "measCompADCStripChart.edl"
 }
 menuLabel {
   0 "Input 1"
   1 "Input 2"
   2 "Input 3"
   3 "Input 4"
-  4 "Input 5"
-  5 "Input 6"
-  6 "Input 7"
-  7 "Input 8"
 }
 symbols {
   0 "ADC=$(P)$(Ti)1"
   1 "ADC=$(P)$(Ti)2"
   2 "ADC=$(P)$(Ti)3"
   3 "ADC=$(P)$(Ti)4"
-  4 "ADC=$(P)$(Ti)5"
-  5 "ADC=$(P)$(Ti)6"
-  6 "ADC=$(P)$(Ti)7"
-  7 "ADC=$(P)$(Ti)8"
 }
 replaceSymbols {
   0 1
   1 1
   2 1
   3 1
-  4 1
-  5 1
-  6 1
-  7 1
 }
 endObjectProperties
 
@@ -1929,7 +1817,7 @@ buttonLabel "Configure"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 "measCompTemperatureSetup.edl"
+  0 "measCompTemperatureSetup4.edl"
 }
 menuLabel {
   0 "Input 1"
@@ -1941,28 +1829,6 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 305
-y 40
-w 295
-h 165
-
-beginGroup
 
 # (Message Button)
 object activeMessageButtonClass
@@ -2143,18 +2009,6 @@ controlPv "$(P)$(Ai)4.SCAN"
 indicatorPv "$(P)$(Ai)4.SCAN"
 font "helvetica-medium-r-10.0"
 endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 348
-y 175
-w 211
-h 20
-
-beginGroup
 
 # (Related Display)
 object relatedDisplayClass
@@ -2173,47 +2027,31 @@ botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-12.0"
 icon
 buttonLabel "Strip charts"
-numPvs 16
-numDsps 8
+numPvs 8
+numDsps 4
 displayFileName {
   0 "measCompADCStripChart.edl"
   1 "measCompADCStripChart.edl"
   2 "measCompADCStripChart.edl"
   3 "measCompADCStripChart.edl"
-  4 "measCompADCStripChart.edl"
-  5 "measCompADCStripChart.edl"
-  6 "measCompADCStripChart.edl"
-  7 "measCompADCStripChart.edl"
 }
 menuLabel {
   0 "Input 1"
   1 "Input 2"
   2 "Input 3"
   3 "Input 4"
-  4 "Input 5"
-  5 "Input 6"
-  6 "Input 7"
-  7 "Input 8"
 }
 symbols {
   0 "ADC=$(P)$(Ai)1"
   1 "ADC=$(P)$(Ai)2"
   2 "ADC=$(P)$(Ai)3"
   3 "ADC=$(P)$(Ai)4"
-  4 "ADC=$(P)$(Ai)5"
-  5 "ADC=$(P)$(Ai)6"
-  6 "ADC=$(P)$(Ai)7"
-  7 "ADC=$(P)$(Ai)8"
 }
 replaceSymbols {
   0 1
   1 1
   2 1
   3 1
-  4 1
-  5 1
-  6 1
-  7 1
 }
 endObjectProperties
 
@@ -2237,7 +2075,7 @@ buttonLabel "Configure"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 "measCompAiSetup.edl"
+  0 "measCompVoltageSetup4.edl"
 }
 menuLabel {
   0 "Input 1"
@@ -2249,14 +2087,4 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
 
