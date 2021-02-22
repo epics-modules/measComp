@@ -243,6 +243,13 @@ int mcBoard::cbTIn(int Chan, int Scale, float *TempValue, int Options)
     return NOERRORS;
 }
 
+// Voltage functions
+int mcBoard::cbVIn(int Chan, int Range, float *DataValue, int Options)
+{
+    printf("cbVIn is not supported\n");
+    return NOERRORS;
+}
+
 // Trigger functions
 int mcBoard::cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold)
 {

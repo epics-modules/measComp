@@ -8,6 +8,7 @@
 #include "mcBoard_E-1608.h"
 #include "mcBoard_E-DIO24.h"
 #include "mcBoard_USB-CTR.h"
+#include "mcBoard_USB-TEMP-AI.h"
 
 
 std::vector<mcBoard*> boardList;
@@ -31,6 +32,9 @@ int cbAddBoard(const char *boardName, const char *address)
     }
     else if (strcmp(boardName, "USB-CTR") ==0) {
         pBoard = (mcBoard *)new mcUSB_CTR(address);
+    }
+    else if (strcmp(boardName, "USB-TEMP-AI") ==0) {
+        pBoard = (mcBoard *)new mcUSB_TEMP_AI(address);
     }
     else {
         printf("Unknown board type %s\n", boardName);
@@ -282,6 +286,14 @@ int cbTIn(int BoardNum, int Chan, int Scale, float *TempValue, int Options)
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
     return pBoard->cbTIn(Chan, Scale, TempValue, Options);
+}
+
+// Voltage functions
+int cbVIn(int BoardNum, int Chan, int Range, float *DataValue, int Options)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cbVIn(Chan, Range, DataValue, Options);
 }
 
 // Trigger functions

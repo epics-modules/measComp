@@ -58,6 +58,9 @@ public:
     // Temperature functions
     virtual int cbTIn(int Chan, int Scale, float *TempValue, int Options);
 
+    // Voltage functions
+    virtual int cbVIn(int Chan, int Range, float *DataValue, int Options);
+
     // Trigger functions
     virtual int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
 
