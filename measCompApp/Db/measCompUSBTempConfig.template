@@ -1,0 +1,14 @@
+# Note: the driver constructs these enum fields based on model.
+record(mbbo,"$(P)$(R)TemperatureSensor")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TEMPERATURE_SENSOR")
+}
+
+record(mbbo,"$(P)$(R)TemperatureWiring")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))TEMPERATURE_WIRING")
+}
