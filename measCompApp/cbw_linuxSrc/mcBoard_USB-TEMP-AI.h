@@ -27,7 +27,7 @@ public:
     int cbVIn(int Chan, int Range, float *DataValue, int Options);
 
 private:
-    //DeviceInfo_TC deviceInfo_;
+    hid_device *hidDevice_;
 };
 
 #endif /* mcBoard_USB_TEMP_AIInclude */
