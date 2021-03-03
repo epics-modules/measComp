@@ -110,10 +110,10 @@ extern "C" {
 #define USB_TEMP_AI_GAIN_128X     (0x7)
 
 /* Voltage gain values */
-#define USB_TEMP_AI_BP_10V     GAIN_4X  // +/- 10.0 V
-#define USB_TEMP_AI_BP_5V      GAIN_8X  // +/- 5.00 V
-#define USB_TEMP_AI_BP_2_5V    GAIN_16X // +/- 2.50 V
-#define USB_TEMP_AI_BP_1_25V   GAIN_32X // +/- 1.25 V
+#define USB_TEMP_AI_BP_10V     USB_TEMP_AI_GAIN_4X  // +/- 10.0 V
+#define USB_TEMP_AI_BP_5V      USB_TEMP_AI_GAIN_8X  // +/- 5.00 V
+#define USB_TEMP_AI_BP_2_5V    USB_TEMP_AI_GAIN_16X // +/- 2.50 V
+#define USB_TEMP_AI_BP_1_25V   USB_TEMP_AI_GAIN_32X // +/- 1.25 V
 
 /* For connection types RTD & thermistor */
 #define USB_TEMP_AI_TWO_WIRE_ONE_SENSOR (0x0)
