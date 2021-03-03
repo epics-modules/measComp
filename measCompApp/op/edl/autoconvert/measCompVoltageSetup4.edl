@@ -5,8 +5,8 @@ minor 0
 release 1
 x 750
 y 396
-w 370
-h 170
+w 240
+h 180
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -31,18 +31,31 @@ major 4
 minor 1
 release 1
 x 0
-y 10
-w 370
-h 25
-font "helvetica-medium-r-18.0"
+y 5
+w 240
+h 20
+font "helvetica-medium-r-14.0"
 fontAlign "center"
 fgColor rgb 2560 0 47104
 bgColor index 3
 useDisplayBg
 value {
-  "Voltage input setup $(P)"
+  "Voltage Input Setup"
 }
 endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 55
+w 225
+h 120
+
+beginGroup
 
 # (Static Text)
 object activeXTextClass
@@ -51,7 +64,7 @@ major 4
 minor 1
 release 1
 x -2
-y 64
+y 79
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -71,7 +84,7 @@ major 4
 minor 1
 release 1
 x -2
-y 89
+y 104
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -91,7 +104,7 @@ major 4
 minor 1
 release 1
 x -2
-y 115
+y 130
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -111,7 +124,7 @@ major 4
 minor 1
 release 1
 x -2
-y 140
+y 155
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -130,28 +143,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 252
-y 40
-w 100
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Eng. units"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
 x 137
-y 40
+y 55
 w 70
 h 20
 font "helvetica-medium-r-14.0"
@@ -170,216 +163,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 305
-y 64
-w 60
-h 20
-controlPv "$(P)$(Ai)1.EGUF"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 305
-y 89
-w 60
-h 20
-controlPv "$(P)$(Ai)2.EGUF"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 305
-y 114
-w 60
-h 20
-controlPv "$(P)$(Ai)3.EGUF"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 305
-y 139
-w 60
-h 20
-controlPv "$(P)$(Ai)4.EGUF"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 240
-y 64
-w 60
-h 20
-controlPv "$(P)$(Ai)1.EGUL"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 240
-y 89
-w 60
-h 20
-controlPv "$(P)$(Ai)2.EGUL"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 240
-y 114
-w 60
-h 20
-controlPv "$(P)$(Ai)3.EGUL"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 240
-y 139
-w 60
-h 20
-controlPv "$(P)$(Ai)4.EGUL"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
 x 175
-y 64
+y 79
 w 60
 h 20
 controlPv "$(P)$(Ai)1.HOPR"
@@ -405,7 +190,7 @@ major 4
 minor 7
 release 0
 x 175
-y 89
+y 104
 w 60
 h 20
 controlPv "$(P)$(Ai)2.HOPR"
@@ -431,7 +216,7 @@ major 4
 minor 7
 release 0
 x 175
-y 114
+y 129
 w 60
 h 20
 controlPv "$(P)$(Ai)3.HOPR"
@@ -457,7 +242,7 @@ major 4
 minor 7
 release 0
 x 175
-y 139
+y 154
 w 60
 h 20
 controlPv "$(P)$(Ai)4.HOPR"
@@ -483,7 +268,7 @@ major 4
 minor 7
 release 0
 x 110
-y 64
+y 79
 w 60
 h 20
 controlPv "$(P)$(Ai)1.LOPR"
@@ -509,7 +294,7 @@ major 4
 minor 7
 release 0
 x 110
-y 89
+y 104
 w 60
 h 20
 controlPv "$(P)$(Ai)2.LOPR"
@@ -535,7 +320,7 @@ major 4
 minor 7
 release 0
 x 110
-y 114
+y 129
 w 60
 h 20
 controlPv "$(P)$(Ai)3.LOPR"
@@ -561,7 +346,7 @@ major 4
 minor 7
 release 0
 x 110
-y 139
+y 154
 w 60
 h 20
 controlPv "$(P)$(Ai)4.LOPR"
@@ -587,7 +372,7 @@ major 4
 minor 1
 release 1
 x 35
-y 40
+y 55
 w 55
 h 20
 font "helvetica-medium-r-14.0"
@@ -600,6 +385,43 @@ value {
 }
 endObjectProperties
 
+endGroup
+
+endObjectProperties
+
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 0
+y 30
+w 240
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor index 3
+useDisplayBg
+value {
+  "$(P)"
+}
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 55
+w 225
+h 120
+
+beginGroup
+
 # (Menu Button)
 object activeMenuButtonClass
 beginObjectProperties
@@ -607,7 +429,7 @@ major 4
 minor 0
 release 0
 x 25
-y 65
+y 80
 w 80
 h 18
 fgColor rgb 0 0 0
@@ -627,7 +449,7 @@ major 4
 minor 0
 release 0
 x 25
-y 90
+y 105
 w 80
 h 18
 fgColor rgb 0 0 0
@@ -647,7 +469,7 @@ major 4
 minor 0
 release 0
 x 25
-y 115
+y 130
 w 80
 h 18
 fgColor rgb 0 0 0
@@ -667,7 +489,7 @@ major 4
 minor 0
 release 0
 x 25
-y 140
+y 155
 w 80
 h 18
 fgColor rgb 0 0 0
@@ -679,4 +501,9 @@ controlPv "$(P)$(Ai)4Range"
 indicatorPv "$(P)$(Ai)4Range"
 font "helvetica-medium-r-10.0"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
 
