@@ -68,6 +68,8 @@ typedef enum {
 #define thermocoupleTypeString    "THERMOCOUPLE_TYPE"
 #define temperatureScaleString    "TEMPERATURE_SCALE"
 #define temperatureFilterString   "TEMPERATURE_FILTER"
+#define temperatureSensorString   "TEMPERATURE_SENSOR"
+#define temperatureWiringString   "TEMPERATURE_WIRING"
 
 // Waveform digitizer parameters - global
 #define waveDigDwellString        "WAVEDIG_DWELL"
@@ -306,7 +308,11 @@ static const enumStruct_t inputTypeE_TC[] = {
 };
 
 static const enumStruct_t inputRangeUSB_TEMP_AI[] = {
-  {"N.A.", 0}
+  {"+= 10V",   BIP10VOLTS},
+  {"+= 5V",    BIP5VOLTS},
+  {"+= 2.5V",  BIP2PT5VOLTS},
+  {"+= 1.25V", BIP1PT25VOLTS}
+
 };
 
 static const enumStruct_t outputRangeUSB_TEMP_AI[] = {
@@ -314,7 +320,23 @@ static const enumStruct_t outputRangeUSB_TEMP_AI[] = {
 };
 
 static const enumStruct_t inputTypeUSB_TEMP_AI[] = {
-  {"TC deg.", AI_CHAN_TYPE_TC}
+  {"N.A.", 0}
+};
+
+static const enumStruct_t temperatureSensorUSB_TEMP_AI[] = {
+  {"RTD",           0},
+  {"Thermistor",    1},
+  {"Thermocouple",  2},
+  {"Semiconductor", 3},
+  {"Disabled",      4},
+  {"Voltage",       5}
+};
+
+static const enumStruct_t temperatureWiringUSB_TEMP_AI[] = {
+  {"2 wire 1 sensor",   0},
+  {"2 wire 2 sensors",  1},
+  {"3 wire",            2},
+  {"4 wire",            3}
 };
 
 typedef struct {
@@ -439,6 +461,8 @@ protected:
   int thermocoupleType_;
   int temperatureScale_;
   int temperatureFilter_;
+  int temperatureSensor_;
+  int temperatureWiring_;
   
   // Waveform digitizer parameters - global
   int waveDigDwell_;
@@ -616,6 +640,8 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   createParam(thermocoupleTypeString,          asynParamInt32, &thermocoupleType_);
   createParam(temperatureScaleString,          asynParamInt32, &temperatureScale_);
   createParam(temperatureFilterString,         asynParamInt32, &temperatureFilter_);
+  createParam(temperatureSensorString,         asynParamInt32, &temperatureSensor_);
+  createParam(temperatureWiringString,         asynParamInt32, &temperatureWiring_);
  
   // Waveform digitizer parameters - global
   createParam(waveDigDwellString,            asynParamFloat64, &waveDigDwell_);
@@ -1275,6 +1301,17 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
   }
 
+  #ifdef linux
+  // These functions only work on Linux.  On Windows these are set with Instacal.
+  else if (function == temperatureSensor_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADCHANTYPE, value);
+  }
+
+  else if (function == temperatureWiring_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANRTDTYPE, value);
+  }
+  #endif
+
   // Pulse generator functions
   else if (function == pulseGenRun_) {
     // Allow starting a run even if it thinks its running,
@@ -1750,6 +1787,14 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
   else if (function == analogInType_) {
     pEnum    = pBoardEnums_->pInputType;
     numEnums = pBoardEnums_->numInputType;
+  }
+  else if (function == temperatureSensor_) {
+    pEnum    = temperatureSensorUSB_TEMP_AI;
+    numEnums = sizeof(temperatureSensorUSB_TEMP_AI)/sizeof(enumStruct_t);
+  }
+  else if (function == temperatureWiring_) {
+    pEnum    = temperatureWiringUSB_TEMP_AI;
+    numEnums = sizeof(temperatureWiringUSB_TEMP_AI)/sizeof(enumStruct_t);
   }
   else {
       *nIn = 0;
