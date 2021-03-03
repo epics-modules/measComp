@@ -1,157 +1,142 @@
 #include <stdio.h>
 
-#include "mcBoard_E-TC.h"
+#include <pmd.h>
+#include "mcBoard_USB-TEMP-AI.h"
 
+static const char *driverName = "mcUSB_TEMP-AI";
 
-mcE_TC::mcE_TC(const char *address)
+mcUSB_TEMP_AI::mcUSB_TEMP_AI(const char *address)
   : mcBoard(address) 
 {
-    strcpy(boardName_, "E-TC");
-    biBoardType_    = ETC_PID;
-    biNumADCChans_  = 0;
+    static const char *functionName = "mcUSB_TEMP_AI";
+    strcpy(boardName_, "USB-TEMP-AI");
+    biBoardType_    = 0;
+    biNumADCChans_  = 4;
     biADCRes_       = 0;
     biNumDACChans_  = 0;
     biDACRes_       = 0;
-    biNumTempChans_ = 8;
+    biNumTempChans_ = 4;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
     diInMask_       = 0;
     diOutMask_      = 0;
     diNumBits_      = 8;
+
+    int ret = hid_init();
+    if (ret < 0) {
+        printf("%s::%s Failure, hid_init failed with return code %d\n", driverName, functionName, ret);
+        return;
+    }
+
+   if ((hidDevice_ = hid_open(MCC_VID, USB_TEMP_AI_PID, NULL)) > 0) {
+        printf("Success, found a USB-TEMP-AI!\n");
+        biBoardType_ = USB_TEMP_AI_PID;
+        strcpy(boardName_, "USB-TEMP-AI");
+    } else {
+        printf("%s::%s Failure, did not find a USB-TEMP-AI series device!\n", driverName, functionName);
+        return;
+    }
     
-    // Open Ethernet socket
-    deviceInfo_.device.connectCode = 0x0;   // default connect code
-    deviceInfo_.device.frameID = 0;         // zero out the frameID
-    deviceInfo_.device.Address.sin_family = AF_INET;
-    deviceInfo_.device.Address.sin_port = htons(COMMAND_PORT);
-    deviceInfo_.device.Address.sin_addr.s_addr = INADDR_ANY;
-    if (inet_aton(address_, &deviceInfo_.device.Address.sin_addr) == 0) {
-        printf("Improper destination address.\n");
-        return;
-    }
-
-    if ((deviceInfo_.device.sock = openDevice(inet_addr(inet_ntoa(deviceInfo_.device.Address.sin_addr)),
-                                              deviceInfo_.device.connectCode)) < 0) {
-        printf("Error opening socket\n");
-        return;
-    }
-
-    deviceInfo_.units = CELSIUS;
-    deviceInfo_.wait = 0x0;
-    for (int i = 0; i< 8; i++) {
-        deviceInfo_.config_values[i] = 0x0;   // disable all channels
-    }
+    usbInitCounter_USBTC_AI(hidDevice_);
 }
 
-int mcE_TC::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
+int mcUSB_TEMP_AI::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal) {
+    static const char *functionName="cbSetConfig";
+
     switch (InfoType) {
     case BOARDINFO:
         switch (ConfigItem) {
+        case BIADCHANTYPE:
+            printf("Setting USB_TEMP_AI_SENSOR_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
+            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_SENSOR_TYPE, ConfigVal);
+            if (ConfigVal == USB_TEMP_AI_THERMOCOUPLE) {
+                usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_EXCITATION_OFF);
+            }            
+            break;        
+
+        case BICHANRTDTYPE:
+            printf("Setting USB_TEMP_AI_CONNECTION_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
+            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_CONNECTION_TYPE, ConfigVal);
+            break;        
+
         case BICHANTCTYPE:
-            deviceInfo_.config_values[DevNum] = ConfigVal;
-            TinConfigW_E_TC(&deviceInfo_);
+            printf("Setting USB_TEMP thermocouple type, chan=%d, value=%d\n", DevNum/2, ConfigVal-1);
+            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_AI_CH_0_TC, ConfigVal-1);
+            //usbCalibrate_USBTC_AI(hidDevice_, 0);
+            //usbCalibrate_USBTC_AI(hidDevice_, 1);
             break;        
 
         default:
-            printf("mcBoardE_T-TC::setConfig error unknown ConfigItem %d\n", ConfigItem);
+            printf("%s::%s error unknown ConfigItem %d\n", driverName, functionName, ConfigItem);
             return BADCONFIGITEM;
             break;
     }
     break;
     
     default:
-        printf("mcBoardE_T-TC::setConfig error unknown InfoType %d\n", InfoType);
+        printf("%s::%s error unknown InfoType %d\n", driverName, functionName, InfoType);
         return BADCONFIGTYPE;
     break;
     }
     return NOERRORS;
 }
 
-int mcE_TC::cbCIn32(int CounterNum, ULONG *Count)
+int mcUSB_TEMP_AI::cbCIn32(int CounterNum, ULONG *Count)
 {
-      if (!CounterR_E_TC(&deviceInfo_)) {
-         return BADBOARD;
-      }
-      *Count = deviceInfo_.counter;
-      return NOERRORS;
+    *Count = usbReadCounter_USBTC_AI(hidDevice_);
+    return NOERRORS;
 }
 
-int mcE_TC::cbCLoad32(int RegNum, ULONG LoadValue)
+int mcUSB_TEMP_AI::cbCLoad32(int RegNum, ULONG LoadValue)
 {
-      if (!ResetCounter_E_TC(&deviceInfo_)) {
-         return BADBOARD;
-      }
-      return NOERRORS;
+    usbInitCounter_USBTC_AI(hidDevice_);
+    return NOERRORS;
 }
 
-int mcE_TC::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
+int mcUSB_TEMP_AI::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 {
     uint8_t value;
     uint8_t mask = 0x1 << BitNum;
+
     // Read the current output register
-    if (!DOutR_E_TC(&deviceInfo_, &value)) {
-        return BADBOARD;
-    }
+    usbDIn_USBTC_AI(hidDevice_, &value);
     // Set or clear the bit
     if (BitValue) {
         value |= mask;
     } else {
         value &= ~mask;
     }
-    if (!DOutW_E_TC(&deviceInfo_, value)) {
-        return BADBOARD;
-    }
+    usbDOut_USBTC_AI(hidDevice_, value);
     return NOERRORS;
 }
 
-int mcE_TC::cbDConfigBit(int PortType, int BitNum, int Direction)
+int mcUSB_TEMP_AI::cbDConfigBit(int PortType, int BitNum, int Direction)
 {
-    uint8_t value;
-    uint8_t mask = 0x1 << BitNum;
-    // Read the current output register
-    if (!DConfigR_E_TC(&deviceInfo_, &value)) {
-        return BADBOARD;
-    }
-    // Set or clear the bit
+    uint8_t direction;
+
     if (Direction == DIGITALIN) {
-        value |= mask;
+        direction = USB_TEMP_AI_DIO_DIR_IN;
     } else {
-        value &= ~mask;
+        direction = USB_TEMP_AI_DIO_DIR_OUT;
     }
-    if (!DConfigW_E_TC(&deviceInfo_, value)) {
-        return BADBOARD;
-    }
+    usbDConfigBit_USBTC_AI(hidDevice_, BitNum,  direction);
     return NOERRORS;
 }
 
-int mcE_TC::cbDIn(int PortType, USHORT *DataValue)
+int mcUSB_TEMP_AI::cbDIn(int PortType, USHORT *DataValue)
 {
     uint8_t value;
-    if (!DIn_E_TC(&deviceInfo_, &value)) {
-        return BADBOARD;
-    }
+
+    usbDIn_USBTC_AI(hidDevice_, &value);
     *DataValue = value;
     return NOERRORS;
 }
 
-int mcE_TC::cbTIn(int Chan, int Scale, float *TempValue, int Options)
+int mcUSB_TEMP_AI::cbTIn(int Chan, int Scale, float *TempValue, int Options)
 {
-    uint8_t channelMask = 0x1 << Chan;
-    uint8_t units;
-    switch (Scale) {
-    case VOLTS:
-        units = VOLTAGE;
-        break;
-    case NOSCALE:
-        units = ADC_CODE;
-        break;
-    default:
-        units = CELSIUS;
-        break;
-    }
-    if (!Tin_E_TC(&deviceInfo_, channelMask, units, 0, TempValue)) {
-        return BADBOARD;
-    }
+    uint8_t units=0;
+
+    usbAin_USBTC_AI(hidDevice_, Chan, units, TempValue);
     switch (Scale) {
     case KELVIN:
         *TempValue += 273.15;
@@ -162,5 +147,38 @@ int mcE_TC::cbTIn(int Chan, int Scale, float *TempValue, int Options)
     default:
         break;
     }
+    return NOERRORS;
+}
+
+static int RangeToGain(int Range)
+{
+    switch (Range) {
+      case BIP1PT25VOLTS:
+        return USB_TEMP_AI_BP_1_25V;
+      case BIP2PT5VOLTS:
+        return USB_TEMP_AI_BP_2_5V;
+      case BIP5VOLTS:
+        return USB_TEMP_AI_BP_5V;
+      case BIP10VOLTS:
+        return USB_TEMP_AI_BP_10V;
+      default:
+        printf("Unsupported Range=%d\n", Range);
+        return BADRANGE;
+    }
+}
+
+int mcUSB_TEMP_AI::cbVIn(int Chan, int Range, float *DataValue, int Options)
+{
+    int gain = RangeToGain(Range);
+    int units = 0;
+
+    if (gain == BADRANGE) {
+        printf("Unsupported Range=%d\n", Range);
+        return BADRANGE;
+    }
+
+    Chan = Chan + 4; // Convert from 0-3 to 4-7 because voltages are last 7 channels.
+	  usbSetItem_USBTEMP_AI(hidDevice_, Chan/2, Chan%2+USB_TEMP_AI_CH_0_GAIN, gain);
+    usbAin_USBTC_AI(hidDevice_, Chan, units, DataValue);
     return NOERRORS;
 }
