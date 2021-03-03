@@ -1,0 +1,1008 @@
+
+file {
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompUSBTempSetup.adl"
+	version=030109
+}
+display {
+	object {
+		x=693
+		y=66
+		width=625
+		height=285
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+text {
+	object {
+		x=0
+		y=10
+		width=625
+		height=25
+	}
+	"basic attribute" {
+		clr=54
+	}
+	textix="Temperature setup $(P)"
+	align="horiz. centered"
+}
+composite {
+	object {
+		x=10
+		y=84
+		width=60
+		height=196
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=10
+				y=84
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti0)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=109
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti1)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=135
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti2)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=160
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti3)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=185
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti4)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=210
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti5)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=235
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti6)"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=10
+				y=260
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="$(Ti7)"
+			align="horiz. right"
+		}
+	}
+}
+composite {
+	object {
+		x=325
+		y=60
+		width=165
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=330
+				y=60
+				width=70
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="TC Type"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=325
+				y=85
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti0)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=110
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti1)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=135
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti2)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=160
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti3)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=185
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti4)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=210
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti5)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=235
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti6)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=325
+				y=260
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti7)TCType"
+				clr=14
+				bclr=51
+			}
+		}
+		text {
+			object {
+				x=425
+				y=60
+				width=50
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Scale"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=410
+				y=85
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti0)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=110
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti1)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=135
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti2)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=160
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti3)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=185
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti4)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=210
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti5)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=235
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti6)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=410
+				y=260
+				width=80
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti7)Scale"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=495
+		y=40
+		width=125
+		height=239
+	}
+	"composite name"=""
+	children {
+		"text entry" {
+			object {
+				x=495
+				y=234
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti6).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=259
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti7).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=259
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti7).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=84
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti0).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=109
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti1).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=134
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti2).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=159
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti3).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=184
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti4).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=209
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti5).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=560
+				y=234
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti6).HOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=84
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti0).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=109
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti1).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=134
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti2).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=159
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti3).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=184
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti4).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=495
+				y=209
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ti5).LOPR"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		text {
+			object {
+				x=513
+				y=60
+				width=30
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Min"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=576
+				y=60
+				width=30
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Max"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=522
+				y=40
+				width=70
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Display"
+			align="horiz. right"
+		}
+	}
+}
+composite {
+	object {
+		x=75
+		y=60
+		width=110
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=103
+				y=60
+				width=55
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Sensor"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=75
+				y=85
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti0)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=110
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti1)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=135
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti2)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=160
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti3)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=185
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti4)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=210
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti5)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=235
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti6)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=75
+				y=260
+				width=110
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti7)TemperatureSensor"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
+composite {
+	object {
+		x=190
+		y=60
+		width=130
+		height=218
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=225
+				y=60
+				width=60
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Wiring"
+			align="horiz. right"
+		}
+		menu {
+			object {
+				x=190
+				y=85
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti0)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=110
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti1)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=135
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti2)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=160
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti3)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=185
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti4)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=210
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti5)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=235
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti6)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+		menu {
+			object {
+				x=190
+				y=260
+				width=130
+				height=18
+			}
+			control {
+				chan="$(P)$(Ti7)TemperatureWiring"
+				clr=14
+				bclr=51
+			}
+		}
+	}
+}
