@@ -34,8 +34,13 @@
 #define DBIT_IN            (0x05) // Read digital port bit
 #define DBIT_OUT           (0x06) // Write digital port bit
 
+// Temperature commands
 #define TIN                (0x18) // Read input channel
 #define TIN_SCAN           (0x19) // Read multiple input channels
+
+// Counter Commands
+#define CINIT              (0x20) // Initialize event counter
+#define CIN                (0x21) // Read event counter
 
 // Memory Commands
 #define MEM_READ           (0x30) // Read Memory
@@ -150,6 +155,32 @@ void usbDOutBit_USBTEMP(hid_device *hid, uint8_t bit_num, uint8_t value)
 
   PMD_SendOutputReport(hid, (uint8_t*) &write_bit, sizeof(write_bit));
   return;
+}
+
+/* Initialize event counter */
+void usbInitCounter_USBTEMP(hid_device *hid)
+{
+  uint8_t reportID = CINIT;
+  PMD_SendOutputReport(hid, &reportID, sizeof(reportID));
+}
+
+/* Read the event counter */
+uint32_t usbReadCounter_USBTEMP(hid_device *hid)
+{
+  struct readCounter_t {
+  uint8_t reportID;
+  uint8_t value[4];
+  } readCounter;
+
+  uint32_t value;
+
+  readCounter.reportID = CIN;
+    
+  PMD_SendOutputReport(hid, &readCounter.reportID, 1);
+  PMD_GetInputReport(hid, (uint8_t*) &readCounter, sizeof(readCounter), FS_DELAY);
+
+  memcpy(&value, &readCounter.value, sizeof(value));
+  return value;
 }
 
 void usbTin_USBTEMP(hid_device *hid, uint8_t channel, uint8_t units, float *value)
@@ -323,35 +354,35 @@ void usbSetItem_USBTEMP(hid_device *hid, uint8_t item, uint8_t subitem, float fV
   }
 
   switch (subitem) {
-    case SENSOR_TYPE:
-    case CONNECTION_TYPE:
-    case FILTER_RATE:
-    case EXCITATION:
-    case CH_0_TC:
-    case CH_1_TC:
-    case CH_0_GAIN:
-    case CH_1_GAIN:
+    case USB_TEMP_SENSOR_TYPE:
+    case USB_TEMP_CONNECTION_TYPE:
+    case USB_TEMP_FILTER_RATE:
+    case USB_TEMP_EXCITATION:
+    case USB_TEMP_CH_0_TC:
+    case USB_TEMP_CH_1_TC:
+    case USB_TEMP_CH_0_GAIN:
+    case USB_TEMP_CH_1_GAIN:
       setItem.reportID = SET_ITEM;
       setItem.item = item;
       setItem.subitem = subitem;
       setItem.value = (uint8_t) fValue;
       PMD_SendOutputReport(hid, (uint8_t *) &setItem,  sizeof(setItem));
       break;
-    case VREF:
-    case I_value_0:
-    case I_value_1:
-    case I_value_2:
-    case V_value_0:
-    case V_value_1:
-    case V_value_2:
-    case CH_0_COEF_0:
-    case CH_1_COEF_0:
-    case CH_0_COEF_1:
-    case CH_1_COEF_1:
-    case CH_0_COEF_2:
-    case CH_1_COEF_2:
-    case CH_0_COEF_3:
-    case CH_1_COEF_3:
+    case USB_TEMP_VREF:
+    case USB_TEMP_I_value_0:
+    case USB_TEMP_I_value_1:
+    case USB_TEMP_I_value_2:
+    case USB_TEMP_V_value_0:
+    case USB_TEMP_V_value_1:
+    case USB_TEMP_V_value_2:
+    case USB_TEMP_CH_0_COEF_0:
+    case USB_TEMP_CH_1_COEF_0:
+    case USB_TEMP_CH_0_COEF_1:
+    case USB_TEMP_CH_1_COEF_1:
+    case USB_TEMP_CH_0_COEF_2:
+    case USB_TEMP_CH_1_COEF_2:
+    case USB_TEMP_CH_0_COEF_3:
+    case USB_TEMP_CH_1_COEF_3:
       setItemFloat.reportID = SET_ITEM;
       setItemFloat.item = item;
       setItemFloat.subitem = subitem;
@@ -386,33 +417,33 @@ int usbGetItem_USBTEMP(hid_device *hid, uint8_t item, uint8_t subitem, void* val
   PMD_SendOutputReport(hid, (uint8_t *) &getItem,  sizeof(getItem));
 
   switch (subitem) {
-    case SENSOR_TYPE:
-    case CONNECTION_TYPE:
-    case FILTER_RATE:
-    case EXCITATION:
-    case CH_0_TC:
-    case CH_1_TC:
-    case CH_0_GAIN:
-    case CH_1_GAIN:
+    case USB_TEMP_SENSOR_TYPE:
+    case USB_TEMP_CONNECTION_TYPE:
+    case USB_TEMP_FILTER_RATE:
+    case USB_TEMP_EXCITATION:
+    case USB_TEMP_CH_0_TC:
+    case USB_TEMP_CH_1_TC:
+    case USB_TEMP_CH_0_GAIN:
+    case USB_TEMP_CH_1_GAIN:
       PMD_GetInputReport(hid, cmd, 2, FS_DELAY);
       memcpy(value, &cmd[1], 1);  // one byte value
       return 1;
       break;
-    case VREF:
-    case I_value_0:
-    case I_value_1:
-    case I_value_2:
-    case V_value_0:
-    case V_value_1:
-    case V_value_2:
-    case CH_0_COEF_0:
-    case CH_1_COEF_0:
-    case CH_0_COEF_1:
-    case CH_1_COEF_1:
-    case CH_0_COEF_2:
-    case CH_1_COEF_2:
-    case CH_0_COEF_3:
-    case CH_1_COEF_3:
+    case USB_TEMP_VREF:
+    case USB_TEMP_I_value_0:
+    case USB_TEMP_I_value_1:
+    case USB_TEMP_I_value_2:
+    case USB_TEMP_V_value_0:
+    case USB_TEMP_V_value_1:
+    case USB_TEMP_V_value_2:
+    case USB_TEMP_CH_0_COEF_0:
+    case USB_TEMP_CH_1_COEF_0:
+    case USB_TEMP_CH_0_COEF_1:
+    case USB_TEMP_CH_1_COEF_1:
+    case USB_TEMP_CH_0_COEF_2:
+    case USB_TEMP_CH_1_COEF_2:
+    case USB_TEMP_CH_0_COEF_3:
+    case USB_TEMP_CH_1_COEF_3:
       PMD_GetInputReport(hid, cmd, 5, FS_DELAY);
       memcpy(value, &cmd[1], 4);
       return 4;

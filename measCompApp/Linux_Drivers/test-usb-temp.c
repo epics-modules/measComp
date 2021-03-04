@@ -85,7 +85,7 @@ int main(int argc, char **argv)
   }
 
   /* config mask 0x01 means all inputs */
-  usbDConfigPort_USBTEMP(hid, DIO_DIR_OUT);
+  usbDConfigPort_USBTEMP(hid, USB_TEMP_DIO_DIR_OUT);
   usbDOut_USBTEMP(hid, 0x0);
 
   while(1) {
@@ -135,10 +135,10 @@ int main(int argc, char **argv)
         printf("Serial Number String: %ls\n", wstr);
         break;            
       case 'p':  /* read the CJC */
-        usbTin_USBTEMP(hid, CJC0, 0, &temperature);
+        usbTin_USBTEMP(hid, USB_TEMP_CJC0, 0, &temperature);
 	printf("CJC 0 = %.2f degress Celsius or %.2f degrees Fahrenheit.\n", temperature,
 	        celsius2fahr(temperature));
-        usbTin_USBTEMP(hid, CJC1, 0, &temperature);
+        usbTin_USBTEMP(hid, USB_TEMP_CJC1, 0, &temperature);
 	printf("CJC 1 = %.2f degress Celsius or %.2f degrees Fahrenheit.\n", temperature,
 	        celsius2fahr(temperature));
         break;
@@ -147,14 +147,14 @@ int main(int argc, char **argv)
 	printf("conect DIO1 - DIO5\n");
 	printf("conect DIO2 - DIO6\n");
 	printf("conect DIO3 - DIO7\n");
-	usbDConfigBit_USBTEMP(hid, 0,  DIO_DIR_OUT);
-	usbDConfigBit_USBTEMP(hid, 1,  DIO_DIR_OUT);
-	usbDConfigBit_USBTEMP(hid, 2,  DIO_DIR_OUT);
-	usbDConfigBit_USBTEMP(hid, 3,  DIO_DIR_OUT);
-	usbDConfigBit_USBTEMP(hid, 4,  DIO_DIR_IN);
-	usbDConfigBit_USBTEMP(hid, 5,  DIO_DIR_IN);
-	usbDConfigBit_USBTEMP(hid, 6,  DIO_DIR_IN);
-	usbDConfigBit_USBTEMP(hid, 7,  DIO_DIR_IN);
+	usbDConfigBit_USBTEMP(hid, 0,  USB_TEMP_DIO_DIR_OUT);
+	usbDConfigBit_USBTEMP(hid, 1,  USB_TEMP_DIO_DIR_OUT);
+	usbDConfigBit_USBTEMP(hid, 2,  USB_TEMP_DIO_DIR_OUT);
+	usbDConfigBit_USBTEMP(hid, 3,  USB_TEMP_DIO_DIR_OUT);
+	usbDConfigBit_USBTEMP(hid, 4,  USB_TEMP_DIO_DIR_IN);
+	usbDConfigBit_USBTEMP(hid, 5,  USB_TEMP_DIO_DIR_IN);
+	usbDConfigBit_USBTEMP(hid, 6,  USB_TEMP_DIO_DIR_IN);
+	usbDConfigBit_USBTEMP(hid, 7,  USB_TEMP_DIO_DIR_IN);
 	do {
   	  printf("Enter value [0-f]: ");
 	  scanf("%hhx", &bIReg);
@@ -171,27 +171,27 @@ int main(int argc, char **argv)
         printf("Sampling Semiconductor TMP36\n");
 	printf("Enter channel number [0-7]: ");
 	scanf("%d", &ch);
-        usbSetItem_USBTEMP(hid, ch/2, SENSOR_TYPE, SEMICONDUCTOR);
+        usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_SENSOR_TYPE, USB_TEMP_SEMICONDUCTOR);
 	printf("        1.  Single ended.\n");
 	printf("        2.  Differential.\n");
 	printf("Enter connection type [1-2]: \n");
 	scanf("%d", &i);
 	switch (i) {
-	  case 1: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, SINGLE_ENDED);break;
-	  case 2: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, DIFFERENTIAL); break;
+	  case 1: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_SINGLE_ENDED);break;
+	  case 2: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_DIFFERENTIAL); break;
 	  default: printf("Unknown type\n"); break;
 	}
 	printf("Enter Offset: ");
 	scanf("%f", &Offset);
 	printf("Enter Scale: ");
 	scanf("%f", &Scale);
-	usbSetItem_USBTEMP(hid, ch/2, EXCITATION, EXCITATION_OFF);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_GAIN + ch%2, 0x1);       // Set for Semiconductor
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, Offset);  // Offset
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_EXCITATION, USB_TEMP_EXCITATION_OFF);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_GAIN + ch%2, 0x1);       // Set for Semiconductor
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, Offset);  // Offset
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, &value);
 	printf("Offset = %f     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, Scale);   // Scale
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, Scale);   // Scale
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, &value);
 	printf("Scale = %f     ", value);
         flag = fcntl(fileno(stdin), F_GETFL);
         fcntl(fileno(stdin), F_SETFL, flag | O_NONBLOCK);
@@ -207,7 +207,7 @@ int main(int argc, char **argv)
         printf("Sampling RTD\n");
 	printf("Enter channel number [0-7]: ");
 	scanf("%d", &ch);
-        usbSetItem_USBTEMP(hid, ch/2, SENSOR_TYPE, RTD);
+        usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_SENSOR_TYPE, USB_TEMP_RTD);
 	printf("        1.  2-wire with 1 sensor.\n");
 	printf("        2.  2-wire with 2 sensors.\n");
 	printf("        3.  3-wire. \n");
@@ -215,12 +215,12 @@ int main(int argc, char **argv)
 	printf("Enter connector type [1-4]: \n");
 	scanf("%d", &i);
 	switch (i) {
-	  case 1: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, TWO_WIRE_ONE_SENSOR);break;
-	  case 2: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, TWO_WIRE_TWO_SENSOR); break;
-	  case 3: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, THREE_WIRE);
+	  case 1: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_TWO_WIRE_ONE_SENSOR);break;
+	  case 2: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_TWO_WIRE_TWO_SENSOR); break;
+	  case 3: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_THREE_WIRE);
 	    printf("Connection-type = 3 wire.\n");
 	    break;
-	  case 4: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, FOUR_WIRE);
+	  case 4: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_FOUR_WIRE);
 	    printf("Connection-type = 4 wire.\n");
 	    break;
 	}
@@ -228,19 +228,19 @@ int main(int argc, char **argv)
 	A = .003908;
 	B = -5.8019E-7;
 	C = -4.2735E-12;
-	usbSetItem_USBTEMP(hid, ch/2, EXCITATION, MU_A_210);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_GAIN + ch%2, 0x2);          // Set 0 - 0.5V for RTD
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, R0);         // R0 value
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_EXCITATION, USB_TEMP_MU_A_210);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_GAIN + ch%2, 0x2);          // Set 0 - 0.5V for RTD
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, R0);         // R0 value
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, &value);
 	printf("R0 = %f     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, A);          // Callendar-Van Dusen Coefficient A
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, A);          // Callendar-Van Dusen Coefficient A
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, &value);
 	printf("A = %e     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_2 + ch%2, B);          // Callendar-Van Dusen Coefficient B
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_2 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_2 + ch%2, B);          // Callendar-Van Dusen Coefficient B
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_2 + ch%2, &value);
 	printf("B = %e     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_3 + ch%2, C);          // Callendar-Van Dusen Coefficient C
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_3 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_3 + ch%2, C);          // Callendar-Van Dusen Coefficient C
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_3 + ch%2, &value);
 	printf("C = %e\n", value);
         flag = fcntl(fileno(stdin), F_GETFL);
         fcntl(fileno(stdin), F_SETFL, flag | O_NONBLOCK);
@@ -264,8 +264,8 @@ int main(int argc, char **argv)
       case 't':
         printf("Select Channel [0-7]: ");
         scanf("%d", &i);
-	usbSetItem_USBTEMP(hid, i/2, SENSOR_TYPE, THERMOCOUPLE);
-        usbSetItem_USBTEMP(hid, i/2, EXCITATION, EXCITATION_OFF);
+	usbSetItem_USBTEMP(hid, i/2, USB_TEMP_SENSOR_TYPE, USB_TEMP_THERMOCOUPLE);
+        usbSetItem_USBTEMP(hid, i/2, USB_TEMP_EXCITATION, USB_TEMP_EXCITATION_OFF);
         printf("Connect thermocouple to channel %d\n", i);
 	printf(" Select Thermocouple Type [JKSRBETN]: ");
 	scanf("%s", &type);
@@ -306,7 +306,7 @@ int main(int argc, char **argv)
 	  printf("Unknown or unsupported thermocopule type.\n");
 	  break;
 	}
-        usbSetItem_USBTEMP(hid, i/2, i%2+CH_0_TC, bIReg);
+        usbSetItem_USBTEMP(hid, i/2, i%2+USB_TEMP_CH_0_TC, bIReg);
         usbCalibrate_USBTEMP(hid);
         flag = fcntl(fileno(stdin), F_GETFL);
         fcntl(0, F_SETFL, flag | O_NONBLOCK);
@@ -322,7 +322,7 @@ int main(int argc, char **argv)
         printf("Sampling Thermistor\n");
 	printf("Enter channel number [0-7]: ");
 	scanf("%d", &ch);
-        usbSetItem_USBTEMP(hid, ch/2, SENSOR_TYPE, THERMISTOR);
+        usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_SENSOR_TYPE, USB_TEMP_THERMISTOR);
 	printf("        1.  2-wire with 1 sensor.\n");
 	printf("        2.  2-wire with 2 sensors.\n");
 	printf("        3.  3-wire.\n");
@@ -330,12 +330,12 @@ int main(int argc, char **argv)
 	printf("Enter connector type [1-4]: \n");
 	scanf("%d", &i);
 	switch (i) {
-	  case 1: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, TWO_WIRE_ONE_SENSOR);break;
-	  case 2: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, TWO_WIRE_TWO_SENSOR); break;
-	  case 3: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, THREE_WIRE);
+	  case 1: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_TWO_WIRE_ONE_SENSOR);break;
+	  case 2: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_TWO_WIRE_TWO_SENSOR); break;
+	  case 3: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_THREE_WIRE);
 	    printf("Connection-type = 3 wire.\n");
 	    break;
-	  case 4: usbSetItem_USBTEMP(hid, ch/2, CONNECTION_TYPE, FOUR_WIRE);
+	  case 4: usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CONNECTION_TYPE, USB_TEMP_FOUR_WIRE);
 	    printf("Connection-type = 4 wire.\n");
 	    break;
 	}
@@ -345,16 +345,16 @@ int main(int argc, char **argv)
 	scanf("%f", &A1);
 	printf("Enter Steinhart-Hart coefficient A2: ");
 	scanf("%f", &A2);
-	usbSetItem_USBTEMP(hid, ch/2, EXCITATION, MU_A_10);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_GAIN + ch%2, 0x0);      // Set for Thermnistor
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, A0);     // Steinhart-Hart coefficient A0
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_0 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_EXCITATION, USB_TEMP_MU_A_10);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_GAIN + ch%2, 0x0);      // Set for Thermnistor
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, A0);     // Steinhart-Hart coefficient A0
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_0 + ch%2, &value);
 	printf("A0 = %f     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, A1);     // Steinhart-Hart coefficient A1
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_1 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, A1);     // Steinhart-Hart coefficient A1
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_1 + ch%2, &value);
 	printf("A1 = %e     ", value);
-	usbSetItem_USBTEMP(hid, ch/2, CH_0_COEF_2 + ch%2, A2);     // Steinhart-Hart coefficient A2
-	usbGetItem_USBTEMP(hid, ch/2, CH_0_COEF_2 + ch%2, &value);
+	usbSetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_2 + ch%2, A2);     // Steinhart-Hart coefficient A2
+	usbGetItem_USBTEMP(hid, ch/2, USB_TEMP_CH_0_COEF_2 + ch%2, &value);
 	printf("A2 = %e     ", value);
         flag = fcntl(fileno(stdin), F_GETFL);
         fcntl(fileno(stdin), F_SETFL, flag | O_NONBLOCK);
@@ -370,8 +370,8 @@ int main(int argc, char **argv)
         printf("Enter number of Channels (1-8): ");
 	scanf("%d", &nchan);
 	for ( i = 0; i < nchan; i++ ) {
-	  usbSetItem_USBTEMP(hid, i/2, SENSOR_TYPE, THERMOCOUPLE);
-	  usbSetItem_USBTEMP(hid, i/2, EXCITATION, EXCITATION_OFF);
+	  usbSetItem_USBTEMP(hid, i/2, USB_TEMP_SENSOR_TYPE, USB_TEMP_THERMOCOUPLE);
+	  usbSetItem_USBTEMP(hid, i/2, USB_TEMP_EXCITATION, USB_TEMP_EXCITATION_OFF);
           printf("Connect thermocouple to channel %d\n", i);
 	  printf("Select Thermocouple Type [JKSRBETN]: ");
 	  scanf("%s", &type);
@@ -412,12 +412,12 @@ int main(int argc, char **argv)
 	    printf("Unknown or unsupported thermocopule type.\n");
 	    break;
 	  }
-          usbSetItem_USBTEMP(hid, i/2, i%2+CH_0_TC, bIReg);
+          usbSetItem_USBTEMP(hid, i/2, i%2+USB_TEMP_CH_0_TC, bIReg);
 	}
         flag = fcntl(fileno(stdin), F_GETFL);
         fcntl(0, F_SETFL, flag | O_NONBLOCK);
 	do {
-          usbTinScan_USBTEMP(hid, CH0, nchan-1, 0, temperature_array);
+          usbTinScan_USBTEMP(hid, USB_TEMP_CH0, nchan-1, 0, temperature_array);
 	  for ( i = 0; i < nchan; i++ ) {
   	    printf("Channel %d:  %.2f degress Celsius or %.2f degrees Fahrenheit.\n",
 		   i, temperature_array[i], celsius2fahr(temperature_array[i]));
