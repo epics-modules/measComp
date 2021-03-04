@@ -9,6 +9,7 @@
 #include "mcBoard_E-DIO24.h"
 #include "mcBoard_USB-CTR.h"
 #include "mcBoard_USB-TEMP-AI.h"
+#include "mcBoard_USB-TEMP.h"
 
 
 std::vector<mcBoard*> boardList;
