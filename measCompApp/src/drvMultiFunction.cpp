@@ -153,6 +153,7 @@ typedef enum {
   E_DIO24            = 311,
   E_TC               = 312,
   USB_TEMP_AI        = 188,
+  USB_TEMP           = 141,
   MAX_BOARD_TYPES
 } boardType_t;
 
@@ -312,7 +313,6 @@ static const enumStruct_t inputRangeUSB_TEMP_AI[] = {
   {"+= 5V",    BIP5VOLTS},
   {"+= 2.5V",  BIP2PT5VOLTS},
   {"+= 1.25V", BIP1PT25VOLTS}
-
 };
 
 static const enumStruct_t outputRangeUSB_TEMP_AI[] = {
@@ -323,16 +323,27 @@ static const enumStruct_t inputTypeUSB_TEMP_AI[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t temperatureSensorUSB_TEMP_AI[] = {
+static const enumStruct_t inputRangeUSB_TEMP[] = {
+  {"N.A.", 0},
+};
+
+static const enumStruct_t outputRangeUSB_TEMP[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeUSB_TEMP[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t temperatureSensorUSB_TEMP[] = {
   {"RTD",           0},
   {"Thermistor",    1},
   {"Thermocouple",  2},
   {"Semiconductor", 3},
-  {"Disabled",      4},
-  {"Voltage",       5}
+  {"Disabled",      4}
 };
 
-static const enumStruct_t temperatureWiringUSB_TEMP_AI[] = {
+static const enumStruct_t temperatureWiringUSB_TEMP[] = {
   {"2 wire 1 sensor",   0},
   {"2 wire 2 sensors",  1},
   {"3 wire",            2},
@@ -401,6 +412,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_TEMP_AI,    inputRangeUSB_TEMP_AI, sizeof(inputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
                    outputRangeUSB_TEMP_AI,sizeof(outputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
                    inputTypeUSB_TEMP_AI,  sizeof(inputTypeUSB_TEMP_AI)/sizeof(enumStruct_t)},
+
+  {USB_TEMP,       inputRangeUSB_TEMP,    sizeof(inputRangeUSB_TEMP)/sizeof(enumStruct_t),
+                   outputRangeUSB_TEMP,   sizeof(outputRangeUSB_TEMP)/sizeof(enumStruct_t),
+                   inputTypeUSB_TEMP,     sizeof(inputTypeUSB_TEMP)/sizeof(enumStruct_t)},
 
 };
 
@@ -818,9 +833,11 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
-      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
-        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
-      }
+      break;
+    case USB_TEMP:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -1789,12 +1806,12 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
     numEnums = pBoardEnums_->numInputType;
   }
   else if (function == temperatureSensor_) {
-    pEnum    = temperatureSensorUSB_TEMP_AI;
-    numEnums = sizeof(temperatureSensorUSB_TEMP_AI)/sizeof(enumStruct_t);
+    pEnum    = temperatureSensorUSB_TEMP;
+    numEnums = sizeof(temperatureSensorUSB_TEMP)/sizeof(enumStruct_t);
   }
   else if (function == temperatureWiring_) {
-    pEnum    = temperatureWiringUSB_TEMP_AI;
-    numEnums = sizeof(temperatureWiringUSB_TEMP_AI)/sizeof(enumStruct_t);
+    pEnum    = temperatureWiringUSB_TEMP;
+    numEnums = sizeof(temperatureWiringUSB_TEMP)/sizeof(enumStruct_t);
   }
   else {
       *nIn = 0;
