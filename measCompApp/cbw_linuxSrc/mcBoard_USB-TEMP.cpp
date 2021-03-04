@@ -47,21 +47,21 @@ int mcUSB_TEMP::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Config
     case BOARDINFO:
         switch (ConfigItem) {
         case BIADCHANTYPE:
-            printf("Setting USB_TEMP_AI_SENSOR_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
-            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_SENSOR_TYPE, ConfigVal);
-            if (ConfigVal == USB_TEMP_AI_THERMOCOUPLE) {
-                usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_EXCITATION_OFF);
+            printf("Setting USB_TEMP_SENSOR_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
+            usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_SENSOR_TYPE, ConfigVal);
+            if (ConfigVal == USB_TEMP_THERMOCOUPLE) {
+                usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_EXCITATION, USB_TEMP_EXCITATION_OFF);
             }            
             break;        
 
         case BICHANRTDTYPE:
-            printf("Setting USB_TEMP_AI_CONNECTION_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
-            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_CONNECTION_TYPE, ConfigVal);
+            printf("Setting USB_TEMP_CONNECTION_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
+            usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_CONNECTION_TYPE, ConfigVal);
             break;        
 
         case BICHANTCTYPE:
             printf("Setting USB_TEMP thermocouple type, chan=%d, value=%d\n", DevNum/2, ConfigVal-1);
-            usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_AI_CH_0_TC, ConfigVal-1);
+            usbSetItem_USBTEMP(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_CH_0_TC, ConfigVal-1);
             //usbCalibrate_USBTEMP(hidDevice_, 0);
             //usbCalibrate_USBTEMP(hidDevice_, 1);
             break;        

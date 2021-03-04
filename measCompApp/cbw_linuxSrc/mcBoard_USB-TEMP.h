@@ -2,7 +2,7 @@
 #define mcBoard_USB_TEMPInclude
 
 #include "mcBoard.h"
-#include "pmd.h"
+#include "usb-temp.h"
 
 class mcUSB_TEMP : mcBoard {
 public:
