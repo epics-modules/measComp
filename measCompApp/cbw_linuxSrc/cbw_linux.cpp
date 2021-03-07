@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <vector>
+#include <string>
 
 #include "cbw_linux.h"
+#include "pmd.h"
 #include "mcBoard.h"
 #include "mcBoard_E-TC.h"
 #include "mcBoard_E-TC32.h"
@@ -14,35 +16,187 @@
 
 std::vector<mcBoard*> boardList;
 
+#define MAX_DEVICES 100
+
 // System functions
 
-int cbAddBoard(const char *boardName, const char *address)
+// Copy information from an EthernetDeviceInfo to a DaqDevuceDescriptor
+static void copyEDIToDDD(EthernetDeviceInfo *pEDI, DaqDeviceDescriptor *pDDD)
+{
+  pDDD->ProductID = pEDI->ProductID;
+  strcpy(pDDD->DevString, pEDI->NetBIOS_Name);
+  std::string productName = pDDD->DevString;
+  productName = productName.substr(0, productName.rfind("-"));
+  strcpy(pDDD->ProductName, productName.c_str());
+  pDDD->InterfaceType = ETHERNET_IFC;
+  sprintf(pDDD->UniqueID, "%.2X:%.2X:%.2X:%.2X:%.2X:%.2X", 
+          pEDI->MAC[0], pEDI->MAC[1], pEDI->MAC[2],
+          pEDI->MAC[3], pEDI->MAC[4], pEDI->MAC[5]);
+  pDDD->NUID = 0;
+  for (int j=0; j<6; j++) {
+    pDDD->NUID += (ULONGLONG)(pEDI->MAC[j]) << 8*(5-j);
+  }
+  int addr=pEDI->Address.sin_addr.s_addr;
+  sprintf(pDDD->Reserved, "%d.%d.%d.%d", addr&0xFF, addr>>8&0xFF, addr>>16&0xFF, addr>>24&0xFF);
+}
+
+int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescriptor* Inventory, INT* NumberOfDevices)
+{
+  *NumberOfDevices = 0;
+
+  // First search for USB devices if requested
+  if ((InterfaceType == ANY_IFC) || (InterfaceType == USB_IFC)) {
+    int vendorId = MCC_VID;
+    struct libusb_device_handle *udev = NULL;
+    struct libusb_device_descriptor desc;
+    struct libusb_device **list;
+    struct libusb_device *found = NULL;
+    struct libusb_device *device;
+    char serial[9];
+    ssize_t cnt = 0;
+    ssize_t i = 0;
+    int err = 0;
+
+    err = libusb_init(NULL);
+    if (err < 0) {
+      perror("libusb_init returned error");
+      goto usb_done;
+    }
+ 
+    // discover devices
+    cnt = libusb_get_device_list(NULL, &list);
+   
+    for (i = 0; i < cnt; i++) {
+      device = list[i];
+      err = libusb_get_device_descriptor(device, &desc);
+      if (err < 0) {
+        perror("usb_device_find_USB_MCC: Can not get USB device descriptor");
+        goto usb_done;
+      }
+      if (desc.idVendor == vendorId) {
+        found = device;
+        err = libusb_open(found, &udev);
+        if (err < 0) {
+	         perror("usb_device_find_USB_MCC: libusb_open failed.");
+	         udev = NULL;
+	         continue;
+        }
+        err = libusb_kernel_driver_active(udev, 0);
+        if (err == 1) {
+          /* 
+            device active by another driver. (like HID).  This can be dangerous,
+            as we don't know if the kenel has claimed the interface or another
+            process.  No easy way to tell at this moment, but HID devices won't
+            work otherwise.
+          */
+          #if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000103)
+            libusb_set_auto_detach_kernel_driver(udev, 1);
+          #else
+            libusb_detach_kernel_driver(udev, 0);
+          #endif
+        }
+        err = libusb_claim_interface(udev, 0);
+        if (err < 0) {
+          perror("error claiming interface 0");
+          libusb_close(udev);
+          udev = NULL;
+          continue;
+        }
+        err = libusb_get_string_descriptor_ascii(udev, desc.iSerialNumber, (unsigned char *) serial, sizeof(serial));
+        if (err < 0) {
+          perror("usb_device_find_USB_MCC: Error reading serial number for device.");
+          libusb_release_interface(udev, 0);
+          libusb_close(udev);
+          udev = NULL;
+          continue;
+        }
+        // We found a device and got the serial number. Add it to the inventory.
+        DaqDeviceDescriptor* pDevice = Inventory + (*NumberOfDevices)++;
+        pDevice->ProductID = desc.idProduct;
+        pDevice->InterfaceType = USB_IFC;
+        err = libusb_get_string_descriptor_ascii(udev, desc.iSerialNumber, 
+                                                 (unsigned char*)pDevice->UniqueID, sizeof(pDevice->UniqueID));
+        err = libusb_get_string_descriptor_ascii(udev, desc.iProduct, 
+                                                 (unsigned char*)pDevice->ProductName, sizeof(pDevice->ProductName));
+        strcpy(pDevice->DevString, pDevice->ProductName);
+        pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);      
+        libusb_release_interface(udev, 0);
+        libusb_close(udev);
+        udev = NULL;
+      } 
+    }
+    usb_done:
+    libusb_free_device_list(list,1);
+    libusb_exit(NULL);
+  }
+
+  // Now search for Ethernet devices
+  if ((InterfaceType == ANY_IFC) || (InterfaceType == ETHERNET_IFC)) {
+    int i;
+    EthernetDeviceInfo *deviceInfo[MAX_DEVICES];
+
+    for (i=0; i<MAX_DEVICES; i++) {
+      deviceInfo[i] = (EthernetDeviceInfo *)malloc(sizeof(EthernetDeviceInfo));
+    }
+
+    int numFound = discoverDevices(deviceInfo, 0, MAX_DEVICES);
+    if (numFound < 0) {
+       perror("Error calling discoverDevices");
+       return -1;
+    }
+    for (i=0; i<numFound; i++) {
+      DaqDeviceDescriptor* pDevice = Inventory + (*NumberOfDevices)++;
+      copyEDIToDDD(deviceInfo[i], pDevice);
+    }
+  }
+  return 0;
+}
+
+int cbIgnoreInstaCal()
+{
+  return 0;
+}
+
+int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
 {
     mcBoard *pBoard;
-    if (strcmp(boardName, "E-TC") ==0) {
-        pBoard = (mcBoard *)new mcE_TC(address);
+    if (strcmp(deviceDescriptor.ProductName, "E-TC") ==0) {
+        pBoard = (mcBoard *)new mcE_TC(deviceDescriptor.Reserved);
     }
-    else if (strcmp(boardName, "E-TC32") ==0) {
-        pBoard = (mcBoard *)new mcE_TC32(address);
+    else if (strcmp(deviceDescriptor.ProductName, "E-TC32") ==0) {
+        pBoard = (mcBoard *)new mcE_TC32(deviceDescriptor.Reserved);
     }
-    else if (strcmp(boardName, "E-1608") ==0) {
-        pBoard = (mcBoard *)new mcE_1608(address);
+    else if (strcmp(deviceDescriptor.ProductName, "E-1608") ==0) {
+        pBoard = (mcBoard *)new mcE_1608(deviceDescriptor.Reserved);
     }
-    else if (strcmp(boardName, "E-DIO24") ==0) {
-        pBoard = (mcBoard *)new mcE_DIO24(address);
+    else if (strcmp(deviceDescriptor.ProductName, "E-DIO24") ==0) {
+        pBoard = (mcBoard *)new mcE_DIO24(deviceDescriptor.Reserved);
     }
-    else if (strcmp(boardName, "USB-CTR") ==0) {
-        pBoard = (mcBoard *)new mcUSB_CTR(address);
+    else if (strcmp(deviceDescriptor.ProductName, "USB-CTR") ==0) {
+        pBoard = (mcBoard *)new mcUSB_CTR(deviceDescriptor.UniqueID);
     }
-    else if (strcmp(boardName, "USB-TEMP-AI") ==0) {
-        pBoard = (mcBoard *)new mcUSB_TEMP_AI(address);
+    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") ==0) {
+        pBoard = (mcBoard *)new mcUSB_TEMP_AI(deviceDescriptor.UniqueID);
     }
     else {
-        printf("Unknown board type %s\n", boardName);
+        printf("Unknown board type %s\n", deviceDescriptor.ProductName);
         return BADBOARD;
     }
-    boardList.push_back(pBoard);
+    boardList[BoardNum] = pBoard;
     return NOERRORS;
+}
+
+int cbGetNetDeviceDescriptor(char* Host, int Port, DaqDeviceDescriptor* DeviceDescriptor, int Timeout)
+{
+    EthernetDeviceInfo deviceInfo;
+
+    int numFound = discoverRemoteDevice(Host, &deviceInfo, 0);
+    if (numFound != 1) {
+       printf("Could not find device %s", Host);
+       return -1;
+    }
+    copyEDIToDDD(&deviceInfo, DeviceDescriptor);
+    return 0;
 }
 
 int cbGetConfig(int InfoType, int BoardNum, int DevNum, 
