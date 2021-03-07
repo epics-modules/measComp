@@ -27,6 +27,7 @@
 #endif
 
 #include <epicsExport.h>
+#include <measCompDiscover.h>
 
 typedef enum {
   MCSPoint0Clear,
@@ -87,7 +88,7 @@ static const char *driverName = "USBCTR";
   */
 class USBCTR : public asynPortDriver {
 public:
-  USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime);
+  USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, double pollTime);
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -217,14 +218,13 @@ static void pollerThreadC(void * pPvt)
     pUSBCTR->pollerThread();
 }
 
-USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pollTime)
+USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, double pollTime)
   : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask,
       // Note: ASYN_CANBLOCK must not be set because the scaler record does not work with asynchronous device support 
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
-    boardNum_(boardNum),
     pollTime_((pollTime > 0.) ? pollTime : DEFAULT_POLL_TIME),
     forceCallback_(1),
     maxTimePoints_(maxTimePoints),
@@ -234,7 +234,13 @@ USBCTR::USBCTR(const char *portName, int boardNum, int maxTimePoints, double pol
   int i;
   char boardName[BOARDNAMELEN];
   //static const char *functionName = "USBCTR";
-  
+
+  boardNum_ = measCompCreateDevice(uniqueID);
+  if (boardNum_ < 0) {
+    printf("Error creating device with measCompCreateDevice\n");
+    return;
+  }
+
 #ifdef linux
   cbSetAsynUser(boardNum_, pasynUserSelf);
 #endif
@@ -1283,16 +1289,16 @@ void USBCTR::report(FILE *fp, int details)
 }
 
 /** Configuration command, called directly or from iocsh */
-extern "C" int USBCTRConfig(const char *portName, int boardNum, 
+extern "C" int USBCTRConfig(const char *portName, const char *uniqueID, 
                             int maxTimePoints, double pollTime)
 {
-  new USBCTR(portName, boardNum, maxTimePoints, pollTime);
+  new USBCTR(portName, uniqueID, maxTimePoints, pollTime);
   return(asynSuccess);
 }
 
 
 static const iocshArg configArg0 = { "Port name",             iocshArgString};
-static const iocshArg configArg1 = { "Board number",          iocshArgInt};
+static const iocshArg configArg1 = { "uniqueID",              iocshArgString};
 static const iocshArg configArg2 = { "Max. # of time points", iocshArgInt};
 static const iocshArg configArg3 = { "Poll time",             iocshArgDouble};
 static const iocshArg * const configArgs[] = {&configArg0,
@@ -1302,7 +1308,7 @@ static const iocshArg * const configArgs[] = {&configArg0,
 static const iocshFuncDef configFuncDef = {"USBCTRConfig",4,configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-  USBCTRConfig(args[0].sval, args[1].ival, args[2].ival, args[3].dval);
+  USBCTRConfig(args[0].sval, args[1].sval, args[2].ival, args[3].dval);
 }
 
 void drvUSBCTRRegister(void)
