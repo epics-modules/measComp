@@ -9,10 +9,13 @@ epicsEnvSet(OUTPUT_POINTS, "4096")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
-#                      boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
+#                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("E1608_1", 0, $(INPUT_POINTS), $(OUTPUT_POINTS))
+# This is an E-1608 using its IP address. This will work even if the device is on a different subnet from the IOC.
+#MultiFunctionConfig("E1608_1", "10.54.160.216", $(INPUT_POINTS), $(OUTPUT_POINTS))
+# This is an E-1608 using its MAC address.  This will only work if the device is on the same subnet as the IOC.
+MultiFunctionConfig("E1608_1", "00:80:2F:18:64:23", $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask E1608_1 -1 255
 
