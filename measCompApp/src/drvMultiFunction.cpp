@@ -26,6 +26,7 @@
 #endif
 
 #include <epicsExport.h>
+#include <measCompDiscover.h>
 
 static const char *driverName = "MultiFunction";
 
@@ -2028,28 +2029,17 @@ static void configCallFunc(const iocshArgBuf *args)
   MultiFunctionConfig(args[0].sval, args[1].ival, args[2].ival, args[3].ival);
 }
 
-#ifdef _WIN32
-int cbAddBoard(const char *boardName, const char *address)
-{
-    printf("cbAddBoard not implemented on Windows\n");
-    return 0;
-}
-#endif
 
-static const iocshArg addBoardArg0 = { "Model name",      iocshArgString};
-static const iocshArg addBoardArg1 = { "Address",         iocshArgString};
-static const iocshArg * const addBoardArgs[] = {&addBoardArg0,
-                                                &addBoardArg1};
-static const iocshFuncDef addBoardFuncDef = {"cbAddBoard",2,addBoardArgs};
-static void addBoardCallFunc(const iocshArgBuf *args)
+static const iocshFuncDef showDevicesFuncDef = {"measCompShowDevices",0,0};
+static void showDevicesCallFunc(const iocshArgBuf *args)
 {
-  cbAddBoard(args[0].sval, args[1].sval);
+  measCompShowDevices();
 }
 
 void drvMultiFunctionRegister(void)
 {
   iocshRegister(&configFuncDef,configCallFunc);
-  iocshRegister(&addBoardFuncDef,addBoardCallFunc);
+  iocshRegister(&showDevicesFuncDef,showDevicesCallFunc);
 }
 
 
