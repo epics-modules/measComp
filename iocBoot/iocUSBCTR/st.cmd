@@ -14,17 +14,14 @@ epicsEnvSet("MODEL",                    "USBCTR-08")
 dbLoadDatabase "../../dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-# This line is for Linux only
-cbAddBoard("USB-CTR", "")
-
 ## Set the minimum sleep time to 1 ms
 asynSetMinTimerPeriod(0.001)
 
 ## Configure port driver
 # USBCTRConfig(portName,       # The name to give to this asyn port driver
-#              boardNum,       # The number of this board assigned by the Measurement Computing Instacal program 
+#              uniqueID,       # Device serial number.
 #              maxTimePoints)  # Maximum number of time points for MCS
-USBCTRConfig("$(PORT)", 0, 2048, .01)
+USBCTRConfig("$(PORT)", "123456", 2048, .01)
 
 #asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACE_FLOW|TRACEIO_DRIVER)
 
