@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <array>
+#include <vector>
 #include <string>
 
 #include "cbw_linux.h"
@@ -16,7 +16,7 @@
 
 #define MAX_DEVICES 100
 
-std::array<mcBoard*, MAX_DEVICES> boardList;
+std::vector<mcBoard*> boardList(MAX_DEVICES);
 
 
 // System functions
@@ -193,7 +193,7 @@ int cbGetNetDeviceDescriptor(char* Host, int Port, DaqDeviceDescriptor* DeviceDe
 
     int numFound = discoverRemoteDevice(Host, &deviceInfo, 0);
     if (numFound != 1) {
-       printf("Could not find device %s", Host);
+       printf("Could not find device %s\n", Host);
        return -1;
     }
     copyEDIToDDD(&deviceInfo, DeviceDescriptor);
