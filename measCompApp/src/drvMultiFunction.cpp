@@ -429,7 +429,7 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   */
 class MultiFunction : public asynPortDriver {
 public:
-  MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints);
+  MultiFunction(const char *portName, const char *uniqueID, int maxInputPoints, int maxOutputPoints);
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -603,7 +603,7 @@ static void pollerThreadC(void * pPvt)
     pMultiFunction->pollerThread();
 }
 
-MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoints, int maxOutputPoints)
+MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int maxInputPoints, int maxOutputPoints)
   : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
                       asynFloat64Mask       | asynEnumMask       | asynDrvUserMask,
@@ -611,7 +611,6 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
                       asynFloat64Mask       | asynEnumMask, 
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
-    boardNum_(boardNum),
     pollTime_(DEFAULT_POLL_TIME),
     forceCallback_(1),
     maxInputPoints_(maxInputPoints),
@@ -625,6 +624,13 @@ MultiFunction::MultiFunction(const char *portName, int boardNum, int maxInputPoi
   int i, j;
   int inMask, outMask;
   static const char *functionName = "MultiFunction";
+
+  // Create device
+  boardNum_ = measCompCreateDevice(uniqueID);
+  if (boardNum_ < 0) {
+    printf("Error creating device with measCompCreateDevice\n");
+    return;
+  }
   
   // Model parameters
   createParam(modelNameString,                 asynParamOctet, &modelName_);
@@ -2007,16 +2013,16 @@ void MultiFunction::report(FILE *fp, int details)
 }
 
 /** Configuration command, called directly or from iocsh */
-extern "C" int MultiFunctionConfig(const char *portName, int boardNum, 
+extern "C" int MultiFunctionConfig(const char *portName, const char *uniqueID, 
                               int maxInputPoints, int maxOutputPoints)
 {
-  new MultiFunction(portName, boardNum, maxInputPoints, maxOutputPoints);
+  new MultiFunction(portName, uniqueID, maxInputPoints, maxOutputPoints);
   return asynSuccess;
 }
 
 
 static const iocshArg configArg0 = { "Port name",      iocshArgString};
-static const iocshArg configArg1 = { "Board number",      iocshArgInt};
+static const iocshArg configArg1 = { "UniqueID",       iocshArgString};
 static const iocshArg configArg2 = { "Max. input points", iocshArgInt};
 static const iocshArg configArg3 = { "Max. output points",iocshArgInt};
 static const iocshArg * const configArgs[] = {&configArg0,
@@ -2026,7 +2032,7 @@ static const iocshArg * const configArgs[] = {&configArg0,
 static const iocshFuncDef configFuncDef = {"MultiFunctionConfig",4,configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-  MultiFunctionConfig(args[0].sval, args[1].ival, args[2].ival, args[3].ival);
+  MultiFunctionConfig(args[0].sval, args[1].sval, args[2].ival, args[3].ival);
 }
 
 
