@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <vector>
+#include <array>
 #include <string>
 
 #include "cbw_linux.h"
@@ -14,9 +14,10 @@
 #include "mcBoard_USB-TEMP.h"
 
 
-std::vector<mcBoard*> boardList;
-
 #define MAX_DEVICES 100
+
+std::array<mcBoard*, MAX_DEVICES> boardList;
+
 
 // System functions
 
