@@ -6,6 +6,10 @@
   #include "cbw.h"
 #endif
 
+#include <measCompDiscover.h>
+
+// Test program for USB-CTR
+
 #define CHAN_COUNT 4
 
 int main(int argc, char *argv[])
@@ -32,8 +36,10 @@ int main(int argc, char *argv[])
   short ctrStatus;
   long ctrCount, ctrIndex;
 
+  // Use the serial number for the USB-CTR here.
+  boardNum = measCompCreateDevice("123456");
+
 #ifdef linux
-  cbAddBoard("USB-CTR", "");
   asynUser *pasynUser = pasynManager->createAsynUser(0, 0);
   pasynTrace->setTraceMask(0, 255);
   cbSetAsynUser(boardNum, pasynUser);
