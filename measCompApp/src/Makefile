@@ -103,6 +103,7 @@ PROD_IOC_WIN32 += testPadZero
 ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += testPadZero
 endif
+testPadZero_LIBS += measComp
 testPadZero_SRCS += testPadZero.cpp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
   testPadZero_LIBS += cbw32
