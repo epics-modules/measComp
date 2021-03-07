@@ -6,10 +6,14 @@
   #include "cbw.h"
 #endif
 
+#include <epicsExport.h>
+#include <measCompDiscover.h>
+
 #define MAX_DEVICES 100
 // All current Measurement Computing devices (E-1608, E-TC, TC32) use this port for
 // discovery.  But it is configurable so we allow the user to specify it.
 #define DEFAULT_DISCOVERY_PORT 54211
+
 static DaqDeviceDescriptor measCompInventory[MAX_DEVICES];
 static int measCompNumDevices = 0;
 bool measCompInventoryInitialized = false;
@@ -47,7 +51,7 @@ void measCompShowDevices()
   }
 }
 
-int measCompFindDevice(std::string uniqueId)
+int measCompCreateDevice(std::string uniqueId)
 {
   size_t colon;
   std::string host = uniqueId;
