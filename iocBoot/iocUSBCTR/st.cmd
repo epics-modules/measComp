@@ -21,7 +21,7 @@ asynSetMinTimerPeriod(0.001)
 # USBCTRConfig(portName,       # The name to give to this asyn port driver
 #              uniqueID,       # Device serial number.
 #              maxTimePoints)  # Maximum number of time points for MCS
-USBCTRConfig("$(PORT)", "123456", 2048, .01)
+USBCTRConfig("$(PORT)", "1E538A2", 2048, .01)
 
 #asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACE_FLOW|TRACEIO_DRIVER)
 
