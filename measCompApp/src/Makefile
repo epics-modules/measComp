@@ -24,6 +24,7 @@ endif
 LIB_SRCS += drvC9513.cpp
 LIB_SRCS += drvMultiFunction.cpp
 LIB_SRCS += drvUSBCTR.cpp
+LIB_SRCS += measCompDiscover.cpp
 LIB_SRCS += USBCTR_SNL.st
 
 measComp_LIBS += asyn
@@ -80,6 +81,23 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testTC32_LIBS += cbw64
 endif
+
+PROD_IOC_WIN32 += test_measCompDiscover
+ifeq ($(HAVE_HIDAPI), YES)
+  PROD_IOC_Linux += test_measCompDiscover
+endif
+test_measCompDiscover_SRCS += test_measCompDiscover.cpp
+test_measCompDiscover_LIBS += measComp
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+  test_measCompDiscover_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+  test_measCompDiscover_LIBS += cbw64
+endif
+test_measCompDiscover_LIBS_Linux += cbw_linux
+test_measCompDiscover_LIBS_Linux += measCompLinuxDrivers
+test_measCompDiscover_SYS_LIBS_Linux += hidapi-libusb usb-1.0
+# Finally link to the EPICS Base libraries
+test_measCompDiscover_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
 
 PROD_IOC_WIN32 += testPadZero
 ifeq ($(HAVE_HIDAPI), YES)
