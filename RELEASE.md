@@ -6,7 +6,7 @@
         second to 3 seconds. This seems to have completely fixed errors
         on the units in the APS Vibration Measurement System. Previously
         there were errors when polling the digital I/O bits and other
-        operations, and AInScanStart\_E1608 would sometimes require more
+        operations, and AInScanStart_E1608 would sometimes require more
         than 5 retries.
       - Bug fix where lock was not taken when it should be.
   - E-1608::AInScanStart_E1608 (Linux)
@@ -16,9 +16,9 @@
         seconds (see above) they have observed at most 1 retry, so this
         change may not be necessary.
   - iocBoot
-      - Previously each iocBoot/\* directory had its own copy of
-        save\_restore.cmd, and they were all identical. Changed to using
-        a single copy in iocBoot/save\_restore.cmd.
+      - Previously each iocBoot/* directory had its own copy of
+        save_restore.cmd, and they were all identical. Changed to using
+        a single copy in iocBoot/save_restore.cmd.
   - scaler record support
       - The support for the scaler record has been moved from the std
         module to the scaler module. This required changes to a number
@@ -30,7 +30,7 @@
         calculated incorrrectly.
       - Improved poller to reduce the number of error messages when the
         device is not available.
-  - E-1608::AInScanStart\_E1608 (Linux)
+  - E-1608::AInScanStart_E1608 (Linux)
       - Added 5 retries to start waveform acquisition. It appears that
         sometimes the connect() has not actually completed before
         acquisition is started, and the device returns a "not ready"
@@ -38,7 +38,7 @@
       - Improved error messages when acquisition does not start
         correctly.
       - Bug fix for 1-byte message not being sent correctly.
-  - mcBoard\_E-1608.cpp (Linux)
+  - mcBoard_E-1608.cpp (Linux)
       - Bug fix where lock was not taken when it should be.
 
 ## Release 2-5 (November 9, 2020)
@@ -66,12 +66,12 @@
 ## Release 2-4 (September 14, 2019)
   - Improvements to USB-CTR04/08 support
       - Added support for Linux.
-      - Added Dwell\_RBV record to show the actual dwell time which can
+      - Added Dwell_RBV record to show the actual dwell time which can
         be different from requested.
       - Added Point0Action record to control how the first time point in
         an MCS scan is handled. Choices are "Clear", "No clear", and
         "Skip".
-      - Fixed bugs when FirstCounter\!=0 or LastCounter\!=7.
+      - Fixed bugs when FirstCounter!=0 or LastCounter!=7.
       - Fixed initialization bug which was causing random crashes at
         startup.
       - Improved update rate at long dwell times.
@@ -115,7 +115,7 @@
     epicsMutex, and epicsEvent from the EPICS libCom library. This
     allows it to build on older compilers, and is easier to understand.
   - Rearranged code directories.
-      - Split linuxSrc into cbw\_linuxSrc (which contains the cbw
+      - Split linuxSrc into cbw_linuxSrc (which contains the cbw
         library emulation for Linux) and LinuxDrivers (which contains
         Warren Jasper's Linux drivers).
       - Moved cbw.h, cbw32.lib, and cbw64.lib from src/ into new
@@ -130,8 +130,8 @@
     on Windows because it uses the Measurement Computing Universal
     Library (UL), which is available only on Windows. The Linux support
     is designed as follows:
-      - It uses the \[low-level Linux drivers from Warren
-        Jasper\](https://github.com/wjasper/Linux\_Drivers).
+      - It uses the [low-level Linux drivers from Warren
+        Jasper](https://github.com/wjasper/Linux_Drivers).
       - On top of these drivers the module provides a layer that
         emulates the Measurement Computing Windows UL library.
       - The EPICS drivers thus always use the UL API and are identical
@@ -149,7 +149,7 @@
     to support Linux.
   - Added support to drvMultiFunction for the E-TC. This is an Ethernet
     module with 8 thermocouple inputs (type B, E, J, K, N, R, S, T),
-    digital I/O, and a counter. Added new medm screen ETC\_module.adl
+    digital I/O, and a counter. Added new medm screen ETC_module.adl
     and new iocBoot directory, iocETC. This device is useful in
     applications where the length limitation of USB and/or the ability
     to move around without an attached computer are important. This
@@ -163,7 +163,7 @@
 ## Release 1-5 (March 2, 2018)
   - Added support to drvMultiFunction for the E-1608. This is an
     Ethernet module with analog input, analog output, digital I/O, and a
-    counter. Added new medm screen E1608\_module.adl and new iocBoot
+    counter. Added new medm screen E1608_module.adl and new iocBoot
     directory, iocE1608. This device is useful in applications where the
     length limitation of USB and/or the ability to move around without
     an attached computer are important.
@@ -181,7 +181,7 @@
     iocUSB1608 directory for the USB-1608G.
   - Added support to drvMultiFunction for the USB-231, and a new
     iocUSB231 directory.
-  - Removed parameter counting and NUM\_PARAMS argument to
+  - Removed parameter counting and NUM_PARAMS argument to
     asynPortDriver constructor in all drivers. These are not needed in
     asyn R4-32.
 
@@ -215,9 +215,9 @@
   - Updated from release 6.1 to 6.3 of the Measurement Computing
     Universal Library.
   - Added dependency on synApps mca module for USB-CTR08 driver.
-  - Added more fields to the measCompAnalogIn\_settings.req and
-    measCompAnalogOut\_settings.req files for save/restore.
-  - Added \_RBV (readback) fields for pulse generator Period, Frequency,
+  - Added more fields to the measCompAnalogIn_settings.req and
+    measCompAnalogOut_settings.req files for save/restore.
+  - Added _RBV (readback) fields for pulse generator Period, Frequency,
     Width, and Delay since the requested value may not match the actual
     value due to hardware limitations.
   - Add new demoSrc directory that contains a tutorial/demo on how to
@@ -229,11 +229,11 @@
         waveform digitizer and waveform generator support, etc.
       - A new iocMeasCompDemo directory with the various versions of the
         startup script.
-      - New medm files (measCompDemoTop.adl, 1608G\_V\[1,2,3,4,5\].adl).
+      - New medm files (measCompDemoTop.adl, 1608G_V[1,2,3,4,5].adl).
       - New files in the documentation directory, measCompDriverTalk.pdf
         and measCompTutorial.pdf that were presented at an EPICS class
         on writing drivers based on asynPortDriver.
-  - Added the Run record to measCompPulseGen\_settings.req, so it
+  - Added the Run record to measCompPulseGen_settings.req, so it
     remembers the run/stop state.
 
 ## Release 1-0 (Nov. 28, 2011)
