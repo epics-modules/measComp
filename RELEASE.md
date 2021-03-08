@@ -1,7 +1,7 @@
-# measComp: Measurement Computing Release Notes
+# measComp Release Notes
 
 ## Release 2-6 (December 11, 2020)
-  - mcBoard\_E-1608.cpp (Linux)
+  - mcBoard_E-1608.cpp (Linux)
       - Increased the timeout waiting for the module to respond from 1
         second to 3 seconds. This seems to have completely fixed errors
         on the units in the APS Vibration Measurement System. Previously
@@ -9,7 +9,7 @@
         operations, and AInScanStart\_E1608 would sometimes require more
         than 5 retries.
       - Bug fix where lock was not taken when it should be.
-  - E-1608::AInScanStart\_E1608 (Linux)
+  - E-1608::AInScanStart_E1608 (Linux)
       - Changed the number of retries from 5 to 50. The APS Vibration
         Measurement System was occasionally failing even after 5
         retries. However, after increasing the timeout from 1 to 3
