@@ -47,20 +47,35 @@ int mcUSB_TEMP_AI::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Con
     case BOARDINFO:
         switch (ConfigItem) {
         case BIADCHANTYPE:
-            printf("Setting USB_TEMP_AI_SENSOR_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_SENSOR_TYPE, ConfigVal);
-            if (ConfigVal == USB_TEMP_AI_THERMOCOUPLE) {
+            switch (ConfigVal) {
+            case USB_TEMP_AI_RTD:            
+	              usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_210);
+                break;
+            case USB_TEMP_AI_THERMISTOR:            
+	              usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_10);
+                break;
+            case USB_TEMP_AI_THERMOCOUPLE:
                 usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_EXCITATION_OFF);
-            }            
-            break;        
+                break;
+            case USB_TEMP_AI_SEMICONDUCTOR:
+                usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_EXCITATION_OFF);
+                break;
+            case USB_TEMP_AI_DISABLED:
+                 break;
+            case USB_TEMP_AI_VOLTAGE:
+                break;
+            default:
+                printf("%s::%s error unknown ConfigVal %d\n", driverName, functionName, ConfigVal);
+                return BADCONFIGITEM;
+                break;
+            }        
 
         case BICHANRTDTYPE:
-            printf("Setting USB_TEMP_AI_CONNECTION_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_CONNECTION_TYPE, ConfigVal);
             break;        
 
         case BICHANTCTYPE:
-            printf("Setting USB_TEMP thermocouple type, chan=%d, value=%d\n", DevNum/2, ConfigVal-1);
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_AI_CH_0_TC, ConfigVal-1);
             //usbCalibrate_USBTC_AI(hidDevice_, 0);
             //usbCalibrate_USBTC_AI(hidDevice_, 1);
