@@ -37,6 +37,9 @@ int cbAddBoard(const char *boardName, const char *address)
     else if (strcmp(boardName, "USB-TEMP-AI") ==0) {
         pBoard = (mcBoard *)new mcUSB_TEMP_AI(address);
     }
+    else if (strcmp(boardName, "USB-TEMP") ==0) {
+        pBoard = (mcBoard *)new mcUSB_TEMP(address);
+    }
     else {
         printf("Unknown board type %s\n", boardName);
         return BADBOARD;
