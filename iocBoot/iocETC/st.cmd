@@ -12,7 +12,7 @@ epicsEnvSet(OUTPUT_POINTS, "4096")
 #                      boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("ETC_1", 0, $(INPUT_POINTS), $(OUTPUT_POINTS))
+MultiFunctionConfig("ETC_1", "10.54.160.218", $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask ETC_1 -1 255
 
