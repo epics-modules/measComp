@@ -153,7 +153,7 @@ typedef enum {
   E_DIO24            = 311,
   E_TC               = 312,
   USB_TEMP_AI        = 188,
-  USB_TEMP           = 141,
+  USB_TEMP           = 166,
   MAX_BOARD_TYPES
 } boardType_t;
 
