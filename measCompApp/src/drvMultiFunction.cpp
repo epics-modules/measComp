@@ -843,11 +843,20 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
+      for (i=0; i<4; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
+      for (i=4; i<8; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_VOLTAGE);
+      }
       break;
     case USB_TEMP:
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
+      for (i=0; i<7; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_VOLTAGE);
+      }
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
