@@ -1,0 +1,11 @@
+record(mbbo,"$(P)$(R)")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_IN_MODE")
+    field(VAL,  "$(MODE)")
+    field(ZRVL, "0")
+    field(ZRST, "Differential")
+    field(ONVL, "1")
+    field(ONST, "Single-ended")
+}
