@@ -19,6 +19,7 @@ public:
     int cbAIn(int Chan, int Gain, USHORT *DataValue);
     int cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
                 int Gain, HGLOBAL MemHandle, int Options);
+    int cbAInputMode(int InputMode);
     int cbALoadQueue(short *ChanArray, short *GainArray, int NumChans);
     int cbAOut(int Chan, int Gain, USHORT DataValue);
 
@@ -51,6 +52,7 @@ private:
     int aiScanCurrentIndex_;
     int aiScanNumChans_;
     int aiScanTrigType_;
+    int aInputMode_;
     int aiScanTrigCount_;  // Note currently used.  Implement for ReTrigger capability.
 };
 

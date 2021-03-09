@@ -204,6 +204,7 @@ static int gainToRange(int Gain)
         return BADRANGE;
     }
 }
+
 int mcE_1608::cbAIn(int Chan, int Gain, USHORT *DataValue)
 {
     uint16_t value;
@@ -212,6 +213,7 @@ int mcE_1608::cbAIn(int Chan, int Gain, USHORT *DataValue)
         printf("Unsupported Gain=%d\n", Gain);
         return BADRANGE;
     }
+    if (aInputMode_ == DIFFERENTIAL) Chan += 8;
     if (!AIn_E1608(&deviceInfo_, Chan, (uint8_t)range, &value)) {
        return BADBOARD;
     }
@@ -252,6 +254,13 @@ int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
     epicsEventSignal(acquireStartEvent_);
     return NOERRORS;
 }
+
+int mcE_1608::cbAInputMode(int InputMode)
+{
+    aInputMode_ = InputMode;
+    return NOERRORS;
+}
+
 
 int mcE_1608::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
 {

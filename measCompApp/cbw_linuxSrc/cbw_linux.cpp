@@ -288,6 +288,13 @@ int cbAInScan(int BoardNum, int LowChan, int HighChan, long Count,
     return pBoard->cbAInScan(LowChan, HighChan, Count, Rate, Gain, MemHandle, Options);
 }
 
+int cbAInputMode(int BoardNum, int InputMode)
+{
+    if (BoardNum >= (int)boardList.size()) return BADBOARD;
+    mcBoard *pBoard = boardList[BoardNum];
+    return pBoard->cbAInputMode(InputMode);
+}
+
 int cbALoadQueue(int BoardNum, short *ChanArray, short *GainArray, int NumChans)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;

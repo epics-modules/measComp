@@ -21,6 +21,7 @@ public:
     virtual int cbAIn32(int Chan, int Gain, ULONG *DataValue, int Options);
     virtual int cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
                           int Gain, HGLOBAL MemHandle, int Options);
+    virtual int cbAInputMode(int InputMode);
     virtual int cbALoadQueue(short *ChanArray, short *GainArray, int NumChans);
     virtual int cbAOut(int Chan, int Gain, USHORT DataValue);
     virtual int cbAOutScan(int LowChan, int HighChan, long Count, 

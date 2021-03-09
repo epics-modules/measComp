@@ -112,6 +112,12 @@ int mcBoard::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
     return NOERRORS;
 }
 
+int mcBoard::cbAInputMode(int InputMode)
+{
+    printf("Function cbAInputMode not supported\n");
+    return NOERRORS;
+}
+
 int mcBoard::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
 {
     printf("Function cbALoadQueue not supported\n");
