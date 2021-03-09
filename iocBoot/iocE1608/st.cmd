@@ -15,11 +15,11 @@ epicsEnvSet(OUTPUT_POINTS, "4096")
 # This is an E-1608 using its IP address. This will work even if the device is on a different subnet from the IOC.
 #MultiFunctionConfig("E1608_1", "10.54.160.216", $(INPUT_POINTS), $(OUTPUT_POINTS))
 # This is an E-1608 using its MAC address.  This will only work if the device is on the same subnet as the IOC.
-MultiFunctionConfig("E1608_1", "00:80:2F:18:64:23", $(INPUT_POINTS), $(OUTPUT_POINTS))
+MultiFunctionConfig("E1608_1", "00:80:2F:24:53:DE", $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask E1608_1 -1 255
 
-dbLoadTemplate("E1608.substitutions")
+dbLoadTemplate("E1608.substitutions", P=E1608:)
 
 < ../save_restore.cmd
 
