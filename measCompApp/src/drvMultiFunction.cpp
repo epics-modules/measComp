@@ -59,6 +59,7 @@ typedef enum {
 #define analogInValueString       "ANALOG_IN_VALUE"
 #define analogInRangeString       "ANALOG_IN_RANGE"
 #define analogInTypeString        "ANALOG_IN_TYPE"
+#define analogInModeString        "ANALOG_IN_MODE"
 
 // Voltage input parameters
 #define voltageInValueString      "VOLTAGE_IN_VALUE"
@@ -467,6 +468,7 @@ protected:
   int analogInValue_;
   int analogInRange_;
   int analogInType_;
+  int analogInMode_;
   
   // Voltage input parameters
   int voltageInValue_;
@@ -652,6 +654,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   createParam(analogInValueString,             asynParamInt32, &analogInValue_);
   createParam(analogInRangeString,             asynParamInt32, &analogInRange_);
   createParam(analogInTypeString,              asynParamInt32, &analogInType_);
+  createParam(analogInModeString,              asynParamInt32, &analogInMode_);
 
   // Voltage input parameters
   createParam(voltageInValueString,          asynParamFloat64, &voltageInValue_);
@@ -1316,6 +1319,10 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
 
+  else if (function == analogInMode_) {
+    status = cbAInputMode(boardNum_, value);
+  }
+
   else if (function == thermocoupleType_) {
     // NOTE:
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
@@ -1449,6 +1456,8 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
   int function = pasynUser->reason;
   int status=0;
   int type;
+  int mode;
+  int model;
   epicsUInt16 shortVal;
   ULONG ulongVal;
   int range;
@@ -1461,6 +1470,9 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
     if (waveDigRunning_) return asynSuccess;
     getIntegerParam(addr, analogInRange_, &range);
     getIntegerParam(addr, analogInType_, &type);
+    getIntegerParam(0, analogInMode_, &mode);
+    getIntegerParam(0, modelNumber_, &model);
+    if ((model == E_1608) && (mode == DIFFERENTIAL) && (addr>3)) return asynSuccess;
     if (type != AI_CHAN_TYPE_VOLTAGE) return asynSuccess;
     // NOTE: There is something wrong with their driver.  
     // If cbAIn is just called once there is a large error due apparently
