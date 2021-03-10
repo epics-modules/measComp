@@ -195,7 +195,7 @@ int mcUSB_CTR::cbStopIOBackground(int FunctionType)
 {
     static const char *functionName = "cbStopIOBackground";
 
-    if (FunctionType == CTRFUNCTION) {
+    if ((FunctionType == CTRFUNCTION) || (FunctionType == DAQIFUNCTION)) {
         readMutex_.lock();
         ctrScanAcquiring_ = false;
         // Wait for the poller to exit
