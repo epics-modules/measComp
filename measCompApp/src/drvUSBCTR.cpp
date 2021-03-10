@@ -676,8 +676,10 @@ int USBCTR::stopMCS()
     // Forced stop
     MCSRunning_ = false;
     readMCS();
+    // readMCS will call this function when it finds MCSRunning=false so we can return now
+    return 0;
   }
-  status = cbStopBackground(boardNum_, CTRFUNCTION);
+  status = cbStopBackground(boardNum_, DAQIFUNCTION);
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s ERROR calling cbStopBackground(CTRFUNCTION), status=%d, error=%s\n",
