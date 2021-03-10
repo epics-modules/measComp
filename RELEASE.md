@@ -1,7 +1,7 @@
 # measComp Release Notes
 
 ## Release 3-0 (March XXX, 2021)
-  - Changed the method used to specify the device in constructors and startup script
+  - Changed the method used to specify the device in the constructors and the startup script.
     - Previously one specified what device to connect to in the constructor and startup script
       using an integer `boardNum`.
       - On Windows one needed to use the vendor's InstaCal program to assign a `boardNum` to each device,
@@ -32,6 +32,9 @@
     - The USB-TEMP-AI supports up to 4 temperature inputs and 4 24-bit voltage inputs.
   - E-1608
     - Added support for AiMode record to select Differential or Single-ended mode.
+  - USB-CTR04/08
+    - Fix problem with stopping MCS acquisition.  It was calling cbStopBackground() incorrectly.  This problem
+      was introduced in R2-5. 
   - Converted documentation from HTML to Markdown (this document) and ReST (other documentation).
 
 ## Release 2-6 (December 11, 2020)
