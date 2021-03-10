@@ -9,7 +9,7 @@ mcUSB_TEMP::mcUSB_TEMP(const char *address)
   : mcBoard(address) 
 {
     static const char *functionName = "mcUSB_TEMP";
-    strcpy(boardName_, "USB-TEMP-AI");
+    strcpy(boardName_, "USB-TEMP");
     biBoardType_    = 0;
     biNumADCChans_  = 0;
     biADCRes_       = 0;
