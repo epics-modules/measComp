@@ -98,6 +98,5 @@ EPICS bi, bo, longin, and longout records. NOTE: This module is obsolete and is
 no longer available. Use the USB-CTR08 instead.
 
 Additional information:
-* [Home page](http://htmlpreview.github.com/?https://github.com/epics-modules/measComp/blob/master/documentation/measComp.html)
-* [Documentation](http://htmlpreview.github.com/?https://github.com/epics-modules/measComp/blob/master/documentation/measCompDoc.html)
+* [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
 * [Release notes](RELEASE.md)
