@@ -1,5 +1,32 @@
 # measComp Release Notes
 
+## Release 3-0 (March XXX, 2021)
+  - Changed the method used to specify the device in constructors and startup script
+    - Previously one specified what device to connect to in the constructor and startup script
+      using an integer "boardNum".
+      - On Windows one needed to use the vendor's InstaCal program to assign a boardNum to each device,
+        and then use that BoardNumber in the startup script. 
+      - On Linux one needed an extra cbAddBoard command to the startup script which assigned a number to a
+        device, emulating what InstaCal does on Linux.
+    - I recently learned that using the InstaCal board numbers on Windows has a serious limitation:
+      only a single measComp IOC application can be running on the system at once. This is a known design
+      issue in the vendor's Universal Library implementation.  However, they do support multiple applications
+      running at once if the device numbers are assigned dynamically at run-time using a discovery mechanism,
+      rather than using the static numbers assign with InstCal.
+    - I have therefore changed the code to use this discovery mechanism for finding the devices,
+      rather than the InstaCal board numbers. I have added emulation for this discovery mechanism on Linux
+      as well, so that the startup scripts for Windows and Linux can now be identical, Linux no longer uses
+      the cbAddBoard command.
+    - The second argument the configuration commands in the startup script (e.g. drvMultifunctionConfigure)
+      is no longer an integer `boardNum`, it is a string `uniqueID`.
+      - For USB devices the uniqueID is the serial number, which is printed on the device (e.g. `"01F6335A"`).
+      - For Ethernet devices the uniqueID either be the MAC address (e.g. `"00:80:2F:24:53:DE"'), 
+        or the IP address (e.g. `""10.54.160.216"`).
+        The MAC address or IP address can be used for devices on the local subnet,
+        while the IP address must be used for devices on other subnets.
+    - There is a new iocsh command, measCompShowDevices. This will list all Measurement Computing USB devices
+      attached to the computer running the IOC, as well as all Measurement Computing Ethernet devices on the subnet.
+
 ## Release 2-6 (December 11, 2020)
   - mcBoard_E-1608.cpp (Linux)
       - Increased the timeout waiting for the module to respond from 1
