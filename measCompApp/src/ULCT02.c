@@ -160,13 +160,13 @@ void main()
 void
 ClearScreen (void)
 {
-	COORD coordOrg = {0, 0};
-	DWORD dwWritten = 0;
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (INVALID_HANDLE_VALUE != hConsole)
-		FillConsoleOutputCharacter(hConsole, ' ', 80 * 50, coordOrg, &dwWritten);
+    COORD coordOrg = {0, 0};
+    DWORD dwWritten = 0;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (INVALID_HANDLE_VALUE != hConsole)
+        FillConsoleOutputCharacter(hConsole, ' ', 80 * 50, coordOrg, &dwWritten);
 
-	MoveCursor(0, 0);
+    MoveCursor(0, 0);
 
     return;
 }
@@ -186,15 +186,15 @@ ClearScreen (void)
 void
 MoveCursor (int x, int y)
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	if (INVALID_HANDLE_VALUE != hConsole)
-	{
-		COORD coordCursor;
-		coordCursor.X = (short)x;
-		coordCursor.Y = (short)y;
-		SetConsoleCursorPosition(hConsole, coordCursor);
-	}
+    if (INVALID_HANDLE_VALUE != hConsole)
+    {
+        COORD coordCursor;
+        coordCursor.X = (short)x;
+        coordCursor.Y = (short)y;
+        SetConsoleCursorPosition(hConsole, coordCursor);
+    }
 
     return;
 }
@@ -213,17 +213,17 @@ MoveCursor (int x, int y)
 void
 GetTextCursor (int *x, int *y)
 {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
 
-	*x = -1;
-	*y = -1;
-	if (INVALID_HANDLE_VALUE != hConsole)
-	{
-		GetConsoleScreenBufferInfo(hConsole, &csbi);
-		*x = csbi.dwCursorPosition.X;
-		*y = csbi.dwCursorPosition.Y;
-	}
+    *x = -1;
+    *y = -1;
+    if (INVALID_HANDLE_VALUE != hConsole)
+    {
+        GetConsoleScreenBufferInfo(hConsole, &csbi);
+        *x = csbi.dwCursorPosition.X;
+        *y = csbi.dwCursorPosition.Y;
+    }
 
     return;
 }
