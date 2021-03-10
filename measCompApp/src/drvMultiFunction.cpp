@@ -854,8 +854,8 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
-      for (i=0; i<7; i++) {
-        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_VOLTAGE);
+      for (i=0; i<8; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
       break;
     default:
