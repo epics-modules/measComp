@@ -72,14 +72,14 @@ int measCompCreateDevice(std::string uniqueId)
       portNum = atoi(port.c_str());
     }
     printf("ipAddress=%s, port=%s, portNum=%d\n", uniqueId.c_str(), port.c_str(), portNum);
-    status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum, 
+    status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum,
                                        &measCompInventory[measCompNumDevices], timeoutMs);
     if (status) {
         printf("Error calling cbGetNetDeviceDescriptor=%d\n", status);
         return -1;
     }
     devIndex = measCompNumDevices++;
-  } 
+  }
   else {
     // uniqueId was not an IP address so it must be a serial number (USB) or MAC address (Ethernet)
     // Search the inventory for the matching UniqueID

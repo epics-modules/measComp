@@ -29,11 +29,11 @@ int main(int argc, char *argv[])
   double dutyCycle=.10;
   int idleState = IDLE_LOW;
   int count=0;
-  LONG rate; 
+  LONG rate;
   HGLOBAL inputMemHandle_;
   static const char *driverName = "testFreqDiv";
   static const char *functionName = "";
-  
+
   pasynUserSelf = pasynManager->createAsynUser(0, 0);
   pasynTrace->setTraceMask(0, ASYN_TRACE_ERROR | ASYN_TRACEIO_DRIVER);
 
@@ -50,15 +50,15 @@ int main(int argc, char *argv[])
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s error calling cbPulseOutStart timerNum=%d frequency=%f, dutyCycle=%f,"
       " count=%d, delay=%f, idleState=%d, status=%d\n",
-      driverName, functionName, timerNum, frequency, dutyCycle, 
+      driverName, functionName, timerNum, frequency, dutyCycle,
       count, delay, idleState, status);
     return status;
   }
-  
+
 
   for (i=firstMCSCounter_; i<=lastMCSCounter_; i++) {
     mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
-    status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
+    status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                            CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     if (status) {
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -66,12 +66,12 @@ int main(int argc, char *argv[])
         driverName, functionName, i, mode, status);
     }
   }
-  
+
   mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
-  status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0); 
-  status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1); 
-  status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1); 
-  status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
+  status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0);
+  status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1);
+  status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1);
+  status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                          CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
@@ -82,20 +82,20 @@ int main(int argc, char *argv[])
   if (dwell > 1e-6) rateFactor = 1000.;
   rate = (long)((rateFactor / dwell) + 0.5);
   count =  numMCSCounters_ * numPoints;
-  
+
   if (dwell > 1e-4) {
     options = CTR32BIT;
   } else {
     options = CTR16BIT;
   }
   options   |= BACKGROUND;
-  if (rateFactor > 1.0) 
+  if (rateFactor > 1.0)
     options |= HIGHRESRATE;
   options |= EXTTRIGGER;
   options |= EXTCLOCK;
 
   status = cbSetTrigger(boardNum_, TRIG_LOW, 0, 0);
-  
+
   status = cbCInScan(boardNum_, firstMCSCounter_, lastMCSCounter_, count, &rate,
                      inputMemHandle_, options);
   if (status) {

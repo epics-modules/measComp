@@ -57,8 +57,8 @@ void main()
     Parameters:
             PRINTALL :all warnings and errors encountered will be printed
             DONTSTOP :program will continue even if error occurs.
-                     Note that STOPALL and STOPFATAL are only effective in 
-                     Windows applications, not Console applications. 
+                     Note that STOPALL and STOPFATAL are only effective in
+                     Windows applications, not Console applications.
    */
     cbErrHandling (PRINTALL, DONTSTOP);
 

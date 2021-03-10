@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "cbw.h"
 
-main(int argc, char* argv[]) 
+main(int argc, char* argv[])
 {
   int i, j;
   int status;
@@ -18,7 +18,7 @@ main(int argc, char* argv[])
   boardNum    = atoi(argv[1]);
   numInputs   = atoi(argv[2]);
   sleepTimeMs = atoi(argv[3]);
-  
+
   printf("boardNum=%d, numInputs=%d, sleepTimeMs=%d\n", boardNum, numInputs, sleepTimeMs);
 
   /* Set the thermocouple type */
@@ -39,14 +39,14 @@ main(int argc, char* argv[])
       printf("Return from cbTIn, status=%d, temperature=%f\n", status, temperature);
     }
   }
-  
+
   /* Set bits 0, 1, 16, and 17 to 1 on the 32-bit output port (11) */
   status  = cbDBitOut(boardNum, 11,  0, 1);
   status |= cbDBitOut(boardNum, 11,  1, 1);
   status |= cbDBitOut(boardNum, 11, 16, 1);
   status |= cbDBitOut(boardNum, 11, 17, 1);
   printf("called cbDBitOut, status=%d\n", status);
-  
+
 }
-  
- 
+
+

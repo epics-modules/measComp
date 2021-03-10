@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
   status |= cbAOut(BOARD_NUM, 0, BIP10VOLTS, sData);
   status |= cbFromEngUnits(BOARD_NUM, BIP10VOLTS, 5.0, &sData);
   status |= cbAOut(BOARD_NUM, 1, BIP10VOLTS, sData);
-  
+
   /* First read each channel separately */
   printf("\nReading channel 0\n");
   for (loop=0; loop<numLoops; loop++) {
@@ -60,5 +60,5 @@ int main(int argc, char *argv[])
   if (status != 0) printf("Error: status=%d\n", status);
   return status;
 }
-      
+
 

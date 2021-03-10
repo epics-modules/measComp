@@ -59,7 +59,7 @@ static const char *driverName = "C9513";
 // Per module parameters
 #define DigitalInputString         "DIGITAL_INPUT"
 #define DigitalOutputString        "DIGITAL_OUTPUT"
-#define ScalerFrequencyString      "SCALER_FREQUENCY"    
+#define ScalerFrequencyString      "SCALER_FREQUENCY"
 
 #define MAX_SIGNALS 10
 #define DEFAULT_POLL_TIME 0.05
@@ -84,7 +84,7 @@ public:
 
 protected:
   // Per counter parameters
-  int C9513GateControl_; 
+  int C9513GateControl_;
   int C9513CounterEdge_;
   int C9513CountSource_;
   int C9513SpecialGate_;
@@ -121,7 +121,7 @@ protected:
   int scalerRead_;
   int scalerPresets_;
   int scalerArm_;
-  int scalerDone_;  
+  int scalerDone_;
 
 private:
   int boardNum_;
@@ -149,9 +149,9 @@ static void pollerThreadC(void * pPvt)
 }
 
 C9513::C9513(const char *portName, int boardNum, int numChips)
-  : asynPortDriver(portName, MAX_SIGNALS, 
+  : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat64Mask | asynDrvUserMask,
-      asynInt32Mask | asynUInt32DigitalMask | asynFloat64Mask, 
+      asynInt32Mask | asynUInt32DigitalMask | asynFloat64Mask,
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     boardNum_(boardNum),
@@ -162,12 +162,12 @@ C9513::C9513(const char *portName, int boardNum, int numChips)
 {
   //static const char *functionName = "C9513";
   int i;
-  
+
   numCounters_ = 5 * numChips_;
   numScalers_ = 3 * numChips_;
-  
+
   scalerCounts_ = (int *)malloc(numScalers_ * sizeof(int));
-  
+
   // Per-counter parameters
   createParam(C9513GateControlString,               asynParamInt32, &C9513GateControl_);
   createParam(C9513CounterEdgeString,               asynParamInt32, &C9513CounterEdge_);
@@ -202,7 +202,7 @@ C9513::C9513(const char *portName, int boardNum, int numChips)
   createParam(DigitalInputString,           asynParamUInt32Digital, &digitalInput_);
   createParam(DigitalOutputString,          asynParamUInt32Digital, &digitalOutput_);
   createParam(ScalerFrequencyString,                asynParamInt32, &scalerFrequency_);
-  
+
   // Scaler record parameters
   createParam(SCALER_RESET_COMMAND_STRING,          asynParamInt32, &scalerReset_);
   createParam(SCALER_CHANNELS_COMMAND_STRING,       asynParamInt32, &scalerChannels_);
@@ -210,7 +210,7 @@ C9513::C9513(const char *portName, int boardNum, int numChips)
   createParam(SCALER_PRESET_COMMAND_STRING,         asynParamInt32, &scalerPresets_);
   createParam(SCALER_ARM_COMMAND_STRING,            asynParamInt32, &scalerArm_);
   createParam(SCALER_DONE_COMMAND_STRING,           asynParamInt32, &scalerDone_);
-  
+
   // Set default values for all parameters
   setIntegerParam(scalerChannels_, numScalers_);
   for (i=0; i<numChips_; i++) {
@@ -232,9 +232,9 @@ C9513::C9513(const char *portName, int boardNum, int numChips)
     setIntegerParam(i, C9513CountDirection_, COUNTUP);
     setIntegerParam(i, C9513OutputControl_,  ALWAYSLOW);
     setupCounter(i);
-  } 
+  }
 
-  /* Start the thread to poll counters and digital inputs and do callbacks to 
+  /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
   epicsThreadCreate("C9513Poller",
                     epicsThreadPriorityLow,
@@ -248,7 +248,7 @@ int C9513::setupChip(int chipNum)
   int fOutDivider, fOutSource, compare1, compare2, timeOfDay;
   int status;
   static const char *functionName = "setupChip";
-  
+
   if (chipNum >= numChips_) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: invalid chip number=%d, must be 0-%d\n",
@@ -276,7 +276,7 @@ int C9513::setupCounter(int counterNum)
   int recycleMode, BCDMode, countDirection, outputControl;
   int status;
   static const char *functionName = "setupCounter";
-  
+
   if (counterNum >= numCounters_) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: invalid counter number=%d, must be 0-%d\n",
@@ -309,7 +309,7 @@ int C9513::loadCounterRegisters(int counterNum)
   int regNum;
   int value;
   static const char *functionName = "loadCounterRegister";
-  
+
   if (counterNum >= numCounters_) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: invalid counter number=%d, must be 0-%d\n",
@@ -336,7 +336,7 @@ int C9513::loadChipRegisters(int chipNum)
   int regNum;
   int value;
   static const char *functionName = "loadChipRegister";
-  
+
   if (chipNum >= numChips_) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: invalid chip number=%d, must be 0-%d\n",
@@ -369,7 +369,7 @@ void C9513::startScaler()
   // Counter1 on each chip is 16-bit, counts down, one-shot
   // This is used as the time base on the first chip, ignorred on other chips
   // Counters 2&3 are configured as a 32-bit counter, as are 4&5.
-  
+
   // Must reset the first chip so that the Toggle TC output has a defined state
   setupChip(0);
   for (i=0; i<numCounters_; i++) {
@@ -467,7 +467,7 @@ int C9513::setupPulseGenerator(int counterNum)
   int pulseRun;
   int i;
   static const char *functionName = "setupPulseGenerator";
-  
+
   if (counterNum >= numCounters_) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: invalid counter number=%d, must be 0-%d\n",
@@ -504,7 +504,7 @@ int C9513::setupPulseGenerator(int counterNum)
   }
   setIntegerParam(counterNum, C9513CountSource_, FREQ1+i);
   widthCount = (int)(width / clockPeriod + 0.5);
-  if (widthCount < 2) widthCount = 2; 
+  if (widthCount < 2) widthCount = 2;
   if ((periodCount - widthCount) < 2) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
               "%s:%s: incompatible period=%f and width=%f for counter %d\n",
@@ -536,7 +536,7 @@ asynStatus C9513::writeInt32(asynUser *pasynUser, epicsInt32 value)
   if ((function >= C9513FOutDivider_) &&
       (function <= C9513TimeOfDay_)) {
     status = setupChip(addr);
-  } 
+  }
   else if ((function >= C9513GateControl_) &&
            (function <= C9513OutputControl_)) {
     status = setupCounter(addr);
@@ -575,11 +575,11 @@ asynStatus C9513::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   callParamCallbacks(addr);
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, wrote %d to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, ERROR writing %d to address %d, status=%d\n",
              driverName, functionName, this->portName, value, addr, status);
   }
@@ -602,11 +602,11 @@ asynStatus C9513::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   }
   callParamCallbacks(addr);
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, wrote %f to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, ERROR writing %f to address %d, status=%d\n",
              driverName, functionName, this->portName, value, addr, status);
   }
@@ -631,21 +631,21 @@ asynStatus C9513::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epi
   newValue &= (value | ~mask);
   status = cbDOut(boardNum_, AUXPORT, newValue);
   setUIntDigitalParam(digitalOutput_, newValue, mask);
-  
+
   callParamCallbacks();
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, wrote 0x%x mask=0x%x, newValue=0x%x\n",
              driverName, functionName, this->portName, value, mask, newValue);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, ERROR writing 0x%x mask=0x%x, newValue=0x%x, status=%d\n",
              driverName, functionName, this->portName, value, mask, newValue, status);
   }
   return (status==0) ? asynSuccess : asynError;
 }
 
-asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data, 
+asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
                                       size_t numRead, size_t *numActual)
 {
   int signal;
@@ -655,8 +655,8 @@ asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
   static const char* functionName="readInt32Array";
 
   pasynManager->getAddr(pasynUser, &signal);
-  asynPrint(pasynUser, ASYN_TRACE_FLOW, 
-            "%s:%s: entry, command=%d, signal=%d, numRead=%d, &data=%p\n", 
+  asynPrint(pasynUser, ASYN_TRACE_FLOW,
+            "%s:%s: entry, command=%d, signal=%d, numRead=%d, &data=%p\n",
             driverName, functionName, command, signal, (int)numRead, data);
 
   if ((command == scalerRead_) && (numRead > 0)) {
@@ -668,8 +668,8 @@ asynStatus C9513::readInt32Array(asynUser *pasynUser, epicsInt32 *data,
       data[i] = 0;
     }
     *numActual = numRead;
-    asynPrint(pasynUser, ASYN_TRACE_FLOW, 
-              "%s:%s: scalerReadCommand: read %d chans, channel[0]=%d\n", 
+    asynPrint(pasynUser, ASYN_TRACE_FLOW,
+              "%s:%s: scalerReadCommand: read %d chans, channel[0]=%d\n",
               driverName, functionName, (int)numRead, data[0]);
   }
   else {
@@ -692,7 +692,7 @@ void C9513::pollerThread()
   int pollCounter;
   ULONG count;
 
-  while(1) { 
+  while(1) {
     lock();
     cbDIn(boardNum_, AUXPORT, &temp);
     newValue = temp;
@@ -720,13 +720,13 @@ void C9513::pollerThread()
 void C9513::report(FILE *fp, int details)
 {
   int i;
-  
+
   asynPortDriver::report(fp, details);
-  fprintf(fp, "  Port: %s, board number=%d, #chips=%d\n", 
+  fprintf(fp, "  Port: %s, board number=%d, #chips=%d\n",
           this->portName, boardNum_, numChips_);
   if (details >= 1) {
     fprintf(fp, "  scalerCounts = ");
-    for (i=0; i<numScalers_; i++) 
+    for (i=0; i<numScalers_; i++)
       fprintf(fp, " %d", scalerCounts_[i]);
     fprintf(fp, "\n");
   }

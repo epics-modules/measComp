@@ -394,7 +394,7 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {E_DIO24,        inputRangeE_DIO24,      sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
                    outputRangeE_DIO24,     sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
                    inputTypeE_DIO24,       sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
-				   
+
   {USB_2408_2A0,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
@@ -459,21 +459,21 @@ protected:
   int pulseGenDelay_;
   int pulseGenCount_;
   int pulseGenIdleState_;
-  
+
   // Counter parameters
   int counterCounts_;
   int counterReset_;
-  
+
   // Analog input parameters
   int analogInValue_;
   int analogInRange_;
   int analogInType_;
   int analogInMode_;
-  
+
   // Voltage input parameters
   int voltageInValue_;
   int voltageInRange_;
-  
+
   // Temperature parameters
   int temperatureInValue_;
   int thermocoupleType_;
@@ -481,7 +481,7 @@ protected:
   int temperatureFilter_;
   int temperatureSensor_;
   int temperatureWiring_;
-  
+
   // Waveform digitizer parameters - global
   int waveDigDwell_;
   int waveDigTotalTime_;
@@ -506,7 +506,7 @@ protected:
   // Analog output parameters
   int analogOutValue_;
   int analogOutRange_;
-  
+
   // Waveform generator parameters - global
   int waveGenFreq_;
   int waveGenDwell_;
@@ -579,7 +579,7 @@ private:
   epicsFloat32 *waveGenIntTimeBuffer_;
   HGLOBAL inputMemHandle_;
   HGLOBAL outputMemHandle_;
-  
+
   int numWaveGenChans_;
   int numWaveDigChans_;
   int pulseGenRunning_;
@@ -607,10 +607,10 @@ static void pollerThreadC(void * pPvt)
 
 MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int maxInputPoints, int maxOutputPoints)
   : asynPortDriver(portName, MAX_SIGNALS,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask |
                       asynFloat64Mask       | asynEnumMask       | asynDrvUserMask,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask | 
-                      asynFloat64Mask       | asynEnumMask, 
+      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask |
+                      asynFloat64Mask       | asynEnumMask,
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     pollTime_(DEFAULT_POLL_TIME),
@@ -633,7 +633,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     printf("Error creating device with measCompCreateDevice\n");
     return;
   }
-  
+
   // Model parameters
   createParam(modelNameString,                 asynParamOctet, &modelName_);
   createParam(modelNumberString,               asynParamInt32, &modelNumber_);
@@ -659,7 +659,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Voltage input parameters
   createParam(voltageInValueString,          asynParamFloat64, &voltageInValue_);
   createParam(voltageInRangeString,            asynParamInt32, &voltageInRange_);
-  
+
   // Temperature parameters
   createParam(temperatureInValueString,      asynParamFloat64, &temperatureInValue_);
   createParam(thermocoupleTypeString,          asynParamInt32, &thermocoupleType_);
@@ -667,7 +667,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   createParam(temperatureFilterString,         asynParamInt32, &temperatureFilter_);
   createParam(temperatureSensorString,         asynParamInt32, &temperatureSensor_);
   createParam(temperatureWiringString,         asynParamInt32, &temperatureWiring_);
- 
+
   // Waveform digitizer parameters - global
   createParam(waveDigDwellString,            asynParamFloat64, &waveDigDwell_);
   createParam(waveDigTotalTimeString,        asynParamFloat64, &waveDigTotalTime_);
@@ -692,7 +692,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Analog output parameters
   createParam(analogOutValueString,            asynParamInt32, &analogOutValue_);
   createParam(analogOutRangeString,            asynParamInt32, &analogOutRange_);
-  
+
   // Waveform generator parameters - global
   createParam(waveGenFreqString,             asynParamFloat64, &waveGenFreq_);
   createParam(waveGenDwellString,            asynParamFloat64, &waveGenDwell_);
@@ -762,7 +762,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
-      // The rules for bit configurable above don't work for this model                
+      // The rules for bit configurable above don't work for this model
       digitalIOPortConfigurable_[0] = 1;
       digitalIOPortConfigurable_[1] = 1;
       digitalIOBitConfigurable_[0] = 0;
@@ -774,7 +774,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       firstCounter_ = 1;
       // For output need to address all bits using first port
       numIOBits_[0] = 16;
-      // The rules for bit configurable above don't work for this model                
+      // The rules for bit configurable above don't work for this model
       digitalIOPortConfigurable_[0] = 1;
       digitalIOPortConfigurable_[1] = 1;
       digitalIOBitConfigurable_[0] = 0;
@@ -786,7 +786,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       firstCounter_ = 0;
       // For output need to address all bits using first port
       numIOBits_[0] = 8;
-      // The rules for bit configurable above don't work for this model                
+      // The rules for bit configurable above don't work for this model
       digitalIOPortConfigurable_[0] = 1;
       digitalIOPortConfigurable_[1] = 1;
       digitalIOBitConfigurable_[0] = 0;
@@ -818,7 +818,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
-      break; 	  
+      break;
     case USB_TC32:
     case ETH_TC32:
       numTimers_    = 0;
@@ -860,7 +860,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s::%s error, unknown board type=%d\n", 
+        "%s::%s error, unknown board type=%d\n",
         driverName, functionName, boardType_);
       break;
   }
@@ -881,7 +881,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   waveDigAbsTimeBuffer_  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   inputMemHandle_  = cbScaledWinBufAlloc(maxInputPoints  * numAnalogIn_);
   outputMemHandle_ = cbWinBufAlloc(maxOutputPoints * numAnalogOut_);
-  
+
   // Set values of some parameters that need to be set because init record order is not predictable
   // or because the corresponding records are PINI=NO.
   setIntegerParam(waveGenUserNumPoints_, 1);
@@ -891,7 +891,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
 
-  /* Start the thread to poll counters and digital inputs and do callbacks to 
+  /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
   epicsThreadCreate("MultiFunctionPoller",
                     epicsThreadPriorityLow,
@@ -908,13 +908,13 @@ int MultiFunction::startPulseGenerator()
   double dutyCycle;
   int count, idleState;
   static const char *functionName = "startPulseGenerator";
-  
+
   getDoubleParam (timerNum, pulseGenPeriod_,    &period);
   getDoubleParam (timerNum, pulseGenWidth_,     &width);
   getDoubleParam (timerNum, pulseGenDelay_,     &delay);
   getIntegerParam(timerNum, pulseGenCount_,     &count);
   getIntegerParam(timerNum, pulseGenIdleState_, &idleState);
-  
+
   frequency = 1./period;
   if (frequency < minPulseGenFrequency_) frequency = minPulseGenFrequency_;
   if (frequency > maxPulseGenFrequency_) frequency = maxPulseGenFrequency_;
@@ -1023,7 +1023,7 @@ int MultiFunction::defineWaveform(int channel)
   doCallbacksFloat32Array(waveGenIntBuffer_[channel], numPoints, waveGenIntWF_, channel);
   return 0;
 }
- 
+
 int MultiFunction::startWaveGen()
 {
   int status=0;
@@ -1041,12 +1041,12 @@ int MultiFunction::startWaveGen()
   epicsFloat32* inPtr[MAX_ANALOG_OUT];
   epicsUInt16 *outPtr;
   static const char *functionName = "startWaveGen";
-  
+
   getIntegerParam(waveGenExtTrigger_, &extTrigger);
   getIntegerParam(waveGenExtClock_,   &extClock);
   getIntegerParam(waveGenContinuous_, &continuous);
   getIntegerParam(waveGenRetrigger_,  &retrigger);
- 
+
   for (i=0; i<numAnalogOut_; i++) {
     getIntegerParam(i, waveGenEnable_, &enable);
     if (!enable) continue;
@@ -1072,21 +1072,21 @@ int MultiFunction::startWaveGen()
     status = defineWaveform(i);
     if (status) return -1;
   }
-  
+
   if (firstChan < 0) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s:%s: ERROR no enabled channels\n",
       driverName, functionName);
      return -1;
   }
-  
+
   numWaveGenChans_ = lastChan - firstChan + 1;
 
   // dwell and numPoints were computed by defineWaveform above
   getIntegerParam(waveGenNumPoints_, &numPoints);
   getDoubleParam(waveGenDwell_, &dwell);
   pointsPerSecond = (long)((1. / dwell) + 0.5);
-  
+
   // Copy data from float32 array to outputMemHandel, converting from volts to D/A units
   // Pre-defined waveforms have been fully defined at this point
   // User-defined waveforms need to have the offset and scale applied
@@ -1112,7 +1112,7 @@ int MultiFunction::startWaveGen()
   if (extClock)   options |= EXTCLOCK;
   if (continuous) options |= CONTINUOUS;
   if (retrigger)  options |= RETRIGMODE;
-  
+
   status = cbAOutScan(boardNum_, firstChan, lastChan, numWaveGenChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
                       outputMemHandle_, options);
 
@@ -1135,7 +1135,7 @@ int MultiFunction::startWaveGen()
   setDoubleParam(waveGenTotalTime_, dwell*numPoints);
   return status;
 }
-  
+
 int MultiFunction::stopWaveGen()
 {
   waveGenRunning_ = 0;
@@ -1147,7 +1147,7 @@ int MultiFunction::computeWaveGenTimes()
 {
   int numPoints, i;
   double dwell;
-  
+
   getIntegerParam(waveGenUserNumPoints_, &numPoints);
   getDoubleParam(waveGenUserDwell_, &dwell);
   for (i=0; i<numPoints; i++) {
@@ -1176,7 +1176,7 @@ int MultiFunction::startWaveDig()
   long pointsPerSecond;
   double dwell;
   static const char *functionName = "startWaveDig";
-  
+
   getIntegerParam(waveDigNumPoints_,  &numPoints);
   getIntegerParam(waveDigFirstChan_,  &firstChan);
   getIntegerParam(waveDigNumChans_,   &numChans);
@@ -1188,7 +1188,7 @@ int MultiFunction::startWaveDig()
   getIntegerParam(waveDigBurstMode_,  &burstMode);
   getDoubleParam(waveDigDwell_, &dwell);
   pointsPerSecond = (long)((1. / dwell) + 0.5);
-  
+
   options                  = BACKGROUND;
   options                 |= SCALEDATA;
   if (extTrigger) options |= EXTTRIGGER;
@@ -1198,7 +1198,7 @@ int MultiFunction::startWaveDig()
   if (burstMode)  options |= BURSTMODE;
   lastChan = firstChan + numChans - 1;
   setIntegerParam(waveDigCurrentPoint_, 0);
-  
+
   // Construct the gain array
   for (i=0; i<numChans; i++) {
     chan = firstChan + i;
@@ -1216,7 +1216,7 @@ int MultiFunction::startWaveDig()
 
   status = cbAInScan(boardNum_, firstChan, lastChan, numWaveDigChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
                      inputMemHandle_, options);
-                     
+
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s:%s: ERROR calling cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%ld, options=0x%x, status=%d\n",
@@ -1241,7 +1241,7 @@ int MultiFunction::stopWaveDig()
 {
   int autoRestart;
   int status;
-  
+
   waveDigRunning_ = 0;
   setIntegerParam(waveDigRun_, 0);
   readWaveDig();
@@ -1258,26 +1258,26 @@ int MultiFunction::readWaveDig()
   int currentPoint;
   int i;
   static const char *functionName = "readWaveDig";
-  
+
   getIntegerParam(waveDigFirstChan_,    &firstChan);
   lastChan = firstChan + numWaveDigChans_ - 1;
   getIntegerParam(waveDigCurrentPoint_, &currentPoint);
 
   for (i=firstChan; i<=lastChan; i++) {
     asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-      "%s:%s:, doing callbacks on input %d, first value=%f\n", 
+      "%s:%s:, doing callbacks on input %d, first value=%f\n",
       driverName, functionName, i, waveDigBuffer_[i][0]);
     doCallbacksFloat64Array(waveDigBuffer_[i], currentPoint, waveDigVoltWF_, i);
   }
   doCallbacksFloat64Array(waveDigAbsTimeBuffer_, currentPoint, waveDigAbsTimeWF_, 0);
   return 0;
-}    
+}
 
 int MultiFunction::computeWaveDigTimes()
 {
   int numPoints, i;
   double dwell;
-  
+
   getIntegerParam(waveDigNumPoints_, &numPoints);
   getDoubleParam(waveDigDwell_, &dwell);
   for (i=0; i<numPoints; i++) {
@@ -1292,11 +1292,11 @@ asynStatus MultiFunction::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsI
 {
   int function = pasynUser->reason;
 
-  
+
   if (function == analogOutValue_) {
     *low = 0;
     *high = (1 << DACResolution_) - 1;
-  } 
+  }
   else if (function == analogInValue_) {
     *low = 0;
     *high = (1 << ADCResolution_) - 1;
@@ -1358,7 +1358,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // since there is no way to know when it got done if Count!=0
     if (value) {
       status = startPulseGenerator();
-    } 
+    }
     else if (!value && pulseGenRunning_) {
       status = stopPulseGenerator();
     }
@@ -1376,7 +1376,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // LOADREG0=0, LOADREG1=1, so we use addr
     status = cbCLoad32(boardNum_, addr, 0);
   }
-  
+
   // Trigger functions
   else if (function == triggerMode_) {
     status = cbSetTrigger(boardNum_, value, 0, 0);
@@ -1386,10 +1386,10 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == waveDigRun_) {
     if (value && !waveDigRunning_)
       status = startWaveDig();
-    else if (!value && waveDigRunning_) 
+    else if (!value && waveDigRunning_)
       status = stopWaveDig();
   }
-  
+
   else if (function == waveDigReadWF_) {
     readWaveDig();
   }
@@ -1397,7 +1397,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == waveDigNumPoints_) {
     computeWaveDigTimes();
   }
-  
+
   else if (function == waveDigTriggerCount_) {
     status = cbSetConfig(BOARDINFO, boardNum_, 0, BIADTRIGCOUNT, value);
   }
@@ -1417,7 +1417,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == waveGenRun_) {
     if (value && !waveGenRunning_)
       status = startWaveGen();
-    else if (!value && waveGenRunning_) 
+    else if (!value && waveGenRunning_)
       status = stopWaveGen();
   }
 
@@ -1444,14 +1444,14 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       (function == waveGenIntNumPoints_)) {
     computeWaveGenTimes();
   }
-  
+
   callParamCallbacks(addr);
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, wrote %d to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, function=%d, ERROR writing %d to address %d, status=%d\n",
              driverName, functionName, this->portName, function, value, addr, status);
   }
@@ -1483,7 +1483,7 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
     getIntegerParam(0, modelNumber_, &model);
     if ((model == E_1608) && (mode == DIFFERENTIAL) && (addr>3)) return asynSuccess;
     if (type != AI_CHAN_TYPE_VOLTAGE) return asynSuccess;
-    // NOTE: There is something wrong with their driver.  
+    // NOTE: There is something wrong with their driver.
     // If cbAIn is just called once there is a large error due apparently
     // to not allowing settling time before reading.  For now we read twice
     // which removes the error.
@@ -1498,7 +1498,7 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
     }
     setIntegerParam(addr, analogInValue_, *value);
     if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+      asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR reading status=%d\n",
           driverName, functionName, this->portName, function, addr, range, status);
     }
@@ -1532,7 +1532,7 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
       status |= startPulseGenerator();
     }
   }
-  
+
   // Waveform generator functions
   else if ((function == waveGenUserDwell_)  ||
            (function == waveGenIntDwell_)   ||
@@ -1545,7 +1545,7 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
       status |= startWaveGen();
     }
   }
-  
+
   // Waveform digitizer functions
   else if (function == waveDigDwell_) {
     computeWaveDigTimes();
@@ -1559,11 +1559,11 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 
   callParamCallbacks(addr);
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, wrote %f to address %d\n",
              driverName, functionName, this->portName, value, addr);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, ERROR writing %f to address %d, status=%d\n",
              driverName, functionName, this->portName, value, addr, status);
   }
@@ -1610,7 +1610,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
     }
     setDoubleParam(addr, temperatureInValue_, *value);
     if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+      asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s::%s, port %s, function=%d, addr=%d, scale=%d, filter=%d, ERROR from cbTIn status=%d\n",
         driverName, functionName, this->portName, function, addr, scale, filter, status);
     }
@@ -1621,7 +1621,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
     *value = fVal;
     setDoubleParam(addr, voltageInValue_, *value);
     if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+      asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR from cbVIn status=%d\n",
         driverName, functionName, this->portName, function, addr, range, status);
     }
@@ -1683,21 +1683,21 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
       // Use bit I/O if we are not writing all bits
       for (i=0, outMask=1; i<numIOBits_[addr]; i++, outMask = (outMask<<1)) {
         // Only write the value if the mask has this bit set and the direction for that bit is output (1)
-        outValue = ((value & outMask) == 0) ? 0 : 1; 
+        outValue = ((value & outMask) == 0) ? 0 : 1;
         if ((mask & outMask & direction) != 0) {
           status = cbDBitOut(boardNum_, digitalIOPort_[addr], i, outValue);
         }
       }
     }
   }
-  
+
   callParamCallbacks();
   if (status == 0) {
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, function=%d, wrote outValue=0x%x, value=0x%x, mask=0x%x, direction=0x%x\n",
              driverName, functionName, this->portName, function, outValue, value, mask, direction);
   } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
              "%s:%s, port %s, function=%d, ERROR writing outValue=0x%x, value=0x%x, mask=0x%x, direction=0x%x, status=%d\n",
              driverName, functionName, this->portName, function, outValue, value, mask, direction, status);
   }
@@ -1711,9 +1711,9 @@ asynStatus MultiFunction::readFloat32Array(asynUser *pasynUser, epicsFloat32 *va
   int numPoints;
   epicsFloat32 *inPtr;
   static const char *functionName = "readFloat32Array";
-  
+
   this->getAddress(pasynUser, &addr);
-  
+
   if (addr >= numAnalogOut_) {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
       "%s:%s: ERROR: addr=%d max=%d\n",
@@ -1742,7 +1742,7 @@ asynStatus MultiFunction::readFloat32Array(asynUser *pasynUser, epicsFloat32 *va
   }
   *nIn = nElements;
   if (*nIn > (size_t) numPoints) *nIn = (size_t) numPoints;
-  memcpy(value, inPtr, *nIn*sizeof(epicsFloat32)); 
+  memcpy(value, inPtr, *nIn*sizeof(epicsFloat32));
 
   return asynSuccess;
 }
@@ -1754,9 +1754,9 @@ asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *va
   int numPoints;
   epicsFloat64 *inPtr;
   static const char *functionName = "readFloat64Array";
-  
+
   this->getAddress(pasynUser, &addr);
-  
+
   if (function == waveDigVoltWF_) {
     if (addr >= numAnalogIn_) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
@@ -1779,7 +1779,7 @@ asynStatus MultiFunction::readFloat64Array(asynUser *pasynUser, epicsFloat64 *va
   getIntegerParam(waveDigNumPoints_, &numPoints);
   if (*nIn > (size_t)numPoints) *nIn = numPoints;
   memcpy(value, inPtr, *nIn*sizeof(epicsFloat64));
-  return asynSuccess; 
+  return asynSuccess;
 }
 
 asynStatus MultiFunction::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements)
@@ -1787,17 +1787,17 @@ asynStatus MultiFunction::writeFloat32Array(asynUser *pasynUser, epicsFloat32 *v
   int function = pasynUser->reason;
   int addr;
   static const char *functionName = "writeFloat32Array";
-  
+
   this->getAddress(pasynUser, &addr);
-  
+
   if (function == waveGenUserWF_) {
     if ((addr >= numAnalogOut_) || (nElements > maxOutputPoints_)) {
       asynPrint(pasynUser, ASYN_TRACE_ERROR,
         "%s:%s: ERROR: addr=%d max=%d, nElements=%d max=%d\n",
         driverName, functionName, addr, numAnalogOut_-1, (int)nElements, (int)maxOutputPoints_);
       return asynError;
-    } 
-    memcpy(waveGenUserBuffer_[addr], value, nElements*sizeof(epicsFloat32)); 
+    }
+    memcpy(waveGenUserBuffer_[addr], value, nElements*sizeof(epicsFloat32));
   }
   else {
     asynPrint(pasynUser, ASYN_TRACE_ERROR,
@@ -1852,7 +1852,7 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
     severities[i] = 0;
   }
   *nIn = i;
-  return asynSuccess;   
+  return asynSuccess;
 }
 
 void MultiFunction::pollerThread()
@@ -1873,7 +1873,7 @@ void MultiFunction::pollerThread()
   int numReadings;
   int status=0, prevStatus=0;
 
-  while(1) { 
+  while(1) {
     lock();
     epicsTimeGetCurrent(&startTime);
 
@@ -1887,8 +1887,8 @@ void MultiFunction::pollerThread()
       }
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                    "%s:%s: ERROR calling cbDIn, status=%d\n", 
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: ERROR calling cbDIn, status=%d\n",
                     driverName, functionName, status);
         }
         goto error;
@@ -1901,28 +1901,28 @@ void MultiFunction::pollerThread()
         setUIntDigitalParam(i, digitalInput_, newValue, 0xFFFFFFFF);
       }
     }
-    
+
     // Read the counter inputs
     for (i=0; i<numCounters_; i++) {
       status = cbCIn32(boardNum_, firstCounter_ + i, &countVal);
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                    "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n", 
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n",
                     driverName, functionName, i, status);
         }
         goto error;
       }
       setIntegerParam(i, counterCounts_, countVal);
     }
-    
+
     if (numAnalogOut_ > 0) {
       // Poll the status of the waveform generator output
       status = cbGetStatus(boardNum_, &aoStatus, &aoCount, &aoIndex, AOFUNCTION);
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                    "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: ERROR calling cbGetStatus, status=%d\n",
                     driverName, functionName, status);
         }
         goto error;
@@ -1933,14 +1933,14 @@ void MultiFunction::pollerThread()
         stopWaveGen();
       }
     }
-    
+
     if (numAnalogIn_ > 0) {
       // Poll the status of the waveform digitizer input
       status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                    "%s:%s: ERROR calling cbGetStatus, status=%d\n", 
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s:%s: ERROR calling cbGetStatus, status=%d\n",
                     driverName, functionName, status);
         }
         // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
@@ -1968,7 +1968,7 @@ void MultiFunction::pollerThread()
         }
         setIntegerParam(waveDigCurrentPoint_, currentPoint);
       }
-      if (waveDigRunning_ && (aiStatus == 0)) { 
+      if (waveDigRunning_ && (aiStatus == 0)) {
         stopWaveDig();
       }
     }
@@ -1978,8 +1978,8 @@ void MultiFunction::pollerThread()
     }
 error:
     if (prevStatus && !status) {
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-                "%s:%s: device returned to normal status\n", 
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                "%s:%s: device returned to normal status\n",
                 driverName, functionName);
     }
     prevStatus = status;
@@ -1999,7 +1999,7 @@ void MultiFunction::report(FILE *fp, int details)
   int counts;
 
   asynPortDriver::report(fp, details);
-  fprintf(fp, "  Port: %s, board number=%d, board ID=%d, board type=%s\n", 
+  fprintf(fp, "  Port: %s, board number=%d, board ID=%d, board type=%s\n",
           this->portName, boardNum_, boardType_, boardName_);
   if (details >= 1) {
     fprintf(fp, "  analog inputs      = %d\n", numAnalogIn_);
@@ -2026,7 +2026,7 @@ void MultiFunction::report(FILE *fp, int details)
     fprintf(fp, "  first counter      = %d", firstCounter_);
     fprintf(fp, "  counterCounts = ");
     for (i=0; i<numCounters_; i++) {
-      getIntegerParam(i, counterCounts_, &counts); 
+      getIntegerParam(i, counterCounts_, &counts);
       fprintf(fp, " %d", counts);
     }
     fprintf(fp, "\n");
@@ -2034,7 +2034,7 @@ void MultiFunction::report(FILE *fp, int details)
 }
 
 /** Configuration command, called directly or from iocsh */
-extern "C" int MultiFunctionConfig(const char *portName, const char *uniqueID, 
+extern "C" int MultiFunctionConfig(const char *portName, const char *uniqueID,
                               int maxInputPoints, int maxOutputPoints)
 {
   new MultiFunction(portName, uniqueID, maxInputPoints, maxOutputPoints);

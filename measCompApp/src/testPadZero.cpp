@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
   asynUser *pasynUser = pasynManager->createAsynUser(0, 0);
   pasynTrace->setTraceMask(0, 255);
   cbSetAsynUser(boardNum, pasynUser);
-#endif  
+#endif
 
   inputMemHandle  = cbWinBufAlloc32(1000);
   for (i=0; i<CHAN_COUNT; i++) gainArray[i] = 0;
@@ -74,13 +74,13 @@ int main(int argc, char *argv[])
   // Configure counter 0
   count = 0;
   mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
-  status = cbCConfigScan(boardNum, count, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE, 
+  status = cbCConfigScan(boardNum, count, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                            CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
   if (status) {
     printf("Error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d\n",
            i, mode, status);
   }
-  
+
   options |= BACKGROUND;
   chanArray[0] = 0;
   chanTypeArray[0] = CTRBANK0;
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
   // Wait for scan to complete
   while(ctrCount != count) {
     status = cbGetStatus(boardNum, &ctrStatus, &ctrCount, &ctrIndex, DAQIFUNCTION);
-  }         
+  }
   printf("cbGetStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
          status, ctrStatus, ctrCount, ctrIndex);
   uint32_t *pData = (uint32_t *)inputMemHandle;
