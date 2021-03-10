@@ -28,11 +28,11 @@ mcE_1608::mcE_1608(const char *address)
     diInMask_       = 0;
     diOutMask_      = 0;
     diNumBits_      = 8;
-    
+
     aiScanAcquiring_ = false;
     aiScanCurrentPoint_ = 0;
     aiScanCurrentIndex_ = 0;
-    
+
     // Open Ethernet socket
     deviceInfo_.device.connectCode = 0x0;   // default connect code
     deviceInfo_.device.frameID = 0;         // zero out the frameID
@@ -53,9 +53,9 @@ mcE_1608::mcE_1608(const char *address)
     }
     buildGainTableAIn_E1608(&deviceInfo_);
     buildGainTableAOut_E1608(&deviceInfo_);
-    
+
     acquireStartEvent_ = epicsEventCreate(epicsEventEmpty);
-    
+
     readThreadId_ = epicsThreadCreate("measCompReadThread",
                                       epicsThreadPriorityMedium,
                                       epicsThreadGetStackSize(epicsThreadStackMedium),
@@ -155,7 +155,7 @@ int mcE_1608::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVa
             break;
         }
         break;
-    
+
       default:
         printf("mcE_1608::cbSetConfig error unknown InfoType %d\n", InfoType);
         return BADCONFIGTYPE;
@@ -221,7 +221,7 @@ int mcE_1608::cbAIn(int Chan, int Gain, USHORT *DataValue)
     return NOERRORS;
 }
 
-int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
+int mcE_1608::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
                       int Gain, HGLOBAL MemHandle, int Options)
 {
     double frequency;
@@ -273,7 +273,7 @@ int mcE_1608::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
             printf("Unsupported Gain=%d\n", GainArray[i]);
             return BADRANGE;
         }
-        deviceInfo_.queue[2*i+2] = (uint8_t)range;    
+        deviceInfo_.queue[2*i+2] = (uint8_t)range;
     }
     if (!AInQueueW_E1608(&deviceInfo_)) {
         printf("Error calling AInQueueW_E1608\n");

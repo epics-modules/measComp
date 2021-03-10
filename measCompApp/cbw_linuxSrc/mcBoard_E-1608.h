@@ -17,7 +17,7 @@ public:
 
     // Analog I/O functions
     int cbAIn(int Chan, int Gain, USHORT *DataValue);
-    int cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
+    int cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
                 int Gain, HGLOBAL MemHandle, int Options);
     int cbAInputMode(int InputMode);
     int cbALoadQueue(short *ChanArray, short *GainArray, int NumChans);

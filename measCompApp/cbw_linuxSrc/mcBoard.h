@@ -19,19 +19,19 @@ public:
     // Analog I/O functions
     virtual int cbAIn(int Chan, int Gain, USHORT *DataValue);
     virtual int cbAIn32(int Chan, int Gain, ULONG *DataValue, int Options);
-    virtual int cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
+    virtual int cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
                           int Gain, HGLOBAL MemHandle, int Options);
     virtual int cbAInputMode(int InputMode);
     virtual int cbALoadQueue(short *ChanArray, short *GainArray, int NumChans);
     virtual int cbAOut(int Chan, int Gain, USHORT DataValue);
-    virtual int cbAOutScan(int LowChan, int HighChan, long Count, 
+    virtual int cbAOutScan(int LowChan, int HighChan, long Count,
                            long *Rate, int Gain, HGLOBAL MemHandle, int Options);
 
     // Counter functions
-    virtual int cbC9513Config(int CounterNum, int GateControl, int CounterEdge, int CountSource, 
-                              int SpecialGate, int Reload, int RecycleMode, 
+    virtual int cbC9513Config(int CounterNum, int GateControl, int CounterEdge, int CountSource,
+                              int SpecialGate, int Reload, int RecycleMode,
                               int BCDMode, int CountDirection, int OutputControl);
-    virtual int cbC9513Init(int ChipNum, int FOutDivider, int FOutSource, int Compare1, 
+    virtual int cbC9513Init(int ChipNum, int FOutDivider, int FOutSource, int Compare1,
                             int Compare2,int TimeOfDay);
     virtual int cbCIn32(int CounterNum, ULONG *Count);
     virtual int cbCLoad32(int RegNum, ULONG LoadValue);
@@ -51,8 +51,8 @@ public:
     virtual int cbDOut32(int PortType, UINT DataValue);
 
     // Pulse functions
-    virtual int cbPulseOutStart(int TimerNum, double *Frequency, 
-                                double *DutyCycle, unsigned int PulseCount, 
+    virtual int cbPulseOutStart(int TimerNum, double *Frequency,
+                                double *DutyCycle, unsigned int PulseCount,
                                 double *InitialDelay, int IdleState, int Options);
     virtual int cbPulseOutStop(int TimerNum);
 
@@ -68,7 +68,7 @@ public:
     // Daq functions
     virtual int cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
                             long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options);
-    virtual int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+    virtual int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType,
                                 int Gain, float Level, float Variance, int TrigEvent);
 
 protected:

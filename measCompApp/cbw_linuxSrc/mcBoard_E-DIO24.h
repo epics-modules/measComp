@@ -1,4 +1,4 @@
-/*implemented DIO24 functionalities, counter function is currently 
+/*implemented DIO24 functionalities, counter function is currently
  * not supported
  * Created by Danny Wong
  */
@@ -27,7 +27,7 @@ public:
 
 
  private:
-	EthernetDeviceInfo device;
+    EthernetDeviceInfo device;
 };
 
 #endif /* mcBoard_E_DIO24Include */

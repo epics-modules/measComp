@@ -6,7 +6,7 @@
 static const char *driverName = "mcUSB_TEMP";
 
 mcUSB_TEMP::mcUSB_TEMP(const char *address)
-  : mcBoard(address) 
+  : mcBoard(address)
 {
     static const char *functionName = "mcUSB_TEMP";
     strcpy(boardName_, "USB-TEMP-AI");
@@ -36,7 +36,7 @@ mcUSB_TEMP::mcUSB_TEMP(const char *address)
         printf("%s::%s Failure, did not find a USB-TEMP series device!\n", driverName, functionName);
         return;
     }
-    
+
     usbInitCounter_USBTEMP(hidDevice_);
 }
 
@@ -51,20 +51,20 @@ int mcUSB_TEMP::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Config
             usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_SENSOR_TYPE, ConfigVal);
             if (ConfigVal == USB_TEMP_THERMOCOUPLE) {
                 usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_EXCITATION, USB_TEMP_EXCITATION_OFF);
-            }            
-            break;        
+            }
+            break;
 
         case BICHANRTDTYPE:
             printf("Setting USB_TEMP_CONNECTION_TYPE, chan=%d, value=%d\n", DevNum/2, ConfigVal);
             usbSetItem_USBTEMP(hidDevice_, DevNum/2, USB_TEMP_CONNECTION_TYPE, ConfigVal);
-            break;        
+            break;
 
         case BICHANTCTYPE:
             printf("Setting USB_TEMP thermocouple type, chan=%d, value=%d\n", DevNum/2, ConfigVal-1);
             usbSetItem_USBTEMP(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_CH_0_TC, ConfigVal-1);
             //usbCalibrate_USBTEMP(hidDevice_, 0);
             //usbCalibrate_USBTEMP(hidDevice_, 1);
-            break;        
+            break;
 
         default:
             printf("%s::%s error unknown ConfigItem %d\n", driverName, functionName, ConfigItem);
@@ -72,7 +72,7 @@ int mcUSB_TEMP::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Config
             break;
     }
     break;
-    
+
     default:
         printf("%s::%s error unknown InfoType %d\n", driverName, functionName, InfoType);
         return BADCONFIGTYPE;

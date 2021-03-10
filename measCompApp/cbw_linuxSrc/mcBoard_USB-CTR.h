@@ -27,8 +27,8 @@ public:
     int cbSetTrigger(int TrigType, USHORT LowThreshold, USHORT HighThreshold);
 
     // Pulse functions
-    int cbPulseOutStart(int TimerNum, double *Frequency, 
-                        double *DutyCycle, unsigned int PulseCount, 
+    int cbPulseOutStart(int TimerNum, double *Frequency,
+                        double *DutyCycle, unsigned int PulseCount,
                         double *InitialDelay, int IdleState, int Options);
     int cbPulseOutStop(int TimerNum);
 
@@ -45,7 +45,7 @@ public:
     // Daq functions
     int cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArray, int ChanCount, long *Rate,
                     long *PretrigCount, long *TotalCount, HGLOBAL MemHandle, int Options);
-    int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+    int cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType,
                         int Gain, float Level, float Variance, int TrigEvent);
 
     void readThread();

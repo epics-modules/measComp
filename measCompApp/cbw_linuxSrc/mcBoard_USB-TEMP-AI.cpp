@@ -6,7 +6,7 @@
 static const char *driverName = "mcUSB_TEMP-AI";
 
 mcUSB_TEMP_AI::mcUSB_TEMP_AI(const char *address)
-  : mcBoard(address) 
+  : mcBoard(address)
 {
     static const char *functionName = "mcUSB_TEMP_AI";
     strcpy(boardName_, "USB-TEMP-AI");
@@ -36,7 +36,7 @@ mcUSB_TEMP_AI::mcUSB_TEMP_AI(const char *address)
         printf("%s::%s Failure, did not find a USB-TEMP-AI series device!\n", driverName, functionName);
         return;
     }
-    
+
     usbInitCounter_USBTC_AI(hidDevice_);
 }
 
@@ -49,11 +49,11 @@ int mcUSB_TEMP_AI::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Con
         case BIADCHANTYPE:
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_SENSOR_TYPE, ConfigVal);
             switch (ConfigVal) {
-            case USB_TEMP_AI_RTD:            
-	              usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_210);
+            case USB_TEMP_AI_RTD:
+                  usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_210);
                 break;
-            case USB_TEMP_AI_THERMISTOR:            
-	              usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_10);
+            case USB_TEMP_AI_THERMISTOR:
+                  usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_MU_A_10);
                 break;
             case USB_TEMP_AI_THERMOCOUPLE:
                 usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_EXCITATION, USB_TEMP_AI_EXCITATION_OFF);
@@ -69,17 +69,17 @@ int mcUSB_TEMP_AI::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Con
                 printf("%s::%s error unknown ConfigVal %d\n", driverName, functionName, ConfigVal);
                 return BADCONFIGITEM;
                 break;
-            }        
+            }
 
         case BICHANRTDTYPE:
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, USB_TEMP_AI_CONNECTION_TYPE, ConfigVal);
-            break;        
+            break;
 
         case BICHANTCTYPE:
             usbSetItem_USBTEMP_AI(hidDevice_, DevNum/2, DevNum%2+USB_TEMP_AI_CH_0_TC, ConfigVal-1);
             //usbCalibrate_USBTC_AI(hidDevice_, 0);
             //usbCalibrate_USBTC_AI(hidDevice_, 1);
-            break;        
+            break;
 
         default:
             printf("%s::%s error unknown ConfigItem %d\n", driverName, functionName, ConfigItem);
@@ -87,7 +87,7 @@ int mcUSB_TEMP_AI::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int Con
             break;
     }
     break;
-    
+
     default:
         printf("%s::%s error unknown InfoType %d\n", driverName, functionName, InfoType);
         return BADCONFIGTYPE;
@@ -193,7 +193,7 @@ int mcUSB_TEMP_AI::cbVIn(int Chan, int Range, float *DataValue, int Options)
     }
 
     Chan = Chan + 4; // Convert from 0-3 to 4-7 because voltages are last 7 channels.
-	  usbSetItem_USBTEMP_AI(hidDevice_, Chan/2, Chan%2+USB_TEMP_AI_CH_0_GAIN, gain);
+      usbSetItem_USBTEMP_AI(hidDevice_, Chan/2, Chan%2+USB_TEMP_AI_CH_0_GAIN, gain);
     usbAin_USBTC_AI(hidDevice_, Chan, units, DataValue);
     return NOERRORS;
 }

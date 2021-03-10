@@ -15,7 +15,7 @@ int mcBoard::cbGetConfig(int InfoType, int DevNum, int ConfigItem, int *ConfigVa
         switch (ConfigItem) {
         case BIBOARDTYPE:
             *ConfigVal = biBoardType_;
-            break;        
+            break;
         case BINUMADCHANS:
             *ConfigVal = biNumADCChans_;
             break;
@@ -70,7 +70,7 @@ int mcBoard::cbSetAsynUser(asynUser *pasynUser)
 }
 
 
-int mcBoard::cbGetBoardName(char *BoardName) 
+int mcBoard::cbGetBoardName(char *BoardName)
 {
     strcpy(BoardName, boardName_);
     return NOERRORS;
@@ -105,7 +105,7 @@ int mcBoard::cbAIn32(int Chan, int Gain, ULONG *DataValue, int Options)
     return NOERRORS;
 }
 
-int mcBoard::cbAInScan(int LowChan, int HighChan, long Count, long *Rate, 
+int mcBoard::cbAInScan(int LowChan, int HighChan, long Count, long *Rate,
                        int Gain, HGLOBAL MemHandle, int Options)
 {
     printf("Function cbAInScan not supported\n");
@@ -130,8 +130,8 @@ int mcBoard::cbAOut(int Chan, int Gain, USHORT DataValue)
     return NOERRORS;
 }
 
-int mcBoard::cbAOutScan(int LowChan, int HighChan, 
-                        long Count, long *Rate, int Gain, 
+int mcBoard::cbAOutScan(int LowChan, int HighChan,
+                        long Count, long *Rate, int Gain,
                         HGLOBAL MemHandle, int Options)
 {
     printf("Function cbAOutScan not supported\n");
@@ -140,17 +140,17 @@ int mcBoard::cbAOutScan(int LowChan, int HighChan,
 
 // Counter functions
 int mcBoard::cbC9513Config(int CounterNum, int GateControl,
-                           int CounterEdge, int CountSource, 
-                           int SpecialGate, int Reload, int RecycleMode, 
-                           int BCDMode, int CountDirection, 
+                           int CounterEdge, int CountSource,
+                           int SpecialGate, int Reload, int RecycleMode,
+                           int BCDMode, int CountDirection,
                            int OutputControl)
 {
     printf("Function cbC9513Config not supported\n");
     return NOERRORS;
 }
-                                
-int mcBoard::cbC9513Init(int ChipNum, int FOutDivider, 
-                         int FOutSource, int Compare1, int Compare2, 
+
+int mcBoard::cbC9513Init(int ChipNum, int FOutDivider,
+                         int FOutSource, int Compare1, int Compare2,
                          int TimeOfDay)
 {
     printf("Function cbC9513Init not supported\n");
@@ -203,7 +203,7 @@ int mcBoard::cbDConfigBit(int PortType, int BitNum, int Direction)
     return NOERRORS;
 }
 
-int mcBoard::cbDIn(int PortType, USHORT *DataValue) 
+int mcBoard::cbDIn(int PortType, USHORT *DataValue)
 {
     printf("cbDIn is not supported\n");
     return NOERRORS;
@@ -228,14 +228,14 @@ int mcBoard::cbDOut32(int PortType, UINT DataValue)
 }
 
 // Pulse functions
-int mcBoard::cbPulseOutStart(int TimerNum, double *Frequency, 
-                             double *DutyCycle, unsigned int PulseCount, 
+int mcBoard::cbPulseOutStart(int TimerNum, double *Frequency,
+                             double *DutyCycle, unsigned int PulseCount,
                              double *InitialDelay, int IdleState, int Options)
 {
     printf("cbPulseOutStart is not supported\n");
     return NOERRORS;
 }
-                    
+
 int mcBoard::cbPulseOutStop(int TimerNum)
 {
     printf("cbPulseOutStop is not supported\n");
@@ -272,7 +272,7 @@ int mcBoard::cbDaqInScan(short *ChanArray, short *ChanTypeArray, short *GainArra
 }
 
 
-int mcBoard::cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+int mcBoard::cbDaqSetTrigger(int TrigSource, int TrigSense, int TrigChan, int ChanType,
                              int Gain, float Level, float Variance, int TrigEvent)
 {
     printf("cbDaqSetTrigger is not supported\n");

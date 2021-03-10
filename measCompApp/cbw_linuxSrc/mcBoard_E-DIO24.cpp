@@ -1,4 +1,4 @@
-/*implemented DIO24 functionalities, counter function is currently 
+/*implemented DIO24 functionalities, counter function is currently
  * not supported
  * Created by Danny Wong
  */
@@ -26,7 +26,7 @@ mcE_DIO24::mcE_DIO24(const char *address)
     diInMask_       = 0;
     diOutMask_      = 0;
     diNumBits_      = 24;
-    
+
     // Open Ethernet socket
     device.connectCode = 0x0;   // default connect code
     device.frameID = 0;         // zero out the frameID
@@ -43,7 +43,7 @@ mcE_DIO24::mcE_DIO24(const char *address)
         printf("Error opening socket\n");
         return;
     }
-   
+
 }
 
 

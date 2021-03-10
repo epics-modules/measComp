@@ -30,7 +30,7 @@ static void copyEDIToDDD(EthernetDeviceInfo *pEDI, DaqDeviceDescriptor *pDDD)
   productName = productName.substr(0, productName.rfind("-"));
   strcpy(pDDD->ProductName, productName.c_str());
   pDDD->InterfaceType = ETHERNET_IFC;
-  sprintf(pDDD->UniqueID, "%.2X:%.2X:%.2X:%.2X:%.2X:%.2X", 
+  sprintf(pDDD->UniqueID, "%.2X:%.2X:%.2X:%.2X:%.2X:%.2X",
           pEDI->MAC[0], pEDI->MAC[1], pEDI->MAC[2],
           pEDI->MAC[3], pEDI->MAC[4], pEDI->MAC[5]);
   pDDD->NUID = 0;
@@ -63,10 +63,10 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
       perror("libusb_init returned error");
       goto usb_done;
     }
- 
+
     // discover devices
     cnt = libusb_get_device_list(NULL, &list);
-   
+
     for (i = 0; i < cnt; i++) {
       device = list[i];
       err = libusb_get_device_descriptor(device, &desc);
@@ -78,13 +78,13 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
         found = device;
         err = libusb_open(found, &udev);
         if (err < 0) {
-	         perror("usb_device_find_USB_MCC: libusb_open failed.");
-	         udev = NULL;
-	         continue;
+             perror("usb_device_find_USB_MCC: libusb_open failed.");
+             udev = NULL;
+             continue;
         }
         err = libusb_kernel_driver_active(udev, 0);
         if (err == 1) {
-          /* 
+          /*
             device active by another driver. (like HID).  This can be dangerous,
             as we don't know if the kenel has claimed the interface or another
             process.  No easy way to tell at this moment, but HID devices won't
@@ -115,16 +115,16 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
         DaqDeviceDescriptor* pDevice = Inventory + (*NumberOfDevices)++;
         pDevice->ProductID = desc.idProduct;
         pDevice->InterfaceType = USB_IFC;
-        err = libusb_get_string_descriptor_ascii(udev, desc.iSerialNumber, 
+        err = libusb_get_string_descriptor_ascii(udev, desc.iSerialNumber,
                                                  (unsigned char*)pDevice->UniqueID, sizeof(pDevice->UniqueID));
-        err = libusb_get_string_descriptor_ascii(udev, desc.iProduct, 
+        err = libusb_get_string_descriptor_ascii(udev, desc.iProduct,
                                                  (unsigned char*)pDevice->ProductName, sizeof(pDevice->ProductName));
         strcpy(pDevice->DevString, pDevice->ProductName);
-        pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);      
+        pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);
         libusb_release_interface(udev, 0);
         libusb_close(udev);
         udev = NULL;
-      } 
+      }
     }
     usb_done:
     libusb_free_device_list(list,1);
@@ -200,7 +200,7 @@ int cbGetNetDeviceDescriptor(char* Host, int Port, DaqDeviceDescriptor* DeviceDe
     return 0;
 }
 
-int cbGetConfig(int InfoType, int BoardNum, int DevNum, 
+int cbGetConfig(int InfoType, int BoardNum, int DevNum,
                 int ConfigItem, int *ConfigVal)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -265,7 +265,7 @@ int cbGetIOStatus(int BoardNum, short *Status, long *CurCount, long *CurIndex,in
     return pBoard->cbGetIOStatus(Status, CurCount, CurIndex, FunctionType);
 }
 
-      
+
 int cbAIn(int BoardNum, int Chan, int Gain, USHORT *DataValue)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -309,8 +309,8 @@ int cbAOut(int BoardNum, int Chan, int Gain, USHORT DataValue)
     return pBoard->cbAOut(Chan, Gain, DataValue);
 }
 
-int cbAOutScan(int BoardNum, int LowChan, int HighChan, 
-               long Count, long *Rate, int Gain, 
+int cbAOutScan(int BoardNum, int LowChan, int HighChan,
+               long Count, long *Rate, int Gain,
                HGLOBAL MemHandle, int Options)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -321,19 +321,19 @@ int cbAOutScan(int BoardNum, int LowChan, int HighChan,
 
 // Counter functions
 int cbC9513Config(int BoardNum, int CounterNum, int GateControl,
-                  int CounterEdge, int CountSource, 
-                  int SpecialGate, int Reload, int RecycleMode, 
-                  int BCDMode, int CountDirection, 
+                  int CounterEdge, int CountSource,
+                  int SpecialGate, int Reload, int RecycleMode,
+                  int BCDMode, int CountDirection,
                   int OutputControl)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbC9513Config(CounterNum, GateControl, CounterEdge, CountSource, SpecialGate, 
+    return pBoard->cbC9513Config(CounterNum, GateControl, CounterEdge, CountSource, SpecialGate,
                                  Reload, RecycleMode, BCDMode, CountDirection, OutputControl);
 }
-                                
-int cbC9513Init(int BoardNum, int ChipNum, int FOutDivider, 
-                int FOutSource, int Compare1, int Compare2, 
+
+int cbC9513Init(int BoardNum, int ChipNum, int FOutDivider,
+                int FOutSource, int Compare1, int Compare2,
                 int TimeOfDay)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -369,7 +369,7 @@ int cbCConfigScan(int BoardNum, int CounterNum, int Mode,int DebounceTime,
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbCConfigScan(CounterNum, Mode, DebounceTime, DebounceMode, 
+    return pBoard->cbCConfigScan(CounterNum, Mode, DebounceTime, DebounceMode,
                                  EdgeDetection, TickSize, MappedChannel);
 }
 
@@ -425,16 +425,16 @@ int cbDOut32(int BoardNum, int PortType, UINT DataValue)
 }
 
 // Pulse functions
-int cbPulseOutStart(int BoardNum, int TimerNum, double *Frequency, 
-                    double *DutyCycle, unsigned int PulseCount, 
+int cbPulseOutStart(int BoardNum, int TimerNum, double *Frequency,
+                    double *DutyCycle, unsigned int PulseCount,
                     double *InitialDelay, int IdleState, int Options)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbPulseOutStart(TimerNum, Frequency, DutyCycle, PulseCount, 
+    return pBoard->cbPulseOutStart(TimerNum, Frequency, DutyCycle, PulseCount,
                                    InitialDelay, IdleState, Options);
 }
-                    
+
 int cbPulseOutStop(int BoardNum, int TimerNum)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -460,7 +460,7 @@ int cbVIn(int BoardNum, int Chan, int Range, float *DataValue, int Options)
 }
 
 // Trigger functions
-int cbSetTrigger(int BoardNum, int TrigType, USHORT LowThreshold, 
+int cbSetTrigger(int BoardNum, int TrigType, USHORT LowThreshold,
                  USHORT HighThreshold)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
@@ -475,14 +475,14 @@ int cbDaqInScan(int BoardNum, short *ChanArray, short *ChanTypeArray, short *Gai
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
     return pBoard->cbDaqInScan(ChanArray, ChanTypeArray, GainArray, ChanCount, Rate,
-							                 PretrigCount, TotalCount, MemHandle, Options);
+                                             PretrigCount, TotalCount, MemHandle, Options);
 }
 
-int cbDaqSetTrigger(int BoardNum, int TrigSource, int TrigSense, int TrigChan, int ChanType, 
+int cbDaqSetTrigger(int BoardNum, int TrigSource, int TrigSense, int TrigChan, int ChanType,
                     int Gain, float Level, float Variance, int TrigEvent)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbDaqSetTrigger(TrigSource, TrigSense, TrigChan, ChanType, 
-							                     Gain, Level, Variance, TrigEvent);
+    return pBoard->cbDaqSetTrigger(TrigSource, TrigSense, TrigChan, ChanType,
+                                                 Gain, Level, Variance, TrigEvent);
 }

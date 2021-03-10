@@ -4,7 +4,7 @@
 
 
 mcE_TC::mcE_TC(const char *address)
-  : mcBoard(address) 
+  : mcBoard(address)
 {
     strcpy(boardName_, "E-TC");
     biBoardType_    = ETC_PID;
@@ -18,7 +18,7 @@ mcE_TC::mcE_TC(const char *address)
     diInMask_       = 0;
     diOutMask_      = 0;
     diNumBits_      = 8;
-    
+
     // Open Ethernet socket
     deviceInfo_.device.connectCode = 0x0;   // default connect code
     deviceInfo_.device.frameID = 0;         // zero out the frameID
@@ -50,7 +50,7 @@ int mcE_TC::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal)
         case BICHANTCTYPE:
             deviceInfo_.config_values[DevNum] = ConfigVal;
             TinConfigW_E_TC(&deviceInfo_);
-            break;        
+            break;
 
         default:
             printf("mcBoardE_T-TC::setConfig error unknown ConfigItem %d\n", ConfigItem);
@@ -58,7 +58,7 @@ int mcE_TC::cbSetConfig(int InfoType, int DevNum, int ConfigItem, int ConfigVal)
             break;
     }
     break;
-    
+
     default:
         printf("mcBoardE_T-TC::setConfig error unknown InfoType %d\n", InfoType);
         return BADCONFIGTYPE;
