@@ -176,6 +176,9 @@ int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
     else if (strcmp(deviceDescriptor.ProductName, "USB-CTR") ==0) {
         pBoard = (mcBoard *)new mcUSB_CTR(deviceDescriptor.UniqueID);
     }
+    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP") ==0) {
+        pBoard = (mcBoard *)new mcUSB_TEMP(deviceDescriptor.UniqueID);
+    }
     else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") ==0) {
         pBoard = (mcBoard *)new mcUSB_TEMP_AI(deviceDescriptor.UniqueID);
     }
