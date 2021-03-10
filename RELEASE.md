@@ -6,18 +6,18 @@
       using an integer `boardNum`.
       - On Windows one needed to use the vendor's InstaCal program to assign a `boardNum` to each device,
         and then use that `boardNum` in the startup script. 
-      - On Linux one needed an extra cbAddBoard command to the startup script which assigned a `boardNum` to a
+      - On Linux one needed an extra `cbAddBoard` command to the startup script which assigned a `boardNum` to a
         device, emulating what InstaCal does on Linux.
     - I recently learned that using the InstaCal board numbers on Windows has a serious limitation:
       only a single measComp IOC application can be running on the computer at once. This is a known
       limitation in the vendor's Universal Library implementation.  However, they do support multiple applications
       running at once if the device numbers are assigned dynamically at run-time using a discovery mechanism,
       rather than using the static numbers assigned with InstCal.
-    - The code has therefore changed to use this discovery mechanism for finding the devices,
+    - The code has therefore been changed to use this discovery mechanism for finding the devices,
       rather than the InstaCal board numbers. Emulation for this discovery mechanism has been added on Linux,
       so that the startup scripts for Windows and Linux can now be identical. Linux no longer uses
-      the cbAddBoard command.
-    - The second argument the configuration commands in the startup script (e.g. `drvMultifunctionConfigure`)
+      the `cbAddBoard` command.
+    - The second argument the configuration commands in the startup script (e.g. `drvMultifunctionConfigure()`)
       is no longer a `boardNum` integer , it is a `uniqueID` string.
       - For USB devices the `uniqueID` is the serial number, which is printed on the device (e.g. `"01F6335A"`).
       - For Ethernet devices the `uniqueID` can either be the MAC address (e.g. `"00:80:2F:24:53:DE"`), 
@@ -26,6 +26,12 @@
         while the IP address must be used for devices on other subnets.
     - There is a new iocsh command, `measCompShowDevices`. This will list all Measurement Computing USB devices
       attached to the computer running the IOC, as well as all Measurement Computing Ethernet devices on the subnet.
+  - Added support for the USB-TEMP and USB-TEMP-AI models.  
+    - These support reading temperature with RTD, thermocouple, thermistor, and semiconductor sensors.  
+    - The USB-TEMP supports up to 8 temperature inputs.
+    - The USB-TEMP-AI supports up to 4 temperature inputs and 4 24-bit voltage inputs.
+  - E-1608
+    - Added support for AiMode record to select Differential or Single-ended mode.
 
 ## Release 2-6 (December 11, 2020)
   - mcBoard_E-1608.cpp (Linux)
