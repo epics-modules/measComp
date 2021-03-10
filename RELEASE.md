@@ -32,6 +32,7 @@
     - The USB-TEMP-AI supports up to 4 temperature inputs and 4 24-bit voltage inputs.
   - E-1608
     - Added support for AiMode record to select Differential or Single-ended mode.
+  - Converted documentation from HTML to Markdown (this document) and ReST (other documentation).
 
 ## Release 2-6 (December 11, 2020)
   - mcBoard_E-1608.cpp (Linux)
