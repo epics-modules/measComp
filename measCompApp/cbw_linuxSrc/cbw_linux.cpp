@@ -121,6 +121,10 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
                                                  (unsigned char*)pDevice->ProductName, sizeof(pDevice->ProductName));
         strcpy(pDevice->DevString, pDevice->ProductName);
         pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);
+        // The serial number reported above can have leading zeros which don't appear on the label on the 
+        // device, and don't appear in the serial number reported on Windows.  Remove them by printing the
+        // NUID back into the UniqueID.
+        sprintf(pDevice->UniqueID, "%llX", pDevice->NUID);
         libusb_release_interface(udev, 0);
         libusb_close(udev);
         udev = NULL;
@@ -161,19 +165,19 @@ int cbIgnoreInstaCal()
 int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
 {
     mcBoard *pBoard;
-    if (strcmp(deviceDescriptor.ProductName, "E-TC") ==0) {
+    if (strcmp(deviceDescriptor.ProductName, "E-TC") == 0) {
         pBoard = (mcBoard *)new mcE_TC(deviceDescriptor.Reserved);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "E-TC32") ==0) {
+    else if (strcmp(deviceDescriptor.ProductName, "E-TC32") == 0) {
         pBoard = (mcBoard *)new mcE_TC32(deviceDescriptor.Reserved);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "E-1608") ==0) {
+    else if (strcmp(deviceDescriptor.ProductName, "E-1608") == 0) {
         pBoard = (mcBoard *)new mcE_1608(deviceDescriptor.Reserved);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "E-DIO24") ==0) {
+    else if (strcmp(deviceDescriptor.ProductName, "E-DIO24") == 0) {
         pBoard = (mcBoard *)new mcE_DIO24(deviceDescriptor.Reserved);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "USB-CTR") ==0) {
+    else if (strncmp(deviceDescriptor.ProductName, "USB-CTR", 7) == 0) {
         pBoard = (mcBoard *)new mcUSB_CTR(deviceDescriptor.UniqueID);
     }
     else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP") ==0) {
