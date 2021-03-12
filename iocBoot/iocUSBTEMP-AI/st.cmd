@@ -12,7 +12,7 @@ epicsEnvSet(OUTPUT_POINTS, "4096")
 #                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address. 
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("USB_TEMP_1", "01F6335A", $(INPUT_POINTS), $(OUTPUT_POINTS))
+MultiFunctionConfig("USB_TEMP_1", "1F6335A", $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask USB_TEMP_1 -1 255
 
