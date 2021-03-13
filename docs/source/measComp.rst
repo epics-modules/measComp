@@ -1,11 +1,11 @@
-|EPICS| synApps: measComp
-=========================
+measComp
+========
 
 Module Owner: Mark Rivers: University of Chicago
 
 This page is the home of **measComp**.
 
-git **measComp** supports Ethernet and USB I/O modules from `Measurement
+**measComp** supports Ethernet and USB I/O modules from `Measurement
 Computing <http://www.mccdaq.com>`__.
 
 Models supported in **measComp** include:
@@ -122,52 +122,3 @@ Required Modules
 The required versions of each of the above modules for a specific
 release of measComp can be determined from the
 measComp/configure/RELEASE file.
-
-Installation and Building
--------------------------
-
-After obtaining a copy of the distribution, it must be installed and
-built for use at your site. These steps only need to be performed once
-for the site (unless versions of the module running under different
-releases of EPICS and/or the other required modules are needed).
-
-#. Create an installation directory for the module, usually this will
-   end with
-   ``.../support/``
-
-#. Place the distribution file in this directory. Then issue the
-   commands (Unix style)
-
-   ::
-
-      gunzip measCompRX-Y.tar.gz
-
-      tar xvf measCompRX-Y.tar
-
-   where X-Y is the release.
-
-#. | This creates a <top> application.
-
-   ::
-
-      .../support/measCompRX-Y
-
-#. Edit the ``configure/RELEASE`` file and set the paths to your
-   installation of EPICS base and to your versions of other required
-   support modules.
-
-#. Run ``gnumake`` in the top level directory and check for any
-   compilation errors.
-
-#. Please email `Mark Rivers <mailto:rivers@cars.uchicago.edu>`__ so
-   that a record can be kept of which sites are using this software.
-
-In Use
-------
-
-This software was originally developed by Mark Rivers.
-
--  ANL/APS : In use at CARS beamlines and in vibration measurement
-   system.
-
-.. |EPICS| image:: logo101.gif

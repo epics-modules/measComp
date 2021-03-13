@@ -1,70 +1,168 @@
-.. container::
+=================================================================
+measComp: Driver for Measurement Computing Multi-Function Devices
+=================================================================
 
-   .. rubric:: Driver for Measurement Computing Multi-Function Devices
-      :name: driver-for-measurement-computing-multi-function-devices
+:author: Mark Rivers, University of Chicago
 
-   .. rubric:: November 9, 2020
-      :name: november-9-2020
+.. contents:: Contents
 
-   .. rubric:: Mark Rivers
-      :name: mark-rivers
-
-   .. rubric:: University of Chicago
-      :name: university-of-chicago
-
-Table of Contents
------------------
-
--  `Introduction <#Introduction>`__
--  `Configuration <#Configuration>`__
--  `Databases <#Databases>`__
--  `Wiring example for USB-2408-2AO <#USB2408_Wiring>`__
--  `Wiring example for USB-1608GX-2AO <#USB1608_Wiring>`__
--  `Performance measurements <#Performance>`__
-
-.. _Introduction:
+.. _EPICS:                 https://epics-controls.org/
+.. _asyn:                  https://github.com/epics-modules/asyn
+.. _MeasurementComputing:  https://www.mccdaq.com
+.. _asynPortDriver:        https://epics-modules.github.io/master/asyn/R4-41/asynPortDriver.html
 
 Introduction
 ------------
 
-This is an `EPICS <http://www.aps.anl.gov/epics>`__ driver for the
-multi-function devices from `Measurement
-Computing <http://www.mccdaq.com>`__ These multi-function devices
-support support analog in, thermocouple in, analog out, binary I/O,
-counters, and timers. Not all devices have all of these capabilities.
+This is an EPICS__ driver for the
+multi-function devices from Measurement Computing MeasurementComputing__.
+These multi-function devices support support analog input, 
+temperature input (thermocouple, RTD, thermistor, and semiconductor), 
+analog output, binary I/O, counters, and timers. Not all devices have all of these capabilities.
+
 The driver is written in C++, and consists of a class that inherits from
-`asynPortDriver <http://www.aps.anl.gov/epics/modules/soft/asyn/R4-27/asynPortDriver.html>`__,
-which is part of the EPICS
-`asyn <http://www.aps.anl.gov/epics/modules/soft/asyn>`__ module.
+asynPortDriver__, which is part of the EPICS asyn_ module.
 
 The driver is written to be general, so that it can be used with any
 Measurement Computing multi-function module. It uses the introspection
 capabilities of their UL library to query many of the device features.
 However, there are some features that cannot be queried, so the driver
-does require small modifications to be be used with a new model. The
-models that the driver currently supports are:
+does require small modifications to be be used with a new model. 
 
--  `USB-1608G and USB-1608GX-2AO <#USB-1608GX-2AO>`__
--  `E-1608 <#E-1608>`__
--  `USB-2408-2AO <#USB-2408-2AO>`__
--  `E-TC <#E-TC>`__
--  `TC-32 <#TC-32>`__
--  `USB-1208LS, USB-1208FS, and USB-231 <#USB-1208LS>`__
--  `E-DIO24 <#E-DIO24>`__
+Supported models
+----------------
+
+The following models are currently supported.
+
+E-1608
+~~~~~~
+
+.. figure:: E1608.jpg
+    :align: center
+
+    **Photo of E-1608**
+
+This module costs $525 and has the following features:
+
+-  16-bit analog inputs
+
+   -  8 single-ended channels or 4 differential channels
+   -  Programmable per-channel range: +-1V, +-2V, +-5V, +-10V
+   -  250 kHz total maximum input rate, i.e. 1 channel at 250 kHz, 2
+      channels at 125 kHz, etc.
+   -  Internal or external trigger.
+   -  Internal or external clock for input signals.
+   -  Input FIFO, unlimited waveform length
+
+-  16-bit analog outputs
+
+   -  2 channels, fixed +-10V range
+   -  No output waveform capability
+
+-  Digital inputs/outputs
+
+   -  8 signals, individually programmable as inputs or outputs
+
+-  Counter
+
+   -  1 input
+   -  10 MHz maximum rate, 32-bit register
+
+More information can be found in the `E-1608 product
+description. <https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series>`__
+
+The following is the main medm screen for controlling the E-1608.
+
+.. figure:: E1608_module.png
+    :align: center
+
+    **E1608_module.adl**
+
+E-TC
+~~~~
+
+.. figure:: E-TC.jpg
+    :align: center
+
+    **Photo of E-TC**
+
+
+This module costs $505 and has the following features:
+
+-  Ethernet interface.
+-  8 thermocouple inputs
+
+   -  8 channels with cold-junction compensation. Types J, K, T, E, R,
+      S, B, and N.
+   -  4 samples/s.
+
+-  Digital inputs/outputs
+
+   -  8 signals, individually programmable as inputs or outputs
+
+-  Counters
+
+   -  1 input
+   -  10 MHz maximum rate, 32-bit register
+
+More information can be found in the `E-TC product
+description. <https://www.mccdaq.com/ethernet-data-acquisition/thermocouple-input/24-bit-daq/E-TC.aspx>`__
+
+The following is the main medm screen for controlling the E-TC.
+
+.. figure:: ETC_module.png
+    :align: center
+
+    **ETC_module.adl**
 
 --------------
 
-.. _USB-1608GX-2AO:
+TC-32
+~~~~~
 
-USB-1608GX-2AO
---------------
+.. figure:: TC-32.jpg
+    :align: center
 
-.. container::
+    **Photo of TC-32**
 
-   .. rubric:: Photo of USB-1608GX-2AO
-      :name: photo-of-usb-1608gx-2ao
+This module costs $1999 and has the following features:
 
-   |USB-1608GX-2AO.jpg|
+-  USB and Ethernet interfaces, either can be used.
+-  32 thermocouple inputs
+
+   -  32 channels with cold-junction compensation. Types J, K, T, E, R,
+      S, B, and N.
+   -  3 samples/s if reading all 32 channels, faster if reading fewer.
+
+-  Digital inputs
+
+   -  8 digital inputs, switch-selectable pullup resistor
+
+-  Digital outputs
+
+   -  32 digital inputs, switch-selectable pullup resistor
+   -  Each output can either be controlled by software or can be
+      controlled by the alarm status of the corresponding thermocouple.
+      Flexible alarm configuration, i.e. hysteresis.
+
+More information can be found in the `TC-32 product
+description. <http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx>`__
+
+The following is the main medm screen for controlling the TC-32.
+
+.. figure:: TC32_module.png
+    :align: center
+
+    **TC32_module.adl**
+
+
+USB-1608G and USB-1608GX-2AO
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: USB-1608GX-2AO.jpg
+    :align: center
+
+    **Photo of USB-1608GX-2AO**
 
 This module costs $799 and has the following features:
 
@@ -116,78 +214,18 @@ description. <http://www.mccdaq.com/usb-data-acquisition/USB-1608G-Series.aspx>`
 The following is the main medm screen for controlling the
 USB-1608GX-2AO.
 
-.. container::
+.. figure:: USB1608G_module.png
+    :align: center
 
-   .. rubric:: 1608G_module.adl
-      :name: g_module.adl
-
-   |USB1608G_module.png|
-
---------------
-
-.. _E-1608:
-
-E-1608
-------
-
-.. container::
-
-   .. rubric:: Photo of E-1608
-      :name: photo-of-e-1608
-
-   |E1608.jpg|
-
-This module costs $525 and has the following features:
-
--  16-bit analog inputs
-
-   -  8 single-ended channels or 4 differential channels
-   -  Programmable per-channel range: +-1V, +-2V, +-5V, +-10V
-   -  250 kHz total maximum input rate, i.e. 1 channel at 250 kHz, 2
-      channels at 125 kHz, etc.
-   -  Internal or external trigger.
-   -  Internal or external clock for input signals.
-   -  Input FIFO, unlimited waveform length
-
--  16-bit analog outputs
-
-   -  2 channels, fixed +-10V range
-   -  No output waveform capability
-
--  Digital inputs/outputs
-
-   -  8 signals, individually programmable as inputs or outputs
-
--  Counter
-
-   -  1 input
-   -  10 MHz maximum rate, 32-bit register
-
-More information can be found in the `E-1608 product
-description. <https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series>`__
-
-The following is the main medm screen for controlling the E-1608.
-
-.. container::
-
-   .. rubric:: E1608_module.adl
-      :name: e1608_module.adl
-
-   |E1608_module.png|
-
---------------
-
-.. _USB-2408-2AO:
+    **1608G_module.adl**
 
 USB-2408-2AO
-------------
+~~~~~~~~~~~~
 
-.. container::
+.. figure:: USB-2408-2AO.jpg
+    :align: center
 
-   .. rubric:: Photo of USB-2408-2AO
-      :name: photo-of-usb-2408-2ao
-
-   |USB-2408-2AO.jpg|
+    **Photo of Photo of USB-2408-2AO**
 
 This module costs $699 and has the following features:
 
@@ -222,35 +260,34 @@ description. <http://www.mccdaq.com/usb-data-acquisition/USB-2408-Series.aspx>`_
 
 The following is the main medm screen for controlling the USB-2408-2AO.
 
-.. container::
+.. figure:: USB2408_module.png
+    :align: center
 
-   .. rubric:: 2408_module.adl
-      :name: module.adl
+    **2408_module.adl**
 
-   |USB2408_module.png|
+USB-TEMP and USB-TEMP-AI
+~~~~~~~~~~~~~~~~~~~~~~~~
 
---------------
+.. figure:: USB-TEMP.jpg
+    :align: center
 
-.. _E-TC:
+    **Photo of Photo of USB-TEMP**
 
-E-TC
-----
+The USB-TEMP costs $605 and the USB-TEMP-AI costs $795. They have the following features:
 
-.. container::
+-  Temperature inputs
 
-   .. rubric:: Photo of E-TC
-      :name: photo-of-e-tc
+   -  8 temperature inputs on USB-TEMP, 4 on USB-TEMP-AI.
+      These can be platinum resistance thermometers (RTD), thermocouples, thermistors,
+      or semiconductor sensors.
+   -  Thermocouple support has cold-junction compensation.
+      Types J, K, T, E, R, S, B, or N.
+   -  2 samples/s per channel.
 
-   |E-TC.jpg|
+-  24-bit analog inputs (USB-TEMP-AI only)
 
-This module costs $505 and has the following features:
-
--  Ethernet interface.
--  8 thermocouple inputs
-
-   -  8 channels with cold-junction compensation. Types J, K, T, E, R,
-      S, B, and N.
-   -  4 samples/s.
+   -  4 channels
+   -  Programmable per-channel range: 4 ranges from +-1.25V to +-10V
 
 -  Digital inputs/outputs
 
@@ -259,79 +296,33 @@ This module costs $505 and has the following features:
 -  Counters
 
    -  1 input
-   -  10 MHz maximum rate, 32-bit register
+   -  1 MHz maximum rate, 32-bit register
 
-More information can be found in the `E-TC product
-description. <https://www.mccdaq.com/ethernet-data-acquisition/thermocouple-input/24-bit-daq/E-TC.aspx>`__
+More information can be found in the `USB-TEMP product
+description. <https://www.mccdaq.com/usb-data-acquisition/USB-TEMP-Series.aspx>`__
 
-The following is the main medm screen for controlling the E-TC.
+The following is the main medm screen for controlling the USB-TEMP-AI.
 
-.. container::
+.. figure:: USB-TEMP-AI_module.png
+    :align: center
 
-   .. rubric:: ETC_module.adl
-      :name: etc_module.adl
+    **USB_TEMP_AI_module.adl**
 
-   |ETC_module.png|
+The following is the screen for configuring the temperature inputs.
 
---------------
+.. figure:: USBTempSetup4.png
+    :align: center
 
-.. _TC-32:
+    **measCompUSBTempSetup4.adl**
 
-TC-32
------
-
-.. container::
-
-   .. rubric:: Photo of TC-32
-      :name: photo-of-tc-32
-
-   |TC-32.jpg|
-
-This module costs $1999 and has the following features:
-
--  USB and Ethernet interfaces, either can be used.
--  32 thermocouple inputs
-
-   -  32 channels with cold-junction compensation. Types J, K, T, E, R,
-      S, B, and N.
-   -  3 samples/s if reading all 32 channels, faster if reading fewer.
-
--  Digital inputs
-
-   -  8 digital inputs, switch-selectable pullup resistor
-
--  Digital outputs
-
-   -  32 digital inputs, switch-selectable pullup resistor
-   -  Each output can either be controlled by software or can be
-      controlled by the alarm status of the corresponding thermocouple.
-      Flexible alarm configuration, i.e. hysteresis.
-
-More information can be found in the `TC-32 product
-description. <http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx>`__
-
-The following is the main medm screen for controlling the TC-32.
-
-.. container::
-
-   .. rubric:: TC32_module.adl
-      :name: tc32_module.adl
-
-   |TC32_module.png|
-
---------------
-
-.. _USB-1208LS:
 
 USB-1208LS
-----------
+~~~~~~~~~~
 
-.. container::
+.. figure:: USB-1208LS.jpg
+    :align: center
 
-   .. rubric:: Photo of USB-1208LS
-      :name: photo-of-usb-1208ls
-
-   |USB-1208LS.jpg|
+    **Photo of USB-1208LS**
 
 This module costs $129 and has the following features:
 
@@ -368,24 +359,19 @@ are similar devices but with higher performance.
 
 The following is the main medm screen for controlling the USB-1208LS.
 
-.. container::
+.. figure:: USB1208LS_module.png
+    :align: center
 
-   .. rubric:: USB1208LS_module.adl
-      :name: usb1208ls_module.adl
+    **USB1208LS_module.adl**
 
-   |USB1208LS_module.png|
-
-.. _E-DIO24:
 
 E-DIO24
--------
+~~~~~~~
 
-.. container::
+.. figure:: E-DIO24_500.jpg
+    :align: center
 
-   .. rubric:: Photo of E-DIO24
-      :name: photo-of-e-dio24
-
-   |E-DIO24_500.jpg|
+    **Photo of E-DIO24**
 
 This module costs $320 and has the following features:
 
@@ -401,8 +387,6 @@ This module costs $320 and has the following features:
 More information can be found in the `E-DIO24 product
 description. <https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series>`__
 
-.. _Configuration:
-
 Configuration
 -------------
 
@@ -413,18 +397,23 @@ multifunction driver.
 
    ## Configure port driver
    # MultiFunctionConfig(portName,        # The name to give to this asyn port driver
-   #                     boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
+   #                     uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
    #                     maxInputPoints,  # Maximum number of input points for waveform digitizer
    #                     maxOutputPoints) # Maximum number of output points for waveform generator
    MultiFunctionConfig("1608G_1", 1, 1048576, 1048576)
    dbLoadTemplate("1608G.substitutions.big")
 
-The measComp module comes with example iocBoot/ directories that contain
-example startup scripts and example substitutions files. These
-directories are iocUSB1208, iocUSB1608G, iocUSB1608G-2A0, iocUSB2408,
-iocUSB231, iocUSBC9513, iocUSBCTR, and iocMeasCompDemo.
+The uniqueID is a string that identifies the device to be controlled.
 
-.. _Databases:
+- For USB devices the uniqueID is the serial number, which is printed on the device (e.g. "01F6335A").
+- For Ethernet devices the uniqueID can either be the MAC address (e.g. "00:80:2F:24:53:DE"),
+  or the IP address (e.g. "10.54.160.216").
+  The MAC address or IP address can be used for devices on the local subnet,
+  while the IP address must be used for devices on other subnets.
+
+The measComp module comes with example iocBoot/ directories that contain
+example startup scripts and example substitutions files for each supported model.
+
 
 Databases
 ---------
@@ -435,145 +424,105 @@ the multi-function modules.
 Analog I/O Functions
 ~~~~~~~~~~~~~~~~~~~~
 
-EPICS record name
+These are the records defined in measCompAnalogIn.template.
+This database is loaded once for each analog input channel
 
-EPICS record type
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
 
-asyn interface
-
-drvInfo string
-
-Description
-
-**measCompAnalogIn.template. This database is loaded once for each
-analog input channel.**
-
-$(P)$(R)
-
-ai
-
-asynInt32
-
-ANALOG_IN_VALUE
-
-Analog input value. This is converted from the 16-bit unsigned integer
-device units from the driver to engineering units using the EGUL and
-EGUF fields. This field should be periodically scanned, since it is not
-currently polled in the driver, so I/O Intr scanning cannot be used.
-
-$(P)$(R)Range
-
-mbbo
-
-asynInt32
-
-ANALOG_IN_RANGE
-
-Input range for this analog input channel. Choices are determined at run
-time based on the model in use.
-
-$(P)$(R)Type
-
-mbbo
-
-asynInt32
-
-ANALOG_IN_TYPE
-
-Input type (e.g. "Volts", "TC deg", etc.) for this analog input channel.
-Choices are determined at run time based on the model in use.
-
-**measCompAnalogOut.template. This database is loaded once for each
-analog input channel.**
-
-$(P)$(R)
-
-ai
-
-asynInt32
-
-ANALOG_OUT_VALUE
-
-Analog output value. This is converted from engineering units to the
-16-bit unsigned integer device units for the driver using the EGUL and
-EGUF fields.
-
-$(P)$(R)Range
-
-mbbo
-
-asynInt32
-
-ANALOG_OUT_RANGE
-
-Output range for this analog output channel. Choices are determined at
-run time based on the model in use.
-
-$(P)$(R)Return
-
-ai
-
-asynInt32
-
-ANALOG_OUT_VALUE
-
-Analog output value to return to at the end of a pulse. This is
-converted from engineering units to the 16-bit unsigned integer device
-units for the driver using the EGUL and EGUF fields.
-
-$(P)$(R)Pulse
-
-bo
-
-N.A.
-
-N.A.
-
-Choices are "Normal" and "Pulse". In Normal mode the Return record is
-ignored. In Pulse mode the $(P)($R) output is written to to hardware,
-followed immediately by writing the $(P)$(R)Return value.
-
-$(P)$(R)TweakVal
-
-ao
-
-N.A.
-
-N.A.
-
-The amount by which to tweak the out when the Tweak record is processed.
-
-$(P)$(R)TweakUp
-
-calcout
-
-N.A.
-
-N.A.
-
-Tweaks the output up by TweakVal.
-
-$(P)$(R)TweakDown
-
-calcout
-
-N.A.
-
-N.A.
-
-Tweaks the output down by TweakVal.
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)$(R)
+    - ai
+    - asynInt32
+    - ANALOG_IN_VALUE
+    - Analog input value. This is converted from the 16-bit unsigned integer device units
+      from the driver to engineering units using the EGUL and EGUF fields. This field
+      should be periodically scanned, since it is not currently polled in the driver,
+      so I/O Intr scanning cannot be used.
+  * - $(P)$(R)Range
+    - mbbo
+    - asynInt32
+    - ANALOG_IN_RANGE
+    - Input range for this analog input channel. Choices are determined at run time based
+      on the model in use.
+  * - $(P)$(R)Type
+    - mbbo
+    - asynInt32
+    - ANALOG_IN_TYPE
+    - Input type (e.g. "Volts", "TC deg", etc.) for this analog input channel. Choices
+      are determined at run time based on the model in use.
 
 The following is the medm screen for controlling the analog input
 records for the USB-1608GX-2AO. Note that the engineering units limits
 (EGUL and EGUF) do not have to be in volts, they can be in any units
 such as "percent", "degrees", etc.
 
-.. container::
+.. figure:: measCompAiSetup.png
+    :align: center
 
-   .. rubric:: measCompAiSetup.adl
-      :name: meascompaisetup.adl
+    **measCompAiSetup.adl**
 
-   |measCompAiSetup.png|
+These are the records defined in measCompAnalogOut.template.
+This database is loaded once for each analog output channel
+
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
+
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)$(R)
+    - ai
+    - asynInt32
+    - ANALOG_OUT_VALUE
+    - Analog output value. This is converted from engineering units to the 16-bit unsigned
+      integer device units for the driver using the EGUL and EGUF fields.
+  * - $(P)$(R)Range
+    - mbbo
+    - asynInt32
+    - ANALOG_OUT_RANGE
+    - Output range for this analog output channel. Choices are determined at run time
+      based on the model in use.
+  * - $(P)$(R)Return
+    - ai
+    - asynInt32
+    - ANALOG_OUT_VALUE
+    - Analog output value to return to at the end of a pulse. This is converted from engineering
+      units to the 16-bit unsigned integer device units for the driver using the EGUL
+      and EGUF fields.
+  * - $(P)$(R)Pulse
+    - bo
+    - N.A.
+    - N.A.
+    - Choices are "Normal" and "Pulse". In Normal mode the Return record is ignored. In
+      Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
+      writing the $(P)$(R)Return value.
+  * - $(P)$(R)TweakVal
+    - ao
+    - N.A.
+    - N.A.
+    - The amount by which to tweak the out when the Tweak record is processed.
+  * - $(P)$(R)TweakUp
+    - calcout
+    - N.A.
+    - N.A.
+    - Tweaks the output up by TweakVal.
+  * - $(P)$(R)TweakDown
+    - calcout
+    - N.A.
+    - N.A.
+    - Tweaks the output down by TweakVal.
+
 
 The following is the medm screen for controlling the analog output
 records for the USB-1608GX-2AO. Note that the engineering units limits
@@ -581,12 +530,10 @@ records for the USB-1608GX-2AO. Note that the engineering units limits
 such as "percent", "degrees", etc. The drive limits can be more
 restrictive than the full +-10V output range of the analog outputs.
 
-.. container::
+.. figure:: measCompAoSetup.png
+    :align: center
 
-   .. rubric:: measCompAoSetup.adl
-      :name: meascompaosetup.adl
-
-   |measCompAoSetup.png|
+    **measCompAoSetup.adl**
 
 Temperature Functions
 ~~~~~~~~~~~~~~~~~~~~~
