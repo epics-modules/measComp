@@ -20,6 +20,10 @@ E-TC, TC-32), digital input/output, pulse counters (all but TC-32), and pulse
 generators (USB-1608G and USB-1608GX-2A0) These drivers are documented
 separately.
 
+-  `Multi-function module driver <measCompMultiFunctionDoc.html>`__
+-  `USB-CTR04/08 driver <measCompUSBCTRDoc.html>`__
+-  `USB-4303 driver <measComp4303Doc.html>`__
+
 This module is supported on both Windows and Linux, 64-bit and 32-bit.
 On Windows it uses the Measurement Computing "Universal Library" (UL),
 which is only available on Windows. 
@@ -33,12 +37,38 @@ only the E-1608, USB-CTR04/08, USB-TEMP, USB-TEMP-AI, E-TC, E-TC32,
 and E-DIO24 models are supported on Linux. 
 Support for other modules is straightforward to add and can be done as the demand arises.
 
-The drivers are each documented separately:
 
--  `Multi-function module driver <measCompMultiFunctionDoc.html>`__
--  `USB-CTR04/08 driver <measCompUSBCTRDoc.html>`__
--  `USB-4303 driver <measComp4303Doc.html>`__
+Where to find it
+----------------
 
+The software is located in the 
+`measComp github repository <https://github.com/epics-modules/measComp>`__.
+
+Required Modules
+----------------
+
++-----------------+---------------------------------------------------+
+| Required module | Required for                                      |
++=================+===================================================+
+| EPICS base      | Base support                                      |
++-----------------+---------------------------------------------------+
+| asyn            | Driver and device support                         |
++-----------------+---------------------------------------------------+
+| autosave        | Save/restore support                              |
++-----------------+---------------------------------------------------+
+| busy            | Busy record support                               |
++-----------------+---------------------------------------------------+
+| mca             | mca record support.                               |
++-----------------+---------------------------------------------------+
+| scaler          | Scaler record support.                            |
++-----------------+---------------------------------------------------+
+| seq             | State notation language sequencer. Used in MCS    |
+|                 | mode with USB-CTR08 and for std.                  |
++-----------------+---------------------------------------------------+
+
+The required versions of each of the above modules for a specific
+release of measComp can be determined from the
+measComp/configure/RELEASE file.
 
 --------------
 
