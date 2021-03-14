@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'EPICS Modbus'
+project = 'EPICS MeasComp'
 copyright = '2020, Mark Rivers'
 author = 'Mark Rivers'
 
@@ -79,9 +79,9 @@ highlight_language = 'none'
 
 # Breathe configuration
 import os
-#breathe_projects = { "Modbus":
+#breathe_projects = { "measComp":
 #                      os.path.abspath('../doxy_output/xml') }
-#breathe_default_project = "Modbus"
+#breathe_default_project = "measComp"
 #breathe_default_members = ('members', 'undoc-members')
 
 source_encoding = 'utf-8-sig'
@@ -102,7 +102,7 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 # html_theme_options = {}
 html_theme_options = {
     # Navigation bar title. (Default: ``project`` value)
-    'navbar_title': "EPICS Modbus",
+    'navbar_title': "EPICS measComp",
 
     # Tab name for entire site. (Default: "Site")
     'navbar_site_name': "Site",
@@ -189,7 +189,7 @@ html_favicon = 'favicon_t.ico'
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'EPICS-Modbusdoc'
+htmlhelp_basename = 'EPICS-measCompdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -216,7 +216,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'EPICS-Modbus.tex', 'EPICS Modbus Documentation',
+    (master_doc, 'EPICS-measComp.tex', 'EPICS measComp Documentation',
      'Mark Rivers', 'manual'),
 ]
 
@@ -226,7 +226,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'EPIC-Modbus', 'EPICS Modbus Documentation',
+    (master_doc, 'EPIC-measComp', 'EPICS measComp Documentation',
      [author], 1)
 ]
 
@@ -237,8 +237,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'EPICS-Modbus', 'EPICS Modbus Documentation',
-     author, 'EPICS-Modbus', 'EPICS support for Modbus protocol',
+    (master_doc, 'EPICS-measComp', 'EPICS measComp Documentation',
+     author, 'EPICS-measComp', 'EPICS support for measComp protocol',
      'Miscellaneous'),
 ]
 
