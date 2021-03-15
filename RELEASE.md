@@ -36,7 +36,7 @@
     - Fix problem with stopping MCS acquisition.  It was calling cbStopBackground() incorrectly.  This problem
       was introduced in R2-5. 
   - Converted documentation from HTML to Markdown (this document) and ReST (other documentation) on
-    (epics-meascomp.readthedocs.io)[https://epics-meascomp.readthedocs.io/en/latest/].
+    [epics-meascomp.readthedocs.io](https://epics-meascomp.readthedocs.io/en/latest/).
   - Removed support for the USB-4303.  This module is obsolete and has not been available for many years.
     The USB-CTR04/08 should be used instead.
 
