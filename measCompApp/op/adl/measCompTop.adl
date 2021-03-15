@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTop.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=628
 		y=61
 		width=212
-		height=290
+		height=315
 	}
 	clr=14
 	bclr=4
@@ -267,4 +267,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-TEMP"
+}
+"related display" {
+	object {
+		x=30
+		y=285
+		width=150
+		height=20
+	}
+	display[0] {
+		label="E-DIO24 module"
+		name="EDIO24_module.adl"
+		args="P=EDIO24:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd"
+	}
+	clr=14
+	bclr=51
+	label="E-DIO24"
 }
