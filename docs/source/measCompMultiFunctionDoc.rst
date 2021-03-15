@@ -15,7 +15,7 @@ Introduction
 ------------
 
 This is an EPICS_ driver for the
-multi-function devices from Measurement Computing MeasurementComputing_.
+multi-function devices from MeasurementComputing_.
 These multi-function devices support support analog input, 
 temperature input (thermocouple, RTD, thermistor, and semiconductor), 
 analog output, binary I/O, counters, and timers. Not all devices have all of these capabilities.
@@ -1078,15 +1078,19 @@ Box for USB-2408-2A0
 The following photos show a box we built to house the USB-2408-2AO and
 provide I/O connections.
 
+This is the top view.
+
 .. figure:: USB2408_Box_Top.jpg
     :align: center
 
-    **Top view of USB-2408-2A0 box **
+    **Top view of USB-2408-2A0 box**
+
+These are the side views.
 
 .. figure:: USB2408_Box_Sides.jpg
     :align: center
 
-    **Side views of USB-2408-2A0 box **
+    **Side views of USB-2408-2A0 box**
 
 Wiring USB-1608GX-2AO to BCDA BC-020
 ------------------------------------
