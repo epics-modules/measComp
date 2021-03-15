@@ -16,7 +16,7 @@ MultiFunctionConfig("USB_TEMP_1", "1F6335A", $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask USB_TEMP_1 -1 255
 
-dbLoadTemplate("USB_TEMP_AI.substitutions", "P=USB_TEMP_AI:")
+dbLoadTemplate("$(MEASCOMP)/db/USB_TEMP_AI.substitutions", "P=USB_TEMP_AI:")
 
 < ../save_restore.cmd
 
