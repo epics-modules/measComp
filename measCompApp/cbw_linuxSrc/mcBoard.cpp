@@ -138,25 +138,6 @@ int mcBoard::cbAOutScan(int LowChan, int HighChan,
     return NOERRORS;
 }
 
-// Counter functions
-int mcBoard::cbC9513Config(int CounterNum, int GateControl,
-                           int CounterEdge, int CountSource,
-                           int SpecialGate, int Reload, int RecycleMode,
-                           int BCDMode, int CountDirection,
-                           int OutputControl)
-{
-    printf("Function cbC9513Config not supported\n");
-    return NOERRORS;
-}
-
-int mcBoard::cbC9513Init(int ChipNum, int FOutDivider,
-                         int FOutSource, int Compare1, int Compare2,
-                         int TimeOfDay)
-{
-    printf("Function cbC9513Init not supported\n");
-    return NOERRORS;
-}
-
 int mcBoard::cbCIn32(int CounterNum, ULONG *Count)
 {
     printf("cbCIn32 is not supported\n");

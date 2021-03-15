@@ -28,11 +28,6 @@ public:
                            long *Rate, int Gain, HGLOBAL MemHandle, int Options);
 
     // Counter functions
-    virtual int cbC9513Config(int CounterNum, int GateControl, int CounterEdge, int CountSource,
-                              int SpecialGate, int Reload, int RecycleMode,
-                              int BCDMode, int CountDirection, int OutputControl);
-    virtual int cbC9513Init(int ChipNum, int FOutDivider, int FOutSource, int Compare1,
-                            int Compare2,int TimeOfDay);
     virtual int cbCIn32(int CounterNum, ULONG *Count);
     virtual int cbCLoad32(int RegNum, ULONG LoadValue);
     virtual int cbCInScan(int FirstCtr,int LastCtr, LONG Count,

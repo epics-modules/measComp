@@ -21,7 +21,6 @@ endif
 # Link locally-provided code into the support library,
 # rather than directly into the IOC application.
 
-LIB_SRCS += drvC9513.cpp
 LIB_SRCS += drvMultiFunction.cpp
 LIB_SRCS += drvUSBCTR.cpp
 LIB_SRCS += measCompDiscover.cpp

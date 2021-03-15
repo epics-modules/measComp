@@ -325,29 +325,6 @@ int cbAOutScan(int BoardNum, int LowChan, int HighChan,
     return pBoard->cbAOutScan(LowChan, HighChan, Count, Rate, Gain, MemHandle, Options);
 }
 
-
-// Counter functions
-int cbC9513Config(int BoardNum, int CounterNum, int GateControl,
-                  int CounterEdge, int CountSource,
-                  int SpecialGate, int Reload, int RecycleMode,
-                  int BCDMode, int CountDirection,
-                  int OutputControl)
-{
-    if (BoardNum >= (int)boardList.size()) return BADBOARD;
-    mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbC9513Config(CounterNum, GateControl, CounterEdge, CountSource, SpecialGate,
-                                 Reload, RecycleMode, BCDMode, CountDirection, OutputControl);
-}
-
-int cbC9513Init(int BoardNum, int ChipNum, int FOutDivider,
-                int FOutSource, int Compare1, int Compare2,
-                int TimeOfDay)
-{
-    if (BoardNum >= (int)boardList.size()) return BADBOARD;
-    mcBoard *pBoard = boardList[BoardNum];
-    return pBoard->cbC9513Init(ChipNum, FOutDivider, FOutSource, Compare1, Compare2, TimeOfDay);
-}
-
 int cbCIn32(int BoardNum, int CounterNum, ULONG *Count)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
