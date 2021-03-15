@@ -88,15 +88,6 @@ supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
 or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
 inputs.
 
-* The [USB-4303](http://www.mccdaq.com/usb-data-acquisition/USB-4303.aspx).
-This device is a counter/timer module. It contains 2 9513 counter/timer chips, each
-of which contains 5 16-bit counter/timer units. The driver supports independent
-control of each counter/timer unit, but it also supports the EPICS scaler record
-with 4 32-bit counters, a 16-bit preset timer, and one 16-bit counter. The device
-also contains 8 binary outputs, 8 binary inputs, which are supported with standard
-EPICS bi, bo, longin, and longout records. NOTE: This module is obsolete and is
-no longer available. Use the USB-CTR08 instead.
-
 Additional information:
 * [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
 * [Release notes](RELEASE.md)
