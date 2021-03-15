@@ -11,7 +11,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 #                     maxOutputPoints) # Maximum number of output points for waveform generator
 MultiFunctionConfig("USB2408_1", 0, 1048576, 1048576)
 
-dbLoadTemplate("USB2408.substitutions")
+dbLoadTemplate("$(MEASCOMP)/db/USB2408.substitutions", P=USB2408:)
 
 #asynSetTraceMask USB2408_1 -1 255
 
