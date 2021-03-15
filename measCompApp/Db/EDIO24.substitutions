@@ -1,81 +1,78 @@
-
 # this is for E-DIO24 measurement computing.
-
-
 
 file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   MEXDAQEDIO24:,  Li,   0xFFFFFF,  EDIO24_1,     0}
+{R,       MASK,     PORT,    ADDR}
+{Li,   0xFFFFFF,  EDIO24_1,     0}
 
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   MEXDAQEDIO24:,  Bi1,  0x000001   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi2,  0x000002   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi3,  0x000004   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi4,  0x000008   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi5,  0x000010   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi6,  0x000020   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi7,  0x000040   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi8,  0x000080   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi9,  0x000100   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi10,  0x000200   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi11,  0x000400   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi12,  0x000800   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi13,  0x001000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi14,  0x002000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi15,  0x004000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi16,  0x008000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi17,  0x010000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi18,  0x020000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi19,  0x040000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi20,  0x080000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi21,  0x100000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi22,  0x200000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi23,  0x400000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bi24,  0x800000   EDIO24_1,     0}
+{  R,     MASK,     PORT,    ADDR}
+{Bi1,  0x000001   EDIO24_1,     0}
+{Bi2,  0x000002   EDIO24_1,     0}
+{Bi3,  0x000004   EDIO24_1,     0}
+{Bi4,  0x000008   EDIO24_1,     0}
+{Bi5,  0x000010   EDIO24_1,     0}
+{Bi6,  0x000020   EDIO24_1,     0}
+{Bi7,  0x000040   EDIO24_1,     0}
+{Bi8,  0x000080   EDIO24_1,     0}
+{Bi9,  0x000100   EDIO24_1,     0}
+{Bi10,  0x000200   EDIO24_1,     0}
+{Bi11,  0x000400   EDIO24_1,     0}
+{Bi12,  0x000800   EDIO24_1,     0}
+{Bi13,  0x001000   EDIO24_1,     0}
+{Bi14,  0x002000   EDIO24_1,     0}
+{Bi15,  0x004000   EDIO24_1,     0}
+{Bi16,  0x008000   EDIO24_1,     0}
+{Bi17,  0x010000   EDIO24_1,     0}
+{Bi18,  0x020000   EDIO24_1,     0}
+{Bi19,  0x040000   EDIO24_1,     0}
+{Bi20,  0x080000   EDIO24_1,     0}
+{Bi21,  0x100000   EDIO24_1,     0}
+{Bi22,  0x200000   EDIO24_1,     0}
+{Bi23,  0x400000   EDIO24_1,     0}
+{Bi24,  0x800000   EDIO24_1,     0}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   MEXDAQEDIO24:,  Lo,   0xFFFFFF,  EDIO24_1,     0}
+{ R,     MASK,      PORT,    ADDR}
+{Lo,   0xFFFFFF,  EDIO24_1,     0}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   MEXDAQEDIO24:,  Bo1,  0x000001   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo2,  0x000002   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo3,  0x000004   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo4,  0x000008   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo5,  0x000010   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo6,  0x000020   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo7,  0x000040   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo8,  0x000080   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo9,  0x000100   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo10,  0x000200   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo11,  0x000400   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo12,  0x000800   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo13,  0x001000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo14,  0x002000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo15,  0x004000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo16,  0x008000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo17,  0x010000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo18,  0x020000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo19,  0x040000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo20,  0x080000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo21,  0x100000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo22,  0x200000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo23,  0x400000   EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bo24,  0x800000   EDIO24_1,     0}
+{  R,     MASK,     PORT,    ADDR}
+{Bo1,  0x000001   EDIO24_1,     0}
+{Bo2,  0x000002   EDIO24_1,     0}
+{Bo3,  0x000004   EDIO24_1,     0}
+{Bo4,  0x000008   EDIO24_1,     0}
+{Bo5,  0x000010   EDIO24_1,     0}
+{Bo6,  0x000020   EDIO24_1,     0}
+{Bo7,  0x000040   EDIO24_1,     0}
+{Bo8,  0x000080   EDIO24_1,     0}
+{Bo9,  0x000100   EDIO24_1,     0}
+{Bo10,  0x000200   EDIO24_1,     0}
+{Bo11,  0x000400   EDIO24_1,     0}
+{Bo12,  0x000800   EDIO24_1,     0}
+{Bo13,  0x001000   EDIO24_1,     0}
+{Bo14,  0x002000   EDIO24_1,     0}
+{Bo15,  0x004000   EDIO24_1,     0}
+{Bo16,  0x008000   EDIO24_1,     0}
+{Bo17,  0x010000   EDIO24_1,     0}
+{Bo18,  0x020000   EDIO24_1,     0}
+{Bo19,  0x040000   EDIO24_1,     0}
+{Bo20,  0x080000   EDIO24_1,     0}
+{Bo21,  0x100000   EDIO24_1,     0}
+{Bo22,  0x200000   EDIO24_1,     0}
+{Bo23,  0x400000   EDIO24_1,     0}
+{Bo24,  0x800000   EDIO24_1,     0}
 }
 
 # Direction bits on binary I/O
@@ -83,29 +80,29 @@ pattern
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
 {
 pattern
-{    P,       R,   MASK,  VAL,  PORT,    ADDR}
-{   MEXDAQEDIO24:,  Bd1,  0x000001    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd2,  0x000002    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd3,  0x000004    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd4,  0x000008    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd5,  0x000010    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd6,  0x000020    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd7,  0x000040    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd8,  0x000080    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd9,  0x000100    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd10,  0x000200    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd11,  0x000400    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd12,  0x000800    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd13,  0x001000    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd14,  0x002000    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd15,  0x004000    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd16,  0x008000    0,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd17,  0x010000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd18,  0x020000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd19,  0x040000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd20,  0x080000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd21,  0x100000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd22,  0x200000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd23,  0x400000    1,  EDIO24_1,     0}
-{   MEXDAQEDIO24:,  Bd24,  0x800000    1,  EDIO24_1,     0}
+{ R,      MASK,  VAL,    PORT,    ADDR}
+{Bd1,  0x000001    0,  EDIO24_1,     0}
+{Bd2,  0x000002    0,  EDIO24_1,     0}
+{Bd3,  0x000004    0,  EDIO24_1,     0}
+{Bd4,  0x000008    0,  EDIO24_1,     0}
+{Bd5,  0x000010    1,  EDIO24_1,     0}
+{Bd6,  0x000020    1,  EDIO24_1,     0}
+{Bd7,  0x000040    1,  EDIO24_1,     0}
+{Bd8,  0x000080    1,  EDIO24_1,     0}
+{Bd9,  0x000100    0,  EDIO24_1,     0}
+{Bd10,  0x000200    0,  EDIO24_1,     0}
+{Bd11,  0x000400    0,  EDIO24_1,     0}
+{Bd12,  0x000800    0,  EDIO24_1,     0}
+{Bd13,  0x001000    0,  EDIO24_1,     0}
+{Bd14,  0x002000    0,  EDIO24_1,     0}
+{Bd15,  0x004000    0,  EDIO24_1,     0}
+{Bd16,  0x008000    0,  EDIO24_1,     0}
+{Bd17,  0x010000    1,  EDIO24_1,     0}
+{Bd18,  0x020000    1,  EDIO24_1,     0}
+{Bd19,  0x040000    1,  EDIO24_1,     0}
+{Bd20,  0x080000    1,  EDIO24_1,     0}
+{Bd21,  0x100000    1,  EDIO24_1,     0}
+{Bd22,  0x200000    1,  EDIO24_1,     0}
+{Bd23,  0x400000    1,  EDIO24_1,     0}
+{Bd24,  0x800000    1,  EDIO24_1,     0}
 }
