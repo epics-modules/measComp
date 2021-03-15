@@ -17,12 +17,7 @@ TC-32, USB-TEMP, USB-TEMP-AI, and E-DIO24) are supported.
 The multi-function modules support analog
 input and/or output, temperature input (USB-2408-2AO, USB-TEMP, USB-TEMP-AI,
 E-TC, TC-32), digital input/output, pulse counters (all but TC-32), and pulse
-generators (USB-1608G and USB-1608GX-2A0) These drivers are documented
-separately.
-
--  `Multi-function module driver <measCompMultiFunctionDoc.html>`__
--  `USB-CTR04/08 driver <measCompUSBCTRDoc.html>`__
--  `USB-4303 driver <measComp4303Doc.html>`__
+generators (USB-1608G and USB-1608GX-2A0).
 
 This module is supported on both Windows and Linux, 64-bit and 32-bit.
 On Windows it uses the Measurement Computing "Universal Library" (UL),
@@ -37,6 +32,14 @@ only the E-1608, USB-CTR04/08, USB-TEMP, USB-TEMP-AI, E-TC, E-TC32,
 and E-DIO24 models are supported on Linux. 
 Support for other modules is straightforward to add and can be done as the demand arises.
 
+Driver documentation
+--------------------
+
+Each driver is documented separately.
+
+- `Multi-function module driver <measCompMultiFunctionDoc.html>`__
+- `USB-CTR04/08 driver <measCompUSBCTRDoc.html>`__
+- `USB-4303 driver <measComp4303Doc.html>`__
 
 Where to find it
 ----------------
