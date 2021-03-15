@@ -1,54 +1,33 @@
-.. container::
+==================================
+measComp: Driver for the USB-CTR08
+==================================
 
-   .. rubric:: Driver for the Measurement Computing USB-CTR08
-      :name: driver-for-the-measurement-computing-usb-ctr08
+:author: Mark Rivers, University of Chicago
 
-   .. rubric:: December 11, 2020
-      :name: december-11-2020
+.. contents:: Contents
 
-   .. rubric:: Mark Rivers
-      :name: mark-rivers
+.. _EPICS:                 https://epics-controls.org/
+.. _asyn:                  https://github.com/epics-modules/asyn
+.. _MeasurementComputing:  https://www.mccdaq.com
+.. _asynPortDriver:        https://epics-modules.github.io/master/asyn/R4-41/asynPortDriver.html
 
-   .. rubric:: University of Chicago
-      :name: university-of-chicago
-
-Table of Contents
------------------
-
--  `Introduction <#Introduction>`__
--  `Configuration <#Configuration>`__
--  `Databases <#Databases>`__
-
-   -  `Digital I/O Functions <#DigitalIO>`__
-   -  `Pulse Generator Functions <#PulseGen>`__
-   -  `Scaler Record Support <#ScalerSupport>`__
-   -  `Multi-Channel Scaler (MCS) Support <#MCSSupport>`__
-
--  `Wiring <#Wiring>`__
--  `Performance measurements <#Performance>`__
--  `Restrictions <#Restrictions>`__
 
 .. _Introduction:
 
 Introduction
 ------------
 
-This is an `EPICS <http://www.aps.anl.gov/epics>`__ driver for the
-`USB-CTR04 and
-USB-CTR08 <http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx>`__
-counter/timer module from `Measurement
-Computing <http://www.mccdaq.com>`__ The driver is written in C++, and
-consists of a class that inherits from
-`asynPortDriver <http://www.aps.anl.gov/epics/modules/soft/asyn/R4-36/asynPortDriver.html>`__,
-which is part of the EPICS
-`asyn <http://www.aps.anl.gov/epics/modules/soft/asyn>`__ module.
+This is an EPICS_ driver for the
+`USB-CTR04 and USB-CTR08 <http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx>`__
+counter/timer modules from MeasurementComputing_.
 
-.. container::
+The driver is written in C++, and consists of a class that inherits from
+asynPortDriver_, which is part of the EPICS asyn_ module.
 
-   .. rubric:: Photo of USB-CTR08
-      :name: photo-of-usb-ctr08
+.. figure:: USB-CTR08.jpg
+    :align: center
 
-   |USB-CTR08.jpg|
+    **Photo of USB-CTR08**
 
 This module has the following features:
 
@@ -153,228 +132,132 @@ the USB-CTR04/08.
 Digital I/O Functions
 ~~~~~~~~~~~~~~~~~~~~~
 
-EPICS record name
+These are the records defined in the following files:
 
-EPICS record type
+- measCompBinaryIn.template. This database is loaded once for each binary I/O bit.
+- measCompLongIn.template. This database is loaded once for each binary I/O register.
+- measCompBinaryOut.template. This database is loaded once for each binary I/O bit.
+- measCompLongOut.template. This database is loaded once for each binary I/O register.
+- measCompBinaryDir.template. This database is loaded once for each binary I/O bit.
 
-asyn interface
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
 
-drvInfo string
-
-Description
-
-**measCompBinaryIn.template. This database is loaded once for each of
-the 8 binary I/O bits.**
-
-$(P)$(R)
-
-bi
-
-asynUInt32Digital
-
-DIGITAL_INPUT
-
-Digital input value. The MASK parameter in the INP link defines which
-bit is used. The binary inputs are polled by the driver poller thread,
-so these records should have SCAN="I/O Intr".
-
-**measCompLongIn.template. This database is loaded once for each
-module.**
-
-$(P)$(R)
-
-longin
-
-asynUInt32Digital
-
-DIGITAL_INPUT
-
-Digital input value as a word, rather than individual bits. The MASK
-parameter in the INP link defines which bits are used. The binary inputs
-are polled by the driver poller thread, so this record should have
-SCAN="I/O Intr".
-
-**measCompBinaryOut.template. This database is loaded once for each of
-the 8 binary I/O bits.**
-
-$(P)$(R)
-
-bo
-
-asynUInt32Digital
-
-DIGITAL_OUTPUT
-
-Digital output value. The MASK parameter in the INP link defines which
-bit is used.
-
-$(P)$(R)_RBV
-
-bi
-
-asynUInt32Digital
-
-DIGITAL_OUTPUT
-
-Digital output value readback. The MASK parameter in the INP link
-defines which bit is used.
-
-**measCompLongOut.template. This database is loaded once for each
-module.**
-
-$(P)$(R)
-
-longout
-
-asynUInt32Digital
-
-DIGITAL_OUTPUT
-
-Digital output value as a word, rather than individual bits. The MASK
-parameter in the INP link defines which bits are used.
-
-$(P)$(R)_RBV
-
-longin
-
-asynUInt32Digital
-
-DIGITAL_OUTPUT
-
-Digital output value readback as a word, rather than individual bits.
-The MASK parameter in the INP link defines which bits are used.
-
-**measCompBinaryDir.template. This database is loaded once for each of
-the 8 binary I/O bits.**
-
-$(P)$(R)
-
-bo
-
-asynUInt32Digital
-
-DIGITAL_DIRECTION
-
-Direction of this I/O line, "In" (0) or "Out" (1). The MASK parameter in
-the INP link defines which bit is used.
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)$(R)
+    - bi
+    - asynUInt32Digital
+    - DIGITAL_INPUT
+    - Digital input value. The MASK parameter in the INP link defines which bit is used.
+      The binary inputs are polled by the driver poller thread, so these records should
+      have SCAN="I/O Intr".
+  * - $(P)$(R)
+    - longin
+    - asynUInt32Digital
+    - DIGITAL_INPUT
+    - Digital input value as a word, rather than individual bits. The MASK parameter in
+      the INP link defines which bits are used. The binary inputs are polled by the driver
+      poller thread, so this record should have SCAN="I/O Intr".
+  * - $(P)$(R)
+    - bo
+    - asynUInt32Digital
+    - DIGITAL_OUTPUT
+    - Digital output value. The MASK parameter in the INP link defines which bit is used.
+  * - $(P)$(R)_RBV
+    - bi
+    - asynUInt32Digital
+    - DIGITAL_OUTPUT
+    - Digital output value readback. The MASK parameter in the INP link defines which
+      bit is used.
+  * - $(P)$(R)
+    - longout
+    - asynUInt32Digital
+    - DIGITAL_OUTPUT
+    - Digital output value as a word, rather than individual bits. The MASK parameter
+      in the INP link defines which bits are used.
+  * - $(P)$(R)_RBV
+    - longin
+    - asynUInt32Digital
+    - DIGITAL_OUTPUT
+    - Digital output value readback as a word, rather than individual bits. The MASK parameter
+      in the INP link defines which bits are used.
+  * - $(P)$(R)
+    - bo
+    - asynUInt32Digital
+    - DIGITAL_DIRECTION
+    - Direction of this I/O line, "In" (0) or "Out" (1). The MASK parameter in the INP
+      link defines which bit is used.
 
 .. _PulseGen:
 
-Pulse Generator Functions (these are called "timers" in Measurement Computing's documentation)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Pulse Generator Functions 
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**measCompPulseGen.template. This database is loaded once for each of
-the 4 pulse generators.**
+**Note:** These are called "timers" in Measurement Computing's documentation.
 
-EPICS record name
+These are the records defined in measCompPulseGen.template.
+This database is loaded once for each pulse generator.
 
-EPICS record type
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
 
-asyn interface
-
-drvInfo string
-
-Description
-
-$(P)$(R)Run
-
-bo
-
-asynUInt32
-
-PULSE_RUN
-
-"Run" (1) starts the pulse generator, "Stop" (0) stops the pulse
-generator. Note that ideally this record should go back to 0 when the
-pulse generator is done, if it is outputting a finite number of pulses
-(see Count record). But unfortunately the Measurement Computing library
-does not have a way to query the status of the timer to see if it is
-done, so this is not possible.
-
-| $(P)$(R)Period
-| $(P)$(R)Period_RBV
-
-| ao
-| ai
-
-asynFloat64
-
-PULSE_PERIOD
-
-Pulse period, in seconds. The time between pulses can be defined either
-with the Period or with the Frequency; whenever one record is changed
-the other is updated with the new calculated value. The minimum value is
-20.83 ns (48 MHz) and the maximum value is 45.4 seconds. Period_RBV is
-the actual (readback) value which may differ from the requested value
-because the 96 MHz system clock constrains the period to be an integer
-multiple of 10.4166 ns.
-
-| $(P)$(R)Frequency
-| $(P)$(R)Frequency_RBV
-
-| ao
-| calc
-
-N.A.
-
-N.A.
-
-Pulse frequency, in seconds. The Frequency calculates a new value of the
-Period, and sends the period value to the driver. The Frequency_RBV is
-calculated from the Period_RBV value.
-
-| $(P)$(R)Width
-| $(P)$(R)Width_RBV
-
-| ao
-| ai
-
-asynFloat64
-
-PULSE_WIDTH
-
-Pulse width, in seconds. The allowed range is 10.42 ns to (Period-10.42
-ns). Width_RBV is the actual (readback) value which may differ from the
-requested value because the 96 MHz system clock constrains the width to
-be an integer multiple of 10.4166 ns.
-
-| $(P)$(R)Delay
-| $(P)$(R)Delay_RBV
-
-| ao
-| ai
-
-asynFloat64
-
-PULSE_DELAY
-
-Initial pulse delay in seconds after Run is set to 1. Delay_RBV is the
-actual (readback) value which may differ from the requested value
-because the 96 MHz system clock constrains the width to be an integer
-multiple of 10.4166 ns.
-
-$(P)$(R)Count
-
-longout
-
-asynInt32
-
-PULSE_COUNT
-
-Number of pulses to output. If the Count is 0 then the pulse generator
-runs continuously until Run is set to 0.
-
-$(P)$(R)IdleState
-
-bo
-
-asynInt32
-
-PULSE_IDLE_STATE
-
-The idle state of the pulse output line, "Low" (0) or "High" (1). This
-determines the polarity of the pulse, i.e. positive going or negative
-going.
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)$(R)Run
+    - bo
+    - asynUInt32
+    - PULSE_RUN
+    - "Run" (1) starts the pulse generator, "Stop" (0) stops the pulse generator. Note
+      that ideally this record should go back to 0 when the pulse generator is done, if
+      it is outputting a finite number of pulses (see Count record). But unfortunately
+      the Measurement Computing library does not have a way to query the status of the
+      timer to see if it is done, so this is not possible.
+  * - $(P)$(R)Period
+    - ao
+    - asynFloat64
+    - PULSE_PERIOD
+    - Pulse period, in seconds. The time between pulses can be defined either with the
+      Period or with the Frequency; whenever one record is changed the other is updated
+      with the new calculated value.
+  * - $(P)$(R)Frequency
+    - ao
+    - N.A.
+    - N.A.
+    - Pulse frequency, in seconds. The Frequency calculates a new value of the Period,
+      and sends the period value to the driver.
+  * - $(P)$(R)Width
+    - ao
+    - asynFloat64
+    - PULSE_WIDTH
+    - Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).
+  * - $(P)$(R)Delay
+    - ao
+    - asynFloat64
+    - PULSE_DELAY
+    - Initial pulse delay in seconds after Run is set to 1.
+  * - $(P)$(R)Count
+    - longout
+    - asynInt32
+    - PULSE_COUNT
+    - Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
+      until Run is set to 0.
+  * - $(P)$(R)IdleState
+    - bo
+    - asynInt32
+    - PULSE_IDLE_STATE
+    - The idle state of the pulse output line, "Low" (0) or "High" (1). This determines
+      the polarity of the pulse, i.e. positive going or negative going.
 
 .. _ScalerSupport:
 
@@ -456,315 +339,195 @@ following properties:
    that the minimum dwell time can be reached and so the counters don't
    overflow 16-bits for longer dwell times.
 
-**measCompMCS.template. This database is loaded once per module.**
-
-EPICS record name
-
-EPICS record type
-
-asyn interface
-
-drvInfo string
-
-Description
-
-$(P)$(R)SNL_Connected
-
-bi
-
-N.A.
-
-N.A.
-
-This record is 1 ("Connected") if all PVs have connected in the
-USBCTR_SNL State Notation Language program.
-
-$(P)$(R)EraseAll
-
-bo
-
-asynInt32
-
-MCA_ERASE
-
-Erases the MCS data, setting the arrays and the elapsed times to 0.
-
-$(P)$(R)EraseStart
-
-bo
-
-asynInt32
-
-MCA_ERASE
-
-Erases the MCS data and then starts MCS acquisition by forward linking
-to StartAll.
-
-$(P)$(R)StartAll
-
-bo
-
-asynInt32
-
-MCA_START_ACQUIRE
-
-Starts MCS acquisition.
-
-$(P)$(R)Acquiring
-
-busy
-
-N.A.
-
-N.A.
-
-Busy record is 1 ("Acquiring") when MCS is acquiring and 0 ("Done") when
-done..
-
-$(P)$(R)StopAll
-
-bo
-
-asynInt32
-
-MCA_STOP_ACQUIRE
-
-Stops MCS acquisition.
-
-$(P)$(R)PresetReal
-
-ao
-
-asynFloat64
-
-MCA_PRESET_REAL
-
-Preset real time. If non-zero acquisition will stop after this time.
-
-$(P)$(R)ElapsedReal
-
-ai
-
-asynFloat64
-
-MCA_ELAPSED_REAL
-
-Elapsed real time.
-
-$(P)$(R)ReadAll
-
-bo
-
-N.A
-
-N.A.
-
-Forces a read of all of the array data. This is done by the SNL program.
-
-$(P)$(R)NuseAll
-
-longout
-
-asynInt32
-
-MCA_NUM_CHANNELS
-
-The number of time points to acquire.
-
-$(P)$(R)CurrentChannel
-
-longin
-
-asynInt32
-
-MCS_CURRENT_POINT
-
-The current time point in the acquisition.
-
-$(P)$(R)Dwell
-
-ao
-
-asynFloat64
-
-MCA_DWELL_TIME
-
-The dwell time per time point in internal channel advance mode.
-
-$(P)$(R)ChannelAdvance
-
-bo
-
-asynInt32
-
-MCA_CH_ADV_SOURCE
-
-The channel advance source. 0="Internal" uses DWELL record, 1="External"
-uses External Clock Input on USB-CTR module.
-
-$(P)$(R)Prescale
-
-bo
-
-asynInt32
-
-MCA_PRESCALE
-
-The prescale factor for the external channel advance source. To use
-Prescale the external clock must be input to the counter channel
-selected by PrescaleCounter, and the output of the PrescaleCounter
-counter channel must be connected to the External Clock Input. Note that
-due to hardware limitations Prescale must be > 1. For no prescaling the
-external channel advance source must be connected directly to the
-External Clock Input.
-
-$(P)$(R))MCSCounterNEnable (N=1-8)
-
-bo
-
-asynInt32
-
-N.A.
-
-Enable counter N in MCS mode. Choices are "No" (0) and "Yes" (1).
-
-$(P)$(R))MCSDIOEnable
-
-bo
-
-asynInt32
-
-N.A.
-
-Enable collecting digital I/O word in MCS mode. Choices are "No" (0) and
-"Yes" (1).
-
-$(P)$(R)PrescaleCounter
-
-mbbo
-
-asynInt32
-
-MCS_PRESCALE_COUNTER
-
-The counter channel to use for prescaling the external channel advance
-in MCS mode. 0="CNTR0" ... 7="CNTR7".
-
-$(P)$(R)Point0Action
-
-mbbo
-
-asynInt32
-
-MCS_POINT0_ACTION
-
-Controls how the first time point in the MCS scan is handled. The
-USB-CTR always reads the current scaler counts as soon as MCS
-acquisition begins, rather than after the first channel advance occurs.
-This record selects one of the following 3 modes:
-
--  "Clear" (0) In this mode the scalers are cleared to 0 before they are
-   read. This means that the counts in first time point for each counter
-   will be 0.
--  "No clear" (1) In this mode the scalers are not cleared before they
-   are read. This means that there will normally be a large number of
-   counts in the first time point, since the counters will have been
-   counting since they were last cleared.
--  "Skip" (2) In this mode the first time point will be skipped, i.e.
-   not read into the mca or waveform records. The first time point will
-   thus contain the counts after MCS acquisition was started until the
-   first channel advance signal is received, either internal or
-   external. This is probably the mode that will be most useful.
-   However, it does require N+1 channel advance signals rather than N.
-   This is handled by the driver for internal channel advance. But for
-   external channel advance the user must ensure that N+1 pulses are
-   sent. For example if NUseAll=2000 then 2001 pulses must be sent
-   before acquisition will stop.
-
-$(P)$(R)TrigMode
-
-mbbo
-
-asynInt32
-
-TRIGGER_MODE
-
-Controls trigger of the MCS scan. Choices are:
-
--  "Rising edge" (0)
--  "Falling edge" (1)
--  "High level" (2)
--  "Low level" (3)
-
-The trigger can be used to trigger MCS acquisition from an external
-trigger signal. The MCS must be first started with the StartAll record.
-Acquisition will start when the specfied trigger condition is met. The
-MCS acquisition is always done in triggered mode. If triggered
-acquisition is not desired then simply do not connect any signal to the
-Trigger Input and set Mode="Low". This will cause the trigger condition
-to always be satisfied.
-
-$(P)$(R)MaxChannels
-
-longin
-
-asynInt32
-
-MCS_MAX_POINTS
-
-The maximum number of points in MCS arrays. This is determined by the
-value of the MAX_POINTS macro parameter when loading the MCA or waveform
-records.
-
-$(P)$(R)Model
-
-mbbi
-
-asynInt32
-
-MODEL
-
-The model number of the counter module. 0="USB-CRT08", 1="USB-CTR04".
+The following record are defined in measCompMCS.template. This database is loaded once per module.
+
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
+
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)$(R)SNL_Connected
+    - bi
+    - N.A.
+    - N.A.
+    - This record is 1 ("Connected") if all PVs have connected in the USBCTR_SNL State
+      Notation Language program.
+  * - $(P)$(R)EraseAll
+    - bo
+    - asynInt32
+    - MCA_ERASE
+    - Erases the MCS data, setting the arrays and the elapsed times to 0.
+  * - $(P)$(R)EraseStart
+    - bo
+    - asynInt32
+    - MCA_ERASE
+    - Erases the MCS data and then starts MCS acquisition by forward linking to StartAll.
+  * - $(P)$(R)StartAll
+    - bo
+    - asynInt32
+    - MCA_START_ACQUIRE
+    - Starts MCS acquisition.
+  * - $(P)$(R)Acquiring
+    - busy
+    - N.A.
+    - N.A.
+    - Busy record is 1 ("Acquiring") when MCS is acquiring and 0 ("Done") when done..
+  * - $(P)$(R)StopAll
+    - bo
+    - asynInt32
+    - MCA_STOP_ACQUIRE
+    - Stops MCS acquisition.
+  * - $(P)$(R)PresetReal
+    - ao
+    - asynFloat64
+    - MCA_PRESET_REAL
+    - Preset real time. If non-zero acquisition will stop after this time.
+  * - $(P)$(R)ElapsedReal
+    - ai
+    - asynFloat64
+    - MCA_ELAPSED_REAL
+    - Elapsed real time.
+  * - $(P)$(R)ReadAll
+    - bo
+    - N.A
+    - N.A.
+    - Forces a read of all of the array data. This is done by the SNL program.
+  * - $(P)$(R)NuseAll
+    - longout
+    - asynInt32
+    - MCA_NUM_CHANNELS
+    - The number of time points to acquire.
+  * - $(P)$(R)CurrentChannel
+    - longin
+    - asynInt32
+    - MCS_CURRENT_POINT
+    - The current time point in the acquisition.
+  * - $(P)$(R)Dwell
+    - ao
+    - asynFloat64
+    - MCA_DWELL_TIME
+    - The dwell time per time point in internal channel advance mode.
+  * - $(P)$(R)ChannelAdvance
+    - bo
+    - asynInt32
+    - MCA_CH_ADV_SOURCE
+    - The channel advance source. 0="Internal" uses DWELL record, 1="External" uses External
+      Clock Input on USB-CTR module.
+  * - $(P)$(R)Prescale
+    - bo
+    - asynInt32
+    - MCA_PRESCALE
+    - The prescale factor for the external channel advance source. To use Prescale the
+      external clock must be input to the counter channel selected by PrescaleCounter,
+      and the output of the PrescaleCounter counter channel must be connected to the External
+      Clock Input. Note that due to hardware limitations Prescale must be &gt; 1. For
+      no prescaling the external channel advance source must be connected directly to
+      the External Clock Input.
+  * - $(P)$(R))MCSCounterNEnable (N=1-8)
+    - bo
+    - asynInt32
+    - N.A.
+    - Enable counter N in MCS mode. Choices are "No" (0) and "Yes" (1).
+  * - $(P)$(R))MCSDIOEnable
+    - bo
+    - asynInt32
+    - N.A.
+    - Enable collecting digital I/O word in MCS mode. Choices are "No" (0) and "Yes" (1).
+  * - $(P)$(R)PrescaleCounter
+    - mbbo
+    - asynInt32
+    - MCS_PRESCALE_COUNTER
+    - The counter channel to use for prescaling the external channel advance in MCS mode.
+      0="CNTR0" ... 7="CNTR7".
+  * - $(P)$(R)Point0Action
+    - mbbo
+    - asynInt32
+    - MCS_POINT0_ACTION
+    - Controls how the first time point in the MCS scan is handled. The USB-CTR always
+      reads the current scaler counts as soon as MCS acquisition begins, rather than after
+      the first channel advance occurs. This record selects one of the following 3 modes:
+
+      - "Clear" (0) In this mode the scalers are cleared to 0 before they are read. This
+        means that the counts in first time point for each counter will be 0.
+
+      - "No clear" (1) In this mode the scalers are not cleared before they are read.
+        This means that there will normally be a large number of counts in the first time
+        point, since the counters will have been counting since they were last cleared.
+
+      - "Skip" (2) In this mode the first time point will be skipped, i.e. not read into
+        the mca or waveform records. The first time point will thus contain the counts after
+        MCS acquisition was started until the first channel advance signal is received,
+        either internal or external. This is probably the mode that will be most useful.
+        However, it does require N+1 channel advance signals rather than N. This is handled
+        by the driver for internal channel advance. But for external channel advance the
+        user must ensure that N+1 pulses are sent. For example if NUseAll=2000 then 2001
+        pulses must be sent before acquisition will stop.
+
+  * - $(P)$(R)TrigMode
+    - mbbo
+    - asynInt32
+    - TRIGGER_MODE
+    - Controls trigger of the MCS scan. Choices are:
+
+      - "Rising edge" (0)
+      - "Falling edge" (1)
+      - "High level" (2)
+      - "Low level" (3)
+
+      The trigger can be used to trigger MCS acquisition from an external trigger signal.
+      The MCS must be first started with the StartAll record. Acquisition will start when
+      the specfied trigger condition is met. The MCS acquisition is always done in triggered
+      mode. If triggered acquisition is not desired then simply do not connect any signal
+      to the Trigger Input and set Mode="Low". This will cause the trigger condition to
+      always be satisfied.
+  * - $(P)$(R)MaxChannels
+    - longin
+    - asynInt32
+    - MCS_MAX_POINTS
+    - The maximum number of points in MCS arrays. This is determined by the value of the
+      MAX_POINTS macro parameter when loading the MCA or waveform records.
+  * - $(P)$(R)Model
+    - mbbi
+    - asynInt32
+    - MODEL
+    - The model number of the counter module. 0="USB-CRT08", 1="USB-CTR04".
 
 medm screens
 ~~~~~~~~~~~~
 
 The following is the main medm screen for controlling the USB-CTR04/08.
 
-.. container::
+.. figure:: USBCTR.png
+    :align: center
 
-   .. rubric:: USBCTR.adl
-      :name: usbctr.adl
-
-   |USBCTR.png|
+    **USBCTR.adl**
 
 The following is the medm screen for the EPICS scaler record using the
 USB-CTR04/08.
 
-.. container::
+.. figure:: USBCTR_scaler.png
+    :align: center
 
-   .. rubric:: scaler_full.adl
-      :name: scaler_full.adl
-
-   |USBCTR_scaler.png|
-
+    **scaler_full.adl**
+    
 The following is the medm screen for controlling the MCS mode of the
 USB-CTR04/08.
 
-.. container::
+.. figure:: USBCTR_MCS.png
+    :align: center
 
-   .. rubric:: USBCTR_MCS.adl
-      :name: usbctr_mcs.adl
+    **USBCTR_MCS.adl**
 
-   |USBCTR_MCS.png|
+.. figure:: USBCTR_MCS_plots.png
+    :align: center
 
-.. container::
-
-   .. rubric:: USBCTR_MCS_8_plots.adl
-      :name: usbctr_mcs_8_plots.adl
-
-   |USBCTR_MCS_plots.png|
-
+    **USBCTR_MCS_plots.adl**
+    
 .. _Wiring:
 
 Wiring to BCDA BC-020 LEMO Breakout Panels
@@ -775,17 +538,20 @@ the USB-CTR08. A BC-020 with a BC-087 daughter card (left) is used for
 the 8 counter signals, and a BC-020 with wire-wrapping (right) is used
 for digital I/O, timer output, clock I/O, etc. .
 
-.. container::
+.. figure:: USBCTR_BC020.jpg
+    :align: center
 
-   .. rubric:: BC-020 LEMO breakout panels with USBCTR-08
-      :name: bc-020-lemo-breakout-panels-with-usbctr-08
+    **BC-020 LEMO breakout panels with USBCTR-08**
 
-   |USBCTR_BC020.jpg| |USBCTR_Top.jpg|
+.. figure:: USBCTR_Top.jpg
+    :align: center
+
+    **Top view of USBCTR-08 with BC-020 LEMO breakout panels**
 
 .. _USB-CTR08_wiring:
 
-USB-CTR08 Wiring to Two BCDA BC-020 LEMO Breakout Panels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wiring table
+~~~~~~~~~~~~
 
 ::
 
@@ -961,11 +727,3 @@ Restrictions
 | Suggestions and Comments to:
 | `Mark Rivers <mailto:rivers@cars.uchicago.edu>`__ :
   (rivers@cars.uchicago.edu)
-
-.. |USB-CTR08.jpg| image:: USB-CTR08.jpg
-.. |USBCTR.png| image:: USBCTR.png
-.. |USBCTR_scaler.png| image:: USBCTR_scaler.png
-.. |USBCTR_MCS.png| image:: USBCTR_MCS.png
-.. |USBCTR_MCS_plots.png| image:: USBCTR_MCS_plots.png
-.. |USBCTR_BC020.jpg| image:: USBCTR_BC020.jpg
-.. |USBCTR_Top.jpg| image:: USBCTR_Top.jpg
