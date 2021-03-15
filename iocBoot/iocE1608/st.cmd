@@ -19,7 +19,7 @@ MultiFunctionConfig("E1608_1", "00:80:2F:24:53:DE", $(INPUT_POINTS), $(OUTPUT_PO
 
 #asynSetTraceMask E1608_1 -1 255
 
-dbLoadTemplate("E1608.substitutions", P=E1608:)
+dbLoadTemplate("$(MEASCOMP)/db/E1608.substitutions", P=E1608:)
 
 < ../save_restore.cmd
 
