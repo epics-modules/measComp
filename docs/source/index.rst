@@ -10,16 +10,16 @@ Introduction
 ------------
 
 This package provides EPICS drivers for the some of the USB and Ethernet
-I/O modules from Measurement Computing. Currently the USB-CTR04/08 and
-USB-4303 counter/timer, and multi-function modules (E-1608, USB-1208LS,
-USB-1208FS, USB-1608G, USB-1608GX-2A0, USB-231, USB-2408-2A0, E-TC,
-TC-32, USB-TEMP, USB-TEMP-AI, and E-DIO24) are supported. 
-The multi-function modules support analog
-input and/or output, temperature input (USB-2408-2AO, USB-TEMP, USB-TEMP-AI,
-E-TC, TC-32), digital input/output, pulse counters (all but TC-32), and pulse
-generators (USB-1608G and USB-1608GX-2A0).
+I/O modules from Measurement Computing. Currently the USB-CTR04/08, 
+and multi-function modules (E-1608, USB-1208LS, USB-1208FS, USB-1608G, 
+USB-1608GX-2A0, USB-231, USB-2408-2A0, E-TC, TC-32, USB-TEMP, USB-TEMP-AI,
+and E-DIO24) are supported. 
+The multi-function modules support analog input and/or output, temperature input
+(USB-2408-2AO, USB-TEMP, USB-TEMP-AI, E-TC, TC-32), digital input/output, 
+pulse counters (all but TC-32), and pulse generators (USB-1608G and USB-1608GX-2A0).
 
 This module is supported on both Windows and Linux, 64-bit and 32-bit.
+
 On Windows it uses the Measurement Computing "Universal Library" (UL),
 which is only available on Windows. 
 
@@ -39,7 +39,6 @@ Each driver is documented separately.
 
 - `Multi-function module driver <measCompMultiFunctionDoc.html>`__
 - `USB-CTR04/08 driver <measCompUSBCTRDoc.html>`__
-- `USB-4303 driver <measComp4303Doc.html>`__
 
 Where to find it
 ----------------
