@@ -4,8 +4,10 @@
 dbLoadDatabase "../../dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet(INPUT_POINTS, "4096")
-epicsEnvSet(OUTPUT_POINTS, "4096")
+epicsEnvSet("PREFIX",        "USB2408:")
+epicsEnvSet("PORT",          "USB2401_1")
+epicsEnvSet("WDIG_POINTS",   "2048")
+epicsEnvSet("UNIQUE_ID",     "00:80:2F:24:53:DE")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
@@ -15,19 +17,19 @@ epicsEnvSet(OUTPUT_POINTS, "4096")
 # This is an E-1608 using its IP address. This will work even if the device is on a different subnet from the IOC.
 #MultiFunctionConfig("E1608_1", "10.54.160.216", $(INPUT_POINTS), $(OUTPUT_POINTS))
 # This is an E-1608 using its MAC address.  This will only work if the device is on the same subnet as the IOC.
-MultiFunctionConfig("E1608_1", "00:80:2F:24:53:DE", $(INPUT_POINTS), $(OUTPUT_POINTS))
+MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", $(WDIG_POINTS), 1)
 
 #asynSetTraceMask E1608_1 -1 255
 
-dbLoadTemplate("$(MEASCOMP)/db/E1608.substitutions", P=E1608:)
+dbLoadTemplate("$(MEASCOMP)/db/E1608.substitutions", "P=$(PREFIX),PORT=$(PORT),WDIG_POINTS=$(WDIG_POINTS)")
 
 < ../save_restore.cmd
 
 iocInit
 
-create_monitor_set("auto_settings.req",30)
+create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
 
 # Need to force the time arrays to process because the records are scan=I/O Intr
 # but asynPortDriver does not do array callbacks before iocInit.
 
-dbpf E1608:WaveDigDwell.PROC 1
+dbpf $(PREFIX)WaveDigDwell.PROC 1
