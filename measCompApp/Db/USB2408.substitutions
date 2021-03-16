@@ -64,6 +64,14 @@ pattern
 {Counter2,  USB2408_1,      1}
 }
 
+# Analog input mode
+file "$(MEASCOMP)/db/measCompAnalogInMode.template"
+{
+pattern
+{  R,        PORT,    ADDR,   MODE}
+{AiMode,  USB2408_1,     0,      0}
+}
+
 # Analog inputs
 file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
