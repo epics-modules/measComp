@@ -5,13 +5,13 @@ dbLoadDatabase "../../dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
 # Configure port driver
-# MultiFunctionConfig(portName,        # The name to give to this asyn port driver
-#                     boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
-#                     maxInputPoints,  # Maximum number of input points for waveform digitizer
-#                     maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("USB1208_1", 0, 1048576, 1048576)
+# MultiFunctionConfig((portName,        # The name to give to this asyn port driver
+#                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
+#                      maxInputPoints,  # Maximum number of input points for waveform digitizer
+#                      maxOutputPoints) # Maximum number of output points for waveform generator
+MultiFunctionConfig("USB1208_1", "123456", 1048576, 1048576)
 
-dbLoadTemplate("USB1208.substitutions")
+dbLoadTemplate("$(MEASCOMP)/db/USB1208.substitutions", "P=USB1208:")
 
 #asynSetTraceMask USB1208_1 -1 255
 
