@@ -30,12 +30,19 @@
     - These support reading temperature with RTD, thermocouple, thermistor, and semiconductor sensors.  
     - The USB-TEMP supports up to 8 temperature inputs.
     - The USB-TEMP-AI supports up to 4 temperature inputs and 4 24-bit voltage inputs.
-  - E-1608
+  - E-1608, USB-2408, XXX
     - Added support for AiMode record to select Differential or Single-ended mode.
   - USB-CTR04/08
     - Fix problem with stopping MCS acquisition.  It was calling cbStopBackground() incorrectly.  This problem
-      was introduced in R2-5. 
-  - Converted documentation from HTML to Markdown (this document) and ReST (other documentation) on
+      was introduced in R2-5.
+  - iocBoot st.cmd and .substitutions files
+    - Changed all of the .substitutions files to remove the P (prefix) macro. This makes these files site-independent.
+    - The P macro must now be passed in the dbLoadTemplate command in st.cmd.
+    - The .substitutions files have been moved to measCompApp/Db, from which they are installed in the measComp/db.
+    - This means that most sites can now use the distributed .substitutions files directly, rather than needing to
+      edit them in the local iocBoot directory.  The only time this is not true is if sites want to use different
+      names for the ai, bi, etc. records rather than simply a different prefix.
+  - Converted documentation from HTML to Markdown (this document) and ReST (other documentation) at
     [epics-meascomp.readthedocs.io](https://epics-meascomp.readthedocs.io/en/latest/).
   - Removed support for the USB-4303.  This module is obsolete and has not been available for many years.
     The USB-CTR04/08 should be used instead.
