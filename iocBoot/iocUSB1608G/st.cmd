@@ -16,8 +16,7 @@ MultiFunctionConfig("1608G_1", 0, $(INPUT_POINTS), $(OUTPUT_POINTS))
 
 #asynSetTraceMask 1608G_1 -1 255
 
-dbLoadTemplate("1608G.substitutions.small")
-#dbLoadTemplate("1608G.substitutions.big")
+dbLoadTemplate("$(MEASCOMP)/db/USB1608G.substitutions","P=USB1608G:,MAX_POINTS=$(INPUT_POINTS)")
 
 < ../save_restore.cmd
 
