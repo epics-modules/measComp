@@ -1,81 +1,81 @@
-file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   USBCTR:,  Li,   0xFF,  USBCTR,     0}
+{ R,   MASK,   PORT,   ADDR}
+{Li,   0xFF,  USBCTR,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   USBCTR:,  Bi1,  0x01   USBCTR,     0}
-{   USBCTR:,  Bi2,  0x02   USBCTR,     0}
-{   USBCTR:,  Bi3,  0x04   USBCTR,     0}
-{   USBCTR:,  Bi4,  0x08   USBCTR,     0}
-{   USBCTR:,  Bi5,  0x10   USBCTR,     0}
-{   USBCTR:,  Bi6,  0x20   USBCTR,     0}
-{   USBCTR:,  Bi7,  0x40   USBCTR,     0}
-{   USBCTR:,  Bi8,  0x80   USBCTR,     0}
+{ R,   MASK,   PORT,   ADDR}
+{Bi1,  0x01   USBCTR,     0}
+{Bi2,  0x02   USBCTR,     0}
+{Bi3,  0x04   USBCTR,     0}
+{Bi4,  0x08   USBCTR,     0}
+{Bi5,  0x10   USBCTR,     0}
+{Bi6,  0x20   USBCTR,     0}
+{Bi7,  0x40   USBCTR,     0}
+{Bi8,  0x80   USBCTR,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   USBCTR:,  Lo,   0xFF,  USBCTR,     0}
+{ R,   MASK,    PORT,    ADDR}
+{Lo,   0xFF,  USBCTR,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{    P,       R,   MASK,   PORT,    ADDR}
-{   USBCTR:,  Bo1,  0x01   USBCTR,     0}
-{   USBCTR:,  Bo2,  0x02   USBCTR,     0}
-{   USBCTR:,  Bo3,  0x04   USBCTR,     0}
-{   USBCTR:,  Bo4,  0x08   USBCTR,     0}
-{   USBCTR:,  Bo5,  0x10   USBCTR,     0}
-{   USBCTR:,  Bo6,  0x20   USBCTR,     0}
-{   USBCTR:,  Bo7,  0x40   USBCTR,     0}
-{   USBCTR:,  Bo8,  0x80   USBCTR,     0}
+{ R,   MASK,   PORT,   ADDR}
+{Bo1,  0x01   USBCTR,     0}
+{Bo2,  0x02   USBCTR,     0}
+{Bo3,  0x04   USBCTR,     0}
+{Bo4,  0x08   USBCTR,     0}
+{Bo5,  0x10   USBCTR,     0}
+{Bo6,  0x20   USBCTR,     0}
+{Bo7,  0x40   USBCTR,     0}
+{Bo8,  0x80   USBCTR,     0}
 }
 
 # Direction bits on binary I/O
 #  VAL 0=input, 1=output
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
+file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{    P,       R,   MASK,  VAL,  PORT,    ADDR}
-{   USBCTR:,  Bd1,  0x01    0,  USBCTR,     0}
-{   USBCTR:,  Bd2,  0x02    0,  USBCTR,     0}
-{   USBCTR:,  Bd3,  0x04    0,  USBCTR,     0}
-{   USBCTR:,  Bd4,  0x08    0,  USBCTR,     0}
-{   USBCTR:,  Bd5,  0x10    1,  USBCTR,     0}
-{   USBCTR:,  Bd6,  0x20    1,  USBCTR,     0}
-{   USBCTR:,  Bd7,  0x40    1,  USBCTR,     0}
-{   USBCTR:,  Bd8,  0x80    1,  USBCTR,     0}
+{ R,   MASK,  VAL,  PORT,   ADDR}
+{Bd1,  0x01    0,  USBCTR,     0}
+{Bd2,  0x02    0,  USBCTR,     0}
+{Bd3,  0x04    0,  USBCTR,     0}
+{Bd4,  0x08    0,  USBCTR,     0}
+{Bd5,  0x10    1,  USBCTR,     0}
+{Bd6,  0x20    1,  USBCTR,     0}
+{Bd7,  0x40    1,  USBCTR,     0}
+{Bd8,  0x80    1,  USBCTR,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompPulseGen.template"
+file "$(MEASCOMP)/db/measCompPulseGen.template"
 {
 pattern
-{     P,         R,        PORT,    ADDR,  PREC}
-{   USBCTR:,  PulseGen1,  USBCTR,      0,     4}
-{   USBCTR:,  PulseGen2,  USBCTR,      1,     4}
-{   USBCTR:,  PulseGen3,  USBCTR,      2,     4}
-{   USBCTR:,  PulseGen4,  USBCTR,      3,     4}
+{    R,        PORT,   ADDR,  PREC}
+{PulseGen1,  USBCTR,      0,     4}
+{PulseGen2,  USBCTR,      1,     4}
+{PulseGen3,  USBCTR,      2,     4}
+{PulseGen4,  USBCTR,      3,     4}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompCounter.template"
+file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{     P,         R,       PORT,    ADDR}
-{   USBCTR:,  Counter1,  USBCTR,      0}
-{   USBCTR:,  Counter2,  USBCTR,      1}
-{   USBCTR:,  Counter3,  USBCTR,      2}
-{   USBCTR:,  Counter4,  USBCTR,      3}
-{   USBCTR:,  Counter5,  USBCTR,      4}
-{   USBCTR:,  Counter6,  USBCTR,      5}
-{   USBCTR:,  Counter7,  USBCTR,      6}
-{   USBCTR:,  Counter8,  USBCTR,      7}
+{    R,       PORT,   ADDR}
+{Counter1,  USBCTR,      0}
+{Counter2,  USBCTR,      1}
+{Counter3,  USBCTR,      2}
+{Counter4,  USBCTR,      3}
+{Counter5,  USBCTR,      4}
+{Counter6,  USBCTR,      5}
+{Counter7,  USBCTR,      6}
+{Counter8,  USBCTR,      7}
 }
