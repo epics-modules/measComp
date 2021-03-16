@@ -25,13 +25,13 @@ USBCTRConfig("$(PORT)", "1E538A2", 2048, .01)
 
 #asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACE_FLOW|TRACEIO_DRIVER)
 
-dbLoadTemplate("USBCTR.substitutions")
+dbLoadTemplate("$(MEASCOMP)/db/USBCTR.substitutions", "P=USBCTR:")
 
 # This loads the scaler record and supporting records
 dbLoadRecords("$(SCALER)/db/scaler.db", "P=USBCTR:, S=scaler1, DTYP=Asyn Scaler, OUT=@asyn(USBCTR), FREQ=10000000")
 
 # This database provides the support for the MCS functions
-dbLoadRecords("$(MEASCOMP)/measCompApp/Db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT), MAX_POINTS=$(MAX_POINTS)")
+dbLoadRecords("$(MEASCOMP)/db/measCompMCS.template", "P=$(PREFIX), PORT=$(PORT), MAX_POINTS=$(MAX_POINTS)")
 
 # Load either MCA or waveform records below
 # The number of records loaded must be the same as MAX_COUNTERS defined above
@@ -69,4 +69,4 @@ iocInit
 
 seq(USBCTR_SNL, "P=$(PREFIX), R=$(RNAME), NUM_COUNTERS=$(MAX_COUNTERS), FIELD=$(FIELD)")
 
-create_monitor_set("auto_settings.req",30)
+create_monitor_set("auto_settings.req",30,"P=USBCTR:")
