@@ -1,14 +1,13 @@
 < envPaths
 
 ## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "TC32:")
 epicsEnvSet("PORT",          "TC32_1")
 epicsEnvSet("UNIQUE_ID",     "10.54.160.20")
 
-# Configure port driver
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
 #                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
@@ -16,10 +15,9 @@ epicsEnvSet("UNIQUE_ID",     "10.54.160.20")
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
 MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
-dbLoadTemplate("$(MEASCOMP)/db/TC32.substitutions", "P=$(PREFIX),PORT=$(PORT)")
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
-asynSetTraceIOMask TC32_1 -1 2
-#asynSetTraceMask TC32_1 -1 255
+dbLoadTemplate("$(MEASCOMP)/db/TC32.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 

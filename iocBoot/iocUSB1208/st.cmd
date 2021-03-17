@@ -1,23 +1,23 @@
 < envPaths
 
 ## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "USB1208:")
 epicsEnvSet("PORT",          "USB1208_1")
 epicsEnvSet("UNIQUE_ID",     "123456")
 
-# Configure port driver
+## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
 #                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
 MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
-dbLoadTemplate("$(MEASCOMP)/db/USB1208.substitutions", "P=$(PREFIX),PORT=$(PORT)")
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
-#asynSetTraceMask USB1208_1 -1 255
+dbLoadTemplate("$(MEASCOMP)/db/USB1208.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 

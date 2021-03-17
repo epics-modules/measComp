@@ -1,7 +1,11 @@
 < envPaths
 
+## Register all support components
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
+measCompApp_registerRecordDeviceDriver pdbbase
+
 epicsEnvSet("PREFIX",                   "USBCTR:")
-epicsEnvSet("PORT",                     "USB1208_1")
+epicsEnvSet("PORT",                     "USBCTR_1")
 epicsEnvSet("UNIQUE_ID",                "1E538A2")
 epicsEnvSet("MCS_PREFIX",               "$(PREFIX)MCS:")
 epicsEnvSet("RNAME",                    "mca")
@@ -11,10 +15,6 @@ epicsEnvSet("POLL_TIME",                "0.01")
 epicsEnvSet("PORT",                     "USBCTR")
 # For MCA records FIELD=READ, for waveform records FIELD=PROC
 epicsEnvSet("FIELD",                    "PROC")
-
-## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
-measCompApp_registerRecordDeviceDriver pdbbase
 
 ## Set the minimum sleep time to 1 ms
 asynSetMinTimerPeriod(0.001)
@@ -26,9 +26,9 @@ asynSetMinTimerPeriod(0.001)
 #              pollTime,       # Time to sleep between polls
 USBCTRConfig("$(PORT)", "$(UNIQUE_ID", $(MAX_POINTS), $(POLL_TIME))
 
-#asynSetTraceMask($(PORT), 0, TRACE_ERROR|TRACE_FLOW|TRACEIO_DRIVER)
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
-dbLoadTemplate("$(MEASCOMP)/db/USBCTR.substitutions", "P=USBCTR:, PORT=$(PORT)")
+dbLoadTemplate("$(MEASCOMP)/db/USBCTR.substitutions", "P=$(PREFIX), PORT=$(PORT)")
 
 # This loads the scaler record and supporting records
 dbLoadRecords("$(SCALER)/db/scaler.db", "P=$(PREFIX), S=scaler1, DTYP=Asyn Scaler, OUT=@asyn(USBCTR), FREQ=10000000")
@@ -61,13 +61,7 @@ dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(MCS_PREFIX), R=
 dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(MCS_PREFIX), R=$(RNAME)8,  INP=@asyn($(PORT) 7),  CHANS=$(MAX_POINTS)")
 dbLoadRecords("$(MCA)/mcaApp/Db/SIS38XX_waveform.template", "P=$(MCS_PREFIX), R=$(RNAME)9,  INP=@asyn($(PORT) 8),  CHANS=$(MAX_POINTS)")
 
-asynSetTraceIOMask($(PORT),0,ESCAPE)
-#asynSetTraceMaek($(PORT),0,ERROR|DRIVER)
-#asynSetTraceFile("$(PORT)",0,"USBCTR.out")
-
 < ../save_restore.cmd
-save_restoreSet_status_prefix($(PREFIX))
-dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
 
 iocInit
 

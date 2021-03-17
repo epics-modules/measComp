@@ -1,26 +1,26 @@
 < envPaths
 
 ## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet(INPUT_POINTS, "4096")
-epicsEnvSet(OUTPUT_POINTS, "4096")
+epicsEnvSet("PREFIX",        "ETC:")
+epicsEnvSet("PORT",          "ETC_1")
+epicsEnvSet("UNIQUE_ID",     "10.54.160.218")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
 #                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("ETC_1", "10.54.160.218", $(INPUT_POINTS), $(OUTPUT_POINTS))
+MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
-#asynSetTraceMask ETC_1 -1 255
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
-dbLoadTemplate("$(MEASCOMP)/db/ETC.substitutions", P=ETC:)
+dbLoadTemplate("$(MEASCOMP)/db/ETC.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 
 iocInit
 
-create_monitor_set("auto_settings.req",30)
-
+create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")

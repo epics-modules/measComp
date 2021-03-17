@@ -1,7 +1,7 @@
 < envPaths
 
 ## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "USB2408:")
@@ -19,7 +19,7 @@ epicsEnvSet("UNIQUE_ID",     "00:80:2F:24:53:DE")
 # This is an E-1608 using its MAC address.  This will only work if the device is on the same subnet as the IOC.
 MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", $(WDIG_POINTS), 1)
 
-#asynSetTraceMask E1608_1 -1 255
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
 dbLoadTemplate("$(MEASCOMP)/db/E1608.substitutions", "P=$(PREFIX),PORT=$(PORT),WDIG_POINTS=$(WDIG_POINTS)")
 

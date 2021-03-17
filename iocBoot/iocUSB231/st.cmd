@@ -1,25 +1,29 @@
 < envPaths
 
 ## Register all support components
-dbLoadDatabase "../../dbd/measCompApp.dbd"
+dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-# Configure port driver
-# MultiFunctionConfig(portName,        # The name to give to this asyn port driver
-#                     boardNum,        # The number of this board assigned by the Measurement Computing Instacal program 
-#                     maxInputPoints,  # Maximum number of input points for waveform digitizer
-#                     maxOutputPoints) # Maximum number of output points for waveform generator
-MultiFunctionConfig("USB231_1", 0, 1048576, 1048576)
+epicsEnvSet("PREFIX",        "USB231:")
+epicsEnvSet("PORT",          "USB231_1")
+epicsEnvSet("UNIQUE_ID",     "123456")
 
-dbLoadTemplate("USB231.substitutions")
+## Configure port driver
+# MultiFunctionConfig((portName,        # The name to give to this asyn port driver
+#                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
+#                      maxInputPoints,  # Maximum number of input points for waveform digitizer
+#                      maxOutputPoints) # Maximum number of output points for waveform generator
+MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
-#asynSetTraceMask USB231_1 -1 255
+#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
+
+dbLoadTemplate("$(MEASCOMP)/db/USB231.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 
 iocInit
 
-create_monitor_set("auto_settings.req",30)
+create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
 
 # Seem to need to process binary direction records to get them to work
-dbpf USB231:Bd1.PROC 1
+dbpf $(PREFIX)Bd1.PROC 1
