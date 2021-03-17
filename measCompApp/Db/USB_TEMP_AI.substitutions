@@ -85,6 +85,13 @@ pattern
 {Ti4,    3}
 }
 
+# Analog input mode
+file "$(MEASCOMP)/db/measCompAnalogInMode.template"
+{
+pattern
+{  R,       ADDR,   MODE}
+{AiMode,       0,      0}
+}
 
 # Analog inputs
 file "$(MEASCOMP)/db/measCompVoltageIn.template"

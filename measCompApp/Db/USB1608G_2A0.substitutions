@@ -71,6 +71,14 @@ pattern
 {Counter2,     1}
 }
 
+# Analog input mode
+file "$(MEASCOMP)/db/measCompAnalogInMode.template"
+{
+pattern
+{  R,       ADDR,   MODE}
+{AiMode,       0,      0}
+}
+
 # Analog inputs
 file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
