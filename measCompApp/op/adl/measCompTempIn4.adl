@@ -1,0 +1,421 @@
+
+file {
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTempIn4.adl"
+	version=030109
+}
+display {
+	object {
+		x=2109
+		y=266
+		width=295
+		height=165
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=0
+		y=0
+		width=295
+		height=165
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
+	}
+}
+"message button" {
+	object {
+		x=213
+		y=35
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)1.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=213
+		y=60
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)2.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=213
+		y=85
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)3.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=213
+		y=110
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)4.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+menu {
+	object {
+		x=118
+		y=35
+		width=90
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)1.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=118
+		y=60
+		width=90
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)2.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=118
+		y=85
+		width=90
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)3.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=118
+		y=110
+		width=90
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti)4.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=35
+		width=90
+		height=20
+	}
+	monitor {
+		chan="$(P)$(Ti)1"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=60
+		width=90
+		height=20
+	}
+	monitor {
+		chan="$(P)$(Ti)2"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=85
+		width=90
+		height=20
+	}
+	monitor {
+		chan="$(P)$(Ti)3"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=110
+		width=90
+		height=20
+	}
+	monitor {
+		chan="$(P)$(Ti)4"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=8
+		y=35
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=60
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=85
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="3"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=110
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="4"
+	align="horiz. right"
+}
+text {
+	object {
+		x=45
+		y=5
+		width=204
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Temperature input"
+	align="horiz. right"
+}
+composite {
+	object {
+		x=43
+		y=135
+		width=211
+		height=20
+	}
+	"composite name"=""
+	children {
+		"related display" {
+			object {
+				x=43
+				y=135
+				width=113
+				height=20
+			}
+			display[0] {
+				label="Input 1"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)1"
+			}
+			display[1] {
+				label="Input 2"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)2"
+			}
+			display[2] {
+				label="Input 3"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)3"
+			}
+			display[3] {
+				label="Input 4"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)4"
+			}
+			display[4] {
+				label="Input 5"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)5"
+			}
+			display[5] {
+				label="Input 6"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)6"
+			}
+			display[6] {
+				label="Input 7"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)7"
+			}
+			display[7] {
+				label="Input 8"
+				name="measCompADCStripChart.adl"
+				args="ADC=$(P)$(Ti)8"
+			}
+			clr=14
+			bclr=51
+			label="Strip charts"
+		}
+		"related display" {
+			object {
+				x=161
+				y=135
+				width=93
+				height=20
+			}
+			display[0] {
+				label="Input 1"
+				name="measCompTemperatureSetup.adl"
+				args="P=$(P),Ai=$(Ai),Ti0=$(Ti)1,Ti1=$(Ti)2,Ti2=$(Ti)3,Ti3=$(Ti)4,Ti4=$(Ti)5,Ti5=$(Ti)6,Ti6=$(Ti)7,Ti7=$(Ti)8"
+			}
+			clr=14
+			bclr=51
+			label="Configure"
+		}
+	}
+}
