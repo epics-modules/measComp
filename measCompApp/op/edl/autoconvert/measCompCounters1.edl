@@ -1,0 +1,164 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 2004
+y 410
+w 220
+h 60
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-bold-r-10.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor rgb 47872 47872 47872
+textColor rgb 0 0 0
+ctlFgColor1 rgb 64256 62208 18944
+ctlFgColor2 rgb 60928 46592 11008
+ctlBgColor1 rgb 52480 24832 0
+ctlBgColor2 rgb 65280 45056 65280
+topShadowColor rgb 44544 19968 48128
+botShadowColor rgb 13312 13056 34304
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 220
+h 60
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -1
+y 35
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "1"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 25
+y 36
+w 100
+h 18
+controlPv "$(P)$(Ct)1Counts"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 62
+y 4
+w 96
+h 25
+font "helvetica-medium-r-18.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Counter"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 219
+h 59
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 220
+h 60
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 135
+y 35
+w 74
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ct)1Reset"
+pressValue "1"
+releaseValue 
+onLabel "Reset"
+offLabel "Reset"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+

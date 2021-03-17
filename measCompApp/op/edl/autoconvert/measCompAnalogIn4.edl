@@ -1,0 +1,655 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 164
+y 187
+w 295
+h 185
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-bold-r-10.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor rgb 47872 47872 47872
+textColor rgb 0 0 0
+ctlFgColor1 rgb 64256 62208 18944
+ctlFgColor2 rgb 60928 46592 11008
+ctlBgColor1 rgb 52480 24832 0
+ctlBgColor2 rgb 65280 45056 65280
+topShadowColor rgb 44544 19968 48128
+botShadowColor rgb 13312 13056 34304
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 294
+h 184
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 76
+y 5
+w 144
+h 25
+font "helvetica-medium-r-18.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Analog input"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 23
+y 35
+w 90
+h 20
+controlPv "$(P)$(Ai)1"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 23
+y 60
+w 90
+h 20
+controlPv "$(P)$(Ai)2"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 23
+y 85
+w 90
+h 20
+controlPv "$(P)$(Ai)3"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -4
+y 35
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "1"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -4
+y 60
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "2"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -4
+y 85
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "3"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 23
+y 110
+w 90
+h 20
+controlPv "$(P)$(Ai)4"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -4
+y 110
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "4"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 43
+y 135
+w 215
+h 45
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 43
+y 160
+w 215
+h 20
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 70
+y 135
+w 155
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 59
+y 135
+w 51
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Mode"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 213
+y 35
+w 74
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ai)1.PROC"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 213
+y 60
+w 74
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ai)2.PROC"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 213
+y 85
+w 74
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ai)3.PROC"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 118
+y 35
+w 90
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ai)1.SCAN"
+indicatorPv "$(P)$(Ai)1.SCAN"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 118
+y 60
+w 90
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ai)2.SCAN"
+indicatorPv "$(P)$(Ai)2.SCAN"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 118
+y 85
+w 90
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ai)3.SCAN"
+indicatorPv "$(P)$(Ai)3.SCAN"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 213
+y 110
+w 74
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ai)4.PROC"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 118
+y 110
+w 90
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ai)4.SCAN"
+indicatorPv "$(P)$(Ai)4.SCAN"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 43
+y 135
+w 215
+h 45
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 43
+y 160
+w 215
+h 20
+
+beginGroup
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 43
+y 160
+w 110
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "Strip charts"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 "measCompADCStripChart.edl"
+  1 "measCompADCStripChart.edl"
+  2 "measCompADCStripChart.edl"
+  3 "measCompADCStripChart.edl"
+  4 "measCompADCStripChart.edl"
+  5 "measCompADCStripChart.edl"
+  6 "measCompADCStripChart.edl"
+  7 "measCompADCStripChart.edl"
+}
+menuLabel {
+  0 "Input 1"
+  1 "Input 2"
+  2 "Input 3"
+  3 "Input 4"
+  4 "Input 5"
+  5 "Input 6"
+  6 "Input 7"
+  7 "Input 8"
+}
+symbols {
+  0 "ADC=$(P)$(Ai)1"
+  1 "ADC=$(P)$(Ai)2"
+  2 "ADC=$(P)$(Ai)3"
+  3 "ADC=$(P)$(Ai)4"
+  4 "ADC=$(P)$(Ai)5"
+  5 "ADC=$(P)$(Ai)6"
+  6 "ADC=$(P)$(Ai)7"
+  7 "ADC=$(P)$(Ai)8"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 158
+y 160
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "Configure"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "measCompAiSetup.edl"
+}
+menuLabel {
+  0 "Input 1"
+}
+symbols {
+  0 "P=$(P),Ai=$(Ai)"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 70
+y 135
+w 155
+h 20
+
+beginGroup
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 135
+w 110
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)AiMode"
+indicatorPv "$(P)AiMode"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+

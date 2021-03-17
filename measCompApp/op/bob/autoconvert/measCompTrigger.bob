@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>measCompTrigger</name>
+  <x>1939</x>
+  <y>248</y>
+  <width>180</width>
+  <height>65</height>
+  <background_color>
+    <color red="187" green="187" blue="187">
+    </color>
+  </background_color>
+  <grid_visible>false</grid_visible>
+  <grid_step_x>5</grid_step_x>
+  <widget type="group" version="2.0.0">
+    <name>composite #6</name>
+    <width>180</width>
+    <height>65</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #9</name>
+      <text>Trigger</text>
+      <x>48</x>
+      <y>5</y>
+      <width>84</width>
+      <height>25</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="rectangle" version="2.0.0">
+      <name>rectangle #12</name>
+      <width>180</width>
+      <height>65</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #15</name>
+      <x>8</x>
+      <y>35</y>
+      <width>165</width>
+      <height>20</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #18</name>
+        <text>Mode</text>
+        <width>40</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #21</name>
+        <pv_name>$(P)$(Tg)Mode</pv_name>
+        <x>45</x>
+        <width>120</width>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+    </widget>
+  </widget>
+</display>

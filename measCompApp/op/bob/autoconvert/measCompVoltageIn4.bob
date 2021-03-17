@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>measCompVoltageIn4</name>
+  <x>1960</x>
+  <y>340</y>
+  <width>295</width>
+  <height>165</height>
+  <background_color>
+    <color red="187" green="187" blue="187">
+    </color>
+  </background_color>
+  <grid_visible>false</grid_visible>
+  <grid_step_x>5</grid_step_x>
+  <widget type="group" version="2.0.0">
+    <name>composite #6</name>
+    <width>295</width>
+    <height>165</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>rectangle #9</name>
+      <width>295</width>
+      <height>165</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>message button #12</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(P)$(Ai)1.PROC</pv_name>
+          <value>1</value>
+          <description>Write</description>
+        </action>
+      </actions>
+      <pv_name>$(P)$(Ai)1.PROC</pv_name>
+      <text>Read</text>
+      <x>213</x>
+      <y>35</y>
+      <width>74</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>message button #15</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(P)$(Ai)2.PROC</pv_name>
+          <value>1</value>
+          <description>Write</description>
+        </action>
+      </actions>
+      <pv_name>$(P)$(Ai)2.PROC</pv_name>
+      <text>Read</text>
+      <x>213</x>
+      <y>60</y>
+      <width>74</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>message button #18</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(P)$(Ai)3.PROC</pv_name>
+          <value>1</value>
+          <description>Write</description>
+        </action>
+      </actions>
+      <pv_name>$(P)$(Ai)3.PROC</pv_name>
+      <text>Read</text>
+      <x>213</x>
+      <y>85</y>
+      <width>74</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>message button #21</name>
+      <actions>
+        <action type="write_pv">
+          <pv_name>$(P)$(Ai)4.PROC</pv_name>
+          <value>1</value>
+          <description>Write</description>
+        </action>
+      </actions>
+      <pv_name>$(P)$(Ai)4.PROC</pv_name>
+      <text>Read</text>
+      <x>213</x>
+      <y>110</y>
+      <width>74</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #24</name>
+      <pv_name>$(P)$(Ai)1.SCAN</pv_name>
+      <x>118</x>
+      <y>36</y>
+      <width>90</width>
+      <height>18</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #27</name>
+      <pv_name>$(P)$(Ai)2.SCAN</pv_name>
+      <x>118</x>
+      <y>61</y>
+      <width>90</width>
+      <height>18</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #30</name>
+      <pv_name>$(P)$(Ai)3.SCAN</pv_name>
+      <x>118</x>
+      <y>86</y>
+      <width>90</width>
+      <height>18</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #33</name>
+      <pv_name>$(P)$(Ai)4.SCAN</pv_name>
+      <x>118</x>
+      <y>111</y>
+      <width>90</width>
+      <height>18</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #36</name>
+      <pv_name>$(P)$(Ai)1</pv_name>
+      <x>23</x>
+      <y>36</y>
+      <width>90</width>
+      <height>18</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #40</name>
+      <pv_name>$(P)$(Ai)2</pv_name>
+      <x>23</x>
+      <y>61</y>
+      <width>90</width>
+      <height>18</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #44</name>
+      <pv_name>$(P)$(Ai)3</pv_name>
+      <x>23</x>
+      <y>86</y>
+      <width>90</width>
+      <height>18</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #48</name>
+      <pv_name>$(P)$(Ai)4</pv_name>
+      <x>23</x>
+      <y>111</y>
+      <width>90</width>
+      <height>18</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #52</name>
+      <text>Voltage input</text>
+      <x>69</x>
+      <y>5</y>
+      <width>156</width>
+      <height>25</height>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>related display #55</name>
+      <actions>
+        <action type="open_display">
+          <file>measCompADCStripChart.opi</file>
+          <macros>
+            <ADC>$(P)$(Ai)1</ADC>
+          </macros>
+          <target>tab</target>
+          <description>Input 1</description>
+        </action>
+        <action type="open_display">
+          <file>measCompADCStripChart.opi</file>
+          <macros>
+            <ADC>$(P)$(Ai)2</ADC>
+          </macros>
+          <target>tab</target>
+          <description>Input 2</description>
+        </action>
+        <action type="open_display">
+          <file>measCompADCStripChart.opi</file>
+          <macros>
+            <ADC>$(P)$(Ai)3</ADC>
+          </macros>
+          <target>tab</target>
+          <description>Input 3</description>
+        </action>
+        <action type="open_display">
+          <file>measCompADCStripChart.opi</file>
+          <macros>
+            <ADC>$(P)$(Ai)4</ADC>
+          </macros>
+          <target>tab</target>
+          <description>Input 4</description>
+        </action>
+      </actions>
+      <text>Strip charts</text>
+      <x>43</x>
+      <y>135</y>
+      <width>113</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>related display #61</name>
+      <actions>
+        <action type="open_display">
+          <file>measCompVoltageSetup4.opi</file>
+          <target>tab</target>
+          <description>Input 1</description>
+        </action>
+      </actions>
+      <text>Configure</text>
+      <x>161</x>
+      <y>135</y>
+      <width>93</width>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #64</name>
+      <text>1</text>
+      <x>8</x>
+      <y>35</y>
+      <width>10</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #67</name>
+      <text>2</text>
+      <x>8</x>
+      <y>60</y>
+      <width>10</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #70</name>
+      <text>3</text>
+      <x>8</x>
+      <y>85</y>
+      <width>10</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #73</name>
+      <text>4</text>
+      <x>8</x>
+      <y>110</y>
+      <width>10</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+  </widget>
+</display>

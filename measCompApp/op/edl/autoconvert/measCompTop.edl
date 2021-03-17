@@ -6,7 +6,7 @@ release 1
 x 628
 y 61
 w 212
-h 290
+h 315
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -385,6 +385,39 @@ menuLabel {
 }
 symbols {
   0 "P=USB_TEMP:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 285
+w 150
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "E-DIO24"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "EDIO24_module.edl"
+}
+menuLabel {
+  0 "E-DIO24 module"
+}
+symbols {
+  0 "P=EDIO24:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd"
 }
 replaceSymbols {
   0 1

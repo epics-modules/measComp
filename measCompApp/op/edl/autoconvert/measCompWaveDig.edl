@@ -1,0 +1,1145 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 268
+y 291
+w 260
+h 515
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-bold-r-10.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor rgb 47872 47872 47872
+textColor rgb 0 0 0
+ctlFgColor1 rgb 64256 62208 18944
+ctlFgColor2 rgb 60928 46592 11008
+ctlBgColor1 rgb 52480 24832 0
+ctlBgColor2 rgb 65280 45056 65280
+topShadowColor rgb 44544 19968 48128
+botShadowColor rgb 13312 13056 34304
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 260
+h 515
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 17
+y 5
+w 216
+h 25
+font "helvetica-medium-r-18.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Waveform digitzer"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 259
+h 514
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 460
+w 200
+h 45
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 160
+y 460
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fgColor rgb 64256 62208 18944
+bgColor index 3
+useDisplayBg
+value {
+  "Running"
+}
+visPv "CALC\\\{(A)\}($(P)$(Wd)Run)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 160
+y 460
+w 48
+h 20
+font "helvetica-medium-r-14.0"
+fgColor rgb 0 55296 0
+bgColor index 3
+useDisplayBg
+value {
+  "Done"
+}
+visPv "CALC\\\{(A)\}($(P)$(Wd)Run)"
+visMin 0
+visMax 1
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 35
+w 100
+h 20
+controlPv "$(P)$(Wd)CurrentPoint"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 60
+w 100
+h 20
+controlPv "$(P)$(Wd)NumPoints"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 11
+y 35
+w 130
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Current point"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 61
+y 60
+w 80
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "# points"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 160
+w 100
+h 20
+controlPv "$(P)$(Wd)NumPoints"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 135
+w 100
+h 20
+controlPv "$(P)$(Wd)Dwell"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+precision 2
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 71
+y 210
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "# chans"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 41
+y 185
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "First chan"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 61
+y 160
+w 80
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "# points"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 41
+y 135
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Time/point"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 41
+y 85
+w 205
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 41
+y 85
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Time/point"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 85
+w 100
+h 20
+controlPv "$(P)$(Wd)Dwell"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+precision 2
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 41
+y 110
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Total time"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 110
+w 100
+h 20
+controlPv "$(P)$(Wd)TotalTime"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+precision 2
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 91
+y 335
+w 50
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Clock"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 51
+y 285
+w 90
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Retrigger"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 11
+y 310
+w 130
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Trigger count"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 146
+y 311
+w 100
+h 20
+controlPv "$(P)$(Wd)TriggerCount"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 42
+y 235
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Burst mode"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 70
+y 259
+w 175
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 70
+y 259
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Trigger"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 51
+y 410
+w 195
+h 45
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 51
+y 410
+w 90
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Read rate"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 94
+y 435
+w 47
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Read"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 41
+y 360
+w 205
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 41
+y 360
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Continuous"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 21
+y 385
+w 120
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Auto restart"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 260
+h 515
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 460
+w 200
+h 45
+
+beginGroup
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 74
+y 485
+w 113
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+icon
+buttonLabel "Plots"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 "measCompWaveDigPlot.edl"
+  1 "measCompWaveDigPlot.edl"
+  2 "measCompWaveDigPlot.edl"
+  3 "measCompWaveDigPlot.edl"
+  4 "measCompWaveDigPlot.edl"
+  5 "measCompWaveDigPlot.edl"
+  6 "measCompWaveDigPlot.edl"
+  7 "measCompWaveDigPlot.edl"
+}
+menuLabel {
+  0 "Input 1"
+  1 "Input 2"
+  2 "Input 3"
+  3 "Input 4"
+  4 "Input 5"
+  5 "Input 6"
+  6 "Input 7"
+  7 "Input 8"
+}
+symbols {
+  0 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)1VoltWF"
+  1 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)2VoltWF"
+  2 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)3VoltWF"
+  3 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)4VoltWF"
+  4 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)5VoltWF"
+  5 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)6VoltWF"
+  6 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)7VoltWF"
+  7 "P=$(P),TIME=$(P)$(Wd)TimeWF,WAVE=$(P)$(Wd)8VoltWF"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 460
+w 60
+h 20
+fgColor rgb 0 0 0
+onColor rgb 0 55296 0
+offColor rgb 0 55296 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Wd)Run"
+pressValue "1"
+releaseValue 
+onLabel "Start"
+offLabel "Start"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 95
+y 460
+w 60
+h 20
+fgColor rgb 0 0 0
+onColor rgb 64768 0 0
+offColor rgb 64768 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Wd)Run"
+pressValue "0"
+releaseValue 
+onLabel "Stop"
+offLabel "Stop"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 210
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)NumChans"
+indicatorPv "$(P)$(Wd)NumChans"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 185
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)FirstChan"
+indicatorPv "$(P)$(Wd)FirstChan"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 41
+y 85
+w 205
+h 20
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 335
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)ExtClock"
+indicatorPv "$(P)$(Wd)ExtClock"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 285
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)Retrigger"
+indicatorPv "$(P)$(Wd)Retrigger"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 147
+y 235
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)BurstMode"
+indicatorPv "$(P)$(Wd)BurstMode"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 70
+y 259
+w 175
+h 20
+
+beginGroup
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 145
+y 259
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)ExtTrigger"
+indicatorPv "$(P)$(Wd)ExtTrigger"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 51
+y 410
+w 195
+h 45
+
+beginGroup
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 410
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)ReadWF.SCAN"
+indicatorPv "$(P)$(Wd)ReadWF.SCAN"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 435
+w 100
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Wd)ReadWF.PROC"
+pressValue "1"
+releaseValue 
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 41
+y 360
+w 205
+h 20
+
+beginGroup
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 360
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)Continuous"
+indicatorPv "$(P)$(Wd)Continuous"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 146
+y 385
+w 100
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Wd)AutoRestart"
+indicatorPv "$(P)$(Wd)AutoRestart"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
