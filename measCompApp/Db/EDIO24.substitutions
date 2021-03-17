@@ -3,76 +3,76 @@
 file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
 {
 pattern
-{R,       MASK,     PORT,    ADDR}
-{Li,   0xFFFFFF,  EDIO24_1,     0}
+{R,       MASK,   ADDR}
+{Li,   0xFFFFFF,     0}
 
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
 {
 pattern
-{  R,     MASK,     PORT,    ADDR}
-{Bi1,  0x000001   EDIO24_1,     0}
-{Bi2,  0x000002   EDIO24_1,     0}
-{Bi3,  0x000004   EDIO24_1,     0}
-{Bi4,  0x000008   EDIO24_1,     0}
-{Bi5,  0x000010   EDIO24_1,     0}
-{Bi6,  0x000020   EDIO24_1,     0}
-{Bi7,  0x000040   EDIO24_1,     0}
-{Bi8,  0x000080   EDIO24_1,     0}
-{Bi9,  0x000100   EDIO24_1,     0}
-{Bi10,  0x000200   EDIO24_1,     0}
-{Bi11,  0x000400   EDIO24_1,     0}
-{Bi12,  0x000800   EDIO24_1,     0}
-{Bi13,  0x001000   EDIO24_1,     0}
-{Bi14,  0x002000   EDIO24_1,     0}
-{Bi15,  0x004000   EDIO24_1,     0}
-{Bi16,  0x008000   EDIO24_1,     0}
-{Bi17,  0x010000   EDIO24_1,     0}
-{Bi18,  0x020000   EDIO24_1,     0}
-{Bi19,  0x040000   EDIO24_1,     0}
-{Bi20,  0x080000   EDIO24_1,     0}
-{Bi21,  0x100000   EDIO24_1,     0}
-{Bi22,  0x200000   EDIO24_1,     0}
-{Bi23,  0x400000   EDIO24_1,     0}
-{Bi24,  0x800000   EDIO24_1,     0}
+{  R,      MASK,   ADDR}
+{ Bi1,  0x000001      0}
+{ Bi2,  0x000002      0}
+{ Bi3,  0x000004      0}
+{ Bi4,  0x000008      0}
+{ Bi5,  0x000010      0}
+{ Bi6,  0x000020      0}
+{ Bi7,  0x000040      0}
+{ Bi8,  0x000080      0}
+{ Bi9,  0x000100      0}
+{Bi10,  0x000200      0}
+{Bi11,  0x000400      0}
+{Bi12,  0x000800      0}
+{Bi13,  0x001000      0}
+{Bi14,  0x002000      0}
+{Bi15,  0x004000      0}
+{Bi16,  0x008000      0}
+{Bi17,  0x010000      0}
+{Bi18,  0x020000      0}
+{Bi19,  0x040000      0}
+{Bi20,  0x080000      0}
+{Bi21,  0x100000      0}
+{Bi22,  0x200000      0}
+{Bi23,  0x400000      0}
+{Bi24,  0x800000      0}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
 {
 pattern
-{ R,     MASK,      PORT,    ADDR}
-{Lo,   0xFFFFFF,  EDIO24_1,     0}
+{ R,     MASK,    ADDR}
+{Lo,   0xFFFFFF,     0}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
 {
 pattern
-{  R,     MASK,     PORT,    ADDR}
-{Bo1,  0x000001   EDIO24_1,     0}
-{Bo2,  0x000002   EDIO24_1,     0}
-{Bo3,  0x000004   EDIO24_1,     0}
-{Bo4,  0x000008   EDIO24_1,     0}
-{Bo5,  0x000010   EDIO24_1,     0}
-{Bo6,  0x000020   EDIO24_1,     0}
-{Bo7,  0x000040   EDIO24_1,     0}
-{Bo8,  0x000080   EDIO24_1,     0}
-{Bo9,  0x000100   EDIO24_1,     0}
-{Bo10,  0x000200   EDIO24_1,     0}
-{Bo11,  0x000400   EDIO24_1,     0}
-{Bo12,  0x000800   EDIO24_1,     0}
-{Bo13,  0x001000   EDIO24_1,     0}
-{Bo14,  0x002000   EDIO24_1,     0}
-{Bo15,  0x004000   EDIO24_1,     0}
-{Bo16,  0x008000   EDIO24_1,     0}
-{Bo17,  0x010000   EDIO24_1,     0}
-{Bo18,  0x020000   EDIO24_1,     0}
-{Bo19,  0x040000   EDIO24_1,     0}
-{Bo20,  0x080000   EDIO24_1,     0}
-{Bo21,  0x100000   EDIO24_1,     0}
-{Bo22,  0x200000   EDIO24_1,     0}
-{Bo23,  0x400000   EDIO24_1,     0}
-{Bo24,  0x800000   EDIO24_1,     0}
+{  R,     MASK,    ADDR}
+{ Bo1,  0x000001      0}
+{ Bo2,  0x000002      0}
+{ Bo3,  0x000004      0}
+{ Bo4,  0x000008      0}
+{ Bo5,  0x000010      0}
+{ Bo6,  0x000020      0}
+{ Bo7,  0x000040      0}
+{ Bo8,  0x000080      0}
+{ Bo9,  0x000100      0}
+{Bo10,  0x000200      0}
+{Bo11,  0x000400      0}
+{Bo12,  0x000800      0}
+{Bo13,  0x001000      0}
+{Bo14,  0x002000      0}
+{Bo15,  0x004000      0}
+{Bo16,  0x008000      0}
+{Bo17,  0x010000      0}
+{Bo18,  0x020000      0}
+{Bo19,  0x040000      0}
+{Bo20,  0x080000      0}
+{Bo21,  0x100000      0}
+{Bo22,  0x200000      0}
+{Bo23,  0x400000      0}
+{Bo24,  0x800000      0}
 }
 
 # Direction bits on binary I/O
@@ -80,29 +80,29 @@ pattern
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
 {
 pattern
-{ R,      MASK,  VAL,    PORT,    ADDR}
-{Bd1,  0x000001    0,  EDIO24_1,     0}
-{Bd2,  0x000002    0,  EDIO24_1,     0}
-{Bd3,  0x000004    0,  EDIO24_1,     0}
-{Bd4,  0x000008    0,  EDIO24_1,     0}
-{Bd5,  0x000010    1,  EDIO24_1,     0}
-{Bd6,  0x000020    1,  EDIO24_1,     0}
-{Bd7,  0x000040    1,  EDIO24_1,     0}
-{Bd8,  0x000080    1,  EDIO24_1,     0}
-{Bd9,  0x000100    0,  EDIO24_1,     0}
-{Bd10,  0x000200    0,  EDIO24_1,     0}
-{Bd11,  0x000400    0,  EDIO24_1,     0}
-{Bd12,  0x000800    0,  EDIO24_1,     0}
-{Bd13,  0x001000    0,  EDIO24_1,     0}
-{Bd14,  0x002000    0,  EDIO24_1,     0}
-{Bd15,  0x004000    0,  EDIO24_1,     0}
-{Bd16,  0x008000    0,  EDIO24_1,     0}
-{Bd17,  0x010000    1,  EDIO24_1,     0}
-{Bd18,  0x020000    1,  EDIO24_1,     0}
-{Bd19,  0x040000    1,  EDIO24_1,     0}
-{Bd20,  0x080000    1,  EDIO24_1,     0}
-{Bd21,  0x100000    1,  EDIO24_1,     0}
-{Bd22,  0x200000    1,  EDIO24_1,     0}
-{Bd23,  0x400000    1,  EDIO24_1,     0}
-{Bd24,  0x800000    1,  EDIO24_1,     0}
+{ R,       MASK,  VAL,  ADDR}
+{ Bd1,  0x000001    0,     0}
+{ Bd2,  0x000002    0,     0}
+{ Bd3,  0x000004    0,     0}
+{ Bd4,  0x000008    0,     0}
+{ Bd5,  0x000010    1,     0}
+{ Bd6,  0x000020    1,     0}
+{ Bd7,  0x000040    1,     0}
+{ Bd8,  0x000080    1,     0}
+{ Bd9,  0x000100    0,     0}
+{Bd10,  0x000200    0,     0}
+{Bd11,  0x000400    0,     0}
+{Bd12,  0x000800    0,     0}
+{Bd13,  0x001000    0,     0}
+{Bd14,  0x002000    0,     0}
+{Bd15,  0x004000    0,     0}
+{Bd16,  0x008000    0,     0}
+{Bd17,  0x010000    1,     0}
+{Bd18,  0x020000    1,     0}
+{Bd19,  0x040000    1,     0}
+{Bd20,  0x080000    1,     0}
+{Bd21,  0x100000    1,     0}
+{Bd22,  0x200000    1,     0}
+{Bd23,  0x400000    1,     0}
+{Bd24,  0x800000    1,     0}
 }

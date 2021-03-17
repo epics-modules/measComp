@@ -1,43 +1,43 @@
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{ R,   MASK,   PORT,  ADDR}
-{Li,   0xFF,  ETC_1,     0}
+{ R,   MASK,ADDR}
+{Li,   0xFF,  0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{ R,   MASK,    PORT,  ADDR}
-{Bi1,  0x01,   ETC_1,     0}
-{Bi2,  0x02,   ETC_1,     0}
-{Bi3,  0x04,   ETC_1,     0}
-{Bi4,  0x08,   ETC_1,     0}
-{Bi5,  0x10,   ETC_1,     0}
-{Bi6,  0x20,   ETC_1,     0}
-{Bi7,  0x40,   ETC_1,     0}
-{Bi8,  0x80,   ETC_1,     0}
+{ R,   MASK, ADDR}
+{Bi1,  0x01,   0}
+{Bi2,  0x02,   0}
+{Bi3,  0x04,   0}
+{Bi4,  0x08,   0}
+{Bi5,  0x10,   0}
+{Bi6,  0x20,   0}
+{Bi7,  0x40,   0}
+{Bi8,  0x80,   0}
 }
 
 file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{ R,   MASK,   PORT,  ADDR}
-{Lo,   0xFF,  ETC_1,     0}
+{ R,   MASK,ADDR}
+{Lo,   0xFF,  0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{  R,  MASK,    PORT,  ADDR}
-{Bo1,  0x01,   ETC_1,     0}
-{Bo2,  0x02,   ETC_1,     0}
-{Bo3,  0x04,   ETC_1,     0}
-{Bo4,  0x08,   ETC_1,     0}
-{Bo5,  0x10,   ETC_1,     0}
-{Bo6,  0x20,   ETC_1,     0}
-{Bo7,  0x40,   ETC_1,     0}
-{Bo8,  0x80,   ETC_1,     0}
+{  R,  MASK, ADDR}
+{Bo1,  0x01,    0}
+{Bo2,  0x02,    0}
+{Bo3,  0x04,    0}
+{Bo4,  0x08,    0}
+{Bo5,  0x10,    0}
+{Bo6,  0x20,    0}
+{Bo7,  0x40,    0}
+{Bo8,  0x80,    0}
 }
 
 # Direction bits on binary I/O
@@ -45,35 +45,35 @@ pattern
 file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{  R,  MASK,  VAL,   PORT,  ADDR}
-{Bd1,  0x01,    0,  ETC_1,     0}
-{Bd2,  0x02,    0,  ETC_1,     0}
-{Bd3,  0x04,    0,  ETC_1,     0}
-{Bd4,  0x08,    0,  ETC_1,     0}
-{Bd5,  0x10,    1,  ETC_1,     0}
-{Bd6,  0x20,    1,  ETC_1,     0}
-{Bd7,  0x40,    1,  ETC_1,     0}
-{Bd8,  0x80,    1,  ETC_1,     0}
+{  R,  MASK,  VAL, ADDR}
+{Bd1,  0x01,    0,    0}
+{Bd2,  0x02,    0,    0}
+{Bd3,  0x04,    0,    0}
+{Bd4,  0x08,    0,    0}
+{Bd5,  0x10,    1,    0}
+{Bd6,  0x20,    1,    0}
+{Bd7,  0x40,    1,    0}
+{Bd8,  0x80,    1,    0}
 }
 
 file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{       R,   PORT,   ADDR}
-{Counter1,  ETC_1,      0}
+{      R, ADDR}
+{Counter1,   0}
 }
 
 # Temperature inputs
 file "$(MEASCOMP)/db/measCompTemperatureIn.template"
 {
 pattern
-{  R,   PORT, ADDR,        SCAN, PREC}
-{Ti0,  ETC_1,    0,  "1 second",    2}
-{Ti1,  ETC_1,    1,  "1 second",    2}
-{Ti2,  ETC_1,    2,  "1 second",    2}
-{Ti3,  ETC_1,    3,  "1 second",    2}
-{Ti4,  ETC_1,    4,  "1 second",    2}
-{Ti5,  ETC_1,    5,  "1 second",    2}
-{Ti6,  ETC_1,    6,  "1 second",    2}
-{Ti7,  ETC_1,    7,  "1 second",    2}
+{  R,  ADDR,        SCAN, PREC}
+{Ti0,     0,  "1 second",    2}
+{Ti1,     1,  "1 second",    2}
+{Ti2,     2,  "1 second",    2}
+{Ti3,     3,  "1 second",    2}
+{Ti4,     4,  "1 second",    2}
+{Ti5,     5,  "1 second",    2}
+{Ti6,     6,  "1 second",    2}
+{Ti7,     7,  "1 second",    2}
 }

@@ -1,43 +1,43 @@
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{R,    MASK,   PORT,    ADDR}
-{Li,   0xFF,  E1608_1,     0}
+{R,    MASK,  ADDR}
+{Li,   0xFF,     0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{R,    MASK,    PORT,    ADDR}
-{Bi1,  0x01,   E1608_1,     0}
-{Bi2,  0x02,   E1608_1,     0}
-{Bi3,  0x04,   E1608_1,     0}
-{Bi4,  0x08,   E1608_1,     0}
-{Bi5,  0x10,   E1608_1,     0}
-{Bi6,  0x20,   E1608_1,     0}
-{Bi7,  0x40,   E1608_1,     0}
-{Bi8,  0x80,   E1608_1,     0}
+{R,    MASK,   ADDR}
+{Bi1,  0x01,      0}
+{Bi2,  0x02,      0}
+{Bi3,  0x04,      0}
+{Bi4,  0x08,      0}
+{Bi5,  0x10,      0}
+{Bi6,  0x20,      0}
+{Bi7,  0x40,      0}
+{Bi8,  0x80,      0}
 }
 
 file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{R,    MASK,   PORT,    ADDR}
-{Lo,   0xFF,  E1608_1,     0}
+{R,    MASK,  ADDR}
+{Lo,   0xFF,     0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{R,    MASK,   PORT,    ADDR}
-{Bo1,  0x01   E1608_1,     0}
-{Bo2,  0x02   E1608_1,     0}
-{Bo3,  0x04   E1608_1,     0}
-{Bo4,  0x08   E1608_1,     0}
-{Bo5,  0x10   E1608_1,     0}
-{Bo6,  0x20   E1608_1,     0}
-{Bo7,  0x40   E1608_1,     0}
-{Bo8,  0x80   E1608_1,     0}
+{R,    MASK,  ADDR}
+{Bo1,  0x01      0}
+{Bo2,  0x02      0}
+{Bo3,  0x04      0}
+{Bo4,  0x08      0}
+{Bo5,  0x10      0}
+{Bo6,  0x20      0}
+{Bo7,  0x40      0}
+{Bo8,  0x80      0}
 }
 
 # Direction bits on binary I/O
@@ -45,76 +45,76 @@ pattern
 file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{R,    MASK,  VAL,   PORT,    ADDR}
-{Bd1,  0x01,    0,  E1608_1,     0}
-{Bd2,  0x02,    0,  E1608_1,     0}
-{Bd3,  0x04,    0,  E1608_1,     0}
-{Bd4,  0x08,    0,  E1608_1,     0}
-{Bd5,  0x10,    1,  E1608_1,     0}
-{Bd6,  0x20,    1,  E1608_1,     0}
-{Bd7,  0x40,    1,  E1608_1,     0}
-{Bd8,  0x80,    1,  E1608_1,     0}
+{R,    MASK,  VAL,  ADDR}
+{Bd1,  0x01,    0,     0}
+{Bd2,  0x02,    0,     0}
+{Bd3,  0x04,    0,     0}
+{Bd4,  0x08,    0,     0}
+{Bd5,  0x10,    1,     0}
+{Bd6,  0x20,    1,     0}
+{Bd7,  0x40,    1,     0}
+{Bd8,  0x80,    1,     0}
 }
 
 file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{    R,       PORT,    ADDR}
-{Counter1,  E1608_1,      0}
+{    R,      ADDR}
+{Counter1,      0}
 }
 
 # Analog input mode
 file "$(MEASCOMP)/db/measCompAnalogInMode.template"
 {
 pattern
-{  R,        PORT,    ADDR,   MODE}
-{AiMode,    E1608_1,     0,      0}
+{  R,       ADDR,   MODE}
+{AiMode,       0,      0}
 }
 
 # Analog inputs
 file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
 pattern
-{  R,   PORT,   ADDR,  EGUL, LOPR, EGUF, HOPR,  RANGE,   SCAN,   PREC}
-{ Ai1, E1608_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai2, E1608_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai3, E1608_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{ Ai4, E1608_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{ Ai5, E1608_1,    4,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai6, E1608_1,    5,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai7, E1608_1,    6,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{ Ai8, E1608_1,    7,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{  R, ADDR,  EGUL, LOPR, EGUF, HOPR,  RANGE,   SCAN,   PREC}
+{ Ai1,   0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai2,   1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai3,   2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{ Ai4,   3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{ Ai5,   4,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai6,   5,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai7,   6,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{ Ai8,   7,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
 }
 
 # Waveform digitzer
 file "$(MEASCOMP)/db/measCompWaveformDig.template"
 {
 pattern
-{  R,          PORT,    ADDR,  MAX_POINTS,  PREC}
-{WaveDig,    E1608_1,     0,       4096,       4}
+{  R,         ADDR,  PREC}
+{WaveDig,       0,      4}
 }
 
 file "$(MEASCOMP)/db/measCompWaveformDigN.template"
 {
 pattern
-{  R,          PORT,   ADDR,  MAX_POINTS,  PREC}
-{WaveDig1,   E1608_1,     0,    4096,         4}
-{WaveDig2,   E1608_1,     1,    4096,         4}
-{WaveDig3,   E1608_1,     2,    4096,         4}
-{WaveDig4,   E1608_1,     3,    4096,         4}
-{WaveDig5,   E1608_1,     4,    4096,         4}
-{WaveDig6,   E1608_1,     5,    4096,         4}
-{WaveDig7,   E1608_1,     6,    4096,         4}
-{WaveDig8,   E1608_1,     7,    4096,         4}
+{  R,        ADDR,  PREC}
+{WaveDig1,      0,     4}
+{WaveDig2,      1,     4}
+{WaveDig3,      2,     4}
+{WaveDig4,      3,     4}
+{WaveDig5,      4,     4}
+{WaveDig6,      5,     4}
+{WaveDig7,      6,     4}
+{WaveDig8,      7,     4}
 }
 
 # Analog outputs
 file "$(MEASCOMP)/db/measCompAnalogOut.template"
 {
 pattern
-{ R,   VAL,   PORT,   ADDR, EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
-{Ao1,   0,  E1608_1,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
-{Ao2,   0,  E1608_1,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{ R,   VAL, ADDR, EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{Ao1,   0,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao2,   0,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
 }
 
 
@@ -122,7 +122,7 @@ pattern
 file "$(MEASCOMP)/db/measCompTrigger.template"
 {
 pattern
-{  R,          PORT,    ADDR}
-{Trig,       E1608_1,      0}
+{  R,  ADDR}
+{Trig,    0}
 }
 

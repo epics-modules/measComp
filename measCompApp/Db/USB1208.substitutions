@@ -1,9 +1,9 @@
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{ R,    MASK,       PORT,  ADDR}
-{Li1, 0xFFFF,  USB1208_1,     0}
-{Li2, 0xFFFF,  USB1208_1,     1}
+{ R,    MASK,  ADDR}
+{Li1, 0xFFFF,     0}
+{Li2, 0xFFFF,     1}
 }
 
 # This device is a bit confusing.  
@@ -12,53 +12,53 @@ pattern
 file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{ R,    MASK,        PORT,  ADDR}
-{ Bi1,  0x01,   USB1208_1,     0}
-{ Bi2,  0x02,   USB1208_1,     0}
-{ Bi3,  0x04,   USB1208_1,     0}
-{ Bi4,  0x08,   USB1208_1,     0}
-{ Bi5,  0x10,   USB1208_1,     0}
-{ Bi6,  0x20,   USB1208_1,     0}
-{ Bi7,  0x40,   USB1208_1,     0}
-{ Bi8,  0x80,   USB1208_1,     0}
-{ Bi9,  0x01,   USB1208_1,     1}
-{Bi10,  0x02,   USB1208_1,     1}
-{Bi11,  0x04,   USB1208_1,     1}
-{Bi12,  0x08,   USB1208_1,     1}
-{Bi13,  0x10,   USB1208_1,     1}
-{Bi14,  0x20,   USB1208_1,     1}
-{Bi15,  0x40,   USB1208_1,     1}
-{Bi16,  0x80,   USB1208_1,     1}
+{ R,    MASK,     ADDR}
+{ Bi1,  0x01,        0}
+{ Bi2,  0x02,        0}
+{ Bi3,  0x04,        0}
+{ Bi4,  0x08,        0}
+{ Bi5,  0x10,        0}
+{ Bi6,  0x20,        0}
+{ Bi7,  0x40,        0}
+{ Bi8,  0x80,        0}
+{ Bi9,  0x01,        1}
+{Bi10,  0x02,        1}
+{Bi11,  0x04,        1}
+{Bi12,  0x08,        1}
+{Bi13,  0x10,        1}
+{Bi14,  0x20,        1}
+{Bi15,  0x40,        1}
+{Bi16,  0x80,        1}
 }
 
 file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{ R,    MASK,       PORT,  ADDR}
-{Lo1, 0xFFFF,  USB1208_1,     0}
-{Lo2, 0xFFFF,  USB1208_1,     1}
+{ R,    MASK,    ADDR}
+{Lo1, 0xFFFF,       0}
+{Lo2, 0xFFFF,       1}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{  R,    MASK,        PORT,  ADDR}
-{ Bo1,    0x1,   USB1208_1,     0}
-{ Bo2,    0x2,   USB1208_1,     0}
-{ Bo3,    0x4,   USB1208_1,     0}
-{ Bo4,    0x8,   USB1208_1,     0}
-{ Bo5,   0x10,   USB1208_1,     0}
-{ Bo6,   0x20,   USB1208_1,     0}
-{ Bo7,   0x40,   USB1208_1,     0}
-{ Bo8,   0x80,   USB1208_1,     0}
-{ Bo9,  0x100,   USB1208_1,     0}
-{Bo10,  0x200,   USB1208_1,     0}
-{Bo11,  0x400,   USB1208_1,     0}
-{Bo12,  0x800,   USB1208_1,     0}
-{Bo13, 0x1000,   USB1208_1,     0}
-{Bo14, 0x2000,   USB1208_1,     0}
-{Bo15, 0x4000,   USB1208_1,     0}
-{Bo16, 0x8000,   USB1208_1,     0}
+{  R,    MASK,     ADDR}
+{ Bo1,    0x1,        0}
+{ Bo2,    0x2,        0}
+{ Bo3,    0x4,        0}
+{ Bo4,    0x8,        0}
+{ Bo5,   0x10,        0}
+{ Bo6,   0x20,        0}
+{ Bo7,   0x40,        0}
+{ Bo8,   0x80,        0}
+{ Bo9,  0x100,        0}
+{Bo10,  0x200,        0}
+{Bo11,  0x400,        0}
+{Bo12,  0x800,        0}
+{Bo13, 0x1000,        0}
+{Bo14, 0x2000,        0}
+{Bo15, 0x4000,        0}
+{Bo16, 0x8000,        0}
 }
 
 # Direction bits on binary I/O
@@ -66,42 +66,42 @@ pattern
 file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{  R,   MASK,  VAL,       PORT,  ADDR}
-{Bd1, 0xFFFF,    0,  USB1208_1,     0}
-{Bd2, 0xFFFF,    0,  USB1208_1,     1}
+{  R,   MASK,  VAL,    ADDR}
+{Bd1, 0xFFFF,    0,       0}
+{Bd2, 0xFFFF,    0,       1}
 }
 
 file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{       R,       PORT,   ADDR}
-{Counter1,  USB1208_1,      0}
+{       R,     ADDR}
+{Counter1,        0}
 }
 
 # Analog input mode
 file "$(MEASCOMP)/db/measCompAnalogInMode.template"
 {
 pattern
-{  R,        PORT,    ADDR,   MODE}
-{AiMode,  USB1208_1,     0,      0}
+{  R,       ADDR,   MODE}
+{AiMode,       0,      0}
 }
 
 # Analog inputs
 file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
 pattern
-{  R,      PORT, ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
-{ Ai1, USB1208_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai2, USB1208_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai3, USB1208_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{ Ai4, USB1208_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{  R,  ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
+{ Ai1,     0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai2,     1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai3,     2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{ Ai4,     3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
 }
 
 # Analog outputs
 file "$(MEASCOMP)/db/measCompAnalogOut.template"
 {
 pattern
-{  R, VAL,       PORT, ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
-{Ao1,   0,  USB1208_1,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
-{Ao2,   0,  USB1208_1,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{  R, VAL,   ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{Ao1,   0,      0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao2,   0,      1,  -10., -10., -10.,  10.,  10.,  10.,    4}
 }

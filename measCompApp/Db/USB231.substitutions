@@ -1,80 +1,80 @@
-file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
+file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{          P,    R,   MASK,       PORT,  ADDR}
-{   USB231:,  Li1, 0xFFFF,  USB231_1,     0}
+{ R,   MASK,   ADDR}
+{Li1, 0xFFFF,     0}
 }
 
 # This device is a bit confusing.  
 # For input we read 8-bit word data from ADDR=0,1
 # For output we write bit data which must use ADDR=0
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{          P,    R,   MASK,        PORT,  ADDR}
-{   USB231:,   Bi1,  0x01,   USB231_1,     0}
-{   USB231:,   Bi2,  0x02,   USB231_1,     0}
-{   USB231:,   Bi3,  0x04,   USB231_1,     0}
-{   USB231:,   Bi4,  0x08,   USB231_1,     0}
-{   USB231:,   Bi5,  0x10,   USB231_1,     0}
-{   USB231:,   Bi6,  0x20,   USB231_1,     0}
-{   USB231:,   Bi7,  0x40,   USB231_1,     0}
-{   USB231:,   Bi8,  0x80,   USB231_1,     0}
+{ R,   MASK,   ADDR}
+{Bi1,  0x01,      0}
+{Bi2,  0x02,      0}
+{Bi3,  0x04,      0}
+{Bi4,  0x08,      0}
+{Bi5,  0x10,      0}
+{Bi6,  0x20,      0}
+{Bi7,  0x40,      0}
+{Bi8,  0x80,      0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
+file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{          P,    R,   MASK,       PORT,  ADDR}
-{   USB231:,  Lo1, 0xFFFF,  USB231_1,     0}
+{ R,   MASK,   ADDR}
+{Lo1, 0xFFFF,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{          P,    R,    MASK,        PORT,  ADDR}
-{   USB231:,   Bo1,    0x1,   USB231_1,     0}
-{   USB231:,   Bo2,    0x2,   USB231_1,     0}
-{   USB231:,   Bo3,    0x4,   USB231_1,     0}
-{   USB231:,   Bo4,    0x8,   USB231_1,     0}
-{   USB231:,   Bo5,   0x10,   USB231_1,     0}
-{   USB231:,   Bo6,   0x20,   USB231_1,     0}
-{   USB231:,   Bo7,   0x40,   USB231_1,     0}
-{   USB231:,   Bo8,   0x80,   USB231_1,     0}
+{ R,    MASK,   ADDR}
+{Bo1,    0x1,      0}
+{Bo2,    0x2,      0}
+{Bo3,    0x4,      0}
+{Bo4,    0x8,      0}
+{Bo5,   0x10,      0}
+{Bo6,   0x20,      0}
+{Bo7,   0x40,      0}
+{Bo8,   0x80,      0}
 }
 
 # Direction bits on binary I/O
 #  VAL 0=input, 1=output
-file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
+file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{          P,    R,   MASK,  VAL,       PORT,  ADDR}
-{   USB231:,  Bd1, 0xFFFF,    0,  USB231_1,     0}
+{ R,   MASK,   VAL,  ADDR}
+{Bd1, 0xFFFF,    0,     0}
 }
 
-file "$(MEASCOMP)/measCompApp/Db/measCompCounter.template"
+file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{          P,         R,       PORT,   ADDR}
-{   USB231:,  Counter1,  USB231_1,      0}
+{      R,    ADDR}
+{Counter1,      0}
 }
 
 # Analog inputs
-file "$(MEASCOMP)/measCompApp/Db/measCompAnalogIn.template"
+file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
 pattern
-{          P,     R,      PORT, ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
-{   USB231:,   Ai1, USB231_1,    0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{   USB231:,   Ai2, USB231_1,    1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{   USB231:,   Ai3, USB231_1,    2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
-{   USB231:,   Ai4, USB231_1,    3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{ R, ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
+{Ai1,   0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{Ai2,   1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{Ai3,   2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{Ai4,   3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
 }
 
 # Analog outputs
-file "$(MEASCOMP)/measCompApp/Db/measCompAnalogOut.template"
+file "$(MEASCOMP)/db/measCompAnalogOut.template"
 {
 pattern
-{          P,    R, VAL,       PORT, ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
-{   USB231:,  Ao1,   0,  USB231_1,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
-{   USB231:,  Ao2,   0,  USB231_1,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{ R, VAL,  ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{Ao1,   0,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao2,   0,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
 }

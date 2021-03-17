@@ -42,7 +42,7 @@ record(waveform, "$(P)$(R)UserTimeWF")
     field(FTVL, "FLOAT")
     field(DTYP, "asynFloat32ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_TIME_WF")
-    field(NELM, "$(MAX_POINTS)")
+    field(NELM, "$(WGEN_POINTS)")
     field(SCAN, "I/O Intr")
 }
 
@@ -54,7 +54,7 @@ record(waveform, "$(P)$(R)IntTimeWF")
     field(FTVL, "FLOAT")
     field(DTYP, "asynFloat32ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_TIME_WF")
-    field(NELM, "$(MAX_POINTS)")
+    field(NELM, "$(WGEN_POINTS)")
     field(SCAN, "I/O Intr")
 }
 

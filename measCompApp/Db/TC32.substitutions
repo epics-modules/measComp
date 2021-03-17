@@ -1,29 +1,29 @@
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{ R,    MASK,    PORT,  ADDR}
-{Li0,   0xFF,  TC32_1,     0}
+{ R,    MASK, ADDR}
+{Li0,   0xFF,    0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{ R,   MASK,   ZNAM,       ZSV, ONAM,   OSV,   PORT,  ADDR}
-{Bi0,  0x01,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi1,  0x02,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi2,  0x04,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi3,  0x08,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi4,  0x10,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi5,  0x20,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi6,  0x40,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
-{Bi7,  0x80,    Low,  NO_ALARM, High, MAJOR, TC32_1,     0}
+{ R,   MASK,   ZNAM,       ZSV, ONAM,   OSV, ADDR}
+{Bi0,  0x01,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi1,  0x02,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi2,  0x04,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi3,  0x08,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi4,  0x10,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi5,  0x20,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi6,  0x40,    Low,  NO_ALARM, High, MAJOR,    0}
+{Bi7,  0x80,    Low,  NO_ALARM, High, MAJOR,    0}
 }
 
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{  R,     MASK,       PORT,  ADDR}
-{Li1,  0xFFFFFFFF,  TC32_1,     1}
+{  R,     MASK,    ADDR}
+{Li1,  0xFFFFFFFF,    1}
 }
 
 # Set the mask on the longout to 0x7FFFFFFF because we set bit 31 to
@@ -31,47 +31,47 @@ pattern
 file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{  R,      MASK,       PORT,  ADDR}
-{Lo1,   0x7FFFFFFF,  TC32_1,     1}
+{  R,      MASK,    ADDR}
+{Lo1,   0x7FFFFFFF,    1}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{  R,    MASK,     ZNAM,       ZSV, ONAM,   OSV, PINI,  PORT,  ADDR}
-{Bo0,  0x00000001,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo1,  0x00000002,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo2,  0x00000004,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo3,  0x00000008,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo4,  0x00000010,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo5,  0x00000020,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo6,  0x00000040,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo7,  0x00000080,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo8,  0x00000100,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo9,  0x00000200,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo10, 0x00000400,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo11, 0x00000800,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo12, 0x00001000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo13, 0x00002000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo14, 0x00004000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo15, 0x00008000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo16, 0x00010000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo17, 0x00020000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo18, 0x00040000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo19, 0x00080000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo20, 0x00100000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo21, 0x00200000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo22, 0x00400000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo23, 0x00800000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo24, 0x01000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo25, 0x02000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo26, 0x04000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo27, 0x08000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo28, 0x10000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo29, 0x20000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
-{Bo30, 0x40000000,  Low,  NO_ALARM, High, MAJOR, YES, TC32_1,     1}
+{  R,    MASK,     ZNAM,       ZSV, ONAM,   OSV, PINI, ADDR}
+{Bo0,  0x00000001,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo1,  0x00000002,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo2,  0x00000004,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo3,  0x00000008,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo4,  0x00000010,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo5,  0x00000020,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo6,  0x00000040,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo7,  0x00000080,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo8,  0x00000100,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo9,  0x00000200,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo10, 0x00000400,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo11, 0x00000800,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo12, 0x00001000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo13, 0x00002000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo14, 0x00004000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo15, 0x00008000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo16, 0x00010000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo17, 0x00020000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo18, 0x00040000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo19, 0x00080000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo20, 0x00100000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo21, 0x00200000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo22, 0x00400000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo23, 0x00800000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo24, 0x01000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo25, 0x02000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo26, 0x04000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo27, 0x08000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo28, 0x10000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo29, 0x20000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
+{Bo30, 0x40000000,  Low,  NO_ALARM, High, MAJOR, YES,     1}
 # Set PINI=NO on Bo31 because we configured it as an alarm input, can't write
-{Bo31, 0x80000000,  Low,  NO_ALARM, High, MAJOR,  NO, TC32_1,     1}
+{Bo31, 0x80000000,  Low,  NO_ALARM, High, MAJOR,  NO,     1}
 }
 
 
@@ -79,38 +79,38 @@ pattern
 file "$(MEASCOMP)/db/measCompTemperatureIn.template"
 {
 pattern
-{  R,    PORT, ADDR,        SCAN, PREC}
-{Ti0,  TC32_1,    0,  "1 second",    2}
-{Ti1,  TC32_1,    1,  "1 second",    2}
-{Ti2,  TC32_1,    2,  "1 second",    2}
-{Ti3,  TC32_1,    3,  "1 second",    2}
-{Ti4,  TC32_1,    4,  "1 second",    2}
-{Ti5,  TC32_1,    5,  "1 second",    2}
-{Ti6,  TC32_1,    6,  "1 second",    2}
-{Ti7,  TC32_1,    7,  "1 second",    2}
-{Ti8,  TC32_1,    8,  "1 second",    2}
-{Ti9,  TC32_1,    9,  "1 second",    2}
-{Ti10, TC32_1,   10,  "1 second",    2}
-{Ti11, TC32_1,   11,  "1 second",    2}
-{Ti12, TC32_1,   12,  "1 second",    2}
-{Ti13, TC32_1,   13,  "1 second",    2}
-{Ti14, TC32_1,   14,  "1 second",    2}
-{Ti15, TC32_1,   15,  "1 second",    2}
-{Ti16, TC32_1,   16,  "1 second",    2}
-{Ti17, TC32_1,   17,  "1 second",    2}
-{Ti18, TC32_1,   18,  "1 second",    2}
-{Ti19, TC32_1,   19,  "1 second",    2}
-{Ti20, TC32_1,   20,  "1 second",    2}
-{Ti21, TC32_1,   21,  "1 second",    2}
-{Ti22, TC32_1,   22,  "1 second",    2}
-{Ti23, TC32_1,   23,  "1 second",    2}
-{Ti24, TC32_1,   24,  "1 second",    2}
-{Ti25, TC32_1,   25,  "1 second",    2}
-{Ti26, TC32_1,   26,  "1 second",    2}
-{Ti27, TC32_1,   27,  "1 second",    2}
-{Ti28, TC32_1,   28,  "1 second",    2}
-{Ti29, TC32_1,   29,  "1 second",    2}
-{Ti30, TC32_1,   30,  "1 second",    2}
-{Ti31, TC32_1,   31,  "1 second",    2}
+{  R, ADDR,       SCAN, PREC}
+{Ti0,   0,  "1 second",    2}
+{Ti1,   1,  "1 second",    2}
+{Ti2,   2,  "1 second",    2}
+{Ti3,   3,  "1 second",    2}
+{Ti4,   4,  "1 second",    2}
+{Ti5,   5,  "1 second",    2}
+{Ti6,   6,  "1 second",    2}
+{Ti7,   7,  "1 second",    2}
+{Ti8,   8,  "1 second",    2}
+{Ti9,   9,  "1 second",    2}
+{Ti10, 10,  "1 second",    2}
+{Ti11, 11,  "1 second",    2}
+{Ti12, 12,  "1 second",    2}
+{Ti13, 13,  "1 second",    2}
+{Ti14, 14,  "1 second",    2}
+{Ti15, 15,  "1 second",    2}
+{Ti16, 16,  "1 second",    2}
+{Ti17, 17,  "1 second",    2}
+{Ti18, 18,  "1 second",    2}
+{Ti19, 19,  "1 second",    2}
+{Ti20, 20,  "1 second",    2}
+{Ti21, 21,  "1 second",    2}
+{Ti22, 22,  "1 second",    2}
+{Ti23, 23,  "1 second",    2}
+{Ti24, 24,  "1 second",    2}
+{Ti25, 25,  "1 second",    2}
+{Ti26, 26,  "1 second",    2}
+{Ti27, 27,  "1 second",    2}
+{Ti28, 28,  "1 second",    2}
+{Ti29, 29,  "1 second",    2}
+{Ti30, 30,  "1 second",    2}
+{Ti31, 31,  "1 second",    2}
 }
 

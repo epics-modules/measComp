@@ -1,43 +1,43 @@
 file "$(MEASCOMP)/db/measCompLongIn.template"
 {
 pattern
-{ R,   MASK,   PORT,   ADDR}
-{Li,   0xFF,  USBCTR,     0}
+{ R,   MASK,  ADDR}
+{Li,   0xFF,     0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryIn.template"
 {
 pattern
-{ R,   MASK,   PORT,   ADDR}
-{Bi1,  0x01   USBCTR,     0}
-{Bi2,  0x02   USBCTR,     0}
-{Bi3,  0x04   USBCTR,     0}
-{Bi4,  0x08   USBCTR,     0}
-{Bi5,  0x10   USBCTR,     0}
-{Bi6,  0x20   USBCTR,     0}
-{Bi7,  0x40   USBCTR,     0}
-{Bi8,  0x80   USBCTR,     0}
+{ R,   MASK,  ADDR}
+{Bi1,  0x01      0}
+{Bi2,  0x02      0}
+{Bi3,  0x04      0}
+{Bi4,  0x08      0}
+{Bi5,  0x10      0}
+{Bi6,  0x20      0}
+{Bi7,  0x40      0}
+{Bi8,  0x80      0}
 }
 
 file "$(MEASCOMP)/db/measCompLongOut.template"
 {
 pattern
-{ R,   MASK,    PORT,    ADDR}
-{Lo,   0xFF,  USBCTR,     0}
+{ R,   MASK,    ADDR}
+{Lo,   0xFF,     0}
 }
 
 file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
-{ R,   MASK,   PORT,   ADDR}
-{Bo1,  0x01   USBCTR,     0}
-{Bo2,  0x02   USBCTR,     0}
-{Bo3,  0x04   USBCTR,     0}
-{Bo4,  0x08   USBCTR,     0}
-{Bo5,  0x10   USBCTR,     0}
-{Bo6,  0x20   USBCTR,     0}
-{Bo7,  0x40   USBCTR,     0}
-{Bo8,  0x80   USBCTR,     0}
+{ R,   MASK,  ADDR}
+{Bo1,  0x01      0}
+{Bo2,  0x02      0}
+{Bo3,  0x04      0}
+{Bo4,  0x08      0}
+{Bo5,  0x10      0}
+{Bo6,  0x20      0}
+{Bo7,  0x40      0}
+{Bo8,  0x80      0}
 }
 
 # Direction bits on binary I/O
@@ -45,37 +45,37 @@ pattern
 file "$(MEASCOMP)/db/measCompBinaryDir.template"
 {
 pattern
-{ R,   MASK,  VAL,  PORT,   ADDR}
-{Bd1,  0x01    0,  USBCTR,     0}
-{Bd2,  0x02    0,  USBCTR,     0}
-{Bd3,  0x04    0,  USBCTR,     0}
-{Bd4,  0x08    0,  USBCTR,     0}
-{Bd5,  0x10    1,  USBCTR,     0}
-{Bd6,  0x20    1,  USBCTR,     0}
-{Bd7,  0x40    1,  USBCTR,     0}
-{Bd8,  0x80    1,  USBCTR,     0}
+{ R,   MASK,  VAL, ADDR}
+{Bd1,  0x01    0,     0}
+{Bd2,  0x02    0,     0}
+{Bd3,  0x04    0,     0}
+{Bd4,  0x08    0,     0}
+{Bd5,  0x10    1,     0}
+{Bd6,  0x20    1,     0}
+{Bd7,  0x40    1,     0}
+{Bd8,  0x80    1,     0}
 }
 
 file "$(MEASCOMP)/db/measCompPulseGen.template"
 {
 pattern
-{    R,        PORT,   ADDR,  PREC}
-{PulseGen1,  USBCTR,      0,     4}
-{PulseGen2,  USBCTR,      1,     4}
-{PulseGen3,  USBCTR,      2,     4}
-{PulseGen4,  USBCTR,      3,     4}
+{    R,       ADDR,  PREC}
+{PulseGen1,      0,     4}
+{PulseGen2,      1,     4}
+{PulseGen3,      2,     4}
+{PulseGen4,      3,     4}
 }
 
 file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
-{    R,       PORT,   ADDR}
-{Counter1,  USBCTR,      0}
-{Counter2,  USBCTR,      1}
-{Counter3,  USBCTR,      2}
-{Counter4,  USBCTR,      3}
-{Counter5,  USBCTR,      4}
-{Counter6,  USBCTR,      5}
-{Counter7,  USBCTR,      6}
-{Counter8,  USBCTR,      7}
+{    R,      ADDR}
+{Counter1,      0}
+{Counter2,      1}
+{Counter3,      2}
+{Counter4,      3}
+{Counter5,      4}
+{Counter6,      5}
+{Counter7,      6}
+{Counter8,      7}
 }
