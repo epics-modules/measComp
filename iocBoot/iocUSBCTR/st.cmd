@@ -24,7 +24,7 @@ asynSetMinTimerPeriod(0.001)
 #              uniqueID,       # Device serial number.
 #              maxTimePoints,  # Maximum number of time points for MCS
 #              pollTime,       # Time to sleep between polls
-USBCTRConfig("$(PORT)", "$(UNIQUE_ID", $(MAX_POINTS), $(POLL_TIME))
+USBCTRConfig("$(PORT)", "$(UNIQUE_ID)", $(MAX_POINTS), $(POLL_TIME))
 
 #asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
