@@ -1072,7 +1072,7 @@ These records are defined in measCompTrigger.template. This database is loaded o
     - The mode of the external trigger input. Choices are "Positive edge", "Negative edge",
       "High", and "Low".
 
-Box for USB-2408-2A0
+Box for USB-2408-2AO
 --------------------
 
 The following photos show a box we built to house the USB-2408-2AO and
@@ -1083,14 +1083,14 @@ This is the top view.
 .. figure:: USB2408_Box_Top.jpg
     :align: center
 
-    **Top view of USB-2408-2A0 box**
+    **Top view of USB-2408-2AO box**
 
 These are the side views.
 
 .. figure:: USB2408_Box_Sides.jpg
     :align: center
 
-    **Side views of USB-2408-2A0 box**
+    **Side views of USB-2408-2AO box**
 
 Wiring USB-1608GX-2AO to BCDA BC-020
 ------------------------------------
@@ -1236,7 +1236,7 @@ and analog inputs. Since these are 16-bit devices, one bit is 20V/65536
      endfor
    end
 
-The following plot shows the difference of the nominal USB-1608GX-2A0 analog
+The following plot shows the difference of the nominal USB-1608GX-2AO analog
 output voltage from the Keithley 2700 reading. The mean error is
 0.000312V, or just over 1 bit. The RMS error is 0.000203V, or less than
 1 bit.
@@ -1244,7 +1244,7 @@ output voltage from the Keithley 2700 reading. The mean error is
 .. figure:: measCompAoError.png
     :align: center
 
-    **USB-1608GX-2A0 analog output voltage error**
+    **USB-1608GX-2AO analog output voltage error**
 
 The following plot shows the difference of the mean of 10 readings of
 the 1608GX analog input voltage from the Keithley 2700 reading. The mean
@@ -1254,7 +1254,7 @@ less than 1 bit.
 .. figure:: measCompAiError.png
     :align: center
 
-    **USB-1608GX-2A0 analog input voltage error**
+    **USB-1608GX-2AO analog input voltage error**
 
 The following plot shows the standard deviation of 10 readings of the
 1608GX analog input voltage. The values range from about 0.001V (~3
@@ -1263,7 +1263,7 @@ bits) at +-10V to less than 0.0003V (1 bit) between -2 and +2V.
 .. figure:: measCompAiStdDev.png
     :align: center
 
-    **USB-1608GX-2A0 analog input standard deviation**
+    **USB-1608GX-2AO analog input standard deviation**
 
 The following table contains all of the results from the tests.
 
