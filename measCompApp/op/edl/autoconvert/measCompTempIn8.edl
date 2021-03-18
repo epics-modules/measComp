@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 2109
-y 266
+x 0
+y 0
 w 295
 h 265
 font "helvetica-medium-r-18.0"
@@ -23,19 +23,6 @@ showGrid
 snapToGrid
 gridSize 4
 endScreenProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 0
-y 0
-w 295
-h 265
-
-beginGroup
 
 # (Rectangle)
 object activeRectangleClass
@@ -441,23 +428,6 @@ value {
 }
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 0
-y 0
-w 295
-h 265
-
-beginGroup
-
 # (Related Display)
 object relatedDisplayClass
 beginObjectProperties
@@ -539,13 +509,13 @@ buttonLabel "Configure"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 "measCompTemperatureSetup.edl"
+  0 "measCompTemperatureSetup8.edl"
 }
 menuLabel {
   0 "Input 1"
 }
 symbols {
-  0 "P=$(P),Ai=$(Ai),Ti0=$(Ti)1,Ti1=$(Ti)2,Ti2=$(Ti)3,Ti3=$(Ti)4,Ti4=$(Ti)5,Ti5=$(Ti)6,Ti6=$(Ti)7,Ti7=$(Ti)8"
+  0 "P=$(P),Ti1=$(Ti)1,Ti2=$(Ti)2,Ti3=$(Ti)3,Ti4=$(Ti)4,Ti5=$(Ti)5,Ti6=$(Ti)6,Ti7=$(Ti)7,Ti8=$(Ti)8"
 }
 replaceSymbols {
   0 1
@@ -923,11 +893,6 @@ w 10
 h 195
 
 beginGroup
-
-endGroup
-
-endObjectProperties
-
 
 endGroup
 

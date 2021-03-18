@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <display version="2.0.0">
-  <name>measCompUSBTempSetup4</name>
+  <name>measCompUSBTempSetup8</name>
   <x>693</x>
   <y>66</y>
   <width>625</width>
-  <height>185</height>
+  <height>285</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -159,8 +159,44 @@
     </font>
     <horizontal_alignment>2</horizontal_alignment>
   </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #42</name>
+    <text>$(Ti5)</text>
+    <x>10</x>
+    <y>185</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #45</name>
+    <text>$(Ti6)</text>
+    <x>10</x>
+    <y>210</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #48</name>
+    <text>$(Ti7)</text>
+    <x>10</x>
+    <y>235</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #42</name>
+    <name>menu #51</name>
     <pv_name>$(P)$(Ti1)TCType</pv_name>
     <x>325</x>
     <y>86</y>
@@ -173,7 +209,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #45</name>
+    <name>menu #54</name>
     <pv_name>$(P)$(Ti2)TCType</pv_name>
     <x>325</x>
     <y>110</y>
@@ -186,7 +222,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #48</name>
+    <name>menu #57</name>
     <pv_name>$(P)$(Ti3)TCType</pv_name>
     <x>325</x>
     <y>135</y>
@@ -199,7 +235,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #51</name>
+    <name>menu #60</name>
     <pv_name>$(P)$(Ti4)TCType</pv_name>
     <x>325</x>
     <y>160</y>
@@ -212,7 +248,46 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #54</name>
+    <name>menu #63</name>
+    <pv_name>$(P)$(Ti5)TCType</pv_name>
+    <x>325</x>
+    <y>185</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #66</name>
+    <pv_name>$(P)$(Ti6)TCType</pv_name>
+    <x>325</x>
+    <y>210</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #69</name>
+    <pv_name>$(P)$(Ti7)TCType</pv_name>
+    <x>325</x>
+    <y>235</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #72</name>
     <pv_name>$(P)$(Ti1)Scale</pv_name>
     <x>410</x>
     <y>86</y>
@@ -225,7 +300,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #57</name>
+    <name>menu #75</name>
     <pv_name>$(P)$(Ti2)Scale</pv_name>
     <x>410</x>
     <y>110</y>
@@ -238,7 +313,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #60</name>
+    <name>menu #78</name>
     <pv_name>$(P)$(Ti3)Scale</pv_name>
     <x>410</x>
     <y>135</y>
@@ -251,7 +326,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #63</name>
+    <name>menu #81</name>
     <pv_name>$(P)$(Ti4)Scale</pv_name>
     <x>410</x>
     <y>160</y>
@@ -263,8 +338,101 @@
     </background_color>
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #84</name>
+    <pv_name>$(P)$(Ti5)Scale</pv_name>
+    <x>410</x>
+    <y>185</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #87</name>
+    <pv_name>$(P)$(Ti6)Scale</pv_name>
+    <x>410</x>
+    <y>210</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #90</name>
+    <pv_name>$(P)$(Ti7)Scale</pv_name>
+    <x>410</x>
+    <y>235</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #66</name>
+    <name>text entry #93</name>
+    <pv_name>$(P)$(Ti6).LOPR</pv_name>
+    <x>495</x>
+    <y>209</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #97</name>
+    <pv_name>$(P)$(Ti7).HOPR</pv_name>
+    <x>560</x>
+    <y>234</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #101</name>
+    <pv_name>$(P)$(Ti7).LOPR</pv_name>
+    <x>495</x>
+    <y>234</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #105</name>
     <pv_name>$(P)$(Ti1).HOPR</pv_name>
     <x>560</x>
     <y>85</y>
@@ -282,7 +450,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #70</name>
+    <name>text entry #109</name>
     <pv_name>$(P)$(Ti2).HOPR</pv_name>
     <x>560</x>
     <y>109</y>
@@ -300,7 +468,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #74</name>
+    <name>text entry #113</name>
     <pv_name>$(P)$(Ti3).HOPR</pv_name>
     <x>560</x>
     <y>134</y>
@@ -318,7 +486,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #78</name>
+    <name>text entry #117</name>
     <pv_name>$(P)$(Ti4).HOPR</pv_name>
     <x>560</x>
     <y>159</y>
@@ -336,7 +504,43 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #82</name>
+    <name>text entry #121</name>
+    <pv_name>$(P)$(Ti5).HOPR</pv_name>
+    <x>560</x>
+    <y>184</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #125</name>
+    <pv_name>$(P)$(Ti6).HOPR</pv_name>
+    <x>560</x>
+    <y>209</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #129</name>
     <pv_name>$(P)$(Ti1).LOPR</pv_name>
     <x>495</x>
     <y>85</y>
@@ -354,7 +558,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #86</name>
+    <name>text entry #133</name>
     <pv_name>$(P)$(Ti2).LOPR</pv_name>
     <x>495</x>
     <y>109</y>
@@ -372,7 +576,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #90</name>
+    <name>text entry #137</name>
     <pv_name>$(P)$(Ti3).LOPR</pv_name>
     <x>495</x>
     <y>134</y>
@@ -390,7 +594,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #94</name>
+    <name>text entry #141</name>
     <pv_name>$(P)$(Ti4).LOPR</pv_name>
     <x>495</x>
     <y>159</y>
@@ -407,8 +611,26 @@
     <show_units>false</show_units>
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #145</name>
+    <pv_name>$(P)$(Ti5).LOPR</pv_name>
+    <x>495</x>
+    <y>184</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #98</name>
+    <name>menu #149</name>
     <pv_name>$(P)$(Ti1)TemperatureSensor</pv_name>
     <x>75</x>
     <y>86</y>
@@ -421,7 +643,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #101</name>
+    <name>menu #152</name>
     <pv_name>$(P)$(Ti2)TemperatureSensor</pv_name>
     <x>75</x>
     <y>110</y>
@@ -434,7 +656,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #104</name>
+    <name>menu #155</name>
     <pv_name>$(P)$(Ti3)TemperatureSensor</pv_name>
     <x>75</x>
     <y>135</y>
@@ -447,7 +669,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #107</name>
+    <name>menu #158</name>
     <pv_name>$(P)$(Ti4)TemperatureSensor</pv_name>
     <x>75</x>
     <y>160</y>
@@ -460,7 +682,46 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #110</name>
+    <name>menu #161</name>
+    <pv_name>$(P)$(Ti5)TemperatureSensor</pv_name>
+    <x>75</x>
+    <y>185</y>
+    <width>110</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #164</name>
+    <pv_name>$(P)$(Ti6)TemperatureSensor</pv_name>
+    <x>75</x>
+    <y>210</y>
+    <width>110</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #167</name>
+    <pv_name>$(P)$(Ti7)TemperatureSensor</pv_name>
+    <x>75</x>
+    <y>235</y>
+    <width>110</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #170</name>
     <pv_name>$(P)$(Ti1)TemperatureWiring</pv_name>
     <x>190</x>
     <y>86</y>
@@ -473,7 +734,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #113</name>
+    <name>menu #173</name>
     <pv_name>$(P)$(Ti2)TemperatureWiring</pv_name>
     <x>190</x>
     <y>110</y>
@@ -486,7 +747,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #116</name>
+    <name>menu #176</name>
     <pv_name>$(P)$(Ti3)TemperatureWiring</pv_name>
     <x>190</x>
     <y>135</y>
@@ -499,10 +760,149 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #119</name>
+    <name>menu #179</name>
     <pv_name>$(P)$(Ti4)TemperatureWiring</pv_name>
     <x>190</x>
     <y>160</y>
+    <width>130</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #182</name>
+    <pv_name>$(P)$(Ti5)TemperatureWiring</pv_name>
+    <x>190</x>
+    <y>185</y>
+    <width>130</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #185</name>
+    <pv_name>$(P)$(Ti6)TemperatureWiring</pv_name>
+    <x>190</x>
+    <y>210</y>
+    <width>130</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #188</name>
+    <pv_name>$(P)$(Ti7)TemperatureWiring</pv_name>
+    <x>190</x>
+    <y>235</y>
+    <width>130</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #191</name>
+    <text>$(Ti8)</text>
+    <x>10</x>
+    <y>260</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #194</name>
+    <pv_name>$(P)$(Ti8)TCType</pv_name>
+    <x>325</x>
+    <y>261</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #197</name>
+    <pv_name>$(P)$(Ti8)Scale</pv_name>
+    <x>410</x>
+    <y>261</y>
+    <width>80</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #200</name>
+    <pv_name>$(P)$(Ti8).HOPR</pv_name>
+    <x>560</x>
+    <y>260</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #204</name>
+    <pv_name>$(P)$(Ti8).LOPR</pv_name>
+    <x>495</x>
+    <y>260</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #208</name>
+    <pv_name>$(P)$(Ti8)TemperatureSensor</pv_name>
+    <x>75</x>
+    <y>261</y>
+    <width>110</width>
+    <height>18</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>menu #211</name>
+    <pv_name>$(P)$(Ti8)TemperatureWiring</pv_name>
+    <x>190</x>
+    <y>261</y>
     <width>130</width>
     <height>18</height>
     <background_color>
