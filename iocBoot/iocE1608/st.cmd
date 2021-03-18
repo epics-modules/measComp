@@ -4,19 +4,16 @@
 dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet("PREFIX",        "USB2408:")
-epicsEnvSet("PORT",          "USB2401_1")
+epicsEnvSet("PREFIX",        "E1608:")
+epicsEnvSet("PORT",          "E1608_1")
 epicsEnvSet("WDIG_POINTS",   "2048")
-epicsEnvSet("UNIQUE_ID",     "00:80:2F:24:53:DE")
+epicsEnvSet("UNIQUE_ID",     "00:80:2F:18:64:23")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
 #                      uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
 #                      maxInputPoints,  # Maximum number of input points for waveform digitizer
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
-# This is an E-1608 using its IP address. This will work even if the device is on a different subnet from the IOC.
-#MultiFunctionConfig("E1608_1", "10.54.160.216", $(INPUT_POINTS), $(OUTPUT_POINTS))
-# This is an E-1608 using its MAC address.  This will only work if the device is on the same subnet as the IOC.
 MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", $(WDIG_POINTS), 1)
 
 #asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
