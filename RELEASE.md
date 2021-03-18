@@ -26,11 +26,20 @@
         while the IP address must be used for devices on other subnets.
     - There is a new iocsh command, `measCompShowDevices`. This will list all Measurement Computing USB devices
       attached to the computer running the IOC, as well as all Measurement Computing Ethernet devices on the subnet.
-  - Added support for the USB-TEMP and USB-TEMP-AI models.  
+    - The discovery mechanism on Windows means that the InstaCal configuration for a board is no longer be used
+      with EPICS. This required adding EPICS control for the analog input mode (Differential or Single-ended).
+      That was previously only configurable with InstaCal. 
+      EPICS already had control of the other configuration settings that InstaCal could control.
+  - Added support for the USB-TEMP and USB-TEMP-AI models.
     - These support reading temperature with RTD, thermocouple, thermistor, and semiconductor sensors.  
     - The USB-TEMP supports up to 8 temperature inputs.
     - The USB-TEMP-AI supports up to 4 temperature inputs and 4 24-bit voltage inputs.
-  - E-1608, USB-2408, XXX
+    - The USB-TEMP and USB-TEMP-AI behave differently from all other Measurement Computing devices.  
+      On Windows InstaCal is used to select the temperature sensor type (RTD, thermocouple, etc.)
+      and the RTD wiring configuration.  
+      Those settings are written into non-volatile memory on the device, and cannot be changed with EPICS.
+      However, they **can** be changed with EPICS on Linux, so they are exposed in the OPI screen.
+  - E-1608, USB-2408, USB-1208, USB-1608G, USB1608G-2AO, USB-231, USB-2408
     - Added support for AiMode record to select Differential or Single-ended mode.
   - USB-CTR04/08
     - Fix problem with stopping MCS acquisition.  It was calling cbStopBackground() incorrectly.  This problem
@@ -220,11 +229,11 @@
 
 ## Release 1-4 (September 18, 2017)
   - Added support to drvMultiFunction for the USB-1608G. This is similar
-    to the previously supported USB-1608GX-2A0 except that is is 250 kHz
+    to the previously supported USB-1608GX-2AO except that is is 250 kHz
     vs 500 kHz, and does not have the 2 analog output ports.
-  - Added support for new version of USB-1608GX-2A0 which is
+  - Added support for new version of USB-1608GX-2AO which is
     functionally the same but has a different board type identifier.
-  - Renamed the iocBoot/iocUSB1608G to iocUSB1608G-2A0, and added new
+  - Renamed the iocBoot/iocUSB1608G to iocUSB1608G-2AO, and added new
     iocUSB1608 directory for the USB-1608G.
   - Added support to drvMultiFunction for the USB-231, and a new
     iocUSB231 directory.
@@ -246,10 +255,10 @@
     Universal Library.
 
 ## Release 1-2 (February 11, 2016)
-  - Added support for the USB-1208LS and USB-2408-2A0.
+  - Added support for the USB-1208LS and USB-2408-2AO.
   - Renamed the drv1608G driver to drvMultiFunction because it is now
     designed to handle any multi-function model. It currently supports
-    the USB-1208LS, USB-2408-2A0, and USB-1608GX-2A0.
+    the USB-1208LS, USB-2408-2AO, and USB-1608GX-2AO.
   - Updated from release 6.3 to 6.5 of the Measurement Computing
     Universal Library.
 
