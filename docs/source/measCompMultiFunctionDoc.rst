@@ -307,7 +307,7 @@ The following is the main medm screen for controlling the USB-TEMP-AI.
 .. figure:: USB-TEMP-AI_module.png
     :align: center
 
-    **USB_TEMP_AI_module.adl**
+    **USBTEMP_AI_module.adl**
 
 The following is the screen for configuring the temperature inputs.
 
