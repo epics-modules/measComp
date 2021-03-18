@@ -4,7 +4,7 @@
 dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet("PREFIX",        "USBTEMP:")
+epicsEnvSet("PREFIX",        "USBTEMP_AI:")
 epicsEnvSet("PORT",          "USB_TEMP_1")
 epicsEnvSet("UNIQUE_ID",     "1F6335A")
 
