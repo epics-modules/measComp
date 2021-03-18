@@ -4,8 +4,8 @@
 dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet("PREFIX",        "USB1608G_2A0:")
-epicsEnvSet("PORT",          "USB1608G_1")
+epicsEnvSet("PREFIX",        "USBTEMP:")
+epicsEnvSet("PORT",          "USBTEMP_1")
 epicsEnvSet("UNIQUE_ID",     "01F6335A")
 
 ## Configure port driver
@@ -17,7 +17,7 @@ MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
 #asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
-dbLoadTemplate("$(MEASCOMP)/db/USB_TEMP.substitutions", "P=$(PREFIX),PORT=$(PORT)")
+dbLoadTemplate("$(MEASCOMP)/db/USBTEMP.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 
