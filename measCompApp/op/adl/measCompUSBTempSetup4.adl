@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompUSBTempSetup4.adl"
+	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/measCompUSBTempSetup4.adl"
 	version=030109
 }
 display {
@@ -102,58 +102,6 @@ text {
 }
 text {
 	object {
-		x=10
-		y=84
-		width=60
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="$(Ti0)"
-	align="horiz. right"
-}
-text {
-	object {
-		x=10
-		y=109
-		width=60
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="$(Ti1)"
-	align="horiz. right"
-}
-text {
-	object {
-		x=10
-		y=135
-		width=60
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="$(Ti2)"
-	align="horiz. right"
-}
-text {
-	object {
-		x=10
-		y=160
-		width=60
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="$(Ti3)"
-	align="horiz. right"
-}
-text {
-	object {
 		x=330
 		y=60
 		width=70
@@ -164,58 +112,6 @@ text {
 	}
 	textix="TC Type"
 	align="horiz. right"
-}
-menu {
-	object {
-		x=325
-		y=85
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti0)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=325
-		y=110
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti1)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=325
-		y=135
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti2)TCType"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=325
-		y=160
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti3)TCType"
-		clr=14
-		bclr=51
-	}
 }
 text {
 	object {
@@ -229,178 +125,6 @@ text {
 	}
 	textix="Scale"
 	align="horiz. right"
-}
-menu {
-	object {
-		x=410
-		y=85
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti0)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=410
-		y=110
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti1)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=410
-		y=135
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti2)Scale"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=410
-		y=160
-		width=80
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti3)Scale"
-		clr=14
-		bclr=51
-	}
-}
-"text entry" {
-	object {
-		x=560
-		y=84
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti0).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=560
-		y=109
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti1).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=560
-		y=134
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti2).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=560
-		y=159
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti3).HOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=495
-		y=84
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti0).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=495
-		y=109
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti1).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=495
-		y=134
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti2).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=495
-		y=159
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)$(Ti3).LOPR"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
 }
 text {
 	object {
@@ -454,58 +178,6 @@ text {
 	textix="Sensor"
 	align="horiz. right"
 }
-menu {
-	object {
-		x=75
-		y=85
-		width=110
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti0)TemperatureSensor"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=110
-		width=110
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti1)TemperatureSensor"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=135
-		width=110
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti2)TemperatureSensor"
-		clr=14
-		bclr=51
-	}
-}
-menu {
-	object {
-		x=75
-		y=160
-		width=110
-		height=18
-	}
-	control {
-		chan="$(P)$(Ti3)TemperatureSensor"
-		clr=14
-		bclr=51
-	}
-}
 text {
 	object {
 		x=225
@@ -519,15 +191,330 @@ text {
 	textix="Wiring"
 	align="horiz. right"
 }
+text {
+	object {
+		x=10
+		y=85
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti1)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=110
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti2)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=135
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti3)"
+	align="horiz. right"
+}
+text {
+	object {
+		x=10
+		y=160
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(Ti4)"
+	align="horiz. right"
+}
 menu {
 	object {
-		x=190
-		y=85
-		width=130
+		x=325
+		y=86
+		width=80
 		height=18
 	}
 	control {
-		chan="$(P)$(Ti0)TemperatureWiring"
+		chan="$(P)$(Ti1)TCType"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=325
+		y=110
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti2)TCType"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=325
+		y=135
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti3)TCType"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=325
+		y=160
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti4)TCType"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=410
+		y=86
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti1)Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=410
+		y=110
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti2)Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=410
+		y=135
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti3)Scale"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=410
+		y=160
+		width=80
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti4)Scale"
+		clr=14
+		bclr=51
+	}
+}
+"text entry" {
+	object {
+		x=560
+		y=85
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti1).HOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=560
+		y=109
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti2).HOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=560
+		y=134
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti3).HOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=560
+		y=159
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti4).HOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=495
+		y=85
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti1).LOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=495
+		y=109
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti2).LOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=495
+		y=134
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti3).LOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=495
+		y=159
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti4).LOPR"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+menu {
+	object {
+		x=75
+		y=86
+		width=110
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti1)TemperatureSensor"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=75
+		y=110
+		width=110
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti2)TemperatureSensor"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=75
+		y=135
+		width=110
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti3)TemperatureSensor"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=75
+		y=160
+		width=110
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti4)TemperatureSensor"
 		clr=14
 		bclr=51
 	}
@@ -535,7 +522,7 @@ menu {
 menu {
 	object {
 		x=190
-		y=110
+		y=86
 		width=130
 		height=18
 	}
@@ -548,7 +535,7 @@ menu {
 menu {
 	object {
 		x=190
-		y=135
+		y=110
 		width=130
 		height=18
 	}
@@ -561,12 +548,25 @@ menu {
 menu {
 	object {
 		x=190
-		y=160
+		y=135
 		width=130
 		height=18
 	}
 	control {
 		chan="$(P)$(Ti3)TemperatureWiring"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=190
+		y=160
+		width=130
+		height=18
+	}
+	control {
+		chan="$(P)$(Ti4)TemperatureWiring"
 		clr=14
 		bclr=51
 	}
