@@ -1,6 +1,6 @@
 # measComp Release Notes
 
-## Release 3-0 (March XXX, 2021)
+## Release 3-0 (March 18, 2021)
   - Changed the method used to specify the device in the constructors and the startup script.
     - Previously one specified what device to connect to in the constructor and startup script
       using an integer `boardNum`.
@@ -53,6 +53,8 @@
       names for the ai, bi, etc. records rather than simply a different prefix.
   - Converted documentation from HTML to Markdown (this document) and ReST (other documentation) at
     [epics-meascomp.readthedocs.io](https://epics-meascomp.readthedocs.io/en/latest/).
+  - Changed the OPI screens to be modular, using subscreens.  This works well because many devices have
+    identical functional blocks.  This is much easier to maintain.
   - Removed support for the USB-4303.  This module is obsolete and has not been available for many years.
     The USB-CTR04/08 should be used instead.
 
