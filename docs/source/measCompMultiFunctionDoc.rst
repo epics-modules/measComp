@@ -302,6 +302,12 @@ The USB-TEMP costs $605 and the USB-TEMP-AI costs $795. They have the following 
 More information can be found in the `USB-TEMP product
 description. <https://www.mccdaq.com/usb-data-acquisition/USB-TEMP-Series.aspx>`__
 
+The USB-TEMP and USB-TEMP-AI behave differently from all other Measurement Computing devices.  
+On Windows InstaCal is used to select the temperature sensor type (RTD, thermocouple, etc.)
+and the RTD wiring configuration.  
+Those settings are written into non-volatile memory on the device, and cannot be changed with EPICS.
+However, they **can** be changed with EPICS on Linux, so they are exposed in the OPI screen.
+
 The following is the main medm screen for controlling the USB-TEMP-AI.
 
 .. figure:: USB-TEMP-AI_module.png
