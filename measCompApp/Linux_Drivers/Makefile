@@ -17,6 +17,8 @@ INC += E-TC32.h
 INC += usb-ctr.h
 INC += usb-tc-ai.h
 INC += usb-temp.h
+INC += usb-3100.h
+INC += usb-1608G.h
 
 LIB_SRCS += mccEthernet.c 
 LIB_SRCS += pmd.c
@@ -27,6 +29,8 @@ LIB_SRCS += E-TC.c
 LIB_SRCS += usb-ctr.c
 LIB_SRCS += usb-tc-ai.c
 LIB_SRCS += usb-temp.c
+LIB_SRCS += usb-3100.c
+LIB_SRCS += usb-1608G.c
 
 ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += test-E-1608 
@@ -36,6 +40,8 @@ ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += test-usb-ctr
   PROD_IOC_Linux += test-usb-temp-ai
   PROD_IOC_Linux += test-usb-temp
+  PROD_IOC_Linux += test-usb3100
+  PROD_IOC_Linux += test-usb1608G
   #PROD_IOC_Linux += test-usb-ctr-scaler
   #PROD_IOC_Linux += test-usb-ctr-mcs
 endif
