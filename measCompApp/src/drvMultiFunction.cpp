@@ -156,6 +156,15 @@ typedef enum {
   E_TC               = 312,
   USB_TEMP_AI        = 188,
   USB_TEMP           = 141,
+  USB_3101           = 154,
+  USB_3102           = 155,
+  USB_3103           = 156,
+  USB_3104           = 157,
+  USB_3105           = 158,
+  USB_3106           = 159,
+  USB_3110           = 162,
+  USB_3112           = 163,
+  USB_3114           = 164,
   MAX_BOARD_TYPES
 } boardType_t;
 
@@ -271,19 +280,29 @@ static const enumStruct_t inputTypeE_1608[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
-static const enumStruct_t inputRangeE_DIO24[] = {
-  {"+= 10V", BIP10VOLTS},
-  {"+= 5V",  BIP5VOLTS},
-  {"+= 2V",  BIP2VOLTS},
-  {"+= 1V",  BIP1VOLTS}
+static const enumStruct_t inputRangeUSB_3101[] = {
+  {"N.A.", 0}
 };
 
-static const enumStruct_t outputRangeE_DIO24[] = {
+static const enumStruct_t outputRangeUSB_3101[] = {
+  {"0-10V",  UNI10VOLTS},
   {"+= 10V", BIP10VOLTS}
 };
 
+static const enumStruct_t inputTypeUSB_3101[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputRangeE_DIO24[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeE_DIO24[] = {
+  {"N.A.", 0}
+};
+
 static const enumStruct_t inputTypeE_DIO24[] = {
-  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+  {"N.A.", 0}
 };
 
 static const enumStruct_t inputRangeTC32[] = {
@@ -390,6 +409,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
                    outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
                    inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
+
+  {USB_3101,       inputRangeUSB_3101,    sizeof(inputRangeUSB_3101)/sizeof(enumStruct_t),
+                   outputRangeUSB_3101,   sizeof(outputRangeUSB_3101)/sizeof(enumStruct_t),
+                   inputTypeUSB_3101,     sizeof(inputTypeUSB_3101)/sizeof(enumStruct_t)},
 
   {E_DIO24,        inputRangeE_DIO24,      sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
                    outputRangeE_DIO24,     sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
@@ -730,6 +753,22 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
 
   // Get the board number and board name
   cbGetConfig(BOARDINFO, boardNum_, 0, BIBOARDTYPE,  &boardType_);
+  // Map all of the USB-3100 models to the USB-3101 because the
+  switch (boardType_) {
+    case USB_3101:
+    case USB_3102:
+    case USB_3103:
+    case USB_3104:
+    case USB_3105:
+    case USB_3106:
+    case USB_3110:
+    case USB_3112:
+    case USB_3114:
+      boardType_ = USB_3101;
+      break;
+    default:
+      break;
+  }
 
   setIntegerParam(modelNumber_, boardType_);
   cbGetBoardName(boardNum_, boardName_);
@@ -810,6 +849,11 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       maxPulseGenDelay_ = 67.11;
       break;
     case E_1608:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      break;
+    case USB_3101:
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
