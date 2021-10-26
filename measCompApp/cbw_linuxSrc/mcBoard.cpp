@@ -6,6 +6,20 @@
 
 mcBoard::mcBoard(const char *address) {
     strncpy(address_, address, sizeof(address_)-1);
+
+    strcpy(boardName_, "");
+    pasynUser_      = 0;
+    biBoardType_    = 0;
+    biNumADCChans_  = 0;
+    biADCRes_       = 0;
+    biNumDACChans_  = 0;
+    biDACRes_       = 0;
+    biNumTempChans_ = 0;
+    biDInNumDevs_   = 0;
+    diDevType_      = 0;
+    diInMask_       = 0;
+    diOutMask_      = 0;
+    diNumBits_      = 0;
 }
 
 // System functions
