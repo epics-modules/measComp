@@ -22,6 +22,7 @@ LIB_SRCS += mcBoard_E-DIO24.cpp
 LIB_SRCS += mcBoard_USB-CTR.cpp
 LIB_SRCS += mcBoard_USB-TEMP-AI.cpp
 LIB_SRCS += mcBoard_USB-TEMP.cpp
+LIB_SRCS += mcBoard_USB-3100.cpp
 
 #=============================
 
