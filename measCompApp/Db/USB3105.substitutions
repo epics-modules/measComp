@@ -1,0 +1,88 @@
+file "$(MEASCOMP)/db/measCompLongIn.template"
+{
+pattern
+{ R,   MASK,  ADDR}
+{Li,   0xFF,     0}
+}
+
+file "$(MEASCOMP)/db/measCompBinaryIn.template"
+{
+pattern
+{  R,  MASK,   ADDR}
+{Bi1,  0x01,      0}
+{Bi2,  0x02,      0}
+{Bi3,  0x04,      0}
+{Bi4,  0x08,      0}
+{Bi5,  0x10,      0}
+{Bi6,  0x20,      0}
+{Bi7,  0x40,      0}
+{Bi8,  0x80,      0}
+}
+
+file "$(MEASCOMP)/db/measCompLongOut.template"
+{
+pattern
+{ R,   MASK,  ADDR}
+{Lo,   0xFF,     0}
+}
+
+file "$(MEASCOMP)/db/measCompBinaryOut.template"
+{
+pattern
+{  R,  MASK,   ADDR}
+{Bo1,  0x01,      0}
+{Bo2,  0x02,      0}
+{Bo3,  0x04,      0}
+{Bo4,  0x08,      0}
+{Bo5,  0x10,      0}
+{Bo6,  0x20,      0}
+{Bo7,  0x40,      0}
+{Bo8,  0x80,      0}
+}
+
+# Direction bits on binary I/O
+#  VAL 0=input, 1=output
+file "$(MEASCOMP)/db/measCompBinaryDir.template"
+{
+pattern
+{  R,  MASK,  VAL,  ADDR}
+{Bd1,  0x01,    0,     0}
+{Bd2,  0x02,    0,     0}
+{Bd3,  0x04,    0,     0}
+{Bd4,  0x08,    0,     0}
+{Bd5,  0x10     1,     0}
+{Bd6,  0x20,    1,     0}
+{Bd7,  0x40,    1,     0}
+{Bd8,  0x80,    1,     0}
+}
+
+file "$(MEASCOMP)/db/measCompCounter.template"
+{
+pattern
+{    R,      ADDR}
+{Counter1,      0}
+{Counter2,      1}
+}
+
+# Analog outputs
+file "$(MEASCOMP)/db/measCompAnalogOut.template"
+{
+pattern
+{  R, VAL, ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{Ao1,   0,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao2,   0,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao3,   0,    2,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao4,   0,    3,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao5,   0,    4,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao6,   0,    5,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao7,   0,    6,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao8,   0,    7,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao9,   0,    8,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao10,  0,    9,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao11,  0,   10,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao12,  0,   11,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao13,  0,   12,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao14,  0,   13,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao15,  0,   14,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao16,  0,   15,  -10., -10., -10.,  10.,  10.,  10.,    4}
+}
