@@ -12,6 +12,7 @@
 #include "mcBoard_USB-CTR.h"
 #include "mcBoard_USB-TEMP-AI.h"
 #include "mcBoard_USB-TEMP.h"
+#include "mcBoard_USB-3100.h"
 
 
 #define MAX_DEVICES 100
@@ -180,11 +181,14 @@ int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
     else if (strncmp(deviceDescriptor.ProductName, "USB-CTR", 7) == 0) {
         pBoard = (mcBoard *)new mcUSB_CTR(deviceDescriptor.UniqueID);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP") ==0) {
+    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP") == 0) {
         pBoard = (mcBoard *)new mcUSB_TEMP(deviceDescriptor.UniqueID);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") ==0) {
+    else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") == 0) {
         pBoard = (mcBoard *)new mcUSB_TEMP_AI(deviceDescriptor.UniqueID);
+    }
+    else if (strstr(deviceDescriptor.ProductName, "USB-31") != 0) {
+        pBoard = (mcBoard *)new mcUSB_3100(deviceDescriptor.UniqueID, deviceDescriptor.ProductID, deviceDescriptor.ProductName);
     }
     else {
         printf("Unknown board type %s\n", deviceDescriptor.ProductName);
