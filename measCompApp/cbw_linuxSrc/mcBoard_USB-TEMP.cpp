@@ -10,16 +10,9 @@ mcUSB_TEMP::mcUSB_TEMP(const char *address)
 {
     static const char *functionName = "mcUSB_TEMP";
     strcpy(boardName_, "USB-TEMP");
-    biBoardType_    = 0;
-    biNumADCChans_  = 0;
-    biADCRes_       = 0;
-    biNumDACChans_  = 0;
-    biDACRes_       = 0;
     biNumTempChans_ = 8;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
-    diInMask_       = 0;
-    diOutMask_      = 0;
     diNumBits_      = 8;
 
     int ret = hid_init();

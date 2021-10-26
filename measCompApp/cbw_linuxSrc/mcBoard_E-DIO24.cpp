@@ -16,15 +16,8 @@ mcE_DIO24::mcE_DIO24(const char *address)
 {
     strcpy(boardName_, "E-DIO24");
     biBoardType_    = EDIO24_PID;
-    biNumADCChans_  = 0;
-    biADCRes_       = 0;
-    biNumDACChans_  = 0;
-    biDACRes_       = 0;
-    biNumTempChans_ = 0;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
-    diInMask_       = 0;
-    diOutMask_      = 0;
     diNumBits_      = 24;
 
     // Open Ethernet socket

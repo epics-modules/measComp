@@ -8,15 +8,9 @@ mcE_TC32::mcE_TC32(const char *address)
 {
     strcpy(boardName_, "E-TC32");
     biBoardType_    = ETC32_PID;
-    biNumADCChans_  = 0;
-    biADCRes_       = 0;
-    biNumDACChans_  = 0;
-    biDACRes_       = 0;
     biNumTempChans_ = 32;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
-    diInMask_       = 0;
-    diOutMask_      = 0;
     diNumBits_      = 8;
 
     // Open Ethernet socket

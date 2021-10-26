@@ -22,11 +22,8 @@ mcE_1608::mcE_1608(const char *address)
     biADCRes_       = 16;
     biNumDACChans_  = 2;
     biDACRes_       = 16;
-    biNumTempChans_ = 0;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
-    diInMask_       = 0;
-    diOutMask_      = 0;
     diNumBits_      = 8;
 
     aiScanAcquiring_ = false;

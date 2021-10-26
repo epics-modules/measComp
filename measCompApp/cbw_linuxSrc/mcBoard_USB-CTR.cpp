@@ -24,15 +24,8 @@ mcUSB_CTR::mcUSB_CTR(const char *address)
     static const char *functionName = "mcUSB_CTR";
     strcpy(boardName_, "USB-CTR");
     biBoardType_    = USB_CTR08_PID;
-    biNumADCChans_  = 0;
-    biADCRes_       = 16;
-    biNumDACChans_  = 0;
-    biDACRes_       = 16;
-    biNumTempChans_ = 0;
     biDInNumDevs_   = 1;
     diDevType_      = AUXPORT;
-    diInMask_       = 0;
-    diOutMask_      = 0;
     diNumBits_      = 8;
 
     ctrScanAcquiring_ = false;
