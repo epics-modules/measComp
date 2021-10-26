@@ -47,6 +47,7 @@ extern "C" {
 
 /* function prototypes for the USB-31XX */
 void usbDConfigPort_USB31XX(hid_device *hid, uint8_t direction);
+void usbDConfigBit_USB31XX(hid_device *hid, uint8_t bit_num, uint8_t direction);
 void usbDIn_USB31XX(hid_device *hid, uint8_t* din_value);
 void usbDOut_USB31XX(hid_device *hid, uint8_t value);
 void usbDBitIn_USB31XX(hid_device *hid, uint8_t bit_num, uint8_t* value);
