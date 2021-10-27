@@ -137,7 +137,7 @@ typedef enum {
 // These are used as a convenience for allocating small arrays of pointers, not large amounts of data
 #define MAX_ANALOG_IN   16
 #define MAX_TEMPERATURE_IN 32
-#define MAX_ANALOG_OUT  2
+#define MAX_ANALOG_OUT  16
 #define MAX_IO_PORTS    2
 #define MAX_SIGNALS     MAX_TEMPERATURE_IN
 
@@ -572,6 +572,7 @@ private:
   const boardEnums_t *pBoardEnums_;
   int numAnalogIn_;
   int analogInTypeConfigurable_;
+  int analogOutRangeConfigurable_;
   int numAnalogOut_;
   int ADCResolution_;
   int DACResolution_;
@@ -794,6 +795,8 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   }
   // Assume only voltage input is supported
   analogInTypeConfigurable_ = 0;
+  // Assume analog output range is not configurable
+  analogOutRangeConfigurable_ = 0;
   switch (boardType_) {
     case USB_1208LS:
       numTimers_    = 0;
@@ -857,6 +860,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
+      analogOutRangeConfigurable_ = 1; // Can select 0-10V or +-10V
       break;
     case E_DIO24:
       numTimers_    = 0;
@@ -1370,6 +1374,11 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       getIntegerParam(addr, thermocoupleType_, &tcType);
       status |= cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, tcType);
     }
+  }
+
+  // Analog output functions
+  if (function == analogOutRange_ && analogOutRangeConfigurable_) {
+    status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDACRANGE, value);
   }
 
   else if (function == analogInMode_) {
