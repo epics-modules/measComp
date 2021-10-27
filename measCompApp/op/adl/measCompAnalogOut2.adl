@@ -1,6 +1,6 @@
 
 file {
-	name="measCompAnalogOut2.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompAnalogOut2.adl"
 	version=030109
 }
 display {
@@ -87,234 +87,223 @@ display {
 		1a7309,
 	}
 }
-composite {
+text {
+	object {
+		x=69
+		y=5
+		width=156
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Analog output"
+	align="horiz. right"
+}
+rectangle {
 	object {
 		x=0
 		y=0
 		width=295
 		height=115
 	}
-	"composite name"=""
-	children {
-		text {
-			object {
-				x=69
-				y=5
-				width=156
-				height=25
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Analog output"
-			align="horiz. right"
-		}
-		rectangle {
-			object {
-				x=0
-				y=0
-				width=295
-				height=115
-			}
-			"basic attribute" {
-				clr=14
-				fill="outline"
-				width=1
-			}
-		}
-		"related display" {
-			object {
-				x=101
-				y=86
-				width=93
-				height=20
-			}
-			display[0] {
-				label="Input 1"
-				name="measCompAoSetup.adl"
-				args="P=$(P),Ao=$(Ao)"
-			}
-			clr=14
-			bclr=51
-			label="Configure"
-		}
-		text {
-			object {
-				x=7
-				y=61
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="2"
-			align="horiz. right"
-		}
-		"text entry" {
-			object {
-				x=22
-				y=61
-				width=80
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)2"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		valuator {
-			object {
-				x=107
-				y=61
-				width=80
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)2"
-				clr=14
-				bclr=51
-			}
-			dPrecision=1.000000
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=210
-				y=61
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)2TweakVal"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"message button" {
-			object {
-				x=273
-				y=61
-				width=15
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)2TweakUp.PROC"
-				clr=14
-				bclr=51
-			}
-			label=">"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=192
-				y=61
-				width=15
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)2TweakDown.PROC"
-				clr=14
-				bclr=51
-			}
-			label="<"
-			press_msg="1"
-		}
-		text {
-			object {
-				x=7
-				y=35
-				width=10
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="1"
-			align="horiz. right"
-		}
-		"text entry" {
-			object {
-				x=22
-				y=35
-				width=80
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)1"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		valuator {
-			object {
-				x=107
-				y=35
-				width=80
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)1"
-				clr=14
-				bclr=51
-			}
-			dPrecision=1.000000
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=210
-				y=35
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)1TweakVal"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"message button" {
-			object {
-				x=273
-				y=35
-				width=15
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)1TweakUp.PROC"
-				clr=14
-				bclr=51
-			}
-			label=">"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=192
-				y=35
-				width=15
-				height=20
-			}
-			control {
-				chan="$(P)$(Ao)1TweakDown.PROC"
-				clr=14
-				bclr=51
-			}
-			label="<"
-			press_msg="1"
-		}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
 	}
+}
+"related display" {
+	object {
+		x=101
+		y=86
+		width=93
+		height=20
+	}
+	display[0] {
+		label="Configure"
+		name="measCompAoSetup2.adl"
+		args="P=$(P),Ao=$(Ao)"
+	}
+	clr=14
+	bclr=51
+	label="Configure"
+}
+text {
+	object {
+		x=7
+		y=61
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=22
+		y=61
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)2"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+valuator {
+	object {
+		x=107
+		y=61
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)2"
+		clr=14
+		bclr=51
+	}
+	dPrecision=1.000000
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=210
+		y=61
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)2TweakVal"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=273
+		y=61
+		width=15
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)2TweakUp.PROC"
+		clr=14
+		bclr=51
+	}
+	label=">"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=192
+		y=61
+		width=15
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)2TweakDown.PROC"
+		clr=14
+		bclr=51
+	}
+	label="<"
+	press_msg="1"
+}
+text {
+	object {
+		x=7
+		y=35
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=22
+		y=35
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)1"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+valuator {
+	object {
+		x=107
+		y=35
+		width=80
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)1"
+		clr=14
+		bclr=51
+	}
+	dPrecision=1.000000
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=210
+		y=35
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)1TweakVal"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=273
+		y=35
+		width=15
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)1TweakUp.PROC"
+		clr=14
+		bclr=51
+	}
+	label=">"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=192
+		y=35
+		width=15
+		height=20
+	}
+	control {
+		chan="$(P)$(Ao)1TweakDown.PROC"
+		clr=14
+		bclr=51
+	}
+	label="<"
+	press_msg="1"
 }

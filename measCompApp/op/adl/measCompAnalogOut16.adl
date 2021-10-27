@@ -121,84 +121,9 @@ rectangle {
 		height=20
 	}
 	display[0] {
-		label="Input 1"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)1"
-	}
-	display[1] {
-		label="Input 2"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)2"
-	}
-	display[2] {
-		label="Input 3"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)3"
-	}
-	display[3] {
-		label="Input 4"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)4"
-	}
-	display[4] {
-		label="Input 5"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)5"
-	}
-	display[5] {
-		label="Input 6"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)6"
-	}
-	display[6] {
-		label="Input 7"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)7"
-	}
-	display[7] {
-		label="Input 8"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)8"
-	}
-	display[8] {
-		label="Input 9"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)9"
-	}
-	display[9] {
-		label="Input 10"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)10"
-	}
-	display[10] {
-		label="Input 11"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)11"
-	}
-	display[11] {
-		label="Input 12"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)12"
-	}
-	display[12] {
-		label="Input 13"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)13"
-	}
-	display[13] {
-		label="Input 14"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)14"
-	}
-	display[14] {
-		label="Input 15"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)15"
-	}
-	display[15] {
-		label="Input 16"
-		name="measCompAoSetup.adl"
-		args="P=$(P),Ao=$(Ao)16"
+		label="Configure"
+		name="measCompAoSetup16.adl"
+		args="P=$(P),Ao=$(Ao)"
 	}
 	clr=14
 	bclr=51
@@ -1021,7 +946,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)1"
+				chan="$(P)$(Ao)9"
 				clr=14
 				bclr=51
 			}
@@ -1036,7 +961,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)1"
+				chan="$(P)$(Ao)9"
 				clr=14
 				bclr=51
 			}
@@ -1052,7 +977,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)1TweakVal"
+				chan="$(P)$(Ao)9TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1067,7 +992,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)1TweakUp.PROC"
+				chan="$(P)$(Ao)9TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1082,7 +1007,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)1TweakDown.PROC"
+				chan="$(P)$(Ao)9TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1121,7 +1046,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)2"
+				chan="$(P)$(Ao)10"
 				clr=14
 				bclr=51
 			}
@@ -1136,7 +1061,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)2"
+				chan="$(P)$(Ao)10"
 				clr=14
 				bclr=51
 			}
@@ -1152,7 +1077,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)2TweakVal"
+				chan="$(P)$(Ao)10TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1167,7 +1092,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)2TweakUp.PROC"
+				chan="$(P)$(Ao)10TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1182,7 +1107,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)2TweakDown.PROC"
+				chan="$(P)$(Ao)10TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1221,7 +1146,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)3"
+				chan="$(P)$(Ao)11"
 				clr=14
 				bclr=51
 			}
@@ -1236,7 +1161,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)3"
+				chan="$(P)$(Ao)11"
 				clr=14
 				bclr=51
 			}
@@ -1252,7 +1177,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)3TweakVal"
+				chan="$(P)$(Ao)11TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1267,7 +1192,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)3TweakUp.PROC"
+				chan="$(P)$(Ao)11TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1282,7 +1207,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)3TweakDown.PROC"
+				chan="$(P)$(Ao)11TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1321,7 +1246,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)4"
+				chan="$(P)$(Ao)12"
 				clr=14
 				bclr=51
 			}
@@ -1336,7 +1261,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)4"
+				chan="$(P)$(Ao)12"
 				clr=14
 				bclr=51
 			}
@@ -1352,7 +1277,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)4TweakVal"
+				chan="$(P)$(Ao)12TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1367,7 +1292,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)4TweakUp.PROC"
+				chan="$(P)$(Ao)12TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1382,7 +1307,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)4TweakDown.PROC"
+				chan="$(P)$(Ao)12TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1421,7 +1346,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)5"
+				chan="$(P)$(Ao)13"
 				clr=14
 				bclr=51
 			}
@@ -1436,7 +1361,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)5"
+				chan="$(P)$(Ao)13"
 				clr=14
 				bclr=51
 			}
@@ -1452,7 +1377,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)5TweakVal"
+				chan="$(P)$(Ao)13TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1467,7 +1392,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)5TweakUp.PROC"
+				chan="$(P)$(Ao)13TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1482,7 +1407,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)5TweakDown.PROC"
+				chan="$(P)$(Ao)13TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1521,7 +1446,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)6"
+				chan="$(P)$(Ao)14"
 				clr=14
 				bclr=51
 			}
@@ -1536,7 +1461,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)6"
+				chan="$(P)$(Ao)14"
 				clr=14
 				bclr=51
 			}
@@ -1552,7 +1477,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)6TweakVal"
+				chan="$(P)$(Ao)14TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1567,7 +1492,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)6TweakUp.PROC"
+				chan="$(P)$(Ao)14TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1582,7 +1507,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)6TweakDown.PROC"
+				chan="$(P)$(Ao)14TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1621,7 +1546,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)7"
+				chan="$(P)$(Ao)15"
 				clr=14
 				bclr=51
 			}
@@ -1636,7 +1561,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)7"
+				chan="$(P)$(Ao)15"
 				clr=14
 				bclr=51
 			}
@@ -1652,7 +1577,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)7TweakVal"
+				chan="$(P)$(Ao)15TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1667,7 +1592,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)7TweakUp.PROC"
+				chan="$(P)$(Ao)15TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1682,7 +1607,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)7TweakDown.PROC"
+				chan="$(P)$(Ao)15TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1721,7 +1646,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)8"
+				chan="$(P)$(Ao)16"
 				clr=14
 				bclr=51
 			}
@@ -1736,7 +1661,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)8"
+				chan="$(P)$(Ao)16"
 				clr=14
 				bclr=51
 			}
@@ -1752,7 +1677,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)8TweakVal"
+				chan="$(P)$(Ao)16TweakVal"
 				clr=14
 				bclr=51
 			}
@@ -1767,7 +1692,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)8TweakUp.PROC"
+				chan="$(P)$(Ao)16TweakUp.PROC"
 				clr=14
 				bclr=51
 			}
@@ -1782,7 +1707,7 @@ composite {
 				height=20
 			}
 			control {
-				chan="$(P)$(Ao)8TweakDown.PROC"
+				chan="$(P)$(Ao)16TweakDown.PROC"
 				clr=14
 				bclr=51
 			}
