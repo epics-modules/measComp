@@ -8,7 +8,7 @@ display {
 		x=628
 		y=61
 		width=212
-		height=315
+		height=340
 	}
 	clr=14
 	bclr=4
@@ -283,4 +283,20 @@ display {
 	clr=14
 	bclr=51
 	label="E-DIO24"
+}
+"related display" {
+	object {
+		x=30
+		y=310
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-3105 module"
+		name="USB3105_module.adl"
+		args="P=USB3105:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter"
+	}
+	clr=14
+	bclr=51
+	label="USB-3105"
 }
