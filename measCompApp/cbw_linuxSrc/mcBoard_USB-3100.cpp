@@ -108,7 +108,14 @@ int mcUSB_3100::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 
 int mcUSB_3100::cbDConfigBit(int PortType, int BitNum, int Direction)
 {
-    usbDConfigBit_USB31XX(hidDevice_, BitNum, Direction);
+    uint8_t direction;
+
+    if (Direction == DIGITALIN) {
+        direction = USB3100_DIO_DIR_IN;
+    } else {
+        direction = USB3100_DIO_DIR_OUT;
+    }
+    usbDConfigBit_USB31XX(hidDevice_, BitNum, direction);
     return NOERRORS;
 }
 
