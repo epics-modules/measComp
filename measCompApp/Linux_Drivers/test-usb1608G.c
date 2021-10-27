@@ -211,25 +211,25 @@ int main (int argc, char **argv)
       case 'i':
 	printf("Enter 0 for Single Ended, 1 for Differential: ");
 	scanf("%hhd", &mode);
-	if (mode == SINGLE_ENDED) {
-  	  mode = SINGLE_ENDED;
+	if (mode == USB1608G_SINGLE_ENDED) {
+  	  mode = USB1608G_SINGLE_ENDED;
 	  printf("Input channel [0-15]: ");
 	  scanf("%hhd", &channel);
 	} else {
-	  mode = DIFFERENTIAL;
+	  mode = USB1608G_DIFFERENTIAL;
 	  printf("Input channel [0-7]: ");
 	  scanf("%hhd", &channel);
 	}	  
 	printf("Gain Range for channel %d: 1 = +/-10V  2 = +/- 5V  3 = +/- 2V  4 = +/- 1V: ",channel);
 	while((ch = getchar()) == '\0' || ch == '\n');
 	switch(ch) {
-	  case '1': gain = BP_10V; break;
-  	  case '2': gain = BP_5V; break;
-	  case '3': gain = BP_2V; break;
-	  case  '4': gain = BP_1V; break;
-	  default:  gain = BP_10V; break;
+	  case '1': gain = USB1608G_BP_10V; break;
+  	  case '2': gain = USB1608G_BP_5V; break;
+	  case '3': gain = USB1608G_BP_2V; break;
+	  case  '4': gain = USB1608G_BP_1V; break;
+	  default:  gain = USB1608G_BP_10V; break;
 	}
-	mode |= LAST_CHANNEL ; 
+	mode |= USB1608G_LAST_CHANNEL ; 
 	usb1608G.list[0].range = gain;
         usb1608G.list[0].mode = mode;
 	usb1608G.list[0].channel = channel;
@@ -254,13 +254,13 @@ int main (int argc, char **argv)
 	usbAInScanClearFIFO_USB1608G(udev);
 	printf("Enter 0 for Single Ended, 1 for Differential: ");
 	scanf("%hhd", &mode);
-	if (mode == SINGLE_ENDED) {
-  	  mode = SINGLE_ENDED;
+	if (mode == USB1608G_SINGLE_ENDED) {
+  	  mode = USB1608G_SINGLE_ENDED;
 	  printf("enter number of channels (1-16) :");
 	  scanf("%d", &nchan);
 	  if (nchan > 16) break;
 	} else {
-	  mode = DIFFERENTIAL;
+	  mode = USB1608G_DIFFERENTIAL;
 	  printf("enter number of channels (1-8) :");
 	  scanf("%d", &nchan);
 	  if (nchan > 8) break;
@@ -278,17 +278,17 @@ int main (int argc, char **argv)
 	  printf("Gain Range for channel %d: 1 = +/-10V  2 = +/- 5V  3 = +/- 2V  4 = +/- 1V: ",channel);
 	  while((ch = getchar()) == '\0' || ch == '\n');
 	  switch(ch) {
-	    case '1': gain = BP_10V; break;
-	    case '2': gain = BP_5V; break;
-	    case '3': gain = BP_2V; break;
-	    case '4': gain = BP_1V; break;
-	    default:  gain = BP_10V; break;
+	    case '1': gain = USB1608G_BP_10V; break;
+	    case '2': gain = USB1608G_BP_5V; break;
+	    case '3': gain = USB1608G_BP_2V; break;
+	    case '4': gain = USB1608G_BP_1V; break;
+	    default:  gain = USB1608G_BP_10V; break;
 	  }
 	  usb1608G.list[channel].range = gain;  
 	  usb1608G.list[channel].mode = mode;
 	  usb1608G.list[channel].channel = channel;
 	}
-        usb1608G.list[nchan-1].mode |= LAST_CHANNEL;
+        usb1608G.list[nchan-1].mode |= USB1608G_LAST_CHANNEL;
 	usbAInConfig_USB1608G(udev, &usb1608G);
 	usb1608G.mode = 0x0;
         if ((sdataIn = malloc(2*nchan*nScans)) == NULL) {
@@ -312,8 +312,8 @@ int main (int argc, char **argv)
 		printf("DAC is saturated at -FS\n");
 	      } else {
 		data = rint(sdataIn[k]*usb1608G.table_AIn[gain][0] + usb1608G.table_AIn[gain][1]);
-	      }
 	      printf(", %8.4lf", volts_USB1608G(gain, data));
+	      }
 	    }
 	    printf("\n");
 	  }
@@ -329,16 +329,16 @@ int main (int argc, char **argv)
 	usbAInScanStop_USB1608G(udev);
         nScans = 0;         // for continuous mode
         nchan = 16;         // 16 channels
-	gain = BP_10V;
+	gain = USB1608G_BP_10V;
 	// mode = DIFFERENTIAL;
-	mode = SINGLE_ENDED;
+	mode = USB1608G_SINGLE_ENDED;
 
         for (channel = 0; channel < nchan; channel++) {
 	  usb1608G.list[channel].range = gain;
 	  usb1608G.list[channel].mode = mode;
 	  usb1608G.list[channel].channel = channel;
 	}
-	usb1608G.list[nchan-1].mode |= LAST_CHANNEL;
+	usb1608G.list[nchan-1].mode |= USB1608G_LAST_CHANNEL;
 	usbAInConfig_USB1608G(udev, &usb1608G);
 
 	nread = 256;
@@ -396,7 +396,7 @@ int main (int argc, char **argv)
 	  sdataOut[i] = voltage*usb1608G.table_AOut[channel][0] + usb1608G.table_AOut[channel][1];
 	}
         usbAOutScanStop_USB1608GX_2AO(udev);
-	usbAOutScanStart_USB1608GX_2AO(udev, 0, 0, frequency,  AO_CHAN0);
+	usbAOutScanStart_USB1608GX_2AO(udev, 0, 0, frequency,  USB1608G_AO_CHAN0);
 	flag = fcntl(fileno(stdin), F_GETFL);
 	fcntl(0, F_SETFL, flag | O_NONBLOCK);
 	do {
