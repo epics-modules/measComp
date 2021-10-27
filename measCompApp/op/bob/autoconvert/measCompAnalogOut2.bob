@@ -11,250 +11,243 @@
   </background_color>
   <grid_visible>false</grid_visible>
   <grid_step_x>5</grid_step_x>
-  <widget type="group" version="2.0.0">
-    <name>composite #6</name>
+  <widget type="label" version="2.0.0">
+    <name>text #6</name>
+    <text>Analog output</text>
+    <x>69</x>
+    <y>5</y>
+    <width>156</width>
+    <height>25</height>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>rectangle #9</name>
     <width>295</width>
     <height>115</height>
-    <style>3</style>
+    <line_width>1</line_width>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </background_color>
     <transparent>true</transparent>
-    <widget type="label" version="2.0.0">
-      <name>text #9</name>
-      <text>Analog output</text>
-      <x>69</x>
-      <y>5</y>
-      <width>156</width>
-      <height>25</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>related display #12</name>
+    <actions>
+      <action type="open_display">
+        <file>measCompAoSetup2.opi</file>
+        <target>tab</target>
+        <description>Configure</description>
+      </action>
+    </actions>
+    <text>Configure</text>
+    <x>101</x>
+    <y>86</y>
+    <width>93</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #15</name>
+    <text>2</text>
+    <x>7</x>
+    <y>61</y>
+    <width>10</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="rectangle" version="2.0.0">
-      <name>rectangle #12</name>
-      <width>295</width>
-      <height>115</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>related display #15</name>
-      <actions>
-        <action type="open_display">
-          <file>measCompAoSetup.opi</file>
-          <target>tab</target>
-          <description>Input 1</description>
-        </action>
-      </actions>
-      <text>Configure</text>
-      <x>101</x>
-      <y>86</y>
-      <width>93</width>
-      <height>20</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #18</name>
-      <text>2</text>
-      <x>7</x>
-      <y>61</y>
-      <width>10</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #18</name>
+    <pv_name>$(P)$(Ao)2</pv_name>
+    <x>22</x>
+    <y>61</y>
+    <width>80</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #21</name>
-      <pv_name>$(P)$(Ao)2</pv_name>
-      <x>22</x>
-      <y>61</y>
-      <width>80</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="scrollbar" version="2.0.0">
+    <name>valuator #22</name>
+    <pv_name>$(P)$(Ao)2</pv_name>
+    <x>107</x>
+    <y>61</y>
+    <width>80</width>
+    <bar_length>1.0</bar_length>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #26</name>
+    <pv_name>$(P)$(Ao)2TweakVal</pv_name>
+    <x>210</x>
+    <y>61</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>1</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="scrollbar" version="2.0.0">
-      <name>valuator #25</name>
-      <pv_name>$(P)$(Ao)2</pv_name>
-      <x>107</x>
-      <y>61</y>
-      <width>80</width>
-      <bar_length>1.0</bar_length>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #29</name>
-      <pv_name>$(P)$(Ao)2TweakVal</pv_name>
-      <x>210</x>
-      <y>61</y>
-      <width>60</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #30</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
+        <value>1</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
+    <text>&gt;</text>
+    <x>273</x>
+    <y>61</y>
+    <width>15</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #33</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
+        <value>1</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
+    <text>&lt;</text>
+    <x>192</x>
+    <y>61</y>
+    <width>15</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #36</name>
+    <text>1</text>
+    <x>7</x>
+    <y>35</y>
+    <width>10</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>1</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #33</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
-          <value>1</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Ao)2TweakUp.PROC</pv_name>
-      <text>&gt;</text>
-      <x>273</x>
-      <y>61</y>
-      <width>15</width>
-      <height>20</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #36</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
-          <value>1</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Ao)2TweakDown.PROC</pv_name>
-      <text>&lt;</text>
-      <x>192</x>
-      <y>61</y>
-      <width>15</width>
-      <height>20</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #39</name>
-      <text>1</text>
-      <x>7</x>
-      <y>35</y>
-      <width>10</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #39</name>
+    <pv_name>$(P)$(Ao)1</pv_name>
+    <x>22</x>
+    <y>35</y>
+    <width>80</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #42</name>
-      <pv_name>$(P)$(Ao)1</pv_name>
-      <x>22</x>
-      <y>35</y>
-      <width>80</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="scrollbar" version="2.0.0">
+    <name>valuator #43</name>
+    <pv_name>$(P)$(Ao)1</pv_name>
+    <x>107</x>
+    <y>35</y>
+    <width>80</width>
+    <bar_length>1.0</bar_length>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #47</name>
+    <pv_name>$(P)$(Ao)1TweakVal</pv_name>
+    <x>210</x>
+    <y>35</y>
+    <width>60</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>1</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="scrollbar" version="2.0.0">
-      <name>valuator #46</name>
-      <pv_name>$(P)$(Ao)1</pv_name>
-      <x>107</x>
-      <y>35</y>
-      <width>80</width>
-      <bar_length>1.0</bar_length>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #50</name>
-      <pv_name>$(P)$(Ao)1TweakVal</pv_name>
-      <x>210</x>
-      <y>35</y>
-      <width>60</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>1</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #54</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
-          <value>1</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
-      <text>&gt;</text>
-      <x>273</x>
-      <y>35</y>
-      <width>15</width>
-      <height>20</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #57</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
-          <value>1</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
-      <text>&lt;</text>
-      <x>192</x>
-      <y>35</y>
-      <width>15</width>
-      <height>20</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-    </widget>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #51</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
+        <value>1</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Ao)1TweakUp.PROC</pv_name>
+    <text>&gt;</text>
+    <x>273</x>
+    <y>35</y>
+    <width>15</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #54</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
+        <value>1</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Ao)1TweakDown.PROC</pv_name>
+    <text>&lt;</text>
+    <x>192</x>
+    <y>35</y>
+    <width>15</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
   </widget>
 </display>

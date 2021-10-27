@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 242
-y 265
+x 298
+y 202
 w 295
-h 115
+h 160
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -53,10 +53,23 @@ release 0
 x 0
 y 0
 w 294
-h 114
+h 159
 lineColor rgb 0 0 0
 fillColor rgb 0 0 0
 endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 60
+w 281
+h 20
+
+beginGroup
 
 # (Static Text)
 object activeXTextClass
@@ -65,7 +78,7 @@ major 4
 minor 1
 release 1
 x -5
-y 61
+y 60
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -85,7 +98,7 @@ major 4
 minor 7
 release 0
 x 22
-y 61
+y 60
 w 80
 h 20
 controlPv "$(P)$(Ao)2"
@@ -111,7 +124,7 @@ major 4
 minor 0
 release 0
 x 107
-y 61
+y 60
 w 80
 h 20
 fgColor rgb 19968 42240 63744
@@ -133,7 +146,7 @@ major 4
 minor 7
 release 0
 x 210
-y 61
+y 60
 w 60
 h 20
 controlPv "$(P)$(Ao)2TweakVal"
@@ -151,6 +164,24 @@ fastUpdate
 newPos
 objType "controls"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 35
+w 281
+h 20
+
+beginGroup
 
 # (Static Text)
 object activeXTextClass
@@ -246,6 +277,235 @@ newPos
 objType "controls"
 endObjectProperties
 
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 85
+w 281
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -5
+y 85
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "3"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 22
+y 85
+w 80
+h 20
+controlPv "$(P)$(Ao)3"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Motif Slider)
+object activeMotifSliderClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 107
+y 85
+w 80
+h 20
+fgColor rgb 19968 42240 63744
+bgColor rgb 29440 57088 65280
+2ndBgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ao)3"
+controlLabelType "pvName"
+font "helvetica-bold-r-12.0"
+limitsFromDb
+increment 1
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 210
+y 85
+w 60
+h 20
+controlPv "$(P)$(Ao)3TweakVal"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 110
+w 281
+h 20
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -5
+y 110
+w 22
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "4"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 22
+y 110
+w 80
+h 20
+controlPv "$(P)$(Ao)4"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Motif Slider)
+object activeMotifSliderClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 107
+y 110
+w 80
+h 20
+fgColor rgb 19968 42240 63744
+bgColor rgb 29440 57088 65280
+2ndBgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ao)4"
+controlLabelType "pvName"
+font "helvetica-bold-r-12.0"
+limitsFromDb
+increment 1
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 210
+y 110
+w 60
+h 20
+controlPv "$(P)$(Ao)4TweakVal"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
 # (Related Display)
 object relatedDisplayClass
 beginObjectProperties
@@ -253,7 +513,7 @@ major 4
 minor 0
 release 0
 x 101
-y 86
+y 135
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -266,7 +526,7 @@ buttonLabel "Configure"
 numPvs 2
 numDsps 1
 displayFileName {
-  0 "measCompAoSetup2.edl"
+  0 "measCompAoSetup4.edl"
 }
 menuLabel {
   0 "Configure"
@@ -278,6 +538,18 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 60
+w 281
+h 20
+
+beginGroup
 
 # (Message Button)
 object activeMessageButtonClass
@@ -286,7 +558,7 @@ major 4
 minor 0
 release 0
 x 273
-y 61
+y 60
 w 15
 h 20
 fgColor rgb 0 0 0
@@ -311,7 +583,7 @@ major 4
 minor 0
 release 0
 x 192
-y 61
+y 60
 w 15
 h 20
 fgColor rgb 0 0 0
@@ -328,6 +600,23 @@ offLabel "<"
 useEnumNumeric
 font "helvetica-medium-r-12.0"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 35
+w 281
+h 20
+
+beginGroup
 
 # (Message Button)
 object activeMessageButtonClass
@@ -378,4 +667,143 @@ offLabel "<"
 useEnumNumeric
 font "helvetica-medium-r-12.0"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 85
+w 281
+h 20
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 85
+w 15
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ao)3TweakUp.PROC"
+pressValue "1"
+releaseValue 
+onLabel ">"
+offLabel ">"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 192
+y 85
+w 15
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ao)3TweakDown.PROC"
+pressValue "1"
+releaseValue 
+onLabel "<"
+offLabel "<"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 110
+w 281
+h 20
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 110
+w 15
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ao)4TweakUp.PROC"
+pressValue "1"
+releaseValue 
+onLabel ">"
+offLabel ">"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 192
+y 110
+w 15
+h 20
+fgColor rgb 0 0 0
+onColor rgb 29440 57088 65280
+offColor rgb 29440 57088 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Ao)4TweakDown.PROC"
+pressValue "1"
+releaseValue 
+onLabel "<"
+offLabel "<"
+3d
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
 
