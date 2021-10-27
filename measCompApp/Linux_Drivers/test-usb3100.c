@@ -84,12 +84,12 @@ int main(int argc, char **argv) {
   }
 
   /* config mask 0x01 means all inputs */
-  usbDConfigPort_USB31XX(hid, DIO_DIR_OUT);
+  usbDConfigPort_USB31XX(hid, USB3100_DIO_DIR_OUT);
   usbDOut_USB31XX(hid, 0);
 
   // Configure all analog channels for 0-10V output
   for (i = 0; i < 8; i++) {
-    usbAOutConfig_USB31XX(hid, i, UP_10_00V);
+    usbAOutConfig_USB31XX(hid, i, USB3100_UP_10_00V);
   }
 
     while(1) {
@@ -157,12 +157,12 @@ int main(int argc, char **argv) {
 	printf("\nTesting Digital I/O....\n");
         printf("Enter a byte number [0-0xff]: " );
         scanf("%x", &temp);
-        usbDConfigPort_USB31XX(hid, DIO_DIR_OUT);
+        usbDConfigPort_USB31XX(hid, USB3100_DIO_DIR_OUT);
         usbDOut_USB31XX(hid, (uint8_t)temp);
         break;
       case 'i':
       	printf("\nTesting Digital Input....\n");
-	usbDConfigPort_USB31XX(hid, DIO_DIR_IN);
+	usbDConfigPort_USB31XX(hid, USB3100_DIO_DIR_IN);
 	usbDIn_USB31XX(hid, (uint8_t*) &temp);
 	temp &= 0xff;
 	printf("Digital Input = %#x\n", temp);
