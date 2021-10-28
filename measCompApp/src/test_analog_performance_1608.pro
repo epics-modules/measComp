@@ -1,13 +1,13 @@
 pro test_analog_performance_1608,  ao=ao, ai=ai, min_volts=min_volts, max_volts=max_volts, $
                                    step_volts=step_volts, num_samples=num_samples, delay=delay, $
                                    keithley=keithley, results
-                                   
+
   if (n_elements(ao)          eq 0) then ao          = '1608G:Ao1'
   if (n_elements(ai)          eq 0) then ai          = '1608G:Ai1'
   if (n_elements(min_volts)   eq 0) then min_volts   = -10.0
   if (n_elements(max_volts)   eq 0) then max_volts   =  10.0
   if (n_elements(step_volts)  eq 0) then step_volts  = 0.1
-  if (n_elements(num_samples) eq 0) then num_samples = 10 
+  if (n_elements(num_samples) eq 0) then num_samples = 10
   if (n_elements(delay)       eq 0) then delay       = 0.1
   if (n_elements(keithley)    eq 0) then keithley    = '13LAB:DMM2Dmm_raw.VAL'
 

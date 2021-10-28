@@ -1,6 +1,6 @@
 program USBCTR_SNL("P=USBCTR:MCS:, R=mca, NUM_COUNTERS=8,  FIELD=READ")
 
-/*  This sequencer program works with measCompMCS.template 
+/*  This sequencer program works with measCompMCS.template
  *  It supports multi-element MCA operations
  *
  *  Mark Rivers
@@ -30,7 +30,7 @@ char *prefix;
 char *record;
 char *field;
 
-int     ReadArray[MAX_COUNTERS]; 
+int     ReadArray[MAX_COUNTERS];
 assign  ReadArray to {};
 int     ReadArrays; assign ReadArrays to "{P}DoReadAll";
 monitor ReadArrays; evflag ReadArraysMon; sync ReadArrays ReadArraysMon;
