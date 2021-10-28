@@ -122,7 +122,7 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
                                                  (unsigned char*)pDevice->ProductName, sizeof(pDevice->ProductName));
         strcpy(pDevice->DevString, pDevice->ProductName);
         pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);
-        // The serial number reported above can have leading zeros which don't appear on the label on the 
+        // The serial number reported above can have leading zeros which don't appear on the label on the
         // device, and don't appear in the serial number reported on Windows.  Remove them by printing the
         // NUID back into the UniqueID.
         sprintf(pDevice->UniqueID, "%llX", pDevice->NUID);
