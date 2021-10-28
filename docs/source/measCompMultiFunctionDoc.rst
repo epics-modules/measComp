@@ -384,7 +384,7 @@ This module costs $320 and has the following features:
 
 -  Digital inputs/outputs
 
-   -  24 signals, individuaully programmable as inputs or outputs
+   -  24 signals, individually programmable as inputs or outputs
 
 -  Counters
 
@@ -393,6 +393,51 @@ This module costs $320 and has the following features:
 
 More information can be found in the `E-DIO24 product
 description. <https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series>`__
+
+USB-3100
+~~~~~~~
+
+.. figure:: USB-3100.jpg
+    :align: center
+
+    **Photo of USB-3101**
+
+This series of module costs from $330 (USB-3101) to $660 (USB-3106) depending on the number of channels and the output type,
+and has the following features:
+
+-  16-bit analog outputs
+
+   -  4, 8 or 16 channels, individually programmable range 0-10V or +-10V.
+   -  Some models provide 0-20 mA current output as well as voltage output
+   -  Some models have high-drive voltage output (+-40 mA)
+   -  100 Hz maximum output rate
+
+-  Digital inputs/outputs
+
+   -  8 signals, individually programmable as inputs or outputs
+
+-  Counters
+
+   -  1 input
+   -  1 MHz maximum rate, 32-bit register
+
+More information can be found in the `USB-3100 series product
+description. <https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx>`__
+
+The following is the main medm screen for controlling the USB-3105 16-channel unit.
+
+.. figure:: USB3105_module.png
+    :align: center
+
+    **USB3105_module.adl**
+
+The following is the medm screen for configuring the analog outputs on the USB-3105 16-channel unit.
+
+.. figure:: USB3105_setup.png
+    :align: center
+
+    **USB3105_setup.adl**
+
 
 Configuration
 -------------
