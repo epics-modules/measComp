@@ -7,10 +7,7 @@ On Windows it uses the Measurement Computing "Universal Library" (UL), which is 
 On Linux it uses the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
 On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
 The EPICS drivers thus always use the UL API and are identical on Linux and Windows.
-The Linux UL layer is independent of EPICS, and uses std::thread and std::mutex to provide the required
-threading and mutex capabilities.  These methods require C++11, and so will not build with very old compilers.
-They do build with gcc 4.8.5 on RHEL 7/Centos 7, and gcc 4.4.7 on RHEL 6/Centos 6.
-Currently only the E-1608, E-TC, E-TC32, E-DIO24, and USB-CTR08 models are supported on Linux.
+Currently the E-1608, E-TC, E-TC32, E-DIO24, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported on Linux.
 Support for other modules is straightforward to add and can be done as the demand arises.
 
 Models supported in measComp include:
@@ -87,6 +84,9 @@ T are supported. The analog inputs and outputs can each be run at 1 kHz. The dri
 supports simple analog I/O, 2 waveform generators using the analog outputs, an 8
 or 16 channel waveform digitizer using the analog inputs, binary I/O, and 2 counter
 inputs.
+
+* The [USB-3100 series](https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx)
+analog output modules. These have 4, 8, or 16 analog outputs, 8 binary I/O and one counter input.
 
 Additional information:
 * [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
