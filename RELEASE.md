@@ -1,5 +1,15 @@
 # measComp Release Notes
 
+## Release 3-1 (November XXX, 2021)
+  - Added support for the USB-3100 series of devices on both Windows and Linux.
+    These have 4, 8 or 16 channels of analog output, plus 8 digital I/O and one counter.
+  - Added support for configurable analog output ranges in drvMultiFunction.cpp.
+    The USB-3100 models are the first supported modules to require this.
+  - Added new OPI screens for 4, 8, and 16 channels of analog output and
+    analog output configuration.  Added Range to analog output configuration screens.
+  - Added 4 missing analog input channels to E1608_settings.req for autosave.
+  - Added Warren Jasper's low-level Linux drivers for the USB-3100 and the USB-1608G.
+
 ## Release 3-0 (March 18, 2021)
   - Changed the method used to specify the device in the constructors and the startup script.
     - Previously one specified what device to connect to in the constructor and startup script
