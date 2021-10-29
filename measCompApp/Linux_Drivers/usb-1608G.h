@@ -34,8 +34,8 @@ extern "C" {
 #define USB1608GX_2AO_V2_PID (0x0136)
 
 /* Counter Timer */
-#define COUNTER0         0x0     //  Counter 0
-#define COUNTER1         0x1     //  Counter 1
+#define USB1608G_COUNTER0         0x0     //  Counter 0
+#define USB1608G_COUNTER1         0x1     //  Counter 1
 
 /* Aanalog Input */
 #define USB1608G_SINGLE_ENDED       0
@@ -69,14 +69,14 @@ extern "C" {
 #define USB1608G_FPGA_CONFIGURED    (0x1 << 8)
 #define USB1608G_FPGA_CONFIG_MODE   (0x1 << 9)
 
-#define NCHAN_1608G          16  // max number of A/D channels in the device
-#define NGAINS_1608G          4  // max number of gain levels
-#define NCHAN_AO_1608GX       2  // number of analog output channels
+#define USB1608G_NCHAN_1608G          16  // max number of A/D channels in the device
+#define USB1608G_NGAINS_1608G          4  // max number of gain levels
+#define USB1608G_NCHAN_AO_1608GX       2  // number of analog output channels
 #define USB1608G_MAX_PACKET_SIZE_HS  512  // max packet size for HS device
 #define USB1608G_MAX_PACKET_SIZE_FS   64  // max packet size for FS device
 #define USB1608G_BASE_CLOCK        64.E6  // base clock frequency
 
-typedef struct timerParams_t {
+typedef struct USB1608G_timerParams_t {
   uint32_t period;
   uint32_t pulseWidth;
   uint32_t count;
@@ -95,10 +95,10 @@ typedef struct ScanList_t {
 
 typedef struct usbDevice1608G_t {
   libusb_device_handle *udev;          // libusb 1.0 handle
-  float table_AIn[NGAINS_1608G][2];    // calibration coefficients
-  float table_AOut[NCHAN_AO_1608GX][2];
-  ScanList list[NCHAN_1608G];
-  uint8_t scan_list[NCHAN_1608G];      // scan list
+  float table_AIn[USB1608G_NGAINS_1608G][2];    // calibration coefficients
+  float table_AOut[USB1608G_NCHAN_AO_1608GX][2];
+  ScanList list[USB1608G_NCHAN_1608G];
+  uint8_t scan_list[USB1608G_NCHAN_1608G];      // scan list
   int lastElement;                     // last element of the scan list
   uint32_t count;
   uint32_t retrig_count;
@@ -165,12 +165,12 @@ void usbAInConfig_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
 int usbAInConfigR_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G);
 void usbAInScanClearFIFO_USB1608G(libusb_device_handle *udev);
 
-void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[NGAINS_1608G][2]);
+void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[USB1608G_NGAINS_1608G][2]);
 double volts_USB1608G(const uint8_t gain, uint16_t value);
-void usbBuildGainTable_USB1608GX_2AO(libusb_device_handle *udev, float table_AO[NCHAN_AO_1608GX][2]);
-uint16_t voltsTou16_USB1608GX_AO(double volts, int channel, float table_AO[NCHAN_AO_1608GX][2]);
-void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double voltage, float table_AO[NCHAN_AO_1608GX][2]);
-void usbAOutR_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double *voltage, float table_AO[NCHAN_AO_1608GX][2]);
+void usbBuildGainTable_USB1608GX_2AO(libusb_device_handle *udev, float table_AO[USB1608G_NCHAN_AO_1608GX][2]);
+uint16_t voltsTou16_USB1608GX_AO(double volts, int channel, float table_AO[USB1608G_NCHAN_AO_1608GX][2]);
+void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double voltage, float table_AO[USB1608G_NCHAN_AO_1608GX][2]);
+void usbAOutR_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double *voltage, float table_AO[USB1608G_NCHAN_AO_1608GX][2]);
 void usbAOutScanStop_USB1608GX_2AO(libusb_device_handle *udev);
 void usbAOutScanClearFIFO_USB1608GX_2AO(libusb_device_handle *udev);
 void usbAOutScanStart_USB1608GX_2AO(libusb_device_handle *udev, uint32_t count, uint32_t retrig_count, double frequency, uint8_t options);
