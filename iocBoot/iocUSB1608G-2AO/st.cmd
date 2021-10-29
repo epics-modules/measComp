@@ -4,11 +4,11 @@
 dbLoadDatabase "$(MEASCOMP)/dbd/measCompApp.dbd"
 measCompApp_registerRecordDeviceDriver pdbbase
 
-epicsEnvSet("PREFIX",        "USB1608G_2AO:")
+epicsEnvSet("PREFIX",        "dudleyd_1608G_2AO_")
 epicsEnvSet("PORT",          "USB1608G_1")
 epicsEnvSet("WDIG_POINTS",   "1048576")
 epicsEnvSet("WGEN_POINTS",   "1048576")
-epicsEnvSet("UNIQUE_ID",     "16669C2")
+epicsEnvSet("UNIQUE_ID",     "1C15E97")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
@@ -17,18 +17,19 @@ epicsEnvSet("UNIQUE_ID",     "16669C2")
 #                      maxOutputPoints) # Maximum number of output points for waveform generator
 MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", $(WDIG_POINTS), $(WGEN_POINTS))
 
-#asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
+# asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
 dbLoadTemplate("$(MEASCOMP)/db/USB1608G_2AO.substitutions", "P=$(PREFIX),PORT=$(PORT),WDIG_POINTS=$(WDIG_POINTS),WGEN_POINTS=$(WGEN_POINTS)")
 
-< ../save_restore.cmd
+#< ../save_restore.cmd
 
 iocInit
 
-create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
+#create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
 
 # Need to force the time arrays to process because the records are scan=I/O Intr
 # but asynPortDriver does not do array callbacks before iocInit.
 
 dbpf $(PREFIX)WaveDigDwell.PROC 1
 dbpf $(PREFIX)WaveGenUserDwell.PROC 1
+dbpf $(PREFIX)AiMode.PROC 1
