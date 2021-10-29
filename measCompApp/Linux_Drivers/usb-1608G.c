@@ -639,9 +639,14 @@ void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double v
     return;
   }
 
+#if 0  
   /* correct voltage */
   dvalue = (voltage/10.*32768. + 32768.);
   dvalue = dvalue*table_AO[channel][0] + table_AO[channel][1];
+#else
+  dvalue=voltage*table_AO[channel][0] + table_AO[channel][1];
+#endif
+  
 
   if (dvalue > 0xffff) {
     value = 0xffff;
