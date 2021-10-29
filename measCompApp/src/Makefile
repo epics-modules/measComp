@@ -109,7 +109,7 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testPadZero_LIBS += cbw64
 endif
-testPadZero_LIBS_Linux += cbw_linux asyn
+testPadZero_LIBS_Linux += cbw_linux asyn 
 testPadZero_LIBS_Linux += measCompLinuxDrivers
 testPadZero_SYS_LIBS_Linux += hidapi-libusb usb-1.0
 # Finally link to the EPICS Base libraries
