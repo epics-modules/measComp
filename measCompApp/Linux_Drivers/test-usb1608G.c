@@ -111,14 +111,14 @@ int main (int argc, char **argv)
   printf("wMaxPacketSize = %d\n", usb_get_max_packet_size(udev,0));
 
   usbBuildGainTable_USB1608G(udev, usb1608G.table_AIn);
-  for (i = 0; i < NGAINS_1608G; i++) {
+  for (i = 0; i < USB1608G_NGAINS_1608G; i++) {
     printf("Gain: %d   Slope = %f   Offset = %f\n", i, usb1608G.table_AIn[i][0], usb1608G.table_AIn[i][1]);
   }
 
   if (usb1608GX_2AO) {
     usbBuildGainTable_USB1608GX_2AO(udev, usb1608G.table_AOut);
     printf("\n");
-    for (i = 0; i < NCHAN_AO_1608GX; i++) {
+    for (i = 0; i < USB1608G_NCHAN_AO_1608GX; i++) {
       printf("VDAC%d:    Slope = %f    Offset = %f\n", i, usb1608G.table_AOut[i][0], usb1608G.table_AOut[i][1]);
     }
   }
@@ -155,7 +155,7 @@ int main (int argc, char **argv)
         usbBlink_USB1608G(udev, options);
 	break;
       case 'c':
-        usbCounterInit_USB1608G(udev, COUNTER0);
+        usbCounterInit_USB1608G(udev, USB1608G_COUNTER0);
         printf("Connect DIO0 to CTR0\n");
 	usbDTristateW_USB1608G(udev, 0xf0);
         toContinue();
@@ -163,7 +163,7 @@ int main (int argc, char **argv)
 	  usbDLatchW_USB1608G(udev, 0x0);
 	  usbDLatchW_USB1608G(udev, 0x1);
         }
-        printf("Count = %d.  Should read 100.\n", usbCounter_USB1608G(udev, COUNTER0));
+        printf("Count = %d.  Should read 100.\n", usbCounter_USB1608G(udev, USB1608G_COUNTER0));
         break;      
       case 'd':
         printf("\nTesting Digital I/O...\n");
