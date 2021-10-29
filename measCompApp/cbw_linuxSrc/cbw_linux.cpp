@@ -12,6 +12,7 @@
 #include "mcBoard_USB-CTR.h"
 #include "mcBoard_USB-TEMP-AI.h"
 #include "mcBoard_USB-TEMP.h"
+#include "mcBoard_USB-1608G.h"
 #include "mcBoard_USB-3100.h"
 
 
@@ -122,7 +123,7 @@ int cbGetDaqDeviceInventory(DaqDeviceInterface InterfaceType, DaqDeviceDescripto
                                                  (unsigned char*)pDevice->ProductName, sizeof(pDevice->ProductName));
         strcpy(pDevice->DevString, pDevice->ProductName);
         pDevice->NUID = strtol(pDevice->UniqueID, NULL, 16);
-        // The serial number reported above can have leading zeros which don't appear on the label on the
+        // The serial number reported above can have leading zeros which don't appear on the label on the 
         // device, and don't appear in the serial number reported on Windows.  Remove them by printing the
         // NUID back into the UniqueID.
         sprintf(pDevice->UniqueID, "%llX", pDevice->NUID);
@@ -186,6 +187,9 @@ int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
     }
     else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") == 0) {
         pBoard = (mcBoard *)new mcUSB_TEMP_AI(deviceDescriptor.UniqueID);
+    }
+    else if (strstr(deviceDescriptor.ProductName, "USB-1608") != 0) {
+        pBoard = (mcBoard *)new mcUSB1608G(deviceDescriptor.UniqueID);
     }
     else if (strstr(deviceDescriptor.ProductName, "USB-31") != 0) {
         pBoard = (mcBoard *)new mcUSB_3100(deviceDescriptor.UniqueID, deviceDescriptor.ProductID, deviceDescriptor.ProductName);
