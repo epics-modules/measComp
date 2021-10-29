@@ -41,10 +41,10 @@ ifeq ($(HAVE_HIDAPI), YES)
   PROD_IOC_Linux += test-usb-temp-ai
   PROD_IOC_Linux += test-usb-temp
   PROD_IOC_Linux += test-usb3100
-  PROD_IOC_Linux += test-usb1608G
   #PROD_IOC_Linux += test-usb-ctr-scaler
   #PROD_IOC_Linux += test-usb-ctr-mcs
 endif
+PROD_IOC_Linux += test-usb1608G
 
 PROD_LIBS += measCompLinuxDrivers
 PROD_SYS_LIBS += hidapi-libusb usb-1.0
