@@ -83,7 +83,7 @@
 static int wMaxPacketSize = 0;          // will be the same for all devices of this type so
                                         // no need to be reentrant. 
 
-void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[NGAINS_1608G][2])
+void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[USB1608G_NGAINS_1608G][2])
 {
   /* Builds a lookup table of calibration coefficents to translate values into voltages:
        voltage = value*table[gain#][0] + table[gain#][1]
@@ -93,7 +93,7 @@ void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[NGAINS_1
   uint16_t address = 0x7000;
 
   usbMemAddressW_USB1608G(udev, address);  // Beginning of Calibration Table
-  for (i = 0; i < NGAINS_1608G; i++) {
+  for (i = 0; i < USB1608G_NGAINS_1608G; i++) {
     for (j = 0; j < 2; j++) {
       usbMemoryR_USB1608G(udev, (uint8_t *) &table[i][j], sizeof(float));
     }
@@ -101,7 +101,7 @@ void usbBuildGainTable_USB1608G(libusb_device_handle *udev, float table[NGAINS_1
   return;
 }
 
-void usbBuildGainTable_USB1608GX_2AO(libusb_device_handle *udev, float table_AO[NCHAN_AO_1608GX][2])
+void usbBuildGainTable_USB1608GX_2AO(libusb_device_handle *udev, float table_AO[USB1608G_NCHAN_AO_1608GX][2])
 {
   /*
     Builds a lookup table of calibration coefficents to translate values into voltages:
@@ -113,7 +113,7 @@ void usbBuildGainTable_USB1608GX_2AO(libusb_device_handle *udev, float table_AO[
 
   usbMemAddressW_USB1608G(udev, address);
   
-  for (j = 0; j < NCHAN_AO_1608GX; j++) {
+  for (j = 0; j < USB1608G_NCHAN_AO_1608GX; j++) {
     for (k = 0; k < 2; k++) {
       usbMemoryR_USB1608G(udev, (uint8_t *) &table_AO[j][k], sizeof(float));
     }
@@ -530,7 +530,8 @@ void usbAInConfig_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
   int ret;
   uint8_t requesttype = (HOST_TO_DEVICE | VENDOR_TYPE | DEVICE_RECIPIENT);
 
-  for (i = 0; i < NCHAN_1608G; i++) {
+  for (i = 0; i < USB1608G_NCHAN_1608G; i++) 
+  {
     if ((usb1608G->list[i].mode & 0x3) == USB1608G_SINGLE_ENDED && usb1608G->list[i].channel >= 0 && usb1608G->list[i].channel < 8) {
       usb1608G->scan_list[i] = (0x20 | (usb1608G->list[i].channel & 0x7));
     } else if ((usb1608G->list[i].mode & 0x3) == USB1608G_SINGLE_ENDED && usb1608G->list[i].channel >= 8 && usb1608G->list[i].channel < 16) {
@@ -552,14 +553,16 @@ void usbAInConfig_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
 	   i, scanList[i].mode, scanList[i].channel, scanList[i].range, scan_list[i]);
     */
 
-    if (usb1608G->list[i].mode & USB1608G_LAST_CHANNEL) {
+    if (usb1608G->list[i].mode & USB1608G_LAST_CHANNEL)
+	{
       usb1608G->scan_list[i] |= USB1608G_LAST_CHANNEL;
       usb1608G->lastElement = i;
       break;
     }
   }
 
-  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNING) {
+  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNING)
+  {
     usbAInScanStop_USB1608G(udev);
   }
 
@@ -584,7 +587,8 @@ int usbAInConfigR_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
     perror("usbAInConfigR_USB1608G Error.");
   }
 
-  for (i = 0; i < NCHAN_1608G; i++) {
+  for (i = 0; i < USB1608G_NCHAN_1608G; i++) 
+  {
     if (usb1608G->scan_list[i] & USB1608G_LAST_CHANNEL) break;
   }
   usb1608G->lastElement = i;
@@ -611,7 +615,7 @@ void usbAInScanClearFIFO_USB1608G(libusb_device_handle *udev)
  *            Analog Output                    *
  ***********************************************/
 
-void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double voltage, float table_AO[NCHAN_AO_1608GX][2])
+void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double voltage, float table_AO[USB1608G_NCHAN_AO_1608GX][2])
 {
   /*
     This command reads or writes the values for the analog output channels.
@@ -649,7 +653,7 @@ void usbAOut_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double v
   libusb_control_transfer(udev, requesttype, AOUT, value, channel, NULL, 0x0, HS_DELAY);
 }
 
-void usbAOutR_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double *voltage, float table_AO[NCHAN_AO_1608GX][2])
+void usbAOutR_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double *voltage, float table_AO[USB1608G_NCHAN_AO_1608GX][2])
 {
   uint16_t value[4];
   uint8_t requesttype = (DEVICE_TO_HOST | VENDOR_TYPE | DEVICE_RECIPIENT);
@@ -773,7 +777,7 @@ uint32_t usbCounter_USB1608G(libusb_device_handle *udev, uint8_t counter)
   uint32_t counts[2] = {0x0, 0x0};
 
   libusb_control_transfer(udev, requesttype, COUNTER, 0x0, 0x0, (unsigned char *) &counts, sizeof(counts), HS_DELAY);
-  if (counter == COUNTER0) {
+  if (counter == USB1608G_COUNTER0) {
     return counts[0];
   } else {
     return counts[1];
@@ -1191,7 +1195,7 @@ void cleanup_USB1608G( libusb_device_handle *udev )
   }
 }
 
-uint16_t voltsTou16_USB1608GX_AO(double volts, int channel, float table_AO[NCHAN_AO_1608GX][2])
+uint16_t voltsTou16_USB1608GX_AO(double volts, int channel, float table_AO[USB1608G_NCHAN_AO_1608GX][2])
 {
   double dvalue;
   uint16_t value;
