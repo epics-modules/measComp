@@ -293,12 +293,12 @@ void mcUSB1608G::readThread()
 				{
                     aiScanUnscaledBuffer_[aiScanCurrentIndex_] = correctedData;
                 }
-                aiScanCurrentIndex_++;
                 currentChannel ++;
                 if ( (deviceInfo_.list[currentChannel-1].mode & USB1608G_LAST_CHANNEL) > 0)
 				{
                     currentChannel = 0;
                 }
+                aiScanCurrentIndex_++;
              }
         } 
         while (totalBytesReceived < totalBytesToRead);
@@ -525,14 +525,16 @@ int mcUSB1608G::cbAInputMode(int InputMode)
 {
    aInputMode_ = InputMode;
 	/* Place all the  channels of the board in the proper mode */
-	printf("Putting all channels in %s\n",modeToString((aInputMode_ == DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED) );
     for (int count=0; count<USB1608G_NCHAN_1608G; count++)
 	{
         deviceInfo_.list[count].channel = count;
 		deviceInfo_.list[count].mode = (aInputMode_ == DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED;
     }
     // Mark where the list ends.
-    deviceInfo_.list[USB1608G_NCHAN_1608G-1].mode |= USB1608G_LAST_CHANNEL;
+    if(aInputMode_ == DIFFERENTIAL)
+		deviceInfo_.list[(USB1608G_NCHAN_1608G/2)-1].mode |= USB1608G_LAST_CHANNEL;
+	else
+		deviceInfo_.list[USB1608G_NCHAN_1608G-1].mode |= USB1608G_LAST_CHANNEL;
 
 	usbAInConfig_USB1608G(udev_,&deviceInfo_);
 
@@ -579,7 +581,7 @@ int mcUSB1608G::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
     }
  
 	usbAInConfig_USB1608G(udev_,&deviceInfo_);
-    return NOERRORS;
+	return NOERRORS;
 }
 
 int mcUSB1608G::cbAOut(int Chan, int Gain, USHORT DataValue)
