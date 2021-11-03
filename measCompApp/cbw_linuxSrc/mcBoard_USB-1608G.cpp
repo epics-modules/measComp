@@ -132,6 +132,8 @@ static const char* rangeToString(int range)
 }
 static const char* modeToString(int mode)
 {
+	static char modestring[40];
+	
 	switch(mode & ~USB1608G_LAST_CHANNEL)
 	{
 	case USB1608G_SINGLE_ENDED:	//  (Single-Ended)
@@ -146,11 +148,53 @@ static const char* modeToString(int mode)
 		return("Calibration");
 		break;
 	default:
-		return("Unsupported Mode");
+		sprintf(modestring,"Unsupported Mode=%d",mode & ~USB1608G_LAST_CHANNEL);
+		return(modestring);
 		break;
 	}
 }
+
+static const char* listModeToString(int mode)
+{
+	static char modestring[40];
 	
+	switch(mode & ~USB1608G_LAST_CHANNEL)
+	{
+	case 1:	//  (Single-Ended Lower)
+	case 2: //	(Single-Ended Upper)
+		return("Single Ended");
+		break;
+		
+	case 0:	//  (Differential)
+		return("Differential");
+		break;
+		
+	case 3:		//   (Calibration mode)
+		return("Calibration");
+		break;
+	default:
+		sprintf(modestring,"Unsupported Mode=%d",mode & ~USB1608G_LAST_CHANNEL);
+		return(modestring);
+		break;
+	}
+}
+
+static void printScanListTable(usbDevice1608G *deviceInfo_)
+{
+	// Decode the table and print it's informaton
+	for(int i=0;i<16;i++)
+	{
+		printf("Entry %2d\tChannel Mode %s\tChannel %x\tRange %s\t%s\n",
+			   i,
+			   listModeToString((deviceInfo_->scan_list[i] & 0x60) >> 5), 
+			   deviceInfo_->scan_list[i] & 7,
+			   rangeToString((deviceInfo_->scan_list[i] & 0x18) >> 3),
+			   (deviceInfo_->scan_list[i] & USB1608G_LAST_CHANNEL) ? "Last Chan" : "");
+	}
+}
+
+
+
 
 void mcUSB1608G::readThread()
 {
@@ -165,6 +209,7 @@ void mcUSB1608G::readThread()
     uint16_t rawData;
     int correctedData;
 	uint8_t mode;
+	int ret;
 
     readMutex_.lock();
     while (1)
@@ -198,7 +243,7 @@ void mcUSB1608G::readThread()
 
         do
 		{
-			// Unlock stuff
+			// Unlock stuffusbDevice1608G *usb1608G
             readMutex_.unlock();
 			
 			/* Read what I can */
@@ -219,11 +264,11 @@ void mcUSB1608G::readThread()
                 range = deviceInfo_.list[currentChannel].range;
 
 				//Convert to actual float data now.
-                if (channel < USB1608G_DIFFERENTIAL)
+                if ((mode & ~USB1608G_LAST_CHANNEL) == USB1608G_SINGLE_ENDED)
 				{  // single ended
                     correctedData = rint(rawData*deviceInfo_.table_AIn[range][0] + deviceInfo_.table_AIn[range][1]);
                 }
-                else
+                else if ((mode & ~USB1608G_LAST_CHANNEL) == USB1608G_DIFFERENTIAL)
 				{  // differential
                     correctedData = rint(rawData*deviceInfo_.table_AIn[range][0] + deviceInfo_.table_AIn[range][1]);
                 }
@@ -260,6 +305,7 @@ void mcUSB1608G::readThread()
 		free(rawBuffer);
 		rawBuffer=0;
         aiScanAcquiring_ = false;
+		
     }
 }
 
@@ -479,11 +525,11 @@ int mcUSB1608G::cbAInputMode(int InputMode)
 {
    aInputMode_ = InputMode;
 	/* Place all the  channels of the board in the proper mode */
-	printf("Putting all channels in %s\n",modeToString((aInputMode_ = DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED) );
-     for (int count=0; count<USB1608G_NCHAN_1608G; count++)
+	printf("Putting all channels in %s\n",modeToString((aInputMode_ == DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED) );
+    for (int count=0; count<USB1608G_NCHAN_1608G; count++)
 	{
         deviceInfo_.list[count].channel = count;
-		deviceInfo_.list[count].mode = (aInputMode_ = DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED;
+		deviceInfo_.list[count].mode = (aInputMode_ == DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED;
     }
     // Mark where the list ends.
     deviceInfo_.list[USB1608G_NCHAN_1608G-1].mode |= USB1608G_LAST_CHANNEL;
@@ -521,7 +567,7 @@ int mcUSB1608G::cbALoadQueue(short *ChanArray, short *GainArray, int NumChans)
 		
 		// Put in the mode here
 		// stupidly, all channels have to be in the same mode.
-		deviceInfo_.list[count].mode = aInputMode_;
+		deviceInfo_.list[count].mode = (aInputMode_ == DIFFERENTIAL) ? USB1608G_DIFFERENTIAL : USB1608G_SINGLE_ENDED;
 		
 		// if this is the last channel, mark where the list ends.
 		if(count == NumChans-1)
