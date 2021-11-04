@@ -38,7 +38,7 @@ public:
     void readThread();
 
 private:
-	libusb_device_handle *udev_ = NULL;
+    libusb_device_handle *udev_ = NULL;
     usbDevice1608G deviceInfo_;
     epicsThreadId readThreadId_;
     epicsMutex readMutex_;
