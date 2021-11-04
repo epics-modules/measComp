@@ -413,24 +413,24 @@ void usbAInScanStart_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb160
   }
 
   if (usb1608G->count == 0) {
-    usb1608G->mode |= USB1608G_USB_CONTINUOUS_READOUT;
+    usb1608G->mode |= USB1608G_CONTINUOUS_READOUT;
     usb1608G->bytesToRead = -1;                                          // disable and sample forever
   } else {
     usb1608G->bytesToRead = usb1608G->count*(usb1608G->lastElement+1)*2;  // total number of bytes to read
   }
 
-  if (usb1608G->mode & USB_FORCE_USB1608G_PACKET_SIZE) {
+  if (usb1608G->mode & USB1608G_FORCE_PACKET_SIZE) {
     packet_size = usb1608G->packet_size;
-  } else if (usb1608G->mode & USB1608G_USB_SINGLEIO) {
+  } else if (usb1608G->mode & USB1608G_SINGLEIO) {
     packet_size = usb1608G->lastElement + 1;
-  } else if (usb1608G->mode & USB1608G_USB_CONTINUOUS_READOUT) {
+  } else if (usb1608G->mode & USB1608G_CONTINUOUS_READOUT) {
     packet_size = (( (wMaxPacketSize/bytesPerScan) * bytesPerScan) / 2);
   } else {
     packet_size = wMaxPacketSize/2;
   }
   usb1608G->packet_size = packet_size;
 
-  if (usb1608G->mode & USB1608G_USB_CONTINUOUS_READOUT) {
+  if (usb1608G->mode & USB1608G_CONTINUOUS_READOUT) {
     AInScan.count = 0;
   } else {
     AInScan.count = usb1608G->count;
@@ -453,12 +453,12 @@ void usbAInScanStart_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb160
   int nbytes;     // number of bytes to read
   int transferred;
 
-  if ((usb1608G->status & USB1608G_AIN_SCAN_RUNNNG) == 0x0) {
+  if ((usb1608G->status & USB1608G_AIN_SCAN_RUNNING) == 0x0) {
     perror("usbScanRead_USB1608G: pacer must be running to read from buffer");
     return -1;
   }
 
-  if ((usb1608G->mode & USB1608G_USB_CONTINUOUS_READOUT) || (usb1608G->mode & USB1608G_USB_SINGLEIO)) {
+  if ((usb1608G->mode & USB1608G_CONTINUOUS_READOUT) || (usb1608G->mode & USB1608G_SINGLEIO)) {
     nbytes = 2*(usb1608G->packet_size);
   } else {
     nbytes = usb1608G->count*(usb1608G->lastElement+1)*2;
@@ -486,7 +486,7 @@ void usbAInScanStart_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb160
     return usb1608G->bytesToRead;
   }
 
-  if (usb1608G->mode & USB1608G_USB_CONTINUOUS_READOUT) { // continuous mode
+  if (usb1608G->mode & USB1608G_CONTINUOUS_READOUT) { // continuous mode
     return transferred;
   }
 
@@ -559,7 +559,7 @@ void usbAInConfig_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
     }
   }
 
-  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNNG) {
+  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNING) {
     usbAInScanStop_USB1608G(udev);
   }
 
@@ -575,7 +575,7 @@ int usbAInConfigR_USB1608G(libusb_device_handle *udev, usbDevice1608G *usb1608G)
   int ret;
   int i;
 
-  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNNG) {
+  if (usbStatus_USB1608G(udev) | USB1608G_AIN_SCAN_RUNNING) {
     usbAInScanStop_USB1608G(udev);
   }
   

@@ -60,7 +60,7 @@ extern "C" {
 #define USB1608G_BP_1V  0x3      // +/- 1V
   
 /* Status bit values */
-#define USB1608G_AIN_SCAN_RUNNNG   (0x1 << 1)
+#define USB1608G_AIN_SCAN_RUNNING   (0x1 << 1)
 #define USB1608G_AIN_SCAN_OVERRUN   (0x1 << 2)
 #define USB1608G_AOUT_SCAN_RUNNING  (0x1 << 3)
 #define USB1608G_AOUT_SCAN_UNDERRUN (0x1 << 4)
@@ -89,9 +89,9 @@ typedef struct ScanList_t {
   uint8_t channel;
 } ScanList;
 
-#define USB1608G_USB_CONTINUOUS_READOUT (0x1)
-#define USB1608G_USB_SINGLEIO           (0x2)
-#define USB_FORCE_USB1608G_PACKET_SIZE  (0x4)
+#define USB1608G_CONTINUOUS_READOUT (0x1)
+#define USB1608G_SINGLEIO           (0x2)
+#define USB1608G_FORCE_PACKET_SIZE  (0x4)
 
 typedef struct usbDevice1608G_t {
   libusb_device_handle *udev;          // libusb 1.0 handle
