@@ -104,6 +104,7 @@ mcUSB1608G::mcUSB1608G(const char *address) : mcBoard(address)
     readThreadId_ = epicsThreadCreate("measCompReadThread", epicsThreadPriorityMedium, epicsThreadGetStackSize(epicsThreadStackMedium), (EPICSTHREADFUNC)readThreadC, this);
 }
 
+/*
 static const char* rangeToString(int range)
 {
     switch(range)
@@ -129,20 +130,21 @@ static const char* rangeToString(int range)
         break;
     }
 }
+
 static const char* modeToString(int mode)
 {
     static char modestring[40];
-    
+
     switch(mode & ~USB1608G_LAST_CHANNEL)
     {
     case USB1608G_SINGLE_ENDED: //  (Single-Ended)
         return("Single Ended");
         break;
-        
+
     case USB1608G_DIFFERENTIAL: //  (Differential)
         return("Differential");
         break;
-        
+
     case USB1608G_CALIBRATION:      //   (Calibration mode)
         return("Calibration");
         break;
@@ -190,7 +192,7 @@ static void printScanListTable(usbDevice1608G *deviceInfo_)
                (deviceInfo_->scan_list[i] & USB1608G_LAST_CHANNEL) ? "Last Chan" : "");
     }
 }
-
+*/
 
 
 
@@ -201,13 +203,11 @@ void mcUSB1608G::readThread()
     int totalBytesToRead;
     int totalBytesReceived;
     int currentChannel;
-    int channel;
     int range;
     uint16_t *rawBuffer=0;
     uint16_t rawData;
-    int correctedData;
+    int correctedData=0;
     uint8_t mode;
-    int ret;
 
     readMutex_.lock();
     while (1)
@@ -254,7 +254,6 @@ void mcUSB1608G::readThread()
 
             for (int i=0; i<newPoints; i++) {
                 rawData = rawBuffer[i];             // Read the raw data...
-                channel = deviceInfo_.list[currentChannel].channel;
                 mode = deviceInfo_.list[currentChannel].mode;
                 range = deviceInfo_.list[currentChannel].range;
 
