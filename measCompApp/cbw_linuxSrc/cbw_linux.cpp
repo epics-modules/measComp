@@ -12,6 +12,7 @@
 #include "mcBoard_USB-CTR.h"
 #include "mcBoard_USB-TEMP-AI.h"
 #include "mcBoard_USB-TEMP.h"
+#include "mcBoard_USB-1608G.h"
 #include "mcBoard_USB-3100.h"
 
 
@@ -186,6 +187,9 @@ int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
     }
     else if (strcmp(deviceDescriptor.ProductName, "USB-TEMP-AI") == 0) {
         pBoard = (mcBoard *)new mcUSB_TEMP_AI(deviceDescriptor.UniqueID);
+    }
+    else if (strstr(deviceDescriptor.ProductName, "USB-1608") != 0) {
+        pBoard = (mcBoard *)new mcUSB1608G(deviceDescriptor.UniqueID);
     }
     else if (strstr(deviceDescriptor.ProductName, "USB-31") != 0) {
         pBoard = (mcBoard *)new mcUSB_3100(deviceDescriptor.UniqueID, deviceDescriptor.ProductID, deviceDescriptor.ProductName);

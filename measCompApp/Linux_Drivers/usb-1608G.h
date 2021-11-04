@@ -64,7 +64,7 @@ extern "C" {
 #define USB1608G_AIN_SCAN_OVERRUN   (0x1 << 2)
 #define USB1608G_AOUT_SCAN_RUNNING  (0x1 << 3)
 #define USB1608G_AOUT_SCAN_UNDERRUN (0x1 << 4)
-#define USB1608G_AIN_SCAN_DONE      (0x1 << 5)
+#define USB1608G_SCAN_DONE      (0x1 << 5)
 #define USB1608G_AOUT_SCAN_DONE     (0x1 << 6)
 #define USB1608G_FPGA_CONFIGURED    (0x1 << 8)
 #define USB1608G_FPGA_CONFIG_MODE   (0x1 << 9)
@@ -72,11 +72,11 @@ extern "C" {
 #define NCHAN_1608G          16  // max number of A/D channels in the device
 #define NGAINS_1608G          4  // max number of gain levels
 #define NCHAN_AO_1608GX       2  // number of analog output channels
-#define USB1608G_MAX_PACKET_SIZE_HS  512  // max packet size for HS device
-#define USB1608G_MAX_PACKET_SIZE_FS   64  // max packet size for FS device
+#define MAX_USB1608G_PACKET_SIZE_HS  512  // max packet size for HS device
+#define MAX_USB1608G_PACKET_SIZE_FS   64  // max packet size for FS device
 #define USB1608G_BASE_CLOCK        64.E6  // base clock frequency
 
-typedef struct timerParams_t {
+typedef struct USB1608G_timerParams_t {
   uint32_t period;
   uint32_t pulseWidth;
   uint32_t count;
@@ -174,7 +174,7 @@ void usbAOutR_USB1608GX_2AO(libusb_device_handle *udev, uint8_t channel, double 
 void usbAOutScanStop_USB1608GX_2AO(libusb_device_handle *udev);
 void usbAOutScanClearFIFO_USB1608GX_2AO(libusb_device_handle *udev);
 void usbAOutScanStart_USB1608GX_2AO(libusb_device_handle *udev, uint32_t count, uint32_t retrig_count, double frequency, uint8_t options);
-
+int usbAOutWrite_USB1608GX_2AO(libusb_device_handle *udev, uint16_t *data, int nBytes);
 
 #ifdef __cplusplus
 } /* closing brace for extern "C" */
