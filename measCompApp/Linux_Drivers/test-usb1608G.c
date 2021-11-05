@@ -314,8 +314,8 @@ int main (int argc, char **argv)
 		printf("DAC is saturated at -FS\n");
 	      } else {
 		data = rint(sdataIn[k]*usb1608G.table_AIn[gain][0] + usb1608G.table_AIn[gain][1]);
-	      }
 	      printf(", %8.4lf", volts_USB1608G(gain, data));
+	      }
 	    }
 	    printf("\n");
 	  }
