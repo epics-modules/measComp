@@ -170,8 +170,9 @@ int cbCreateDaqDevice(int BoardNum, DaqDeviceDescriptor deviceDescriptor)
     if (strcmp(deviceDescriptor.ProductName, "E-TC") == 0) {
         pBoard = (mcBoard *)new mcE_TC(deviceDescriptor.Reserved);
     }
-    else if (strcmp(deviceDescriptor.ProductName, "E-TC32") == 0) {
-        pBoard = (mcBoard *)new mcE_TC32(deviceDescriptor.Reserved);
+    else if ((strcmp(deviceDescriptor.ProductName, "E-TC32") == 0) ||
+             (strcmp(deviceDescriptor.ProductName, "TC-32") == 0)) {
+       pBoard = (mcBoard *)new mcE_TC32(deviceDescriptor.Reserved);
     }
     else if (strcmp(deviceDescriptor.ProductName, "E-1608") == 0) {
         pBoard = (mcBoard *)new mcE_1608(deviceDescriptor.Reserved);
