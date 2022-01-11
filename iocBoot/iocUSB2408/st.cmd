@@ -8,7 +8,7 @@ epicsEnvSet("PREFIX",        "USB2408:")
 epicsEnvSet("PORT",          "USB2401_1")
 epicsEnvSet("WDIG_POINTS",   "2048")
 epicsEnvSet("WGEN_POINTS",   "2048")
-epicsEnvSet("UNIQUE_ID",     "1AAA83E")
+epicsEnvSet("UNIQUE_ID",     "1AAA83C")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
