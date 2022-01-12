@@ -393,7 +393,6 @@ int cbDIn(int BoardNum, int PortType, USHORT *DataValue)
 {
     if (BoardNum >= (int)boardList.size()) return BADBOARD;
     mcBoard *pBoard = boardList[BoardNum];
-printf("cbDIn pBoard=%p, DataValue=%p, *DataValue=%u\n", pBoard, DataValue, *DataValue);
     return pBoard->cbDIn(PortType, DataValue);
 }
 
