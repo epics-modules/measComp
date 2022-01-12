@@ -1913,7 +1913,7 @@ void MultiFunction::pollerThread()
   /* This function runs in a separate thread.  It waits for the poll
    * time */
   static const char *functionName = "pollerThread";
-  epicsUInt32 newValue, changedBits, prevInput[MAX_IO_PORTS];
+  epicsUInt32 newValue, changedBits, prevInput[MAX_IO_PORTS]={0};
   epicsUInt16 biVal16;
   epicsUInt32 biVal32;
   int i;
