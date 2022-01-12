@@ -83,11 +83,12 @@ int mcE_TC32::cbDBitOut(int PortType, int BitNum, USHORT BitValue)
 
 int mcE_TC32::cbDIn(int PortType, USHORT *DataValue)
 {
-    uint8_t value;
-    if (!DIn_E_TC32(&deviceInfo_, &value)) {
+    uint8_t value[2];
+    if (!DIn_E_TC32(&deviceInfo_, value)) {
         return BADBOARD;
     }
-    *DataValue = value;
+    *DataValue = value[0];
+
     return NOERRORS;
 }
 
