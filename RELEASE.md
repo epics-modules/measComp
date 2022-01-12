@@ -1,6 +1,9 @@
 # measComp Release Notes
 
-## Release 3-1 (November XXX, 2021)
+## Release 3-1 (January XXX, 2022)
+  - Bug fix for the TC-32 in the digital input function.
+    This could cause stack corruption and crash.
+  - Fixed OPI screen errors for TC-32.
   - Added support for the USB-3100 series of devices on both Windows and Linux.
     These have 4, 8 or 16 channels of analog output, plus 8 digital I/O and one counter.
   - Added support for configurable analog output ranges in drvMultiFunction.cpp.
