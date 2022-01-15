@@ -72,7 +72,7 @@ int measCompCreateDevice(std::string uniqueId)
       portNum = atoi(port.c_str());
     }
     printf("ipAddress=%s, port=%s, portNum=%d\n", uniqueId.c_str(), port.c_str(), portNum);
-    // Set if this host is already known, i.e. it was found on the local subnet
+    // See if this host is already known, i.e. it was found on the local subnet
     for (int i=0; i<measCompNumDevices; i++) {
       if (host.compare(measCompInventory[i].Reserved) == 0) {
         devIndex = i;
