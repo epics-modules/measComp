@@ -72,13 +72,22 @@ int measCompCreateDevice(std::string uniqueId)
       portNum = atoi(port.c_str());
     }
     printf("ipAddress=%s, port=%s, portNum=%d\n", uniqueId.c_str(), port.c_str(), portNum);
+    // Set if this host is already known, i.e. it was found on the local subnet
+    for (int i=0; i<measCompNumDevices; i++) {
+      if (host.compare(measCompInventory[i].Reserved) == 0) {
+        devIndex = i;
+      }
+    }
+    // We did not find this device on the local subnet, create a new one
+    if (devIndex == -1) {
+      devIndex = measCompNumDevices++;
+    }
     status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum,
-                                       &measCompInventory[measCompNumDevices], timeoutMs);
+                                       &measCompInventory[devIndex], timeoutMs);
     if (status) {
         printf("Error calling cbGetNetDeviceDescriptor=%d\n", status);
         return -1;
     }
-    devIndex = measCompNumDevices++;
   }
   else {
     // uniqueId was not an IP address so it must be a serial number (USB) or MAC address (Ethernet)
