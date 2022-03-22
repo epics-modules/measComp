@@ -1,15 +1,20 @@
 # measComp Release Notes
 
 ## Release 3-1 (January XXX, 2022)
-  - Bug fix for the TC-32 in the digital input function.
-    This could cause stack corruption and crash.
-  - Fixed OPI screen errors for TC-32.
+  - Added support for the USB-1608G on Linux. Thanks to David Dudley for this.
   - Added support for the USB-3100 series of devices on both Windows and Linux.
     These have 4, 8 or 16 channels of analog output, plus 8 digital I/O and one counter.
   - Added support for configurable analog output ranges in drvMultiFunction.cpp.
     The USB-3100 models are the first supported modules to require this.
   - Added new OPI screens for 4, 8, and 16 channels of analog output and
     analog output configuration.  Added Range to analog output configuration screens.
+  - Bug fix for measCompDiscover for Ethernet devices when UNIQUE_ID was an IP address
+    rather than a MAC address, and the device was on the local subnet.
+    It was creating a duplicate entry in the device table.
+    This was harmless, but resulted duplicate values being printed with measCompShowDevices.
+  - Bug fix for the TC-32 in the digital input function.
+    This could cause stack corruption and crash.
+  - Fixed OPI screen errors for TC-32.
   - Added 4 missing analog input channels to E1608_settings.req for autosave.
   - Added Warren Jasper's low-level Linux drivers for the USB-3100 and the USB-1608G.
 
