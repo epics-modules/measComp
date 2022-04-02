@@ -21,9 +21,8 @@
 
 #ifdef linux
   #include "cbw_linux.h"
-#else
-  #include "cbw.h"
 #endif
+#include "cbw.h"
 
 #include <epicsExport.h>
 #include <measCompDiscover.h>
@@ -938,6 +937,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(pulseGenRun_, 0);
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
+  for (i=0; i<numTempChans_; i++) {
+    setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
+  }
 
   /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
@@ -1359,6 +1361,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int addr;
   int function = pasynUser->reason;
+  int range;
   int status=0;
   static const char *functionName = "writeInt32";
 
@@ -1463,7 +1466,8 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
         driverName, functionName);
       return asynError;
     }
-    status = cbAOut(boardNum_, addr, BIP10VOLTS, value);
+    getIntegerParam(addr, analogOutRange_, &range);
+    status = cbAOut(boardNum_, addr, range, value);
   }
 
   // Waveform generator functions
@@ -1923,7 +1927,7 @@ void MultiFunction::pollerThread()
   short aoStatus, aiStatus;
   epicsTimeStamp now;
   epicsTimeStamp startTime;
-  int numReadings;
+  int lastPoint;
   int status=0, prevStatus=0;
 
   while(1) {
@@ -1987,7 +1991,7 @@ void MultiFunction::pollerThread()
       }
     }
 
-    if (numAnalogIn_ > 0) {
+    if (waveDigRunning_) {
       // Poll the status of the waveform digitizer input
       status = cbGetStatus(boardNum_, &aiStatus, &aiCount, &aiIndex, AIFUNCTION);
       if (status) {
@@ -1998,21 +2002,20 @@ void MultiFunction::pollerThread()
         }
         // On Windows after a network glitch cbGetStatus will return continually return DEADDEV
         // Need to stop and start the waveform digitizer if it was running
-        if ((status == DEADDEV) && waveDigRunning_) {
+        if (status == DEADDEV) {
           stopWaveDig();
           startWaveDig();
         }
         goto error;
       }
       getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-      numReadings = aiIndex/numWaveDigChans_;
-      if (waveDigRunning_ && numReadings > currentPoint) {
+      lastPoint = aiIndex / numWaveDigChans_ + 1;
+      if (lastPoint > currentPoint) {
         epicsTimeGetCurrent(&now);
         int firstChan;
         getIntegerParam(waveDigFirstChan_, &firstChan);
         int lastChan = firstChan + numWaveDigChans_ - 1;
         epicsFloat64 *pAnalogIn = (epicsFloat64 *)inputMemHandle_ + currentPoint*numWaveDigChans_;
-        int lastPoint = aiIndex / numWaveDigChans_ + 1;
         for(; currentPoint < lastPoint; currentPoint++) {
           for (int j=firstChan; j<=lastChan; j++) {
             waveDigBuffer_[j][currentPoint] = *pAnalogIn++;
@@ -2021,7 +2024,7 @@ void MultiFunction::pollerThread()
         }
         setIntegerParam(waveDigCurrentPoint_, currentPoint);
       }
-      if (waveDigRunning_ && (aiStatus == 0)) {
+      if (aiStatus == 0) {
         stopWaveDig();
       }
     }
