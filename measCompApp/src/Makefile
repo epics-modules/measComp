@@ -8,6 +8,7 @@ include $(TOP)/configure/CONFIG
 # Build the IOC support library
 
 USR_CXXFLAGS_Linux += -Wno-write-strings
+USR_CXXFLAGS_Linux += -fmax-errors=20
 
 DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
@@ -21,7 +22,7 @@ endif
 # Link locally-provided code into the support library,
 # rather than directly into the IOC application.
 
-#LIB_SRCS += drvMultiFunction.cpp
+LIB_SRCS += drvMultiFunction.cpp
 LIB_SRCS += drvUSBCTR.cpp
 LIB_SRCS += measCompDiscover.cpp
 LIB_SRCS += USBCTR_SNL.st
@@ -103,7 +104,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testPadZero_LIBS += cbw64
 endif
 # Finally link to the EPICS Base libraries
-testPadZero_SYS_LIBS += $(EPICS_BASE_IOC_LIBS)
+testPadZero_LIBS += $(EPICS_BASE_IOC_LIBS)
 #=============================
 
 include $(TOP)/configure/RULES
