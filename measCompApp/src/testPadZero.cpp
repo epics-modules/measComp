@@ -35,9 +35,11 @@ int main(int argc, char *argv[])
   short gainArray[CHAN_COUNT];
   short ctrStatus;
   long ctrCount, ctrIndex;
+  DaqDeviceDescriptor devDescriptor;
+  long long handle;
 
   // Use the serial number for the USB-CTR here.
-  boardNum = measCompCreateDevice("123456");
+  boardNum = measCompCreateDevice("123456", devDescriptor, &handle);
 
 #ifdef linux
   asynUser *pasynUser = pasynManager->createAsynUser(0, 0);
