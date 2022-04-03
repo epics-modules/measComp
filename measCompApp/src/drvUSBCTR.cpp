@@ -895,7 +895,7 @@ printf("ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n", ctrStatus, ctrCount, ctrInd
       scalerCounts_[j] = pCountsUI64_[i+j];
       printf("%lld ", pCountsUI64_[i+j]);
       if ((scalerPresetCounts_[j] > 0) && (scalerCounts_[j] >= scalerPresetCounts_[j])) {
-        //scalerDone = true;
+        scalerDone = true;
       }
     }
     printf("\n");
@@ -968,7 +968,7 @@ int USBCTR::setScalerPresets()
       #ifdef WIN32
         status = cbCLoad32(boardNum_, MAXLIMITREG0+i, scalerPresetCounts_[i]);
       #else
-        status = ulCLoad(daqDeviceHandle_, i, CRT_MIN_LIMIT, scalerPresetCounts_[i]);
+        status = ulCLoad(daqDeviceHandle_, i, CRT_MAX_LIMIT, scalerPresetCounts_[i]);
       #endif
       if (status) {
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
