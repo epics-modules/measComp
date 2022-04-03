@@ -13,6 +13,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <iocsh.h>
 #include <epicsThread.h>
