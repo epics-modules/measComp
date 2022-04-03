@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#ifdef WIN32
+#ifdef _WIN32
   #include "cbw.h"
 #else
   #include "uldaq.h"
@@ -114,10 +114,10 @@ int measCompCreateDevice(std::string uniqueId, DaqDeviceDescriptor& deviceDescri
     }
     #ifdef WIN32
       status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum,
-                                        &measCompInventory[devIndex], timeout * 1000);
+                                        &measCompInventory[devIndex], (int) (timeout * 1000));
     #else
       status = ulGetNetDaqDeviceDescriptor((char*)host.c_str(), portNum, NULL,
-                                        &measCompInventory[devIndex], timeout);
+                                           &measCompInventory[devIndex], timeout);
     #endif
     if (status) {
         printf("Error calling cbGetNetDeviceDescriptor=%d\n", status);
