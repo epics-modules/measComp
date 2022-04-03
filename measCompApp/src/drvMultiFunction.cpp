@@ -19,10 +19,11 @@
 
 #include <asynPortDriver.h>
 
-#ifdef linux
-  #include "cbw_linux.h"
+#ifdef WIN32
+  #include "cbw.h"
+#else
+  #include "uldaq.h"
 #endif
-#include "cbw.h"
 
 #include <epicsExport.h>
 #include <measCompDiscover.h>

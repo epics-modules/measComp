@@ -21,7 +21,7 @@ endif
 # Link locally-provided code into the support library,
 # rather than directly into the IOC application.
 
-LIB_SRCS += drvMultiFunction.cpp
+#LIB_SRCS += drvMultiFunction.cpp
 LIB_SRCS += drvUSBCTR.cpp
 LIB_SRCS += measCompDiscover.cpp
 LIB_SRCS += USBCTR_SNL.st
@@ -44,8 +44,6 @@ measCompApp_SRCS += measCompAppMain.cpp
 
 # Link in the code from the support library
 measCompApp_LIBS += measComp
-measCompApp_LIBS_Linux += cbw_linux
-measCompApp_LIBS_Linux += measCompLinuxDrivers
 measCompApp_LIBS += scaler
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
@@ -61,7 +59,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   measComp_LIBS += cbw64
   measCompApp_LIBS += cbw64
 endif
-measCompApp_SYS_LIBS_Linux += hidapi-libusb usb-1.0
+measCompApp_SYS_LIBS_Linux += uldaq usb-1.0
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
@@ -92,16 +90,11 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_measCompDiscover_LIBS += cbw64
 endif
-test_measCompDiscover_LIBS_Linux += cbw_linux
-test_measCompDiscover_LIBS_Linux += measCompLinuxDrivers
-test_measCompDiscover_SYS_LIBS_Linux += hidapi-libusb usb-1.0
+test_measCompDiscover_SYS_LIBS_Linux += uldaq usb-1.0
 # Finally link to the EPICS Base libraries
 test_measCompDiscover_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
 
 PROD_IOC_WIN32 += testPadZero
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += testPadZero
-endif
 testPadZero_LIBS += measComp
 testPadZero_SRCS += testPadZero.cpp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
@@ -109,11 +102,8 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testPadZero_LIBS += cbw64
 endif
-testPadZero_LIBS_Linux += cbw_linux asyn
-testPadZero_LIBS_Linux += measCompLinuxDrivers
-testPadZero_SYS_LIBS_Linux += hidapi-libusb usb-1.0
 # Finally link to the EPICS Base libraries
-testPadZero_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
+testPadZero_SYS_LIBS += $(EPICS_BASE_IOC_LIBS)
 #=============================
 
 include $(TOP)/configure/RULES

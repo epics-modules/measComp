@@ -10,6 +10,8 @@
 */
 
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <iocsh.h>
 #include <epicsThread.h>
@@ -20,10 +22,11 @@
 #include "drvMca.h"
 #include "devScalerAsyn.h"
 
-#ifdef linux
-  #include "cbw_linux.h"
+#ifdef WIN32
+  #include "cbw.h"
+#else
+  #include "uldaq.h"
 #endif
-#include "cbw.h"
 
 #include <epicsExport.h>
 #include <measCompDiscover.h>
@@ -79,6 +82,7 @@ static const char *driverName = "USBCTR";
 #define NUM_TIMERS      4   // Number of timers on USB-CTR08
 #define NUM_IO_BITS     8   // Number of digital I/O bits on USB-CTR08
 #define MAX_SIGNALS     MAX_MCS_COUNTERS
+#define MAX_ERROR_STRING_LEN 256
 
 #define DEFAULT_POLL_TIME 0.01
 #define SINGLEIO_THRESHOLD_TIME 0.01  // Above this time uses SINGLEIO, below uses block I/O.
@@ -166,7 +170,12 @@ protected:
   int model_;
 
 private:
-  int boardNum_;
+  #ifdef WIN32
+    int boardNum_;
+  #else
+    DaqDeviceHandle daqDeviceHandle_;
+  #endif
+  DaqDeviceDescriptor daqDeviceDescriptor_;
   double pollTime_;
   int forceCallback_;
   int numCounters_;
@@ -182,11 +191,10 @@ private:
 
   epicsFloat32 *MCSTimeBuffer_;
   epicsFloat64 *MCSAbsTimeBuffer_;
-  HGLOBAL inputMemHandle_;
-  epicsFloat64 *pFloat64_;
-  epicsInt64 *pCounts64_;
-  epicsInt32 *pCounts32_;
-  epicsInt16 *pCounts16_;
+  epicsFloat64 *pCountsF64_;
+  epicsUInt64 *pCountsUI64_;
+  epicsInt32 *pCountsI32_;
+  epicsInt16 *pCountsI16_;
   int counterBits_;
 
   bool pulseGenRunning_[NUM_TIMERS];
@@ -195,7 +203,7 @@ private:
   bool MCSErased_;
   epicsTimeStamp startTime_;
   double elapsedPrevious_;
-  char errorMessage_[ERRSTRLEN];
+  char errorMessage_[MAX_ERROR_STRING_LEN];
 
   char *getErrorMessage(int error);
   int startPulseGenerator(int timerNum);
@@ -233,14 +241,20 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
     MCSRunning_(false)
 {
   int i;
-  char boardName[BOARDNAMELEN];
+  int status;
+  long long handle;
   //static const char *functionName = "USBCTR";
 
-  boardNum_ = measCompCreateDevice(uniqueID);
-  if (boardNum_ < 0) {
+  status = measCompCreateDevice(uniqueID, daqDeviceDescriptor_, &handle);
+  if (status) {
     printf("Error creating device with measCompCreateDevice\n");
     return;
   }
+  #ifdef WIN32
+    boardNum_ = handle;
+  #else
+    daqDeviceHandle_ = handle;
+  #endif
 
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
@@ -305,11 +319,10 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
   // Model ID
   createParam(modelString,                          asynParamInt32, &model_);                     /* int32, read */
 
-  cbGetBoardName(boardNum_, boardName);
-  if (strcmp(boardName, "USB-CTR08") == 0) {
+  if (strcmp(daqDeviceDescriptor_.productName, "USB-CTR08") == 0) {
     setIntegerParam(model_, 0);
     numCounters_ = 8;
-  } else if (strcmp(boardName, "USB-CTR04") == 0) {
+  } else if (strcmp(daqDeviceDescriptor_.productName, "USB-CTR04") == 0) {
     setIntegerParam(model_, 1);
     numCounters_ = 4;
   } else {
@@ -325,11 +338,10 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
   for (i=0; i<MAX_DAQ_LEN; i++) {
     gainArray_[i] = BIP10VOLTS;
   }
-  inputMemHandle_  = cbWinBufAlloc64((maxTimePoints+1)  * MAX_MCS_COUNTERS); // +1 allows for skipping first point
-  pFloat64_  = (epicsFloat64 *)inputMemHandle_;
-  pCounts64_ = (epicsInt64 *)inputMemHandle_;
-  pCounts32_ = (epicsInt32 *)inputMemHandle_;
-  pCounts16_ = (epicsInt16 *)inputMemHandle_;
+  pCountsF64_  = (epicsFloat64 *) calloc((maxTimePoints+1)  * MAX_MCS_COUNTERS, sizeof(epicsFloat64));
+  pCountsUI64_ = (epicsUInt64 *)pCountsF64_;
+  pCountsI32_ = (epicsInt32 *)pCountsF64_;
+  pCountsI16_ = (epicsInt16 *)pCountsF64_;
 
   // Set values of some parameters that need to be set because init record order is not predictable
   // or because the corresponding records are PINI=NO.
@@ -360,7 +372,11 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
 
 char *USBCTR::getErrorMessage(int error)
 {
-  cbGetErrMsg(error, errorMessage_);
+  #ifdef WIN32
+      cbGetErrMsg(error, errorMessage_);
+  #else
+      ulGetErrMsg((UlError)error, errorMessage_);
+  #endif
   return errorMessage_;
 }
 
@@ -388,7 +404,12 @@ int USBCTR::startPulseGenerator(int timerNum)
   if (delay < MIN_DELAY) delay = MIN_DELAY;
   if (delay > MAX_DELAY) delay = MAX_DELAY;
 
-  status = cbPulseOutStart(boardNum_, timerNum, &frequency, &dutyCycle, count, &delay, idleState, 0);
+  #ifdef WIN32
+    status = cbPulseOutStart(boardNum_, timerNum, &frequency, &dutyCycle, count, &delay, idleState, 0);
+  #else
+    TmrIdleState idle = (idleState == 0) ? TMRIS_LOW : TMRIS_HIGH;
+    status = ulTmrPulseOutStart(daqDeviceHandle_, timerNum, &frequency, &dutyCycle, count, &delay, idle, PO_DEFAULT);
+  #endif
   if (status != 0) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s error calling cbPulseOutStart timerNum=%d frequency=%f, dutyCycle=%f,"
@@ -417,7 +438,11 @@ int USBCTR::stopPulseGenerator(int timerNum)
   static const char *functionName = "stopPulseGenerator";
 
   pulseGenRunning_[timerNum] = false;
-  status = cbPulseOutStop(boardNum_, timerNum);
+  #ifdef WIN32
+    status = cbPulseOutStop(boardNum_, timerNum);
+  #else
+    status = ulTmrPulseOutStop(daqDeviceHandle_, timerNum);
+  #endif
   if (status != 0) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s error calling cbPulseOutStop timerNum=%d, status=%d, error=%s\n",
@@ -430,20 +455,15 @@ int USBCTR::startMCS()
 {
   int numPoints;
   int i;
+  int options;
   int status;
   epicsUInt32 counterEnable;
-  int options;
   int prescale;
   int prescaleCounter;
   int mode;
   int point0Action;
   double dwell;
   int channelAdvance;
-  long count;
-  long rate;
-  long pretrigCount = 0;
-  int chanCount;
-  double rateFactor=1.0;
   static const char *functionName = "startMCS";
 
   getIntegerParam(MCSPrescaleCounter_, &prescaleCounter);
@@ -458,9 +478,15 @@ int USBCTR::startMCS()
   for (i=0; i<numCounters_; i++) {
     if (!mcsCounterEnable_[i]) continue;
     numMCSCounters_++;
-    mode = OUTPUT_ON | COUNT_DOWN_OFF | CLEAR_ON_READ;
-    status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
-                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    #ifdef WIN32
+      mode = OUTPUT_ON | CLEAR_ON_READ;
+      status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
+                             CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    #else
+      mode = CMM_OUTPUT_ON | CMM_CLEAR_ON_READ;
+      status = ulCConfigScan(daqDeviceHandle_, i, CMT_COUNT,  (CounterMeasurementMode) mode,
+					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
+    #endif
     if (status) {
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
         "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
@@ -469,12 +495,21 @@ int USBCTR::startMCS()
   }
 
   if ((channelAdvance == mcaChannelAdvance_External) && (prescale > 1) ) {
-    mode = OUTPUT_ON | COUNT_DOWN_OFF | RANGE_LIMIT_ON;
-    status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0);
-    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1);
-    status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1);
-    status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
-                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    #ifdef WIN32
+      status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0);
+      status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1);
+      status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1);
+      mode = OUTPUT_ON | RANGE_LIMIT_ON;
+      status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
+                             CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+    #else
+      status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL0, 0);
+      status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL1, prescale-1);
+      status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_MIN_LIMIT, prescale-1);
+      mode = CMM_OUTPUT_ON | CMM_RANGE_LIMIT_ON;
+      status = ulCConfigScan(daqDeviceHandle_, prescaleCounter, CMT_COUNT,  (CounterMeasurementMode) mode,
+					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
+    #endif
     if (status) {
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
         "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
@@ -484,76 +519,115 @@ int USBCTR::startMCS()
   getIntegerParam(mcaNumChannels_, &numPoints);
   getDoubleParam(mcaDwellTime_, &dwell);
   getIntegerParam(MCSPoint0Action_, &point0Action);
-  if (dwell > 1e-6) rateFactor = 1000.;
-  rate = (LONG)((rateFactor / dwell) + 0.5);
-  if (point0Action == MCSPoint0Skip)
-    numPoints++;
-
-  options = 0;
-  if (dwell > 1e-4) {
-    counterBits_ = 32;
-  } else {
-    counterBits_ = 16;
-  }
-  options |= BACKGROUND;
-  if (rateFactor > 1.0)
-    options |= HIGHRESRATE;
-  if (channelAdvance == mcaChannelAdvance_External)
-    options |= EXTCLOCK;
-  // At long dwell times read use a single buffer for reading the data
-  if (dwell >= SINGLEIO_THRESHOLD_TIME)
-    options |= SINGLEIO;
-  // Always use EXTTRIGGER
-  options |= EXTTRIGGER;
-  if (point0Action == MCSPoint0NoClear)
-    options |= NOCLEAR;
-
-  for (i=0, chanCount=0; i<numCounters_; i++) {
-    if (!mcsCounterEnable_[i]) continue;
-    chanArray_[chanCount] = i;
-    chanTypeArray_[chanCount] = CTRBANK0;
-    chanCount++;
-    if (counterBits_ == 16) continue;
-    chanArray_[chanCount] = i;
-    chanTypeArray_[chanCount] = CTRBANK1;
-    chanCount++;
-  }
-  if (mcsCounterEnable_[DIGITAL_IO_COUNTER]) {
-    numMCSCounters_++;
-    chanArray_[chanCount] = AUXPORT;
-    chanTypeArray_[chanCount] = DIGITAL8;
-    chanCount++;
-    if (counterBits_ == 32) { // Add padding for binary data
-      chanArray_[chanCount] = 0;
-      chanTypeArray_[chanCount] = PADZERO;
+  if (point0Action == MCSPoint0Skip) numPoints++;
+  #ifdef WIN32
+    long count;
+    int chanCount;
+    long pretrigCount = 0;
+    double rateFactor=1.0;
+    if (dwell > 1e-6) rateFactor = 1000.;
+    long rate = (LONG)((rateFactor / dwell) + 0.5);
+    options = 0;
+    if (dwell > 1e-4) {
+      counterBits_ = 32;
+    } else {
+      counterBits_ = 16;
+    }
+    options |= BACKGROUND;
+    if (rateFactor > 1.0)
+      options |= HIGHRESRATE;
+    if (channelAdvance == mcaChannelAdvance_External)
+      options |= EXTCLOCK;
+    // At long dwell times read use a single buffer for reading the data
+    if (dwell >= SINGLEIO_THRESHOLD_TIME)
+      options |= SINGLEIO;
+    // Always use EXTTRIGGER
+    options |= EXTTRIGGER;
+    if (point0Action == MCSPoint0NoClear)
+      options |= NOCLEAR;
+  
+    for (i=0, chanCount=0; i<numCounters_; i++) {
+      if (!mcsCounterEnable_[i]) continue;
+      chanArray_[chanCount] = i;
+      chanTypeArray_[chanCount] = CTRBANK0;
+      chanCount++;
+      if (counterBits_ == 16) continue;
+      chanArray_[chanCount] = i;
+      chanTypeArray_[chanCount] = CTRBANK1;
       chanCount++;
     }
-  }
-
-  count = chanCount * numPoints;
-  status = cbDaqInScan(boardNum_, chanArray_, chanTypeArray_, gainArray_, chanCount, &rate,
-                       &pretrigCount, &count, inputMemHandle_, options);
-  asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s called cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
-    " inputMemHandle_=%p, options=0x%x, status=%d\n",
-    driverName, functionName, chanCount, count, rate,
-    inputMemHandle_, options, status);
-  // The actual dwell time can be different from requested due to clock granularity
-  setDoubleParam(mcaDwellTime_, rateFactor/rate);
-
-  if (status) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s error calling cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
-      " inputMemHandle_=%p, options=0x%x, status=%d, error=%s\n",
+    if (mcsCounterEnable_[DIGITAL_IO_COUNTER]) {
+      numMCSCounters_++;
+      chanArray_[chanCount] = AUXPORT;
+      chanTypeArray_[chanCount] = DIGITAL8;
+      chanCount++;
+      if (counterBits_ == 32) { // Add padding for binary data
+        chanArray_[chanCount] = 0;
+        chanTypeArray_[chanCount] = PADZERO;
+        chanCount++;
+      }
+    }
+    count = chanCount * numPoints;
+    status = cbDaqInScan(boardNum_, chanArray_, chanTypeArray_, gainArray_, chanCount, &rate,
+                         &pretrigCount, &count, inputMemHandle_, options);
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
+      "%s::%s called cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
+      " inputMemHandle_=%p, options=0x%x, status=%d\n",
       driverName, functionName, chanCount, count, rate,
-      inputMemHandle_, options, status, getErrorMessage(status));
-  }
+      inputMemHandle_, options, status);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling cbDaqInScan, chanCount=%d, count=%ld, rate=%ld,"
+        " inputMemHandle_=%p, options=0x%x, status=%d, error=%s\n",
+        driverName, functionName, chanCount, count, rate,
+        inputMemHandle_, options, status, getErrorMessage(status));
+    }
+    // The actual dwell time can be different from requested due to clock granularity
+    setDoubleParam(mcaDwellTime_, rateFactor/rate);
+  #else
+    double rate = 1. / dwell;  
+    options = SO_DEFAULTIO;
+    if (channelAdvance == mcaChannelAdvance_External)
+      options |= SO_EXTCLOCK;
+    // At long dwell times read use a single buffer for reading the data
+    if (dwell >= SINGLEIO_THRESHOLD_TIME)
+      options |= SO_SINGLEIO;
+    // Always use EXTTRIGGER
+    options |= SO_EXTTRIGGER;
+    int flags = CINSCAN_FF_DEFAULT;
+    if (point0Action == MCSPoint0NoClear)
+      flags |= CINSCAN_FF_NOCLEAR;
+    DaqInChanDescriptor *pDICD = new DaqInChanDescriptor[MAX_MCS_COUNTERS];
+    int outChan=0;
+    for (i=0; i<numCounters_; i++) {
+      if (!mcsCounterEnable_[i]) continue;
+      pDICD[outChan].channel = i;
+      pDICD[outChan].type = DAQI_CTR32;
+      pDICD[outChan].range = BIP10VOLTS;
+      outChan++;
+    }
+    if (mcsCounterEnable_[DIGITAL_IO_COUNTER]) {
+      numMCSCounters_++;
+      pDICD[outChan].channel = AUXPORT;
+      pDICD[outChan].type = DAQI_DIGITAL;
+      pDICD[outChan].range = BIP10VOLTS;
+      outChan++;
+    }
+    int numChans = outChan;
+    status = ulDaqInScan(daqDeviceHandle_, pDICD, numChans, numPoints, &rate, (ScanOption) options, (DaqInScanFlag) flags, pCountsF64_);
+    delete[] pDICD;
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling ulDaqInScan, numChans=%d, numPoints=%d, rate=%f, options=0x%x, flags=0x%x, status=%d, error=%s\n",
+        driverName, functionName, numChans, numPoints, rate,
+        options, status, flags, getErrorMessage(status));
+    }
+    // The actual dwell time can be different from requested due to clock granularity
+    setDoubleParam(mcaDwellTime_, 1./rate);
+  #endif
   setIntegerParam(MCSCurrentPoint_, 0);
   MCSRunning_ = true;
 
-  // Convert back from rate to dwell, since value might have changed
-  dwell = (rateFactor / rate);
-  setDoubleParam(mcaDwellTime_, dwell);
   return 0;
 }
 
@@ -576,9 +650,18 @@ int USBCTR::readMCS()
   getIntegerParam(MCSCurrentPoint_, &currentPoint);
   getIntegerParam(mcaNumChannels_,  &numTimePoints);
   getIntegerParam(MCSPoint0Action_, &point0Action);
-  status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, DAQIFUNCTION);
+  #ifdef WIN32
+    status = cbGetIOStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, DAQIFUNCTION);
+  #else
+    ScanStatus scanStatus;
+    TransferStatus xferStatus;
+    status = ulDaqInScanStatus(daqDeviceHandle_, &scanStatus, &xferStatus);
+    ctrStatus = scanStatus;
+    ctrCount = xferStatus.currentTotalCount;
+    ctrIndex = xferStatus.currentIndex;
+  #endif
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s cbGetStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
+    "%s::%s getStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
   if (ctrStatus == 0) {
     MCSRunning_ = false;
@@ -600,14 +683,14 @@ int USBCTR::readMCS()
         if (!mcsCounterEnable_[i]) continue;
 #ifdef WIN32
         if (counterBits_ == 32) {
-          MCSBuffer_[i][currentPoint] = pCounts32_[inPtr*numMCSCounters_ + j];
+          MCSBuffer_[i][currentPoint] = pCountsI32_[inPtr*numMCSCounters_ + j];
           // There seems to be a bug in PADZERO and it is actually giving counter0 value not 0
           if (i == DIGITAL_IO_COUNTER) MCSBuffer_[i][currentPoint] &= 0xff;
         } else {
-          MCSBuffer_[i][currentPoint] = pCounts16_[inPtr*numMCSCounters_ + j];
+          MCSBuffer_[i][currentPoint] = pCountsI16_[inPtr*numMCSCounters_ + j];
         }
 #else
-          MCSBuffer_[i][currentPoint] = (int) pFloat64_[inPtr*numMCSCounters_ + j];
+          MCSBuffer_[i][currentPoint] = (int) pCountsF64_[inPtr*numMCSCounters_ + j];
 #endif
         j++;
       }
@@ -689,7 +772,11 @@ int USBCTR::stopMCS()
     // readMCS will call this function when it finds MCSRunning=false so we can return now
     return 0;
   }
-  status = cbStopBackground(boardNum_, DAQIFUNCTION);
+  #ifdef WIN32
+    status = cbStopBackground(boardNum_, DAQIFUNCTION);
+  #else
+    status = ulDaqInScanStop(daqDeviceHandle_);
+  #endif
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s ERROR calling cbStopBackground(CTRFUNCTION), status=%d, error=%s\n",
@@ -717,33 +804,56 @@ int USBCTR::startScaler()
   int status;
   int i;
   int mode;
-  LONG count = 20 * numCounters_;
-  LONG rate = 100;
+  int samplesPerCounter = 20;
+  int rate = 100;
   int firstCounter = 0;
   int lastCounter = numCounters_ - 1;
-  int options = BACKGROUND | CONTINUOUS | CTR64BIT | SINGLEIO;
+  int options;
   static const char *functionName = "startScaler";
 
-  for (i=0; i<numCounters_; i++) {
-    mode = OUTPUT_ON | COUNT_DOWN_OFF | GATING_ON;
-    if (i == 0) mode = mode | RANGE_LIMIT_ON | NO_RECYCLE_ON | INVERT_GATE;
-    status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
-                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+  #ifdef WIN32
+    for (i=0; i<numCounters_; i++) {
+      mode = OUTPUT_ON | COUNT_DOWN_OFF | GATING_ON;
+      if (i == 0) mode = mode | RANGE_LIMIT_ON | NO_RECYCLE_ON | INVERT_GATE;
+      status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
+                             CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
+      if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+          "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
+          driverName, functionName, i, mode, status, getErrorMessage(status));
+      }
+    }
+    int count = samplesPerCounter * numCounters_;
+    options = BACKGROUND | CONTINUOUS | CTR64BIT | SINGLEIO;
+    status = cbCInScan(boardNum_, firstCounter, lastCounter, count, &rate,
+                       inputMemHandle_, options);
     if (status) {
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s::%s error calling cbCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
-        driverName, functionName, i, mode, status, getErrorMessage(status));
+        "%s::%s error calling cbCInScan, firstCounter=%d, lastCounter=%d, count=%d, rate=%d, options=0x%x, status=%d, error=%s\n",
+        driverName, functionName, firstCounter, lastCounter, count, rate, options, status, getErrorMessage(status));
     }
-  }
-  status = cbCInScan(boardNum_, firstCounter, lastCounter, count, &rate,
-                     inputMemHandle_, options);
-  if (status) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s error calling cbCInScan, firstCounter=%d, lastCounter=%d, count=%d, rate=%d,"
-      " inputMemHandle_=%p, options=0x%x, status=%d, error=%s\n",
-      driverName, functionName, firstCounter, lastCounter, count, rate,
-      inputMemHandle_, options, status, getErrorMessage(status));
-  }
+  #else
+    for (i=0; i<numCounters_; i++) {
+      mode = CMM_OUTPUT_ON | CMM_GATING_ON;
+      if (i == 0) mode = mode | CMM_RANGE_LIMIT_ON | CMM_NO_RECYCLE | CMM_INVERT_GATE;
+       status = ulCConfigScan(daqDeviceHandle_, i, CMT_COUNT,  (CounterMeasurementMode) mode,
+					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
+      if (status) {
+        asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+          "%s::%s error calling ulCConfigScan, counter=%d, mode=0x%x, status=%d, error=%s\n",
+          driverName, functionName, i, mode, status, getErrorMessage(status));
+      }
+    }
+    options = SO_CONTINUOUS | SO_SINGLEIO;
+    double dblRate = (double) rate;
+    CInScanFlag flags = CINSCAN_FF_CTR64_BIT;
+    status = ulCInScan(daqDeviceHandle_, firstCounter, lastCounter, samplesPerCounter, &dblRate, (ScanOption) options, flags, pCountsUI64_);
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling ulCInScan, firstCounter=%d, lastCounter=%d, samplesPerCounter=%d, rate=%d, options=0x%x, flags=0x%x, status=%d, error=%s\n",
+        driverName, functionName, firstCounter, lastCounter, samplesPerCounter, rate, options, flags, status, getErrorMessage(status));
+    }
+  #endif
   scalerRunning_ = true;
   return 0;
 }
@@ -760,21 +870,35 @@ int USBCTR::readScaler()
   static const char *functionName = "readScaler";
 
   // Poll the status of the counter scan
-  status = cbGetStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
+  #ifdef WIN32
+    status = cbGetIOStatus(boardNum_, &ctrStatus, &ctrCount, &ctrIndex, CTRFUNCTION);
+  #else
+    ScanStatus scanStatus;
+    TransferStatus xferStatus;
+    status = ulDaqInScanStatus(daqDeviceHandle_, &scanStatus, &xferStatus);
+    ctrStatus = scanStatus;
+    ctrCount = xferStatus.currentTotalCount;
+    ctrIndex = xferStatus.currentIndex;
+  #endif
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s::%s called cbGetStatus, status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
+    "%s::%s getStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
+printf("ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n", ctrStatus, ctrCount, ctrIndex);
+
   numValues = ctrIndex + 1;
   // Get the index of the start of the last complete set of counts in the buffer
   if (numValues < numCounters_) return 0;
   lastIndex = (numValues/numCounters_ - 1) * numCounters_;
   for (i=0; i<=lastIndex; i+= numCounters_) {
+    printf("%d: ", i);
     for (j=0; j<numCounters_; j++) {
-      scalerCounts_[j] = pCounts64_[i+j];
+      scalerCounts_[j] = pCountsUI64_[i+j];
+      printf("%lld ", pCountsUI64_[i+j]);
       if ((scalerPresetCounts_[j] > 0) && (scalerCounts_[j] >= scalerPresetCounts_[j])) {
-        scalerDone = true;
+        //scalerDone = true;
       }
     }
+    printf("\n");
     if (scalerDone) {
       stopScaler();
       break;
@@ -791,7 +915,11 @@ int USBCTR::stopScaler()
   int status;
   static const char *functionName = "stopScaler";
 
-  status = cbStopBackground(boardNum_, CTRFUNCTION);
+  #ifdef WIN32
+    status = cbStopBackground(boardNum_, DAQIFUNCTION);
+  #else
+    status = ulCInScanStop(daqDeviceHandle_);
+  #endif
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
       "%s::%s ERROR calling cbStopBackground(CTRFUNCTION), status=%d, error=%s\n",
@@ -837,26 +965,38 @@ int USBCTR::setScalerPresets()
   for (i=0; i<numCounters_; i++) {
     getIntegerParam(i, scalerPresets_, &scalerPresetCounts_[i]);
     if (scalerPresetCounts_[i] > 0) {
-      status = cbCLoad32(boardNum_, MAXLIMITREG0+i, scalerPresetCounts_[i]);
+      #ifdef WIN32
+        status = cbCLoad32(boardNum_, MAXLIMITREG0+i, scalerPresetCounts_[i]);
+      #else
+        status = ulCLoad(daqDeviceHandle_, i, CRT_MIN_LIMIT, scalerPresetCounts_[i]);
+      #endif
       if (status) {
         asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-          "%s::%s error calling cbCLoad32, reg=%d, presetCounts=%d, status=%d, error=%s\n",
-          driverName, functionName, MAXLIMITREG0+i, scalerPresetCounts_[i], status, getErrorMessage(status));
+          "%s::%s error calling cbCLoad32, counter=%d, presetCounts=%d, status=%d, error=%s\n",
+          driverName, functionName, i, scalerPresetCounts_[i], status, getErrorMessage(status));
       }
     }
   }
   // For counter0 output register 0 and 1 control when the counter output goes low and high
-  status = cbCLoad32(boardNum_, OUTPUTVAL0REG0, 0);
+  #ifdef WIN32
+    status = cbCLoad32(boardNum_, OUTPUTVAL0REG0, 0);
+  #else 
+    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL0, 0);
+  #endif
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s error calling cbCLoad32, reg=%d, value=%d, status=%d, error=%s\n",
-      driverName, functionName, OUTPUTVAL0REG0, 0, status, getErrorMessage(status));
+      "%s::%s error calling cbCLoad32, reg=OUTPUTVAL0REG0, value=%d, status=%d, error=%s\n",
+      driverName, functionName, 0, status, getErrorMessage(status));
   }
-  status = cbCLoad32(boardNum_, OUTPUTVAL1REG0, scalerPresetCounts_[0]);
+  #ifdef WIN32
+    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0, scalerPresetCounts_[0]);
+  #else 
+    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL1, scalerPresetCounts_[0]);
+  #endif
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s::%s error calling cbCLoad32, reg=%d, value=%d, status=%d, error=%s\n",
-      driverName, functionName, OUTPUTVAL1REG0, scalerPresetCounts_[0], status, getErrorMessage(status));
+      "%s::%s error calling cbCLoad32, reg=OUTPUTVAL1REG0, value=%d, status=%d, error=%s\n",
+      driverName, functionName, scalerPresetCounts_[0], status, getErrorMessage(status));
   }
 
   return 0;
@@ -896,13 +1036,41 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   // Counter functions
   if (function == counterReset_) {
-    // LOADREG0=0, LOADREG1=1, so we use addr
-    status = cbCLoad32(boardNum_, addr, 0);
+    #ifdef WIN32
+      // LOADREG0=0, LOADREG1=1, so we use addr
+      status = cbCLoad32(boardNum_, addr, 0);
+    #else
+      status = ulCLoad(daqDeviceHandle_, addr, CRT_LOAD, 0);
+    #endif
   }
 
   // Trigger functions
   if (function == triggerMode_) {
-    status = cbDaqSetTrigger(boardNum_, TRIG_EXTTTL, value, 0, CTRBANK0, 0, 0, 0, START_EVENT);
+    #ifdef WIN32
+      status = cbDaqSetTrigger(boardNum_, TRIG_EXTTTL, value, 0, CTRBANK0, 0, 0, 0, START_EVENT);
+    #else
+      TriggerType triggerType = TRIG_LOW;
+      // We map the UL Windows trigger types to Ul Linux
+      // We can't use macros from cbw.h because that file conflicts with uldaq.h
+      switch (value) {
+        case 0: triggerType = TRIG_RISING; break;
+        case 1: triggerType = TRIG_FALLING; break;
+        case 6: triggerType = TRIG_HIGH; break;
+        case 7: triggerType = TRIG_LOW; break;
+        default:
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+            "%s::%s error unsupported trigger value=%d\n",
+            driverName, functionName, value);
+          break;
+      }
+      DaqInChanDescriptor trigChanDescriptor;
+      status = ulDaqInSetTrigger(daqDeviceHandle_, triggerType, trigChanDescriptor, 0, 0, 0);
+    #endif
+    if (status) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s error calling cbDaqSetTrigger status=%d, error=%s\n",
+        driverName, functionName, status, getErrorMessage(status));
+    }
   }
 
   // Scaler functions
@@ -1072,16 +1240,21 @@ asynStatus USBCTR::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, ep
   int function = pasynUser->reason;
   int status=0;
   int i;
-  epicsUInt32 outValue=0, outMask, direction=0;
+  epicsUInt32 outValue=0, outMask, direction;
   static const char *functionName = "writeUInt32Digital";
 
 
   setUIntDigitalParam(function, value, mask);
   if (function == digitalDirection_) {
-    outValue = (value == 0) ? DIGITALIN : DIGITALOUT;
     for (i=0; i<NUM_IO_BITS; i++) {
       if ((mask & (1<<i)) != 0) {
-        status = cbDConfigBit(boardNum_, AUXPORT, i, outValue);
+        #ifdef WIN32
+          int dir = (value == 0) ? DIGITALIN : DIGITALOUT;
+          status = cbDConfigBit(boardNum_, AUXPORT, i, dir);
+        #else
+          DigitalDirection dir = (value == 0) ? DD_INPUT : DD_OUTPUT;
+          status = ulDConfigBit(daqDeviceHandle_, AUXPORT, i, dir);
+        #endif
       }
     }
   }
@@ -1092,7 +1265,11 @@ asynStatus USBCTR::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, ep
       // Only write the value if the mask has this bit set and the direction for that bit is output (1)
       outValue = ((value &outMask) == 0) ? 0 : 1;
       if ((mask & outMask & direction) != 0) {
-        status = cbDBitOut(boardNum_, AUXPORT, i, outValue);
+        #ifdef WIN32
+          status = cbDBitOut(boardNum_, AUXPORT, i, outValue);
+        #else
+          status = ulDBitOut(daqDeviceHandle_, AUXPORT, i, outValue);
+        #endif
       }
     }
   }
@@ -1241,7 +1418,13 @@ void USBCTR::pollerThread()
     lock();
 
     // Read the digital inputs
-    status = cbDIn(boardNum_, AUXPORT, &biVal);
+    #ifdef WIN32
+      status = cbDIn(boardNum_, AUXPORT, &biVal);
+    #else
+      unsigned long long data;
+      status = ulDIn(daqDeviceHandle_, AUXPORT, &data);
+      biVal = (unsigned short) data;
+    #endif
     if (status)
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
                 "%s:%s: ERROR calling cbDIn, status=%d\n",
@@ -1277,8 +1460,8 @@ void USBCTR::report(FILE *fp, int details)
   int i;
   int currentPoint;
 
-  fprintf(fp, "  Port: %s, board number=%d, pollTime=%f\n",
-          this->portName, boardNum_, pollTime_);
+  fprintf(fp, "  Port: %s, pollTime=%f\n",
+          this->portName, pollTime_);
   if (details >= 1) {
     fprintf(fp, "  Pulse generators:\n");
     for (i=0; i<NUM_TIMERS; i++) {
