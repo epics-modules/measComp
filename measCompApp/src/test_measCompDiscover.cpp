@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string>
 
-#ifdef WIN32
+#ifdef _WIN32
   #include "cbw.h"
 #else
   #include "uldaq.h"
