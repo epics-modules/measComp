@@ -3,7 +3,7 @@
 
 #include <string>
 #include <shareLib.h>
-#ifdef WIN32
+#ifdef _WIN32
   #include "cbw.h"
 #else
   #include "uldaq.h"
