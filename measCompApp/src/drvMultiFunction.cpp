@@ -144,6 +144,7 @@ typedef enum {
 #define MAX_SIGNALS     MAX_TEMPERATURE_IN
 
 // For simplicity define a few constants on Linux to be the same as Windows cbw.h
+// These need to be copied from cbw.h because uldaq.h and cbw.h cannot both be included due to some conflicting definitions
 #ifdef linux
   #define AI_CHAN_TYPE_VOLTAGE  AI_VOLTAGE
   #define AI_CHAN_TYPE_TC       AI_TC
