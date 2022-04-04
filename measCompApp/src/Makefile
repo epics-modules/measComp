@@ -81,9 +81,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 
 PROD_IOC_WIN32 += test_measCompDiscover
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += test_measCompDiscover
-endif
+PROD_IOC_Linux += test_measCompDiscover
 test_measCompDiscover_SRCS += test_measCompDiscover.cpp
 test_measCompDiscover_LIBS += measComp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
@@ -92,8 +90,16 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_measCompDiscover_LIBS += cbw64
 endif
 test_measCompDiscover_SYS_LIBS_Linux += uldaq usb-1.0
-# Finally link to the EPICS Base libraries
-test_measCompDiscover_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
+
+PROD_IOC_WIN32 += test_TIn_1
+PROD_IOC_Linux += test_TIn_1
+test_TIn_1_SRCS += test_TIn_1.cpp
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+  test_TIn_1_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+  test_TIn_1_LIBS += cbw64
+endif
+test_TIn_1_SYS_LIBS_Linux += uldaq usb-1.0
 
 PROD_IOC_WIN32 += testPadZero
 testPadZero_LIBS += measComp
@@ -103,8 +109,7 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testPadZero_LIBS += cbw64
 endif
-# Finally link to the EPICS Base libraries
-testPadZero_LIBS += $(EPICS_BASE_IOC_LIBS)
+
 #=============================
 
 include $(TOP)/configure/RULES
