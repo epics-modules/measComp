@@ -859,7 +859,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_TYPE, i, &infoValue);
       digitalIOPort_[i] = infoValue;
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_IO_TYPE, i, &infoValue);
-      digitalIOPortConfigurable_[i] = (infoValue == DPIOT_BITIO);
+      digitalIOBitConfigurable_[i] = (infoValue == DPIOT_BITIO);
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_NUM_BITS, i, &infoValue);
       numIOBits_[i] = infoValue;
     #endif
