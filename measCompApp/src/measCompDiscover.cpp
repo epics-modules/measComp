@@ -7,7 +7,6 @@
   #include "uldaq.h"
 #endif
 
-#include <epicsExport.h>
 #include <measCompDiscover.h>
 
 #define MAX_DEVICES 100
@@ -28,6 +27,15 @@ int measCompDiscoverDevices()
   #ifdef WIN32
     cbIgnoreInstaCal();
     status = cbGetDaqDeviceInventory(ANY_IFC, measCompInventory, &numDevices);
+    // Windows eliminates leading zeros on USB device serial numbers, Linux does not.
+    // Add the leading zero if the string length is 7
+    for (int i=0; i<numDevices; i++) {
+        if (measCompInventory[i].InterfaceType == USB_IFC) {
+            if (strlen(measCompInventory[i].UniqueID) == 7) {
+                sprintf(measCompInventory[i].UniqueID, "0%s", measCompInventory[i].UniqueID);
+            }
+        }
+    } 
   #else
     status = ulGetDaqDeviceInventory(ANY_IFC, measCompInventory, (unsigned int *)&numDevices);
     // Copy the IP address to the reserved field for Ethernet devices.
