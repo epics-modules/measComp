@@ -887,22 +887,18 @@ int USBCTR::readScaler()
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
     "%s::%s getStatus returned status=%d, ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n",
     driverName, functionName, status, ctrStatus, ctrCount, ctrIndex);
-printf("ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld\n", ctrStatus, ctrCount, ctrIndex);
 
   numValues = ctrIndex + 1;
   // Get the index of the start of the last complete set of counts in the buffer
   if (numValues < numCounters_) return 0;
   lastIndex = (numValues/numCounters_ - 1) * numCounters_;
   for (i=0; i<=lastIndex; i+= numCounters_) {
-    printf("%d: ", i);
     for (j=0; j<numCounters_; j++) {
       scalerCounts_[j] = (epicsInt32) pCountsUI64_[i+j];
-      printf("%lld ", pCountsUI64_[i+j]);
       if ((scalerPresetCounts_[j] > 0) && (scalerCounts_[j] >= scalerPresetCounts_[j])) {
         scalerDone = true;
       }
     }
-    printf("\n");
     if (scalerDone) {
       stopScaler();
       break;
