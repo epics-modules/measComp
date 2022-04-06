@@ -32,7 +32,8 @@ int measCompDiscoverDevices()
     for (int i=0; i<numDevices; i++) {
         if (measCompInventory[i].InterfaceType == USB_IFC) {
             if (strlen(measCompInventory[i].UniqueID) == 7) {
-                sprintf(measCompInventory[i].UniqueID, "0%s", measCompInventory[i].UniqueID);
+                std::string tempString = "0" + std::string(measCompInventory[i].UniqueID);
+                strcpy(measCompInventory[i].UniqueID, tempString.c_str());
             }
         }
     } 
