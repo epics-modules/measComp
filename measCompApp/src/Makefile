@@ -101,6 +101,16 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 test_TIn_1_SYS_LIBS_Linux += uldaq usb-1.0
 
+PROD_IOC_WIN32 += test_USB_CTR
+PROD_IOC_Linux += test_USB_CTR
+test_USB_CTR_1_SRCS += test_USB_CTR.cpp
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+  test_USB_CTR_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+  test_USB_CTR_LIBS += cbw64
+endif
+test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+
 PROD_IOC_WIN32 += testPadZero
 testPadZero_LIBS += measComp
 testPadZero_SRCS += testPadZero.cpp
