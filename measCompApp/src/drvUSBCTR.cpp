@@ -598,9 +598,9 @@ int USBCTR::startMCS()
       options |= SO_SINGLEIO;
     // Always use EXTTRIGGER
     options |= SO_EXTTRIGGER;
-    int flags = CINSCAN_FF_DEFAULT;
+    int flags = DAQINSCAN_FF_DEFAULT;
     if (point0Action == MCSPoint0NoClear)
-      flags |= CINSCAN_FF_NOCLEAR;
+      flags |= DAQINSCAN_FF_NOCLEAR;
     DaqInChanDescriptor *pDICD = new DaqInChanDescriptor[MAX_MCS_COUNTERS];
     int outChan=0;
     for (i=0; i<numCounters_; i++) {
