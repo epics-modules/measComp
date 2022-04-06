@@ -1681,12 +1681,16 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
         getIntegerParam(addr, thermocoupleType_, &tcType);
         // The enums for thermocouple types are the same on Windows and Linux
         status |= ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TC_TYPE, addr, tcType);
+        // Set the data rate to 60 Hz.
+        status = ulAISetConfigDbl(daqDeviceHandle_, AI_CFG_CHAN_DATA_RATE, addr, 60);
+        // Enable open thermocouple detection
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, OTD_ENABLED);
       }
     #endif
   }
 
   // Analog output functions
-  if (function == analogOutRange_ && analogOutRangeConfigurable_) {
+  if ((function == analogOutRange_) && analogOutRangeConfigurable_) {
     #ifdef _WIN32
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDACRANGE, value);
     #else
@@ -2018,8 +2022,9 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
           // Don't print error message, just set temp to -9999.
           fVal = -9999.;
           status = 0;
-          *value = fVal;
+          *value = (double) fVal;
         }
+        *value = (double) fVal;
       #else
         double data;
         TempScale tempScale;
@@ -2036,8 +2041,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
                   "%s::%s unsupported Scale=%d\n", driverName, functionName, scale);
                 tempScale = TS_CELSIUS;
         }
-        status = ulTIn(daqDeviceHandle_, addr, tempScale, flags, &data);
-        *value = (float) data;
+        status = ulTIn(daqDeviceHandle_, addr, tempScale, flags, value);
         if (status == ERR_OPEN_CONNECTION) {
           // This is an "expected" error if the thermocouple is broken or disconnected
           // Don't print error message, just set temp to -9999.
