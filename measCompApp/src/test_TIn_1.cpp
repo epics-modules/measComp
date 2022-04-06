@@ -21,7 +21,7 @@
 #define MAX_READINGS 20
 #define SLEEP_TIME 0.1
 
-void reportError(int err, const char *message)
+static void reportError(int err, const char *message)
 {
   char libraryMessage[MAX_LIBRARY_MESSAGE_LEN];
   if (err == 0) return;
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
   DaqDeviceDescriptor devDescriptors[MAX_DEV_COUNT];
   int devIndex;
   int numDevs=MAX_DEV_COUNT;
+  int productId=0;
   int err;
 
   if (argc != 2) {
@@ -74,6 +75,7 @@ int main(int argc, char *argv[])
         printf("Connecting to device type=%s serial number=%s\n", devDescriptors[devIndex].ProductName, devDescriptors[devIndex].UniqueID);
         err = cbCreateDaqDevice(devIndex, devDescriptors[devIndex]);
         reportError(err, "cbCreateDaqDevice");
+        productId = devDescriptors[devIndex].ProductID;
         boardNum = devIndex;
         break;
       }
@@ -87,6 +89,7 @@ int main(int argc, char *argv[])
         }
         err = ulConnectDaqDevice(devHandle);
         reportError(err, "ulConnectDaqDevice");
+        productId = devDescriptors[devIndex].productId;
         break;
       }
     #endif
@@ -94,8 +97,6 @@ int main(int argc, char *argv[])
   if (devIndex == numDevs) {
     reportError(-1, "Cannot find device");
   }
-
-  DaqDeviceDescriptor devDescriptor = devDescriptors[devIndex];
 
   // Verify the specified DAQ device has temperature channels
   int numTempChans;
@@ -117,23 +118,22 @@ int main(int argc, char *argv[])
   const int USB_2408_ID = 0xfd;
   const int USB_2408_2AO_ID = 0xfe;
 
-  #ifdef _WIN32
-  if (devDescriptor.ProductID == USB_2416_ID || devDescriptor.ProductID == USB_2416_4AO_ID || 
-      devDescriptor.ProductID == USB_2408_ID || devDescriptor.ProductID == USB_2408_2AO_ID) {
-      err = cbSetConfig(BOARDINFO, boardNum, 0, BIADCHANTYPE, AI_CHAN_TYPE_TC);
-    }
-  #else
-    if (devDescriptor.productId == USB_2416_ID || devDescriptor.productId == USB_2416_4AO_ID || 
-        devDescriptor.productId == USB_2408_ID || devDescriptor.productId == USB_2408_2AO_ID) {  
-      err = ulAISetConfig(devHandle, AI_CFG_CHAN_TYPE, 0, AI_TC);
-    }
-  #endif
-  reportError(err, "Setting analog input type to thermocouple");
+  if (productId == USB_2416_ID || productId == USB_2416_4AO_ID || 
+      productId == USB_2408_ID || productId == USB_2408_2AO_ID) {
+    #ifdef _WIN32
+        err = cbSetConfig(BOARDINFO, boardNum, 0, BIADCHANTYPE, AI_CHAN_TYPE_TC);
+    #else
+        err = ulAISetConfig(devHandle, AI_CFG_CHAN_TYPE, 0, AI_TC);
+    #endif
+    reportError(err, "Setting analog input type to thermocouple");
+  }
 
-  // Set to Type K thermocouple
+  // Set to Type K thermocouple and 60 Hz sampling
   #ifdef _WIN32 
       err = cbSetConfig(BOARDINFO, boardNum, 0, BICHANTCTYPE, TC_TYPE_K);
   #else
+      err = ulAISetConfigDbl(devHandle, AI_CFG_CHAN_DATA_RATE, 0, 60);
+      reportError(err, "Setting data rate to 60 Hz");
       err = ulAISetConfig(devHandle, AI_CFG_CHAN_TC_TYPE, 0, TC_K);
   #endif
   reportError(err, "Setting thermocouple type to K");
