@@ -57,3 +57,12 @@ record(mbbo,"$(P)$(R)Filter")
     field(ONST, "No filter")
 }
 
+record(bo,"$(P)$(R)OpenTCDetect")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))THERMOCOUPLE_OPEN_DETECT")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
