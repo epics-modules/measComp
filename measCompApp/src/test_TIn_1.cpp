@@ -45,14 +45,14 @@ int main(int argc, char *argv[])
   int productId=0;
   int err;
 
-  if (argc != 4) {
-    reportError(-1, "Usage: test_TIn_1 UniqueID OTDMode NumPoints ");
+  if (argc != 5) {
+    reportError(-1, "Usage: test_TIn_1 UniqueID OTDMode SampleRate NumPoints ");
   }
-  char *uniqueID = argv[1];
-  int temp = atoi(argv[2]);
-  OtdMode otdMode = temp ? OTD_ENABLED : OTD_DISABLED;
-  int numPoints = atoi(argv[3]);
-  printf("uniqueID=%s, ODTMode=%s, numPoints=%d\n", uniqueID, (otdMode==OTD_ENABLED) ? "Enabled" : "Disabled", numPoints); 
+  char *uniqueID  = argv[1];
+  int otdMode     = atoi(argv[2]);
+  int sampleRate  = atoi(argv[3]);
+  int numPoints   = atoi(argv[4]);
+  printf("uniqueID=%s, ODTMode=%s, sampleRate=%d, numPoints=%d\n", uniqueID, (otdMode==1) ? "Enabled" : "Disabled", sampleRate, numPoints); 
 
   // Get descriptors for all of the available DAQ devices
   #ifdef _WIN32
@@ -131,17 +131,31 @@ int main(int argc, char *argv[])
     reportError(err, "Setting analog input type to thermocouple");
   }
 
-  // Set to Type K thermocouple and 60 Hz sampling
+  // Set thermocouple open detect mode
+  #ifdef _WIN32 
+      err = cbSetConfig(BOARDINFO, boardNum, 0, BIDETECTOPENTC, otdMode);
+  #else
+      OtdMode mode = otdMode ? OTD_ENABLED : OTD_DISABLED;
+      err = ulAISetConfig(devHandle, AI_CFG_CHAN_OTD_MODE, 0, mode);
+  #endif
+  reportError(err, "Setting ODT mode");
+
+  // Set sampling rate to 60 Hz
+  #ifdef _WIN32 
+      err = cbSetConfig(BOARDINFO, boardNum, 0, BIADDATARATE, sampleRate);
+  #else
+      err = ulAISetConfigDbl(devHandle, AI_CFG_CHAN_DATA_RATE, 0, sampleRate);
+  #endif
+  reportError(err, "Setting data rate to 60 Hz");
+
+  // Set thermocouple type to K
   #ifdef _WIN32 
       err = cbSetConfig(BOARDINFO, boardNum, 0, BICHANTCTYPE, TC_TYPE_K);
   #else
-      err = ulAISetConfigDbl(devHandle, AI_CFG_CHAN_DATA_RATE, 0, 60);
-      reportError(err, "Setting data rate to 60 Hz");
-      err = ulAISetConfig(devHandle, AI_CFG_CHAN_OTD_MODE, 0, otdMode);
-      reportError(err, "Setting ODT mode to ODT_DISABLED");
       err = ulAISetConfig(devHandle, AI_CFG_CHAN_TC_TYPE, 0, TC_K);
   #endif
   reportError(err, "Setting thermocouple type to K");
+
   double data;
   double sum=0;
   bool openTC=false;
