@@ -27,6 +27,58 @@
   #include "uldaq.h"
 #endif
 
+// This function maps the Gain values from UL on Windows to the Range values in UL for Linux.
+// We can't use the macros from Windows cbw.h because they conflict with UL for Linux.
+// These definitions are taken from cbw.h, but added CBW_ prefix.
+#define CBW_BIP60VOLTS       20              /* -60 to 60 Volts */
+#define CBW_BIP30VOLTS		 23
+#define CBW_BIP20VOLTS       15              /* -20 to +20 Volts */
+#define CBW_BIP15VOLTS       21              /* -15 to +15 Volts */
+#define CBW_BIP10VOLTS       1              /* -10 to +10 Volts */
+#define CBW_BIP5VOLTS        0              /* -5 to +5 Volts */
+#define CBW_BIP4VOLTS        16             /* -4 to + 4 Volts */
+#define CBW_BIP2PT5VOLTS     2              /* -2.5 to +2.5 Volts */
+#define CBW_BIP2VOLTS        14             /* -2.0 to +2.0 Volts */
+#define CBW_BIP1PT25VOLTS    3              /* -1.25 to +1.25 Volts */
+#define CBW_BIP1VOLTS        4              /* -1 to +1 Volts */
+#define CBW_BIPPT625VOLTS    5              /* -.625 to +.625 Volts */
+#define CBW_BIPPT5VOLTS      6              /* -.5 to +.5 Volts */
+#define CBW_BIPPT25VOLTS     12              /* -0.25 to +0.25 Volts */
+#define CBW_BIPPT2VOLTS      13              /* -0.2 to +0.2 Volts */
+#define CBW_BIPPT1VOLTS      7              /* -.1 to +.1 Volts */
+#define CBW_BIPPT05VOLTS     8              /* -.05 to +.05 Volts */
+#define CBW_BIPPT01VOLTS     9              /* -.01 to +.01 Volts */
+#define CBW_BIPPT005VOLTS    10             /* -.005 to +.005 Volts */
+#define CBW_BIP1PT67VOLTS    11             /* -1.67 to +1.67 Volts */
+#define CBW_BIPPT312VOLTS    17				 /* -0.312 to +0.312 Volts */
+#define CBW_BIPPT156VOLTS    18				 /* -0.156 to +0.156 Volts */
+#define CBW_BIPPT125VOLTS    22				 /* -0.125 to +0.125 Volts */
+#define CBW_BIPPT078VOLTS    19				 /* -0.078 to +0.078 Volts */
+
+
+#define CBW_UNI10VOLTS       100            /* 0 to 10 Volts*/
+#define CBW_UNI5VOLTS        101            /* 0 to 5 Volts */
+#define CBW_UNI4VOLTS        114            /* 0 to 4 Volts */
+#define CBW_UNI2PT5VOLTS     102            /* 0 to 2.5 Volts */
+#define CBW_UNI2VOLTS        103            /* 0 to 2 Volts */
+#define CBW_UNI1PT67VOLTS    109            /* 0 to 1.67 Volts */
+#define CBW_UNI1PT25VOLTS    104            /* 0 to 1.25 Volts */
+#define CBW_UNI1VOLTS        105            /* 0 to 1 Volt */
+#define CBW_UNIPT5VOLTS      110            /* 0 to .5 Volt */
+#define CBW_UNIPT25VOLTS     111            /* 0 to 0.25 Volt */
+#define CBW_UNIPT2VOLTS      112            /* 0 to .2 Volt */
+#define CBW_UNIPT1VOLTS      106            /* 0 to .1 Volt */
+#define CBW_UNIPT05VOLTS     113            /* 0 to .05 Volt */
+#define CBW_UNIPT02VOLTS     108            /* 0 to .02 Volt*/
+#define CBW_UNIPT01VOLTS     107            /* 0 to .01 Volt*/
+
+#define CBW_MA4TO20          200            /* 4 to 20 ma */
+#define CBW_MA2TO10          201            /* 2 to 10 ma */
+#define CBW_MA1TO5           202            /* 1 to 5 ma */
+#define CBW_MAPT5TO2PT5      203            /* .5 to 2.5 ma */
+#define CBW_MA0TO20          204            /* 0 to 20 ma */
+#define CBW_BIPPT025AMPS     205            /* -0.025 to 0.025 ma */
+
 #include <epicsExport.h>
 #include <measCompDiscover.h>
 
@@ -195,18 +247,18 @@ typedef struct {
 } enumStruct_t;
 
 static const enumStruct_t inputRangeUSB_1208LS[] = {
-  {"+= 20V",   BIP20VOLTS},
-  {"+= 10V",   BIP10VOLTS},
-  {"+= 5V",    BIP5VOLTS},
-  {"+= 4V",    BIP4VOLTS},
-  {"+= 2.5V",  BIP2PT5VOLTS},
-  {"+= 2V",    BIP2VOLTS},
-  {"+= 1.25V", BIP1PT25VOLTS},
-  {"+= 1V",    BIP1VOLTS}
+  {"+= 20V",   CBW_BIP20VOLTS},
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 4V",    CBW_BIP4VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 2V",    CBW_BIP2VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS},
+  {"+= 1V",    CBW_BIP1VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_1208LS[] = {
-  {"+= 10V", UNI5VOLTS}
+  {"+= 10V", CBW_UNI5VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_1208LS[] = {
@@ -218,18 +270,18 @@ static const enumStruct_t inputTypeUSB_1208LS[] = {
 };
 
 static const enumStruct_t inputRangeUSB_1208FS[] = {
-  {"+= 20V",   BIP20VOLTS},
-  {"+= 10V",   BIP10VOLTS},
-  {"+= 5V",    BIP5VOLTS},
-  {"+= 4V",    BIP4VOLTS},
-  {"+= 2.5V",  BIP2PT5VOLTS},
-  {"+= 2V",    BIP2VOLTS},
-  {"+= 1.25V", BIP1PT25VOLTS},
-  {"+= 1V",    BIP1VOLTS}
+  {"+= 20V",   CBW_BIP20VOLTS},
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 4V",    CBW_BIP4VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 2V",    CBW_BIP2VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS},
+  {"+= 1V",    CBW_BIP1VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_1208FS[] = {
-  {"+= 10V", UNI4VOLTS}
+  {"+= 10V", CBW_UNI4VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_1208FS[] = {
@@ -237,18 +289,18 @@ static const enumStruct_t inputTypeUSB_1208FS[] = {
 };
 
 static const enumStruct_t inputRangeUSB_231[] = {
-  {"+= 20V",   BIP20VOLTS},
-  {"+= 10V",   BIP10VOLTS},
-  {"+= 5V",    BIP5VOLTS},
-  {"+= 4V",    BIP4VOLTS},
-  {"+= 2.5V",  BIP2PT5VOLTS},
-  {"+= 2V",    BIP2VOLTS},
-  {"+= 1.25V", BIP1PT25VOLTS},
-  {"+= 1V",    BIP1VOLTS}
+  {"+= 20V",   CBW_BIP20VOLTS},
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 4V",    CBW_BIP4VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 2V",    CBW_BIP2VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS},
+  {"+= 1V",    CBW_BIP1VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_231[] = {
-  {"+= 10V", UNI5VOLTS}
+  {"+= 10V", CBW_UNI5VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_231[] = {
@@ -256,14 +308,14 @@ static const enumStruct_t inputTypeUSB_231[] = {
 };
 
 static const enumStruct_t inputRangeUSB_1608G[] = {
-  {"+= 10V", BIP10VOLTS},
-  {"+= 5V",  BIP5VOLTS},
-  {"+= 2V",  BIP2VOLTS},
-  {"+= 1V",  BIP1VOLTS}
+  {"+= 10V", CBW_BIP10VOLTS},
+  {"+= 5V",  CBW_BIP5VOLTS},
+  {"+= 2V",  CBW_BIP2VOLTS},
+  {"+= 1V",  CBW_BIP1VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_1608G[] = {
-  {"+= 10V", BIP10VOLTS}
+  {"+= 10V", CBW_BIP10VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_1608G[] = {
@@ -271,18 +323,18 @@ static const enumStruct_t inputTypeUSB_1608G[] = {
 };
 
 static const enumStruct_t inputRangeUSB_2408[] = {
-  {"+= 10V",    BIP10VOLTS},
-  {"+= 5V",     BIP5VOLTS},
-  {"+= 2.5V",   BIP2PT5VOLTS},
-  {"+= 1.25V",  BIP1PT25VOLTS},
-  {"+= 0.625V", BIPPT625VOLTS},
-  {"+= 0.312V", BIPPT312VOLTS},
-  {"+= 0.156V", BIPPT156VOLTS},
-  {"+= 0.078V", BIPPT078VOLTS}
+  {"+= 10V",    CBW_BIP10VOLTS},
+  {"+= 5V",     CBW_BIP5VOLTS},
+  {"+= 2.5V",   CBW_BIP2PT5VOLTS},
+  {"+= 1.25V",  CBW_BIP1PT25VOLTS},
+  {"+= 0.625V", CBW_BIPPT625VOLTS},
+  {"+= 0.312V", CBW_BIPPT312VOLTS},
+  {"+= 0.156V", CBW_BIPPT156VOLTS},
+  {"+= 0.078V", CBW_BIPPT078VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_2408[] = {
-  {"+= 10V", BIP10VOLTS}
+  {"+= 10V", CBW_BIP10VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_2408[] = {
@@ -291,14 +343,14 @@ static const enumStruct_t inputTypeUSB_2408[] = {
 };
 
 static const enumStruct_t inputRangeE_1608[] = {
-  {"+= 10V", BIP10VOLTS},
-  {"+= 5V",  BIP5VOLTS},
-  {"+= 2V",  BIP2VOLTS},
-  {"+= 1V",  BIP1VOLTS}
+  {"+= 10V", CBW_BIP10VOLTS},
+  {"+= 5V",  CBW_BIP5VOLTS},
+  {"+= 2V",  CBW_BIP2VOLTS},
+  {"+= 1V",  CBW_BIP1VOLTS}
 };
 
 static const enumStruct_t outputRangeE_1608[] = {
-  {"+= 10V", BIP10VOLTS}
+  {"+= 10V", CBW_BIP10VOLTS}
 };
 
 static const enumStruct_t inputTypeE_1608[] = {
@@ -310,8 +362,8 @@ static const enumStruct_t inputRangeUSB_3101[] = {
 };
 
 static const enumStruct_t outputRangeUSB_3101[] = {
-  {"0-10V",  UNI10VOLTS},
-  {"+= 10V", BIP10VOLTS}
+  {"0-10V",  CBW_UNI10VOLTS},
+  {"+= 10V", CBW_BIP10VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_3101[] = {
@@ -355,10 +407,10 @@ static const enumStruct_t inputTypeE_TC[] = {
 };
 
 static const enumStruct_t inputRangeUSB_TEMP_AI[] = {
-  {"+= 10V",   BIP10VOLTS},
-  {"+= 5V",    BIP5VOLTS},
-  {"+= 2.5V",  BIP2PT5VOLTS},
-  {"+= 1.25V", BIP1PT25VOLTS}
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS}
 };
 
 static const enumStruct_t outputRangeUSB_TEMP_AI[] = {
@@ -472,7 +524,7 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
 #define DEFAULT_POLL_TIME 0.01
 #define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
 #define MAX_BOARDNAME_LEN    256
-
+#define MAX_LIBRARY_MESSAGE_LEN 256
 #define PI 3.14159265
 
 /** This is the class definition for the MultiFunction class
@@ -660,6 +712,7 @@ private:
   #ifdef linux
   int mapRange(int Gain, Range *range);
   int mapTriggerType(int cbwTriggerType, TriggerType *triggerType);
+  int reportError(int err, const char *functionName, const char *message);
   #endif
 };
 
@@ -1026,59 +1079,31 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
                     this);
 }
 
+int  MultiFunction::reportError(int err, const char *functionName, const char *message)
+{
+  char libraryMessage[MAX_LIBRARY_MESSAGE_LEN];
+  switch (err) {
+    case 0: 
+      asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
+        "%s::%s Info: %s\n", driverName, functionName, message);
+      break;
+    case -1: 
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s Error: %s\n", driverName, functionName, message);
+      break;
+    default:
+      #ifdef _WIN32
+        cbGetErrMsg(err, libraryMessage);
+      #else
+        ulGetErrMsg((UlError)err, libraryMessage);
+      #endif
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+        "%s::%s Error: %s, err=%d %s\n", driverName, functionName, message, err, libraryMessage);
+  }
+  return err;
+}
+
 #ifdef linux
-// This function maps the Gain values from UL on Windows to the Range values in UL for Linux.
-// We can't use the macros from Windows cbw.h because they conflict with UL for Linux.
-// These definitions are taken from cbw.h, but added CBW_ prefix.
-#define CBW_BIP60VOLTS       20              /* -60 to 60 Volts */
-#define CBW_BIP30VOLTS		 23
-#define CBW_BIP20VOLTS       15              /* -20 to +20 Volts */
-#define CBW_BIP15VOLTS       21              /* -15 to +15 Volts */
-#define CBW_BIP10VOLTS       1              /* -10 to +10 Volts */
-#define CBW_BIP5VOLTS        0              /* -5 to +5 Volts */
-#define CBW_BIP4VOLTS        16             /* -4 to + 4 Volts */
-#define CBW_BIP2PT5VOLTS     2              /* -2.5 to +2.5 Volts */
-#define CBW_BIP2VOLTS        14             /* -2.0 to +2.0 Volts */
-#define CBW_BIP1PT25VOLTS    3              /* -1.25 to +1.25 Volts */
-#define CBW_BIP1VOLTS        4              /* -1 to +1 Volts */
-#define CBW_BIPPT625VOLTS    5              /* -.625 to +.625 Volts */
-#define CBW_BIPPT5VOLTS      6              /* -.5 to +.5 Volts */
-#define CBW_BIPPT25VOLTS     12              /* -0.25 to +0.25 Volts */
-#define CBW_BIPPT2VOLTS      13              /* -0.2 to +0.2 Volts */
-#define CBW_BIPPT1VOLTS      7              /* -.1 to +.1 Volts */
-#define CBW_BIPPT05VOLTS     8              /* -.05 to +.05 Volts */
-#define CBW_BIPPT01VOLTS     9              /* -.01 to +.01 Volts */
-#define CBW_BIPPT005VOLTS    10             /* -.005 to +.005 Volts */
-#define CBW_BIP1PT67VOLTS    11             /* -1.67 to +1.67 Volts */
-#define CBW_BIPPT312VOLTS    17				 /* -0.312 to +0.312 Volts */
-#define CBW_BIPPT156VOLTS    18				 /* -0.156 to +0.156 Volts */
-#define CBW_BIPPT125VOLTS    22				 /* -0.125 to +0.125 Volts */
-#define CBW_BIPPT078VOLTS    19				 /* -0.078 to +0.078 Volts */
-
-
-#define CBW_UNI10VOLTS       100            /* 0 to 10 Volts*/
-#define CBW_UNI5VOLTS        101            /* 0 to 5 Volts */
-#define CBW_UNI4VOLTS        114            /* 0 to 4 Volts */
-#define CBW_UNI2PT5VOLTS     102            /* 0 to 2.5 Volts */
-#define CBW_UNI2VOLTS        103            /* 0 to 2 Volts */
-#define CBW_UNI1PT67VOLTS    109            /* 0 to 1.67 Volts */
-#define CBW_UNI1PT25VOLTS    104            /* 0 to 1.25 Volts */
-#define CBW_UNI1VOLTS        105            /* 0 to 1 Volt */
-#define CBW_UNIPT5VOLTS      110            /* 0 to .5 Volt */
-#define CBW_UNIPT25VOLTS     111            /* 0 to 0.25 Volt */
-#define CBW_UNIPT2VOLTS      112            /* 0 to .2 Volt */
-#define CBW_UNIPT1VOLTS      106            /* 0 to .1 Volt */
-#define CBW_UNIPT05VOLTS     113            /* 0 to .05 Volt */
-#define CBW_UNIPT02VOLTS     108            /* 0 to .02 Volt*/
-#define CBW_UNIPT01VOLTS     107            /* 0 to .01 Volt*/
-
-#define CBW_MA4TO20          200            /* 4 to 20 ma */
-#define CBW_MA2TO10          201            /* 2 to 10 ma */
-#define CBW_MA1TO5           202            /* 1 to 5 ma */
-#define CBW_MAPT5TO2PT5      203            /* .5 to 2.5 ma */
-#define CBW_MA0TO20          204            /* 0 to 20 ma */
-#define CBW_BIPPT025AMPS     205            /* -0.025 to 0.025 ma */
-
 int MultiFunction::mapRange(int Gain, Range *range)
 {
     static const char *functionName = "mapRange";
@@ -1802,19 +1827,21 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   // Analog output functions
   else if (function == analogOutValue_) {
     if (waveGenRunning_) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR,
-        "%s:%s: ERROR cannot write analog outputs while waveform generator is running.\n",
-        driverName, functionName);
+      reportError(-1, functionName, "cannot write analog outputs while waveform generator is running.");
       return asynError;
     }
-    getIntegerParam(addr, analogOutRange_, &range);
+    status = getIntegerParam(addr, analogOutRange_, &range);
+printf("analog out range status=%d, addr=%d, range=%d\n", status, addr, range);
+
     #ifdef _WIN32
       status = cbAOut(boardNum_, addr, range, value);
     #else
       Range ulRange;
       mapRange(range, &ulRange);
+printf("range=%d, ulRange=%d\n", range, ulRange);
       status = ulAOut(daqDeviceHandle_, addr, ulRange, AOUT_FF_NOSCALEDATA, (double) value);
     #endif
+    reportError(status, functionName, "calling AOut");
   }
 
   // Waveform generator functions
@@ -2026,7 +2053,6 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
         }
         *value = (double) fVal;
       #else
-        double data;
         TempScale tempScale;
         // cbTin has a filter option but ulTin does not?
         TInFlag flags = TIN_FF_DEFAULT;
