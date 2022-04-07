@@ -1,13 +1,13 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompAiSetup.adl"
-	version=030107
+	name="/home/epics/devel/measComp-3-0/measCompApp/op/adl/measCompAiSetup.adl"
+	version=030109
 }
 display {
 	object {
 		x=399
 		y=413
-		width=455
+		width=520
 		height=270
 	}
 	clr=14
@@ -89,9 +89,9 @@ display {
 }
 text {
 	object {
-		x=89
+		x=0
 		y=10
-		width=276
+		width=520
 		height=25
 	}
 	"basic attribute" {
@@ -99,567 +99,6 @@ text {
 	}
 	textix="Analog input setup $(P)"
 	align="horiz. centered"
-}
-composite {
-	object {
-		x=195
-		y=40
-		width=255
-		height=219
-	}
-	"composite name"=""
-	children {
-		text {
-			object {
-				x=337
-				y=40
-				width=100
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Eng. units"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=222
-				y=40
-				width=70
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Display"
-			align="horiz. right"
-		}
-		"text entry" {
-			object {
-				x=390
-				y=64
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)1.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=89
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)2.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=114
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)3.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=139
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)4.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=164
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)5.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=189
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)6.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=214
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)7.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		"text entry" {
-			object {
-				x=390
-				y=239
-				width=60
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)8.EGUF"
-				clr=14
-				bclr=51
-			}
-			limits {
-			}
-		}
-		composite {
-			object {
-				x=325
-				y=64
-				width=60
-				height=195
-			}
-			"composite name"=""
-			children {
-				"text entry" {
-					object {
-						x=325
-						y=64
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)1.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=89
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)2.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=114
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)3.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=139
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)4.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=164
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)5.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=189
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)6.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=214
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)7.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-				"text entry" {
-					object {
-						x=325
-						y=239
-						width=60
-						height=20
-					}
-					control {
-						chan="$(P)$(Ai)8.EGUL"
-						clr=14
-						bclr=51
-					}
-					limits {
-					}
-				}
-			}
-		}
-		composite {
-			object {
-				x=195
-				y=64
-				width=125
-				height=195
-			}
-			"composite name"=""
-			children {
-				composite {
-					object {
-						x=260
-						y=64
-						width=60
-						height=195
-					}
-					"composite name"=""
-					children {
-						"text entry" {
-							object {
-								x=260
-								y=64
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)1.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=89
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)2.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=114
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)3.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=139
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)4.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=164
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)5.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=189
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)6.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=214
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)7.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=260
-								y=239
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)8.HOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-					}
-				}
-				composite {
-					object {
-						x=195
-						y=64
-						width=60
-						height=195
-					}
-					"composite name"=""
-					children {
-						"text entry" {
-							object {
-								x=195
-								y=64
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)1.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=89
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)2.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=114
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)3.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=139
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)4.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=164
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)5.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=189
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)6.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=214
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)7.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-						"text entry" {
-							object {
-								x=195
-								y=239
-								width=60
-								height=20
-							}
-							control {
-								chan="$(P)$(Ai)8.LOPR"
-								clr=14
-								bclr=51
-							}
-							limits {
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 }
 composite {
 	object {
@@ -1042,4 +481,687 @@ composite {
 			}
 		}
 	}
+}
+composite {
+	object {
+		x=260
+		y=40
+		width=255
+		height=219
+	}
+	"composite name"=""
+	children {
+		text {
+			object {
+				x=402
+				y=40
+				width=100
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Eng. units"
+			align="horiz. right"
+		}
+		text {
+			object {
+				x=287
+				y=40
+				width=70
+				height=20
+			}
+			"basic attribute" {
+				clr=14
+			}
+			textix="Display"
+			align="horiz. right"
+		}
+		"text entry" {
+			object {
+				x=455
+				y=64
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)1.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=89
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)2.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=114
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)3.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=139
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)4.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=164
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)5.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=189
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)6.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=214
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)7.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		"text entry" {
+			object {
+				x=455
+				y=239
+				width=60
+				height=20
+			}
+			control {
+				chan="$(P)$(Ai)8.EGUF"
+				clr=14
+				bclr=51
+			}
+			limits {
+			}
+		}
+		composite {
+			object {
+				x=390
+				y=64
+				width=60
+				height=195
+			}
+			"composite name"=""
+			children {
+				"text entry" {
+					object {
+						x=390
+						y=64
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)1.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=89
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)2.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=114
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)3.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=139
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)4.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=164
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)5.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=189
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)6.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=214
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)7.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=390
+						y=239
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)8.EGUL"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+			}
+		}
+		composite {
+			object {
+				x=325
+				y=64
+				width=60
+				height=195
+			}
+			"composite name"=""
+			children {
+				"text entry" {
+					object {
+						x=325
+						y=64
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)1.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=89
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)2.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=114
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)3.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=139
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)4.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=164
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)5.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=189
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)6.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=214
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)7.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=325
+						y=239
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)8.HOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+			}
+		}
+		composite {
+			object {
+				x=260
+				y=64
+				width=60
+				height=195
+			}
+			"composite name"=""
+			children {
+				"text entry" {
+					object {
+						x=260
+						y=64
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)1.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=89
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)2.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=114
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)3.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=139
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)4.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=164
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)5.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=189
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)6.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=214
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)7.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+				"text entry" {
+					object {
+						x=260
+						y=239
+						width=60
+						height=20
+					}
+					control {
+						chan="$(P)$(Ai)8.LOPR"
+						clr=14
+						bclr=51
+					}
+					limits {
+					}
+				}
+			}
+		}
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=64
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)1Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=89
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)2Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=114
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)3Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=139
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)4Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=164
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)5Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=189
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)6Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=214
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)7Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=195
+		y=239
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)8Rate"
+		clr=14
+		bclr=51
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=200
+		y=40
+		width=50
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Rate"
+	align="horiz. right"
 }
