@@ -114,6 +114,7 @@ typedef enum {
 #define analogInRangeString       "ANALOG_IN_RANGE"
 #define analogInTypeString        "ANALOG_IN_TYPE"
 #define analogInModeString        "ANALOG_IN_MODE"
+#define analogInRateString        "ANALOG_IN_RATE"
 
 // Voltage input parameters
 #define voltageInValueString      "VOLTAGE_IN_VALUE"
@@ -122,6 +123,7 @@ typedef enum {
 // Temperature parameters
 #define temperatureInValueString  "TEMPERATURE_IN_VALUE"
 #define thermocoupleTypeString    "THERMOCOUPLE_TYPE"
+#define thermocoupleOpenDetectString "THERMOCOUPLE_OPEN_DETECT"
 #define temperatureScaleString    "TEMPERATURE_SCALE"
 #define temperatureFilterString   "TEMPERATURE_FILTER"
 #define temperatureSensorString   "TEMPERATURE_SENSOR"
@@ -570,6 +572,7 @@ protected:
   int analogInRange_;
   int analogInType_;
   int analogInMode_;
+  int analogInRate_;
 
   // Voltage input parameters
   int voltageInValue_;
@@ -578,6 +581,7 @@ protected:
   // Temperature parameters
   int temperatureInValue_;
   int thermocoupleType_;
+  int thermocoupleOpenDetect_;
   int temperatureScale_;
   int temperatureFilter_;
   int temperatureSensor_;
@@ -709,10 +713,10 @@ private:
   int readWaveDig();
   int computeWaveDigTimes();
   int defineWaveform(int channel);
+  int reportError(int err, const char *functionName, const char *message);
   #ifdef linux
   int mapRange(int Gain, Range *range);
   int mapTriggerType(int cbwTriggerType, TriggerType *triggerType);
-  int reportError(int err, const char *functionName, const char *message);
   #endif
 };
 
@@ -783,6 +787,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   createParam(analogInRangeString,             asynParamInt32, &analogInRange_);
   createParam(analogInTypeString,              asynParamInt32, &analogInType_);
   createParam(analogInModeString,              asynParamInt32, &analogInMode_);
+  createParam(analogInRateString,              asynParamInt32, &analogInRate_);
 
   // Voltage input parameters
   createParam(voltageInValueString,          asynParamFloat64, &voltageInValue_);
@@ -791,6 +796,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Temperature parameters
   createParam(temperatureInValueString,      asynParamFloat64, &temperatureInValue_);
   createParam(thermocoupleTypeString,          asynParamInt32, &thermocoupleType_);
+  createParam(thermocoupleOpenDetectString,    asynParamInt32, &thermocoupleOpenDetect_);
   createParam(temperatureScaleString,          asynParamInt32, &temperatureScale_);
   createParam(temperatureFilterString,         asynParamInt32, &temperatureFilter_);
   createParam(temperatureSensorString,         asynParamInt32, &temperatureSensor_);
@@ -1687,31 +1693,44 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   this->getAddress(pasynUser, &addr);
   setIntegerParam(addr, function, value);
 
+  bool isThermocouple = true;
+  if (analogInTypeConfigurable_) {
+    int ival;
+    getIntegerParam(addr, analogInType_, &ival);
+    if (ival != AI_CHAN_TYPE_TC) isThermocouple = false;
+  }
+
   // Analog input functions
   if (function == analogInType_ && analogInTypeConfigurable_) {
     #ifdef _WIN32
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADCHANTYPE, value);
       // It seems to be necessary to reprogram the thermocouple type when switching from volts to TC
-      if (value == AI_CHAN_TYPE_TC) {
-        int tcType;
-        getIntegerParam(addr, thermocoupleType_, &tcType);
-        status |= cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, tcType);
-      }
     #else
       long long configValue = (value == AI_CHAN_TYPE_VOLTAGE) ? AI_VOLTAGE : AI_TC;
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TYPE, addr, configValue);
-      // It seems to be necessary to reprogram the thermocouple type when switching from volts to TC
-      if (value == AI_CHAN_TYPE_TC) {
-        int tcType;
-        getIntegerParam(addr, thermocoupleType_, &tcType);
-        // The enums for thermocouple types are the same on Windows and Linux
-        status |= ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TC_TYPE, addr, tcType);
-        // Set the data rate to 60 Hz.
-        status = ulAISetConfigDbl(daqDeviceHandle_, AI_CFG_CHAN_DATA_RATE, addr, 60);
-        // Enable open thermocouple detection
-        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, OTD_ENABLED);
-      }
     #endif
+    reportError(status, functionName, "Setting analog input type");
+    // It seems to be necessary to reprogram the thermocouple type when switching from volts to TC
+    if (value == AI_CHAN_TYPE_TC) {
+      int ival;
+      // Set the TC type.  Note that the enums for thermocouple types are the same on Windows and Linux
+      getIntegerParam(addr, thermocoupleType_, &ival);
+      #ifdef _WIN32
+        status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, ival);
+      #else
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TC_TYPE, addr, ival);
+      #endif
+      reportError(status, functionName, "Set thermocouple type");
+      // Set open thermocouple detection
+      getIntegerParam(addr, thermocoupleType_, &ival);
+      #ifdef _WIN32 
+        status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, ival);
+      #else
+        OtdMode mode = ival ? OTD_ENABLED : OTD_DISABLED;
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+      #endif
+      reportError(status, functionName, "Setting thermocouple open detect mode");
+    }
   }
 
   // Analog output functions
@@ -1732,7 +1751,16 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #endif
   }
 
-  else if (function == thermocoupleType_) {
+  else if (function == analogInRate_) {
+    #ifdef _WIN32 
+        status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADDATARATE, value);
+    #else
+        status = ulAISetConfigDbl(daqDeviceHandle_, AI_CFG_CHAN_DATA_RATE, addr, value);
+    #endif
+    reportError(status, functionName, "Setting data rate");
+  }
+
+  else if ((function == thermocoupleType_) && isThermocouple) {
     // NOTE:
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
     // will often hang if more than 6 channels are being configured.
@@ -1744,6 +1772,16 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       // The enums for thermocouple types are the same on Windows and Linux
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TC_TYPE, addr, value);
     #endif
+  }
+
+  else if ((function == thermocoupleOpenDetect_) && isThermocouple) {
+    #ifdef _WIN32 
+        status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
+    #else
+        OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+    #endif
+  reportError(status, functionName, "Setting thermocouple open detect mode");
   }
 
   // This is not support on either UL for Windows or UL for Linux
