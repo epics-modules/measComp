@@ -18,7 +18,6 @@
 
 #define MAX_DEV_COUNT  100
 #define MAX_LIBRARY_MESSAGE_LEN 256
-#define MAX_READINGS 20
 #define SLEEP_TIME 0.1
 
 static void reportError(int err, const char *message)
@@ -46,10 +45,14 @@ int main(int argc, char *argv[])
   int productId=0;
   int err;
 
-  if (argc != 2) {
-    reportError(-1, "Must specify uniqueID as first argument");
+  if (argc != 4) {
+    reportError(-1, "Usage: test_TIn_1 UniqueID OTDMode NumPoints ");
   }
   char *uniqueID = argv[1];
+  int temp = atoi(argv[2]);
+  OtdMode otdMode = temp ? OTD_ENABLED : OTD_DISABLED;
+  int numPoints = atoi(argv[3]);
+  printf("uniqueID=%s, ODTMode=%s, numPoints=%d\n", uniqueID, (otdMode==OTD_ENABLED) ? "Enabled" : "Disabled", numPoints); 
 
   // Get descriptors for all of the available DAQ devices
   #ifdef _WIN32
@@ -134,37 +137,46 @@ int main(int argc, char *argv[])
   #else
       err = ulAISetConfigDbl(devHandle, AI_CFG_CHAN_DATA_RATE, 0, 60);
       reportError(err, "Setting data rate to 60 Hz");
+      err = ulAISetConfig(devHandle, AI_CFG_CHAN_OTD_MODE, 0, otdMode);
+      reportError(err, "Setting ODT mode to ODT_DISABLED");
       err = ulAISetConfig(devHandle, AI_CFG_CHAN_TC_TYPE, 0, TC_K);
   #endif
   reportError(err, "Setting thermocouple type to K");
   double data;
   double sum=0;
-  double temperatureReadings[MAX_READINGS];
-  for (int i=0; i<MAX_READINGS; i++) {
+  bool openTC=false;
+  double *pReadings = new double[numPoints];
+  for (int i=0; i<numPoints; i++) {
     #ifdef _WIN32
       float fVal;
       err = cbTIn(boardNum, 0, CELSIUS, &fVal, NOFILTER);
       data = fVal;
       Sleep((int)(SLEEP_TIME * 1000));
+      openTC = (err == OPENCONNECTION);
     #else
       err = ulTIn(devHandle, 0, TS_CELSIUS, TIN_FF_DEFAULT, &data);
+      openTC = (err == ERR_OPEN_CONNECTION);
       usleep((int)(SLEEP_TIME * 1e6));
     #endif
-    reportError(err, "Reading temperature");
+    if (openTC) 
+      printf("Open connection: ");
+    else
+      reportError(err, "Reading temperature");
     printf("Reading: %d, T: %f\n", i, data);
-    temperatureReadings[i] = data;
+    pReadings[i] = data;
     sum += data;
   }
   
   // Compute mean and standard deviation
-  double mean = sum/MAX_READINGS;
+  double mean = sum/numPoints;
   double sumsq=0;
-  for (int i=0; i<MAX_READINGS; i++) {
-    sumsq += (temperatureReadings[i] - mean) * (temperatureReadings[i] - mean);
+  for (int i=0; i<numPoints; i++) {
+    sumsq += (pReadings[i] - mean) * (pReadings[i] - mean);
   }
-  double stddev = sqrt(sumsq/MAX_READINGS);
+  double stddev = sqrt(sumsq/numPoints);
   printf("Mean=%f\n", mean);
   printf("Standard deviation=%f\n", stddev);
+  delete[] pReadings;
 
   return 0;
 }
