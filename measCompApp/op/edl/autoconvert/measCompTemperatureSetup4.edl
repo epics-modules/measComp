@@ -3,9 +3,9 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 738
-y 57
-w 460
+x 589
+y 75
+w 545
 h 190
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
@@ -30,9 +30,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 109
+x 0
 y 10
-w 192
+w 545
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "center"
@@ -40,27 +40,7 @@ fgColor rgb 2560 0 47104
 bgColor index 3
 useDisplayBg
 value {
-  "Temp. setup $(P)"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 250
-y 60
-w 70
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Filter"
+  "Temperature setup $(P)"
 }
 endObjectProperties
 
@@ -110,7 +90,107 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 340
+x 10
+y 85
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "$(Ti1)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 111
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "$(Ti2)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 136
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "$(Ti3)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 161
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "$(Ti4)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 255
+y 60
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Filter"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 425
 y 60
 w 38
 h 20
@@ -130,7 +210,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 399
+x 484
 y 60
 w 42
 h 20
@@ -150,7 +230,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 357
+x 442
 y 40
 w 70
 h 20
@@ -170,7 +250,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 395
+x 480
 y 85
 w 60
 h 20
@@ -196,7 +276,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 330
+x 415
 y 85
 w 60
 h 20
@@ -216,33 +296,13 @@ newPos
 objType "controls"
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 85
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti1)"
-}
-endObjectProperties
-
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 395
+x 480
 y 110
 w 60
 h 20
@@ -268,7 +328,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 330
+x 415
 y 110
 w 60
 h 20
@@ -288,33 +348,13 @@ newPos
 objType "controls"
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 111
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti2)"
-}
-endObjectProperties
-
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 395
+x 480
 y 135
 w 60
 h 20
@@ -340,7 +380,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 330
+x 415
 y 135
 w 60
 h 20
@@ -360,33 +400,13 @@ newPos
 objType "controls"
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 136
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "$(Ti3)"
-}
-endObjectProperties
-
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 395
+x 480
 y 160
 w 60
 h 20
@@ -412,7 +432,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 330
+x 415
 y 160
 w 60
 h 20
@@ -438,8 +458,28 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 10
-y 161
+x 333
+y 40
+w 72
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Open TC"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 340
+y 60
 w 60
 h 20
 font "helvetica-medium-r-14.0"
@@ -448,28 +488,8 @@ fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "$(Ti4)"
+  "Detect"
 }
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 86
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti1)Filter"
-indicatorPv "$(P)$(Ti1)Filter"
-font "helvetica-medium-r-10.0"
 endObjectProperties
 
 # (Menu Button)
@@ -509,26 +529,6 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 controlPv "$(P)$(Ti1)Scale"
 indicatorPv "$(P)$(Ti1)Scale"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 245
-y 111
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti2)Filter"
-indicatorPv "$(P)$(Ti2)Filter"
 font "helvetica-medium-r-10.0"
 endObjectProperties
 
@@ -578,26 +578,6 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 245
-y 136
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti3)Filter"
-indicatorPv "$(P)$(Ti3)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 75
 y 136
 w 80
@@ -638,26 +618,6 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 245
-y 161
-w 80
-h 18
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-inconsistentColor rgb 17920 17920 17920
-topShadowColor rgb 55808 55808 55808
-botShadowColor rgb 17920 17920 17920
-controlPv "$(P)$(Ti4)Filter"
-indicatorPv "$(P)$(Ti4)Filter"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 75
 y 161
 w 80
@@ -689,6 +649,166 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 controlPv "$(P)$(Ti4)Scale"
 indicatorPv "$(P)$(Ti4)Scale"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 86
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti1)Filter"
+indicatorPv "$(P)$(Ti1)Filter"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 111
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti2)Filter"
+indicatorPv "$(P)$(Ti2)Filter"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 136
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti3)Filter"
+indicatorPv "$(P)$(Ti3)Filter"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 161
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti4)Filter"
+indicatorPv "$(P)$(Ti4)Filter"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 330
+y 86
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti1)OpenTCDetect"
+indicatorPv "$(P)$(Ti1)OpenTCDetect"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 330
+y 111
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti2)OpenTCDetect"
+indicatorPv "$(P)$(Ti2)OpenTCDetect"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 330
+y 136
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti3)OpenTCDetect"
+indicatorPv "$(P)$(Ti3)OpenTCDetect"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 330
+y 161
+w 80
+h 18
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)$(Ti4)OpenTCDetect"
+indicatorPv "$(P)$(Ti4)OpenTCDetect"
 font "helvetica-medium-r-10.0"
 endObjectProperties
 
