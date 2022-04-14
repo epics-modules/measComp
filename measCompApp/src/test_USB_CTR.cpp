@@ -1,5 +1,5 @@
 /*
-    Does a CInScan on a USB-CTR04/08 to test how fast it can run.
+    Does a DaqInScan on a USB-CTR04/08 to test how fast it can run.
     Runs on both Windows and Linux.
     It reads all of the counters and the DIO.
     Program requires 3 arguments:
