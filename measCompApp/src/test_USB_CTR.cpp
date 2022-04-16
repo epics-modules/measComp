@@ -1,11 +1,21 @@
 /*
-    Does a DaqInScan on a USB-CTR04/08 to test how fast it can run.
+    Does a DaqInScan on a USB-CTR04/08 to test problems with rates >1000 Hz on Linux.
     Runs on both Windows and Linux.
     It reads all of the counters and the DIO.
+    For best diagnostic results make the following physical connections:
+    - Timer 0 connected to Counter 0 (TMR0 to C0IN).  The program configures this for 1 MHz square wave.
+    - Timer 1 connected to Counter 1 (TMR1 to C1IN). The program configures this for 100 kHz square wave.
+    - Timer 2 connected to Digital input 0 (TMR2 to DIO0). The program configures this for 10 Hz square wave.
+
     Program requires 3 arguments:
       1) The UnigueID of the device (serial number for USB, MAC address for Ethernet)
       2) The scan rate in Hz
-      3) The sleep time in ms between reading the scan data
+      3) The sleep time in seconds between reading and printing the scan data
+      
+   The program works as expected on Windows.
+   On Linux it works as expected when rate <= 1000 Hz.  
+   Above 1 kHz (e.g. 2 kHz) it works the first time it is run at that rate.
+   However, on subsequent runs the data is not in the right order, and the scan never stops.
 */
 
 #include <stdio.h>
@@ -58,7 +68,7 @@ int main(int argc, char *argv[])
   }
   char *uniqueID = argv[1];
   double rate = atof(argv[2]);
-  int sleepTimeMs = atoi(argv[3]);
+  double sleepTime = atof(argv[3]);
 
   double *pCountsF64 = (double *) calloc(SCAN_BUFFER_SIZE, sizeof(double));
 
@@ -117,6 +127,17 @@ int main(int argc, char *argv[])
     numCounters=8;
   } else {
     reportError(-1, "Device is not a USB-CTR04 or USB-CTR08");
+  }
+
+  // Program pulse generators.  0=1 MHz, 1=100 kHz, 2=10 Hz, all 50% duty cycle
+  double frequency[] = {1e6,1e5,10}, dutyCycle = 0.5, delay = 0.;
+  for (i=0; i<3; i++) {
+    #ifdef _WIN32
+      err = cbPulseOutStart(boardNum, i, &frequency[i], &dutyCycle, 0, &delay, 0, 0);
+    #else
+      err = ulTmrPulseOutStart(devHandle, i, &frequency[i], &dutyCycle, 0, &delay, TMRIS_LOW, PO_DEFAULT);
+    #endif
+    reportError(err, "PulseOutStart");
   }
 
   for (i=0; i<numCounters; i++) {
@@ -185,14 +206,14 @@ int main(int argc, char *argv[])
   long ctrCount, ctrIndex;
   while (ctrStatus) {
      #ifdef _WIN32
-      Sleep((int)(sleepTimeMs));
+      Sleep((int)(sleepTime * 1000));
       err = cbGetIOStatus(boardNum, &ctrStatus, &ctrCount, &ctrIndex, DAQIFUNCTION);
       ctrCount /= 2;
       ctrIndex /= 2;
     #else
       ScanStatus scanStatus;
       TransferStatus xferStatus;
-      usleep((int)(sleepTimeMs * 1000));
+      usleep((int)(sleepTime * 1000000));
       err = ulDaqInScanStatus(devHandle, &scanStatus, &xferStatus);
       ctrStatus = scanStatus;
       ctrCount = xferStatus.currentTotalCount;
@@ -201,8 +222,8 @@ int main(int argc, char *argv[])
     reportError(err, "ScanStatus");
     printf("ctrStatus=%d, ctrCount=%ld, ctrIndex=%ld, counts=", ctrStatus, ctrCount, ctrIndex);
     #ifdef _WIN32
-      for (i=0; i<numCounters; i++) printf("%d ", pCountsI32[i]);
-      printf("0x%x\n", pCountsI32[i]);
+      for (i=0; i<numCounters; i++) printf("%d ", pCountsI32[ctrIndex+i]);
+      printf("0x%x\n", pCountsI32[ctrIndex+i]);
     #else
       for (i=0; i<numCounters; i++) printf("%d ", (int)pCountsF64[ctrIndex+i]);
       printf("0x%x\n", (unsigned int)pCountsF64[ctrIndex+i]);
