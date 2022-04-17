@@ -1,8 +1,15 @@
 /*
-    Reads the first temperature input on a device 20 times.
-    Prints the data for each point, and the mean and standard deviation for all 20 readings.
-    Program requires 1 argument, the UnigueID of the device (serial number for USB, MAC address for Ethernet).
-    Runs on both Windows and Linux.
+    This program reads the first temperature input on a device at 10 Hz.
+    It prints the data for each point, and the mean and standard deviation for all readings.
+    The program requires 3 arguments
+    - The UnigueID of the device (serial number for USB, MAC address for Ethernet).
+    - The Open Thermocouple Detect mode (0=disabled, 1=enabled)
+    - The sampling rate in Hz
+    - The number of readings
+
+    The program runs on both Windows and Linux.
+    It demonstates a problem with UL for Linux.  It works fine with sampling rate=60 Hz.
+    However, at other sampling rates it occasionally returns spurious readings. This does not happen on Windows.
 */
 
 #include <stdio.h>
