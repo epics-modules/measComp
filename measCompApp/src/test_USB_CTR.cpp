@@ -8,7 +8,7 @@
     - Timer 2 connected to Digital input 0 (TMR2 to DIO0). The program configures this for 10 Hz square wave.
 
     Program requires 3 arguments:
-      1) The UnigueID of the device (serial number for USB, MAC address for Ethernet)
+      1) The UniqueID of the device (serial number for USB, MAC address for Ethernet)
       2) The scan rate in Hz
       3) The sleep time in seconds between reading and printing the scan data
       
