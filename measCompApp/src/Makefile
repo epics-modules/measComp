@@ -86,6 +86,7 @@ test_measCompDiscover_SRCS += test_measCompDiscover.cpp
 test_measCompDiscover_LIBS += measComp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
   test_measCompDiscover_LIBS += cbw32
+  test_measCompDiscover_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_measCompDiscover_LIBS += cbw64
 endif
@@ -110,6 +111,10 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_USB_CTR_LIBS += cbw64
 endif
 test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+
+PROD_IOC_Linux += DaqInScan
+DaqInScan_SRCS += DaqInScan.c
+DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
 
 PROD_IOC_WIN32 += testPadZero
 testPadZero_LIBS += measComp
