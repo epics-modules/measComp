@@ -147,13 +147,15 @@ int main(void)
 
 	ret = system("clear");
 
-  printf("Hit 'Enter' to terminate the process\n\n");
-	printf("Active DAQ device: %s (%s)\n\n", devDescriptors[boardNum].productName, devDescriptors[boardNum].uniqueId);
 	while(err == ERR_NO_ERROR && !enter_press())
 	{
 		// reset the cursor to the top of the display and
 		// show the termination message
-		//resetCursor();
+
+		/* resetCursor();
+		//printf("Hit 'Enter' to terminate the process\n\n");
+		//printf("Active DAQ device: %s (%s)\n\n", devDescriptors[boardNum].productName, devDescriptors[boardNum].uniqueId);
+         */
 
 		// display the data...
 		err = ulTIn(daqDeviceHandle, channel, scale, flags, &data);
@@ -165,7 +167,8 @@ int main(void)
 			err = ERR_NO_ERROR;
 		}
 
-		usleep(250000);
+		usleep(10000);
+		//usleep(100000);
 	}
 
 	// disconnect from the DAQ device
