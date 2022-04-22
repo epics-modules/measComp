@@ -134,7 +134,7 @@ int main(void)
 	strcpy(otcDetectstr, "OTD_ENABLED");
 
 	//4.  Set the Data_rate
-	err = ulAISetConfigDbl(daqDeviceHandle, AI_CFG_CHAN_DATA_RATE, channel, 60);
+	err = ulAISetConfigDbl(daqDeviceHandle, AI_CFG_CHAN_DATA_RATE, channel, 20);
 
 
 	printf("\n%s ready\n", devDescriptors[boardNum].devString);
@@ -147,13 +147,13 @@ int main(void)
 
 	ret = system("clear");
 
+  printf("Hit 'Enter' to terminate the process\n\n");
+	printf("Active DAQ device: %s (%s)\n\n", devDescriptors[boardNum].productName, devDescriptors[boardNum].uniqueId);
 	while(err == ERR_NO_ERROR && !enter_press())
 	{
 		// reset the cursor to the top of the display and
 		// show the termination message
-		resetCursor();
-		printf("Hit 'Enter' to terminate the process\n\n");
-		printf("Active DAQ device: %s (%s)\n\n", devDescriptors[boardNum].productName, devDescriptors[boardNum].uniqueId);
+		//resetCursor();
 
 		// display the data...
 		err = ulTIn(daqDeviceHandle, channel, scale, flags, &data);
