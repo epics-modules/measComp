@@ -108,6 +108,13 @@ record(ao, "$(P)$(R)Dwell")
     field(VAL,  "0.001")
     field(PREC, "$(PREC)")
 }
+record(ai, "$(P)$(R)DwellActual")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEDIG_DWELL_ACTUAL")
+    field(SCAN, "I/O Intr")
+    field(PREC, "$(PREC)")
+}
 
 ###################################################################
 #  Total time                                                     # 
