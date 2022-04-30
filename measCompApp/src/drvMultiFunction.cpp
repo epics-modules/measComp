@@ -131,6 +131,7 @@ typedef enum {
 
 // Waveform digitizer parameters - global
 #define waveDigDwellString        "WAVEDIG_DWELL"
+#define waveDigDwellActualString  "WAVEDIG_DWELL_ACTUAL"
 #define waveDigTotalTimeString    "WAVEDIG_TOTAL_TIME"
 #define waveDigFirstChanString    "WAVEDIG_FIRST_CHAN"
 #define waveDigNumChansString     "WAVEDIG_NUM_CHANS"
@@ -157,6 +158,7 @@ typedef enum {
 // Waveform generator parameters - global
 #define waveGenFreqString         "WAVEGEN_FREQ"
 #define waveGenDwellString        "WAVEGEN_DWELL"
+#define waveGenDwellActualString  "WAVEGEN_DWELL_ACTUAL"
 #define waveGenTotalTimeString    "WAVEGEN_TOTAL_TIME"
 #define waveGenNumPointsString    "WAVEGEN_NUM_POINTS"
 #define waveGenCurrentPointString "WAVEGEN_CURRENT_POINT"
@@ -589,6 +591,7 @@ protected:
 
   // Waveform digitizer parameters - global
   int waveDigDwell_;
+  int waveDigDwellActual_;
   int waveDigTotalTime_;
   int waveDigFirstChan_;
   int waveDigNumChans_;
@@ -615,6 +618,7 @@ protected:
   // Waveform generator parameters - global
   int waveGenFreq_;
   int waveGenDwell_;
+  int waveGenDwellActual_;
   int waveGenTotalTime_;
   int waveGenNumPoints_;
   int waveGenCurrentPoint_;
@@ -659,11 +663,11 @@ private:
   const boardEnums_t *pBoardEnums_;
   int numAnalogIn_;
   int analogInTypeConfigurable_;
+  int analogInDataRateConfigurable_;
   int analogOutRangeConfigurable_;
   int numAnalogOut_;
   #ifdef linux
   AiInputMode aiInputMode_;
-  Range aoRange_;
   TriggerType triggerType_;
   int aiScanTrigCount_;  // Not currently used
   int aoScanTrigCount_;  // Not currently used
@@ -804,6 +808,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
 
   // Waveform digitizer parameters - global
   createParam(waveDigDwellString,            asynParamFloat64, &waveDigDwell_);
+  createParam(waveDigDwellActualString,      asynParamFloat64, &waveDigDwellActual_);
   createParam(waveDigTotalTimeString,        asynParamFloat64, &waveDigTotalTime_);
   createParam(waveDigFirstChanString,          asynParamInt32, &waveDigFirstChan_);
   createParam(waveDigNumChansString,           asynParamInt32, &waveDigNumChans_);
@@ -830,6 +835,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Waveform generator parameters - global
   createParam(waveGenFreqString,             asynParamFloat64, &waveGenFreq_);
   createParam(waveGenDwellString,            asynParamFloat64, &waveGenDwell_);
+  createParam(waveGenDwellActualString,      asynParamFloat64, &waveGenDwellActual_);
   createParam(waveGenTotalTimeString,        asynParamFloat64, &waveGenTotalTime_);
   createParam(waveGenNumPointsString,          asynParamInt32, &waveGenNumPoints_);
   createParam(waveGenCurrentPointString,       asynParamInt32, &waveGenCurrentPoint_);
@@ -929,6 +935,8 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   }
   // Assume only voltage input is supported
   analogInTypeConfigurable_ = 0;
+  // Assume analog in data rate not configurable
+  analogInDataRateConfigurable_ = 0;
   // Assume analog output range is not configurable
   analogOutRangeConfigurable_ = 0;
   switch (boardType_) {
@@ -973,6 +981,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numCounters_  = 2;
       firstCounter_ = 0;
       analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
+      analogInDataRateConfigurable_ = 1; // Can configure analog input data rate
       break;
     case USB_1608G:
     case USB_1608GX_2AO:
@@ -1075,6 +1084,11 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   for (i=0; i<numTempChans_; i++) {
     setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
   }
+  // Set the analog output range to the first supported value for this model
+  for (i=0; i<MAX_ANALOG_OUT; i++) {
+    setIntegerParam(i, analogOutRange_, pBoardEnums_->pOutputRange[0].enumValue);
+  }
+
 
   /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
@@ -1363,7 +1377,6 @@ int MultiFunction::startWaveGen()
   int numPoints;
   int enable;
   int firstChan=-1, lastChan=-1, firstType=-1;
-  long pointsPerSecond;
   int waveType;
   int extTrigger, extClock, continuous, retrigger;
   int options;
@@ -1418,8 +1431,7 @@ int MultiFunction::startWaveGen()
   // dwell and numPoints were computed by defineWaveform above
   getIntegerParam(waveGenNumPoints_, &numPoints);
   getDoubleParam(waveGenDwell_, &dwell);
-  pointsPerSecond = (long)((1. / dwell) + 0.5);
-
+ 
   // Copy data from float32 array to outputMemHandel, converting from volts to D/A units
   // Pre-defined waveforms have been fully defined at this point
   // User-defined waveforms need to have the offset and scale applied
@@ -1441,6 +1453,7 @@ int MultiFunction::startWaveGen()
     }
   }
   #ifdef _WIN32
+    long pointsPerSecond = (long)((1. / dwell) + 0.5);
     options                  = BACKGROUND;
     if (extTrigger) options |= EXTTRIGGER;
     if (extClock)   options |= EXTCLOCK;
@@ -1448,32 +1461,34 @@ int MultiFunction::startWaveGen()
     if (retrigger)  options |= RETRIGMODE;
     status = cbAOutScan(boardNum_, firstChan, lastChan, numWaveGenChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
                         pOutBuffer_, options);
+    // Convert back from pointsPerSecond to dwell, since value might have changed
+    dwell = (1. / pointsPerSecond);
   #else
     options                  = SO_DEFAULTIO;
     if (extTrigger) options |= SO_EXTTRIGGER;
     if (extClock)   options |= SO_EXTCLOCK;
     if (continuous) options |= SO_CONTINUOUS;
     if (retrigger)  options |= SO_RETRIGGER;
-    double rate = pointsPerSecond;
+    double rate = 1./dwell;
     status = ulAOutScan(daqDeviceHandle_, firstChan, lastChan, BIP10VOLTS, numPoints, &rate, (ScanOption) options, AOUTSCAN_FF_NOSCALEDATA, (double *)pOutBuffer_);
+    // Convert back from rate to dwell, since value might have changed
+    dwell = 1./rate;
   #endif
 
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s:%s: ERROR calling cbAOutScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%ld, options=0x%x, status=%d\n",
-      driverName, functionName, firstChan, lastChan, numPoints, pointsPerSecond, options, status);
+      "%s:%s: ERROR calling cbAOutScan, firstChan=%d, lastChan=%d, numPoints=%d, dwell=%f, options=0x%x, status=%d\n",
+      driverName, functionName, firstChan, lastChan, numPoints, dwell, options, status);
     return status;
   }
 
   waveGenRunning_ = 1;
   setIntegerParam(waveGenRun_, 1);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s:%s: called cbAOutScan, firstChan=%d, lastChan=%d, numPoints*numWaveGenChans_=%d, pointsPerSecond=%ld, options=0x%x\n",
-    driverName, functionName, firstChan, lastChan,  numWaveGenChans_*numPoints, pointsPerSecond, options);
+    "%s:%s: called cbAOutScan, firstChan=%d, lastChan=%d, numPoints*numWaveGenChans_=%d, dwell=%f, options=0x%x\n",
+    driverName, functionName, firstChan, lastChan,  numWaveGenChans_*numPoints, dwell, options);
 
-  // Convert back from pointsPerSecond to dwell, since value might have changed
-  dwell = (1. / pointsPerSecond);
-  setDoubleParam(waveGenDwell_, dwell);
+  setDoubleParam(waveGenDwellActual_, dwell);
   setDoubleParam(waveGenTotalTime_, dwell*numPoints);
   return status;
 }
@@ -1519,8 +1534,8 @@ int MultiFunction::startWaveDig()
   int extTrigger, extClock, continuous, retrigger, burstMode;
   int status;
   int options;
-  long pointsPerSecond;
   double dwell;
+  bool invalidScanRate=false;
   static const char *functionName = "startWaveDig";
 
   getIntegerParam(waveDigNumPoints_,  &numPoints);
@@ -1533,7 +1548,6 @@ int MultiFunction::startWaveDig()
   getIntegerParam(waveDigRetrigger_,  &retrigger);
   getIntegerParam(waveDigBurstMode_,  &burstMode);
   getDoubleParam(waveDigDwell_, &dwell);
-  pointsPerSecond = (long)((1. / dwell) + 0.5);
 
   lastChan = firstChan + numChans - 1;
   setIntegerParam(waveDigCurrentPoint_, 0);
@@ -1565,6 +1579,7 @@ int MultiFunction::startWaveDig()
   }
 
   #ifdef _WIN32
+    long pointsPerSecond = (long)((1. / dwell) + 0.5);
     options                  = BACKGROUND;
     options                 |= SCALEDATA;
     if (extTrigger) options |= EXTTRIGGER;
@@ -1574,9 +1589,11 @@ int MultiFunction::startWaveDig()
     if (burstMode)  options |= BURSTMODE;
     status = cbAInScan(boardNum_, firstChan, lastChan, numWaveDigChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
                        pInBuffer_, options);
+    if (status == BADRATE) invalidScanRate = true;
+    // Convert back from pointsPerSecond to dwell, since value might have changed
     dwell = (1. / pointsPerSecond);
   #else
-    double rate = pointsPerSecond;
+    double rate = 1./dwell;
     options                  = SO_DEFAULTIO;
     if (extTrigger) options |= SO_EXTTRIGGER;
     if (extClock)   options |= SO_EXTCLOCK;
@@ -1586,24 +1603,28 @@ int MultiFunction::startWaveDig()
     // This is equivalent to OPTIONS |= SCALEDATA on Windows
     AInScanFlag flags = AINSCAN_FF_DEFAULT;
     status = ulAInScan(daqDeviceHandle_, firstChan, lastChan, aiInputMode_, BIP10VOLTS, numPoints, &rate, (ScanOption) options, flags, pInBuffer_);
+    if (status == ERR_BAD_RATE) invalidScanRate = true;
+     // Convert back from rate to dwell, since value might have changed
     dwell = (1. / rate);
   #endif
 
+  if (invalidScanRate) {
+    setDoubleParam(waveDigDwellActual_, -9999);
+  } else {
+    setDoubleParam(waveDigDwellActual_, dwell);
+  }
+
   if (status) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s:%s: ERROR calling cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%ld, options=0x%x, status=%d\n",
-      driverName, functionName, firstChan, lastChan, numPoints, pointsPerSecond, options, status);
+    reportError(status, functionName, "Calling AInScan");
     return status;
   }
 
   waveDigRunning_ = 1;
   setIntegerParam(waveDigRun_, 1);
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s:%s: called cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d, pointsPerSecond=%ld, options=0x%x\n",
-    driverName, functionName, firstChan, lastChan, numPoints, pointsPerSecond, options);
+    "%s:%s: called cbAInScan, firstChan=%d, lastChan=%d, numPoints=%d, dwell=%f, options=0x%x\n",
+    driverName, functionName, firstChan, lastChan, numPoints, dwell, options);
 
-  // Convert back from pointsPerSecond to dwell, since value might have changed
-  setDoubleParam(waveDigDwell_, dwell);
   setDoubleParam(waveDigTotalTime_, dwell*numPoints);
   return 0;
 }
@@ -1738,8 +1759,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #ifdef _WIN32
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDACRANGE, value);
     #else
-      // We just cache the value, there is no function to immediately set it on Linux
-      mapRange(value, &aoRange_);
+      // No function to immediately set it on Linux, this value is read from parameter library when calling ulAOut
     #endif
   }
 
@@ -1751,7 +1771,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #endif
   }
 
-  else if (function == analogInRate_) {
+  else if ((function == analogInRate_) && analogInDataRateConfigurable_) {
     #ifdef _WIN32 
         status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADDATARATE, value);
     #else
@@ -1781,7 +1801,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
         OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
         status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
     #endif
-  reportError(status, functionName, "Setting thermocouple open detect mode");
+    reportError(status, functionName, "Setting thermocouple open detect mode");
   }
 
   // This is not support on either UL for Windows or UL for Linux
@@ -1793,8 +1813,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #ifdef _WIN32
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANRTDTYPE, value);
     #else
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, 
-        "%s::%s temperature wiring not supported on UL for Linux\n", driverName, functionName);
+      reportError(-1, functionName, "Temperature wiring not supported on UL for Linux");
     #endif
   }
 
@@ -1869,14 +1888,12 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       return asynError;
     }
     status = getIntegerParam(addr, analogOutRange_, &range);
-printf("analog out range status=%d, addr=%d, range=%d\n", status, addr, range);
 
     #ifdef _WIN32
       status = cbAOut(boardNum_, addr, range, value);
     #else
       Range ulRange;
       mapRange(range, &ulRange);
-printf("range=%d, ulRange=%d\n", range, ulRange);
       status = ulAOut(daqDeviceHandle_, addr, ulRange, AOUT_FF_NOSCALEDATA, (double) value);
     #endif
     reportError(status, functionName, "calling AOut");
@@ -1979,11 +1996,7 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
       *value = (epicsInt32) data;
     #endif
     setIntegerParam(addr, analogInValue_, *value);
-    if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR,
-        "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR reading status=%d\n",
-          driverName, functionName, this->portName, function, addr, range, status);
-    }
+    reportError(status, functionName, "Calling AIn");
   }
 
   // Other functions we call the base class method
@@ -2115,11 +2128,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       #endif
     }
     setDoubleParam(addr, temperatureInValue_, *value);
-    if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR,
-        "%s::%s, port %s, function=%d, addr=%d, scale=%d, filter=%d, ERROR from cbTIn status=%d\n",
-        driverName, functionName, this->portName, function, addr, scale, filter, status);
-    }
+    reportError(status, functionName, "Calling TIn");
   }
   else if (function == voltageInValue_) {
     getIntegerParam(addr, voltageInRange_, &range);
@@ -2134,12 +2143,8 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       status = ulAIn(daqDeviceHandle_, addr, aiInputMode_, ulRange, AIN_FF_DEFAULT, &data);
       *value = (float) data;
     #endif
+    reportError(status, functionName, "Calling AIn");
     setDoubleParam(addr, voltageInValue_, *value);
-    if (status) {
-      asynPrint(pasynUser, ASYN_TRACE_ERROR,
-        "%s::%s, port %s, function=%d, addr=%d, range=%d, ERROR from cbVIn status=%d\n",
-        driverName, functionName, this->portName, function, addr, range, status);
-    }
   }
 
   // Other functions we call the base class method
@@ -2212,6 +2217,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
       #else
         status = ulDOut(daqDeviceHandle_, (DigitalPortType)digitalIOPort_[addr], value & mask);
       #endif
+      reportError(status, functionName, "Calling DOut");
     }
     else {
       // Use bit I/O if we are not writing all bits
@@ -2225,6 +2231,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
           #else
             status = ulDBitOut(daqDeviceHandle_, (DigitalPortType)digitalIOPort_[addr], i, outValue);
           #endif
+          reportError(status, functionName, "Calling DBitOut");
         }
       }
     }
@@ -2235,11 +2242,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
              "%s:%s, port %s, function=%d, wrote value=0x%x, mask=0x%x, direction=0x%x\n",
              driverName, functionName, this->portName, function, value, mask, direction);
-  } else {
-    asynPrint(pasynUser, ASYN_TRACE_ERROR,
-             "%s:%s, port %s, function=%d, ERROR writing value=0x%x, mask=0x%x, direction=0x%x, status=%d\n",
-             driverName, functionName, this->portName, function, value, mask, direction, status);
-  }
+  } 
   return (status==0) ? asynSuccess : asynError;
 }
 
@@ -2431,9 +2434,7 @@ void MultiFunction::pollerThread()
       #endif
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s:%s: ERROR calling cbDIn, status=%d\n",
-                    driverName, functionName, status);
+          reportError(status, functionName, "Calling DIn");
         }
         goto error;
       }
@@ -2458,9 +2459,7 @@ void MultiFunction::pollerThread()
       #endif
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s:%s: ERROR calling cbCIn32, counter=%d, status=%d\n",
-                    driverName, functionName, i, status);
+          reportError(status, functionName, "Calling CIn");
         }
         goto error;
       }
@@ -2481,9 +2480,7 @@ void MultiFunction::pollerThread()
       #endif
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s:%s: ERROR calling cbGetIOStatus, status=%d\n",
-                    driverName, functionName, status);
+          reportError(status, functionName, "Calling AOutScanStatus");
         }
         goto error;
       } else {
@@ -2512,9 +2509,7 @@ void MultiFunction::pollerThread()
       #endif
       if (status) {
         if (!prevStatus) {
-          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                    "%s:%s: ERROR calling cbGetIOStatus, status=%d\n",
-                    driverName, functionName, status);
+          reportError(status, functionName, "Calling AInScanStatus");
         }
         #ifdef _WIN32
           // On Windows after a network glitch cbGetIOStatus will return continually return DEADDEV
@@ -2556,9 +2551,7 @@ void MultiFunction::pollerThread()
     }
 error:
     if (prevStatus && !status) {
-      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                "%s:%s: device returned to normal status\n",
-                driverName, functionName);
+      reportError(-1, functionName, "Device returned to normal status");
     }
     prevStatus = status;
     unlock();
