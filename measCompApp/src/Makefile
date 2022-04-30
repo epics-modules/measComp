@@ -14,9 +14,7 @@ DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-ifeq ($(HAVE_HIDAPI), YES)
-  LIBRARY_IOC_Linux+= measComp
-endif
+LIBRARY_IOC_Linux+= measComp
 
 # Compile and add the code to the support library
 # Link locally-provided code into the support library,
@@ -35,9 +33,7 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += measCompApp
-endif
+PROD_IOC_Linux += measCompApp
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
 # Build the main IOC entry point on workstation OSs.
@@ -102,19 +98,23 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 test_TIn_1_SYS_LIBS_Linux += uldaq usb-1.0
 
-PROD_IOC_WIN32 += test_USB_CTR
-PROD_IOC_Linux += test_USB_CTR
-test_USB_CTR_1_SRCS += test_USB_CTR.cpp
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-  test_USB_CTR_LIBS += cbw32
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-  test_USB_CTR_LIBS += cbw64
-endif
-test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+PROD_IOC_WIN32 += test_USB_CTR_Windows
+test_USB_CTR_Windows_LIBS += cbw64
+
+PROD_IOC_Linux += test_USB_CTR_Linux
+test_USB_CTR_Linux_SYS_LIBS += uldaq usb-1.0
 
 PROD_IOC_Linux += DaqInScan
 DaqInScan_SRCS += DaqInScan.c
 DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
+
+PROD_IOC_Linux += 2408_TIn
+2408_TIn_SRCS += 2408_TIn.c
+2408_TIn_SYS_LIBS += uldaq usb-1.0
+
+PROD_IOC_WIN32 += 2408_TIn_Windows
+2408_TIn_WindowsSRCS += 2408_TIn_Windows.c
+2408_TIn_Windows_LIBS += cbw64
 
 PROD_IOC_WIN32 += testPadZero
 testPadZero_LIBS += measComp
