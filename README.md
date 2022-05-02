@@ -1,16 +1,19 @@
 An [EPICS](http://www.aps.anl.gov/epics/) 
 module that supports USB and Ethernet I/O modules from [Measurement Computing](http://www.mccdaq.com).
 
-This module is supported on both Windows and Linux, 64-bit and 32-bit. 
-On Windows it uses the Measurement Computing "Universal Library" (UL), which is only available on Windows.
+This module is supported on both Windows and Linux. 
+On Windows it uses the Measurement Computing "Universal Library" (UL).
 
-On Linux it uses the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
+On Linux it uses the UL for Linux library from Measurement Computing.  This is an open-source
+library available on Github. The Linux Universal Library API is similar to the Windows UL API, but the functions
+have different names and different syntax. 
+
+UL for Windows and Linux support most current Measurement Computing models.
+
+In versions prior to R4-0 the Linux support used the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
 On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
-The EPICS drivers thus always use the UL API and are identical on Linux and Windows.
-Currently the E-1608, E-TC, E-TC32, E-DIO24, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported on Linux.
-Support for other modules is straightforward to add and can be done as the demand arises.
-
-USB-1608G_2AO support on Linux is capable of Analog Inputs, Analog Outputs, Digital In/Out, Counters, and WaveformDigitizer.
+The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
+The E-1608, E-TC, E-TC32, E-DIO24, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.
 
 Models supported in measComp include:
 * The [E-1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
