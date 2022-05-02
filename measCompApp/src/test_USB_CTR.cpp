@@ -142,11 +142,11 @@ int main(int argc, char *argv[])
 
   for (i=0; i<numCounters; i++) {
     #ifdef _WIN32
-      int mode = OUTPUT_ON | CLEAR_ON_READ;
+      int mode = OUTPUT_ON;
       err = cbCConfigScan(boardNum, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                           CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     #else
-      int mode = CMM_OUTPUT_ON | CMM_CLEAR_ON_READ;
+      int mode = CMM_OUTPUT_ON;
       err = ulCConfigScan(devHandle, i, CMT_COUNT,  (CounterMeasurementMode) mode,
 					                CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
     #endif
