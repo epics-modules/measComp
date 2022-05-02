@@ -7,10 +7,11 @@ On Windows it uses the Measurement Computing "Universal Library" (UL), which is 
 On Linux it uses the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
 On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
 The EPICS drivers thus always use the UL API and are identical on Linux and Windows.
-Currently the E-1608, E-TC, E-TC32, E-DIO24, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported on Linux.
+Currently the E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported on Linux.
 Support for other modules is straightforward to add and can be done as the demand arises.
 
 USB-1608G_2AO support on Linux is capable of Analog Inputs, Analog Outputs, Digital In/Out, Counters, and WaveformDigitizer.
+The WaveformGenerator is not currently supported.
 
 Models supported in measComp include:
 * The [E-1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
