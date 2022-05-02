@@ -1,6 +1,6 @@
 # measComp Release Notes
 
-## Release 3-1 (January XXX, 2022)
+## Release 3-1 (May 2, 2022)
   - Added support for the USB-1608G on Linux. Thanks to David Dudley for this.
   - Added support for the USB-3100 series of devices on both Windows and Linux.
     These have 4, 8 or 16 channels of analog output, plus 8 digital I/O and one counter.
