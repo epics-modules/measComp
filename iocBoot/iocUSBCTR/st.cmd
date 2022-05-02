@@ -6,7 +6,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",                   "USBCTR:")
 epicsEnvSet("PORT",                     "USBCTR_1")
-epicsEnvSet("UNIQUE_ID",                "1E538A2")
+epicsEnvSet("UNIQUE_ID",                "01E538A2")
 epicsEnvSet("MCS_PREFIX",               "$(PREFIX)MCS:")
 epicsEnvSet("RNAME",                    "mca")
 epicsEnvSet("MAX_COUNTERS",             "9")

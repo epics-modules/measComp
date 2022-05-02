@@ -8,14 +8,13 @@ include $(TOP)/configure/CONFIG
 # Build the IOC support library
 
 USR_CXXFLAGS_Linux += -Wno-write-strings
+USR_CXXFLAGS_Linux += -fmax-errors=20
 
 DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-ifeq ($(HAVE_HIDAPI), YES)
-  LIBRARY_IOC_Linux+= measComp
-endif
+LIBRARY_IOC_Linux+= measComp
 
 # Compile and add the code to the support library
 # Link locally-provided code into the support library,
@@ -34,9 +33,7 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += measCompApp
-endif
+PROD_IOC_Linux += measCompApp
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
 # Build the main IOC entry point on workstation OSs.
@@ -44,8 +41,6 @@ measCompApp_SRCS += measCompAppMain.cpp
 
 # Link in the code from the support library
 measCompApp_LIBS += measComp
-measCompApp_LIBS_Linux += cbw_linux
-measCompApp_LIBS_Linux += measCompLinuxDrivers
 measCompApp_LIBS += scaler
 measCompApp_LIBS += busy
 measCompApp_LIBS += calc
@@ -61,7 +56,7 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   measComp_LIBS += cbw64
   measCompApp_LIBS += cbw64
 endif
-measCompApp_SYS_LIBS_Linux += hidapi-libusb usb-1.0
+measCompApp_SYS_LIBS_Linux += uldaq usb-1.0
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
@@ -82,26 +77,51 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 
 PROD_IOC_WIN32 += test_measCompDiscover
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += test_measCompDiscover
-endif
+PROD_IOC_Linux += test_measCompDiscover
 test_measCompDiscover_SRCS += test_measCompDiscover.cpp
 test_measCompDiscover_LIBS += measComp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
   test_measCompDiscover_LIBS += cbw32
+  test_measCompDiscover_LIBS += cbw32
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_measCompDiscover_LIBS += cbw64
 endif
-test_measCompDiscover_LIBS_Linux += cbw_linux
-test_measCompDiscover_LIBS_Linux += measCompLinuxDrivers
-test_measCompDiscover_SYS_LIBS_Linux += hidapi-libusb usb-1.0
-# Finally link to the EPICS Base libraries
-test_measCompDiscover_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
+test_measCompDiscover_SYS_LIBS_Linux += uldaq usb-1.0
+
+PROD_IOC_WIN32 += test_TIn_1
+PROD_IOC_Linux += test_TIn_1
+test_TIn_1_SRCS += test_TIn_1.cpp
+ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+  test_TIn_1_LIBS += cbw32
+else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+  test_TIn_1_LIBS += cbw64
+endif
+test_TIn_1_SYS_LIBS_Linux += uldaq usb-1.0
+
+PROD_IOC_WIN32 += test_USB_CTR_Windows
+test_USB_CTR_Windows_LIBS += cbw64
+
+PROD_IOC_Linux += test_USB_CTR_Linux
+test_USB_CTR_Linux_SYS_LIBS += uldaq usb-1.0
+
+PROD_IOC_Linux += test_USB_CTR
+test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+PROD_IOC_WIN32 += test_USB_CTR
+test_USB_CTR_LIBS_WIN32 += cbw64
+
+PROD_IOC_Linux += DaqInScan
+DaqInScan_SRCS += DaqInScan.c
+DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
+
+PROD_IOC_Linux += 2408_TIn
+2408_TIn_SRCS += 2408_TIn.c
+2408_TIn_SYS_LIBS += uldaq usb-1.0
+
+PROD_IOC_WIN32 += 2408_TIn_Windows
+2408_TIn_WindowsSRCS += 2408_TIn_Windows.c
+2408_TIn_Windows_LIBS += cbw64
 
 PROD_IOC_WIN32 += testPadZero
-ifeq ($(HAVE_HIDAPI), YES)
-  PROD_IOC_Linux += testPadZero
-endif
 testPadZero_LIBS += measComp
 testPadZero_SRCS += testPadZero.cpp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
@@ -109,11 +129,7 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   testPadZero_LIBS += cbw64
 endif
-testPadZero_LIBS_Linux += cbw_linux asyn
-testPadZero_LIBS_Linux += measCompLinuxDrivers
-testPadZero_SYS_LIBS_Linux += hidapi-libusb usb-1.0
-# Finally link to the EPICS Base libraries
-testPadZero_LIBS_Linux += $(EPICS_BASE_IOC_LIBS)
+
 #=============================
 
 include $(TOP)/configure/RULES

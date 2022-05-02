@@ -90,6 +90,15 @@ record(ai, "$(P)$(R)Dwell")
     field(SCAN, "I/O Intr")
 }
 
+# Needed?
+record(ai, "$(P)$(R)DwellActual")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))WAVEGEN_DWELL_ACTUAL")
+    field(SCAN, "I/O Intr")
+    field(PREC, "$(PREC)")
+}
+
 ###################################################################
 #  Total time                                                     # 
 ###################################################################

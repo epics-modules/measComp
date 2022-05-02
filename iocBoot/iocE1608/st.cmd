@@ -7,7 +7,9 @@ measCompApp_registerRecordDeviceDriver pdbbase
 epicsEnvSet("PREFIX",        "E1608:")
 epicsEnvSet("PORT",          "E1608_1")
 epicsEnvSet("WDIG_POINTS",   "2048")
-epicsEnvSet("UNIQUE_ID",     "00:80:2F:18:64:23")
+#epicsEnvSet("UNIQUE_ID",     "00:80:2F:18:64:23")
+#epicsEnvSet("UNIQUE_ID",     "00:80:2F:24:53:D9")
+epicsEnvSet("UNIQUE_ID",     "10.54.160.216")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver

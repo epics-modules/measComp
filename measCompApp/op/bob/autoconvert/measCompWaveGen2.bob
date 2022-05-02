@@ -11,159 +11,188 @@
   </background_color>
   <grid_visible>false</grid_visible>
   <grid_step_x>5</grid_step_x>
-  <widget type="group" version="2.0.0">
-    <name>composite #6</name>
+  <widget type="rectangle" version="2.0.0">
+    <name>rectangle #6</name>
     <width>515</width>
     <height>465</height>
+    <line_width>1</line_width>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #9</name>
+    <text>Waveform generator</text>
+    <x>152</x>
+    <y>5</y>
+    <width>216</width>
+    <height>25</height>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #12</name>
+    <x>85</x>
+    <y>115</y>
+    <width>165</width>
+    <height>45</height>
     <style>3</style>
     <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>rectangle #9</name>
-      <width>515</width>
-      <height>465</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-    </widget>
     <widget type="label" version="2.0.0">
-      <name>text #12</name>
-      <text>Waveform generator</text>
-      <x>152</x>
-      <y>5</y>
-      <width>216</width>
-      <height>25</height>
+      <name>text #15</name>
+      <text>Clock</text>
+      <x>10</x>
+      <width>50</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
       </font>
       <horizontal_alignment>2</horizontal_alignment>
     </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #15</name>
-      <x>85</x>
-      <y>115</y>
-      <width>165</width>
-      <height>45</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="label" version="2.0.0">
-        <name>text #18</name>
-        <text>Clock</text>
-        <x>10</x>
-        <width>50</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="combo" version="2.0.0">
-        <name>menu #21</name>
-        <pv_name>$(P)$(Wg)ExtClock</pv_name>
-        <x>65</x>
-        <height>20</height>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #24</name>
-        <text>Repeat</text>
-        <y>25</y>
-        <width>60</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="combo" version="2.0.0">
-        <name>menu #27</name>
-        <pv_name>$(P)$(Wg)Continuous</pv_name>
-        <x>65</x>
-        <y>25</y>
-        <height>20</height>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #30</name>
-      <x>75</x>
-      <y>40</y>
-      <width>175</width>
+    <widget type="combo" version="2.0.0">
+      <name>menu #18</name>
+      <pv_name>$(P)$(Wg)ExtClock</pv_name>
+      <x>65</x>
       <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="combo" version="2.0.0">
-        <name>menu #33</name>
-        <pv_name>$(P)$(Wg)ExtTrigger</pv_name>
-        <x>75</x>
-        <height>20</height>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #36</name>
-        <text>Trigger</text>
-        <width>70</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #39</name>
-      <x>55</x>
-      <y>65</y>
-      <width>195</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="label" version="2.0.0">
-        <name>text #42</name>
-        <text>Retrigger</text>
-        <width>90</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="combo" version="2.0.0">
-        <name>menu #45</name>
-        <pv_name>$(P)$(Wg)Retrigger</pv_name>
-        <x>95</x>
-        <height>20</height>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>text #48</name>
-      <text>Trigger count</text>
-      <x>15</x>
-      <y>90</y>
+      <name>text #21</name>
+      <text>Repeat</text>
+      <y>25</y>
+      <width>60</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #24</name>
+      <pv_name>$(P)$(Wg)Continuous</pv_name>
+      <x>65</x>
+      <y>25</y>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #27</name>
+    <x>75</x>
+    <y>40</y>
+    <width>175</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="combo" version="2.0.0">
+      <name>menu #30</name>
+      <pv_name>$(P)$(Wg)ExtTrigger</pv_name>
+      <x>75</x>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #33</name>
+      <text>Trigger</text>
+      <width>70</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #36</name>
+    <x>55</x>
+    <y>65</y>
+    <width>195</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #39</name>
+      <text>Retrigger</text>
+      <width>90</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>menu #42</name>
+      <pv_name>$(P)$(Wg)Retrigger</pv_name>
+      <x>95</x>
+      <height>20</height>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #45</name>
+    <text>Trigger count</text>
+    <x>15</x>
+    <y>90</y>
+    <width>130</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #48</name>
+    <pv_name>$(P)$(Wg)TriggerCount</pv_name>
+    <x>150</x>
+    <y>90</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #52</name>
+    <x>265</x>
+    <y>40</y>
+    <width>235</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #55</name>
+      <text>Current point</text>
       <width>130</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -171,499 +200,336 @@
       </font>
       <horizontal_alignment>2</horizontal_alignment>
     </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #51</name>
-      <pv_name>$(P)$(Wg)TriggerCount</pv_name>
-      <x>150</x>
-      <y>90</y>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #58</name>
+      <pv_name>$(P)$(Wg)CurrentPoint</pv_name>
+      <x>135</x>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
       </font>
+      <foreground_color>
+        <color red="10" green="0" blue="184">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="115" green="223" blue="255">
+        <color red="187" green="187" blue="187">
         </color>
       </background_color>
       <format>1</format>
       <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
       <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #55</name>
-      <x>265</x>
-      <y>40</y>
-      <width>235</width>
-      <height>120</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="group" version="2.0.0">
-        <name>composite #58</name>
-        <width>235</width>
-        <height>20</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #61</name>
-          <text>Current point</text>
-          <width>130</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textupdate" version="2.0.0">
-          <name>text update #64</name>
-          <pv_name>$(P)$(Wg)CurrentPoint</pv_name>
-          <x>135</x>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <foreground_color>
-            <color red="10" green="0" blue="184">
-            </color>
-          </foreground_color>
-          <background_color>
-            <color red="187" green="187" blue="187">
-            </color>
-          </background_color>
-          <format>1</format>
-          <show_units>false</show_units>
-          <horizontal_alignment>2</horizontal_alignment>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-      </widget>
-      <widget type="group" version="2.0.0">
-        <name>composite #68</name>
-        <x>50</x>
-        <y>25</y>
-        <width>185</width>
-        <height>20</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #71</name>
-          <text># points</text>
-          <width>80</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textupdate" version="2.0.0">
-          <name>text update #74</name>
-          <pv_name>$(P)$(Wg)NumPoints</pv_name>
-          <x>85</x>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <foreground_color>
-            <color red="10" green="0" blue="184">
-            </color>
-          </foreground_color>
-          <background_color>
-            <color red="187" green="187" blue="187">
-            </color>
-          </background_color>
-          <format>1</format>
-          <show_units>false</show_units>
-          <horizontal_alignment>2</horizontal_alignment>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-      </widget>
-      <widget type="group" version="2.0.0">
-        <name>composite #78</name>
-        <x>30</x>
-        <y>75</y>
-        <width>205</width>
-        <height>20</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #81</name>
-          <text>Time/point</text>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textupdate" version="2.0.0">
-          <name>text update #84</name>
-          <pv_name>$(P)$(Wg)Dwell</pv_name>
-          <x>105</x>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <foreground_color>
-            <color red="10" green="0" blue="184">
-            </color>
-          </foreground_color>
-          <background_color>
-            <color red="187" green="187" blue="187">
-            </color>
-          </background_color>
-          <format>5</format>
-          <show_units>false</show_units>
-          <horizontal_alignment>2</horizontal_alignment>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-      </widget>
-      <widget type="group" version="2.0.0">
-        <name>composite #88</name>
-        <x>30</x>
-        <y>50</y>
-        <width>205</width>
-        <height>20</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #91</name>
-          <text>Frequency</text>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textupdate" version="2.0.0">
-          <name>text update #94</name>
-          <pv_name>$(P)$(Wg)Frequency</pv_name>
-          <x>105</x>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <foreground_color>
-            <color red="10" green="0" blue="184">
-            </color>
-          </foreground_color>
-          <background_color>
-            <color red="187" green="187" blue="187">
-            </color>
-          </background_color>
-          <format>5</format>
-          <show_units>false</show_units>
-          <horizontal_alignment>2</horizontal_alignment>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-      </widget>
-      <widget type="group" version="2.0.0">
-        <name>composite #98</name>
-        <x>30</x>
-        <y>100</y>
-        <width>205</width>
-        <height>20</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #101</name>
-          <text>Total time</text>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textupdate" version="2.0.0">
-          <name>text update #104</name>
-          <pv_name>$(P)$(Wg)TotalTime</pv_name>
-          <x>105</x>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <foreground_color>
-            <color red="10" green="0" blue="184">
-            </color>
-          </foreground_color>
-          <background_color>
-            <color red="187" green="187" blue="187">
-            </color>
-          </background_color>
-          <format>5</format>
-          <show_units>false</show_units>
-          <horizontal_alignment>2</horizontal_alignment>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-      </widget>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #62</name>
+    <x>315</x>
+    <y>65</y>
+    <width>185</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #65</name>
+      <text># points</text>
+      <width>80</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
     </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>related display #108</name>
-      <actions>
-        <action type="open_display">
-          <file>measCompWaveGenPlot.opi</file>
-          <macros>
-            <TIME>$(P)$(Wg)IntTimeWF</TIME>
-            <WAVE>$(P)$(Wg)1InternalWF</WAVE>
-          </macros>
-          <target>tab</target>
-          <description>Output 1 Internal</description>
-        </action>
-        <action type="open_display">
-          <file>measCompWaveGenPlot.opi</file>
-          <macros>
-            <TIME>$(P)$(Wg)UserTimeWF</TIME>
-            <WAVE>$(P)$(Wg)1UserWF</WAVE>
-          </macros>
-          <target>tab</target>
-          <description>Output 1 User</description>
-        </action>
-        <action type="open_display">
-          <file>measCompWaveGenPlot.opi</file>
-          <macros>
-            <TIME>$(P)$(Wg)IntTimeWF</TIME>
-            <WAVE>$(P)$(Wg)2InternalWF</WAVE>
-          </macros>
-          <target>tab</target>
-          <description>Output 2 Internal</description>
-        </action>
-        <action type="open_display">
-          <file>measCompWaveGenPlot.opi</file>
-          <macros>
-            <TIME>$(P)$(Wg)UserTimeWF</TIME>
-            <WAVE>$(P)$(Wg)2UserWF</WAVE>
-          </macros>
-          <target>tab</target>
-          <description>Outout 2 User</description>
-        </action>
-      </actions>
-      <text>Plots</text>
-      <x>319</x>
-      <y>435</y>
-      <width>113</width>
-      <height>20</height>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #68</name>
+      <pv_name>$(P)$(Wg)NumPoints</pv_name>
+      <x>85</x>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color red="10" green="0" blue="184">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="115" green="223" blue="255">
+        <color red="187" green="187" blue="187">
         </color>
       </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #114</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Wg)Run</pv_name>
-          <value>1</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Wg)Run</pv_name>
-      <text>Start</text>
-      <x>52</x>
-      <y>435</y>
-      <width>60</width>
-      <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #72</name>
+    <text>Time/point</text>
+    <x>295</x>
+    <y>115</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>text update #75</name>
+    <pv_name>$(P)$(Wg)DwellActual</pv_name>
+    <x>400</x>
+    <y>115</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <foreground_color>
+      <color red="10" green="0" blue="184">
+      </color>
+    </foreground_color>
+    <background_color>
+      <color red="187" green="187" blue="187">
+      </color>
+    </background_color>
+    <format>5</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #79</name>
+    <x>295</x>
+    <y>90</y>
+    <width>205</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #82</name>
+      <text>Frequency</text>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #85</name>
+      <pv_name>$(P)$(Wg)Frequency</pv_name>
+      <x>105</x>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color red="10" green="0" blue="184">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="0" green="216" blue="0">
+        <color red="187" green="187" blue="187">
         </color>
       </background_color>
+      <format>5</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>message button #117</name>
-      <actions>
-        <action type="write_pv">
-          <pv_name>$(P)$(Wg)Run</pv_name>
-          <value>0</value>
-          <description>Write</description>
-        </action>
-      </actions>
-      <pv_name>$(P)$(Wg)Run</pv_name>
-      <text>Stop</text>
-      <x>117</x>
-      <y>435</y>
-      <width>60</width>
-      <height>20</height>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #89</name>
+    <x>295</x>
+    <y>140</y>
+    <width>205</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #92</name>
+      <text>Total time</text>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>text update #95</name>
+      <pv_name>$(P)$(Wg)TotalTime</pv_name>
+      <x>105</x>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color red="10" green="0" blue="184">
+        </color>
+      </foreground_color>
       <background_color>
-        <color red="253" green="0" blue="0">
+        <color red="187" green="187" blue="187">
         </color>
       </background_color>
+      <format>5</format>
+      <show_units>false</show_units>
+      <horizontal_alignment>2</horizontal_alignment>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #120</name>
-      <x>182</x>
-      <y>435</y>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>related display #99</name>
+    <actions>
+      <action type="open_display">
+        <file>measCompWaveGenPlot.opi</file>
+        <macros>
+          <TIME>$(P)$(Wg)IntTimeWF</TIME>
+          <WAVE>$(P)$(Wg)1InternalWF</WAVE>
+        </macros>
+        <target>tab</target>
+        <description>Output 1 Internal</description>
+      </action>
+      <action type="open_display">
+        <file>measCompWaveGenPlot.opi</file>
+        <macros>
+          <TIME>$(P)$(Wg)UserTimeWF</TIME>
+          <WAVE>$(P)$(Wg)1UserWF</WAVE>
+        </macros>
+        <target>tab</target>
+        <description>Output 1 User</description>
+      </action>
+      <action type="open_display">
+        <file>measCompWaveGenPlot.opi</file>
+        <macros>
+          <TIME>$(P)$(Wg)IntTimeWF</TIME>
+          <WAVE>$(P)$(Wg)2InternalWF</WAVE>
+        </macros>
+        <target>tab</target>
+        <description>Output 2 Internal</description>
+      </action>
+      <action type="open_display">
+        <file>measCompWaveGenPlot.opi</file>
+        <macros>
+          <TIME>$(P)$(Wg)UserTimeWF</TIME>
+          <WAVE>$(P)$(Wg)2UserWF</WAVE>
+        </macros>
+        <target>tab</target>
+        <description>Outout 2 User</description>
+      </action>
+    </actions>
+    <text>Plots</text>
+    <x>319</x>
+    <y>435</y>
+    <width>113</width>
+    <height>20</height>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #105</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Wg)Run</pv_name>
+        <value>1</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Wg)Run</pv_name>
+    <text>Start</text>
+    <x>52</x>
+    <y>435</y>
+    <width>60</width>
+    <height>20</height>
+    <background_color>
+      <color red="0" green="216" blue="0">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>message button #108</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(P)$(Wg)Run</pv_name>
+        <value>0</value>
+        <description>Write</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(Wg)Run</pv_name>
+    <text>Stop</text>
+    <x>117</x>
+    <y>435</y>
+    <width>60</width>
+    <height>20</height>
+    <background_color>
+      <color red="253" green="0" blue="0">
+      </color>
+    </background_color>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #111</name>
+    <x>182</x>
+    <y>435</y>
+    <width>70</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #114</name>
+      <text>Running</text>
       <width>70</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="label" version="2.0.0">
-        <name>text #123</name>
-        <text>Running</text>
-        <width>70</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
-        <foreground_color>
-          <color red="251" green="243" blue="74">
-          </color>
-        </foreground_color>
-        <auto_size>true</auto_size>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Wg)Run</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #127</name>
-        <text>Done</text>
-        <width>40</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <foreground_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </foreground_color>
-        <auto_size>true</auto_size>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Wg)Run</pv_name>
-          </rule>
-        </rules>
-      </widget>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #131</name>
-      <x>260</x>
-      <y>325</y>
-      <width>250</width>
-      <height>105</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="label" version="2.0.0">
-        <name>text #134</name>
-        <text>Pre-defined waveforms</text>
-        <x>20</x>
-        <y>5</y>
-        <width>210</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="rectangle" version="2.0.0">
-        <name>rectangle #137</name>
-        <width>250</width>
-        <height>105</height>
-        <line_width>1</line_width>
-        <line_color>
-          <color red="0" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="0" blue="0">
-          </color>
-        </background_color>
-        <transparent>true</transparent>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #140</name>
-        <text>Frequency</text>
-        <x>33</x>
-        <y>30</y>
-        <width>90</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="textentry" version="3.0.0">
-        <name>text entry #143</name>
-        <pv_name>$(P)$(Wg)IntFrequency</pv_name>
-        <x>128</x>
-        <y>30</y>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <format>5</format>
-        <show_units>false</show_units>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #147</name>
-        <text># points</text>
-        <x>43</x>
-        <y>80</y>
-        <width>80</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="textentry" version="3.0.0">
-        <name>text entry #150</name>
-        <pv_name>$(P)$(Wg)IntNumPoints</pv_name>
-        <x>128</x>
-        <y>80</y>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <format>1</format>
-        <show_units>false</show_units>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #154</name>
-        <text>Time/point</text>
-        <x>33</x>
-        <y>55</y>
-        <width>90</width>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-      <widget type="textentry" version="3.0.0">
-        <name>text entry #157</name>
-        <pv_name>$(P)$(Wg)IntDwell</pv_name>
-        <x>128</x>
-        <y>55</y>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <format>5</format>
-        <show_units>false</show_units>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
+      </font>
+      <foreground_color>
+        <color red="251" green="243" blue="74">
+        </color>
+      </foreground_color>
+      <auto_size>true</auto_size>
+      <rules>
+        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+          <exp bool_exp="!(pv0!=0)">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(Wg)Run</pv_name>
+        </rule>
+      </rules>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>text #161</name>
-      <text>User-defined waveforms</text>
+      <name>text #118</name>
+      <text>Done</text>
+      <width>40</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <foreground_color>
+        <color red="0" green="216" blue="0">
+        </color>
+      </foreground_color>
+      <auto_size>true</auto_size>
+      <rules>
+        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+          <exp bool_exp="!(pv0==0)">
+            <value>false</value>
+          </exp>
+          <pv_name>$(P)$(Wg)Run</pv_name>
+        </rule>
+      </rules>
+    </widget>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #122</name>
+    <x>260</x>
+    <y>325</y>
+    <width>250</width>
+    <height>105</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="label" version="2.0.0">
+      <name>text #125</name>
+      <text>Pre-defined waveforms</text>
       <x>20</x>
-      <y>330</y>
-      <width>220</width>
+      <y>5</y>
+      <width>210</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
@@ -671,9 +537,7 @@
       <horizontal_alignment>2</horizontal_alignment>
     </widget>
     <widget type="rectangle" version="2.0.0">
-      <name>rectangle #164</name>
-      <x>5</x>
-      <y>325</y>
+      <name>rectangle #128</name>
       <width>250</width>
       <height>105</height>
       <line_width>1</line_width>
@@ -688,11 +552,11 @@
       <transparent>true</transparent>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>text #167</name>
-      <text># points</text>
-      <x>48</x>
-      <y>403</y>
-      <width>80</width>
+      <name>text #131</name>
+      <text>Frequency</text>
+      <x>33</x>
+      <y>30</y>
+      <width>90</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
@@ -700,61 +564,10 @@
       <horizontal_alignment>2</horizontal_alignment>
     </widget>
     <widget type="textentry" version="3.0.0">
-      <name>text entry #170</name>
-      <pv_name>$(P)$(Wg)UserNumPoints</pv_name>
-      <x>133</x>
-      <y>403</y>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>1</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #174</name>
-      <x>28</x>
-      <y>380</y>
-      <width>205</width>
-      <height>20</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="textentry" version="3.0.0">
-        <name>text entry #177</name>
-        <pv_name>$(P)$(Wg)UserDwell</pv_name>
-        <x>105</x>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <background_color>
-          <color red="115" green="223" blue="255">
-          </color>
-        </background_color>
-        <format>5</format>
-        <show_units>false</show_units>
-        <border_alarm_sensitive>false</border_alarm_sensitive>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #181</name>
-        <text>Time/point</text>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>2</horizontal_alignment>
-      </widget>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #184</name>
-      <pv_name>$(P)$(Wg)UserFrequency</pv_name>
-      <x>133</x>
-      <y>355</y>
+      <name>text entry #134</name>
+      <pv_name>$(P)$(Wg)IntFrequency</pv_name>
+      <x>128</x>
+      <y>30</y>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
@@ -768,87 +581,461 @@
       <border_alarm_sensitive>false</border_alarm_sensitive>
     </widget>
     <widget type="label" version="2.0.0">
-      <name>text #188</name>
-      <text>Frequency</text>
-      <x>28</x>
-      <y>355</y>
+      <name>text #138</name>
+      <text># points</text>
+      <x>43</x>
+      <y>80</y>
+      <width>80</width>
       <font>
         <font family="Liberation Sans" style="REGULAR" size="16.0">
         </font>
       </font>
       <horizontal_alignment>2</horizontal_alignment>
     </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #191</name>
-      <x>5</x>
-      <y>165</y>
+    <widget type="textentry" version="3.0.0">
+      <name>text entry #141</name>
+      <pv_name>$(P)$(Wg)IntNumPoints</pv_name>
+      <x>128</x>
+      <y>80</y>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>1</format>
+      <show_units>false</show_units>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #145</name>
+      <text>Time/point</text>
+      <x>33</x>
+      <y>55</y>
+      <width>90</width>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+    <widget type="textentry" version="3.0.0">
+      <name>text entry #148</name>
+      <pv_name>$(P)$(Wg)IntDwell</pv_name>
+      <x>128</x>
+      <y>55</y>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>5</format>
+      <show_units>false</show_units>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #152</name>
+    <text>User-defined waveforms</text>
+    <x>20</x>
+    <y>330</y>
+    <width>220</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="rectangle" version="2.0.0">
+    <name>rectangle #155</name>
+    <x>5</x>
+    <y>325</y>
+    <width>250</width>
+    <height>105</height>
+    <line_width>1</line_width>
+    <line_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </line_color>
+    <background_color>
+      <color red="0" green="0" blue="0">
+      </color>
+    </background_color>
+    <transparent>true</transparent>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #158</name>
+    <text># points</text>
+    <x>48</x>
+    <y>403</y>
+    <width>80</width>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #161</name>
+    <pv_name>$(P)$(Wg)UserNumPoints</pv_name>
+    <x>133</x>
+    <y>403</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>1</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #165</name>
+    <x>28</x>
+    <y>380</y>
+    <width>205</width>
+    <height>20</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="textentry" version="3.0.0">
+      <name>text entry #168</name>
+      <pv_name>$(P)$(Wg)UserDwell</pv_name>
+      <x>105</x>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="115" green="223" blue="255">
+        </color>
+      </background_color>
+      <format>5</format>
+      <show_units>false</show_units>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>text #172</name>
+      <text>Time/point</text>
+      <font>
+        <font family="Liberation Sans" style="REGULAR" size="16.0">
+        </font>
+      </font>
+      <horizontal_alignment>2</horizontal_alignment>
+    </widget>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>text entry #175</name>
+    <pv_name>$(P)$(Wg)UserFrequency</pv_name>
+    <x>133</x>
+    <y>355</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <background_color>
+      <color red="115" green="223" blue="255">
+      </color>
+    </background_color>
+    <format>5</format>
+    <show_units>false</show_units>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>text #179</name>
+    <text>Frequency</text>
+    <x>28</x>
+    <y>355</y>
+    <font>
+      <font family="Liberation Sans" style="REGULAR" size="16.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #182</name>
+    <x>5</x>
+    <y>165</y>
+    <width>250</width>
+    <height>155</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>rectangle #185</name>
       <width>250</width>
       <height>155</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #188</name>
+      <x>15</x>
+      <y>2</y>
+      <width>215</width>
+      <height>145</height>
       <style>3</style>
       <transparent>true</transparent>
-      <widget type="rectangle" version="2.0.0">
-        <name>rectangle #194</name>
-        <width>250</width>
-        <height>155</height>
-        <line_width>1</line_width>
-        <line_color>
-          <color red="0" green="0" blue="0">
-          </color>
-        </line_color>
+      <widget type="label" version="2.0.0">
+        <name>text #191</name>
+        <text>Output 1</text>
+        <x>64</x>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #194</name>
+        <text>Enable</text>
+        <x>50</x>
+        <y>25</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #197</name>
+        <text>Waveform</text>
+        <x>30</x>
+        <y>50</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #200</name>
+        <text>Amplitude</text>
+        <x>20</x>
+        <y>75</y>
+        <width>90</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #203</name>
+        <pv_name>$(P)$(Wg)1Amplitude</pv_name>
+        <x>115</x>
+        <y>75</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
         <background_color>
-          <color red="0" green="0" blue="0">
+          <color red="115" green="223" blue="255">
           </color>
         </background_color>
-        <transparent>true</transparent>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #207</name>
+        <text>Offset</text>
+        <x>50</x>
+        <y>100</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #210</name>
+        <pv_name>$(P)$(Wg)1Offset</pv_name>
+        <x>115</x>
+        <y>100</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #214</name>
+        <text>Pulse width</text>
+        <y>125</y>
+        <width>110</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #217</name>
+        <pv_name>$(P)$(Wg)1PulseWidth</pv_name>
+        <x>115</x>
+        <y>125</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>5</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #221</name>
+        <pv_name>$(P)$(Wg)1Enable</pv_name>
+        <x>115</x>
+        <y>25</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #224</name>
+        <pv_name>$(P)$(Wg)1Type</pv_name>
+        <x>115</x>
+        <y>50</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+    </widget>
+  </widget>
+  <widget type="group" version="2.0.0">
+    <name>composite #227</name>
+    <x>260</x>
+    <y>165</y>
+    <width>250</width>
+    <height>155</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="rectangle" version="2.0.0">
+      <name>rectangle #230</name>
+      <width>250</width>
+      <height>155</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </line_color>
+      <background_color>
+        <color red="0" green="0" blue="0">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+    </widget>
+    <widget type="group" version="2.0.0">
+      <name>composite #233</name>
+      <x>15</x>
+      <y>2</y>
+      <width>215</width>
+      <height>145</height>
+      <style>3</style>
+      <transparent>true</transparent>
+      <widget type="label" version="2.0.0">
+        <name>text #236</name>
+        <text>Offset</text>
+        <x>50</x>
+        <y>100</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #239</name>
+        <pv_name>$(P)$(Wg)2Offset</pv_name>
+        <x>115</x>
+        <y>100</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>1</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #243</name>
+        <text>Pulse width</text>
+        <y>125</y>
+        <width>110</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="textentry" version="3.0.0">
+        <name>text entry #246</name>
+        <pv_name>$(P)$(Wg)2PulseWidth</pv_name>
+        <x>115</x>
+        <y>125</y>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <format>5</format>
+        <show_units>false</show_units>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
       <widget type="group" version="2.0.0">
-        <name>composite #197</name>
-        <x>15</x>
-        <y>2</y>
-        <width>215</width>
-        <height>145</height>
+        <name>composite #250</name>
+        <x>20</x>
+        <y>75</y>
+        <width>195</width>
+        <height>20</height>
         <style>3</style>
         <transparent>true</transparent>
         <widget type="label" version="2.0.0">
-          <name>text #200</name>
-          <text>Output 1</text>
-          <x>64</x>
-          <width>80</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #203</name>
-          <text>Enable</text>
-          <x>50</x>
-          <y>25</y>
-          <width>60</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #206</name>
-          <text>Waveform</text>
-          <x>30</x>
-          <y>50</y>
-          <width>80</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #209</name>
+          <name>text #253</name>
           <text>Amplitude</text>
-          <x>20</x>
-          <y>75</y>
           <width>90</width>
           <font>
             <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -857,10 +1044,9 @@
           <horizontal_alignment>2</horizontal_alignment>
         </widget>
         <widget type="textentry" version="3.0.0">
-          <name>text entry #212</name>
-          <pv_name>$(P)$(Wg)1Amplitude</pv_name>
-          <x>115</x>
-          <y>75</y>
+          <name>text entry #256</name>
+          <pv_name>$(P)$(Wg)2Amplitude</pv_name>
+          <x>95</x>
           <font>
             <font family="Liberation Sans" style="REGULAR" size="16.0">
             </font>
@@ -871,273 +1057,67 @@
           </background_color>
           <format>1</format>
           <show_units>false</show_units>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #216</name>
-          <text>Offset</text>
-          <x>50</x>
-          <y>100</y>
-          <width>60</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textentry" version="3.0.0">
-          <name>text entry #219</name>
-          <pv_name>$(P)$(Wg)1Offset</pv_name>
-          <x>115</x>
-          <y>100</y>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <format>1</format>
-          <show_units>false</show_units>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #223</name>
-          <text>Pulse width</text>
-          <y>125</y>
-          <width>110</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textentry" version="3.0.0">
-          <name>text entry #226</name>
-          <pv_name>$(P)$(Wg)1PulseWidth</pv_name>
-          <x>115</x>
-          <y>125</y>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <format>5</format>
-          <show_units>false</show_units>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="combo" version="2.0.0">
-          <name>menu #230</name>
-          <pv_name>$(P)$(Wg)1Enable</pv_name>
-          <x>115</x>
-          <y>25</y>
-          <height>20</height>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="combo" version="2.0.0">
-          <name>menu #233</name>
-          <pv_name>$(P)$(Wg)1Type</pv_name>
-          <x>115</x>
-          <y>50</y>
-          <height>20</height>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
           <border_alarm_sensitive>false</border_alarm_sensitive>
         </widget>
       </widget>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #236</name>
-      <x>260</x>
-      <y>165</y>
-      <width>250</width>
-      <height>155</height>
-      <style>3</style>
-      <transparent>true</transparent>
-      <widget type="rectangle" version="2.0.0">
-        <name>rectangle #239</name>
-        <width>250</width>
-        <height>155</height>
-        <line_width>1</line_width>
-        <line_color>
-          <color red="0" green="0" blue="0">
-          </color>
-        </line_color>
+      <widget type="label" version="2.0.0">
+        <name>text #260</name>
+        <text>Output 2</text>
+        <x>64</x>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #263</name>
+        <text>Enable</text>
+        <x>50</x>
+        <y>25</y>
+        <width>60</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #266</name>
+        <text>Waveform</text>
+        <x>30</x>
+        <y>50</y>
+        <width>80</width>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>2</horizontal_alignment>
+      </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #269</name>
+        <pv_name>$(P)$(Wg)2Enable</pv_name>
+        <x>115</x>
+        <y>25</y>
+        <height>20</height>
         <background_color>
-          <color red="0" green="0" blue="0">
+          <color red="115" green="223" blue="255">
           </color>
         </background_color>
-        <transparent>true</transparent>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
-      <widget type="group" version="2.0.0">
-        <name>composite #242</name>
-        <x>15</x>
-        <y>2</y>
-        <width>215</width>
-        <height>145</height>
-        <style>3</style>
-        <transparent>true</transparent>
-        <widget type="label" version="2.0.0">
-          <name>text #245</name>
-          <text>Offset</text>
-          <x>50</x>
-          <y>100</y>
-          <width>60</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textentry" version="3.0.0">
-          <name>text entry #248</name>
-          <pv_name>$(P)$(Wg)2Offset</pv_name>
-          <x>115</x>
-          <y>100</y>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <format>1</format>
-          <show_units>false</show_units>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #252</name>
-          <text>Pulse width</text>
-          <y>125</y>
-          <width>110</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="textentry" version="3.0.0">
-          <name>text entry #255</name>
-          <pv_name>$(P)$(Wg)2PulseWidth</pv_name>
-          <x>115</x>
-          <y>125</y>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <format>5</format>
-          <show_units>false</show_units>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="group" version="2.0.0">
-          <name>composite #259</name>
-          <x>20</x>
-          <y>75</y>
-          <width>195</width>
-          <height>20</height>
-          <style>3</style>
-          <transparent>true</transparent>
-          <widget type="label" version="2.0.0">
-            <name>text #262</name>
-            <text>Amplitude</text>
-            <width>90</width>
-            <font>
-              <font family="Liberation Sans" style="REGULAR" size="16.0">
-              </font>
-            </font>
-            <horizontal_alignment>2</horizontal_alignment>
-          </widget>
-          <widget type="textentry" version="3.0.0">
-            <name>text entry #265</name>
-            <pv_name>$(P)$(Wg)2Amplitude</pv_name>
-            <x>95</x>
-            <font>
-              <font family="Liberation Sans" style="REGULAR" size="16.0">
-              </font>
-            </font>
-            <background_color>
-              <color red="115" green="223" blue="255">
-              </color>
-            </background_color>
-            <format>1</format>
-            <show_units>false</show_units>
-            <border_alarm_sensitive>false</border_alarm_sensitive>
-          </widget>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #269</name>
-          <text>Output 2</text>
-          <x>64</x>
-          <width>80</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #272</name>
-          <text>Enable</text>
-          <x>50</x>
-          <y>25</y>
-          <width>60</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="label" version="2.0.0">
-          <name>text #275</name>
-          <text>Waveform</text>
-          <x>30</x>
-          <y>50</y>
-          <width>80</width>
-          <font>
-            <font family="Liberation Sans" style="REGULAR" size="16.0">
-            </font>
-          </font>
-          <horizontal_alignment>2</horizontal_alignment>
-        </widget>
-        <widget type="combo" version="2.0.0">
-          <name>menu #278</name>
-          <pv_name>$(P)$(Wg)2Enable</pv_name>
-          <x>115</x>
-          <y>25</y>
-          <height>20</height>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
-        <widget type="combo" version="2.0.0">
-          <name>menu #281</name>
-          <pv_name>$(P)$(Wg)2Type</pv_name>
-          <x>115</x>
-          <y>50</y>
-          <height>20</height>
-          <background_color>
-            <color red="115" green="223" blue="255">
-            </color>
-          </background_color>
-          <border_alarm_sensitive>false</border_alarm_sensitive>
-        </widget>
+      <widget type="combo" version="2.0.0">
+        <name>menu #272</name>
+        <pv_name>$(P)$(Wg)2Type</pv_name>
+        <x>115</x>
+        <y>50</y>
+        <height>20</height>
+        <background_color>
+          <color red="115" green="223" blue="255">
+          </color>
+        </background_color>
+        <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
     </widget>
   </widget>

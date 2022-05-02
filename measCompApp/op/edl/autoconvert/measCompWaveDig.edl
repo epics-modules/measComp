@@ -24,19 +24,6 @@ snapToGrid
 gridSize 4
 endScreenProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 0
-y 0
-w 260
-h 515
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -354,19 +341,6 @@ value {
 }
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 41
-y 85
-w 205
-h 20
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -397,7 +371,7 @@ x 146
 y 85
 w 100
 h 20
-controlPv "$(P)$(Wd)Dwell"
+controlPv "$(P)$(Wd)DwellActual"
 format "decimal"
 font "helvetica-medium-r-14.0"
 fontAlign "right"
@@ -410,11 +384,6 @@ fastUpdate
 newPos
 objType "controls"
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
 # (Static Text)
 object activeXTextClass
@@ -719,23 +688,6 @@ value {
   "Auto restart"
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 0
-y 0
-w 260
-h 515
-
-beginGroup
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -904,23 +856,6 @@ controlPv "$(P)$(Wd)FirstChan"
 indicatorPv "$(P)$(Wd)FirstChan"
 font "helvetica-medium-r-12.0"
 endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 41
-y 85
-w 205
-h 20
-
-beginGroup
-
-endGroup
-
-endObjectProperties
-
 
 # (Menu Button)
 object activeMenuButtonClass
@@ -1137,9 +1072,4 @@ controlPv "$(P)$(Wd)AutoRestart"
 indicatorPv "$(P)$(Wd)AutoRestart"
 font "helvetica-medium-r-12.0"
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
