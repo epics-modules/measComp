@@ -104,6 +104,11 @@ test_USB_CTR_Windows_LIBS += cbw64
 PROD_IOC_Linux += test_USB_CTR_Linux
 test_USB_CTR_Linux_SYS_LIBS += uldaq usb-1.0
 
+PROD_IOC_Linux += test_USB_CTR
+test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+PROD_IOC_WIN32 += test_USB_CTR
+test_USB_CTR_LIBS_WIN32 += cbw64
+
 PROD_IOC_Linux += DaqInScan
 DaqInScan_SRCS += DaqInScan.c
 DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
