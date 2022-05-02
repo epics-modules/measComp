@@ -1,3 +1,5 @@
+# Overview
+
 An [EPICS](http://www.aps.anl.gov/epics/) 
 module that supports USB and Ethernet I/O modules from [Measurement Computing](http://www.mccdaq.com).
 
@@ -15,6 +17,7 @@ On top of these drivers the module provides a layer that emulates the Windows UL
 The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
 The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.
 
+# Supported models
 Models supported in measComp include:
 * The [E-1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
 analog I/O module. This is an Ethernet device with 8 single-ended/4
@@ -93,6 +96,40 @@ inputs.
 * The [USB-3100 series](https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx)
 analog output modules. These have 4, 8, or 16 analog outputs, 8 binary I/O and one counter input.
 
-Additional information:
+# Installing the vendor drivers on Windows
+The vendor drivers can be installed on Windows by downloading and installing the InstaCal package:
+https://www.mccdaq.com/daq-software/instacal.aspx
+InstaCal can be used to set the IP address of Ethernet modules, and to test basic functions.
+However, it should not be used to configure the devices, because the EPICS drivers override the
+InstaCal settings.
+
+# Installing the vendor drivers on Linux
+The vendor drivers can be installed on Linux by following their instructions on Github. 
+The libusb 1.0 development package must be installed.  
+On Ubuntu 18 that package is called libusb-1.0-0-dev. On RHEL 7 it is called libusbx-devel.
+
+The following steps can be used to install the Measurement Computing uldaq SDK from the tar file on
+Github if the user has sudo priviledge to write to /usr/local.
+```
+wget -N https://github.com/mccdaq/uldaq/releases/download/v1.2.1/libuldaq-1.2.1.tar.bz2
+tar -xvjf libuldaq-1.2.1.tar.bz2
+cd libuldaq-1.2.1
+./configure
+make -sj
+sudo make install
+```
+
+Alternatively the following can be used to clone and build the repository.  This will allow tracking
+any local changes.
+```
+git clone https://github.com/mccdaq/uldaq
+cd uldaq
+autoreconf -vif
+./configure
+make -sj
+make install
+```
+
+# Additional information:
 * [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
 * [Release notes](RELEASE.md)
