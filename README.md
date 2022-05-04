@@ -13,8 +13,8 @@ The Linux Universal Library API is similar to the Windows UL API, but the functi
 UL for Windows and Linux support most current Measurement Computing models.
 
 In versions prior to R4-0 the Linux support used the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
-On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
-The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
+On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.
+The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows. 
 The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.
 
 ## Supported models
