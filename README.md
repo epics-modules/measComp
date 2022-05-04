@@ -7,7 +7,7 @@ This module is supported on both Windows and Linux.
 On Windows it uses the Measurement Computing "Universal Library" (UL).
 
 In R4-0 and later it uses the UL for Linux library from Measurement Computing for Linux drivers.
-This is an open-source library available on Github. 
+This is an [open-source library available on Github](https://github.com/mccdaq/uldaq). 
 The Linux Universal Library API is similar to the Windows UL API, but the functions have different names and different syntax. 
 
 UL for Windows and Linux support most current Measurement Computing models.
@@ -128,7 +128,7 @@ cd uldaq
 autoreconf -vif
 ./configure
 make -sj
-make install
+sudo make install
 ```
 
 ## Additional information:
