@@ -437,20 +437,38 @@ static const enumStruct_t inputTypeUSB_TEMP[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t temperatureSensorUSB_TEMP[] = {
-  {"RTD",           0},
-  {"Thermistor",    1},
-  {"Thermocouple",  2},
-  {"Semiconductor", 3},
-  {"Disabled",      4}
-};
-
-static const enumStruct_t temperatureWiringUSB_TEMP[] = {
-  {"2 wire 1 sensor",   0},
-  {"2 wire 2 sensors",  1},
-  {"3 wire",            2},
-  {"4 wire",            3}
-};
+#ifdef _WIN32
+  // The sensor type cannot be configured in UL for Windows so we use these default enum values
+  static const enumStruct_t temperatureSensorUSB_TEMP[] = {
+    {"RTD",           0},
+    {"Thermistor",    1},
+    {"Thermocouple",  2},
+    {"Semiconductor", 3},
+    {"Disabled",      4}
+  };
+  // The wiring cannot be configured in UL for Windows so we use these default enum values
+  static const enumStruct_t temperatureWiringUSB_TEMP[] = {
+    {"2 wire 1 sensor",   0},
+    {"2 wire 2 sensors",  1},
+    {"3 wire",            2},
+    {"4 wire",            3}
+  };
+#else
+  // These enum values are for UL for Linux.  
+  static const enumStruct_t temperatureSensorUSB_TEMP[] = {
+    {"RTD",           AI_RTD},
+    {"Thermistor",    AI_THERMISTOR},
+    {"Thermocouple",  AI_TC},
+    {"Semiconductor", AI_SEMICONDUCTOR},
+    {"Disabled",      AI_DISABLED}
+  };
+  static const enumStruct_t temperatureWiringUSB_TEMP[] = {
+    {"2 wire 1 sensor",   SCT_2_WIRE_1},
+    {"2 wire 2 sensors",  SCT_2_WIRE_2},
+    {"3 wire",            SCT_3_WIRE},
+    {"4 wire",            SCT_4_WIRE}
+  };
+#endif
 
 typedef struct {
   boardType_t boardType;
@@ -1796,24 +1814,30 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   else if ((function == thermocoupleOpenDetect_) && isThermocouple) {
     #ifdef _WIN32 
-        status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
+      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
     #else
-        OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
-        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+      OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
+      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
     #endif
     reportError(status, functionName, "Setting thermocouple open detect mode");
   }
 
-  // This is not support on either UL for Windows or UL for Linux
-/*  else if (function == temperatureSensor_) {
-      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIADCHANTYPE, value);
-  } */
+  else if (function == temperatureSensor_) {
+    #ifdef _WIN32 
+      // Sensor cannot be configured on UL for Windows
+      status = NOERR;
+    #else
+      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TYPE, addr, value);
+    #endif
+    reportError(status, functionName, "Setting temperature sensor");
+  }
 
   else if (function == temperatureWiring_) {
     #ifdef _WIN32
-      status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANRTDTYPE, value);
+      // Wiring cannot be configured on UL for Windows
+      status = NOERR;
     #else
-      reportError(-1, functionName, "Temperature wiring not supported on UL for Linux");
+      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_SENSOR_CONNECTION_TYPE, addr, value);
     #endif
   }
 
