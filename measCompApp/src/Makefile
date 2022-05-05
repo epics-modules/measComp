@@ -20,10 +20,10 @@ LIBRARY_IOC_Linux+= measComp
 # Link locally-provided code into the support library,
 # rather than directly into the IOC application.
 
-LIB_SRCS += drvMultiFunction.cpp
-LIB_SRCS += drvUSBCTR.cpp
-LIB_SRCS += measCompDiscover.cpp
-LIB_SRCS += USBCTR_SNL.st
+measComp_SRCS += drvMultiFunction.cpp
+measComp_SRCS += drvUSBCTR.cpp
+measComp_SRCS += measCompDiscover.cpp
+measComp_SRCS += USBCTR_SNL.st
 
 measComp_LIBS += asyn
 measComp_LIBS += seq pv
