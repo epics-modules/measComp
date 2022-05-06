@@ -95,3 +95,11 @@ pattern
 {Ai3,   2,   -5.,   5.,   0,    "1 second",   5}
 {Ai4,   3,   -5.,   5.,   0,    "1 second",   5}
 }
+
+# Analog input mode
+file "$(MEASCOMP)/db/measCompAnalogInMode.template"
+{
+pattern
+{  R,     ADDR,   MODE}
+{AiMode,     0,      0}
+}
