@@ -1825,7 +1825,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == temperatureSensor_) {
     #ifdef _WIN32 
       // Sensor cannot be configured on UL for Windows
-      status = NOERR;
+      status = NOERRORS;
     #else
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TYPE, addr, value);
     #endif
@@ -1835,7 +1835,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == temperatureWiring_) {
     #ifdef _WIN32
       // Wiring cannot be configured on UL for Windows
-      status = NOERR;
+      status = NOERRORS;
     #else
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_SENSOR_CONNECTION_TYPE, addr, value);
     #endif
@@ -2164,7 +2164,12 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       double data;
       Range ulRange;
       mapRange(range, &ulRange);
-      status = ulAIn(daqDeviceHandle_, addr, aiInputMode_, ulRange, AIN_FF_DEFAULT, &data);
+      int chan = addr;
+      if (boardType_ == USB_TEMP_AI) {
+        // On Linux the address needs to be 4 larger
+        chan = addr + 4;
+      }
+      status = ulAIn(daqDeviceHandle_, chan, aiInputMode_, ulRange, AIN_FF_DEFAULT, &data);
       *value = (float) data;
     #endif
     reportError(status, functionName, "Calling AIn");
