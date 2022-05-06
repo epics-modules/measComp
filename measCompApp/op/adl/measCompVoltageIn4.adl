@@ -1,6 +1,6 @@
 
 file {
-	name="measCompVoltageIn4.adl"
+	name="/home/epics/devel/measComp-3-0/measCompApp/op/adl/measCompVoltageIn4.adl"
 	version=030109
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=1960
 		y=340
 		width=295
-		height=165
+		height=190
 	}
 	clr=14
 	bclr=4
@@ -87,221 +87,216 @@ display {
 		1a7309,
 	}
 }
-composite {
+rectangle {
 	object {
 		x=0
 		y=0
 		width=295
-		height=165
+		height=185
+	}
+	"basic attribute" {
+		clr=14
+		fill="outline"
+		width=1
+	}
+}
+"message button" {
+	object {
+		x=213
+		y=35
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)1.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=213
+		y=60
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)2.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+"message button" {
+	object {
+		x=213
+		y=85
+		width=74
+		height=20
+	}
+	control {
+		chan="$(P)$(Ai)3.PROC"
+		clr=14
+		bclr=51
+	}
+	label="Read"
+	press_msg="1"
+}
+menu {
+	object {
+		x=118
+		y=36
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)1.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=118
+		y=61
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)2.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+menu {
+	object {
+		x=118
+		y=86
+		width=90
+		height=18
+	}
+	control {
+		chan="$(P)$(Ai)3.SCAN"
+		clr=14
+		bclr=51
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=36
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)1"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=61
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)2"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=23
+		y=86
+		width=90
+		height=18
+	}
+	monitor {
+		chan="$(P)$(Ai)3"
+		clr=14
+		bclr=51
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=69
+		y=5
+		width=156
+		height=25
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Voltage input"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=35
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="1"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=60
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="2"
+	align="horiz. right"
+}
+text {
+	object {
+		x=8
+		y=85
+		width=10
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="3"
+	align="horiz. right"
+}
+composite {
+	object {
+		x=43
+		y=160
+		width=211
+		height=20
 	}
 	"composite name"=""
 	children {
-		rectangle {
-			object {
-				x=0
-				y=0
-				width=295
-				height=165
-			}
-			"basic attribute" {
-				clr=14
-				fill="outline"
-				width=1
-			}
-		}
-		"message button" {
-			object {
-				x=213
-				y=35
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)1.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=213
-				y=60
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)2.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=213
-				y=85
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)3.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		"message button" {
-			object {
-				x=213
-				y=110
-				width=74
-				height=20
-			}
-			control {
-				chan="$(P)$(Ai)4.PROC"
-				clr=14
-				bclr=51
-			}
-			label="Read"
-			press_msg="1"
-		}
-		menu {
-			object {
-				x=118
-				y=36
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)1.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=118
-				y=61
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)2.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=118
-				y=86
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)3.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		menu {
-			object {
-				x=118
-				y=111
-				width=90
-				height=18
-			}
-			control {
-				chan="$(P)$(Ai)4.SCAN"
-				clr=14
-				bclr=51
-			}
-		}
-		"text update" {
-			object {
-				x=23
-				y=36
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)1"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=23
-				y=61
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)2"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=23
-				y=86
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)3"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=23
-				y=111
-				width=90
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Ai)4"
-				clr=14
-				bclr=51
-			}
-			align="horiz. right"
-			limits {
-			}
-		}
-		text {
-			object {
-				x=69
-				y=5
-				width=156
-				height=25
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Voltage input"
-			align="horiz. right"
-		}
 		"related display" {
 			object {
 				x=43
-				y=135
+				y=160
 				width=113
 				height=20
 			}
@@ -332,7 +327,7 @@ composite {
 		"related display" {
 			object {
 				x=161
-				y=135
+				y=160
 				width=93
 				height=20
 			}
@@ -345,44 +340,97 @@ composite {
 			bclr=51
 			label="Configure"
 		}
-		text {
+	}
+}
+composite {
+	object {
+		x=70
+		y=135
+		width=155
+		height=20
+	}
+	"composite name"=""
+	children {
+		menu {
 			object {
-				x=8
-				y=35
-				width=10
+				x=115
+				y=135
+				width=110
 				height=20
 			}
-			"basic attribute" {
+			control {
+				chan="$(P)AiMode"
 				clr=14
+				bclr=51
 			}
-			textix="1"
-			align="horiz. right"
 		}
 		text {
 			object {
-				x=8
-				y=60
-				width=10
+				x=70
+				y=135
+				width=40
 				height=20
 			}
 			"basic attribute" {
 				clr=14
 			}
-			textix="2"
+			textix="Mode"
 			align="horiz. right"
 		}
-		text {
+	}
+}
+composite {
+	object {
+		x=8
+		y=110
+		width=279
+		height=20
+	}
+	"composite name"=""
+	children {
+		"message button" {
 			object {
-				x=8
-				y=85
-				width=10
+				x=213
+				y=110
+				width=74
 				height=20
 			}
-			"basic attribute" {
+			control {
+				chan="$(P)$(Ai)4.PROC"
 				clr=14
+				bclr=51
 			}
-			textix="3"
+			label="Read"
+			press_msg="1"
+		}
+		menu {
+			object {
+				x=118
+				y=111
+				width=90
+				height=18
+			}
+			control {
+				chan="$(P)$(Ai)4.SCAN"
+				clr=14
+				bclr=51
+			}
+		}
+		"text update" {
+			object {
+				x=23
+				y=111
+				width=90
+				height=18
+			}
+			monitor {
+				chan="$(P)$(Ai)4"
+				clr=14
+				bclr=51
+			}
 			align="horiz. right"
+			limits {
+			}
 		}
 		text {
 			object {
