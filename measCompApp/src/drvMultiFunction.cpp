@@ -1287,12 +1287,8 @@ int MultiFunction::startPulseGenerator()
     TmrIdleState idle = (idleState == 0) ? TMRIS_LOW : TMRIS_HIGH;
     status = ulTmrPulseOutStart(daqDeviceHandle_, timerNum, &frequency, &dutyCycle, count, &delay, idle, PO_DEFAULT);
   #endif
-  if (status != 0) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s:%s: started pulse generator %d period=%f, width=%f, count=%d, delay=%f, idleState=%d, status=%d\n",
-      driverName, functionName, timerNum, period, width, count, delay, idleState, status);
-    return status;
-  }
+  reportError(status, functionName, "Calling PulseOutStart");
+  if (status) return status;
   // We may not have gotten the frequency, dutyCycle, and delay we asked for, set the actual values
   // in the parameter library
   pulseGenRunning_ = 1;
@@ -1492,13 +1488,9 @@ int MultiFunction::startWaveGen()
     // Convert back from rate to dwell, since value might have changed
     dwell = 1./rate;
   #endif
+  reportError(status, functionName, "Calling AOutScan");
 
-  if (status) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s:%s: ERROR calling cbAOutScan, firstChan=%d, lastChan=%d, numPoints=%d, dwell=%f, options=0x%x, status=%d\n",
-      driverName, functionName, firstChan, lastChan, numPoints, dwell, options, status);
-    return status;
-  }
+  if (status) return status;
 
   waveGenRunning_ = 1;
   setIntegerParam(waveGenRun_, 1);
@@ -1589,12 +1581,8 @@ int MultiFunction::startWaveDig()
     status = ulAInLoadQueue(daqDeviceHandle_, queue, numChans);
     delete[] queue;
   #endif
-  if (status) {
-    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-      "%s:%s: ERROR calling cbALoadQueue, chanArray[0]=%d, gainArray[0]=%d, numChans=%d, status=%d\n",
-      driverName, functionName, chanArray[0], gainArray[0], numChans, status);
-    return status;
-  }
+  reportError(status, functionName, "Calling ALoadQueue");
+  if (status) return status;
 
   #ifdef _WIN32
     long pointsPerSecond = (long)((1. / dwell) + 0.5);
@@ -1632,10 +1620,8 @@ int MultiFunction::startWaveDig()
     setDoubleParam(waveDigDwellActual_, dwell);
   }
 
-  if (status) {
-    reportError(status, functionName, "Calling AInScan");
-    return status;
-  }
+  reportError(status, functionName, "Calling AInScan");
+  if (status) return status;
 
   waveDigRunning_ = 1;
   setIntegerParam(waveDigRun_, 1);
@@ -1651,6 +1637,7 @@ int MultiFunction::stopWaveDig()
 {
   int autoRestart;
   int status;
+  static const char *functionName = "stopWaveDig";
 
   waveDigRunning_ = 0;
   setIntegerParam(waveDigRun_, 0);
@@ -1661,6 +1648,7 @@ int MultiFunction::stopWaveDig()
   #else
     status = ulAInScanStop(daqDeviceHandle_);
   #endif
+  reportError(status, functionName, "Stopping AIn scan");
   if (autoRestart)
     status |= startWaveDig();
   return status;
@@ -1779,6 +1767,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       // No function to immediately set it on Linux, this value is read from parameter library when calling ulAOut
     #endif
+    reportError(status, functionName, "Setting analog out range");
   }
 
   else if (function == analogInMode_) {
@@ -1787,6 +1776,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       aiInputMode_ = (value == DIFFERENTIAL) ? AI_DIFFERENTIAL : AI_SINGLE_ENDED;
     #endif
+    reportError(status, functionName, "Setting analog input mode");
   }
 
   else if ((function == analogInRate_) && analogInDataRateConfigurable_) {
@@ -1810,6 +1800,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       // The enums for thermocouple types are the same on Windows and Linux
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_TC_TYPE, addr, value);
     #endif
+    reportError(status, functionName, "Setting thermocouple type");
   }
 
   else if ((function == thermocoupleOpenDetect_) && isThermocouple) {
@@ -1839,6 +1830,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_SENSOR_CONNECTION_TYPE, addr, value);
     #endif
+    reportError(status, functionName, "Setting temperature wiring");
   }
 
   // Pulse generator functions
@@ -1868,6 +1860,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       status = ulCLoad(daqDeviceHandle_, addr, CRT_LOAD, 0);
     #endif
+    reportError(status, functionName, "Resetting counter");
   }
 
   // Trigger functions
@@ -1879,6 +1872,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       // We just cache the information here and then call those functions when starting the appropriate scan
       status = mapTriggerType(value, &triggerType_);
     #endif
+    reportError(status, functionName, "Setting trigger mode");
   }
 
   // Waveform digitizer functions
@@ -1903,6 +1897,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       aiScanTrigCount_ = value;
     #endif
+    reportError(status, functionName, "Setting waveDig trigger count");
   }
 
   // Analog output functions
@@ -1951,6 +1946,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #else
       aoScanTrigCount_ = value;
     #endif
+    reportError(status, functionName, "Setting waveGen trigger count");
   }
 
   // This is a separate if statement because these cases are also treated above
@@ -2205,6 +2201,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
         DigitalDirection dir = (value == 0) ? DD_INPUT : DD_OUTPUT;
         status = ulDConfigPort(daqDeviceHandle_, (DigitalPortType)digitalIOPort_[addr], dir);
       #endif
+      reportError(status, functionName, "Calling ConfigPort");
       direction = value ? 0xFFFF : 0;
       setUIntDigitalParam(0, digitalDirection_, direction, 0xFFFFFFFF);
     }
@@ -2219,6 +2216,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
              DigitalDirection dir = (value == 0) ? DD_INPUT : DD_OUTPUT;
              status = ulDConfigBit(daqDeviceHandle_, (DigitalPortType)digitalIOPort_[addr], i, dir);
             #endif
+            reportError(status, functionName, "Calling ConfigBit");
           }
           else {
             // Cannot program direction.  Set open collector output to 0.
@@ -2227,6 +2225,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
             #else
               status = ulDBitOut(daqDeviceHandle_, (DigitalPortType)digitalIOPort_[addr], i, 0);
             #endif
+            reportError(status, functionName, "Calling BitOut");
           }
         }
       }
