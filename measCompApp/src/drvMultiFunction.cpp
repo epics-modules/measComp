@@ -685,10 +685,10 @@ private:
   int analogOutRangeConfigurable_;
   int numAnalogOut_;
   #ifdef linux
-  AiInputMode aiInputMode_;
-  TriggerType triggerType_;
-  int aiScanTrigCount_;  // Not currently used
-  int aoScanTrigCount_;  // Not currently used
+    AiInputMode aiInputMode_;
+    TriggerType triggerType_;
+    int aiScanTrigCount_;  // Not currently used
+    int aoScanTrigCount_;  // Not currently used
   #endif
   int ADCResolution_;
   int DACResolution_;
@@ -718,8 +718,11 @@ private:
   epicsFloat32 *waveGenUserTimeBuffer_;
   epicsFloat32 *waveGenIntTimeBuffer_;
   epicsFloat64 *pInBuffer_;
-  epicsUInt16  *pOutBuffer_;
-
+  #ifdef _WIN32
+    epicsUInt16  *waveGenOutBuffer_;
+  #else
+    epicsFloat64 *waveGenOutBuffer_;
+  #endif
   int numWaveGenChans_;
   int numWaveDigChans_;
   int pulseGenRunning_;
@@ -735,6 +738,7 @@ private:
   int readWaveDig();
   int computeWaveDigTimes();
   int defineWaveform(int channel);
+  int setOpenThermocoupleDetect(int addr, int value);
   int reportError(int err, const char *functionName, const char *message);
   #ifdef linux
   int mapRange(int Gain, Range *range);
@@ -1089,7 +1093,11 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   waveDigTimeBuffer_     = (epicsFloat32 *) calloc(maxInputPoints_,  sizeof(epicsFloat32));
   waveDigAbsTimeBuffer_  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   pInBuffer_ = (epicsFloat64 *) calloc(maxInputPoints  * numAnalogIn_, sizeof(epicsFloat64));
-  pOutBuffer_ = (epicsUInt16 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsUInt16));
+  #ifdef _WIN32
+    waveGenOutBuffer_ = (epicsUInt16 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsUInt16));
+  #else
+    waveGenOutBuffer_ = (epicsFloat64 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsFloat64));
+  #endif
 
   // Set values of some parameters that need to be set because init record order is not predictable
   // or because the corresponding records are PINI=NO.
@@ -1399,7 +1407,11 @@ int MultiFunction::startWaveGen()
   double userOffset, userAmplitude;
   double dwell;
   epicsFloat32* inPtr[MAX_ANALOG_OUT];
-  epicsUInt16 *outPtr;
+  #ifdef _WIN32
+    epicsUInt16 *outPtr;
+  #else
+    epicsFloat64 *outPtr;
+  #endif
   static const char *functionName = "startWaveGen";
 
   getIntegerParam(waveGenExtTrigger_, &extTrigger);
@@ -1451,7 +1463,7 @@ int MultiFunction::startWaveGen()
   // User-defined waveforms need to have the offset and scale applied
   for (i=0; i<numWaveGenChans_; i++) {
     k = firstChan + i;
-    outPtr = &(pOutBuffer_[i]);
+    outPtr = &(waveGenOutBuffer_[i]);
     offset = 10.;        // Mid-scale range of DAC
     scale = 65535./20.;  // D/A units per volt; 16-bit DAC, +-10V range
     if (waveType == waveTypeUser) {
@@ -1474,7 +1486,7 @@ int MultiFunction::startWaveGen()
     if (continuous) options |= CONTINUOUS;
     if (retrigger)  options |= RETRIGMODE;
     status = cbAOutScan(boardNum_, firstChan, lastChan, numWaveGenChans_*numPoints, &pointsPerSecond, BIP10VOLTS,
-                        pOutBuffer_, options);
+                        waveGenOutBuffer_, options);
     // Convert back from pointsPerSecond to dwell, since value might have changed
     dwell = (1. / pointsPerSecond);
   #else
@@ -1484,7 +1496,7 @@ int MultiFunction::startWaveGen()
     if (continuous) options |= SO_CONTINUOUS;
     if (retrigger)  options |= SO_RETRIGGER;
     double rate = 1./dwell;
-    status = ulAOutScan(daqDeviceHandle_, firstChan, lastChan, BIP10VOLTS, numPoints, &rate, (ScanOption) options, AOUTSCAN_FF_NOSCALEDATA, (double *)pOutBuffer_);
+    status = ulAOutScan(daqDeviceHandle_, firstChan, lastChan, BIP10VOLTS, numPoints, &rate, (ScanOption) options, AOUTSCAN_FF_NOSCALEDATA, waveGenOutBuffer_);
     // Convert back from rate to dwell, since value might have changed
     dwell = 1./rate;
   #endif
@@ -1749,14 +1761,8 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
       #endif
       reportError(status, functionName, "Set thermocouple type");
       // Set open thermocouple detection
-      getIntegerParam(addr, thermocoupleType_, &ival);
-      #ifdef _WIN32 
-        status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, ival);
-      #else
-        OtdMode mode = ival ? OTD_ENABLED : OTD_DISABLED;
-        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
-      #endif
-      reportError(status, functionName, "Setting thermocouple open detect mode");
+      getIntegerParam(addr, thermocoupleOpenDetect_, &ival);
+      setOpenThermocoupleDetect(addr, ival);
     }
   }
 
@@ -1804,13 +1810,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   else if ((function == thermocoupleOpenDetect_) && isThermocouple) {
-    #ifdef _WIN32 
-      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
-    #else
-      OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
-      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
-    #endif
-    reportError(status, functionName, "Setting thermocouple open detect mode");
+    setOpenThermocoupleDetect(addr, value);
   }
 
   else if (function == temperatureSensor_) {
@@ -1968,6 +1968,22 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   return (status==0) ? asynSuccess : asynError;
 }
 
+int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
+{
+  int status=0;
+  static const char *functionName = "etOpenThermocoupleDetect";
+
+  if ((boardType_ != USB_TEMP) && (boardType_ != USB_TEMP_AI)) {
+    #ifdef _WIN32 
+      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
+    #else
+      OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
+      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+    #endif
+    reportError(status, functionName, "Setting thermocouple open detect mode");
+  }
+  return status;
+}
 
 asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
 {
