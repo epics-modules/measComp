@@ -60,22 +60,25 @@ measCompApp_SYS_LIBS_Linux += uldaq usb-1.0
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-PROD_IOC_WIN32 += test_1608G_1
-test_1608G_1_SRCS += test_1608G_1.c
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-  test_1608G_1_LIBS += cbw32
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-  test_1608G_1_LIBS += cbw64
-endif
+# This tests needing to read each analog input twice on USB-1608G.
+#PROD_IOC_WIN32 += test_1608G_1
+#test_1608G_1_SRCS += test_1608G_1.c
+#ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+#  test_1608G_1_LIBS += cbw32
+#else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+#  test_1608G_1_LIBS += cbw64
+#endif
 
-PROD_IOC_WIN32 += testTC32
-testTC32_SRCS += testTC32.c
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-  testTC32_LIBS += cbw32
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-  testTC32_LIBS += cbw64
-endif
+# This tests some issues reading thermocouples on TC-32.
+#PROD_IOC_WIN32 += testTC32
+#testTC32_SRCS += testTC32.c
+#ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
+#  testTC32_LIBS += cbw32
+#else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
+#  testTC32_LIBS += cbw64
+#endif
 
+# This program lists all Measurement Computing devices on USB or local Ethernet subnet
 PROD_IOC_WIN32 += test_measCompDiscover
 PROD_IOC_Linux += test_measCompDiscover
 test_measCompDiscover_SRCS += test_measCompDiscover.cpp
@@ -88,50 +91,24 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
 endif
 test_measCompDiscover_SYS_LIBS_Linux += uldaq usb-1.0
 
-PROD_IOC_WIN32 += test_TIn_1
-PROD_IOC_Linux += test_TIn_1
-test_TIn_1_SRCS += test_TIn_1.cpp
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-  test_TIn_1_LIBS += cbw32
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-  test_TIn_1_LIBS += cbw64
-endif
-test_TIn_1_SYS_LIBS_Linux += uldaq usb-1.0
+# These are test programs which were used when finding Ubuntu18 had programs with scans > 1000 points/s
+#PROD_IOC_Linux += test_AInScan_Linux
+#test_AInScan_Linux_SYS_LIBS += uldaq usb-1.0
 
-PROD_IOC_WIN32 += test_USB_CTR_Windows
-test_USB_CTR_Windows_LIBS += cbw64
+#PROD_IOC_Linux += test_USB_CTR
+#test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+#PROD_IOC_WIN32 += test_USB_CTR
+#test_USB_CTR_LIBS_WIN32 += cbw64
 
-PROD_IOC_Linux += test_USB_CTR_Linux
-test_USB_CTR_Linux_SYS_LIBS += uldaq usb-1.0
+#PROD_IOC_Linux += DaqInScan
+#DaqInScan_SRCS += DaqInScan.c
+#DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
 
-PROD_IOC_Linux += test_AInScan_Linux
-test_AInScan_Linux_SYS_LIBS += uldaq usb-1.0
+# This test program shows temperature glitches on Linux with USB-2408 and data rate <= 20 Hz.
+#PROD_IOC_Linux += 2408_TIn
+#2408_TIn_SRCS += 2408_TIn.c
+#2408_TIn_SYS_LIBS += uldaq usb-1.0
 
-PROD_IOC_Linux += test_USB_CTR
-test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
-PROD_IOC_WIN32 += test_USB_CTR
-test_USB_CTR_LIBS_WIN32 += cbw64
-
-PROD_IOC_Linux += DaqInScan
-DaqInScan_SRCS += DaqInScan.c
-DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
-
-PROD_IOC_Linux += 2408_TIn
-2408_TIn_SRCS += 2408_TIn.c
-2408_TIn_SYS_LIBS += uldaq usb-1.0
-
-PROD_IOC_WIN32 += 2408_TIn_Windows
-2408_TIn_WindowsSRCS += 2408_TIn_Windows.c
-2408_TIn_Windows_LIBS += cbw64
-
-PROD_IOC_WIN32 += testPadZero
-testPadZero_LIBS += measComp
-testPadZero_SRCS += testPadZero.cpp
-ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
-  testPadZero_LIBS += cbw32
-else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
-  testPadZero_LIBS += cbw64
-endif
 
 #=============================
 
