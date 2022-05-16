@@ -10,6 +10,8 @@ record(longout, "$(P)$(R)NumPoints")
     field(PINI, "YES")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR))WAVEDIG_NUM_POINTS")
+    field(DRVL, "1")
+    field(DRVH, "$(WDIG_POINTS)")
 }
 
 ###################################################################
