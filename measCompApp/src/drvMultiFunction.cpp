@@ -1888,6 +1888,12 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   else if (function == waveDigNumPoints_) {
+    if (value > (int)maxInputPoints_) {
+      asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                "%s::%s error WaveDigNumPoints=%d must be less than MaxInputPoints=%d\n",
+                driverName, functionName, value, (int)maxInputPoints_);
+      setIntegerParam(waveDigNumPoints_, maxInputPoints_);
+    }
     computeWaveDigTimes();
   }
 
