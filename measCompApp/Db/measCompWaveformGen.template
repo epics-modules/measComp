@@ -20,7 +20,9 @@ record(longout, "$(P)$(R)UserNumPoints")
     field(PINI, "YES")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_USER_NUM_POINTS")
-    field(VAL,  "1000")
+    field(DRVL, "1")
+    field(DRVH, "$(WGEN_POINTS)")
+    field(VAL,  "$(WGEN_POINTS)")
 }
 
 ###################################################################
@@ -31,7 +33,9 @@ record(longout, "$(P)$(R)IntNumPoints")
     field(PINI, "YES")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_INT_NUM_POINTS")
-    field(VAL,  "1000")
+    field(DRVL, "1")
+    field(DRVH, "$(WGEN_POINTS)")
+    field(VAL,  "$(WGEN_POINTS)")
 }
 
 ###################################################################
