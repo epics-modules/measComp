@@ -110,7 +110,8 @@ The libusb 1.0 development package must be installed.
 On Ubuntu 18 that package is called libusb-1.0-0-dev. On RHEL 7 it is called libusbx-devel.
 
 The following steps can be used to install the Measurement Computing uldaq SDK from the tar file on
-Github if the user has sudo priviledge to write to /usr/local.
+Github if the user has sudo privilege to write to /usr/local.
+
 ```
 wget -N https://github.com/mccdaq/uldaq/releases/download/v1.2.1/libuldaq-1.2.1.tar.bz2
 tar -xvjf libuldaq-1.2.1.tar.bz2
@@ -120,8 +121,14 @@ make -sj
 sudo make install
 ```
 
+If the user does not have privilege to write to /usr/local/ then do the following:
+- Change the `.configure` command to `./configure --prefix=/home/epics`. `/home/epics` can be changed to 
+  any directory where the user has write permission.
+- Edit configure/CONFIG_SITE to uncomment and edit the lines that define ULDAQ_INCLUDE and ULDAQ_DIR.
+
 Alternatively the following can be used to clone and build the repository.  This will allow tracking
-any local changes.
+any local changes. Again, if the user does not have privilege to write to /usr/local follow the steps above
+for the `./configure` command and the CONFIG_SITE file.
 ```
 git clone https://github.com/mccdaq/uldaq
 cd uldaq
@@ -130,6 +137,9 @@ autoreconf -vif
 make -sj
 sudo make install
 ```
+
+If installing from a non-privileged account `make install` will fail near the end when it tries to install
+the udev file 50-uldaq.rules.  This must be done with root privilege in order to use USB devices.
 
 ## Additional information:
 * [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
