@@ -6,7 +6,16 @@
     This is an [open-source library available on Github](https://github.com/mccdaq/uldaq). 
     The Linux Universal Library API is similar to the Windows Universal Library API, 
     but the functions have different names and different syntax.
-  - The higher-level drivers, drvMultiFunction.cpp and drvUSCTR.cpp
+  - On Linux the Measurement Computing "UL for Linux" library must be locally installed.
+    The instructions for doing this are in the README.md file.
+  - The higher-level drivers, drvMultiFunction.cpp and drvUSCTR.cpp were changed to make
+    different function calls for Linux and Windows.
+  - For USB devices the UNIQUE_ID (serial number) in the startup script must now be
+    8 characters long.  This means adding a leading 0 for seven-digit serial numbers.
+  - Added open thermocouple detect (OTD) support for models that support it (e.g. USB-2408).
+  - Added analog input Rate record to control the sampling rate for models that support it (e.g. USB-2408).
+  - Added DRVH and DRVL limits for NumPoints in the waveform digitizer and waveform generator.
+  - Added DwellActual records to report the actual dwell time for the waveform digitizer and waveform generator.
 
 ## Release 3-1 (May 2, 2022)
   - Added support for the USB-1608G on Linux. Thanks to David Dudley for this.
