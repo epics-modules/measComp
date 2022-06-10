@@ -1,20 +1,23 @@
-An [EPICS](http://www.aps.anl.gov/epics/) 
+## Overview
+
+measComp is an [EPICS](http://www.aps.anl.gov/epics/) 
 module that supports USB and Ethernet I/O modules from [Measurement Computing](http://www.mccdaq.com).
 
 This module is supported on both Windows and Linux. 
 On Windows it uses the Measurement Computing "Universal Library" (UL).
 
-On Linux it uses the UL for Linux library from Measurement Computing.  This is an open-source
-library available on Github. The Linux Universal Library API is similar to the Windows UL API, but the functions
-have different names and different syntax. 
+In R4-0 and later it uses the UL for Linux library from Measurement Computing for Linux drivers.
+This is an [open-source library available on Github](https://github.com/mccdaq/uldaq). 
+The Linux Universal Library API is similar to the Windows UL API, but the functions have different names and different syntax. 
 
 UL for Windows and Linux support most current Measurement Computing models.
 
 In versions prior to R4-0 the Linux support used the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers).
-On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.  
-The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
-The E-1608, E-TC, E-TC32, E-DIO24, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.
+On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.
+The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows. 
+The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.
 
+## Supported models
 Models supported in measComp include:
 * The [E-1608](https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series)
 analog I/O module. This is an Ethernet device with 8 single-ended/4
@@ -93,6 +96,48 @@ inputs.
 * The [USB-3100 series](https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx)
 analog output modules. These have 4, 8, or 16 analog outputs, 8 binary I/O and one counter input.
 
-Additional information:
+## Installing the vendor drivers on Windows
+The vendor drivers can be installed on Windows by downloading and installing the InstaCal package:
+https://www.mccdaq.com/daq-software/instacal.aspx.
+
+InstaCal can be used to set the IP address of Ethernet modules, and to test basic functions.
+However, it should not be used to configure the devices, because the EPICS drivers override the
+InstaCal settings.
+
+## Installing the vendor drivers on Linux
+The vendor drivers can be installed on Linux by following their instructions on Github. 
+The libusb 1.0 development package must be installed.
+On Ubuntu 18 that package is called libusb-1.0-0-dev. On RHEL 7 it is called libusbx-devel.
+
+The following steps can be used to install the Measurement Computing uldaq SDK from the tar file on
+Github if the user has sudo privilege to write to /usr/local.
+```
+wget -N https://github.com/mccdaq/uldaq/releases/download/v1.2.1/libuldaq-1.2.1.tar.bz2
+tar -xvjf libuldaq-1.2.1.tar.bz2
+cd libuldaq-1.2.1
+./configure
+make -sj
+sudo make install
+```
+If the user does not have privilege to write to /usr/local/ then do the following:
+- Change the `.configure` command to `./configure --prefix=/home/epics`. `/home/epics` can be changed to 
+  any directory where the user has write permission.
+- Edit configure/CONFIG_SITE to uncomment and edit the lines that define ULDAQ_INCLUDE and ULDAQ_DIR.
+
+Alternatively the following can be used to clone and build the repository.  This will allow tracking
+any local changes. Again, if the user does not have privilege to write to /usr/local follow the steps above.
+```
+git clone https://github.com/mccdaq/uldaq
+cd uldaq
+autoreconf -vif
+./configure
+make -sj
+sudo make install
+```
+
+If installing from a non-privileged account `make install` will fail near the end when it tries to install
+the udev file 50-uldaq.rules.  This must be done with root privilege in order to use USB devices.
+
+## Additional information:
 * [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
 * [Release notes](RELEASE.md)
