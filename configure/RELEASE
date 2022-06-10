@@ -27,19 +27,19 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 SUPPORT=/corvette/home/epics/devel
 
 ASYN=$(SUPPORT)/asyn-4-42
-CALC=$(SUPPORT)/calc-3-7-3
+CALC=$(SUPPORT)/calc-3-7-4
 SCALER=$(SUPPORT)/scaler-4-0
 MCA=$(SUPPORT)/mca-7-9
-BUSY=$(SUPPORT)/busy-1-7-2
+BUSY=$(SUPPORT)/busy-1-7-3
 # SSCAN is needed by calc for recDynLink
-SSCAN=$(SUPPORT)/sscan-2-11-3
-AUTOSAVE=$(SUPPORT)/autosave-5-10
+SSCAN=$(SUPPORT)/sscan-2-11-5
+AUTOSAVE=$(SUPPORT)/autosave-5-10-2
 # SNCSEQ is needed by std
 SNCSEQ=$(SUPPORT)/seq-2-2-5
-MEASCOMP=$(SUPPORT)/measComp-3-0
+MEASCOMP=$(SUPPORT)/measComp-4-0
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/corvette/usr/local/epics-devel/base-7.0.5
+EPICS_BASE=/corvette/usr/local/epics-devel/base-7.0.6.1
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
