@@ -1,6 +1,14 @@
 # measComp Release Notes
 
-## Release 3-1 (January XXX, 2022)
+## Release 4-0 (June 10, 2022)
+  - Changed the Linux support from using the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers)
+    to using the "UL for Linux" library (uldaq)) from Measurement Computing.
+    This is an [open-source library available on Github](https://github.com/mccdaq/uldaq). 
+    The Linux Universal Library API is similar to the Windows Universal Library API, 
+    but the functions have different names and different syntax.
+  - The higher-level drivers, drvMultiFunction.cpp and drvUSCTR.cpp
+
+## Release 3-1 (May 2, 2022)
   - Added support for the USB-1608G on Linux. Thanks to David Dudley for this.
   - Added support for the USB-3100 series of devices on both Windows and Linux.
     These have 4, 8 or 16 channels of analog output, plus 8 digital I/O and one counter.
