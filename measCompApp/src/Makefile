@@ -8,7 +8,14 @@ include $(TOP)/configure/CONFIG
 # Build the IOC support library
 
 USR_CXXFLAGS_Linux += -Wno-write-strings
-USR_CXXFLAGS_Linux += -fmax-errors=20
+
+ifdef ULDAQ_INCLUDE
+  USR_INCLUDES_Linux += -I$(ULDAQ_INCLUDE)
+endif
+
+ifdef ULDAQ_DIR
+  uldaq_DIR = $(ULDAQ_DIR)
+endif
 
 DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
@@ -56,7 +63,13 @@ else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   measComp_LIBS += cbw64
   measCompApp_LIBS += cbw64
 endif
-measCompApp_SYS_LIBS_Linux += uldaq usb-1.0
+ifdef ULDAQ_DIR
+  measCompApp_LIBS_Linux += uldaq
+else
+  measCompApp_SYS_LIBS_Linux += uldaq
+endif
+measCompApp_SYS_LIBS_Linux += usb-1.0
+
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
@@ -89,25 +102,50 @@ ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
 else ifeq (windows-x64, $(findstring windows-x64, $(T_A)))
   test_measCompDiscover_LIBS += cbw64
 endif
-test_measCompDiscover_SYS_LIBS_Linux += uldaq usb-1.0
+ifdef ULDAQ_DIR
+  test_measCompDiscover_LIBS_Linux += uldaq
+else
+  test_measCompDiscover_SYS_LIBS_Linux += uldaq
+endif
+test_measCompDiscover_SYS_LIBS_Linux += usb-1.0
 
 # These are test programs which were used when finding Ubuntu18 had programs with scans > 1000 points/s
 #PROD_IOC_Linux += test_AInScan_Linux
-#test_AInScan_Linux_SYS_LIBS += uldaq usb-1.0
+#ifdef ULDAQ_DIR
+#  test_AInScan_Linux_LIBS += uldaq
+#else
+#  test_AInScan_Linux_SYS_LIBS += uldaq
+#endif
+#test_AInScan_Linux_SYS_LIBS += usb-1.0
 
 #PROD_IOC_Linux += test_USB_CTR
-#test_USB_CTR_SYS_LIBS_Linux += uldaq usb-1.0
+#ifdef ULDAQ_DIR
+#  test_USB_CTR_LIBS_Linux += uldaq
+#else
+#  test_USB_CTR_SYS_LIBS_Linux += uldaq
+#endif
+#test_USB_CTR_SYS_LIBS_Linux += usb-1.0
 #PROD_IOC_WIN32 += test_USB_CTR
 #test_USB_CTR_LIBS_WIN32 += cbw64
 
 #PROD_IOC_Linux += DaqInScan
 #DaqInScan_SRCS += DaqInScan.c
-#DaqInScan_SYS_LIBS_Linux += uldaq usb-1.0
+#ifdef ULDAQ_DIR
+#  DaqInScan_LIBS_Linux += uldaq
+#else
+#  DaqInScan_SYS_LIBS_Linux += uldaq
+#endif
+#DaqInScan_SYS_LIBS_Linux += usb-1.0
 
 # This test program shows temperature glitches on Linux with USB-2408 and data rate <= 20 Hz.
 #PROD_IOC_Linux += 2408_TIn
 #2408_TIn_SRCS += 2408_TIn.c
-#2408_TIn_SYS_LIBS += uldaq usb-1.0
+#ifdef ULDAQ_DIR
+#  2408_TIn_LIBS_Linux += uldaq
+#else
+#  2408_TIn_SYS_LIBS_Linux += uldaq
+#endif
+#2408_TIn_SYS_LIBS_Linux += usb-1.0
 
 
 #=============================
