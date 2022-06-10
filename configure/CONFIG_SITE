@@ -35,6 +35,11 @@ CHECK_RELEASE = YES
 # Set this to YES if the hidapi package is installed for USB devices on Linux.
 HAVE_HIDAPI=NO
 
+# If libuldaq on Linux is not installed in a system directory (e.g. /usr/local)
+# then uncomment and edit these lines to define the location of the include and lib directories.
+#ULDAQ_DIR=/home/epics/local/lib
+#ULDAQ_INCLUDE=/home/epics/local/include
+
 # These allow developers to override the CONFIG_SITE variable
 # settings without having to modify the configure/CONFIG_SITE
 # file itself.
