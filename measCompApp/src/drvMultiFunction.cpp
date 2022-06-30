@@ -30,10 +30,10 @@
 // This function maps the Gain values from UL on Windows to the Range values in UL for Linux.
 // We can't use the macros from Windows cbw.h because they conflict with UL for Linux.
 // These definitions are taken from cbw.h, but added CBW_ prefix.
-#define CBW_BIP60VOLTS       20              /* -60 to 60 Volts */
-#define CBW_BIP30VOLTS		 23
-#define CBW_BIP20VOLTS       15              /* -20 to +20 Volts */
-#define CBW_BIP15VOLTS       21              /* -15 to +15 Volts */
+#define CBW_BIP60VOLTS       20             /* -60 to 60 Volts */
+#define CBW_BIP30VOLTS       23
+#define CBW_BIP20VOLTS       15             /* -20 to +20 Volts */
+#define CBW_BIP15VOLTS       21             /* -15 to +15 Volts */
 #define CBW_BIP10VOLTS       1              /* -10 to +10 Volts */
 #define CBW_BIP5VOLTS        0              /* -5 to +5 Volts */
 #define CBW_BIP4VOLTS        16             /* -4 to + 4 Volts */
@@ -43,17 +43,17 @@
 #define CBW_BIP1VOLTS        4              /* -1 to +1 Volts */
 #define CBW_BIPPT625VOLTS    5              /* -.625 to +.625 Volts */
 #define CBW_BIPPT5VOLTS      6              /* -.5 to +.5 Volts */
-#define CBW_BIPPT25VOLTS     12              /* -0.25 to +0.25 Volts */
-#define CBW_BIPPT2VOLTS      13              /* -0.2 to +0.2 Volts */
+#define CBW_BIPPT25VOLTS     12             /* -0.25 to +0.25 Volts */
+#define CBW_BIPPT2VOLTS      13             /* -0.2 to +0.2 Volts */
 #define CBW_BIPPT1VOLTS      7              /* -.1 to +.1 Volts */
 #define CBW_BIPPT05VOLTS     8              /* -.05 to +.05 Volts */
 #define CBW_BIPPT01VOLTS     9              /* -.01 to +.01 Volts */
 #define CBW_BIPPT005VOLTS    10             /* -.005 to +.005 Volts */
 #define CBW_BIP1PT67VOLTS    11             /* -1.67 to +1.67 Volts */
-#define CBW_BIPPT312VOLTS    17				 /* -0.312 to +0.312 Volts */
-#define CBW_BIPPT156VOLTS    18				 /* -0.156 to +0.156 Volts */
-#define CBW_BIPPT125VOLTS    22				 /* -0.125 to +0.125 Volts */
-#define CBW_BIPPT078VOLTS    19				 /* -0.078 to +0.078 Volts */
+#define CBW_BIPPT312VOLTS    17             /* -0.312 to +0.312 Volts */
+#define CBW_BIPPT156VOLTS    18             /* -0.156 to +0.156 Volts */
+#define CBW_BIPPT125VOLTS    22             /* -0.125 to +0.125 Volts */
+#define CBW_BIPPT078VOLTS    19             /* -0.078 to +0.078 Volts */
 
 
 #define CBW_UNI10VOLTS       100            /* 0 to 10 Volts*/
@@ -211,8 +211,8 @@ typedef enum {
   #define CELSIUS          0
   #define FAHRENHEIT       1
   #define KELVIN           2
-  #define VOLTS			 4		/* special scale for DAS-TC boards */
-  #define NOSCALE			 5
+  #define VOLTS            4     /* special scale for DAS-TC boards */
+  #define NOSCALE          5
   /* Types of digital input ports */
   #define DIGITALOUT       1
   #define DIGITALIN        2
@@ -221,6 +221,7 @@ typedef enum {
 typedef enum {
   USB_1208LS         = 122,
   USB_1208FS         = 130,
+  USB_1208FS_PLUS    = 232,
   USB_231            = 297,
   USB_1608G          = 308,
   USB_1608GX_2AO     = 274,
@@ -262,7 +263,7 @@ static const enumStruct_t inputRangeUSB_1208LS[] = {
 };
 
 static const enumStruct_t outputRangeUSB_1208LS[] = {
-  {"+= 10V", CBW_UNI5VOLTS}
+  {"+= 5V", CBW_UNI5VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_1208LS[] = {
@@ -285,11 +286,34 @@ static const enumStruct_t inputRangeUSB_1208FS[] = {
 };
 
 static const enumStruct_t outputRangeUSB_1208FS[] = {
-  {"+= 10V", CBW_UNI4VOLTS}
+  {"+= 4V", CBW_UNI4VOLTS}
 };
 
 static const enumStruct_t inputTypeUSB_1208FS[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
+static const enumStruct_t inputRangeUSB_1208FS_PLUS[] = {
+  {"+= 20V",   CBW_BIP20VOLTS},
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 4V",    CBW_BIP4VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 2V",    CBW_BIP2VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS},
+  {"+= 1V",    CBW_BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_1208FS_PLUS[] = {
+  {"+= 5V", CBW_UNI5VOLTS}
+};
+
+static const enumStruct_t inputTypeUSB_1208FS_PLUS[] = {
+  #ifdef WIN32
+    {"Volts", AI_CHAN_TYPE_VOLTAGE}
+  #else
+    {"Volts", AI_VOLTAGE}
+  #endif
 };
 
 static const enumStruct_t inputRangeUSB_231[] = {
@@ -488,6 +512,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1208FS,     inputRangeUSB_1208FS,  sizeof(inputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
                    inputTypeUSB_1208FS,   sizeof(inputTypeUSB_1208FS)/sizeof(enumStruct_t)},
+
+  {USB_1208FS_PLUS,inputRangeUSB_1208FS_PLUS,  sizeof(inputRangeUSB_1208FS_PLUS)/sizeof(enumStruct_t),
+                   outputRangeUSB_1208FS_PLUS, sizeof(outputRangeUSB_1208FS_PLUS)/sizeof(enumStruct_t),
+                   inputTypeUSB_1208FS_PLUS,   sizeof(inputTypeUSB_1208FS_PLUS)/sizeof(enumStruct_t)},
 
   {USB_231,        inputRangeUSB_231,     sizeof(inputRangeUSB_231)/sizeof(enumStruct_t),
                    outputRangeUSB_231,    sizeof(outputRangeUSB_231)/sizeof(enumStruct_t),
@@ -974,6 +1002,18 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       digitalIOBitConfigurable_[0] = 0;
       digitalIOPortConfigurable_[1] = 1;
       break;
+    case USB_1208FS_PLUS:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 1;
+      // For output need to address all bits using first port
+      numIOBits_[0] = 16;
+      // The rules for bit configurable above don't work for this model
+      digitalIOPortConfigurable_[0] = 1;
+      digitalIOPortConfigurable_[1] = 1;
+      digitalIOBitConfigurable_[0] = 0;
+      digitalIOPortConfigurable_[1] = 1;
+      break;
     case USB_1208FS:
       numTimers_    = 0;
       numCounters_  = 1;
@@ -1223,12 +1263,12 @@ int MultiFunction::mapRange(int Gain, Range *range)
 #define CBW_TRIG_LOW            11
 #define CBW_TRIG_POS_EDGE       12
 #define CBW_TRIG_NEG_EDGE       13
-#define CBW_TRIG_RISING			14
-#define CBW_TRIG_FALLING		15
-#define CBW_TRIG_PATTERN_EQ		16
-#define CBW_TRIG_PATTERN_NE		17
-#define CBW_TRIG_PATTERN_ABOVE	18
-#define CBW_TRIG_PATTERN_BELOW	19
+#define CBW_TRIG_RISING         14
+#define CBW_TRIG_FALLING        15
+#define CBW_TRIG_PATTERN_EQ     16
+#define CBW_TRIG_PATTERN_NE     17
+#define CBW_TRIG_PATTERN_ABOVE  18
+#define CBW_TRIG_PATTERN_BELOW  19
 
 int MultiFunction::mapTriggerType(int cbwTriggerType, TriggerType *triggerType)
 {
@@ -2694,3 +2734,4 @@ void drvMultiFunctionRegister(void)
 extern "C" {
 epicsExportRegistrar(drvMultiFunctionRegister);
 }
+
