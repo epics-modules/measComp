@@ -61,6 +61,11 @@ This device has 8 single-ended/4 differential 12-bit analog
 inputs, 2 10-bit analog outputs, and 16 binary input/outputs. The driver supports
 simple analog I/O, binary I/O, and a counter input.
 
+* The [USB-1208FS-Plus](http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-Plus.aspx).
+This device has 8 single-ended/4 differential 12-bit analog
+inputs, 2 12-bit analog outputs, and 16 binary input/outputs. The driver supports
+simple analog I/O, binary I/O, and a counter input.
+
 * The [USB-1208HS](http://www.mccdaq.com/usb-data-acquisition/USB-1208HS.aspx).
 This device has 8 single-ended/4 differential 13-bit analog
 inputs, 16 binary input/outputs, and 2 counters. The driver supports

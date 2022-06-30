@@ -360,6 +360,7 @@ description. <http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Se
 
 The
 `USB-1208HS <http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx>`__
+, `USB-1208FS-Plus <http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx>`__
 and
 `USB-231 <http://www.mccdaq.com/usb-data-acquisition/USB-230-Series.aspx>`__
 are similar devices but with higher performance.
