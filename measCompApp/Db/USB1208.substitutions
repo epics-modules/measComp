@@ -43,22 +43,22 @@ file "$(MEASCOMP)/db/measCompBinaryOut.template"
 {
 pattern
 {  R,    MASK,     ADDR}
-{ Bo1,    0x1,        0}
-{ Bo2,    0x2,        0}
-{ Bo3,    0x4,        0}
-{ Bo4,    0x8,        0}
+{ Bo1,   0x01,        0}
+{ Bo2,   0x02,        0}
+{ Bo3,   0x04,        0}
+{ Bo4,   0x08,        0}
 { Bo5,   0x10,        0}
 { Bo6,   0x20,        0}
 { Bo7,   0x40,        0}
 { Bo8,   0x80,        0}
-{ Bo9,  0x100,        0}
-{Bo10,  0x200,        0}
-{Bo11,  0x400,        0}
-{Bo12,  0x800,        0}
-{Bo13, 0x1000,        0}
-{Bo14, 0x2000,        0}
-{Bo15, 0x4000,        0}
-{Bo16, 0x8000,        0}
+{ Bo9,   0x10,        1}
+{Bo10,   0x20,        1}
+{Bo11,   0x40,        1}
+{Bo12,   0x80,        1}
+{Bo13,   0x10,        1}
+{Bo14,   0x20,        1}
+{Bo15,   0x40,        1}
+{Bo16,   0x80,        1}
 }
 
 # Direction bits on binary I/O
@@ -91,8 +91,8 @@ file "$(MEASCOMP)/db/measCompAnalogIn.template"
 {
 pattern
 {  R,  ADDR,  EGUL, LOPR, EGUF, HOPR, RANGE,       SCAN, PREC}
-{ Ai1,     0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
-{ Ai2,     1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{ Ai1,     0,  -10., -10.,  10.,  10.,    1,  "1 second",   4}
+{ Ai2,     1,  -10., -10.,  10.,  10.,    1,  "1 second",   4}
 { Ai3,     2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
 { Ai4,     3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
 }
@@ -102,6 +102,7 @@ file "$(MEASCOMP)/db/measCompAnalogOut.template"
 {
 pattern
 {  R, VAL,   ADDR,  EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
-{Ao1,   0,      0,  -10., -10., -10.,  10.,  10.,  10.,    4}
-{Ao2,   0,      1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao1,   0,      0,    0,    0,   0,    5,    5,     5,    4}
+{Ao2,   0,      1,    0,    0,   0,    5,    5,     5,    4}
 }
+
