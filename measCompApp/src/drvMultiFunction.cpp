@@ -226,6 +226,7 @@ typedef enum {
   USB_1608G          = 308,
   USB_1608GX_2AO     = 274,
   USB_1608GX_2AO_NEW = 310,
+  USB_1608HS_2A0     = 153,
   USB_2408_2AO       = 254,
   USB_TC32           = 305,
   ETH_TC32           = 306,
@@ -531,6 +532,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
 
   {USB_1608GX_2AO_NEW, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
+  {USB_1608HS_2A0, inputRangeUSB_1608G, sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G, sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
   {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
@@ -1050,6 +1055,15 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     case USB_1608GX_2AO_NEW:
       numTimers_    = 1;
       numCounters_  = 2;
+      firstCounter_ = 0;
+      minPulseGenFrequency_ = 0.0149;
+      maxPulseGenFrequency_ = 32e6;
+      minPulseGenDelay_ = 0.;
+      maxPulseGenDelay_ = 67.11;
+      break;
+    case USB_1608HS_2A0:
+      numTimers_    = 1;
+      numCounters_  = 1;
       firstCounter_ = 0;
       minPulseGenFrequency_ = 0.0149;
       maxPulseGenFrequency_ = 32e6;
