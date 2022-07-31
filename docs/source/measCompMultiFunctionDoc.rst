@@ -396,7 +396,7 @@ More information can be found in the `E-DIO24 product
 description. <https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series>`__
 
 USB-3100
-~~~~~~~
+~~~~~~~~
 
 .. figure:: USB-3100.jpg
     :align: center
@@ -1230,7 +1230,7 @@ USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels
    Note: the "Analog input N +" lines are connected to the Lemo center pin, 
    and the "Analog input N -" lines are connected to the Lemo shell.
 
-.. _Performance:
+.. _Performance_MF:
 
 Performance measurements
 ------------------------
