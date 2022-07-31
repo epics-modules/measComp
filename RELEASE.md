@@ -1,8 +1,10 @@
 # measComp Release Notes
 
-## Release 4-1 (July XXX, 2022)
+## Release 4-1 (August XXX, 2022)
   - Added support for the USB-1208FS-Plus and fixed some issues with the USB-1208FS and USB-1208LS.
     Thanks to Wei Li from Duke for this.
+  - Changed to allow the uniqueId for Ethernet devices in MultifunctionConfig() to be an IP DNS name,
+    in addition to the previously supported IP address or MAC address.
 
 ## Release 4-0 (June 10, 2022)
   - Changed the Linux support from using the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers)
