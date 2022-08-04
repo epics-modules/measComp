@@ -40,21 +40,6 @@ pattern
 {Bo8,  0x80     0}
 }
 
-# Direction bits on binary I/O
-#  VAL 0=input, 1=output
-file "$(MEASCOMP)/db/measCompBinaryDir.template"
-{
-pattern
-{ R,   MASK,  VAL, ADDR}
-{Bd1,  0x01    0,     0}
-{Bd2,  0x02    0,     0}
-{Bd3,  0x04    0,     0}
-{Bd4,  0x08    0,     0}
-{Bd5,  0x10    1,     0}
-{Bd6,  0x20    1,     0}
-{Bd7,  0x40    1,     0}
-{Bd8,  0x80    1,     0}
-}
 
 file "$(MEASCOMP)/db/measCompPulseGen.template"
 {
@@ -68,7 +53,6 @@ file "$(MEASCOMP)/db/measCompCounter.template"
 pattern
 {    R,     ADDR}
 {Counter1,     0}
-{Counter2,     1}
 }
 
 # Analog input mode
