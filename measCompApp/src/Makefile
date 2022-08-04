@@ -108,6 +108,7 @@ else
   test_measCompDiscover_SYS_LIBS_Linux += uldaq
 endif
 test_measCompDiscover_SYS_LIBS_Linux += usb-1.0
+test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # These are test programs which were used when finding Ubuntu18 had programs with scans > 1000 points/s
 #PROD_IOC_Linux += test_AInScan_Linux

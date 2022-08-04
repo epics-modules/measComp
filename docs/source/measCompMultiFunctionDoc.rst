@@ -24,11 +24,10 @@ The driver is written in C++, and consists of a class that inherits from
 asynPortDriver_, which is part of the EPICS asyn_ module.
 
 The driver is written to be general, so that it can be used with any
-Measurement Computing multi-function module. On Windows It uses the introspection
+Measurement Computing multi-function module. It uses the introspection
 capabilities of their UL library to query many of the device features.
 However, there are some features that cannot be queried, so the driver
-does require small modifications to be be used with a new model. On Linux
-a new class based on the mcBoard base class must also be written for each model.
+does require small modifications to be be used with a new model. 
 
 Supported models
 ----------------
@@ -363,7 +362,7 @@ The
 , `USB-1208FS-Plus <http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx>`__
 and
 `USB-231 <http://www.mccdaq.com/usb-data-acquisition/USB-230-Series.aspx>`__
-are similar devices but with higher performance.
+are similar devices but with higher performance.  These are also supported.
 
 The following is the main medm screen for controlling the USB-1208LS.
 
@@ -396,7 +395,7 @@ More information can be found in the `E-DIO24 product
 description. <https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series>`__
 
 USB-3100
-~~~~~~~
+~~~~~~~~
 
 .. figure:: USB-3100.jpg
     :align: center
@@ -460,9 +459,9 @@ The uniqueID is a string that identifies the device to be controlled.
 
 - For USB devices the uniqueID is the serial number, which is printed on the device (e.g. "01F6335A").
 - For Ethernet devices the uniqueID can either be the MAC address (e.g. "00:80:2F:24:53:DE"),
-  or the IP address (e.g. "10.54.160.216").
-  The MAC address or IP address can be used for devices on the local subnet,
-  while the IP address must be used for devices on other subnets.
+  or the IP address (e.g. "10.54.160.63", or the IP DNS name (e.g. "gse-e1601-1").
+  The MAC address, IP address or IP name can be used for devices on the local subnet,
+  while the IP address or IP name must be used for devices on other subnets.
 
 The measComp module comes with example iocBoot/ directories that contain
 example startup scripts and example substitutions files for each supported model.
@@ -1230,7 +1229,7 @@ USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels
    Note: the "Analog input N +" lines are connected to the Lemo center pin, 
    and the "Analog input N -" lines are connected to the Lemo shell.
 
-.. _Performance:
+.. _Performance_MF:
 
 Performance measurements
 ------------------------

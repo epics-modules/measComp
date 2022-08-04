@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string>
+#include <string.h>
 #include <stdlib.h>
+#include <osiSock.h>
 #ifdef _WIN32
   #include "cbw.h"
 #else
@@ -86,55 +88,85 @@ void measCompShowDevices()
   #endif
 }
 
+/** Create a measComp device.
+  * This method finds a device and connects to it.  It is called from the driver constructor.
+  * \param[in] uniqueID 
+  *                     This is an 8 digital hex serial number for USB devices without a leading 0x.
+  *                     For Ethernet devices it can be:
+  *                         An IP DNS name with optional discovery port, e.g. gse-e1608-6:54211
+  *                         An IP address with optional discovery port, e.g. 10.54.160.63:54211
+  *                         A MAC address, e.g. 00:80:2F:24:53:E5
+  * \param[out] deviceDescriptor Pointer to a DaqDeviceDescription structure for this device
+  * \param[out] handle A handle for this device.  
+  *                         On Windows this is the index in the device inventory list.
+  *                         On Linux it is a DaqDeviceHandle.
+  */
 int measCompCreateDevice(std::string uniqueId, DaqDeviceDescriptor& deviceDescriptor, long long *handle)
 {
   size_t colon;
   std::string host = uniqueId;
   std::string port;
+  struct sockaddr_in ipAddr;
+  bool isEthernet = false;
+  char *endptr;
   int portNum = DEFAULT_DISCOVERY_PORT;
   int status;
   int devIndex=-1;
+  char ipAddrAsString[25];
   double timeout = 1.0;
 
   measCompDiscoverDevices();
-  // If the uniqueId contains a period then we assume it is an IP address
-  if (uniqueId.find(".") != std::string::npos) {
-    // The string can be of the format ipAddress:port, where port is the discovery port.
-    colon = uniqueId.find(":");
+  // If the uniqueId is a hex number it is USB, else Ethernet
+  strtol(uniqueId.c_str(), &endptr, 16);
+  if (*endptr != '\0') isEthernet = true;
+
+  // Use hostToIPAddr for 2 reasons:
+  // - It will translate IP names to IP addresses
+  // - It will fail if the uniqueId is a MAC address
+  status = aToIPAddr(uniqueId.c_str(), portNum, &ipAddr);
+  if (isEthernet && (status == 0)) {
+    ipAddrToDottedIP(&ipAddr, ipAddrAsString, sizeof(ipAddrAsString));
+    // The string from ipAddrToDottedIP will always have a :port at the end
+    // Parse the port and remove from the host string.
+    host = ipAddrAsString;
+    colon = host.find(":");
     if (colon != std::string::npos) {
-      host = uniqueId.substr(0, colon-1);
-      port = uniqueId.substr(colon+1, std::string::npos);
+      port = host.substr(colon+1, std::string::npos);
       portNum = atoi(port.c_str());
+      host = host.substr(0, colon);
     }
-    printf("ipAddress=%s, port=%s, portNum=%d\n", uniqueId.c_str(), port.c_str(), portNum);
     // See if this host is already known, i.e. it was found on the local subnet
     for (int i=0; i<measCompNumDevices; i++) {
       #ifdef WIN32
+        /*  This logic does not work on Windows because there is no way to retrieve the IP address and copy it to .Reserved
+         *  This is OK, it is just slightly less efficient because it will always call cbGetNetDeviceDescriptor unless UniqueID is a MAC address.
         if (host.compare(measCompInventory[i].Reserved) == 0) {
+          devIndex = i;
+        } */
       #else
         if (host.compare(measCompInventory[i].reserved) == 0) {
+          devIndex = i;
+        }
       #endif
-        devIndex = i;
-      }
     }
     // We did not find this device on the local subnet, create a new one
     if (devIndex == -1) {
       devIndex = measCompNumDevices++;
-    }
-    #ifdef WIN32
-      status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum,
-                                        &measCompInventory[devIndex], (int) (timeout * 1000));
-    #else
-      status = ulGetNetDaqDeviceDescriptor((char*)host.c_str(), portNum, NULL,
-                                           &measCompInventory[devIndex], timeout);
-    #endif
-    if (status) {
-        printf("Error calling cbGetNetDeviceDescriptor=%d\n", status);
-        return -1;
+      #ifdef WIN32
+        status = cbGetNetDeviceDescriptor((char*)host.c_str(), portNum,
+                                          &measCompInventory[devIndex], (int) (timeout * 1000));
+      #else
+        status = ulGetNetDaqDeviceDescriptor((char*)host.c_str(), portNum, NULL,
+                                             &measCompInventory[devIndex], timeout);
+      #endif
+      if (status) {
+          printf("Error calling cbGetNetDeviceDescriptor=%d\n", status);
+          return -1;
+      }
     }
   }
   else {
-    // uniqueId was not an IP address so it must be a serial number (USB) or MAC address (Ethernet)
+    // uniqueId was not an IP address or IP DNS name, so it must be a serial number (USB) or MAC address (Ethernet)
     // Search the inventory for the matching UniqueID
     for (int i=0; i<measCompNumDevices; i++) {
       #ifdef WIN32
@@ -168,8 +200,10 @@ int measCompCreateDevice(std::string uniqueId, DaqDeviceDescriptor& deviceDescri
         return -1;
       }
     #endif
+    //
+    deviceDescriptor = measCompInventory[devIndex];
+    return 0;
   }
-  deviceDescriptor = measCompInventory[devIndex];
-  return 0;
+  return -1;
 }
 
