@@ -650,7 +650,7 @@ Wiring table
    inputs of counters 1-7 (C1GT - C7GT) at the module screw terminals.
    This is cheaper and simpler than using LEMO tees and short cables on the BC-020 module.
 
-.. _Performance:
+.. _Performance_CTR:
 
 Performance measurements
 ------------------------
