@@ -1,0 +1,135 @@
+file "$(MEASCOMP)/db/measCompLongIn.template"
+{
+pattern
+{ R,   MASK, ADDR}
+{Li,   0xFF,    0}
+}
+
+file "$(MEASCOMP)/db/measCompBinaryIn.template"
+{
+pattern
+{ R,   MASK, ADDR}
+{Bi1,  0x01     0}
+{Bi2,  0x02     0}
+{Bi3,  0x04     0}
+{Bi4,  0x08     0}
+{Bi5,  0x10     0}
+{Bi6,  0x20     0}
+{Bi7,  0x40     0}
+{Bi8,  0x80     0}
+}
+
+file "$(MEASCOMP)/db/measCompLongOut.template"
+{
+pattern
+{ R,   MASK, ADDR}
+{Lo,   0xFF,    0}
+}
+
+file "$(MEASCOMP)/db/measCompBinaryOut.template"
+{
+pattern
+{ R,   MASK, ADDR}
+{Bo1,  0x01     0}
+{Bo2,  0x02     0}
+{Bo3,  0x04     0}
+{Bo4,  0x08     0}
+{Bo5,  0x10     0}
+{Bo6,  0x20     0}
+{Bo7,  0x40     0}
+{Bo8,  0x80     0}
+}
+
+
+file "$(MEASCOMP)/db/measCompPulseGen.template"
+{
+pattern
+{    R,      ADDR,  PREC}
+{PulseGen1,     0,     4}
+}
+
+file "$(MEASCOMP)/db/measCompCounter.template"
+{
+pattern
+{    R,     ADDR}
+{Counter1,     0}
+}
+
+# Analog input mode
+file "$(MEASCOMP)/db/measCompAnalogInMode.template"
+{
+pattern
+{  R,       ADDR,   MODE}
+{AiMode,       0,      0}
+}
+
+# Analog inputs
+file "$(MEASCOMP)/db/measCompAnalogIn.template"
+{
+pattern
+{  R, ADDR, EGUL, LOPR, EGUF, HOPR,  RANGE,   SCAN,   PREC}
+{Ai1,   0,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{Ai2,   1,  -10., -10.,  10.,  10.,    3,  "1 second",   4}
+{Ai3,   2,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{Ai4,   3,   -5.,  -5.,   5.,   5.,    2,  "1 second",   4}
+{Ai5,   4,   -2.,  -2.,   2.,   2.,    1,  "1 second",   4}
+{Ai6,   5,   -2.,  -2.,   2.,   2.,    1,  "1 second",   4}
+{Ai7,   6,   -1.,  -1.,   1.,   1.,    0,  "1 second",   4}
+{Ai8,   7,   -1.,  -1.,   1.,   1.,    0,  "1 second",   4}
+}
+
+# Waveform digitzer
+file "$(MEASCOMP)/db/measCompWaveformDig.template"
+{
+pattern
+{  R,     ADDR,  PREC}
+{WaveDig,    0,     4}
+}
+
+file "$(MEASCOMP)/db/measCompWaveformDigN.template"
+{
+pattern
+{  R,        ADDR,  PREC}
+{WaveDig1,     0,      4}
+{WaveDig2,     1,      4}
+{WaveDig3,     2,      4}
+{WaveDig4,     3,      4}
+{WaveDig5,     4,      4}
+{WaveDig6,     5,      4}
+{WaveDig7,     6,      4}
+{WaveDig8,     7,      4}
+}
+
+
+# Analog outputs
+file "$(MEASCOMP)/db/measCompAnalogOut.template"
+{
+pattern
+{ R,   VAL, ADDR, EGUL, DRVL, LOPR, EGUF, DRVH, HOPR, PREC}
+{Ao1,   0,    0,  -10., -10., -10.,  10.,  10.,  10.,    4}
+{Ao2,   0,    1,  -10., -10., -10.,  10.,  10.,  10.,    4}
+}
+
+# Waveform generator
+file "$(MEASCOMP)/db/measCompWaveformGen.template"
+{
+pattern
+{  R,        ADDR,  PREC}
+{WaveGen,      0,      4}
+}
+file "$(MEASCOMP)/db/measCompWaveformGenN.template"
+{
+pattern
+{  R,        ADDR,  PREC}
+{WaveGen1,     0,      4}
+{WaveGen2,     1,      4}
+}
+
+# Trigger
+file "$(MEASCOMP)/db/measCompTrigger.template"
+{
+pattern
+{  R,   ADDR}
+{Trig,     0}
+}
+
