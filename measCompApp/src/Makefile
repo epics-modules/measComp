@@ -21,7 +21,9 @@ DBD += measCompApp.dbd
 DBD += measCompSupport.dbd
 
 LIBRARY_IOC_WIN32 += measComp
-LIBRARY_IOC_Linux+= measComp
+ifeq ($(HAVE_ULDAQ), YES)
+  LIBRARY_IOC_Linux+= measComp
+endif
 
 # Compile and add the code to the support library
 # Link locally-provided code into the support library,
@@ -40,7 +42,9 @@ measComp_LIBS += $(EPICS_BASE_IOC_LIBS)
 # Build the IOC application
 
 PROD_IOC_WIN32 += measCompApp
-PROD_IOC_Linux += measCompApp
+ifeq ($(HAVE_ULDAQ), YES)
+  PROD_IOC_Linux += measCompApp
+endif
 measCompApp_SRCS += measCompApp_registerRecordDeviceDriver.cpp
 
 # Build the main IOC entry point on workstation OSs.
@@ -93,7 +97,9 @@ measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # This program lists all Measurement Computing devices on USB or local Ethernet subnet
 PROD_IOC_WIN32 += test_measCompDiscover
-PROD_IOC_Linux += test_measCompDiscover
+ifeq ($(HAVE_ULDAQ), YES)
+  PROD_IOC_Linux += test_measCompDiscover
+endif
 test_measCompDiscover_SRCS += test_measCompDiscover.cpp
 test_measCompDiscover_LIBS += measComp
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
