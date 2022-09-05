@@ -32,8 +32,9 @@ CHECK_RELEASE = YES
 #   take effect.
 #IOCS_APPL_TOP = </IOC/path/to/application/top>
 
-# Set this to YES if the hidapi package is installed for USB devices on Linux.
-HAVE_HIDAPI=NO
+# Set this if the Measurement Computing uldaq library is installed on Linux.
+# If this is not YES then this module will not be built on Linux.
+HAVE_ULDAQ=YES
 
 # If libuldaq on Linux is not installed in a system directory (e.g. /usr/local)
 # then uncomment and edit these lines to define the location of the include and lib directories.
