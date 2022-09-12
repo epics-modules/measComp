@@ -194,7 +194,7 @@ typedef enum {
 // MAX_ANALOG_IN and MAX_ANALOG_OUT may need to be changed if additional models are added with larger numbers
 // These are used as a convenience for allocating small arrays of pointers, not large amounts of data
 #define MAX_ANALOG_IN   16
-#define MAX_TEMPERATURE_IN 32
+#define MAX_TEMPERATURE_IN 64
 #define MAX_ANALOG_OUT  16
 #define MAX_IO_PORTS    2
 #define MAX_SIGNALS     MAX_TEMPERATURE_IN
