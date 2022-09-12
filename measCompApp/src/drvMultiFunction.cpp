@@ -1161,7 +1161,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(pulseGenRun_, 0);
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
-  for (i=0; i<numTempChans_; i++) {
+  for (i=0; i<MAX_TEMPERATURE_IN; i++) {
     setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
   }
   // Set the analog output range to the first supported value for this model
