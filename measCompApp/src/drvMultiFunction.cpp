@@ -954,7 +954,6 @@ printf("MultiFunction::MultiFunction creating parameters\n");
     cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,     &numIOPorts_);
     cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTempChans_);
   #else
-printf("MultiFunction::MultiFunction calling GetInfo functions\n");
     long long infoValue;
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_VOLTAGE, &infoValue);
     if (status)
@@ -976,7 +975,6 @@ printf("MultiFunction::MultiFunction calling GetInfo functions\n");
     numTempChans_ = infoValue;
   #endif
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
-printf("MultiFunction::MultiFunction calling configuring I/O ports\n");
   for (i=0; i<numIOPorts_; i++) {
      digitalIOPortConfigurable_[i] = 0;
     #ifdef _WIN32
@@ -1004,7 +1002,6 @@ printf("MultiFunction::MultiFunction calling configuring I/O ports\n");
   analogInDataRateConfigurable_ = 0;
   // Assume analog output range is not configurable
   analogOutRangeConfigurable_ = 0;
-printf("MultiFunction::MultiFunction setting board-specific values\n");
   switch (boardType_) {
     case USB_1208LS:
       numTimers_    = 0;
@@ -1145,31 +1142,25 @@ printf("MultiFunction::MultiFunction setting board-specific values\n");
 
   for (pBoardEnums_=allBoardEnums; pBoardEnums_->boardType != boardType_; pBoardEnums_++);
 
-printf("MultiFunction::MultiFunction allocating buffer memory, numAnalogIn_=%d, numAnalogOut_=%d\n", numAnalogIn_, numAnalogOut_);
   // Allocate memory for the input and output buffers
-printf("MultiFunction::MultiFunction allocating waveDigBuffer\n");
   for (i=0; i<numAnalogIn_; i++) {
     waveDigBuffer_[i]  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   }
-printf("MultiFunction::MultiFunction allocating waveGenBuffer\n");
   for (i=0; i<numAnalogOut_; i++) {
     waveGenIntBuffer_[i]  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
     waveGenUserBuffer_[i] = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   }
-printf("MultiFunction::MultiFunction allocating time buffers\n");
   waveGenUserTimeBuffer_ = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveGenIntTimeBuffer_  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveDigTimeBuffer_     = (epicsFloat32 *) calloc(maxInputPoints_,  sizeof(epicsFloat32));
   waveDigAbsTimeBuffer_  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   pInBuffer_ = (epicsFloat64 *) calloc(maxInputPoints  * numAnalogIn_, sizeof(epicsFloat64));
-printf("MultiFunction::MultiFunction allocating waveGenOutBuffer\n");
   #ifdef _WIN32
     waveGenOutBuffer_ = (epicsUInt16 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsUInt16));
   #else
     waveGenOutBuffer_ = (epicsFloat64 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsFloat64));
   #endif
 
-printf("MultiFunction::MultiFunction initializing parameter library\n");
   // Set values of some parameters that need to be set because init record order is not predictable
   // or because the corresponding records are PINI=NO.
   setIntegerParam(waveGenUserNumPoints_, 1);
@@ -1187,7 +1178,6 @@ printf("MultiFunction::MultiFunction initializing parameter library\n");
   }
 
 
-printf("MultiFunction::MultiFunction creating poller thread\n");
   /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
   epicsThreadCreate("MultiFunctionPoller",
@@ -1195,7 +1185,6 @@ printf("MultiFunction::MultiFunction creating poller thread\n");
                     epicsThreadGetStackSize(epicsThreadStackMedium),
                     (EPICSTHREADFUNC)pollerThreadC,
                     this);
-printf("MultiFunction::MultiFunction done\n");
 }
 
 int  MultiFunction::reportError(int err, const char *functionName, const char *message)
