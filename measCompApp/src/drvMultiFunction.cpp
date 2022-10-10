@@ -1139,20 +1139,24 @@ printf("MultiFunction::MultiFunction setting board-specific values\n");
 
   for (pBoardEnums_=allBoardEnums; pBoardEnums_->boardType != boardType_; pBoardEnums_++);
 
-printf("MultiFunction::MultiFunction allocating buffer memory\n");
+printf("MultiFunction::MultiFunction allocating buffer memory, numAnalogIn_=%d, numAnalogOut_=%d\n", numAnalogIn_, numAnalogOut_);
   // Allocate memory for the input and output buffers
+printf("MultiFunction::MultiFunction allocating waveDigBuffer\n");
   for (i=0; i<numAnalogIn_; i++) {
     waveDigBuffer_[i]  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   }
+printf("MultiFunction::MultiFunction allocating waveGenBuffer\n");
   for (i=0; i<numAnalogOut_; i++) {
     waveGenIntBuffer_[i]  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
     waveGenUserBuffer_[i] = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   }
+printf("MultiFunction::MultiFunction allocating time buffers\n");
   waveGenUserTimeBuffer_ = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveGenIntTimeBuffer_  = (epicsFloat32 *) calloc(maxOutputPoints_, sizeof(epicsFloat32));
   waveDigTimeBuffer_     = (epicsFloat32 *) calloc(maxInputPoints_,  sizeof(epicsFloat32));
   waveDigAbsTimeBuffer_  = (epicsFloat64 *) calloc(maxInputPoints_,  sizeof(epicsFloat64));
   pInBuffer_ = (epicsFloat64 *) calloc(maxInputPoints  * numAnalogIn_, sizeof(epicsFloat64));
+printf("MultiFunction::MultiFunction allocating waveGenOutBuffer\n");
   #ifdef _WIN32
     waveGenOutBuffer_ = (epicsUInt16 *) calloc(maxOutputPoints * numAnalogOut_, sizeof(epicsUInt16));
   #else
