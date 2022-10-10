@@ -810,7 +810,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   long long handle;
   static const char *functionName = "MultiFunction";
 
-printf("MultiFunction::MultiFunction calling measCompCreateDevice\n");
   status = measCompCreateDevice(uniqueID, daqDeviceDescriptor_, &handle);
   if (status) {
     printf("Error creating device with measCompCreateDevice\n");
@@ -827,7 +826,6 @@ printf("MultiFunction::MultiFunction calling measCompCreateDevice\n");
   #endif
 
   // Model parameters
-printf("MultiFunction::MultiFunction creating parameters\n");
   createParam(modelNameString,                 asynParamOctet, &modelName_);
   createParam(modelNumberString,               asynParamInt32, &modelNumber_);
 
