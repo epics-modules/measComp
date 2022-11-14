@@ -147,5 +147,5 @@ If installing from a non-privileged account `make install` will fail near the en
 the udev file 50-uldaq.rules.  This must be done with root privilege in order to use USB devices.
 
 ## Additional information:
-* [Documentation](https://epics-meascomp.readthedocs.io/en/latest/)
+* [Documentation](https://epics-modules.github.io/measComp)
 * [Release notes](RELEASE.md)
