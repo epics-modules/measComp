@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>measComp: Driver for Multi-Function Devices &#8212; EPICS MeasComp 4-0-35-g6f91337 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          EPICS measComp</a>
+        <span class="navbar-text navbar-version pull-left"><b>4-0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">measComp: Driver for Multi-Function Devices</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#supported-models">Supported models</a><ul>
+<li><a class="reference internal" href="#e-1608">E-1608</a></li>
+<li><a class="reference internal" href="#e-tc">E-TC</a></li>
+<li><a class="reference internal" href="#tc-32">TC-32</a></li>
+<li><a class="reference internal" href="#usb-1608g-and-usb-1608gx-2ao">USB-1608G and USB-1608GX-2AO</a></li>
+<li><a class="reference internal" href="#usb-2408-2ao">USB-2408-2AO</a></li>
+<li><a class="reference internal" href="#usb-temp-and-usb-temp-ai">USB-TEMP and USB-TEMP-AI</a></li>
+<li><a class="reference internal" href="#usb-1208ls">USB-1208LS</a></li>
+<li><a class="reference internal" href="#e-dio24">E-DIO24</a></li>
+<li><a class="reference internal" href="#usb-3100">USB-3100</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#databases">Databases</a><ul>
+<li><a class="reference internal" href="#analog-i-o-functions">Analog I/O Functions</a></li>
+<li><a class="reference internal" href="#temperature-functions">Temperature Functions</a></li>
+<li><a class="reference internal" href="#digital-i-o-functions">Digital I/O Functions</a></li>
+<li><a class="reference internal" href="#pulse-generator-functions">Pulse Generator Functions</a></li>
+<li><a class="reference internal" href="#waveform-digitizer-functions">Waveform Digitizer Functions</a></li>
+<li><a class="reference internal" href="#waveform-generator-functions">Waveform Generator Functions</a></li>
+<li><a class="reference internal" href="#trigger-functions">Trigger Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#box-for-usb-2408-2ao">Box for USB-2408-2AO</a></li>
+<li><a class="reference internal" href="#wiring-usb-1608gx-2ao-to-bcda-bc-020">Wiring USB-1608GX-2AO to BCDA BC-020</a><ul>
+<li><a class="reference internal" href="#usb-1608gx-2ao-wiring-to-two-bcda-bc-020-lemo-breakout-panels">USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#performance-measurements">Performance measurements</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/measCompMultiFunctionDoc.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="meascomp-driver-for-multi-function-devices">
+<h1><a class="toc-backref" href="#id32" role="doc-backlink">measComp: Driver for Multi-Function Devices</a><a class="headerlink" href="#meascomp-driver-for-multi-function-devices" title="Permalink to this heading">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mark Rivers, University of Chicago</p>
+</dd>
+</dl>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#meascomp-driver-for-multi-function-devices" id="id32">measComp: Driver for Multi-Function Devices</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id33">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#supported-models" id="id34">Supported models</a></p>
+<ul>
+<li><p><a class="reference internal" href="#e-1608" id="id35">E-1608</a></p></li>
+<li><p><a class="reference internal" href="#e-tc" id="id36">E-TC</a></p></li>
+<li><p><a class="reference internal" href="#tc-32" id="id37">TC-32</a></p></li>
+<li><p><a class="reference internal" href="#usb-1608g-and-usb-1608gx-2ao" id="id38">USB-1608G and USB-1608GX-2AO</a></p></li>
+<li><p><a class="reference internal" href="#usb-2408-2ao" id="id39">USB-2408-2AO</a></p></li>
+<li><p><a class="reference internal" href="#usb-temp-and-usb-temp-ai" id="id40">USB-TEMP and USB-TEMP-AI</a></p></li>
+<li><p><a class="reference internal" href="#usb-1208ls" id="id41">USB-1208LS</a></p></li>
+<li><p><a class="reference internal" href="#e-dio24" id="id42">E-DIO24</a></p></li>
+<li><p><a class="reference internal" href="#usb-3100" id="id43">USB-3100</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#configuration" id="id44">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#databases" id="id45">Databases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#analog-i-o-functions" id="id46">Analog I/O Functions</a></p></li>
+<li><p><a class="reference internal" href="#temperature-functions" id="id47">Temperature Functions</a></p></li>
+<li><p><a class="reference internal" href="#digital-i-o-functions" id="id48">Digital I/O Functions</a></p></li>
+<li><p><a class="reference internal" href="#pulse-generator-functions" id="id49">Pulse Generator Functions</a></p></li>
+<li><p><a class="reference internal" href="#waveform-digitizer-functions" id="id50">Waveform Digitizer Functions</a></p></li>
+<li><p><a class="reference internal" href="#waveform-generator-functions" id="id51">Waveform Generator Functions</a></p></li>
+<li><p><a class="reference internal" href="#trigger-functions" id="id52">Trigger Functions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#box-for-usb-2408-2ao" id="id53">Box for USB-2408-2AO</a></p></li>
+<li><p><a class="reference internal" href="#wiring-usb-1608gx-2ao-to-bcda-bc-020" id="id54">Wiring USB-1608GX-2AO to BCDA BC-020</a></p>
+<ul>
+<li><p><a class="reference internal" href="#usb-1608gx-2ao-wiring-to-two-bcda-bc-020-lemo-breakout-panels" id="id55">USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#performance-measurements" id="id56">Performance measurements</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>This is an <a class="reference external" href="https://epics-controls.org/">EPICS</a> driver for the
+multi-function devices from <a class="reference external" href="https://www.mccdaq.com">MeasurementComputing</a>.
+These multi-function devices support support analog input,
+temperature input (thermocouple, RTD, thermistor, and semiconductor),
+analog output, binary I/O, counters, and timers. Not all devices have all of these capabilities.</p>
+<p>The driver is written in C++, and consists of a class that inherits from
+<a class="reference external" href="https://epics-modules.github.io/master/asyn/R4-41/asynPortDriver.html">asynPortDriver</a>, which is part of the EPICS <a class="reference external" href="https://github.com/epics-modules/asyn">asyn</a> module.</p>
+<p>The driver is written to be general, so that it can be used with any
+Measurement Computing multi-function module. It uses the introspection
+capabilities of their UL library to query many of the device features.
+However, there are some features that cannot be queried, so the driver
+does require small modifications to be be used with a new model.</p>
+</section>
+<section id="supported-models">
+<h2><a class="toc-backref" href="#id34" role="doc-backlink">Supported models</a><a class="headerlink" href="#supported-models" title="Permalink to this heading">¶</a></h2>
+<p>The following models are currently supported.</p>
+<section id="e-1608">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">E-1608</a><a class="headerlink" href="#e-1608" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id1">
+<img alt="_images/E1608.jpg" src="_images/E1608.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of E-1608</strong></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $525 and has the following features:</p>
+<ul class="simple">
+<li><p>16-bit analog inputs</p>
+<ul>
+<li><p>8 single-ended channels or 4 differential channels</p></li>
+<li><p>Programmable per-channel range: +-1V, +-2V, +-5V, +-10V</p></li>
+<li><p>250 kHz total maximum input rate, i.e. 1 channel at 250 kHz, 2
+channels at 125 kHz, etc.</p></li>
+<li><p>Internal or external trigger.</p></li>
+<li><p>Internal or external clock for input signals.</p></li>
+<li><p>Input FIFO, unlimited waveform length</p></li>
+</ul>
+</li>
+<li><p>16-bit analog outputs</p>
+<ul>
+<li><p>2 channels, fixed +-10V range</p></li>
+<li><p>No output waveform capability</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counter</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>10 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/ethernet-data-acquisition/E-1608-Series">E-1608 product
+description.</a></p>
+<p>The following is the main medm screen for controlling the E-1608.</p>
+<figure class="align-center" id="id2">
+<img alt="_images/E1608_module.png" src="_images/E1608_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>E1608_module.adl</strong></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="e-tc">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">E-TC</a><a class="headerlink" href="#e-tc" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id3">
+<img alt="_images/E-TC.jpg" src="_images/E-TC.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of E-TC</strong></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $505 and has the following features:</p>
+<ul class="simple">
+<li><p>Ethernet interface.</p></li>
+<li><p>8 thermocouple inputs</p>
+<ul>
+<li><p>8 channels with cold-junction compensation. Types J, K, T, E, R,
+S, B, and N.</p></li>
+<li><p>4 samples/s.</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>10 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/ethernet-data-acquisition/thermocouple-input/24-bit-daq/E-TC.aspx">E-TC product
+description.</a></p>
+<p>The following is the main medm screen for controlling the E-TC.</p>
+<figure class="align-center" id="id4">
+<img alt="_images/ETC_module.png" src="_images/ETC_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>ETC_module.adl</strong></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<hr class="docutils" />
+<section id="tc-32">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">TC-32</a><a class="headerlink" href="#tc-32" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id5">
+<img alt="_images/TC-32.jpg" src="_images/TC-32.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of TC-32</strong></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $1999 and has the following features:</p>
+<ul class="simple">
+<li><p>USB and Ethernet interfaces, either can be used.</p></li>
+<li><p>32 thermocouple inputs</p>
+<ul>
+<li><p>32 channels with cold-junction compensation. Types J, K, T, E, R,
+S, B, and N.</p></li>
+<li><p>3 samples/s if reading all 32 channels, faster if reading fewer.</p></li>
+</ul>
+</li>
+<li><p>Digital inputs</p>
+<ul>
+<li><p>8 digital inputs, switch-selectable pullup resistor</p></li>
+</ul>
+</li>
+<li><p>Digital outputs</p>
+<ul>
+<li><p>32 digital inputs, switch-selectable pullup resistor</p></li>
+<li><p>Each output can either be controlled by software or can be
+controlled by the alarm status of the corresponding thermocouple.
+Flexible alarm configuration, i.e. hysteresis.</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx">TC-32 product
+description.</a></p>
+<p>The following is the main medm screen for controlling the TC-32.</p>
+<figure class="align-center" id="id6">
+<img alt="_images/TC32_module.png" src="_images/TC32_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>TC32_module.adl</strong></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="usb-1608g-and-usb-1608gx-2ao">
+<h3><a class="toc-backref" href="#id38" role="doc-backlink">USB-1608G and USB-1608GX-2AO</a><a class="headerlink" href="#usb-1608g-and-usb-1608gx-2ao" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id7">
+<img alt="_images/USB-1608GX-2AO.jpg" src="_images/USB-1608GX-2AO.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of USB-1608GX-2AO</strong></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $799 and has the following features:</p>
+<ul class="simple">
+<li><p>16-bit analog inputs</p>
+<ul>
+<li><p>16 single-ended channels or 8 differential channels</p></li>
+<li><p>Programmable per-channel range: +-1V, +-2V, +-5V, +-10V</p></li>
+<li><p>500 kHz total maximum input rate, i.e. 1 channel at 500 kHz, 8
+channels at 62.5 kHz, etc.</p></li>
+<li><p>Internal or external trigger. External trigger shared with analog
+outputs.</p></li>
+<li><p>Internal or external clock, input and output signals.</p></li>
+<li><p>4 kSample input FIFO, unlimited waveform length</p></li>
+</ul>
+</li>
+<li><p>16-bit analog outputs</p>
+<ul>
+<li><p>2 channels, fixed +-10V range</p></li>
+<li><p>500 kHz total maximum output rate, i.e. 1 channel at 500 kHz, 2
+channels at 250 kHz</p></li>
+<li><p>Internal or external trigger. External trigger shared with analog
+inputs.</p></li>
+<li><p>Internal or external clock, input and output signals</p></li>
+<li><p>2 kSample output FIFO, unlimited waveform length</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Pulse generator</p>
+<ul>
+<li><p>1 output</p></li>
+<li><p>64MHz clock, 32-bit registers</p></li>
+<li><p>Programmable period, width, number of pulses, polarity</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>2 inputs</p></li>
+<li><p>20 MHz maximum rate, 32-bit registers</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-1608G-Series.aspx">USB-1608GX-2AO product
+description.</a></p>
+<p>The USB-1608G is very similar to the USB-1608GX-2AO except that it does
+not have any analog outputs and the analog inputs are limited to 250 kHz
+rather than 500 kHz. More information can be found in the <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-1608G-Series.aspx">USB-1608G
+product
+description.</a></p>
+<p>The following is the main medm screen for controlling the
+USB-1608GX-2AO.</p>
+<figure class="align-center" id="id8">
+<img alt="_images/USB1608G_module.png" src="_images/USB1608G_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>1608G_module.adl</strong></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="usb-2408-2ao">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">USB-2408-2AO</a><a class="headerlink" href="#usb-2408-2ao" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id9">
+<img alt="_images/USB-2408-2AO.jpg" src="_images/USB-2408-2AO.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of Photo of USB-2408-2AO</strong></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $699 and has the following features:</p>
+<ul class="simple">
+<li><p>24-bit analog inputs</p>
+<ul>
+<li><p>16 single-ended channels or 8 differential channels</p></li>
+<li><p>Programmable per-channel range: 8 ranges from +-0.078V to +-10V</p></li>
+<li><p>Thermocouple support for 8 channels with cold-junction
+compensation. Types J, K, T, E, R, S, B, or N.</p></li>
+<li><p>1 kHz total maximum input rate, i.e. 1 channel at 1 kHz, 8
+channels at 125 Hz, etc.</p></li>
+<li><p>Input FIFO, unlimited waveform length</p></li>
+</ul>
+</li>
+<li><p>16-bit analog outputs</p>
+<ul>
+<li><p>2 channels, fixed +-10V range</p></li>
+<li><p>1000 Hz total maximum output rate, i.e. 1 channel at 1000 Hz, 2
+channels at 500 Hz</p></li>
+<li><p>Output FIFO, unlimited waveform length</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>2 inputs</p></li>
+<li><p>1 MHz maximum rate, 32-bit registers</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-2408-Series.aspx">USB-2408-2AO product
+description.</a></p>
+<p>The following is the main medm screen for controlling the USB-2408-2AO.</p>
+<figure class="align-center" id="id10">
+<img alt="_images/USB2408_module.png" src="_images/USB2408_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>2408_module.adl</strong></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="usb-temp-and-usb-temp-ai">
+<h3><a class="toc-backref" href="#id40" role="doc-backlink">USB-TEMP and USB-TEMP-AI</a><a class="headerlink" href="#usb-temp-and-usb-temp-ai" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id11">
+<img alt="_images/USB-TEMP.jpg" src="_images/USB-TEMP.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of Photo of USB-TEMP</strong></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The USB-TEMP costs $605 and the USB-TEMP-AI costs $795. They have the following features:</p>
+<ul class="simple">
+<li><p>Temperature inputs</p>
+<ul>
+<li><p>8 temperature inputs on USB-TEMP, 4 on USB-TEMP-AI.
+These can be platinum resistance thermometers (RTD), thermocouples, thermistors,
+or semiconductor sensors.</p></li>
+<li><p>Thermocouple support has cold-junction compensation.
+Types J, K, T, E, R, S, B, or N.</p></li>
+<li><p>2 samples/s per channel.</p></li>
+</ul>
+</li>
+<li><p>24-bit analog inputs (USB-TEMP-AI only)</p>
+<ul>
+<li><p>4 channels</p></li>
+<li><p>Programmable per-channel range: 4 ranges from +-1.25V to +-10V</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>1 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/usb-data-acquisition/USB-TEMP-Series.aspx">USB-TEMP product
+description.</a></p>
+<p>The USB-TEMP and USB-TEMP-AI behave differently from all other Measurement Computing devices.
+On Windows InstaCal is used to select the temperature sensor type (RTD, thermocouple, etc.)
+and the RTD wiring configuration.
+Those settings are written into non-volatile memory on the device, and cannot be changed with EPICS.
+However, they <strong>can</strong> be changed with EPICS on Linux, so they are exposed in the OPI screen.</p>
+<p>The following is the main medm screen for controlling the USB-TEMP-AI.</p>
+<figure class="align-center" id="id12">
+<img alt="_images/USB-TEMP-AI_module.png" src="_images/USB-TEMP-AI_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USBTEMP_AI_module.adl</strong></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The following is the screen for configuring the temperature inputs.</p>
+<figure class="align-center" id="id13">
+<img alt="_images/USBTempSetup4.png" src="_images/USBTempSetup4.png" />
+<figcaption>
+<p><span class="caption-text"><strong>measCompUSBTempSetup4.adl</strong></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="usb-1208ls">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">USB-1208LS</a><a class="headerlink" href="#usb-1208ls" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id14">
+<img alt="_images/USB-1208LS.jpg" src="_images/USB-1208LS.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of USB-1208LS</strong></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $129 and has the following features:</p>
+<ul class="simple">
+<li><p>12-bit analog inputs</p>
+<ul>
+<li><p>4 differential channels</p></li>
+<li><p>Programmable per-channel range: 8 ranges from +-1V to +-20V</p></li>
+<li><p>50 Hz maximum sampling rate. The module has a trigger input that
+allows higher sampling rates, but this is not yet supported in the
+EPICS driver.</p></li>
+</ul>
+</li>
+<li><p>10-bit analog outputs</p>
+<ul>
+<li><p>2 channels, fixed 0 to +5V range</p></li>
+<li><p>100 Hz maximum input rate</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>16 signals, programmable as inputs or outputs in groups of 8</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>1 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx">USB-1208LS product
+description.</a></p>
+<p>The
+<a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx">USB-1208HS</a>
+, <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-1208FS-LS-1408FS-Series.aspx">USB-1208FS-Plus</a>
+and
+<a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-230-Series.aspx">USB-231</a>
+are similar devices but with higher performance.  These are also supported.</p>
+<p>The following is the main medm screen for controlling the USB-1208LS.</p>
+<figure class="align-center" id="id15">
+<img alt="_images/USB1208LS_module.png" src="_images/USB1208LS_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB1208LS_module.adl</strong></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="e-dio24">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">E-DIO24</a><a class="headerlink" href="#e-dio24" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id16">
+<img alt="_images/E-DIO24_500.jpg" src="_images/E-DIO24_500.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of E-DIO24</strong></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This module costs $320 and has the following features:</p>
+<ul class="simple">
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>24 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>10 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series">E-DIO24 product
+description.</a></p>
+</section>
+<section id="usb-3100">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">USB-3100</a><a class="headerlink" href="#usb-3100" title="Permalink to this heading">¶</a></h3>
+<figure class="align-center" id="id17">
+<img alt="_images/USB-3100.jpg" src="_images/USB-3100.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of USB-3101</strong></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>This series of module costs from $330 (USB-3101) to $660 (USB-3106) depending on the number of channels and the output type,
+and has the following features:</p>
+<ul class="simple">
+<li><p>16-bit analog outputs</p>
+<ul>
+<li><p>4, 8 or 16 channels, individually programmable range 0-10V or +-10V.</p></li>
+<li><p>Some models provide 0-20 mA current output as well as voltage output</p></li>
+<li><p>Some models have high-drive voltage output (+-40 mA)</p></li>
+<li><p>100 Hz maximum output rate</p></li>
+</ul>
+</li>
+<li><p>Digital inputs/outputs</p>
+<ul>
+<li><p>8 signals, individually programmable as inputs or outputs</p></li>
+</ul>
+</li>
+<li><p>Counters</p>
+<ul>
+<li><p>1 input</p></li>
+<li><p>1 MHz maximum rate, 32-bit register</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx">USB-3100 series product
+description.</a></p>
+<p>The following is the main medm screen for controlling the USB-3105 16-channel unit.</p>
+<figure class="align-center" id="id18">
+<img alt="_images/USB3105_module.png" src="_images/USB3105_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB3105_module.adl</strong></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The following is the medm screen for configuring the analog outputs on the USB-3105 16-channel unit.</p>
+<figure class="align-center" id="id19">
+<img alt="_images/USB3105_setup.png" src="_images/USB3105_setup.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB3105_setup.adl</strong></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="configuration">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<p>The following lines are needed in the EPICS startup script for the
+multifunction driver.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>## Configure port driver
+# MultiFunctionConfig(portName,        # The name to give to this asyn port driver
+#                     uniqueID,        # For USB the serial number.  For Ethernet the MAC address or IP address.
+#                     maxInputPoints,  # Maximum number of input points for waveform digitizer
+#                     maxOutputPoints) # Maximum number of output points for waveform generator
+MultiFunctionConfig(&quot;1608G_1&quot;, 1, 1048576, 1048576)
+dbLoadTemplate(&quot;1608G.substitutions.big&quot;)
+</pre></div>
+</div>
+<p>The uniqueID is a string that identifies the device to be controlled.</p>
+<ul class="simple">
+<li><p>For USB devices the uniqueID is the serial number, which is printed on the device (e.g. “01F6335A”).</p></li>
+<li><p>For Ethernet devices the uniqueID can either be the MAC address (e.g. “00:80:2F:24:53:DE”),
+or the IP address (e.g. “10.54.160.63”, or the IP DNS name (e.g. “gse-e1601-1”).
+The MAC address, IP address or IP name can be used for devices on the local subnet,
+while the IP address or IP name must be used for devices on other subnets.</p></li>
+</ul>
+<p>The measComp module comes with example iocBoot/ directories that contain
+example startup scripts and example substitutions files for each supported model.</p>
+</section>
+<section id="databases">
+<h2><a class="toc-backref" href="#id45" role="doc-backlink">Databases</a><a class="headerlink" href="#databases" title="Permalink to this heading">¶</a></h2>
+<p>The following tables list the database template files that are used with
+the multi-function modules.</p>
+<section id="analog-i-o-functions">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">Analog I/O Functions</a><a class="headerlink" href="#analog-i-o-functions" title="Permalink to this heading">¶</a></h3>
+<p>These are the records defined in measCompAnalogIn.template.
+This database is loaded once for each analog input channel</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>ai</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_IN_VALUE</p></td>
+<td><p>Analog input value. This is converted from the 16-bit unsigned integer device units
+from the driver to engineering units using the EGUL and EGUF fields. This field
+should be periodically scanned, since it is not currently polled in the driver,
+so I/O Intr scanning cannot be used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Range</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_IN_RANGE</p></td>
+<td><p>Input range for this analog input channel. Choices are determined at run time based
+on the model in use.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Type</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_IN_TYPE</p></td>
+<td><p>Input type (e.g. “Volts”, “TC deg”, etc.) for this analog input channel. Choices
+are determined at run time based on the model in use.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following is the medm screen for controlling the analog input
+records for the USB-1608GX-2AO. Note that the engineering units limits
+(EGUL and EGUF) do not have to be in volts, they can be in any units
+such as “percent”, “degrees”, etc.</p>
+<figure class="align-center" id="id20">
+<img alt="_images/measCompAiSetup.png" src="_images/measCompAiSetup.png" />
+<figcaption>
+<p><span class="caption-text"><strong>measCompAiSetup.adl</strong></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>These are the records defined in measCompAnalogOut.template.
+This database is loaded once for each analog output channel</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>ai</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_VALUE</p></td>
+<td><p>Analog output value. This is converted from engineering units to the 16-bit unsigned
+integer device units for the driver using the EGUL and EGUF fields.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Range</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_RANGE</p></td>
+<td><p>Output range for this analog output channel. Choices are determined at run time
+based on the model in use.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Return</p></td>
+<td><p>ai</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_VALUE</p></td>
+<td><p>Analog output value to return to at the end of a pulse. This is converted from engineering
+units to the 16-bit unsigned integer device units for the driver using the EGUL
+and EGUF fields.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Pulse</p></td>
+<td><p>bo</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>Choices are “Normal” and “Pulse”. In Normal mode the Return record is ignored. In
+Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
+writing the $(P)$(R)Return value.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TweakVal</p></td>
+<td><p>ao</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>The amount by which to tweak the out when the Tweak record is processed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)TweakUp</p></td>
+<td><p>calcout</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>Tweaks the output up by TweakVal.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TweakDown</p></td>
+<td><p>calcout</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>Tweaks the output down by TweakVal.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following is the medm screen for controlling the analog output
+records for the USB-1608GX-2AO. Note that the engineering units limits
+(EGUL and EGUF) do not have to be in volts, they can be in any units
+such as “percent”, “degrees”, etc. The drive limits can be more
+restrictive than the full +-10V output range of the analog outputs.</p>
+<figure class="align-center" id="id21">
+<img alt="_images/measCompAoSetup.png" src="_images/measCompAoSetup.png" />
+<figcaption>
+<p><span class="caption-text"><strong>measCompAoSetup.adl</strong></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="temperature-functions">
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">Temperature Functions</a><a class="headerlink" href="#temperature-functions" title="Permalink to this heading">¶</a></h3>
+<p>These are the records defined in measCompTemperatureIn.template.
+This database is loaded once for each temperature input channel.</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>ai</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>TEMPERATURE_IN_VALUE</p></td>
+<td><p>Temperature input value. This field should be periodically scanned, since it is
+not currently polled in the driver, so I/O Intr scanning cannot be used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Scale</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>TEMPERATURE_SCALE</p></td>
+<td><p>Temperature scale (units) for this temperature input channel. Choices are “Celsius”
+(0), “Fahrenheit” (1), “Kelvin” (2), “Volts” (4), and “Noscale” (5).</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TCType</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>THERMOCOUPLE_TYPE</p></td>
+<td><p>Thermocouple type. Choices are “Type J” (1), “Type K” (2), “Type T” (3), “Type 4”
+(4), “Type R” (5), “Type S” (6), “Type B” (7), “Type N” (8)</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Filter</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>TEMPERATURE_FILTER</p></td>
+<td><p>Temperature filter. Choices are “Filter” (0) and “No filter” (0x400)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following is the main medm screen for configuring the
+analog/temperature inputs on the USB-2408-2AO.</p>
+<figure class="align-center" id="id22">
+<img alt="_images/measCompTemperatureSetup.png" src="_images/measCompTemperatureSetup.png" />
+<figcaption>
+<p><span class="caption-text"><strong>measCompTemperatureSetup.adl</strong></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="digital-i-o-functions">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">Digital I/O Functions</a><a class="headerlink" href="#digital-i-o-functions" title="Permalink to this heading">¶</a></h3>
+<p>These are the records defined in the following files:</p>
+<ul class="simple">
+<li><p>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</p></li>
+<li><p>measCompLongIn.template. This database is loaded once for each binary I/O register.</p></li>
+<li><p>measCompBinaryOut.template. This database is loaded once for each binary I/O bit.</p></li>
+<li><p>measCompLongOut.template. This database is loaded once for each binary I/O register.</p></li>
+<li><p>measCompBinaryDir.template. This database is loaded once for each binary I/O bit.</p></li>
+</ul>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>bi</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_INPUT</p></td>
+<td><p>Digital input value. The MASK parameter in the INP link defines which bit is used.
+The binary inputs are polled by the driver poller thread, so these records should
+have SCAN=”I/O Intr”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)</p></td>
+<td><p>longin</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_INPUT</p></td>
+<td><p>Digital input value as a word, rather than individual bits. The MASK parameter in
+the INP link defines which bits are used. The binary inputs are polled by the driver
+poller thread, so this record should have SCAN=”I/O Intr”.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>bo</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_OUTPUT</p></td>
+<td><p>Digital output value. The MASK parameter in the INP link defines which bit is used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)_RBV</p></td>
+<td><p>bi</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_OUTPUT</p></td>
+<td><p>Digital output value readback. The MASK parameter in the INP link defines which
+bit is used.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>longout</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_OUTPUT</p></td>
+<td><p>Digital output value as a word, rather than individual bits. The MASK parameter
+in the INP link defines which bits are used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)_RBV</p></td>
+<td><p>longin</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_OUTPUT</p></td>
+<td><p>Digital output value readback as a word, rather than individual bits. The MASK parameter
+in the INP link defines which bits are used.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)</p></td>
+<td><p>bo</p></td>
+<td><p>asynUInt32Digital</p></td>
+<td><p>DIGITAL_DIRECTION</p></td>
+<td><p>Direction of this I/O line, “In” (0) or “Out” (1). The MASK parameter in the INP
+link defines which bit is used.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pulse-generator-functions">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">Pulse Generator Functions</a><a class="headerlink" href="#pulse-generator-functions" title="Permalink to this heading">¶</a></h3>
+<p><strong>Note:</strong> These are called “timers” in Measurement Computing’s documentation.</p>
+<p>These are the records defined in measCompPulseGen.template.
+This database is loaded once for each pulse generator.</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)Run</p></td>
+<td><p>bo</p></td>
+<td><p>asynUInt32</p></td>
+<td><p>PULSE_RUN</p></td>
+<td><p>“Run” (1) starts the pulse generator, “Stop” (0) stops the pulse generator. Note
+that ideally this record should go back to 0 when the pulse generator is done, if
+it is outputting a finite number of pulses (see Count record). But unfortunately
+the Measurement Computing library does not have a way to query the status of the
+timer to see if it is done, so this is not possible.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Period</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>PULSE_PERIOD</p></td>
+<td><p>Pulse period, in seconds. The time between pulses can be defined either with the
+Period or with the Frequency; whenever one record is changed the other is updated
+with the new calculated value.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Frequency</p></td>
+<td><p>ao</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>Pulse frequency, in seconds. The Frequency calculates a new value of the Period,
+and sends the period value to the driver.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Width</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>PULSE_WIDTH</p></td>
+<td><p>Pulse width, in seconds. The allowed range is 15.625 ns to (Period-15.625 ns).</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Delay</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>PULSE_DELAY</p></td>
+<td><p>Initial pulse delay in seconds after Run is set to 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Count</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>PULSE_COUNT</p></td>
+<td><p>Number of pulses to output. If the Count is 0 then the pulse generator runs continuously
+until Run is set to 0.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)IdleState</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>PULSE_IDLE_STATE</p></td>
+<td><p>The idle state of the pulse output line, “Low” (0) or “High” (1). This determines
+the polarity of the pulse, i.e. positive going or negative going.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="waveform-digitizer-functions">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">Waveform Digitizer Functions</a><a class="headerlink" href="#waveform-digitizer-functions" title="Permalink to this heading">¶</a></h3>
+<p>These records are defined in the following files:
+- measCompWaveformDig.template. This database is loaded once per module.
+- measCompWaveformDigN.template. This database is loaded for each digitizer input channel.</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)NumPoints</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_NUM_POINTS</p></td>
+<td><p>Number of points to digitize. This cannot be more than the value of maxInputPoints
+that was specified in USB1608GConfig.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)FirstChan</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_FIRST_CHAN</p></td>
+<td><p>First channel to digitize. “1” (0) to “8” (7). The database currently assumes differential
+inputs, so only 8 inputs are available, though this can easily be extended to 16.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)NumChans</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_NUM_CHANS</p></td>
+<td><p>Number of channels to digitize. “1” (0) to “8” (7). The maximum valid number is
+8-FirstChan+1. The database currently assumes differential inputs, so only 8 inputs
+are available, though this can easily be extended to 16.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)TimeWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat32Array</p></td>
+<td><p>WAVEDIG_TIME_WF</p></td>
+<td><p>Timebase waveform. These values are calculated when Dwell or NumPoints are changed.
+It is typically used as the X-axis in plots.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)CurrentPoint</p></td>
+<td><p>longin</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_CURRENT_POINT</p></td>
+<td><p>The current point being collected. This does not always increment by 1 because the
+device can transfer data in blocks.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Dwell</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEDIG_DWELL</p></td>
+<td><p>The time per point in seconds. The minimum time is 2 microseconds times NumChans.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TotalTime</p></td>
+<td><p>ai</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEDIG_TOTAL_TIME</p></td>
+<td><p>The total time to digitize NumChans*NumPoints.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)ExtTrigger</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_EXT_TRIGGER</p></td>
+<td><p>The trigger source, “Internal” (0) or “External” (1).</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)ExtClock</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_EXT_CLOCK</p></td>
+<td><p>The clock source, “Internal” (0) or “External” (1). If External is used then the
+Dwell record does not control the digitization rate, it is controlled by the external
+clock. However Dwell should be set to approximately the correct value if possible,
+because that controls what type of data transfers the device uses.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Continuous</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_CONTINUOUS</p></td>
+<td><p>Values are “One-shot” (0) or “Continuous” (1). This controls whether the device
+stops when acquisition is complete, or immediately begins another acquisition. Typically
+“One-shot” is used, because the driver is currently not double-buffered, so data
+could be overwritten before the driver has a chance to read the data. One exception
+is when using Retrigger=Enable and TriggerCount less than NumPoints. In that case
+each trigger will only collect TriggerCount samples, and one wants to use Continuous
+so that it collects the next TriggerCount samples on the next trigger input.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)AutoRestart</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_AUTO_RESTART</p></td>
+<td><p>Values are “Disable” (0) and “Enable” (1). This controls whether the driver automatically
+starts another acquire when the previous one completes. This is different from Continuous
+mode described above, because this is a software restart that only happens after
+the driver has read the buffer from the previous acquisition.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Retrigger</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_RETRIGGER</p></td>
+<td><p>Values are “Disable” (0) and “Enable” (1). This controls whether the device rearms
+the trigger input after a trigger is received.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TriggerCount</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_TRIGGER_COUNT</p></td>
+<td><p>This controls how many samples are collected on each trigger input. 0 means collect
+NumPoint samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
+then each time a trigger is received TriggerCount samples will be collected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)BurstMode</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_BURST_MODE</p></td>
+<td><p>Values are “Disable” (0) and “Enable” (1). This controls whether the device digitizes
+all NumChans channels as quickly as possible during each sample, or whether it digitizes
+successive channels at evenly spaced time intevals during the Dwell time. Enabling
+BurstMode means that all channels are digitized 2 microseconds apart. This can reduce
+the accuracy if the channels have very different voltages because of the settling
+time and slew rate limitations of the system.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Run</p></td>
+<td><p>busy</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_RUN</p></td>
+<td><p>Values are “Stop” (0) and “Run” (1). This starts and stops the waveform digitizer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)ReadWF</p></td>
+<td><p>busy</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEDIG_READ_WF</p></td>
+<td><p>Values are “Done” (0) and “Read” (1). This reads the waveform data from the device
+buffers into the waveform records. Note that the driver always reads device when
+acquisition stops, so for quick acquisitions this record can be Passive. To see
+partial data during long acquisitions this record can be periodically processed.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)VoltWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat64Array</p></td>
+<td><p>WAVEDIG_VOLT_WF</p></td>
+<td><p>This waveform record contains the digitizer waveform data for channel N. This record
+has scan=I/O Intr, and it will process whenever acquisition completes, or whenever
+the ReadWF record above processes. The data are in volts.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This is a plot of a digitized waveform captured of someone speaking into a microphone.</p>
+<figure class="align-center" id="id23">
+<img alt="_images/measCompWaveDigPlot.png" src="_images/measCompWaveDigPlot.png" />
+<figcaption>
+<p><span class="caption-text"><strong>Waveform digitizer plot</strong></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="waveform-generator-functions">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">Waveform Generator Functions</a><a class="headerlink" href="#waveform-generator-functions" title="Permalink to this heading">¶</a></h3>
+<p>These records are defined in the following files:
+- measCompWaveformGen.template. This database is loaded once per module.
+- measCompWaveformGenN.template. This database is loaded for each waveform generator output channel.</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)NumPoints</p></td>
+<td><p>longin</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_NUM_POINTS</p></td>
+<td><p>Number of points output waveform. The value of this record is equal to UserNumPoints
+if user-defined waveforms are selected, or IntNumPoints if internal predefined waveforms
+are selected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)UserNumPoints</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_USER_NUM_POINTS</p></td>
+<td><p>Number of points in user-defined output waveforms. This cannot be more than the
+value of maxOutputPoints that was specified in USB1608GConfig.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)IntNumPoints</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_INT_NUM_POINTS</p></td>
+<td><p>Number of points in internal predefined output waveforms. This cannot be more than
+the value of maxOutputPoints that was specified in USB1608GConfig.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)UserTimeWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat32Array</p></td>
+<td><p>WAVEDIG_USER_TIME_WF</p></td>
+<td><p>Timebase waveform for user-defined waveforms. These values are calculated when UserDwell
+or UserNumPoints are changed. It is typically used as the X-axis in plots.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)IntTimeWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat32Array</p></td>
+<td><p>WAVEGEN_INT_TIME_WF</p></td>
+<td><p>Timebase waveform for internal predefined waveforms. These values are calculated
+when IntDwell or IntNumPoints are changed. It is typically used as the X-axis in
+plots.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)CurrentPoint</p></td>
+<td><p>longin</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_CURRENT_POINT</p></td>
+<td><p>The current point being output. This does not always increment by 1 because the
+device can transfer data in blocks.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Frequency</p></td>
+<td><p>ai</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_FREQUENCY</p></td>
+<td><p>The output frequency (waveforms/second). The value of this record is equal to UserFrequency
+if user-defined waveforms are selected, or IntFrequency if internal predefined waveforms
+are selected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Dwell</p></td>
+<td><p>ai</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_DWELL</p></td>
+<td><p>The output dwell time or period (seconds/sample). The value of this record is equal
+to UserDwell if user-defined waveforms are selected, or IntDwell if internal predefined
+waveforms are selected.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)UserDwell</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_USER_DWELL</p></td>
+<td><p>The output dwell time or period (seconds/sample) for user-defined waveforms. This
+record is automatically changed if UserFrequency is modified.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)IntDwell</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_INT_DWELL</p></td>
+<td><p>The output dwell time or period (seconds/sample) for internal predefined waveforms.
+This record is automatically changed if IntFrequency is modified.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)UserFrequency</p></td>
+<td><p>ao</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>The output frequency (waveforms/second) for user-defined waveforms. This record
+computes UserDwell and writes to that record. This record is automatically changed
+if UserDwell is modified.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)IntFrequency</p></td>
+<td><p>ao</p></td>
+<td><p>N.A.</p></td>
+<td><p>N.A.</p></td>
+<td><p>The output frequency (waveforms/second) for internal predefined waveforms. This
+record computes IntDwell and writes to that record. This record is automatically
+changed if IntDwell is modified.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)TotalTime</p></td>
+<td><p>ai</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_TOTAL_TIME</p></td>
+<td><p>The total time to output the waveforms. This is Dwell*NumPoints.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)ExtTrigger</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_EXT_TRIGGER</p></td>
+<td><p>The trigger source, “Internal” (0) or “External” (1).</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)ExtClock</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_EXT_CLOCK</p></td>
+<td><p>The clock source, “Internal” (0) or “External” (1). If External is used then the
+Dwell record does not control the output rate, it is controlled by the external
+clock. However Dwell should be set to approximately the correct value if possible,
+because that controls what type of data transfers the device uses.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Continuous</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_CONTINUOUS</p></td>
+<td><p>Values are “One-shot” (0) or “Continuous” (1). This controls whether the device
+stops when the output waveform is complete, or immediately begins again at the start
+of the waveform.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Retrigger</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_RETRIGGER</p></td>
+<td><p>Values are “Disable” (0) and “Enable” (1). This controls whether the device rearms
+the trigger input after a trigger is received.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)TriggerCount</p></td>
+<td><p>longout</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_TRIGGER_COUNT</p></td>
+<td><p>This controls how many values are output on each trigger input. 0 means output NumPoints
+samples. If TriggerCount is less than NumPoints, Retrigger=Enable and Continuous=Enable
+then each time a trigger is received TriggerCount samples will be output.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Run</p></td>
+<td><p>busy</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_RUN</p></td>
+<td><p>Values are “Stop” (0) and “Run” (1). This starts and stops the waveform generator.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)UserWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat32Array</p></td>
+<td><p>WAVEGEN_USER_WF</p></td>
+<td><p>This waveform record contains the user-defined waveform generator data for channel
+N. The data are in volts. These data are typically generated by an EPICS Channel
+Access client.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)InternalWF</p></td>
+<td><p>waveform</p></td>
+<td><p>asynFloat32Array</p></td>
+<td><p>WAVEGEN_INT_WF</p></td>
+<td><p>This waveform record contains the internal predefined waveform generator data for
+channel N. The data are in volts.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Enable</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_ENABLE</p></td>
+<td><p>Values are “Disable” and “Enable”. Controls whether channel N output is enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Type</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>WAVEGEN_WAVE_TYPE</p></td>
+<td><p>Controls the waveform type on channel N. Values are “User-defined” and “Sin wave”,
+“Square wave”, “Sawtooth”, “Pulse”, or “Random”. Note that if any channel is “User-defined”
+then all channels must be. Note that all internally predefined waveforms are symmetric
+about 0 volts. To output unipolar signals the Offset should be set to +-Amplitude/2.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)PulseWidth</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_PULSE_WIDTH</p></td>
+<td><p>Controls the pulse width in seconds if Type is “Pulse”.</p></td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)Amplitude</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_AMPLITUDE</p></td>
+<td><p>Controls the amplitude of the waveform. For internally predefined waveforms this
+directly controls the peak-to-peak amplitude in volts. For user-defined waveforms
+this is a scale factor that multiplies the values in the waveform, i.e. 1.0 outputs
+the user-defined waveform unchanged, 2.0 increases the amplitide by 2, etc. For
+both internal and used-defined waveforms changing the sign of the Amplitude controls
+the polarity of the signal.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Offset</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_OFFSET</p></td>
+<td><p>Controls the offset of the waveform in volts. For user-defined waveforms, this value
+is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
+1.0 adds 1 volt, etc.</p></td>
+</tr>
+</tbody>
+</table>
+<figure class="align-center" id="id24">
+<img alt="_images/measCompWaveGenPlot_int.png" src="_images/measCompWaveGenPlot_int.png" />
+<figcaption>
+<p><span class="caption-text"><strong>Plot of an internal predefined waveform (sin wave)</strong></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id25">
+<img alt="_images/measCompWaveGenPlot_user.png" src="_images/measCompWaveGenPlot_user.png" />
+<figcaption>
+<p><span class="caption-text"><strong>Plot of a user-defined waveform (sum of sin and cos waves)</strong></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="trigger-functions">
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">Trigger Functions</a><a class="headerlink" href="#trigger-functions" title="Permalink to this heading">¶</a></h3>
+<p>These records are defined in measCompTrigger.template. This database is loaded once per module.</p>
+<table class="table-bordered table-striped table-hover docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPICS record name</p></th>
+<th class="head"><p>EPICS record type</p></th>
+<th class="head"><p>asyn interface</p></th>
+<th class="head"><p>drvInfo string</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>$(P)$(R)Mode</p></td>
+<td><p>mbbo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>TRIGGER_MODE</p></td>
+<td><p>The mode of the external trigger input. Choices are “Positive edge”, “Negative edge”,
+“High”, and “Low”.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="box-for-usb-2408-2ao">
+<h2><a class="toc-backref" href="#id53" role="doc-backlink">Box for USB-2408-2AO</a><a class="headerlink" href="#box-for-usb-2408-2ao" title="Permalink to this heading">¶</a></h2>
+<p>The following photos show a box we built to house the USB-2408-2AO and
+provide I/O connections.</p>
+<p>This is the top view.</p>
+<figure class="align-center" id="id26">
+<img alt="_images/USB2408_Box_Top.jpg" src="_images/USB2408_Box_Top.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Top view of USB-2408-2AO box</strong></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>These are the side views.</p>
+<figure class="align-center" id="id27">
+<img alt="_images/USB2408_Box_Sides.jpg" src="_images/USB2408_Box_Sides.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Side views of USB-2408-2AO box</strong></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="wiring-usb-1608gx-2ao-to-bcda-bc-020">
+<h2><a class="toc-backref" href="#id54" role="doc-backlink">Wiring USB-1608GX-2AO to BCDA BC-020</a><a class="headerlink" href="#wiring-usb-1608gx-2ao-to-bcda-bc-020" title="Permalink to this heading">¶</a></h2>
+<p>The following photo shows the BCDA BC-020 LEMO breakout panels wired to
+the USB-1608GX-2AO. These are the lower 2 BC-020 panels in this photo. A
+BC-020 with a BC-026 daughter card is used for the analog signals (lower
+left), and a BC-020 with a BC-087 daughter card for the digital signals
+(lower right).</p>
+<figure class="align-center" id="id28">
+<img alt="_images/measCompBC-020.jpg" src="_images/measCompBC-020.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>BC-020 LEMO breakout panels</strong></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="usb-1608gx-2ao-wiring-to-two-bcda-bc-020-lemo-breakout-panels">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels</a><a class="headerlink" href="#usb-1608gx-2ao-wiring-to-two-bcda-bc-020-lemo-breakout-panels" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>      Digital I/O using BC-087 daughter card
+
+50-pin ribbon      USB-1608GX      BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                DIO0               J1     Digital I/O bit 0
+ 2                DIO1               J2     Digital I/O bit 1
+ 3                DIO2               J3     Digital I/O bit 2
+ 4                DIO3               J4     Digital I/O bit 3
+ 5                DIO4               J5     Digital I/O bit 4
+ 6                DIO5               J6     Digital I/O bit 5
+ 7                DIO6               J7     Digital I/O bit 6
+ 8                DIO7               J8     Digital I/O bit 7
+ 9                 TMR               J9     Pulse generator output
+10                 GND              J10     Grounded to avoid cross-talk
+11                CTR0              J11     Counter 1 input
+12                 GND              J12     Grounded to avoid cross-talk
+13                CTR1              J13     Counter 2 input
+14                 GND              J14     Grounded to avoid cross-talk
+15                TRIG              J15     Trigger input for waveform generator and waveform digitizer
+16                 GND              J16     Grounded to avoid cross-talk
+17               A0CK0              J17     Waveform generator clock out
+18                 GND              J18     Grounded to avoid cross-talk
+19               A0CKI              J19     Waveform generator clock in
+20                 GND              J20     Grounded to avoid cross-talk
+21               AICK0              J21     Waveform digitizer clock out
+22                 GND              J16     Grounded to avoid cross-talk
+23               AICKI              J17     Waveform digitzer clock in
+50                 GND           J1-J32     LEMO connectors outer shells
+
+
+         Analog I/O using BC-026 daughter card
+
+50-pin ribbon      USB-1608GX      BC-020   EPICS Function
+connector pin    screw terminal   connector
+ 1                CH0H               J1     Analog input 1 +
+ 2                CH0L               J1     Analog input 1 -
+ 3                AGND              N.C     Analog ground
+ 4                CH1H               J2     Analog input 2 +
+ 5                CH1L               J2     Analog input 2 -
+ 6                AGND              N.C     Analog ground
+ 7                CH2H               J3     Analog input 3 +
+ 8                CH2L               J3     Analog input 3 -
+ 9                AGND              N.C     Analog ground
+10                CH3H               J4     Analog input 4 +
+11                CH3L               J4     Analog input 4 -
+12                AGND              N.C     Analog ground
+13                CH4H               J5     Analog input 5 +
+14                CH4L               J5     Analog input 5 -
+15                AGND              N.C     Analog ground
+16                CH5H               J6     Analog input 6 +
+17                CH5L               J6     Analog input 6 -
+18                AGND              N.C     Analog ground
+19                CH6H               J7     Analog input 7 +
+20                CH6L               J7     Analog input 7 -
+21                AGND              N.C     Analog ground
+22                CH7H               J8     Analog input 8 +
+23                CH7L               J8     Analog input 8 -
+24                AGND              N.C     Analog ground
+25               AOUT0               J9     Analog output 1
+26                AGND               J9     Analog ground
+27                AGND              N.C     Analog ground
+28               AOUT1              J10     Analog output 1
+29                AGND              J10     Analog ground
+
+Note: the &quot;Analog input N +&quot; lines are connected to the Lemo center pin,
+and the &quot;Analog input N -&quot; lines are connected to the Lemo shell.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-measurements">
+<span id="performance-mf"></span><h2><a class="toc-backref" href="#id56" role="doc-backlink">Performance measurements</a><a class="headerlink" href="#performance-measurements" title="Permalink to this heading">¶</a></h2>
+<p>The following summarizes a simple test of the precision and accuracy of
+the analog outputs and analog inputs of the USB-1608GX-2AO. The test
+configuration was with Analog Output 0 connected to Analog Input 0, and
+also to a Keithley 2700 digital multimeter. The Keithley is a 6.5 digit
+(22 bit) device, so it can be used to measure the accuracy of the
+USB-1608GX-2AO analog output, and provide the “true” value to measure
+the accuracy of the analog input. The 1608GX analog inputs records and
+the Keithley input had SCAN=0.1 second, so new readings were being made
+at 10Hz. The following IDL test program was used to drive the analog
+output from -10V to +10V in 0.1V steps. 10 readings were made of the
+1608GX analog inputs, and one reading of the Keithley at each voltage
+step. These tests were done with the +-10V range of the analog outputs
+and analog inputs. Since these are 16-bit devices, one bit is 20V/65536
+= 0.000305 volts.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pro test_analog_performance_1608,  ao=ao, ai=ai, min_volts=min_volts, max_volts=max_volts, $
+                                   step_volts=step_volts, num_samples=num_samples, delay=delay, $
+                                   keithley=keithley, results
+
+  if (n_elements(ao)          eq 0) then ao          = &#39;1608G:Ao1&#39;
+  if (n_elements(ai)          eq 0) then ai          = &#39;1608G:Ai1&#39;
+  if (n_elements(min_volts)   eq 0) then min_volts   = -10.0
+  if (n_elements(max_volts)   eq 0) then max_volts   =  10.0
+  if (n_elements(step_volts)  eq 0) then step_volts  = 0.1
+  if (n_elements(num_samples) eq 0) then num_samples = 10
+  if (n_elements(delay)       eq 0) then delay       = 0.1
+  if (n_elements(keithley)    eq 0) then keithley    = &#39;13LAB:DMM2Dmm_raw.VAL&#39;
+
+  output = min_volts
+  samples = dblarr(num_samples)
+  num_points = ((max_volts - min_volts) / step_volts + 0.5) + 1
+  results = dblarr(4, num_points)
+  for i=0, num_points-1 do begin
+    output = min_volts + i*step_volts
+    t = caput(ao, output)
+    wait, 2*delay
+    for j=0, num_samples-1 do begin
+      wait, delay
+      t = caget(ai, temp)
+      samples[j] = temp
+    endfor
+    m = moment(samples)
+    results[0,i] = output
+    results[1,i] = m[0]
+    results[2,i] = sqrt(m[1])
+    t = caget(keithley, temp)
+    results[3,i] = temp
+    print, results[0,i], results[1,i], results[2,i], results[3,i]
+  endfor
+end
+</pre></div>
+</div>
+<p>The following plot shows the difference of the nominal USB-1608GX-2AO analog
+output voltage from the Keithley 2700 reading. The mean error is
+0.000312V, or just over 1 bit. The RMS error is 0.000203V, or less than
+1 bit.</p>
+<figure class="align-center" id="id29">
+<img alt="_images/measCompAoError.png" src="_images/measCompAoError.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog output voltage error</strong></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The following plot shows the difference of the mean of 10 readings of
+the 1608GX analog input voltage from the Keithley 2700 reading. The mean
+error is 0.000106V, less than 1 bit. The RMS error is 0.000259V, also
+less than 1 bit.</p>
+<figure class="align-center" id="id30">
+<img alt="_images/measCompAiError.png" src="_images/measCompAiError.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog input voltage error</strong></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The following plot shows the standard deviation of 10 readings of the
+1608GX analog input voltage. The values range from about 0.001V (~3
+bits) at +-10V to less than 0.0003V (1 bit) between -2 and +2V.</p>
+<figure class="align-center" id="id31">
+<img alt="_images/measCompAiStdDev.png" src="_images/measCompAiStdDev.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog input standard deviation</strong></span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The following table contains all of the results from the tests.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>1608GX analog
+output
+(nominal)</p></th>
+<th class="head"><p>1608GX analog
+input (mean of
+10 readings)</p></th>
+<th class="head"><p>Std. Dev. of
+10 1608GX
+analog input
+readings</p></th>
+<th class="head"><p>Keithley 2700
+reading</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-10.00000</p></td>
+<td><p>-9.99930</p></td>
+<td><p>0.00084</p></td>
+<td><p>-10.00008</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9.90000</p></td>
+<td><p>-9.89978</p></td>
+<td><p>0.00130</p></td>
+<td><p>-9.89972</p></td>
+</tr>
+<tr class="row-even"><td><p>-9.80000</p></td>
+<td><p>-9.79986</p></td>
+<td><p>0.00126</p></td>
+<td><p>-9.79994</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9.70000</p></td>
+<td><p>-9.69964</p></td>
+<td><p>0.00134</p></td>
+<td><p>-9.69987</p></td>
+</tr>
+<tr class="row-even"><td><p>-9.60000</p></td>
+<td><p>-9.60018</p></td>
+<td><p>0.00123</p></td>
+<td><p>-9.59979</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9.50000</p></td>
+<td><p>-9.50057</p></td>
+<td><p>0.00099</p></td>
+<td><p>-9.50003</p></td>
+</tr>
+<tr class="row-even"><td><p>-9.40000</p></td>
+<td><p>-9.40020</p></td>
+<td><p>0.00117</p></td>
+<td><p>-9.39997</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9.30000</p></td>
+<td><p>-9.30010</p></td>
+<td><p>0.00080</p></td>
+<td><p>-9.29991</p></td>
+</tr>
+<tr class="row-even"><td><p>-9.20000</p></td>
+<td><p>-9.20046</p></td>
+<td><p>0.00105</p></td>
+<td><p>-9.20013</p></td>
+</tr>
+<tr class="row-odd"><td><p>-9.10000</p></td>
+<td><p>-9.09996</p></td>
+<td><p>0.00118</p></td>
+<td><p>-9.10009</p></td>
+</tr>
+<tr class="row-even"><td><p>-9.00000</p></td>
+<td><p>-9.00035</p></td>
+<td><p>0.00122</p></td>
+<td><p>-8.99999</p></td>
+</tr>
+<tr class="row-odd"><td><p>-8.90000</p></td>
+<td><p>-8.90016</p></td>
+<td><p>0.00079</p></td>
+<td><p>-8.90021</p></td>
+</tr>
+<tr class="row-even"><td><p>-8.80000</p></td>
+<td><p>-8.80061</p></td>
+<td><p>0.00118</p></td>
+<td><p>-8.80019</p></td>
+</tr>
+<tr class="row-odd"><td><p>-8.70000</p></td>
+<td><p>-8.69996</p></td>
+<td><p>0.00138</p></td>
+<td><p>-8.70007</p></td>
+</tr>
+<tr class="row-even"><td><p>-8.60000</p></td>
+<td><p>-8.60044</p></td>
+<td><p>0.00112</p></td>
+<td><p>-8.60030</p></td>
+</tr>
+<tr class="row-odd"><td><p>-8.50000</p></td>
+<td><p>-8.50004</p></td>
+<td><p>0.00098</p></td>
+<td><p>-8.49992</p></td>
+</tr>
+<tr class="row-even"><td><p>-8.40000</p></td>
+<td><p>-8.39973</p></td>
+<td><p>0.00103</p></td>
+<td><p>-8.39985</p></td>
+</tr>
+<tr class="row-odd"><td><p>-8.30000</p></td>
+<td><p>-8.29975</p></td>
+<td><p>0.00132</p></td>
+<td><p>-8.30009</p></td>
+</tr>
+<tr class="row-even"><td><p>-8.20000</p></td>
+<td><p>-8.19965</p></td>
+<td><p>0.00108</p></td>
+<td><p>-8.20003</p></td>
+</tr>
+<tr class="row-odd"><td><p>-8.10000</p></td>
+<td><p>-8.09986</p></td>
+<td><p>0.00115</p></td>
+<td><p>-8.09995</p></td>
+</tr>
+<tr class="row-even"><td><p>-8.00000</p></td>
+<td><p>-8.00040</p></td>
+<td><p>0.00079</p></td>
+<td><p>-7.99990</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7.90000</p></td>
+<td><p>-7.90021</p></td>
+<td><p>0.00088</p></td>
+<td><p>-7.90012</p></td>
+</tr>
+<tr class="row-even"><td><p>-7.80000</p></td>
+<td><p>-7.79950</p></td>
+<td><p>0.00107</p></td>
+<td><p>-7.80002</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7.70000</p></td>
+<td><p>-7.69998</p></td>
+<td><p>0.00099</p></td>
+<td><p>-7.69999</p></td>
+</tr>
+<tr class="row-even"><td><p>-7.60000</p></td>
+<td><p>-7.60018</p></td>
+<td><p>0.00092</p></td>
+<td><p>-7.60024</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7.50000</p></td>
+<td><p>-7.49990</p></td>
+<td><p>0.00080</p></td>
+<td><p>-7.50011</p></td>
+</tr>
+<tr class="row-even"><td><p>-7.40000</p></td>
+<td><p>-7.39986</p></td>
+<td><p>0.00097</p></td>
+<td><p>-7.40004</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7.30000</p></td>
+<td><p>-7.29992</p></td>
+<td><p>0.00101</p></td>
+<td><p>-7.30027</p></td>
+</tr>
+<tr class="row-even"><td><p>-7.20000</p></td>
+<td><p>-7.20006</p></td>
+<td><p>0.00085</p></td>
+<td><p>-7.20019</p></td>
+</tr>
+<tr class="row-odd"><td><p>-7.10000</p></td>
+<td><p>-7.09953</p></td>
+<td><p>0.00100</p></td>
+<td><p>-7.09982</p></td>
+</tr>
+<tr class="row-even"><td><p>-7.00000</p></td>
+<td><p>-7.00060</p></td>
+<td><p>0.00088</p></td>
+<td><p>-7.00006</p></td>
+</tr>
+<tr class="row-odd"><td><p>-6.90000</p></td>
+<td><p>-6.89986</p></td>
+<td><p>0.00097</p></td>
+<td><p>-6.90001</p></td>
+</tr>
+<tr class="row-even"><td><p>-6.80000</p></td>
+<td><p>-6.79988</p></td>
+<td><p>0.00089</p></td>
+<td><p>-6.79992</p></td>
+</tr>
+<tr class="row-odd"><td><p>-6.70000</p></td>
+<td><p>-6.69984</p></td>
+<td><p>0.00107</p></td>
+<td><p>-6.70013</p></td>
+</tr>
+<tr class="row-even"><td><p>-6.60000</p></td>
+<td><p>-6.60017</p></td>
+<td><p>0.00091</p></td>
+<td><p>-6.60010</p></td>
+</tr>
+<tr class="row-odd"><td><p>-6.50000</p></td>
+<td><p>-6.49958</p></td>
+<td><p>0.00088</p></td>
+<td><p>-6.50003</p></td>
+</tr>
+<tr class="row-even"><td><p>-6.40000</p></td>
+<td><p>-6.40043</p></td>
+<td><p>0.00105</p></td>
+<td><p>-6.40025</p></td>
+</tr>
+<tr class="row-odd"><td><p>-6.30000</p></td>
+<td><p>-6.30005</p></td>
+<td><p>0.00088</p></td>
+<td><p>-6.30020</p></td>
+</tr>
+<tr class="row-even"><td><p>-6.20000</p></td>
+<td><p>-6.20008</p></td>
+<td><p>0.00085</p></td>
+<td><p>-6.20009</p></td>
+</tr>
+<tr class="row-odd"><td><p>-6.10000</p></td>
+<td><p>-6.10016</p></td>
+<td><p>0.00076</p></td>
+<td><p>-6.10032</p></td>
+</tr>
+<tr class="row-even"><td><p>-6.00000</p></td>
+<td><p>-6.00052</p></td>
+<td><p>0.00068</p></td>
+<td><p>-6.00026</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5.90000</p></td>
+<td><p>-5.89963</p></td>
+<td><p>0.00077</p></td>
+<td><p>-5.90018</p></td>
+</tr>
+<tr class="row-even"><td><p>-5.80000</p></td>
+<td><p>-5.80050</p></td>
+<td><p>0.00076</p></td>
+<td><p>-5.80043</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5.70000</p></td>
+<td><p>-5.70013</p></td>
+<td><p>0.00066</p></td>
+<td><p>-5.70003</p></td>
+</tr>
+<tr class="row-even"><td><p>-5.60000</p></td>
+<td><p>-5.60006</p></td>
+<td><p>0.00066</p></td>
+<td><p>-5.59995</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5.50000</p></td>
+<td><p>-5.50008</p></td>
+<td><p>0.00082</p></td>
+<td><p>-5.50021</p></td>
+</tr>
+<tr class="row-even"><td><p>-5.40000</p></td>
+<td><p>-5.39989</p></td>
+<td><p>0.00090</p></td>
+<td><p>-5.40015</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5.30000</p></td>
+<td><p>-5.29982</p></td>
+<td><p>0.00081</p></td>
+<td><p>-5.30005</p></td>
+</tr>
+<tr class="row-even"><td><p>-5.20000</p></td>
+<td><p>-5.19997</p></td>
+<td><p>0.00087</p></td>
+<td><p>-5.20032</p></td>
+</tr>
+<tr class="row-odd"><td><p>-5.10000</p></td>
+<td><p>-5.10021</p></td>
+<td><p>0.00048</p></td>
+<td><p>-5.10025</p></td>
+</tr>
+<tr class="row-even"><td><p>-5.00000</p></td>
+<td><p>-5.00011</p></td>
+<td><p>0.00054</p></td>
+<td><p>-5.00011</p></td>
+</tr>
+<tr class="row-odd"><td><p>-4.90000</p></td>
+<td><p>-4.89986</p></td>
+<td><p>0.00071</p></td>
+<td><p>-4.90035</p></td>
+</tr>
+<tr class="row-even"><td><p>-4.80000</p></td>
+<td><p>-4.79976</p></td>
+<td><p>0.00070</p></td>
+<td><p>-4.80027</p></td>
+</tr>
+<tr class="row-odd"><td><p>-4.70000</p></td>
+<td><p>-4.69960</p></td>
+<td><p>0.00082</p></td>
+<td><p>-4.70021</p></td>
+</tr>
+<tr class="row-even"><td><p>-4.60000</p></td>
+<td><p>-4.60090</p></td>
+<td><p>0.00054</p></td>
+<td><p>-4.60043</p></td>
+</tr>
+<tr class="row-odd"><td><p>-4.50000</p></td>
+<td><p>-4.50050</p></td>
+<td><p>0.00072</p></td>
+<td><p>-4.50035</p></td>
+</tr>
+<tr class="row-even"><td><p>-4.40000</p></td>
+<td><p>-4.40012</p></td>
+<td><p>0.00076</p></td>
+<td><p>-4.40032</p></td>
+</tr>
+<tr class="row-odd"><td><p>-4.30000</p></td>
+<td><p>-4.30039</p></td>
+<td><p>0.00045</p></td>
+<td><p>-4.30053</p></td>
+</tr>
+<tr class="row-even"><td><p>-4.20000</p></td>
+<td><p>-4.20005</p></td>
+<td><p>0.00066</p></td>
+<td><p>-4.20016</p></td>
+</tr>
+<tr class="row-odd"><td><p>-4.10000</p></td>
+<td><p>-4.10010</p></td>
+<td><p>0.00068</p></td>
+<td><p>-4.10010</p></td>
+</tr>
+<tr class="row-even"><td><p>-4.00000</p></td>
+<td><p>-4.00012</p></td>
+<td><p>0.00062</p></td>
+<td><p>-4.00004</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3.90000</p></td>
+<td><p>-3.90018</p></td>
+<td><p>0.00060</p></td>
+<td><p>-3.90023</p></td>
+</tr>
+<tr class="row-even"><td><p>-3.80000</p></td>
+<td><p>-3.80002</p></td>
+<td><p>0.00059</p></td>
+<td><p>-3.80021</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3.70000</p></td>
+<td><p>-3.70019</p></td>
+<td><p>0.00049</p></td>
+<td><p>-3.70009</p></td>
+</tr>
+<tr class="row-even"><td><p>-3.60000</p></td>
+<td><p>-3.60027</p></td>
+<td><p>0.00056</p></td>
+<td><p>-3.60032</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3.50000</p></td>
+<td><p>-3.50042</p></td>
+<td><p>0.00063</p></td>
+<td><p>-3.50025</p></td>
+</tr>
+<tr class="row-even"><td><p>-3.40000</p></td>
+<td><p>-3.40017</p></td>
+<td><p>0.00048</p></td>
+<td><p>-3.40016</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3.30000</p></td>
+<td><p>-3.30043</p></td>
+<td><p>0.00045</p></td>
+<td><p>-3.30042</p></td>
+</tr>
+<tr class="row-even"><td><p>-3.20000</p></td>
+<td><p>-3.20034</p></td>
+<td><p>0.00064</p></td>
+<td><p>-3.20033</p></td>
+</tr>
+<tr class="row-odd"><td><p>-3.10000</p></td>
+<td><p>-3.10027</p></td>
+<td><p>0.00066</p></td>
+<td><p>-3.10027</p></td>
+</tr>
+<tr class="row-even"><td><p>-3.00000</p></td>
+<td><p>-3.00047</p></td>
+<td><p>0.00043</p></td>
+<td><p>-3.00052</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2.90000</p></td>
+<td><p>-2.90025</p></td>
+<td><p>0.00060</p></td>
+<td><p>-2.90045</p></td>
+</tr>
+<tr class="row-even"><td><p>-2.80000</p></td>
+<td><p>-2.80021</p></td>
+<td><p>0.00044</p></td>
+<td><p>-2.80003</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2.70000</p></td>
+<td><p>-2.70033</p></td>
+<td><p>0.00038</p></td>
+<td><p>-2.70032</p></td>
+</tr>
+<tr class="row-even"><td><p>-2.60000</p></td>
+<td><p>-2.60011</p></td>
+<td><p>0.00058</p></td>
+<td><p>-2.60024</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2.50000</p></td>
+<td><p>-2.50001</p></td>
+<td><p>0.00063</p></td>
+<td><p>-2.50010</p></td>
+</tr>
+<tr class="row-even"><td><p>-2.40000</p></td>
+<td><p>-2.40015</p></td>
+<td><p>0.00051</p></td>
+<td><p>-2.40032</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2.30000</p></td>
+<td><p>-2.29960</p></td>
+<td><p>0.00043</p></td>
+<td><p>-2.30023</p></td>
+</tr>
+<tr class="row-even"><td><p>-2.20000</p></td>
+<td><p>-2.20050</p></td>
+<td><p>0.00041</p></td>
+<td><p>-2.20019</p></td>
+</tr>
+<tr class="row-odd"><td><p>-2.10000</p></td>
+<td><p>-2.10040</p></td>
+<td><p>0.00048</p></td>
+<td><p>-2.10041</p></td>
+</tr>
+<tr class="row-even"><td><p>-2.00000</p></td>
+<td><p>-2.00012</p></td>
+<td><p>0.00054</p></td>
+<td><p>-2.00034</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1.90000</p></td>
+<td><p>-1.90018</p></td>
+<td><p>0.00044</p></td>
+<td><p>-1.90028</p></td>
+</tr>
+<tr class="row-even"><td><p>-1.80000</p></td>
+<td><p>-1.80026</p></td>
+<td><p>0.00044</p></td>
+<td><p>-1.80050</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1.70000</p></td>
+<td><p>-1.70025</p></td>
+<td><p>0.00062</p></td>
+<td><p>-1.70042</p></td>
+</tr>
+<tr class="row-even"><td><p>-1.60000</p></td>
+<td><p>-1.60043</p></td>
+<td><p>0.00041</p></td>
+<td><p>-1.60036</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1.50000</p></td>
+<td><p>-1.50054</p></td>
+<td><p>0.00044</p></td>
+<td><p>-1.50061</p></td>
+</tr>
+<tr class="row-even"><td><p>-1.40000</p></td>
+<td><p>-1.40035</p></td>
+<td><p>0.00037</p></td>
+<td><p>-1.40021</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1.30000</p></td>
+<td><p>-1.30001</p></td>
+<td><p>0.00043</p></td>
+<td><p>-1.30015</p></td>
+</tr>
+<tr class="row-even"><td><p>-1.20000</p></td>
+<td><p>-1.20006</p></td>
+<td><p>0.00035</p></td>
+<td><p>-1.20036</p></td>
+</tr>
+<tr class="row-odd"><td><p>-1.10000</p></td>
+<td><p>-1.10024</p></td>
+<td><p>0.00048</p></td>
+<td><p>-1.10029</p></td>
+</tr>
+<tr class="row-even"><td><p>-1.00000</p></td>
+<td><p>-1.00035</p></td>
+<td><p>0.00052</p></td>
+<td><p>-1.00022</p></td>
+</tr>
+<tr class="row-odd"><td><p>-0.90000</p></td>
+<td><p>-0.90056</p></td>
+<td><p>0.00036</p></td>
+<td><p>-0.90046</p></td>
+</tr>
+<tr class="row-even"><td><p>-0.80000</p></td>
+<td><p>-0.80052</p></td>
+<td><p>0.00050</p></td>
+<td><p>-0.80040</p></td>
+</tr>
+<tr class="row-odd"><td><p>-0.70000</p></td>
+<td><p>-0.70011</p></td>
+<td><p>0.00041</p></td>
+<td><p>-0.70032</p></td>
+</tr>
+<tr class="row-even"><td><p>-0.60000</p></td>
+<td><p>-0.60029</p></td>
+<td><p>0.00036</p></td>
+<td><p>-0.60056</p></td>
+</tr>
+<tr class="row-odd"><td><p>-0.50000</p></td>
+<td><p>-0.50056</p></td>
+<td><p>0.00035</p></td>
+<td><p>-0.50050</p></td>
+</tr>
+<tr class="row-even"><td><p>-0.40000</p></td>
+<td><p>-0.40031</p></td>
+<td><p>0.00032</p></td>
+<td><p>-0.40042</p></td>
+</tr>
+<tr class="row-odd"><td><p>-0.30000</p></td>
+<td><p>-0.30042</p></td>
+<td><p>0.00030</p></td>
+<td><p>-0.30065</p></td>
+</tr>
+<tr class="row-even"><td><p>-0.20000</p></td>
+<td><p>-0.20053</p></td>
+<td><p>0.00048</p></td>
+<td><p>-0.20058</p></td>
+</tr>
+<tr class="row-odd"><td><p>-0.10000</p></td>
+<td><p>-0.10037</p></td>
+<td><p>0.00041</p></td>
+<td><p>-0.10050</p></td>
+</tr>
+<tr class="row-even"><td><p>0.00000</p></td>
+<td><p>0.00018</p></td>
+<td><p>0.00030</p></td>
+<td><p>-0.00009</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.10000</p></td>
+<td><p>0.09986</p></td>
+<td><p>0.00046</p></td>
+<td><p>0.09970</p></td>
+</tr>
+<tr class="row-even"><td><p>0.20000</p></td>
+<td><p>0.19995</p></td>
+<td><p>0.00032</p></td>
+<td><p>0.19977</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.30000</p></td>
+<td><p>0.30005</p></td>
+<td><p>0.00035</p></td>
+<td><p>0.29983</p></td>
+</tr>
+<tr class="row-even"><td><p>0.40000</p></td>
+<td><p>0.39979</p></td>
+<td><p>0.00046</p></td>
+<td><p>0.39959</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.50000</p></td>
+<td><p>0.49979</p></td>
+<td><p>0.00032</p></td>
+<td><p>0.49968</p></td>
+</tr>
+<tr class="row-even"><td><p>0.60000</p></td>
+<td><p>0.60008</p></td>
+<td><p>0.00028</p></td>
+<td><p>0.59974</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.70000</p></td>
+<td><p>0.69941</p></td>
+<td><p>0.00041</p></td>
+<td><p>0.69952</p></td>
+</tr>
+<tr class="row-even"><td><p>0.80000</p></td>
+<td><p>0.79979</p></td>
+<td><p>0.00019</p></td>
+<td><p>0.79957</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.90000</p></td>
+<td><p>0.89986</p></td>
+<td><p>0.00037</p></td>
+<td><p>0.89965</p></td>
+</tr>
+<tr class="row-even"><td><p>1.00000</p></td>
+<td><p>0.99956</p></td>
+<td><p>0.00032</p></td>
+<td><p>0.99942</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.10000</p></td>
+<td><p>1.09966</p></td>
+<td><p>0.00051</p></td>
+<td><p>1.09953</p></td>
+</tr>
+<tr class="row-even"><td><p>1.20000</p></td>
+<td><p>1.19982</p></td>
+<td><p>0.00045</p></td>
+<td><p>1.19955</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.30000</p></td>
+<td><p>1.29940</p></td>
+<td><p>0.00041</p></td>
+<td><p>1.29936</p></td>
+</tr>
+<tr class="row-even"><td><p>1.40000</p></td>
+<td><p>1.39959</p></td>
+<td><p>0.00041</p></td>
+<td><p>1.39945</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.50000</p></td>
+<td><p>1.49990</p></td>
+<td><p>0.00035</p></td>
+<td><p>1.49981</p></td>
+</tr>
+<tr class="row-even"><td><p>1.60000</p></td>
+<td><p>1.59969</p></td>
+<td><p>0.00035</p></td>
+<td><p>1.59959</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.70000</p></td>
+<td><p>1.69979</p></td>
+<td><p>0.00052</p></td>
+<td><p>1.69965</p></td>
+</tr>
+<tr class="row-even"><td><p>1.80000</p></td>
+<td><p>1.80029</p></td>
+<td><p>0.00016</p></td>
+<td><p>1.79974</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.90000</p></td>
+<td><p>1.89944</p></td>
+<td><p>0.00050</p></td>
+<td><p>1.89948</p></td>
+</tr>
+<tr class="row-even"><td><p>2.00000</p></td>
+<td><p>1.99966</p></td>
+<td><p>0.00047</p></td>
+<td><p>1.99956</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.10000</p></td>
+<td><p>2.09973</p></td>
+<td><p>0.00045</p></td>
+<td><p>2.09964</p></td>
+</tr>
+<tr class="row-even"><td><p>2.20000</p></td>
+<td><p>2.19980</p></td>
+<td><p>0.00041</p></td>
+<td><p>2.19944</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.30000</p></td>
+<td><p>2.29984</p></td>
+<td><p>0.00044</p></td>
+<td><p>2.29948</p></td>
+</tr>
+<tr class="row-even"><td><p>2.40000</p></td>
+<td><p>2.40006</p></td>
+<td><p>0.00023</p></td>
+<td><p>2.39955</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.50000</p></td>
+<td><p>2.49934</p></td>
+<td><p>0.00032</p></td>
+<td><p>2.49933</p></td>
+</tr>
+<tr class="row-even"><td><p>2.60000</p></td>
+<td><p>2.59937</p></td>
+<td><p>0.00038</p></td>
+<td><p>2.59945</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.70000</p></td>
+<td><p>2.69963</p></td>
+<td><p>0.00054</p></td>
+<td><p>2.69954</p></td>
+</tr>
+<tr class="row-even"><td><p>2.80000</p></td>
+<td><p>2.79994</p></td>
+<td><p>0.00032</p></td>
+<td><p>2.79932</p></td>
+</tr>
+<tr class="row-odd"><td><p>2.90000</p></td>
+<td><p>2.90010</p></td>
+<td><p>0.00033</p></td>
+<td><p>2.89967</p></td>
+</tr>
+<tr class="row-even"><td><p>3.00000</p></td>
+<td><p>3.00026</p></td>
+<td><p>0.00021</p></td>
+<td><p>2.99974</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.10000</p></td>
+<td><p>3.09990</p></td>
+<td><p>0.00027</p></td>
+<td><p>3.09951</p></td>
+</tr>
+<tr class="row-even"><td><p>3.20000</p></td>
+<td><p>3.19976</p></td>
+<td><p>0.00041</p></td>
+<td><p>3.19961</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.30000</p></td>
+<td><p>3.30022</p></td>
+<td><p>0.00022</p></td>
+<td><p>3.29970</p></td>
+</tr>
+<tr class="row-even"><td><p>3.40000</p></td>
+<td><p>3.39977</p></td>
+<td><p>0.00061</p></td>
+<td><p>3.39942</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.50000</p></td>
+<td><p>3.49990</p></td>
+<td><p>0.00045</p></td>
+<td><p>3.49950</p></td>
+</tr>
+<tr class="row-even"><td><p>3.60000</p></td>
+<td><p>3.59991</p></td>
+<td><p>0.00068</p></td>
+<td><p>3.59958</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.70000</p></td>
+<td><p>3.69952</p></td>
+<td><p>0.00039</p></td>
+<td><p>3.69934</p></td>
+</tr>
+<tr class="row-even"><td><p>3.80000</p></td>
+<td><p>3.79974</p></td>
+<td><p>0.00052</p></td>
+<td><p>3.79945</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.90000</p></td>
+<td><p>3.89969</p></td>
+<td><p>0.00043</p></td>
+<td><p>3.89954</p></td>
+</tr>
+<tr class="row-even"><td><p>4.00000</p></td>
+<td><p>3.99994</p></td>
+<td><p>0.00029</p></td>
+<td><p>3.99960</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.10000</p></td>
+<td><p>4.09967</p></td>
+<td><p>0.00042</p></td>
+<td><p>4.09935</p></td>
+</tr>
+<tr class="row-even"><td><p>4.20000</p></td>
+<td><p>4.19974</p></td>
+<td><p>0.00063</p></td>
+<td><p>4.19944</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.30000</p></td>
+<td><p>4.29950</p></td>
+<td><p>0.00058</p></td>
+<td><p>4.29984</p></td>
+</tr>
+<tr class="row-even"><td><p>4.40000</p></td>
+<td><p>4.39973</p></td>
+<td><p>0.00066</p></td>
+<td><p>4.39961</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.50000</p></td>
+<td><p>4.50001</p></td>
+<td><p>0.00055</p></td>
+<td><p>4.49966</p></td>
+</tr>
+<tr class="row-even"><td><p>4.60000</p></td>
+<td><p>4.60005</p></td>
+<td><p>0.00048</p></td>
+<td><p>4.59973</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.70000</p></td>
+<td><p>4.70014</p></td>
+<td><p>0.00043</p></td>
+<td><p>4.69951</p></td>
+</tr>
+<tr class="row-even"><td><p>4.80000</p></td>
+<td><p>4.79982</p></td>
+<td><p>0.00059</p></td>
+<td><p>4.79957</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.90000</p></td>
+<td><p>4.89995</p></td>
+<td><p>0.00069</p></td>
+<td><p>4.89965</p></td>
+</tr>
+<tr class="row-even"><td><p>5.00000</p></td>
+<td><p>4.99925</p></td>
+<td><p>0.00059</p></td>
+<td><p>4.99945</p></td>
+</tr>
+<tr class="row-odd"><td><p>5.10000</p></td>
+<td><p>5.09960</p></td>
+<td><p>0.00066</p></td>
+<td><p>5.09958</p></td>
+</tr>
+<tr class="row-even"><td><p>5.20000</p></td>
+<td><p>5.19963</p></td>
+<td><p>0.00087</p></td>
+<td><p>5.19964</p></td>
+</tr>
+<tr class="row-odd"><td><p>5.30000</p></td>
+<td><p>5.29952</p></td>
+<td><p>0.00072</p></td>
+<td><p>5.29944</p></td>
+</tr>
+<tr class="row-even"><td><p>5.40000</p></td>
+<td><p>5.39925</p></td>
+<td><p>0.00084</p></td>
+<td><p>5.39949</p></td>
+</tr>
+<tr class="row-odd"><td><p>5.50000</p></td>
+<td><p>5.49926</p></td>
+<td><p>0.00059</p></td>
+<td><p>5.49959</p></td>
+</tr>
+<tr class="row-even"><td><p>5.60000</p></td>
+<td><p>5.59918</p></td>
+<td><p>0.00065</p></td>
+<td><p>5.59935</p></td>
+</tr>
+<tr class="row-odd"><td><p>5.70000</p></td>
+<td><p>5.70004</p></td>
+<td><p>0.00073</p></td>
+<td><p>5.69973</p></td>
+</tr>
+<tr class="row-even"><td><p>5.80000</p></td>
+<td><p>5.79989</p></td>
+<td><p>0.00081</p></td>
+<td><p>5.79979</p></td>
+</tr>
+<tr class="row-odd"><td><p>5.90000</p></td>
+<td><p>5.89972</p></td>
+<td><p>0.00087</p></td>
+<td><p>5.89954</p></td>
+</tr>
+<tr class="row-even"><td><p>6.00000</p></td>
+<td><p>6.00000</p></td>
+<td><p>0.00076</p></td>
+<td><p>5.99964</p></td>
+</tr>
+<tr class="row-odd"><td><p>6.10000</p></td>
+<td><p>6.10001</p></td>
+<td><p>0.00038</p></td>
+<td><p>6.09973</p></td>
+</tr>
+<tr class="row-even"><td><p>6.20000</p></td>
+<td><p>6.19986</p></td>
+<td><p>0.00047</p></td>
+<td><p>6.19950</p></td>
+</tr>
+<tr class="row-odd"><td><p>6.30000</p></td>
+<td><p>6.29947</p></td>
+<td><p>0.00071</p></td>
+<td><p>6.29958</p></td>
+</tr>
+<tr class="row-even"><td><p>6.40000</p></td>
+<td><p>6.39973</p></td>
+<td><p>0.00077</p></td>
+<td><p>6.39968</p></td>
+</tr>
+<tr class="row-odd"><td><p>6.50000</p></td>
+<td><p>6.49986</p></td>
+<td><p>0.00068</p></td>
+<td><p>6.49943</p></td>
+</tr>
+<tr class="row-even"><td><p>6.60000</p></td>
+<td><p>6.60005</p></td>
+<td><p>0.00091</p></td>
+<td><p>6.59952</p></td>
+</tr>
+<tr class="row-odd"><td><p>6.70000</p></td>
+<td><p>6.69947</p></td>
+<td><p>0.00085</p></td>
+<td><p>6.69960</p></td>
+</tr>
+<tr class="row-even"><td><p>6.80000</p></td>
+<td><p>6.79939</p></td>
+<td><p>0.00065</p></td>
+<td><p>6.79935</p></td>
+</tr>
+<tr class="row-odd"><td><p>6.90000</p></td>
+<td><p>6.89924</p></td>
+<td><p>0.00083</p></td>
+<td><p>6.89944</p></td>
+</tr>
+<tr class="row-even"><td><p>7.00000</p></td>
+<td><p>6.99989</p></td>
+<td><p>0.00074</p></td>
+<td><p>6.99950</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.10000</p></td>
+<td><p>7.09972</p></td>
+<td><p>0.00091</p></td>
+<td><p>7.09926</p></td>
+</tr>
+<tr class="row-even"><td><p>7.20000</p></td>
+<td><p>7.20012</p></td>
+<td><p>0.00074</p></td>
+<td><p>7.19968</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.30000</p></td>
+<td><p>7.30004</p></td>
+<td><p>0.00073</p></td>
+<td><p>7.29975</p></td>
+</tr>
+<tr class="row-even"><td><p>7.40000</p></td>
+<td><p>7.39934</p></td>
+<td><p>0.00061</p></td>
+<td><p>7.39950</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.50000</p></td>
+<td><p>7.50002</p></td>
+<td><p>0.00073</p></td>
+<td><p>7.49960</p></td>
+</tr>
+<tr class="row-even"><td><p>7.60000</p></td>
+<td><p>7.60003</p></td>
+<td><p>0.00074</p></td>
+<td><p>7.59969</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.70000</p></td>
+<td><p>7.69967</p></td>
+<td><p>0.00101</p></td>
+<td><p>7.69948</p></td>
+</tr>
+<tr class="row-even"><td><p>7.80000</p></td>
+<td><p>7.79947</p></td>
+<td><p>0.00089</p></td>
+<td><p>7.79958</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.90000</p></td>
+<td><p>7.89972</p></td>
+<td><p>0.00094</p></td>
+<td><p>7.89961</p></td>
+</tr>
+<tr class="row-even"><td><p>8.00000</p></td>
+<td><p>8.00027</p></td>
+<td><p>0.00083</p></td>
+<td><p>7.99969</p></td>
+</tr>
+<tr class="row-odd"><td><p>8.10000</p></td>
+<td><p>8.09934</p></td>
+<td><p>0.00090</p></td>
+<td><p>8.09945</p></td>
+</tr>
+<tr class="row-even"><td><p>8.20000</p></td>
+<td><p>8.19971</p></td>
+<td><p>0.00095</p></td>
+<td><p>8.19952</p></td>
+</tr>
+<tr class="row-odd"><td><p>8.30000</p></td>
+<td><p>8.29963</p></td>
+<td><p>0.00112</p></td>
+<td><p>8.29961</p></td>
+</tr>
+<tr class="row-even"><td><p>8.40000</p></td>
+<td><p>8.39997</p></td>
+<td><p>0.00073</p></td>
+<td><p>8.39939</p></td>
+</tr>
+<tr class="row-odd"><td><p>8.50000</p></td>
+<td><p>8.49903</p></td>
+<td><p>0.00089</p></td>
+<td><p>8.49948</p></td>
+</tr>
+<tr class="row-even"><td><p>8.60000</p></td>
+<td><p>8.59962</p></td>
+<td><p>0.00080</p></td>
+<td><p>8.59985</p></td>
+</tr>
+<tr class="row-odd"><td><p>8.70000</p></td>
+<td><p>8.69950</p></td>
+<td><p>0.00109</p></td>
+<td><p>8.69963</p></td>
+</tr>
+<tr class="row-even"><td><p>8.80000</p></td>
+<td><p>8.79945</p></td>
+<td><p>0.00084</p></td>
+<td><p>8.79975</p></td>
+</tr>
+<tr class="row-odd"><td><p>8.90000</p></td>
+<td><p>8.89973</p></td>
+<td><p>0.00111</p></td>
+<td><p>8.89982</p></td>
+</tr>
+<tr class="row-even"><td><p>9.00000</p></td>
+<td><p>8.99980</p></td>
+<td><p>0.00083</p></td>
+<td><p>8.99956</p></td>
+</tr>
+<tr class="row-odd"><td><p>9.10000</p></td>
+<td><p>9.09993</p></td>
+<td><p>0.00071</p></td>
+<td><p>9.09962</p></td>
+</tr>
+<tr class="row-even"><td><p>9.20000</p></td>
+<td><p>9.19966</p></td>
+<td><p>0.00098</p></td>
+<td><p>9.19971</p></td>
+</tr>
+<tr class="row-odd"><td><p>9.30000</p></td>
+<td><p>9.29918</p></td>
+<td><p>0.00090</p></td>
+<td><p>9.29948</p></td>
+</tr>
+<tr class="row-even"><td><p>9.40000</p></td>
+<td><p>9.39910</p></td>
+<td><p>0.00097</p></td>
+<td><p>9.39958</p></td>
+</tr>
+<tr class="row-odd"><td><p>9.50000</p></td>
+<td><p>9.49987</p></td>
+<td><p>0.00106</p></td>
+<td><p>9.49965</p></td>
+</tr>
+<tr class="row-even"><td><p>9.60000</p></td>
+<td><p>9.59890</p></td>
+<td><p>0.00102</p></td>
+<td><p>9.59940</p></td>
+</tr>
+<tr class="row-odd"><td><p>9.70000</p></td>
+<td><p>9.70004</p></td>
+<td><p>0.00110</p></td>
+<td><p>9.69948</p></td>
+</tr>
+<tr class="row-even"><td><p>9.80000</p></td>
+<td><p>9.79974</p></td>
+<td><p>0.00105</p></td>
+<td><p>9.79956</p></td>
+</tr>
+<tr class="row-odd"><td><p>9.90000</p></td>
+<td><p>9.89935</p></td>
+<td><p>0.00112</p></td>
+<td><p>9.89939</p></td>
+</tr>
+<tr class="row-even"><td><p>10.00000</p></td>
+<td><p>9.99951</p></td>
+<td><p>0.00058</p></td>
+<td><p>9.99978</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line">Suggestions and Comments to:</div>
+<div class="line"><a class="reference external" href="mailto:rivers&#37;&#52;&#48;cars&#46;uchicago&#46;edu">Mark Rivers</a> :
+(<a class="reference external" href="mailto:rivers&#37;&#52;&#48;cars&#46;uchicago&#46;edu">rivers<span>&#64;</span>cars<span>&#46;</span>uchicago<span>&#46;</span>edu</a>)</div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, Mark Rivers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
