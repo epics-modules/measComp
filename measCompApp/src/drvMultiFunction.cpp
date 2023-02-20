@@ -196,7 +196,7 @@ typedef enum {
 #define MAX_ANALOG_IN   16
 #define MAX_TEMPERATURE_IN 64
 #define MAX_ANALOG_OUT  16
-#define MAX_IO_PORTS    2
+#define MAX_IO_PORTS    3
 #define MAX_SIGNALS     MAX_TEMPERATURE_IN
 
 // For simplicity define a few constants on Linux to be the same as Windows cbw.h

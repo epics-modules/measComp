@@ -6,7 +6,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "EDIO24:")
 epicsEnvSet("PORT",          "EDIO24_1")
-epicsEnvSet("UNIQUE_ID",     "10.54.160.222")
+epicsEnvSet("UNIQUE_ID",     "gse-edio24-1")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver

@@ -11,7 +11,7 @@ epicsEnvSet("WDIG_POINTS",   "2048")
 #epicsEnvSet("UNIQUE_ID",     "gse-e1608-6")
 #epicsEnvSet("UNIQUE_ID",     "gse-e1608-6:54211")
 #epicsEnvSet("UNIQUE_ID",     "10.54.160.63")
-epicsEnvSet("UNIQUE_ID",     "10.54.160.63:54211")
+epicsEnvSet("UNIQUE_ID",     "gse-e1608-4:54211")
 #epicsEnvSet("UNIQUE_ID",     "01234567")
 
 ## Configure port driver
