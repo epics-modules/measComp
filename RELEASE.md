@@ -1,10 +1,16 @@
 # measComp Release Notes
 
-## Release 4-1 (August XXX, 2022)
+## Release 4-1 (February 21, 2023)
+  - Fixed problems with the E-DIO24 support that caused only bits 1-8 to work correctly,
+    bits 9-24 did not work.
+  - Added OPI screens for the E-DIO24.
+  - Added substitutions files for the USB-3104.
   - Added support for the USB-1208FS-Plus and fixed some issues with the USB-1208FS and USB-1208LS.
     Thanks to Wei Li from Duke for this.
+  - Added support for the USB1608HS-2A0. Thanks to Zachary Arthur from CLS for this.
   - Changed to allow the uniqueId for Ethernet devices in MultifunctionConfig() to be an IP DNS name,
     in addition to the previously supported IP address or MAC address.
+  - Moved the documentation to [Github Pages](https://epics-modules.github.io/measComp).
 
 ## Release 4-0 (June 10, 2022)
   - Changed the Linux support from using the [low-level drivers from Warren Jasper](https://github.com/wjasper/Linux_Drivers)
