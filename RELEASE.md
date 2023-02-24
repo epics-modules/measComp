@@ -1,5 +1,8 @@
 # measComp Release Notes
 
+## Release 4-2 (March XXX, 2023)
+  - Added OPI and iocBoot files for the USB-3104.
+
 ## Release 4-1 (February 21, 2023)
   - Fixed problems with the E-DIO24 support that caused only bits 1-8 to work correctly,
     bits 9-24 did not work.
