@@ -440,20 +440,24 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-12.0"
 icon
-buttonLabel "USB-3105"
-numPvs 2
-numDsps 1
+buttonLabel "USB-31XX"
+numPvs 4
+numDsps 2
 displayFileName {
   0 "USB3105_module.edl"
+  1 "USB3104_module.edl"
 }
 menuLabel {
   0 "USB-3105 module"
+  1 "USB-3104 module"
 }
 symbols {
   0 "P=USB3105:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter"
+  1 "P=USB3104:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter"
 }
 replaceSymbols {
   0 1
+  1 1
 }
 endObjectProperties
 
