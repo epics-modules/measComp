@@ -1,78 +1,81 @@
 # this is for E-DIO24 measurement computing.
 
 file "$(MEASCOMP)/measCompApp/Db/measCompLongIn.template"
-{
+{ 
 pattern
-{R,       MASK,   ADDR}
-{Li,   0xFFFFFF,     0}
-
+{R,   MASK,  ADDR}
+{Li1, 0xFF,     0}
+{Li2, 0xFF,     1}
+{Li3, 0xFF,     2}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
 {
 pattern
 {  R,      MASK,   ADDR}
-{ Bi1,  0x000001      0}
-{ Bi2,  0x000002      0}
-{ Bi3,  0x000004      0}
-{ Bi4,  0x000008      0}
-{ Bi5,  0x000010      0}
-{ Bi6,  0x000020      0}
-{ Bi7,  0x000040      0}
-{ Bi8,  0x000080      0}
-{ Bi9,  0x000001      1}
-{Bi10,  0x000002      1}
-{Bi11,  0x000004      1}
-{Bi12,  0x000008      1}
-{Bi13,  0x000010      1}
-{Bi14,  0x000020      1}
-{Bi15,  0x000040      1}
-{Bi16,  0x000080      1}
-{Bi17,  0x000001      2}
-{Bi18,  0x000002      2}
-{Bi19,  0x000004      2}
-{Bi20,  0x000008      2}
-{Bi21,  0x000010      2}
-{Bi22,  0x000020      2}
-{Bi23,  0x000040      2}
-{Bi24,  0x000080      2}
+{ Bi1,  0x01      0}
+{ Bi2,  0x02      0}
+{ Bi3,  0x04      0}
+{ Bi4,  0x08      0}
+{ Bi5,  0x10      0}
+{ Bi6,  0x20      0}
+{ Bi7,  0x40      0}
+{ Bi8,  0x80      0}
+{ Bi9,  0x01      1}
+{Bi10,  0x02      1}
+{Bi11,  0x04      1}
+{Bi12,  0x08      1}
+{Bi13,  0x10      1}
+{Bi14,  0x20      1}
+{Bi15,  0x40      1}
+{Bi16,  0x80      1}
+{Bi17,  0x01      2}
+{Bi18,  0x02      2}
+{Bi19,  0x04      2}
+{Bi20,  0x08      2}
+{Bi21,  0x10      2}
+{Bi22,  0x20      2}
+{Bi23,  0x40      2}
+{Bi24,  0x80      2}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompLongOut.template"
 {
 pattern
-{ R,     MASK,    ADDR}
-{Lo,   0xFFFFFF,     0}
+{ R,    MASK,  ADDR}
+{Lo1,   0xFF,     0}
+{Lo2,   0xFF,	  1}
+{Lo3,   0xFF,     2}
 }
 
 file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
 {
 pattern
 {  R,     MASK,    ADDR}
-{ Bo1,  0x000001      0}
-{ Bo2,  0x000002      0}
-{ Bo3,  0x000004      0}
-{ Bo4,  0x000008      0}
-{ Bo5,  0x000010      0}
-{ Bo6,  0x000020      0}
-{ Bo7,  0x000040      0}
-{ Bo8,  0x000080      0}
-{ Bo9,  0x000001      1}
-{Bo10,  0x000002      1}
-{Bo11,  0x000004      1}
-{Bo12,  0x000008      1}
-{Bo13,  0x000010      1}
-{Bo14,  0x000020      1}
-{Bo15,  0x000040      1}
-{Bo16,  0x000080      1}
-{Bo17,  0x000001      2}
-{Bo18,  0x000002      2}
-{Bo19,  0x000004      2}
-{Bo20,  0x000008      2}
-{Bo21,  0x000010      2}
-{Bo22,  0x000020      2}
-{Bo23,  0x000040      2}
-{Bo24,  0x000080      2}
+{ Bo1,  0x01      0}
+{ Bo2,  0x02      0}
+{ Bo3,  0x04      0}
+{ Bo4,  0x08      0}
+{ Bo5,  0x10      0}
+{ Bo6,  0x20      0}
+{ Bo7,  0x40      0}
+{ Bo8,  0x80      0}
+{ Bo9,  0x01      1}
+{Bo10,  0x02      1}
+{Bo11,  0x04      1}
+{Bo12,  0x08      1}
+{Bo13,  0x10      1}
+{Bo14,  0x20      1}
+{Bo15,  0x40      1}
+{Bo16,  0x80      1}
+{Bo17,  0x01      2}
+{Bo18,  0x02      2}
+{Bo19,  0x04      2}
+{Bo20,  0x08      2}
+{Bo21,  0x10      2}
+{Bo22,  0x20      2}
+{Bo23,  0x40      2}
+{Bo24,  0x80      2}
 }
 
 # Direction bits on binary I/O
@@ -81,28 +84,36 @@ file "$(MEASCOMP)/measCompApp/Db/measCompBinaryDir.template"
 {
 pattern
 { R,       MASK,  VAL,  ADDR}
-{ Bd1,  0x000001    0,     0}
-{ Bd2,  0x000002    0,     0}
-{ Bd3,  0x000004    0,     0}
-{ Bd4,  0x000008    0,     0}
-{ Bd5,  0x000010    1,     0}
-{ Bd6,  0x000020    1,     0}
-{ Bd7,  0x000040    1,     0}
-{ Bd8,  0x000080    1,     0}
-{ Bd9,  0x000001    0,     1}
-{Bd10,  0x000002    0,     1}
-{Bd11,  0x000004    0,     1}
-{Bd12,  0x000008    0,     1}
-{Bd13,  0x000010    0,     1}
-{Bd14,  0x000020    0,     1}
-{Bd15,  0x000040    0,     1}
-{Bd16,  0x000080    0,     1}
-{Bd17,  0x000001    1,     2}
-{Bd18,  0x000002    1,     2}
-{Bd19,  0x000004    1,     2}
-{Bd20,  0x000008    1,     2}
-{Bd21,  0x000010    1,     2}
-{Bd22,  0x000020    1,     2}
-{Bd23,  0x000040    1,     2}
-{Bd24,  0x000080    1,     2}
+{ Bd1,  0x01    0,     0}
+{ Bd2,  0x02    0,     0}
+{ Bd3,  0x04    0,     0}
+{ Bd4,  0x08    0,     0}
+{ Bd5,  0x10    1,     0}
+{ Bd6,  0x20    1,     0}
+{ Bd7,  0x40    1,     0}
+{ Bd8,  0x80    1,     0}
+{ Bd9,  0x01    0,     1}
+{Bd10,  0x02    0,     1}
+{Bd11,  0x04    0,     1}
+{Bd12,  0x08    0,     1}
+{Bd13,  0x10    0,     1}
+{Bd14,  0x20    0,     1}
+{Bd15,  0x40    0,     1}
+{Bd16,  0x80    0,     1}
+{Bd17,  0x01    1,     2}
+{Bd18,  0x02    1,     2}
+{Bd19,  0x04    1,     2}
+{Bd20,  0x08    1,     2}
+{Bd21,  0x10    1,     2}
+{Bd22,  0x20    1,     2}
+{Bd23,  0x40    1,     2}
+{Bd24,  0x80    1,     2}
 }
+
+file "$(MEASCOMP)/measCompApp/Db/measCompCounter.template"
+{
+pattern
+{    R,      ADDR}
+{Counter1,      0}
+}
+
