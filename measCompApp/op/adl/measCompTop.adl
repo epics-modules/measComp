@@ -1,7 +1,7 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/measCompTop.adl"
-	version=030109
+	name="/home/epics/devel/measComp-4-0/measCompApp/op/adl/measCompTop.adl"
+	version=030117
 }
 display {
 	object {
@@ -296,7 +296,12 @@ display {
 		name="USB3105_module.adl"
 		args="P=USB3105:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter"
 	}
+	display[1] {
+		label="USB-3104 module"
+		name="USB3104_module.adl"
+		args="P=USB3104:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter"
+	}
 	clr=14
 	bclr=51
-	label="USB-3105"
+	label="USB-31XX"
 }
