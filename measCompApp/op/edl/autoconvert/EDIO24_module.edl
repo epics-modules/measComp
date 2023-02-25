@@ -6,7 +6,7 @@ release 1
 x 29
 y 262
 w 605
-h 595
+h 605
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -51,7 +51,7 @@ major 4
 minor 0
 release 0
 x 192
-y 530
+y 534
 w 220
 h 60
 fgColor rgb 0 0 0
@@ -68,6 +68,19 @@ displayFileName {
 noScroll
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 39
+w 595
+h 160
+
+beginGroup
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -77,147 +90,9 @@ release 0
 x 5
 y 39
 w 594
-h 484
+h 159
 lineColor rgb 0 0 0
 fillColor rgb 0 0 0
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 435
-y 422
-w 100
-h 18
-controlPv "$(P)$(Li)3"
-format "hex"
-font "helvetica-medium-r-14.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 435
-y 452
-w 100
-h 20
-controlPv "$(P)$(Lo)3"
-format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 211
-y 369
-w 216
-h 25
-font "helvetica-medium-r-18.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Digital I/O Port 3"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 435
-y 261
-w 100
-h 18
-controlPv "$(P)$(Li)2"
-format "hex"
-font "helvetica-medium-r-14.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 435
-y 291
-w 100
-h 20
-controlPv "$(P)$(Lo)2"
-format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-editable
-motifWidget
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 211
-y 208
-w 216
-h 25
-font "helvetica-medium-r-18.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Digital I/O Port 2"
-}
 endObjectProperties
 
 # (Text Monitor)
@@ -288,1106 +163,6 @@ value {
   "Digital I/O Port 1"
 }
 endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 398
-w 415
-h 115
-
-beginGroup
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 119
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)17.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 159
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)18.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 199
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)19.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 239
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)20.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 279
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)21.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 319
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)22.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 359
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)23.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 399
-y 421
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)24.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 399
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)24.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 359
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)23.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 319
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)22.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 279
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)21.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 239
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)20.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 199
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)19.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 159
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)18.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 119
-y 421
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)17.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 488
-w 90
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Direction"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 30
-y 452
-w 70
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Outputs"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 40
-y 422
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Inputs"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 154
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "18"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 194
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "19"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 234
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "20"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 274
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "21"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 314
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "22"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 354
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "23"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 394
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "24"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 114
-y 398
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "17"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 237
-w 415
-h 115
-
-beginGroup
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 119
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)9.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 159
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)10.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 199
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)11.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 239
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)12.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 279
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)13.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 319
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)14.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 359
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)15.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 399
-y 260
-w 18
-h 18
-lineColor rgb 64768 0 0
-fill
-fillColor rgb 64768 0 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)16.VAL)"
-visInvert
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 119
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)9.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 159
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)10.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 199
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)11.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 239
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)12.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 279
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)13.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 319
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)14.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 359
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)15.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 399
-y 260
-w 18
-h 18
-lineColor rgb 0 55296 0
-fill
-fillColor rgb 0 55296 0
-lineWidth 0
-visPv "CALC\\\{(A)\}($(P)$(Bi)16.VAL)"
-visMin 0
-visMax 1
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 30
-y 291
-w 70
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Outputs"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 40
-y 261
-w 60
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Inputs"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 154
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "10"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 194
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "11"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 234
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "12"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 274
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "13"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 314
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "14"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 354
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "15"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 394
-y 237
-w 28
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "16"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 117
-y 237
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "9"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 327
-w 90
-h 20
-font "helvetica-medium-r-14.0"
-fontAlign "right"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Direction"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 
 # (Group)
 object activeGroupClass
@@ -1938,6 +713,94 @@ endGroup
 
 endObjectProperties
 
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 204
+w 595
+h 160
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 435
+y 265
+w 100
+h 18
+controlPv "$(P)$(Li)2"
+format "hex"
+font "helvetica-medium-r-14.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 435
+y 295
+w 100
+h 20
+controlPv "$(P)$(Lo)2"
+format "hex"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 211
+y 212
+w 216
+h 25
+font "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Digital I/O Port 2"
+}
+endObjectProperties
+
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -1945,330 +808,1212 @@ major 4
 minor 0
 release 0
 x 10
-y 398
+y 241
 w 415
 h 115
 
 beginGroup
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 150
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)18"
-font "helvetica-medium-r-10.0"
+x 119
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)9.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 190
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)19"
-font "helvetica-medium-r-10.0"
+x 159
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)10.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 230
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)20"
-font "helvetica-medium-r-10.0"
+x 199
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)11.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 270
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)21"
-font "helvetica-medium-r-10.0"
+x 239
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)12.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 310
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)22"
-font "helvetica-medium-r-10.0"
+x 279
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)13.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 350
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)23"
-font "helvetica-medium-r-10.0"
+x 319
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)14.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 390
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)24"
-font "helvetica-medium-r-10.0"
+x 359
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)15.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 110
-y 447
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)17"
-font "helvetica-medium-r-10.0"
+x 399
+y 264
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)16.VAL)"
+visInvert
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 150
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)18"
-font "helvetica-medium-r-10.0"
+x 119
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)9.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 190
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)19"
-font "helvetica-medium-r-10.0"
+x 159
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)10.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 230
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)20"
-font "helvetica-medium-r-10.0"
+x 199
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)11.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 270
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)21"
-font "helvetica-medium-r-10.0"
+x 239
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)12.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 310
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd22"
-font "helvetica-medium-r-10.0"
+x 279
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)13.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 350
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)23"
-font "helvetica-medium-r-10.0"
+x 319
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)14.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 390
-y 483
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)24"
-font "helvetica-medium-r-10.0"
+x 359
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)15.VAL)"
+visMin 0
+visMax 1
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
+# (Circle)
+object activeCircleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 110
-y 483
-w 35
-h 30
+x 399
+y 264
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)16.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 30
+y 295
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Outputs"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 265
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Inputs"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 154
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "10"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 194
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "11"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 234
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "12"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 274
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "13"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 314
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "14"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 354
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "15"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 394
+y 241
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "16"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 117
+y 241
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "9"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 331
+w 90
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Direction"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 204
+w 594
+h 159
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 369
+w 595
+h 160
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 435
+y 430
+w 100
+h 18
+controlPv "$(P)$(Li)3"
+format "hex"
+font "helvetica-medium-r-14.0"
+fontAlign "left"
 fgColor rgb 0 0 0
 bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)17"
-font "helvetica-medium-r-10.0"
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 435
+y 460
+w 100
+h 20
+controlPv "$(P)$(Lo)3"
+format "hex"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 211
+y 377
+w 216
+h 25
+font "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Digital I/O Port 3"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 406
+w 415
+h 115
+
+beginGroup
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 119
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)17.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 159
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)18.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 199
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)19.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 239
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)20.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 279
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)21.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 319
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)22.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 359
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)23.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 399
+y 429
+w 18
+h 18
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)24.VAL)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 399
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)24.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 359
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)23.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 319
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)22.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 279
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)21.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 239
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)20.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 199
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)19.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 159
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)18.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 119
+y 429
+w 18
+h 18
+lineColor rgb 0 55296 0
+fill
+fillColor rgb 0 55296 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P)$(Bi)17.VAL)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 496
+w 90
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Direction"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 30
+y 460
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Outputs"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 430
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Inputs"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 154
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "18"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 194
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "19"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 234
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "20"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 274
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "21"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 314
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "22"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 354
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "23"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 394
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "24"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 114
+y 406
+w 28
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "17"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 369
+w 594
+h 159
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
 endObjectProperties
 
 endGroup
@@ -2281,337 +2026,12 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 10
-y 237
-w 415
-h 115
+x 5
+y 39
+w 595
+h 160
 
 beginGroup
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 150
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)10"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 190
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)11"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 230
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)12"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 270
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)13"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 310
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)14"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 350
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)15"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 390
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)16"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 110
-y 286
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bo)9"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 150
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)10"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 190
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd11"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 230
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)12"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 270
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)13"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 310
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)14"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 350
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)15"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 390
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)16"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 110
-y 322
-w 35
-h 30
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-selectColor rgb 29440 57088 65280
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P)$(Bd)9"
-font "helvetica-medium-r-10.0"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -2944,6 +2364,719 @@ botShadowColor rgb 0 0 0
 controlPv "$(P)$(Bd)1"
 font "helvetica-medium-r-10.0"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 204
+w 595
+h 160
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 241
+w 415
+h 115
+
+beginGroup
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)10"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 190
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)11"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 230
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)12"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 270
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)13"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 310
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)14"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 350
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)15"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 390
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)16"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 110
+y 290
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)9"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)10"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 190
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd11"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 230
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)12"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 270
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)13"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 310
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)14"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 350
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)15"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 390
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)16"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 110
+y 326
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)9"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 369
+w 595
+h 160
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 406
+w 415
+h 115
+
+beginGroup
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)18"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 190
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)19"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 230
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)20"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 270
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)21"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 310
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)22"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 350
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)23"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 390
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)24"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 110
+y 455
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bo)17"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)18"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 190
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)19"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 230
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)20"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 270
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)21"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 310
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd22"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 350
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)23"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 390
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)24"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 110
+y 491
+w 35
+h 30
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+selectColor rgb 29440 57088 65280
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P)$(Bd)17"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
 
 endGroup
 
