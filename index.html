@@ -1,171 +1,175 @@
+
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>measComp: EPICS Drivers for Measurement Computing Devices &mdash; EPICS support for Measurement Computing devices</title>
+  
 
-    <title>measComp: EPICS Drivers for Measurement Computing Devices &#8212; EPICS MeasComp 4-1-10-g2f55468 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+  
+  <link rel="stylesheet" href="_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/my_theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="next" title="Overview" href="overview.html" /> 
+</head>
 
-  </head><body>
+<body class="wy-body-for-nav">
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          EPICS measComp</a>
-        <span class="navbar-text navbar-version pull-left"><b>4-1</b></span>
-      </div>
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"></ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">measComp: EPICS Drivers for Measurement Computing Devices</a><ul>
-<li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#driver-documentation">Driver documentation</a></li>
-<li><a class="reference internal" href="#where-to-find-it">Where to find it</a></li>
-<li><a class="reference internal" href="#required-modules">Required Modules</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-              
-                
-              
-            
-            
-            
-            
-              <li class="hidden-sm">
-<div id="sourcelink">
-  <a href="_sources/index.rst.txt"
-     rel="nofollow">Source</a>
-</div></li>
-            
-          </ul>
+          
+            <a href="#" class="icon icon-home"> measComp
+          
+
+          
+          </a>
 
           
             
-<form class="navbar-form navbar-right" action="search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
           
         </div>
-    </div>
-  </div>
 
-<div class="container">
-  <div class="row">
-    <div class="body col-md-12 content" role="main">
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measCompMultiFunctionDoc.html">Driver for Multi-Function Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measCompUSBCTRDoc.html">Driver for the USB-CTR08</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">measComp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>measComp: EPICS Drivers for Measurement Computing Devices</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
   <section id="meascomp-epics-drivers-for-measurement-computing-devices">
-<h1><a class="toc-backref" href="#id1" role="doc-backlink">measComp: EPICS Drivers for Measurement Computing Devices</a><a class="headerlink" href="#meascomp-epics-drivers-for-measurement-computing-devices" title="Permalink to this heading">¶</a></h1>
+<h1>measComp: EPICS Drivers for Measurement Computing Devices<a class="headerlink" href="#meascomp-epics-drivers-for-measurement-computing-devices" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Mark Rivers, University of Chicago</p>
 </dd>
 </dl>
-<nav class="contents" id="contents">
-<p class="topic-title">Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#meascomp-epics-drivers-for-measurement-computing-devices" id="id1">measComp: EPICS Drivers for Measurement Computing Devices</a></p>
-<ul>
-<li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#driver-documentation" id="id3">Driver documentation</a></p></li>
-<li><p><a class="reference internal" href="#where-to-find-it" id="id4">Where to find it</a></p></li>
-<li><p><a class="reference internal" href="#required-modules" id="id5">Required Modules</a></p></li>
-</ul>
-</li>
-</ul>
-</nav>
-<section id="introduction">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>This package provides EPICS drivers for the some of the USB and Ethernet
-I/O modules from Measurement Computing. Currently the USB-CTR04/08,
-and multi-function modules (E-1608, USB-1208LS, USB-1208FS, USB-1608G,
-USB-1608GX-2AO, USB-231, USB-2408-2AO, E-TC, TC-32, USB-TEMP, USB-TEMP-AI,
-and E-DIO24) are supported.
-The multi-function modules support analog input and/or output, temperature input
-(USB-2408-2AO, USB-TEMP, USB-TEMP-AI, E-TC, TC-32), digital input/output,
-pulse counters (all but TC-32), and pulse generators (USB-1608G and USB-1608GX-2AO).</p>
-<p>Support for other modules is straightforward to add and can be done as the demand arises.</p>
-<p>This module is supported on both Windows and Linux, 64-bit and 32-bit.</p>
-<p>On Windows it uses the Measurement Computing “Universal Library” (UL),
-which is only available on Windows.</p>
-<p>In R4-0 and later it uses the UL for Linux library from Measurement Computing for Linux drivers.
-This is an [open-source library available on Github](<a class="reference external" href="https://github.com/mccdaq/uldaq">https://github.com/mccdaq/uldaq</a>).
-The Linux Universal Library API is similar to the Windows UL API, but the functions have different names and different syntax.</p>
-<p>UL for Windows and Linux support most current Measurement Computing models.</p>
-<p>In versions prior to R4-0 the Linux support used the [low-level drivers from Warren Jasper](<a class="reference external" href="https://github.com/wjasper/Linux_Drivers">https://github.com/wjasper/Linux_Drivers</a>).
-On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.
-The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
-The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.</p>
-</section>
-<section id="driver-documentation">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink">Driver documentation</a><a class="headerlink" href="#driver-documentation" title="Permalink to this heading">¶</a></h2>
-<p>Each driver is documented separately.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="measCompMultiFunctionDoc.html">Multi-function module driver</a></p></li>
-<li><p><a class="reference external" href="measCompUSBCTRDoc.html">USB-CTR04/08 driver</a></p></li>
-</ul>
-</section>
-<section id="where-to-find-it">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">Where to find it</a><a class="headerlink" href="#where-to-find-it" title="Permalink to this heading">¶</a></h2>
+I/O modules from Measurement Computing.</p>
 <p>The software is located in the
 <a class="reference external" href="https://github.com/epics-modules/measComp">measComp github repository</a>.</p>
-</section>
 <section id="required-modules">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Required Modules</a><a class="headerlink" href="#required-modules" title="Permalink to this heading">¶</a></h2>
+<h2>Required Modules<a class="headerlink" href="#required-modules" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Required module</p></th>
@@ -186,7 +190,7 @@ The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-
 <td><p>Busy record support</p></td>
 </tr>
 <tr class="row-even"><td><p>mca</p></td>
-<td><p>mca record support.</p></td>
+<td><p>mca record support</p></td>
 </tr>
 <tr class="row-odd"><td><p>scaler</p></td>
 <td><p>Scaler record support.</p></td>
@@ -200,31 +204,117 @@ mode with USB-CTR08 and for std.</p></td>
 <p>The required versions of each of the above modules for a specific
 release of measComp can be determined from the
 measComp/configure/RELEASE file.</p>
-<hr class="docutils" />
-<div class="line-block">
-<div class="line">Suggestions and Comments to:</div>
-<div class="line"><a class="reference external" href="mailto:rivers&#37;&#52;&#48;cars&#46;uchicago&#46;edu">Mark Rivers</a> :
-(<a class="reference external" href="mailto:rivers&#37;&#52;&#48;cars&#46;uchicago&#46;edu">rivers<span>&#64;</span>cars<span>&#46;</span>uchicago<span>&#46;</span>edu</a>)</div>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measCompMultiFunctionDoc.html">Driver for Multi-Function Devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#supported-models">Supported models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#e-1608">E-1608</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#e-tc">E-TC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#tc-32">TC-32</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-1608g-and-usb-1608gx-2ao">USB-1608G and USB-1608GX-2AO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-2408-2ao">USB-2408-2AO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-temp-and-usb-temp-ai">USB-TEMP and USB-TEMP-AI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-1208ls">USB-1208LS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#e-dio24">E-DIO24</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-3100">USB-3100</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#databases">Databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#analog-i-o-functions">Analog I/O Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#temperature-functions">Temperature Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#digital-i-o-functions">Digital I/O Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#pulse-generator-functions">Pulse Generator Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#waveform-digitizer-functions">Waveform Digitizer Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#waveform-generator-functions">Waveform Generator Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#trigger-functions">Trigger Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#box-for-usb-2408-2ao">Box for USB-2408-2AO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#wiring-usb-1608gx-2ao-to-bcda-bc-020">Wiring USB-1608GX-2AO to BCDA BC-020</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="measCompMultiFunctionDoc.html#usb-1608gx-2ao-wiring-to-two-bcda-bc-020-lemo-breakout-panels">USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measCompMultiFunctionDoc.html#performance-measurements">Performance measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="measCompUSBCTRDoc.html">Driver for the USB-CTR08</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#databases">Databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#digital-i-o-functions">Digital I/O Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#pulse-generator-functions">Pulse Generator Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#scaler-record-support">Scaler Record Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#multi-channel-scaler-mcs-support">Multi-Channel Scaler (MCS) Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#medm-screens">medm screens</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#wiring-to-bcda-bc-020-lemo-breakout-panels">Wiring to BCDA BC-020 LEMO Breakout Panels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="measCompUSBCTRDoc.html#wiring-table">Wiring table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#performance-measurements">Performance measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="measCompUSBCTRDoc.html#restrictions">Restrictions</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 </section>
 
 
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-      
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-    </p>
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Mark Rivers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.1.3.<br/>
+        &#169; Copyright 2023, Mark Rivers.
+      <span class="lastupdated">
+        Last updated on 2023-February-26.
+      </span>
+
     </p>
   </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
 </footer>
-  </body>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>

@@ -1,6 +1,5 @@
-==================================
-measComp: Driver for the USB-CTR08
-==================================
+Driver for the USB-CTR08
+========================
 
 :author: Mark Rivers, University of Chicago
 

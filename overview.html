@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Search &mdash; EPICS support for Measurement Computing devices</title>
+  <title>Overview &mdash; EPICS support for Measurement Computing devices</title>
   
 
   
@@ -25,7 +26,6 @@
   
 
   
-    
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -39,10 +39,10 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-    <script type="text/javascript" src="_static/searchtools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Driver for Multi-Function Devices" href="measCompMultiFunctionDoc.html" />
+    <link rel="prev" title="measComp: EPICS Drivers for Measurement Computing Devices" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -69,7 +69,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -87,8 +87,8 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measCompMultiFunctionDoc.html">Driver for Multi-Function Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measCompUSBCTRDoc.html">Driver for the USB-CTR08</a></li>
 </ul>
@@ -139,10 +139,14 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Overview</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -154,23 +158,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search functionality.
-    </p>
-  </div>
-  </noscript>
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h1>
+<p>This package provides EPICS drivers for the some of the USB and Ethernet
+I/O modules from Measurement Computing. Currently the USB-CTR04/08,
+and multi-function modules (E-1608, USB-1208LS, USB-1208FS, USB-1608G,
+USB-1608GX-2AO, USB-231, USB-2408-2AO, E-TC, TC-32, USB-TEMP, USB-TEMP-AI,
+and E-DIO24) are supported.
+The multi-function modules support analog input and/or output, temperature input
+(USB-2408-2AO, USB-TEMP, USB-TEMP-AI, E-TC, TC-32), digital input/output,
+pulse counters (all but TC-32), and pulse generators (USB-1608G and USB-1608GX-2AO).</p>
+<p>Support for other modules is straightforward to add and can be done as the demand arises.</p>
+<p>This module is supported on both Windows and Linux, 64-bit and 32-bit.</p>
+<p>On Windows it uses the Measurement Computing “Universal Library” (UL),
+which is only available on Windows.</p>
+<p>In R4-0 and later it uses the UL for Linux library from Measurement Computing for Linux drivers.
+This is an [open-source library available on Github](<a class="reference external" href="https://github.com/mccdaq/uldaq">https://github.com/mccdaq/uldaq</a>).
+The Linux Universal Library API is similar to the Windows UL API, but the functions have different names and different syntax.</p>
+<p>UL for Windows and Linux support most current Measurement Computing models.</p>
+<p>In versions prior to R4-0 the Linux support used the [low-level drivers from Warren Jasper](<a class="reference external" href="https://github.com/wjasper/Linux_Drivers">https://github.com/wjasper/Linux_Drivers</a>).
+On top of these drivers the module provides a layer that emulates the Windows UL library from Measurement Computing.
+The EPICS drivers thus always use the Windows UL API and are identical on Linux and Windows.
+The E-1608, E-TC, E-TC32, E-DIO24, USB-1608G-2AO, USB-CTR08, USB-TEMP, USB-TEMP-AI and USB-31XX models are supported in these versions.</p>
+</section>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="measCompMultiFunctionDoc.html" class="btn btn-neutral float-right" title="Driver for Multi-Function Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="measComp: EPICS Drivers for Measurement Computing Devices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -210,14 +230,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
