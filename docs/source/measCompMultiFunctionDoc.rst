@@ -1,5 +1,4 @@
-===========================================
-measComp: Driver for Multi-Function Devices
+Driver for Multi-Function Devices
 ===========================================
 
 :author: Mark Rivers, University of Chicago
