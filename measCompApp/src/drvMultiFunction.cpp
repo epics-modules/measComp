@@ -227,6 +227,8 @@ typedef enum {
   USB_1608GX_2AO     = 274,
   USB_1608GX_2AO_NEW = 310,
   USB_1608HS_2A0     = 153,
+  USB_1808           = 001, // Fix this when we know the correct value
+  USB_1808X          = 002, // Fix this when we know the correct value
   USB_2408_2AO       = 254,
   USB_TC32           = 305,
   ETH_TC32           = 306,
@@ -348,6 +350,21 @@ static const enumStruct_t outputRangeUSB_1608G[] = {
 };
 
 static const enumStruct_t inputTypeUSB_1608G[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
+static const enumStruct_t inputRangeUSB_1808[] = {
+  {"+= 10V",    CBW_BIP10VOLTS},
+  {"+= 5V",     CBW_BIP5VOLTS},
+  {"0-10V",     CBW_UNI10VOLTS},
+  {"0-5V",      CBW_UNI5VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_1808[] = {
+  {"+= 10V", CBW_BIP10VOLTS}
+};
+
+static const enumStruct_t inputTypeUSB_1808[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
@@ -530,13 +547,17 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
-  {USB_1608GX_2AO_NEW, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+  {USB_1608GX_2AO_NEW, inputRangeUSB_1608G, sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   outputRangeUSB_1608G,    sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
+                   inputTypeUSB_1608G,      sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
+  {USB_1608HS_2A0, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
-  {USB_1608HS_2A0, inputRangeUSB_1608G, sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   outputRangeUSB_1608G, sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+  {USB_1808,       inputRangeUSB_1808,    sizeof(inputRangeUSB_1808)/sizeof(enumStruct_t),
+                   outputRangeUSB_1808,   sizeof(outputRangeUSB_1808)/sizeof(enumStruct_t),
+                   inputTypeUSB_1808,     sizeof(inputTypeUSB_1808)/sizeof(enumStruct_t)},
 
   {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
                    outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
@@ -546,9 +567,9 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeUSB_3101,   sizeof(outputRangeUSB_3101)/sizeof(enumStruct_t),
                    inputTypeUSB_3101,     sizeof(inputTypeUSB_3101)/sizeof(enumStruct_t)},
 
-  {E_DIO24,        inputRangeE_DIO24,      sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
-                   outputRangeE_DIO24,     sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
-                   inputTypeE_DIO24,       sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
+  {E_DIO24,        inputRangeE_DIO24,     sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
+                   outputRangeE_DIO24,    sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
+                   inputTypeE_DIO24,      sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
 
   {USB_2408_2AO,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
@@ -1075,6 +1096,16 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       maxPulseGenFrequency_ = 32e6;
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 67.11;
+      break;
+    case USB_1808:
+    case USB_1808X:
+      numTimers_    = 2;
+      numCounters_  = 4;
+      firstCounter_ = 0;
+      minPulseGenFrequency_ = 0.0149;
+      maxPulseGenFrequency_ = 50e6;
+      minPulseGenDelay_ = 0.;
+      maxPulseGenDelay_ = 42.94;
       break;
     case E_1608:
       numTimers_    = 0;
