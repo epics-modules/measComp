@@ -3,7 +3,7 @@
 ###################################################################
 record(longout, "$(P)$(R)")
 {
-    field(PINI, "YES")
+#   field(PINI, "YES")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
 }
@@ -11,7 +11,7 @@ record(longout, "$(P)$(R)")
 record(longin, "$(P)$(R)_RBV")
 {
     field(DTYP, "asynUInt32Digital")
-    field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
+    field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_INPUT")
     field(SCAN, "I/O Intr")
 }
 

@@ -1,0 +1,678 @@
+
+file {
+	name="/home/gmca/epics_synApps/synApps/usb_do/doApp/op/adl/test_DO.adl"
+	version=030116
+}
+display {
+	object {
+		x=1360
+		y=537
+		width=480
+		height=280
+	}
+	clr=14
+	bclr=56
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+byte {
+	object {
+		x=7
+		y=176
+		width=15
+		height=91
+	}
+	monitor {
+		chan="USBSSR08:Lo_RBV"
+		clr=62
+		bclr=57
+	}
+	direction="down"
+	sbit=3
+}
+"choice button" {
+	object {
+		x=108
+		y=250
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo1"
+		clr=56
+		bclr=29
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=225
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo2"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=200
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo3"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=175
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo4"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=143
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo5"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=118
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo6"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=93
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo7"
+		clr=56
+		bclr=29
+	}
+	stacking="column"
+}
+"choice button" {
+	object {
+		x=108
+		y=68
+		width=96
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo8"
+		clr=56
+		bclr=29
+	}
+	clrmod="discrete"
+	stacking="column"
+}
+"text update" {
+	object {
+		x=29
+		y=200
+		width=31
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Lo_RBV"
+		clr=14
+		bclr=55
+	}
+	align="horiz. centered"
+	format="hexadecimal"
+	limits {
+	}
+}
+oval {
+	object {
+		x=86
+		y=251
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo1_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=226
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo2_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=201
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo3_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=176
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo4_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=144
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo5_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=119
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo6_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=94
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo7_RBV"
+	}
+}
+oval {
+	object {
+		x=86
+		y=69
+		width=17
+		height=18
+	}
+	"basic attribute" {
+		clr=62
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="USBSSR08:Bo8_RBV"
+	}
+}
+text {
+	object {
+		x=29
+		y=17
+		width=423
+		height=35
+	}
+	"basic attribute" {
+		clr=58
+	}
+	textix="Digital Output USB-SSR08"
+	align="horiz. centered"
+}
+byte {
+	object {
+		x=7
+		y=71
+		width=15
+		height=91
+	}
+	monitor {
+		chan="USBSSR08:Lo__RBV"
+		clr=62
+		bclr=57
+	}
+	direction="down"
+	sbit=3
+}
+"text entry" {
+	object {
+		x=29
+		y=226
+		width=29
+		height=22
+	}
+	control {
+		chan="USBSSR08:Lo"
+		clr=14
+		bclr=55
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=28
+		y=119
+		width=29
+		height=22
+	}
+	control {
+		chan="USBSSR08:Lo_"
+		clr=14
+		bclr=55
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=28
+		y=93
+		width=31
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Lo__RBV"
+		clr=14
+		bclr=55
+	}
+	align="horiz. centered"
+	format="hexadecimal"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=69
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo8.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"message button" {
+	object {
+		x=209
+		y=68
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo8"
+		clr=55
+		bclr=29
+	}
+	label="8"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=93
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo7"
+		clr=56
+		bclr=29
+	}
+	label="7"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=118
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo6"
+		clr=56
+		bclr=29
+	}
+	label="6"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=143
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo5"
+		clr=56
+		bclr=29
+	}
+	label="5"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=175
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo4"
+		clr=56
+		bclr=29
+	}
+	label="4"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=200
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo3"
+		clr=56
+		bclr=29
+	}
+	label="3"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=225
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo2"
+		clr=56
+		bclr=29
+	}
+	label="2"
+	press_msg="High"
+	release_msg="Low"
+}
+"message button" {
+	object {
+		x=209
+		y=250
+		width=25
+		height=22
+	}
+	control {
+		chan="USBSSR08:Bo1"
+		clr=56
+		bclr=29
+	}
+	label="1"
+	press_msg="High"
+	release_msg="Low"
+}
+"text update" {
+	object {
+		x=239
+		y=94
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo7.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=119
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo6.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=144
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo5.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=176
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo4.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=201
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo3.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=226
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo2.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=239
+		y=251
+		width=232
+		height=20
+	}
+	monitor {
+		chan="USBSSR08:Bo1.DESC"
+		clr=49
+		bclr=56
+	}
+	limits {
+	}
+}

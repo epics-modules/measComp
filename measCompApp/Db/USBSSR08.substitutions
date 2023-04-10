@@ -1,0 +1,21 @@
+file "$(MEASCOMP)/db/measCompLongOut.template"
+{
+pattern
+{ R,   MASK,   ADDR}
+{Lo,   0xF,      0}
+{Lo_,  0xF,      1}
+}
+
+file "$(MEASCOMP)/db/measCompBinaryOut.template"
+{
+pattern
+{ R,   MASK,   ADDR, DESC}
+{Bo1,  0x1       0, "IDD C-shutter open"}
+{Bo2,  0x2       0, "IDD C-shutter close"}
+{Bo3,  0x4       0, "IDD hutch-shutter open"}
+{Bo4,  0x8       0, "IDD hutch-shutter close"}
+{Bo5,  0x1       1, "FE-shutter open"}
+{Bo6,  0x2       1, "FE-shutter close"}
+{Bo7,  0x4       1, "IDB hutch-shutter open"}
+{Bo8,  0x8       1, "IDB hutch-shutter close"}
+}

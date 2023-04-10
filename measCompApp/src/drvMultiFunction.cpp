@@ -221,6 +221,7 @@ typedef enum {
 typedef enum {
   USB_1208LS         = 122,
   USB_1208FS         = 130,
+  USB_SSR08          = 134,
   USB_1208FS_PLUS    = 232,
   USB_231            = 297,
   USB_1608G          = 308,
@@ -403,6 +404,17 @@ static const enumStruct_t inputTypeE_1608[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
+static const enumStruct_t inputRangeUSB_SSR08[] = {
+  {"N.A.",  0}
+};
+
+static const enumStruct_t outputRangeUSB_SSR08[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeUSB_SSR08[] = {
+  {"N.A.", 0}
+};
 static const enumStruct_t inputRangeUSB_3101[] = {
   {"N.A.", 0}
 };
@@ -542,6 +554,10 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
   {USB_1608G,      inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
+
+  {USB_SSR08,      inputRangeUSB_SSR08,   sizeof(inputRangeUSB_SSR08)/sizeof(enumStruct_t),
+                   outputRangeUSB_SSR08,  sizeof(outputRangeUSB_SSR08)/sizeof(enumStruct_t),
+                   inputTypeUSB_SSR08,    sizeof(inputTypeUSB_SSR08)/sizeof(enumStruct_t)},
 
   {USB_1608GX_2AO, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
@@ -761,7 +777,7 @@ private:
   double minPulseGenDelay_;
   double maxPulseGenDelay_;
   double pollTime_;
-  int forceCallback_;
+  int forceCallback_[MAX_IO_PORTS];
   size_t maxInputPoints_;
   size_t maxOutputPoints_;
   epicsFloat64 *waveDigBuffer_[MAX_ANALOG_IN];
@@ -817,7 +833,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     pollTime_(DEFAULT_POLL_TIME),
-    forceCallback_(1),
+    forceCallback_{1,1,1},
     maxInputPoints_(maxInputPoints),
     maxOutputPoints_(maxOutputPoints),
     numWaveGenChans_(1),
@@ -1160,6 +1176,15 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       firstCounter_ = 0;
       for (i=0; i<8; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
+      break;
+    case USB_SSR08:
+      numTimers_    = 0;
+      numCounters_  = 0;
+      for (i=0; i<2; i++) {
+        // Digital I/O port 0 is outputs 1 - 4      
+        // Digital I/O port 1 is outputs 5 - 8      
+        setUIntDigitalParam(i, digitalDirection_, 0xFFFFFFFF, digitalIOMask_[i]);
       }
       break;
     default:
@@ -2580,9 +2605,9 @@ void MultiFunction::pollerThread()
         goto error;
       }
       changedBits = newValue ^ prevInput[i];
-      if (forceCallback_ || (changedBits != 0)) {
+      if (forceCallback_[i] || (changedBits != 0)) {
         prevInput[i] = newValue;
-        forceCallback_ = 0;
+        forceCallback_[i] = 0;
         setUIntDigitalParam(i, digitalInput_, newValue, 0xFFFFFFFF);
       }
     }
