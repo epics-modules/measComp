@@ -60,7 +60,7 @@ measCompApp_LIBS += sscan
 measCompApp_LIBS += autosave
 measCompApp_LIBS += asyn
 measCompApp_LIBS += seq pv
-measCompApp_LIBS += qsrv pvAccessIOC pvAccessCA pvAccess pvData
+#measCompApp_LIBS += qsrv pvAccessIOC pvAccessCA pvAccess pvData
 ifeq (win32-x86, $(findstring win32-x86, $(T_A)))
   measComp_LIBS += cbw32
   measCompApp_LIBS += cbw32

@@ -1,7 +1,7 @@
 record(bo, "$(P)$(R)")
 {
 #   field(PINI, "$(PINI=YES)")
-    field(DESC, "$(DESC)")
+    field(DESC, "$(DESC=)")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
     field(ZNAM, "$(ZNAM=Low)")
@@ -12,7 +12,7 @@ record(bo, "$(P)$(R)")
 
 record(bi, "$(P)$(R)_RBV")
 {
-    field(DESC, "$(DESC)")
+    field(DESC, "$(DESC=)")
     field(DTYP, "asynUInt32Digital")
     field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_INPUT")
     field(ZNAM, "$(ZNAM=Low)")
