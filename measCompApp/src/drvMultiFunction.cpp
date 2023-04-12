@@ -228,8 +228,8 @@ typedef enum {
   USB_1608GX_2AO     = 274,
   USB_1608GX_2AO_NEW = 310,
   USB_1608HS_2A0     = 153,
-  USB_1808           = 001, // Fix this when we know the correct value
-  USB_1808X          = 002, // Fix this when we know the correct value
+  USB_1808           = 317, // Fix this when we know the correct value
+  USB_1808X          = 318,
   USB_2408_2AO       = 254,
   USB_TC32           = 305,
   ETH_TC32           = 306,
@@ -833,7 +833,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     pollTime_(DEFAULT_POLL_TIME),
-//  forceCallback_{1,1,1},
     maxInputPoints_(maxInputPoints),
     maxOutputPoints_(maxOutputPoints),
     numWaveGenChans_(1),
@@ -846,8 +845,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   int status;
   long long handle;
   static const char *functionName = "MultiFunction";
-  for (i=0; i < MAX_IO_PORTS; i++) forceCallback_[i]=1;
-  
+
+  for (i=0; i<MAX_IO_PORTS; i++) forceCallback_[i] = 1;
+
   status = measCompCreateDevice(uniqueID, daqDeviceDescriptor_, &handle);
   if (status) {
     printf("Error creating device with measCompCreateDevice\n");
@@ -975,6 +975,8 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     case USB_3114:
       boardType_ = USB_3101;
       break;
+    case USB_1808X:
+      boardType_ = USB_1808;
     default:
       break;
   }
