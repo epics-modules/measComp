@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 798
-y 140
+x 49
+y 167
 w 1090
 h 720
 font "helvetica-medium-r-18.0"
@@ -30,9 +30,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 0
-y 5
-w 1090
+x 442
+y 10
+w 216
 h 25
 font "helvetica-medium-r-18.0"
 fontAlign "center"
@@ -40,7 +40,7 @@ fgColor rgb 2560 0 47104
 bgColor index 3
 useDisplayBg
 value {
-  "USB-2408-2AO  $(P)"
+  "USB-1608G-2AO  $(P)"
 }
 endObjectProperties
 
@@ -50,7 +50,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 303
+x 280
 y 40
 w 220
 h 85
@@ -63,7 +63,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 303
+x 280
 y 40
 w 220
 h 85
@@ -93,10 +93,10 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 596
-w 295
-h 115
+x 582
+y 610
+w 180
+h 65
 
 beginGroup
 
@@ -106,20 +106,20 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 5
-y 596
-w 295
-h 115
+x 582
+y 610
+w 180
+h 65
 fgColor rgb 0 0 0
 bgColor rgb 65280 65280 65280
 topShadowColor rgb 65280 65280 65280
 botShadowColor rgb 0 0 0
 displaySource "file"
-file "measCompAnalogOut2.edl"
+file "measCompTrigger.edl"
 sizeOfs 5
 numDsps 1
 displayFileName {
-  0 "measCompAnalogOut2.edl"
+  0 "measCompTrigger.edl"
 }
 noScroll
 endObjectProperties
@@ -136,8 +136,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 40
+x 525
+y 200
 w 295
 h 285
 
@@ -149,8 +149,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 5
-y 40
+x 525
+y 200
 w 295
 h 285
 fgColor rgb 0 0 0
@@ -163,92 +163,6 @@ sizeOfs 5
 numDsps 1
 displayFileName {
   0 "measCompAnalogIn8.edl"
-}
-noScroll
-endObjectProperties
-
-endGroup
-
-visMin "A"
-visMax "1"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 525
-y 40
-w 560
-h 155
-
-beginGroup
-
-# (Embedded Window)
-object activePipClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 525
-y 40
-w 560
-h 155
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompDigitalIO8.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompDigitalIO8.edl"
-}
-noScroll
-endObjectProperties
-
-endGroup
-
-visMin "A"
-visMax "1"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 305
-y 200
-w 515
-h 465
-
-beginGroup
-
-# (Embedded Window)
-object activePipClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 305
-y 200
-w 515
-h 465
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompWaveGen2.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompWaveGen2.edl"
 }
 noScroll
 endObjectProperties
@@ -308,10 +222,96 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 326
+x 525
+y 490
 w 295
-h 265
+h 115
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 525
+y 490
+w 295
+h 115
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompAnalogOut2.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompAnalogOut2.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 525
+y 40
+w 560
+h 155
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 525
+y 40
+w 560
+h 155
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompDigitalIO8.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompDigitalIO8.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 40
+w 250
+h 205
 
 beginGroup
 
@@ -322,19 +322,62 @@ major 4
 minor 1
 release 0
 x 5
-y 326
-w 295
-h 265
+y 40
+w 250
+h 205
 fgColor rgb 0 0 0
 bgColor rgb 65280 65280 65280
 topShadowColor rgb 65280 65280 65280
 botShadowColor rgb 0 0 0
 displaySource "file"
-file "measCompTempIn8.edl"
+file "measCompPulseGen.edl"
 sizeOfs 5
 numDsps 1
 displayFileName {
-  0 "measCompTempIn8.edl"
+  0 "measCompPulseGen.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 250
+w 515
+h 465
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 250
+w 515
+h 465
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompWaveGen2.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompWaveGen2.edl"
 }
 noScroll
 endObjectProperties

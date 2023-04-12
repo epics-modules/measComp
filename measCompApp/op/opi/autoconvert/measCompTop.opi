@@ -14,7 +14,7 @@
     <color red="0" green="0" blue="0" />
   </foreground_color>
   <grid_space>5</grid_space>
-  <height>340</height>
+  <height>365</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
   </macros>
@@ -290,7 +290,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>160</y>
+    <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -357,7 +357,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>135</y>
+    <y>160</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -417,7 +417,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>185</y>
+    <y>210</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -482,7 +482,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>110</y>
+    <y>135</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
     <actions hook="false" hook_all="false">
@@ -565,7 +565,7 @@ $(pv_value)</tooltip>
     <widget_type>Menu Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>85</y>
+    <y>110</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -627,7 +627,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>210</y>
+    <y>235</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -690,7 +690,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>235</y>
+    <y>260</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -753,7 +753,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>260</y>
+    <y>285</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -813,7 +813,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>285</y>
+    <y>310</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
     <actions hook="false" hook_all="false">
@@ -890,6 +890,73 @@ $(pv_value)</tooltip>
     <widget_type>Menu Button</widget_type>
     <width>150</width>
     <x>30</x>
-    <y>310</y>
+    <y>335</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="false">
+      <action type="OPEN_DISPLAY">
+        <path>USB1808_module.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+          <P>USB1808:</P>
+          <Bi>Bi</Bi>
+          <Li>Li</Li>
+          <Bo>Bo</Bo>
+          <Lo>Lo</Lo>
+          <Bd>Bd</Bd>
+          <Ai>Ai</Ai>
+          <Ao>Ao</Ao>
+          <Ct>Counter</Ct>
+          <Wd>WaveDig</Wd>
+          <Wg>WaveGen</Wg>
+          <Pg>PulseGen1</Pg>
+          <Tg>Trig</Tg>
+        </macros>
+        <mode>1</mode>
+        <description>USB-1808 module</description>
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="115" green="223" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>20</height>
+    <image></image>
+    <name>Action Button</name>
+    <push_action_index>0</push_action_index>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>USB-1808</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>150</width>
+    <x>30</x>
+    <y>85</y>
   </widget>
 </display>
