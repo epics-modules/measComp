@@ -13,10 +13,6 @@ pattern
 {Bi2,  0x02     0}
 {Bi3,  0x04     0}
 {Bi4,  0x08     0}
-{Bi5,  0x10     0}
-{Bi6,  0x20     0}
-{Bi7,  0x40     0}
-{Bi8,  0x80     0}
 }
 
 file "$(MEASCOMP)/db/measCompLongOut.template"
@@ -34,10 +30,6 @@ pattern
 {Bo2,  0x02     0}
 {Bo3,  0x04     0}
 {Bo4,  0x08     0}
-{Bo5,  0x10     0}
-{Bo6,  0x20     0}
-{Bo7,  0x40     0}
-{Bo8,  0x80     0}
 }
 
 # Direction bits on binary I/O
@@ -50,10 +42,6 @@ pattern
 {Bd2,  0x02    0,     0}
 {Bd3,  0x04    0,     0}
 {Bd4,  0x08    0,     0}
-{Bd5,  0x10    1,     0}
-{Bd6,  0x20    1,     0}
-{Bd7,  0x40    1,     0}
-{Bd8,  0x80    1,     0}
 }
 
 file "$(MEASCOMP)/db/measCompPulseGen.template"
@@ -63,12 +51,27 @@ pattern
 {PulseGen1,     0,     4}
 }
 
+file "$(MEASCOMP)/db/measCompPulseGen.template"
+{
+pattern
+{    R,      ADDR,  PREC}
+{PulseGen2,     1,     4}
+}
+
 file "$(MEASCOMP)/db/measCompCounter.template"
 {
 pattern
 {    R,     ADDR}
 {Counter1,     0}
 {Counter2,     1}
+}
+
+file "$(MEASCOMP)/db/measCompEncoder.template"
+{
+pattern
+{    R,     ADDR}
+{Encoder1,     2}
+{Encoder2,     3}
 }
 
 # Analog input mode
