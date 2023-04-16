@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/USB1608G_2AO_module.adl"
-	version=030109
+	name="/home/epics/devel/measComp-4-0/measCompApp/op/adl/USB1808_module.adl"
+	version=030117
 }
 display {
 	object {
-		x=49
-		y=167
+		x=137
+		y=260
 		width=1090
-		height=720
+		height=775
 	}
 	clr=14
 	bclr=4
@@ -97,13 +97,13 @@ text {
 	"basic attribute" {
 		clr=54
 	}
-	textix="USB-1608G-2AO  $(P)"
+	textix="USB-1808  $(P)"
 	align="horiz. centered"
 }
 composite {
 	object {
-		x=280
-		y=40
+		x=50
+		y=513
 		width=220
 		height=85
 	}
@@ -112,8 +112,8 @@ composite {
 }
 composite {
 	object {
-		x=582
-		y=610
+		x=525
+		y=40
 		width=180
 		height=65
 	}
@@ -152,31 +152,41 @@ composite {
 }
 composite {
 	object {
-		x=525
+		x=710
 		y=40
-		width=560
+		width=375
 		height=155
 	}
 	"composite name"=""
-	"composite file"="measCompDigitalIO8.adl"
+	"composite file"="measCompDigitalIO4.adl"
+}
+composite {
+	object {
+		x=5
+		y=610
+		width=760
+		height=160
+	}
+	"composite name"=""
+	"composite file"="measCompPulseGen2.adl"
 }
 composite {
 	object {
 		x=5
 		y=40
-		width=250
-		height=205
-	}
-	"composite name"=""
-	"composite file"="measCompPulseGen.adl"
-}
-composite {
-	object {
-		x=5
-		y=250
 		width=515
 		height=465
 	}
 	"composite name"=""
 	"composite file"="measCompWaveGen2.adl"
+}
+composite {
+	object {
+		x=281
+		y=513
+		width=220
+		height=85
+	}
+	"composite name"=""
+	"composite file"="measCompEncoders2.adl"
 }
