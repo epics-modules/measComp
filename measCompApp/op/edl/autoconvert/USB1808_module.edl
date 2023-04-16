@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 49
-y 167
+x 137
+y 260
 w 1090
-h 720
+h 775
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -40,7 +40,7 @@ fgColor rgb 2560 0 47104
 bgColor index 3
 useDisplayBg
 value {
-  "USB-1608G-2AO  $(P)"
+  "USB-1808  $(P)"
 }
 endObjectProperties
 
@@ -50,8 +50,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 280
-y 40
+x 50
+y 513
 w 220
 h 85
 
@@ -63,8 +63,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 280
-y 40
+x 50
+y 513
 w 220
 h 85
 fgColor rgb 0 0 0
@@ -93,8 +93,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 582
-y 610
+x 525
+y 40
 w 180
 h 65
 
@@ -106,8 +106,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 582
-y 610
+x 525
+y 40
 w 180
 h 65
 fgColor rgb 0 0 0
@@ -265,9 +265,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 525
+x 710
 y 40
-w 560
+w 375
 h 155
 
 beginGroup
@@ -278,20 +278,63 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 525
+x 710
 y 40
-w 560
+w 375
 h 155
 fgColor rgb 0 0 0
 bgColor rgb 65280 65280 65280
 topShadowColor rgb 65280 65280 65280
 botShadowColor rgb 0 0 0
 displaySource "file"
-file "measCompDigitalIO8.edl"
+file "measCompDigitalIO4.edl"
 sizeOfs 5
 numDsps 1
 displayFileName {
-  0 "measCompDigitalIO8.edl"
+  0 "measCompDigitalIO4.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 610
+w 760
+h 160
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 610
+w 760
+h 160
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompPulseGen2.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompPulseGen2.edl"
 }
 noScroll
 endObjectProperties
@@ -310,49 +353,6 @@ minor 0
 release 0
 x 5
 y 40
-w 250
-h 205
-
-beginGroup
-
-# (Embedded Window)
-object activePipClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 5
-y 40
-w 250
-h 205
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompPulseGen.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompPulseGen.edl"
-}
-noScroll
-endObjectProperties
-
-endGroup
-
-visMin "A"
-visMax "1"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 250
 w 515
 h 465
 
@@ -365,7 +365,7 @@ major 4
 minor 1
 release 0
 x 5
-y 250
+y 40
 w 515
 h 465
 fgColor rgb 0 0 0
@@ -378,6 +378,49 @@ sizeOfs 5
 numDsps 1
 displayFileName {
   0 "measCompWaveGen2.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 281
+y 513
+w 220
+h 85
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 281
+y 513
+w 220
+h 85
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompEncoders2.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompEncoders2.edl"
 }
 noScroll
 endObjectProperties
