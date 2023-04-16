@@ -193,11 +193,12 @@ typedef enum {
 
 // MAX_ANALOG_IN and MAX_ANALOG_OUT may need to be changed if additional models are added with larger numbers
 // These are used as a convenience for allocating small arrays of pointers, not large amounts of data
-#define MAX_ANALOG_IN   16
+#define MAX_ANALOG_IN      16
 #define MAX_TEMPERATURE_IN 64
-#define MAX_ANALOG_OUT  16
-#define MAX_IO_PORTS    3
-#define MAX_SIGNALS     MAX_TEMPERATURE_IN
+#define MAX_ANALOG_OUT     16
+#define MAX_IO_PORTS        3
+#define MAX_PULSE_GEN       4
+#define MAX_SIGNALS        MAX_TEMPERATURE_IN
 
 // For simplicity define a few constants on Linux to be the same as Windows cbw.h
 // These need to be copied from cbw.h because uldaq.h and cbw.h cannot both be included due to some conflicting definitions
@@ -795,11 +796,11 @@ private:
   #endif
   int numWaveGenChans_;
   int numWaveDigChans_;
-  int pulseGenRunning_;
+  int pulseGenRunning_[MAX_PULSE_GEN];
   int waveGenRunning_;
   int waveDigRunning_;
-  int startPulseGenerator();
-  int stopPulseGenerator();
+  int startPulseGenerator(int timerNum);
+  int stopPulseGenerator(int timerNum);
   int startWaveGen();
   int stopWaveGen();
   int computeWaveGenTimes();
@@ -837,7 +838,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     maxOutputPoints_(maxOutputPoints),
     numWaveGenChans_(1),
     numWaveDigChans_(1),
-    pulseGenRunning_(0),
     waveGenRunning_(0),
     waveDigRunning_(0)
 {
@@ -846,6 +846,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   long long handle;
   static const char *functionName = "MultiFunction";
 
+  for (i=0; i<MAX_PULSE_GEN; i++) pulseGenRunning_[i]=0;
   for (i=0; i<MAX_IO_PORTS; i++) forceCallback_[i] = 1;
 
   status = measCompCreateDevice(uniqueID, daqDeviceDescriptor_, &handle);
@@ -1383,11 +1384,10 @@ int MultiFunction::mapTriggerType(int cbwTriggerType, TriggerType *triggerType)
 
 #endif
 
-int MultiFunction::startPulseGenerator()
+int MultiFunction::startPulseGenerator(int timerNum)
 {
   int status=0;
   double frequency, period, width, delay;
-  int timerNum=0;
   double dutyCycle;
   int count, idleState;
   static const char *functionName = "startPulseGenerator";
@@ -1418,7 +1418,7 @@ int MultiFunction::startPulseGenerator()
   if (status) return status;
   // We may not have gotten the frequency, dutyCycle, and delay we asked for, set the actual values
   // in the parameter library
-  pulseGenRunning_ = 1;
+  pulseGenRunning_[timerNum] = 1;
   period = 1. / frequency;
   width = period * dutyCycle;
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
@@ -1430,13 +1430,13 @@ int MultiFunction::startPulseGenerator()
   return 0;
 }
 
-int MultiFunction::stopPulseGenerator()
+int MultiFunction::stopPulseGenerator(int timerNum)
 {
-  pulseGenRunning_ = 0;
+  pulseGenRunning_[timerNum] = 0;
   #ifdef _WIN32
-    return cbPulseOutStop(boardNum_, 0);
+    return cbPulseOutStop(boardNum_, timerNum);
   #else
-    return ulTmrPulseOutStop(daqDeviceHandle_, 0);
+    return ulTmrPulseOutStop(daqDeviceHandle_, timerNum);
   #endif
 }
 
@@ -1957,17 +1957,17 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // Allow starting a run even if it thinks its running,
     // since there is no way to know when it got done if Count!=0
     if (value) {
-      status = startPulseGenerator();
+      status = startPulseGenerator(addr);
     }
-    else if (!value && pulseGenRunning_) {
-      status = stopPulseGenerator();
+    else if (!value && pulseGenRunning_[addr]) {
+      status = stopPulseGenerator(addr);
     }
   }
   else if ((function == pulseGenCount_) ||
            (function == pulseGenIdleState_)) {
-    if (pulseGenRunning_) {
-      status = stopPulseGenerator();
-      status |= startPulseGenerator();
+    if (pulseGenRunning_[addr]) {
+      status = stopPulseGenerator(addr);
+      status |= startPulseGenerator(addr);
     }
   }
 
@@ -2183,9 +2183,9 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   if ((function == pulseGenPeriod_)    ||
       (function == pulseGenWidth_)     ||
       (function == pulseGenDelay_)) {
-    if (pulseGenRunning_) {
-      status = stopPulseGenerator();
-      status |= startPulseGenerator();
+    if (pulseGenRunning_[addr]) {
+      status = stopPulseGenerator(addr);
+      status |= startPulseGenerator(addr);
     }
   }
 
