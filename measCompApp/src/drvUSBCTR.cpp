@@ -247,6 +247,8 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
   long long handle;
   //static const char *functionName = "USBCTR";
 
+  for (i=0; i<NUM_TIMERS; i++) pulseGenRunning_[i]=0;
+
   status = measCompCreateDevice(uniqueID, daqDeviceDescriptor_, &handle);
   if (status) {
     printf("Error creating device with measCompCreateDevice\n");
