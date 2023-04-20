@@ -1,0 +1,58 @@
+# Device settings
+record(stringin,"$(P)ModelName") {
+    field(PINI, "YES")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)MODEL_NAME")
+}
+
+record(longin,"$(P)ModelNumber") {
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT) 0)MODEL_NUMBER")
+}
+
+record(stringin,"$(P)FirmwareVersion") {
+    field(PINI, "YES")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)FIRMWARE_VERSION")
+}
+
+record(stringin,"$(P)UniqueID") {
+    field(PINI, "YES")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)UNIQUE_ID")
+}
+
+record(stringin,"$(P)ULVersion") {
+    field(PINI, "YES")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)UL_VERSION")
+}
+
+record(stringin,"$(P)DriverVersion") {
+    field(PINI, "YES")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)DRIVER_VERSION")
+}
+
+record(ai,"$(P)PollTimeMS") {
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT) 0)POLL_TIME_MS")
+    field(PREC, "1")
+    field(SCAN, "I/O Intr")
+}
+
+record(ao,"$(P)PollSleepMS") {
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT) 0)POLL_SLEEP_MS")
+    field(PREC, "1")
+}
+
+record(waveform, "$(P)LastErrorMessage") {
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT) 0)LAST_ERROR_MESSAGE")
+    field(NELM, "256")
+    field(FTVL, "CHAR")
+    field(SCAN, "I/O Intr")
+}
