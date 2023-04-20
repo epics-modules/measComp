@@ -21,6 +21,8 @@
 
 #include <asynPortDriver.h>
 
+#define DRIVER_VERSION "4.2"
+
 #ifdef _WIN32
   #include "cbw.h"
 #else
@@ -96,6 +98,13 @@ typedef enum {
 // Board parameters
 #define modelNameString           "MODEL_NAME"
 #define modelNumberString         "MODEL_NUMBER"
+#define firmwareVersionString     "FIRMWARE_VERSION"
+#define uniqueIDString            "UNIQUE_ID"
+#define ULVersionString           "UL_VERSION"
+#define driverVersionString       "DRIVER_VERSION"
+#define pollSleepMSString         "POLL_SLEEP_MS"
+#define pollTimeMSString          "POLL_TIME_MS"
+#define lastErrorMessageString    "LAST_ERROR_MESSAGE"
 
 // Pulse output parameters
 #define pulseGenRunString         "PULSE_RUN"
@@ -220,25 +229,18 @@ typedef enum {
 #endif
 
 typedef enum {
+  USB_231            = 297,
   USB_1208LS         = 122,
   USB_1208FS         = 130,
-  USB_SSR08          = 134,
   USB_1208FS_PLUS    = 232,
-  USB_231            = 297,
   USB_1608G          = 308,
-  USB_1608GX_2AO     = 274,
-  USB_1608GX_2AO_NEW = 310,
-  USB_1608HS_2A0     = 153,
+  USB_1608GX         = 309,
+  USB_1608GX_2AO_OLD = 274,
+  USB_1608GX_2AO     = 310,
+  USB_1608HS_2AO     = 153,
   USB_1808           = 317, // Fix this when we know the correct value
   USB_1808X          = 318,
   USB_2408_2AO       = 254,
-  USB_TC32           = 305,
-  ETH_TC32           = 306,
-  E_1608             = 303,
-  E_DIO24            = 311,
-  E_TC               = 312,
-  USB_TEMP_AI        = 188,
-  USB_TEMP           = 141,
   USB_3101           = 154,
   USB_3102           = 155,
   USB_3103           = 156,
@@ -248,6 +250,14 @@ typedef enum {
   USB_3110           = 162,
   USB_3112           = 163,
   USB_3114           = 164,
+  USB_SSR08          = 134,
+  USB_TEMP           = 141,
+  USB_TEMP_AI        = 188,
+  USB_TC32           = 305,
+  ETH_TC32           = 306,
+  E_1608             = 303,
+  E_DIO24            = 311,
+  E_TC               = 312,
   MAX_BOARD_TYPES
 } boardType_t;
 
@@ -255,71 +265,6 @@ typedef struct {
   char *enumString;
   int  enumValue;
 } enumStruct_t;
-
-static const enumStruct_t inputRangeUSB_1208LS[] = {
-  {"+= 20V",   CBW_BIP20VOLTS},
-  {"+= 10V",   CBW_BIP10VOLTS},
-  {"+= 5V",    CBW_BIP5VOLTS},
-  {"+= 4V",    CBW_BIP4VOLTS},
-  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
-  {"+= 2V",    CBW_BIP2VOLTS},
-  {"+= 1.25V", CBW_BIP1PT25VOLTS},
-  {"+= 1V",    CBW_BIP1VOLTS}
-};
-
-static const enumStruct_t outputRangeUSB_1208LS[] = {
-  {"+= 5V", CBW_UNI5VOLTS}
-};
-
-static const enumStruct_t inputTypeUSB_1208LS[] = {
-  #ifdef WIN32
-    {"Volts", AI_CHAN_TYPE_VOLTAGE}
-  #else
-    {"Volts", AI_VOLTAGE}
-  #endif
-};
-
-static const enumStruct_t inputRangeUSB_1208FS[] = {
-  {"+= 20V",   CBW_BIP20VOLTS},
-  {"+= 10V",   CBW_BIP10VOLTS},
-  {"+= 5V",    CBW_BIP5VOLTS},
-  {"+= 4V",    CBW_BIP4VOLTS},
-  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
-  {"+= 2V",    CBW_BIP2VOLTS},
-  {"+= 1.25V", CBW_BIP1PT25VOLTS},
-  {"+= 1V",    CBW_BIP1VOLTS}
-};
-
-static const enumStruct_t outputRangeUSB_1208FS[] = {
-  {"+= 4V", CBW_UNI4VOLTS}
-};
-
-static const enumStruct_t inputTypeUSB_1208FS[] = {
-  {"Volts", AI_CHAN_TYPE_VOLTAGE}
-};
-
-static const enumStruct_t inputRangeUSB_1208FS_PLUS[] = {
-  {"+= 20V",   CBW_BIP20VOLTS},
-  {"+= 10V",   CBW_BIP10VOLTS},
-  {"+= 5V",    CBW_BIP5VOLTS},
-  {"+= 4V",    CBW_BIP4VOLTS},
-  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
-  {"+= 2V",    CBW_BIP2VOLTS},
-  {"+= 1.25V", CBW_BIP1PT25VOLTS},
-  {"+= 1V",    CBW_BIP1VOLTS}
-};
-
-static const enumStruct_t outputRangeUSB_1208FS_PLUS[] = {
-  {"+= 5V", CBW_UNI5VOLTS}
-};
-
-static const enumStruct_t inputTypeUSB_1208FS_PLUS[] = {
-  #ifdef WIN32
-    {"Volts", AI_CHAN_TYPE_VOLTAGE}
-  #else
-    {"Volts", AI_VOLTAGE}
-  #endif
-};
 
 static const enumStruct_t inputRangeUSB_231[] = {
   {"+= 20V",   CBW_BIP20VOLTS},
@@ -338,6 +283,29 @@ static const enumStruct_t outputRangeUSB_231[] = {
 
 static const enumStruct_t inputTypeUSB_231[] = {
   {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
+static const enumStruct_t inputRangeUSB_1208[] = {
+  {"+= 20V",   CBW_BIP20VOLTS},
+  {"+= 10V",   CBW_BIP10VOLTS},
+  {"+= 5V",    CBW_BIP5VOLTS},
+  {"+= 4V",    CBW_BIP4VOLTS},
+  {"+= 2.5V",  CBW_BIP2PT5VOLTS},
+  {"+= 2V",    CBW_BIP2VOLTS},
+  {"+= 1.25V", CBW_BIP1PT25VOLTS},
+  {"+= 1V",    CBW_BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_1208[] = {
+  {"+= 5V", CBW_UNI5VOLTS}
+};
+
+static const enumStruct_t outputRangeUSB_1208FS[] = {
+  {"+= 4V", CBW_UNI4VOLTS}
+};
+
+static const enumStruct_t inputTypeUSB_1208[] = {
+    {"Volts", AI_CHAN_TYPE_VOLTAGE}
 };
 
 static const enumStruct_t inputRangeUSB_1608G[] = {
@@ -390,32 +358,6 @@ static const enumStruct_t inputTypeUSB_2408[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
-static const enumStruct_t inputRangeE_1608[] = {
-  {"+= 10V", CBW_BIP10VOLTS},
-  {"+= 5V",  CBW_BIP5VOLTS},
-  {"+= 2V",  CBW_BIP2VOLTS},
-  {"+= 1V",  CBW_BIP1VOLTS}
-};
-
-static const enumStruct_t outputRangeE_1608[] = {
-  {"+= 10V", CBW_BIP10VOLTS}
-};
-
-static const enumStruct_t inputTypeE_1608[] = {
-  {"Volts", AI_CHAN_TYPE_VOLTAGE}
-};
-
-static const enumStruct_t inputRangeUSB_SSR08[] = {
-  {"N.A.",  0}
-};
-
-static const enumStruct_t outputRangeUSB_SSR08[] = {
-  {"N.A.", 0}
-};
-
-static const enumStruct_t inputTypeUSB_SSR08[] = {
-  {"N.A.", 0}
-};
 static const enumStruct_t inputRangeUSB_3101[] = {
   {"N.A.", 0}
 };
@@ -429,40 +371,28 @@ static const enumStruct_t inputTypeUSB_3101[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t inputRangeE_DIO24[] = {
+static const enumStruct_t inputRangeUSB_SSR08[] = {
+  {"N.A.",  0}
+};
+
+static const enumStruct_t outputRangeUSB_SSR08[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t outputRangeE_DIO24[] = {
+static const enumStruct_t inputTypeUSB_SSR08[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t inputTypeE_DIO24[] = {
+static const enumStruct_t inputRangeUSB_TEMP[] = {
+  {"N.A.", 0},
+};
+
+static const enumStruct_t outputRangeUSB_TEMP[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t inputRangeTC32[] = {
+static const enumStruct_t inputTypeUSB_TEMP[] = {
   {"N.A.", 0}
-};
-
-static const enumStruct_t outputRangeTC32[] = {
-  {"N.A.", 0}
-};
-
-static const enumStruct_t inputTypeTC32[] = {
-  {"TC deg.", AI_CHAN_TYPE_TC}
-};
-
-static const enumStruct_t inputRangeE_TC[] = {
-  {"N.A.", 0}
-};
-
-static const enumStruct_t outputRangeE_TC[] = {
-  {"N.A.", 0}
-};
-
-static const enumStruct_t inputTypeE_TC[] = {
-  {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
 static const enumStruct_t inputRangeUSB_TEMP_AI[] = {
@@ -480,16 +410,55 @@ static const enumStruct_t inputTypeUSB_TEMP_AI[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t inputRangeUSB_TEMP[] = {
-  {"N.A.", 0},
-};
-
-static const enumStruct_t outputRangeUSB_TEMP[] = {
+static const enumStruct_t inputRangeTC32[] = {
   {"N.A.", 0}
 };
 
-static const enumStruct_t inputTypeUSB_TEMP[] = {
+static const enumStruct_t outputRangeTC32[] = {
   {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeTC32[] = {
+  {"TC deg.", AI_CHAN_TYPE_TC}
+};
+
+static const enumStruct_t inputRangeE_1608[] = {
+  {"+= 10V", CBW_BIP10VOLTS},
+  {"+= 5V",  CBW_BIP5VOLTS},
+  {"+= 2V",  CBW_BIP2VOLTS},
+  {"+= 1V",  CBW_BIP1VOLTS}
+};
+
+static const enumStruct_t outputRangeE_1608[] = {
+  {"+= 10V", CBW_BIP10VOLTS}
+};
+
+static const enumStruct_t inputTypeE_1608[] = {
+  {"Volts", AI_CHAN_TYPE_VOLTAGE}
+};
+
+static const enumStruct_t inputRangeE_DIO24[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeE_DIO24[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeE_DIO24[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputRangeE_TC[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t outputRangeE_TC[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeE_TC[] = {
+  {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
 #ifdef _WIN32
@@ -526,7 +495,7 @@ static const enumStruct_t inputTypeUSB_TEMP[] = {
 #endif
 
 typedef struct {
-  boardType_t boardType;
+  boardType_t boardFamily;
   const enumStruct_t *pInputRange;
   int numInputRange;
   const enumStruct_t *pOutputRange;
@@ -535,40 +504,20 @@ typedef struct {
   int numInputType;
 } boardEnums_t;
 
-static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
-  {USB_1208LS,     inputRangeUSB_1208LS,  sizeof(inputRangeUSB_1208LS)/sizeof(enumStruct_t),
-                   outputRangeUSB_1208LS, sizeof(outputRangeUSB_1208LS)/sizeof(enumStruct_t),
-                   inputTypeUSB_1208LS,   sizeof(inputTypeUSB_1208LS)/sizeof(enumStruct_t)},
-
-  {USB_1208FS,     inputRangeUSB_1208FS,  sizeof(inputRangeUSB_1208FS)/sizeof(enumStruct_t),
-                   outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
-                   inputTypeUSB_1208FS,   sizeof(inputTypeUSB_1208FS)/sizeof(enumStruct_t)},
-
-  {USB_1208FS_PLUS,inputRangeUSB_1208FS_PLUS,  sizeof(inputRangeUSB_1208FS_PLUS)/sizeof(enumStruct_t),
-                   outputRangeUSB_1208FS_PLUS, sizeof(outputRangeUSB_1208FS_PLUS)/sizeof(enumStruct_t),
-                   inputTypeUSB_1208FS_PLUS,   sizeof(inputTypeUSB_1208FS_PLUS)/sizeof(enumStruct_t)},
-
+static const boardEnums_t allBoardEnums[] = {
   {USB_231,        inputRangeUSB_231,     sizeof(inputRangeUSB_231)/sizeof(enumStruct_t),
                    outputRangeUSB_231,    sizeof(outputRangeUSB_231)/sizeof(enumStruct_t),
                    inputTypeUSB_231,      sizeof(inputTypeUSB_231)/sizeof(enumStruct_t)},
 
+  {USB_1208LS,     inputRangeUSB_1208,    sizeof(inputRangeUSB_1208)/sizeof(enumStruct_t),
+                   outputRangeUSB_1208,   sizeof(outputRangeUSB_1208)/sizeof(enumStruct_t),
+                   inputTypeUSB_1208,     sizeof(inputTypeUSB_1208)/sizeof(enumStruct_t)},
+
+  {USB_1208FS,     inputRangeUSB_1208,    sizeof(inputRangeUSB_1208)/sizeof(enumStruct_t),
+                   outputRangeUSB_1208FS, sizeof(outputRangeUSB_1208FS)/sizeof(enumStruct_t),
+                   inputTypeUSB_1208,     sizeof(inputTypeUSB_1208)/sizeof(enumStruct_t)},
+
   {USB_1608G,      inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
-
-  {USB_SSR08,      inputRangeUSB_SSR08,   sizeof(inputRangeUSB_SSR08)/sizeof(enumStruct_t),
-                   outputRangeUSB_SSR08,  sizeof(outputRangeUSB_SSR08)/sizeof(enumStruct_t),
-                   inputTypeUSB_SSR08,    sizeof(inputTypeUSB_SSR08)/sizeof(enumStruct_t)},
-
-  {USB_1608GX_2AO, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
-
-  {USB_1608GX_2AO_NEW, inputRangeUSB_1608G, sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   outputRangeUSB_1608G,    sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
-                   inputTypeUSB_1608G,      sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
-
-  {USB_1608HS_2A0, inputRangeUSB_1608G,   sizeof(inputRangeUSB_1608G)/sizeof(enumStruct_t),
                    outputRangeUSB_1608G,  sizeof(outputRangeUSB_1608G)/sizeof(enumStruct_t),
                    inputTypeUSB_1608G,    sizeof(inputTypeUSB_1608G)/sizeof(enumStruct_t)},
 
@@ -576,21 +525,25 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeUSB_1808,   sizeof(outputRangeUSB_1808)/sizeof(enumStruct_t),
                    inputTypeUSB_1808,     sizeof(inputTypeUSB_1808)/sizeof(enumStruct_t)},
 
-  {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
-                   outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
-                   inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
-
   {USB_3101,       inputRangeUSB_3101,    sizeof(inputRangeUSB_3101)/sizeof(enumStruct_t),
                    outputRangeUSB_3101,   sizeof(outputRangeUSB_3101)/sizeof(enumStruct_t),
                    inputTypeUSB_3101,     sizeof(inputTypeUSB_3101)/sizeof(enumStruct_t)},
 
-  {E_DIO24,        inputRangeE_DIO24,     sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
-                   outputRangeE_DIO24,    sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
-                   inputTypeE_DIO24,      sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
-
   {USB_2408_2AO,   inputRangeUSB_2408,    sizeof(inputRangeUSB_2408)/sizeof(enumStruct_t),
                    outputRangeUSB_2408,   sizeof(outputRangeUSB_2408)/sizeof(enumStruct_t),
                    inputTypeUSB_2408,     sizeof(inputTypeUSB_2408)/sizeof(enumStruct_t)},
+
+  {USB_SSR08,      inputRangeUSB_SSR08,   sizeof(inputRangeUSB_SSR08)/sizeof(enumStruct_t),
+                   outputRangeUSB_SSR08,  sizeof(outputRangeUSB_SSR08)/sizeof(enumStruct_t),
+                   inputTypeUSB_SSR08,    sizeof(inputTypeUSB_SSR08)/sizeof(enumStruct_t)},
+
+  {USB_TEMP,       inputRangeUSB_TEMP,    sizeof(inputRangeUSB_TEMP)/sizeof(enumStruct_t),
+                   outputRangeUSB_TEMP,   sizeof(outputRangeUSB_TEMP)/sizeof(enumStruct_t),
+                   inputTypeUSB_TEMP,     sizeof(inputTypeUSB_TEMP)/sizeof(enumStruct_t)},
+
+  {USB_TEMP_AI,    inputRangeUSB_TEMP_AI, sizeof(inputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
+                   outputRangeUSB_TEMP_AI,sizeof(outputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
+                   inputTypeUSB_TEMP_AI,  sizeof(inputTypeUSB_TEMP_AI)/sizeof(enumStruct_t)},
 
   {USB_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
@@ -600,20 +553,20 @@ static const boardEnums_t allBoardEnums[MAX_BOARD_TYPES] = {
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
 
+  {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
+                   outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
+                   inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
+
+  {E_DIO24,        inputRangeE_DIO24,     sizeof(inputRangeE_DIO24)/sizeof(enumStruct_t),
+                   outputRangeE_DIO24,    sizeof(outputRangeE_DIO24)/sizeof(enumStruct_t),
+                   inputTypeE_DIO24,      sizeof(inputTypeE_DIO24)/sizeof(enumStruct_t)},
+
   {E_TC,           inputRangeE_TC,        sizeof(inputRangeE_TC)/sizeof(enumStruct_t),
                    outputRangeE_TC,       sizeof(outputRangeE_TC)/sizeof(enumStruct_t),
                    inputTypeE_TC,         sizeof(inputTypeE_TC)/sizeof(enumStruct_t)},
-
-  {USB_TEMP_AI,    inputRangeUSB_TEMP_AI, sizeof(inputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
-                   outputRangeUSB_TEMP_AI,sizeof(outputRangeUSB_TEMP_AI)/sizeof(enumStruct_t),
-                   inputTypeUSB_TEMP_AI,  sizeof(inputTypeUSB_TEMP_AI)/sizeof(enumStruct_t)},
-
-  {USB_TEMP,       inputRangeUSB_TEMP,    sizeof(inputRangeUSB_TEMP)/sizeof(enumStruct_t),
-                   outputRangeUSB_TEMP,   sizeof(outputRangeUSB_TEMP)/sizeof(enumStruct_t),
-                   inputTypeUSB_TEMP,     sizeof(inputTypeUSB_TEMP)/sizeof(enumStruct_t)},
-
 };
 
+static int maxBoardFamilies = (int) (sizeof(allBoardEnums) / sizeof(boardEnums_t));
 #define DEFAULT_POLL_TIME 0.01
 #define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
 #define MAX_BOARDNAME_LEN    256
@@ -645,6 +598,13 @@ protected:
   // Model parameters
   int modelName_;
   int modelNumber_;
+  int firmwareVersion_;
+  int uniqueID_;
+  int ULVersion_;
+  int driverVersion_;
+  int pollSleepMS_;
+  int pollTimeMS_;
+  int lastErrorMessage_;
 
   // Pulse generator parameters
   int pulseGenRun_;
@@ -749,6 +709,7 @@ private:
   DaqDeviceDescriptor daqDeviceDescriptor_;
   char boardName_[MAX_BOARDNAME_LEN];
   int boardType_;
+  int boardFamily_;
   const boardEnums_t *pBoardEnums_;
   int numAnalogIn_;
   int analogInTypeConfigurable_;
@@ -817,8 +778,6 @@ private:
   #endif
 };
 
-#define NUM_PARAMS ((int)(&LAST_MultiFunction_PARAM - &FIRST_MultiFunction_PARAM + 1))
-
 static void pollerThreadC(void * pPvt)
 {
     MultiFunction *pMultiFunction = (MultiFunction *)pPvt;
@@ -827,10 +786,10 @@ static void pollerThreadC(void * pPvt)
 
 MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int maxInputPoints, int maxOutputPoints)
   : asynPortDriver(portName, MAX_SIGNALS,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask |
-                      asynFloat64Mask       | asynEnumMask       | asynDrvUserMask,
-      asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64ArrayMask |
-                      asynFloat64Mask       | asynEnumMask,
+      asynUInt32DigitalMask | asynInt32Mask   | asynInt32ArrayMask   | asynFloat32ArrayMask | 
+                              asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask        | asynEnumMask | asynDrvUserMask,
+      asynUInt32DigitalMask | asynInt32Mask   | asynInt32ArrayMask   | asynFloat32ArrayMask | 
+                              asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask        | asynEnumMask,
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
     pollTime_(DEFAULT_POLL_TIME),
@@ -865,8 +824,15 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   #endif
 
   // Model parameters
-  createParam(modelNameString,                 asynParamOctet, &modelName_);
-  createParam(modelNumberString,               asynParamInt32, &modelNumber_);
+  createParam(modelNameString,                 asynParamOctet,  &modelName_);
+  createParam(modelNumberString,               asynParamInt32,  &modelNumber_);
+  createParam(firmwareVersionString,            asynParamOctet, &firmwareVersion_);
+  createParam(uniqueIDString,                   asynParamOctet, &uniqueID_);
+  createParam(ULVersionString,                  asynParamOctet, &ULVersion_);
+  createParam(driverVersionString,              asynParamOctet, &driverVersion_);
+  createParam(pollSleepMSString,              asynParamFloat64, &pollSleepMS_);
+  createParam(pollTimeMSString,               asynParamFloat64, &pollTimeMS_);
+  createParam(lastErrorMessageString,           asynParamOctet, &lastErrorMessage_);
 
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
@@ -962,9 +928,24 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   createParam(digitalInputString,      asynParamUInt32Digital, &digitalInput_);
   createParam(digitalOutputString,     asynParamUInt32Digital, &digitalOutput_);
 
-  // Get the board number and board name
-  // Map all of the USB-3100 models to the USB-3101 because they are all the same except number of channels
+  // Map very similar boards for simplicity
+  boardFamily_ = boardType_;
   switch (boardType_) {
+    case USB_1208LS:
+    case USB_1208FS_PLUS:
+      boardFamily_ = USB_1208LS;
+      break;
+    case USB_1608G:
+    case USB_1608GX:
+    case USB_1608GX_2AO:
+    case USB_1608GX_2AO_OLD:
+    case USB_1608HS_2AO:
+      boardFamily_ = USB_1608G;
+      break;
+    case USB_1808:
+    case USB_1808X:
+      boardFamily_ = USB_1808;
+      break;
     case USB_3101:
     case USB_3102:
     case USB_3103:
@@ -974,16 +955,37 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     case USB_3110:
     case USB_3112:
     case USB_3114:
-      boardType_ = USB_3101;
+      boardFamily_ = USB_3101;
       break;
-    case USB_1808X:
-      boardType_ = USB_1808;
     default:
       break;
   }
 
+  char uniqueIDStr[256];
+  char firmwareVersion[256];
+  char ULVersion[256];
+  #ifdef _WIN32
+    int size = sizeof(uniqueIDStr);
+    cbGetConfigString(BOARDINFO, boardNum_, 0, BIDEVUNIQUEID, uniqueIDStr, &size);
+    size = sizeof(firmwareVersion);
+    cbGetConfigString(BOARDINFO, boardNum_, VER_FW_MAIN, BIDEVVERSION, firmwareVersion, &size);
+    float DLLRevNum, VXDRevNum;
+    cbGetRevision(&DLLRevNum, &VXDRevNum);
+    sprintf(ULVersion, "%f %f", DLLRevNum, VXDRevNum);
+  #else
+    strcpy(uniqueIDStr, uniqueID);
+    unsigned int size = sizeof(firmwareVersion);
+    ulDevGetConfigStr(daqDeviceHandle_, ::DEV_CFG_VER_STR, DEV_VER_FW_MAIN, firmwareVersion, &size);
+    size = sizeof(ULVersion);
+    ulGetInfoStr(UL_INFO_VER_STR, 0, ULVersion, &size);
+  #endif
   setIntegerParam(modelNumber_, boardType_);
   setStringParam(modelName_, boardName_);
+  setStringParam(uniqueID_, uniqueIDStr);
+  setStringParam(firmwareVersion_, firmwareVersion);
+  setStringParam(ULVersion_, ULVersion);
+  setStringParam(driverVersion_, DRIVER_VERSION);
+  
   #ifdef _WIN32
     int inMask, outMask;
     cbGetConfig(BOARDINFO, boardNum_, 0, BINUMADCHANS,    &numAnalogIn_);
@@ -1041,43 +1043,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   analogInDataRateConfigurable_ = 0;
   // Assume analog output range is not configurable
   analogOutRangeConfigurable_ = 0;
-  switch (boardType_) {
-    case USB_1208LS:
-      numTimers_    = 0;
-      numCounters_  = 1;
-      firstCounter_ = 1;
-      // For output need to address all bits using first port
-      numIOBits_[0] = 16;
-      // The rules for bit configurable above don't work for this model
-      digitalIOPortConfigurable_[0] = 1;
-      digitalIOPortConfigurable_[1] = 1;
-      digitalIOBitConfigurable_[0] = 0;
-      digitalIOPortConfigurable_[1] = 1;
-      break;
-    case USB_1208FS_PLUS:
-      numTimers_    = 0;
-      numCounters_  = 1;
-      firstCounter_ = 1;
-      // For output need to address all bits using first port
-      numIOBits_[0] = 16;
-      // The rules for bit configurable above don't work for this model
-      digitalIOPortConfigurable_[0] = 1;
-      digitalIOPortConfigurable_[1] = 1;
-      digitalIOBitConfigurable_[0] = 0;
-      digitalIOPortConfigurable_[1] = 1;
-      break;
-    case USB_1208FS:
-      numTimers_    = 0;
-      numCounters_  = 1;
-      firstCounter_ = 1;
-      // For output need to address all bits using first port
-      numIOBits_[0] = 16;
-      // The rules for bit configurable above don't work for this model
-      digitalIOPortConfigurable_[0] = 1;
-      digitalIOPortConfigurable_[1] = 1;
-      digitalIOBitConfigurable_[0] = 0;
-      digitalIOPortConfigurable_[1] = 1;
-      break;
+  switch (boardFamily_) {
     case USB_231:
       numTimers_    = 0;
       numCounters_  = 1;
@@ -1090,16 +1056,20 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       digitalIOBitConfigurable_[0] = 0;
       digitalIOPortConfigurable_[1] = 1;
       break;
-    case USB_2408_2AO:
+    case USB_1208LS:
+    case USB_1208FS:
       numTimers_    = 0;
-      numCounters_  = 2;
-      firstCounter_ = 0;
-      analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
-      analogInDataRateConfigurable_ = 1; // Can configure analog input data rate
+      numCounters_  = 1;
+      firstCounter_ = 1;
+      // For output need to address all bits using first port
+      numIOBits_[0] = 16;
+      // The rules for bit configurable above don't work for this model
+      digitalIOPortConfigurable_[0] = 1;
+      digitalIOPortConfigurable_[1] = 1;
+      digitalIOBitConfigurable_[0] = 0;
+      digitalIOPortConfigurable_[1] = 1;
       break;
     case USB_1608G:
-    case USB_1608GX_2AO:
-    case USB_1608GX_2AO_NEW:
       numTimers_    = 1;
       numCounters_  = 2;
       firstCounter_ = 0;
@@ -1108,7 +1078,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 67.11;
       break;
-    case USB_1608HS_2A0:
+    case USB_1608HS_2AO:
       numTimers_    = 1;
       numCounters_  = 1;
       firstCounter_ = 0;
@@ -1118,7 +1088,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       maxPulseGenDelay_ = 67.11;
       break;
     case USB_1808:
-    case USB_1808X:
       numTimers_    = 2;
       numCounters_  = 4;
       firstCounter_ = 0;
@@ -1127,10 +1096,12 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       minPulseGenDelay_ = 0.;
       maxPulseGenDelay_ = 42.94;
       break;
-    case E_1608:
+    case USB_2408_2AO:
       numTimers_    = 0;
-      numCounters_  = 1;
+      numCounters_  = 2;
       firstCounter_ = 0;
+      analogInTypeConfigurable_  = 1; // Supports voltage and thermocouple
+      analogInDataRateConfigurable_ = 1; // Can configure analog input data rate
       break;
     case USB_3101:
       numTimers_    = 0;
@@ -1138,28 +1109,20 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       firstCounter_ = 0;
       analogOutRangeConfigurable_ = 1; // Can select 0-10V or +-10V
       break;
-    case E_DIO24:
-      numTimers_    = 0;
-      numCounters_  = 1;
-      firstCounter_ = 0;
-      break;
-    case USB_TC32:
-    case ETH_TC32:
+    case USB_SSR08:
       numTimers_    = 0;
       numCounters_  = 0;
-      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
-        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      for (i=0; i<2; i++) {
+        // Digital I/O port 0 is outputs 1 - 4      
+        // Digital I/O port 1 is outputs 5 - 8      
+        setUIntDigitalParam(i, digitalDirection_, 0xFFFFFFFF, digitalIOMask_[i]);
       }
-      // Digital I/O port 0 is input only
-      setUIntDigitalParam(0, digitalDirection_, 0, 0xFFFFFFFF);
-      // Digital I/O port 1 is output and temperature alarms
-      setUIntDigitalParam(1, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
       break;
-    case E_TC:
+    case USB_TEMP:
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
-      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+      for (i=0; i<8; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
       break;
@@ -1174,21 +1137,34 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_VOLTAGE);
       }
       break;
-    case USB_TEMP:
+    case USB_TC32:
+    case ETH_TC32:
+      numTimers_    = 0;
+      numCounters_  = 0;
+      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
+      }
+      // Digital I/O port 0 is input only
+      setUIntDigitalParam(0, digitalDirection_, 0, 0xFFFFFFFF);
+      // Digital I/O port 1 is output and temperature alarms
+      setUIntDigitalParam(1, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
+      break;
+    case E_1608:
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
-      for (i=0; i<8; i++) {
-        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
-      }
       break;
-    case USB_SSR08:
+    case E_DIO24:
       numTimers_    = 0;
-      numCounters_  = 0;
-      for (i=0; i<2; i++) {
-        // Digital I/O port 0 is outputs 1 - 4      
-        // Digital I/O port 1 is outputs 5 - 8      
-        setUIntDigitalParam(i, digitalDirection_, 0xFFFFFFFF, digitalIOMask_[i]);
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      break;
+    case E_TC:
+      numTimers_    = 0;
+      numCounters_  = 1;
+      firstCounter_ = 0;
+      for (i=0; i<MAX_TEMPERATURE_IN; i++) {
+        setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
       break;
     default:
@@ -1198,7 +1174,17 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       break;
   }
 
-  for (pBoardEnums_=allBoardEnums; pBoardEnums_->boardType != boardType_; pBoardEnums_++);
+  for (i=0, pBoardEnums_=0; i<maxBoardFamilies; i++) {
+    if (allBoardEnums[i].boardFamily == boardFamily_) {
+       pBoardEnums_ = &allBoardEnums[i];
+       break;
+    }
+  }
+  if (pBoardEnums_ == 0) {
+    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+      "%s::%s error, unknown board family=%d\n",
+      driverName, functionName, boardFamily_);
+  }
 
   // Allocate memory for the input and output buffers
   for (i=0; i<numAnalogIn_; i++) {
