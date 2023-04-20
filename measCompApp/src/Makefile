@@ -116,7 +116,7 @@ endif
 test_measCompDiscover_SYS_LIBS_Linux += usb-1.0
 test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-# These are test programs which were used when finding Ubuntu18 had programs with scans > 1000 points/s
+# These are test programs which were used when finding Ubuntu18 had problems with scans > 1000 points/s
 #PROD_IOC_Linux += test_AInScan_Linux
 #ifdef ULDAQ_DIR
 #  test_AInScan_Linux_LIBS += uldaq
@@ -153,6 +153,16 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #  2408_TIn_SYS_LIBS_Linux += uldaq
 #endif
 #2408_TIn_SYS_LIBS_Linux += usb-1.0
+
+#PROD_IOC_Linux += test_USB_CTR_fdiv
+#ifdef ULDAQ_DIR
+#  test_USB_CTR_fdiv_LIBS_Linux += uldaq
+#else
+#  test_USB_CTR_fdiv_SYS_LIBS_Linux += uldaq
+#endif
+#test_USB_CTR_fdiv_SYS_LIBS_Linux += usb-1.0
+#PROD_IOC_WIN32 += test_USB_CTR_fdiv
+#test_USB_CTR_fdiv_LIBS_WIN32 += cbw64
 
 
 #=============================
