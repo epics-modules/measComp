@@ -511,7 +511,7 @@ int USBCTR::startMCS()
     #else
       status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL0, 0);
       status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL1, prescale-1);
-      status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_MIN_LIMIT, prescale-1);
+      status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_MAX_LIMIT, prescale-1);
       mode = CMM_OUTPUT_ON | CMM_RANGE_LIMIT_ON;
       status = ulCConfigScan(daqDeviceHandle_, prescaleCounter, CMT_COUNT,  (CounterMeasurementMode) mode,
 					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
@@ -918,7 +918,7 @@ int USBCTR::stopScaler()
   static const char *functionName = "stopScaler";
 
   #ifdef _WIN32
-    status = cbStopBackground(boardNum_, DAQIFUNCTION);
+    status = cbStopBackground(boardNum_, CTRFUNCTION);
   #else
     status = ulCInScanStop(daqDeviceHandle_);
   #endif
