@@ -732,6 +732,8 @@ private:
   int digitalIOPort_[MAX_IO_PORTS];
   int digitalIOBitConfigurable_[MAX_IO_PORTS];
   int digitalIOPortConfigurable_[MAX_IO_PORTS];
+  int digitalIOPortWriteOnly_[MAX_IO_PORTS];
+  int digitalIOPortReadOnly_[MAX_IO_PORTS];
   int numIOBits_[MAX_IO_PORTS];
   epicsUInt32 digitalIOMask_[MAX_IO_PORTS];
   double minPulseGenFrequency_;
@@ -1017,17 +1019,21 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   #endif
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
-     digitalIOPortConfigurable_[i] = 0;
+    digitalIOPortConfigurable_[i] = 0;
     #ifdef _WIN32
       cbGetConfig(DIGITALINFO, boardNum_, i, DIDEVTYPE, &digitalIOPort_[i]);
       cbGetConfig(DIGITALINFO, boardNum_, i, DIINMASK,  &inMask);
       cbGetConfig(DIGITALINFO, boardNum_, i, DIOUTMASK, &outMask);
+      digitalIOPortReadOnly_[i]    = ((inMask != 0) && (outMask == 0));
+      digitalIOPortWriteOnly_[i]   = ((inMask == 0) && (outMask != 0));
       digitalIOBitConfigurable_[i] = ((inMask & outMask) == 0);
       cbGetConfig(DIGITALINFO, boardNum_, i, DINUMBITS, &numIOBits_[i]);
     #else
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_TYPE, i, &infoValue);
       digitalIOPort_[i] = infoValue;
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_IO_TYPE, i, &infoValue);
+      digitalIOPortReadOnly_[i]    = (infoValue == DPIOT_IN);
+      digitalIOPortWriteOnly_[i]   = (infoValue == DPIOT_OUT);
       digitalIOBitConfigurable_[i] = (infoValue == DPIOT_BITIO);
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_NUM_BITS, i, &infoValue);
       numIOBits_[i] = infoValue;
@@ -2574,6 +2580,7 @@ void MultiFunction::pollerThread()
 
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
+      if (digitalIOPortWriteOnly_[i]) continue;
       #ifdef _WIN32
         epicsUInt16 biVal16;
         if (numIOBits_[i] > 16) {
@@ -2740,6 +2747,8 @@ void MultiFunction::report(FILE *fp, int details)
       fprintf(fp, "    I/O bits              = %d\n", numIOBits_[i]);
       fprintf(fp, "    I/O bit configurable  = %d\n", digitalIOBitConfigurable_[i]);
       fprintf(fp, "    I/O port configurable = %d\n", digitalIOPortConfigurable_[i]);
+      fprintf(fp, "    I/O port read only    = %d\n", digitalIOPortReadOnly_[i]);
+      fprintf(fp, "    I/O port write only   = %d\n", digitalIOPortWriteOnly_[i]);
       fprintf(fp, "    I/O port mask         = 0x%x\n", digitalIOMask_[i]);
     }
     fprintf(fp, "  timers             = %d\n", numTimers_);
