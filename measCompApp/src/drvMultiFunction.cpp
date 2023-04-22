@@ -2597,6 +2597,7 @@ void MultiFunction::pollerThread()
       if (status) {
         if (!prevStatus) {
           reportError(status, functionName, "Calling DIn");
+          printf("port number=%d, port type=%d\n", i, digitalIOPort_[i]);
         }
         goto error;
       }
