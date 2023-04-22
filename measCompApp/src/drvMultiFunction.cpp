@@ -205,7 +205,7 @@ typedef enum {
 #define MAX_ANALOG_IN      16
 #define MAX_TEMPERATURE_IN 64
 #define MAX_ANALOG_OUT     16
-#define MAX_IO_PORTS        3
+#define MAX_IO_PORTS        8
 #define MAX_PULSE_GEN       4
 #define MAX_SIGNALS        MAX_TEMPERATURE_IN
 
@@ -1032,6 +1032,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_TYPE, i, &infoValue);
       digitalIOPort_[i] = infoValue;
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_IO_TYPE, i, &infoValue);
+      printf("IOPort=%d DIO_INFO_PORT_TYPE=%d, DIO_INFO_PORT_IO_TYPE=%lld\n",  i, digitalIOPort_[i], infoValue);
       digitalIOPortReadOnly_[i]    = (infoValue == DPIOT_IN);
       digitalIOPortWriteOnly_[i]   = (infoValue == DPIOT_OUT);
       digitalIOBitConfigurable_[i] = (infoValue == DPIOT_BITIO);
