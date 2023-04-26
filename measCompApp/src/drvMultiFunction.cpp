@@ -1017,6 +1017,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_TC, &infoValue);
     numTempChans_ = infoValue;
   #endif
+  printf("numIOPorts_=%d, MAX_IO_PORTS=%d\n", numIOPorts_, MAX_IO_PORTS);
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
     digitalIOPortConfigurable_[i] = 0;
