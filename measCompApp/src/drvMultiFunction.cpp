@@ -1017,7 +1017,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_TC, &infoValue);
     numTempChans_ = infoValue;
   #endif
-  printf("numIOPorts_=%d, MAX_IO_PORTS=%d\n", numIOPorts_, MAX_IO_PORTS);
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
     digitalIOPortConfigurable_[i] = 0;
@@ -2090,7 +2089,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
 int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
 {
   int status=0;
-  static const char *functionName = "etOpenThermocoupleDetect";
+  static const char *functionName = "setOpenThermocoupleDetect";
 
   if ((boardType_ != USB_TEMP) && (boardType_ != USB_TEMP_AI)) {
     #ifdef _WIN32 
@@ -2599,7 +2598,7 @@ void MultiFunction::pollerThread()
       if (status) {
         if (!prevStatus) {
           reportError(status, functionName, "Calling DIn");
-          printf("port number=%d, port type=%d\n", i, digitalIOPort_[i]);
+          asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "portNumber=%d\n", i);
         }
         goto error;
       }
