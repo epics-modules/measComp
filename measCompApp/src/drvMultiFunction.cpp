@@ -549,10 +549,6 @@ static const boardEnums_t allBoardEnums[] = {
                    outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
                    inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
 
-  {ETH_TC32,       inputRangeTC32,        sizeof(inputRangeTC32)/sizeof(enumStruct_t),
-                   outputRangeTC32,       sizeof(outputRangeTC32)/sizeof(enumStruct_t),
-                   inputTypeTC32,         sizeof(inputTypeTC32)/sizeof(enumStruct_t)},
-
   {E_1608,         inputRangeE_1608,      sizeof(inputRangeE_1608)/sizeof(enumStruct_t),
                    outputRangeE_1608,     sizeof(outputRangeE_1608)/sizeof(enumStruct_t),
                    inputTypeE_1608,       sizeof(inputTypeE_1608)/sizeof(enumStruct_t)},
@@ -959,6 +955,10 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     case USB_3114:
       boardFamily_ = USB_3101;
       break;
+    case USB_TC32:
+    case ETH_TC32:
+      boardFamily_ = USB_TC32;
+      break;
     default:
       break;
   }
@@ -1032,7 +1032,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_TYPE, i, &infoValue);
       digitalIOPort_[i] = infoValue;
       status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_PORT_IO_TYPE, i, &infoValue);
-      printf("IOPort=%d DIO_INFO_PORT_TYPE=%d, DIO_INFO_PORT_IO_TYPE=%lld\n",  i, digitalIOPort_[i], infoValue);
       digitalIOPortReadOnly_[i]    = (infoValue == DPIOT_IN);
       digitalIOPortWriteOnly_[i]   = (infoValue == DPIOT_OUT);
       digitalIOBitConfigurable_[i] = (infoValue == DPIOT_BITIO);
@@ -1145,12 +1144,16 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       }
       break;
     case USB_TC32:
-    case ETH_TC32:
       numTimers_    = 0;
       numCounters_  = 0;
       for (i=0; i<MAX_TEMPERATURE_IN; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
       }
+      // On Linux the TC-32 reports that numIOPorts_ = 4, but it is really only 2
+      // This should be fixed in uldaq.
+      #ifdef linux
+        numIOPorts_ = 2;
+      #endif
       // Digital I/O port 0 is input only
       setUIntDigitalParam(0, digitalDirection_, 0, 0xFFFFFFFF);
       // Digital I/O port 1 is output and temperature alarms
@@ -1911,7 +1914,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
     // will often hang if more than 6 channels are being configured.
     // This makes no sense.  The problem cannot be reproduced in the testTC32.c test application
-    if ((boardType_ == USB_TC32) || (boardType_ == ETH_TC32)) epicsThreadSleep(0.01);
+    if (boardFamily_ == USB_TC32) epicsThreadSleep(0.01);
     #ifdef _WIN32
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BICHANTCTYPE, value);
     #else
@@ -2091,12 +2094,19 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
   int status=0;
   static const char *functionName = "setOpenThermocoupleDetect";
 
-  if ((boardType_ != USB_TEMP) && (boardType_ != USB_TEMP_AI)) {
+  if ((boardFamily_ != USB_TEMP) && (boardFamily_ != USB_TEMP_AI)) {
     #ifdef _WIN32 
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
     #else
       OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
-      status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+      // TC-32 can only change open thermocouple detect for the entire device, not per-channel
+      if (boardFamily_ == USB_TC32) {
+        int dev = 0;
+        if (addr >= 32) dev = 1;
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_OTD_MODE, dev, mode);
+      } else { 
+        status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
+      }
     #endif
     reportError(status, functionName, "Setting thermocouple open detect mode");
   }
@@ -2295,7 +2305,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       Range ulRange;
       mapRange(range, &ulRange);
       int chan = addr;
-      if (boardType_ == USB_TEMP_AI) {
+      if (boardFamily_ == USB_TEMP_AI) {
         // On Linux the address needs to be 4 larger
         chan = addr + 4;
       }
