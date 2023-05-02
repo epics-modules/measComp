@@ -164,7 +164,13 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #PROD_IOC_WIN32 += test_USB_CTR_fdiv
 #test_USB_CTR_fdiv_LIBS_WIN32 += cbw64
 
-
+PROD_IOC_Linux += testDualEthDevice
+ifdef ULDAQ_DIR
+  testDualEthDevice_LIBS_Linux += uldaq
+else
+  testDualEthDevice_SYS_LIBS_Linux += uldaq
+endif
+testDualEthDevice_SYS_LIBS_Linux += usb-1.0
 #=============================
 
 include $(TOP)/configure/RULES
