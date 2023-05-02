@@ -29,6 +29,9 @@
   #include "uldaq.h"
 #endif
 
+// This needs to be global because we need to protect the UL library from simultaneous access from any driver
+epicsMutex ULMutex;
+
 // This function maps the Gain values from UL on Windows to the Range values in UL for Linux.
 // We can't use the macros from Windows cbw.h because they conflict with UL for Linux.
 // These definitions are taken from cbw.h, but added CBW_ prefix.
@@ -966,6 +969,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   char uniqueIDStr[256];
   char firmwareVersion[256];
   char ULVersion[256];
+  ULMutex.lock();
   #ifdef _WIN32
     int size = sizeof(uniqueIDStr);
     cbGetConfigString(BOARDINFO, boardNum_, 0, BIDEVUNIQUEID, uniqueIDStr, &size);
@@ -1043,6 +1047,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       digitalIOMask_[i] |= (1 << j);
     }
   }
+  ULMutex.unlock();
   // Assume only voltage input is supported
   analogInTypeConfigurable_ = 0;
   // Assume analog in data rate not configurable
@@ -1231,7 +1236,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     setIntegerParam(i, analogOutRange_, pBoardEnums_->pOutputRange[0].enumValue);
   }
 
-
   /* Start the thread to poll counters and digital inputs and do callbacks to
    * device support */
   epicsThreadCreate("MultiFunctionPoller",
@@ -1244,6 +1248,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
 int  MultiFunction::reportError(int err, const char *functionName, const char *message)
 {
   char libraryMessage[MAX_LIBRARY_MESSAGE_LEN];
+  ULMutex.lock();
   switch (err) {
     case 0: 
       asynPrint(pasynUserSelf, ASYN_TRACEIO_DRIVER,
@@ -1262,6 +1267,7 @@ int  MultiFunction::reportError(int err, const char *functionName, const char *m
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
         "%s::%s Error: %s, err=%d %s\n", driverName, functionName, message, err, libraryMessage);
   }
+  ULMutex.unlock();
   return err;
 }
 
@@ -1404,12 +1410,14 @@ int MultiFunction::startPulseGenerator(int timerNum)
   if (delay < minPulseGenDelay_) delay = minPulseGenDelay_;
   if (delay > maxPulseGenDelay_) delay = maxPulseGenDelay_;
 
+  ULMutex.lock();
   #ifdef _WIN32
     status = cbPulseOutStart(boardNum_, timerNum, &frequency, &dutyCycle, count, &delay, idleState, 0);
   #else
     TmrIdleState idle = (idleState == 0) ? TMRIS_LOW : TMRIS_HIGH;
     status = ulTmrPulseOutStart(daqDeviceHandle_, timerNum, &frequency, &dutyCycle, count, &delay, idle, PO_DEFAULT);
   #endif
+  ULMutex.unlock();
   reportError(status, functionName, "Calling PulseOutStart");
   if (status) return status;
   // We may not have gotten the frequency, dutyCycle, and delay we asked for, set the actual values
@@ -1429,11 +1437,15 @@ int MultiFunction::startPulseGenerator(int timerNum)
 int MultiFunction::stopPulseGenerator(int timerNum)
 {
   pulseGenRunning_[timerNum] = 0;
+  int err;
+  ULMutex.lock();
   #ifdef _WIN32
-    return cbPulseOutStop(boardNum_, timerNum);
+    err = cbPulseOutStop(boardNum_, timerNum);
   #else
-    return ulTmrPulseOutStop(daqDeviceHandle_, timerNum);
+    err = ulTmrPulseOutStop(daqDeviceHandle_, timerNum);
   #endif
+  ULMutex.unlock();
+  return err;
 }
 
 int MultiFunction::defineWaveform(int channel)
@@ -1593,6 +1605,7 @@ int MultiFunction::startWaveGen()
       outPtr += numWaveGenChans_;
     }
   }
+  ULMutex.lock();
   #ifdef _WIN32
     long pointsPerSecond = (long)((1. / dwell) + 0.5);
     options                  = BACKGROUND;
@@ -1615,6 +1628,7 @@ int MultiFunction::startWaveGen()
     // Convert back from rate to dwell, since value might have changed
     dwell = 1./rate;
   #endif
+  ULMutex.unlock();
   reportError(status, functionName, "Calling AOutScan");
 
   if (status) return status;
@@ -1632,13 +1646,17 @@ int MultiFunction::startWaveGen()
 
 int MultiFunction::stopWaveGen()
 {
+  int err;
   waveGenRunning_ = 0;
   setIntegerParam(waveGenRun_, 0);
+  ULMutex.lock();
   #ifdef _WIN32
-    return cbStopBackground(boardNum_, AOFUNCTION);
+    err = cbStopBackground(boardNum_, AOFUNCTION);
   #else
-    return ulAOutScanStop(daqDeviceHandle_);
+    err = ulAOutScanStop(daqDeviceHandle_);
   #endif
+  ULMutex.unlock();
+  return err;
 }
 
 int MultiFunction::computeWaveGenTimes()
@@ -1696,6 +1714,7 @@ int MultiFunction::startWaveDig()
     getIntegerParam(chan, analogInRange_, &range);
     gainArray[i] = range;
   }
+  ULMutex.lock();
   #ifdef _WIN32
     status = cbALoadQueue(boardNum_, chanArray, gainArray, numChans);
   #else
@@ -1708,9 +1727,11 @@ int MultiFunction::startWaveDig()
     status = ulAInLoadQueue(daqDeviceHandle_, queue, numChans);
     delete[] queue;
   #endif
+  ULMutex.unlock();
   reportError(status, functionName, "Calling ALoadQueue");
   if (status) return status;
 
+  ULMutex.lock();
   #ifdef _WIN32
     long pointsPerSecond = (long)((1. / dwell) + 0.5);
     options                  = BACKGROUND;
@@ -1740,6 +1761,7 @@ int MultiFunction::startWaveDig()
      // Convert back from rate to dwell, since value might have changed
     dwell = (1. / rate);
   #endif
+  ULMutex.unlock();
 
   if (invalidScanRate) {
     setDoubleParam(waveDigDwellActual_, -9999);
@@ -1770,11 +1792,13 @@ int MultiFunction::stopWaveDig()
   setIntegerParam(waveDigRun_, 0);
   readWaveDig();
   getIntegerParam(waveDigAutoRestart_, &autoRestart);
+  ULMutex.lock();
   #ifdef _WIN32
     status = cbStopBackground(boardNum_, AIFUNCTION);
   #else
     status = ulAInScanStop(daqDeviceHandle_);
   #endif
+  ULMutex.unlock();
   reportError(status, functionName, "Stopping AIn scan");
   if (autoRestart)
     status |= startWaveDig();
@@ -1854,6 +1878,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     if (ival != AI_CHAN_TYPE_TC) isThermocouple = false;
   }
 
+  ULMutex.lock();
   // Analog input functions
   if (function == analogInType_ && analogInTypeConfigurable_) {
     #ifdef _WIN32
@@ -2025,6 +2050,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == analogOutValue_) {
     if (waveGenRunning_) {
       reportError(-1, functionName, "cannot write analog outputs while waveform generator is running.");
+      ULMutex.unlock();
       return asynError;
     }
     status = getIntegerParam(addr, analogOutRange_, &range);
@@ -2069,6 +2095,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     #endif
     reportError(status, functionName, "Setting waveGen trigger count");
   }
+  ULMutex.unlock();
 
   // This is a separate if statement because these cases are also treated above
   if ((function == waveGenUserNumPoints_) ||
@@ -2095,6 +2122,7 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
   static const char *functionName = "setOpenThermocoupleDetect";
 
   if ((boardFamily_ != USB_TEMP) && (boardFamily_ != USB_TEMP_AI)) {
+    ULMutex.lock();
     #ifdef _WIN32 
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
     #else
@@ -2108,6 +2136,7 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
         status = ulAISetConfig(daqDeviceHandle_, AI_CFG_CHAN_OTD_MODE, addr, mode);
       }
     #endif
+    ULMutex.unlock();
     reportError(status, functionName, "Setting thermocouple open detect mode");
   }
   return status;
@@ -2139,6 +2168,7 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
     // If cbAIn is just called once there is a large error due apparently
     // to not allowing settling time before reading.  For now we read twice
     // which removes the error.
+    ULMutex.lock();
     #ifdef _WIN32
       if (ADCResolution_ <= 16) {
         epicsUInt16 shortVal;
@@ -2159,6 +2189,7 @@ asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
       status = ulAIn(daqDeviceHandle_, addr, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
       *value = (epicsInt32) data;
     #endif
+    ULMutex.unlock();
     setIntegerParam(addr, analogInValue_, *value);
     reportError(status, functionName, "Calling AIn");
   }
@@ -2256,6 +2287,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       getIntegerParam(addr, temperatureScale_, &scale);
       getIntegerParam(addr, temperatureFilter_, &filter);
       if (type != AI_CHAN_TYPE_TC) return asynSuccess;
+      ULMutex.lock();
       #ifdef _WIN32
         float fVal;
         status = cbTIn(boardNum_, addr, scale, &fVal, filter);
@@ -2290,12 +2322,14 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
           *value = -9999.;
         }
       #endif
+      ULMutex.unlock();
     }
     setDoubleParam(addr, temperatureInValue_, *value);
     reportError(status, functionName, "Calling TIn");
   }
   else if (function == voltageInValue_) {
     getIntegerParam(addr, voltageInRange_, &range);
+    ULMutex.lock();
     #ifdef _WIN32
       float fVal;
       status = cbVIn(boardNum_, addr, range, &fVal, 0);
@@ -2312,6 +2346,7 @@ asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
       status = ulAIn(daqDeviceHandle_, chan, aiInputMode_, ulRange, AIN_FF_DEFAULT, &data);
       *value = (float) data;
     #endif
+    ULMutex.unlock();
     reportError(status, functionName, "Calling AIn");
     setDoubleParam(addr, voltageInValue_, *value);
   }
@@ -2336,6 +2371,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
 
   this->getAddress(pasynUser, &addr);
   setUIntDigitalParam(addr, function, value, mask);
+  ULMutex.lock();
   if (function == digitalDirection_) {
     if (digitalIOPortConfigurable_[addr]) {
       #ifdef _WIN32
@@ -2408,6 +2444,7 @@ asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
       }
     }
   }
+  ULMutex.unlock();
 
   callParamCallbacks();
   if (status == 0) {
@@ -2587,6 +2624,7 @@ void MultiFunction::pollerThread()
 
   while(1) {
     lock();
+    ULMutex.lock();
     epicsTimeGetCurrent(&startTime);
 
     // Read the digital inputs
@@ -2728,6 +2766,7 @@ error:
       reportError(-1, functionName, "Device returned to normal status");
     }
     prevStatus = status;
+    ULMutex.unlock();
     unlock();
     epicsTimeGetCurrent(&now);
     double diffTime = epicsTimeDiffInSeconds(&now, &startTime);
