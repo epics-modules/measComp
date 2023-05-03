@@ -170,7 +170,7 @@ ifdef ULDAQ_DIR
 else
   testDualEthDevice_SYS_LIBS_Linux += uldaq
 endif
-testDualEthDevice_SYS_LIBS_Linux += usb-1.0
+testDualEthDevice_SYS_LIBS_Linux += usb-1.0 pthread
 #=============================
 
 include $(TOP)/configure/RULES
