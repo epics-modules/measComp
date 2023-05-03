@@ -1,13 +1,13 @@
 
 file {
-	name="/home/epics/devel/measComp-3-0/measCompApp/op/adl/measCompTemperatureSetup8.adl"
-	version=030109
+	name="/home/epics/devel/measComp-4-0/measCompApp/op/adl/measCompTemperatureSetup8.adl"
+	version=030117
 }
 display {
 	object {
-		x=980
-		y=93
-		width=545
+		x=203
+		y=669
+		width=670
 		height=290
 	}
 	clr=14
@@ -91,7 +91,7 @@ text {
 	object {
 		x=0
 		y=10
-		width=545
+		width=670
 		height=25
 	}
 	"basic attribute" {
@@ -963,4 +963,144 @@ text {
 	}
 	textix="Detect"
 	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=545
+		y=85
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti1).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=550
+		y=60
+		width=110
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Description"
+}
+"text entry" {
+	object {
+		x=545
+		y=110
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti2).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=135
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti3).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=160
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti4).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=185
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti5).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=210
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti6).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=235
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti7).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=545
+		y=260
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(Ti8).DESC"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
 }
