@@ -41,7 +41,7 @@ struct devStruct {
   DaqDeviceHandle devHandle;
 };
 
-void poller(void *ptr)
+void *poller(void *ptr)
 {
   struct devStruct *pds = (devStruct*)ptr;
   int err;
@@ -65,6 +65,7 @@ void poller(void *ptr)
     }
     usleep(1000);
   }
+  return 0;
 }
 
 int main(int argc, char *argv[])
