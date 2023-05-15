@@ -41,7 +41,7 @@ struct devStruct {
   DaqDeviceHandle devHandle;
 };
 
-void *poller(void *ptr)
+void poller(void *ptr)
 {
   struct devStruct *pds = (devStruct*)ptr;
   int err;
