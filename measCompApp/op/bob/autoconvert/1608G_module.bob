@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-05-22 16:08:38 by epics-->
 <display version="2.0.0">
   <name>1608G_module</name>
-  <x>237</x>
-  <y>124</y>
-  <width>570</width>
-  <height>790</height>
+  <x>109</x>
+  <y>170</y>
+  <width>835</width>
+  <height>625</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -15,7 +16,7 @@
     <name>text #6</name>
     <text>USB-1608G  $(P)</text>
     <y>5</y>
-    <width>570</width>
+    <width>835</width>
     <height>25</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -30,49 +31,49 @@
   <widget type="embedded" version="2.0.0">
     <name>composite #9</name>
     <file>measCompTrigger.bob</file>
-    <x>345</x>
-    <y>560</y>
+    <x>340</x>
+    <y>395</y>
     <width>180</width>
     <height>65</height>
   </widget>
   <widget type="embedded" version="2.0.0">
     <name>composite #11</name>
     <file>measCompAnalogIn8.bob</file>
-    <x>4</x>
+    <x>5</x>
     <y>40</y>
     <width>295</width>
     <height>285</height>
   </widget>
   <widget type="embedded" version="2.0.0">
     <name>composite #13</name>
-    <file>measCompPulseGen.bob</file>
-    <x>26</x>
-    <y>330</y>
-    <width>250</width>
-    <height>205</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #15</name>
     <file>measCompCounters2.bob</file>
-    <x>41</x>
-    <y>540</y>
+    <x>42</x>
+    <y>330</y>
     <width>220</width>
     <height>85</height>
   </widget>
   <widget type="embedded" version="2.0.0">
-    <name>composite #17</name>
+    <name>composite #15</name>
     <file>measCompWaveDig.bob</file>
-    <x>305</x>
+    <x>570</x>
     <y>40</y>
     <width>260</width>
     <height>515</height>
   </widget>
   <widget type="embedded" version="2.0.0">
-    <name>composite #19</name>
+    <name>composite #17</name>
     <file>measCompDigitalIO8.bob</file>
-    <x>4</x>
-    <y>630</y>
+    <x>5</x>
+    <y>465</y>
     <width>560</width>
     <height>155</height>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>composite #19</name>
+    <file>measCompPulseGen.bob</file>
+    <x>305</x>
+    <y>40</y>
+    <width>250</width>
+    <height>350</height>
   </widget>
 </display>
