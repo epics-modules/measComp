@@ -82,23 +82,67 @@ record(calcout, "$(P)$(R)CalcPeriod")
 }
 
 ###################################################################
+#  Pulse duty cycle                                               # 
+###################################################################
+record(ao, "$(P)$(R)DutyCycle")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_DUTY_CYCLE")
+    field(VAL,  "0.5")
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcWidth")
+}
+
+record(ai, "$(P)$(R)DutyCycle_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR))PULSE_DUTY_CYCLE")
+    field(PREC, "$(PREC)")
+    field(SCAN, "I/O Intr")
+}
+
+###################################################################
+#  Calculate width based on new duty cycle                        # 
+###################################################################
+record(calcout, "$(P)$(R)CalcWidth")
+{
+    field(INPA, "$(P)$(R)DutyCycle")
+    field(INPB, "$(P)$(R)Period")
+    field(CALC, "A*B")
+    field(SDIS, "$(P)$(R)Width.PROC")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)Width PP MS")
+}
+
+###################################################################
 #  Pulse width                                                    # 
 ###################################################################
 record(ao, "$(P)$(R)Width")
 {
-    field(PINI, "YES")
-    field(DTYP, "asynFloat64")
-    field(OUT,  "@asyn($(PORT),$(ADDR))PULSE_WIDTH")
-    field(VAL,  "0.0001")
+    field(PREC, "$(PREC)")
+    field(FLNK, "$(P)$(R)CalcDutyCycle PP MS")
+}
+
+record(calc, "$(P)$(R)Width_RBV")
+{
+    field(INPA, "$(P)$(R)DutyCycle_RBV CP MS")
+    field(INPB, "$(P)$(R)Period_RBV CP MS")
+    field(CALC, "B*A")
     field(PREC, "$(PREC)")
 }
 
-record(ai, "$(P)$(R)Width_RBV")
+###################################################################
+#  Calculate duty cycle based on new width                        # 
+###################################################################
+record(calcout, "$(P)$(R)CalcDutyCycle")
 {
-    field(DTYP, "asynFloat64")
-    field(INP,  "@asyn($(PORT),$(ADDR))PULSE_WIDTH")
-    field(PREC, "$(PREC)")
-    field(SCAN, "I/O Intr")
+    field(INPA, "$(P)$(R)Width")
+    field(INPB, "$(P)$(R)Period")
+    field(CALC, "A/B")
+    field(SDIS, "$(P)$(R)DutyCycle.PROC")
+    field(DISV, "1")
+    field(OUT, "$(P)$(R)DutyCycle PP MS")
 }
 
 ###################################################################
