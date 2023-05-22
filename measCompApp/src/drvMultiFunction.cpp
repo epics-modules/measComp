@@ -112,7 +112,7 @@ typedef enum {
 // Pulse output parameters
 #define pulseGenRunString         "PULSE_RUN"
 #define pulseGenPeriodString      "PULSE_PERIOD"
-#define pulseGenWidthString       "PULSE_WIDTH"
+#define pulseGenDutyCycleString   "PULSE_DUTY_CYCLE"
 #define pulseGenDelayString       "PULSE_DELAY"
 #define pulseGenCountString       "PULSE_COUNT"
 #define pulseGenIdleStateString   "PULSE_IDLE_STATE"
@@ -465,7 +465,7 @@ static const enumStruct_t inputTypeE_TC[] = {
 };
 
 #ifdef _WIN32
-  // The sensor type cannot be configured in UL for Windows so we use these default enum values
+  // The sensor type cannot be configured in UL for Windows so widthwe use these default enum values
   static const enumStruct_t temperatureSensorUSB_TEMP[] = {
     {"RTD",           0},
     {"Thermistor",    1},
@@ -608,7 +608,7 @@ protected:
   // Pulse generator parameters
   int pulseGenRun_;
   int pulseGenPeriod_;
-  int pulseGenWidth_;
+  int pulseGenDutyCycle_;
   int pulseGenDelay_;
   int pulseGenCount_;
   int pulseGenIdleState_;
@@ -838,7 +838,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Pulse generator parameters
   createParam(pulseGenRunString,               asynParamInt32, &pulseGenRun_);
   createParam(pulseGenPeriodString,          asynParamFloat64, &pulseGenPeriod_);
-  createParam(pulseGenWidthString,           asynParamFloat64, &pulseGenWidth_);
+  createParam(pulseGenDutyCycleString,       asynParamFloat64, &pulseGenDutyCycle_);
   createParam(pulseGenDelayString,           asynParamFloat64, &pulseGenDelay_);
   createParam(pulseGenCountString,             asynParamInt32, &pulseGenCount_);
   createParam(pulseGenIdleStateString,         asynParamInt32, &pulseGenIdleState_);
@@ -1184,8 +1184,8 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       break;
     default:
       asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s::%s error, unknown board type=%d\n",
-        driverName, functionName, boardType_);
+        "%s::%s error, unknown board type=%d, board family=%d\n",
+        driverName, functionName, boardType_, boardFamily_);
       break;
   }
 
@@ -1389,13 +1389,13 @@ int MultiFunction::mapTriggerType(int cbwTriggerType, TriggerType *triggerType)
 int MultiFunction::startPulseGenerator(int timerNum)
 {
   int status=0;
-  double frequency, period, width, delay;
+  double frequency, period, delay;
   double dutyCycle;
   int count, idleState;
   static const char *functionName = "startPulseGenerator";
 
   getDoubleParam (timerNum, pulseGenPeriod_,    &period);
-  getDoubleParam (timerNum, pulseGenWidth_,     &width);
+  getDoubleParam (timerNum, pulseGenDutyCycle_, &dutyCycle);
   getDoubleParam (timerNum, pulseGenDelay_,     &delay);
   getIntegerParam(timerNum, pulseGenCount_,     &count);
   getIntegerParam(timerNum, pulseGenIdleState_, &idleState);
@@ -1403,7 +1403,6 @@ int MultiFunction::startPulseGenerator(int timerNum)
   frequency = 1./period;
   if (frequency < minPulseGenFrequency_) frequency = minPulseGenFrequency_;
   if (frequency > maxPulseGenFrequency_) frequency = maxPulseGenFrequency_;
-  dutyCycle = width * frequency;
   period = 1. / frequency;
   if (dutyCycle <= 0.) dutyCycle = .0001;
   if (dutyCycle >= 1.) dutyCycle = .9999;
@@ -1424,12 +1423,11 @@ int MultiFunction::startPulseGenerator(int timerNum)
   // in the parameter library
   pulseGenRunning_[timerNum] = 1;
   period = 1. / frequency;
-  width = period * dutyCycle;
   asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
-    "%s:%s: started pulse generator %d actual frequency=%f, actual period=%f, actual width=%f, actual delay=%f\n",
-    driverName, functionName, timerNum, frequency, period, width, delay);
+    "%s:%s: started pulse generator %d actual frequency=%f, actual period=%f, actual duty cycle=%f, actual delay=%f\n",
+    driverName, functionName, timerNum, frequency, period, dutyCycle, delay);
   setDoubleParam(timerNum, pulseGenPeriod_, period);
-  setDoubleParam(timerNum, pulseGenWidth_, width);
+  setDoubleParam(timerNum, pulseGenDutyCycle_, dutyCycle);
   setDoubleParam(timerNum, pulseGenDelay_, delay);
   return 0;
 }
@@ -2215,7 +2213,7 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 
   // Pulse generator functions
   if ((function == pulseGenPeriod_)    ||
-      (function == pulseGenWidth_)     ||
+      (function == pulseGenDutyCycle_) ||
       (function == pulseGenDelay_)) {
     if (pulseGenRunning_[addr]) {
       status = stopPulseGenerator(addr);
