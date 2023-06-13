@@ -2125,8 +2125,8 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
       status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDETECTOPENTC, value);
     #else
       OtdMode mode = value ? OTD_ENABLED : OTD_DISABLED;
-      // TC-32 can only change open thermocouple detect for the entire device, not per-channel
-      if (boardFamily_ == USB_TC32) {
+      // TC-32 and E-TC can only change open thermocouple detect for the entire device, not per-channel
+      if (boardFamily_ == USB_TC32 || boardFamily_ == E_TC ) {
         int dev = 0;
         if (addr >= 32) dev = 1;
         status = ulAISetConfig(daqDeviceHandle_, AI_CFG_OTD_MODE, dev, mode);
