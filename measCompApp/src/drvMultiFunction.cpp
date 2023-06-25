@@ -566,9 +566,8 @@ static const boardEnums_t allBoardEnums[] = {
 };
 
 static int maxBoardFamilies = (int) (sizeof(allBoardEnums) / sizeof(boardEnums_t));
-#define DEFAULT_POLL_TIME 0.01
 #define ROUND(x) ((x) >= 0. ? (int)x+0.5 : (int)(x-0.5))
-#define MAX_BOARDNAME_LEN    256
+#define MAX_BOARDNAME_LEN 256
 #define MAX_LIBRARY_MESSAGE_LEN 256
 #define PI 3.14159265
 
@@ -793,7 +792,6 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
                               asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask        | asynEnumMask,
       ASYN_MULTIDEVICE | ASYN_CANBLOCK, 1, /* ASYN_CANBLOCK=1, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
-    pollTime_(DEFAULT_POLL_TIME),
     maxInputPoints_(maxInputPoints),
     maxOutputPoints_(maxOutputPoints),
     numWaveGenChans_(1),
@@ -2615,15 +2613,16 @@ void MultiFunction::pollerThread()
   epicsUInt32 countVal;
   long aoCount, aoIndex, aiCount, aiIndex;
   short aoStatus, aiStatus;
-  epicsTimeStamp now;
-  epicsTimeStamp startTime;
+  epicsTime startTime=epicsTime::getCurrent(), endTime, currentTime;
   int lastPoint;
   int status=0, prevStatus=0;
 
   while(1) {
     lock();
     ULMutex.lock();
-    epicsTimeGetCurrent(&startTime);
+    endTime = epicsTime::getCurrent();
+    setDoubleParam(pollTimeMS_, (endTime-startTime)*1000.);
+    startTime = epicsTime::getCurrent();
 
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
@@ -2738,7 +2737,8 @@ void MultiFunction::pollerThread()
       getIntegerParam(waveDigCurrentPoint_, &currentPoint);
       lastPoint = aiIndex / numWaveDigChans_ + 1;
       if (lastPoint > currentPoint) {
-        epicsTimeGetCurrent(&now);
+        currentTime = epicsTime::getCurrent();
+        epicsTimeStamp now = (epicsTimeStamp)currentTime;
         int firstChan;
         getIntegerParam(waveDigFirstChan_, &firstChan);
         int lastChan = firstChan + numWaveDigChans_ - 1;
@@ -2764,13 +2764,11 @@ error:
       reportError(-1, functionName, "Device returned to normal status");
     }
     prevStatus = status;
+    double pollTime;
+    getDoubleParam(pollSleepMS_, &pollTime);
     ULMutex.unlock();
     unlock();
-    epicsTimeGetCurrent(&now);
-    double diffTime = epicsTimeDiffInSeconds(&now, &startTime);
-    double sleepTime = pollTime_ - diffTime;
-    if (sleepTime < 0.001) sleepTime = 0.001;
-    epicsThreadSleep(sleepTime);
+    epicsThreadSleep(pollTime/1000.);
   }
 }
 
