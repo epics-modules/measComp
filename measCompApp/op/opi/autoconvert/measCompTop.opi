@@ -28,7 +28,7 @@
   <snap_to_geometry>false</snap_to_geometry>
   <widget_type>Display</widget_type>
   <width>212</width>
-  <x>-4</x>
+  <x>10</x>
   <y>184</y>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="false">
@@ -236,6 +236,8 @@ $(pv_value)</tooltip>
         <macros>
           <include_parent_macros>true</include_parent_macros>
           <P>USBCTR:</P>
+          <SP>USBCTR:scaler1</SP>
+          <MP>USBCTR:MCS:</MP>
           <Bi>Bi</Bi>
           <Li>Li</Li>
           <Bo>Bo</Bo>
@@ -762,11 +764,12 @@ $(pv_value)</tooltip>
         <macros>
           <include_parent_macros>true</include_parent_macros>
           <P>EDIO24:</P>
-          <Bi>Bi</Bi>
-          <Li>Li</Li>
-          <Bo>Bo</Bo>
-          <Lo>Lo</Lo>
           <Bd>Bd</Bd>
+          <Bi>Bi</Bi>
+          <Bo>Bo</Bo>
+          <Ct>Counter</Ct>
+          <Li>Li</Li>
+          <Lo>Lo</Lo>
         </macros>
         <mode>1</mode>
         <description>E-DIO24 module</description>

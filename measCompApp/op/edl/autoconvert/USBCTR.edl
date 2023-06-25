@@ -50,19 +50,6 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 145
-w 570
-h 650
-
-beginGroup
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 10
 y 145
 w 560
@@ -690,19 +677,6 @@ endGroup
 endObjectProperties
 
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 730
-w 550
-h 65
-
-beginGroup
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -805,11 +779,6 @@ lineColor rgb 0 0 0
 fillColor rgb 0 0 0
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -853,11 +822,6 @@ visMin "A"
 visMax "1"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -900,18 +864,6 @@ endGroup
 visMin "A"
 visMax "1"
 endObjectProperties
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 145
-w 570
-h 650
-
-beginGroup
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -1249,18 +1201,6 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 15
-y 730
-w 550
-h 65
-
-beginGroup
 
 # (Related Display)
 object relatedDisplayClass
@@ -1288,7 +1228,7 @@ menuLabel {
   0 "Scaler"
 }
 symbols {
-  0 "P=$(P),S=scaler1"
+  0 "P=$(SP),S=$(S)"
 }
 replaceSymbols {
   0 1
@@ -1321,7 +1261,7 @@ menuLabel {
   0 "MCS"
 }
 symbols {
-  0 "P=$(P)MCS:,M=mca"
+  0 "P=$(MP),M=mca"
 }
 replaceSymbols {
   0 1
@@ -1360,14 +1300,4 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
 

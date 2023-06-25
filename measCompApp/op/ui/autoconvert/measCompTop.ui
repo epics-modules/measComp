@@ -4,7 +4,7 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>-4</x>
+            <x>10</x>
             <y>184</y>
             <width>212</width>
             <height>365</height>
@@ -268,7 +268,7 @@ border-radius: 2px;
                 <string>USBCTR.adl</string>
             </property>
             <property name="args">
-                <string>P=USBCTR:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig</string>
+                <string>P=USBCTR:,SP=USBCTR:scaler1,MP=USBCTR:MCS:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig</string>
             </property>
             <property name="removeParent">
                 <string>false</string>
@@ -604,7 +604,7 @@ border-radius: 2px;
                 <string>EDIO24_module.adl</string>
             </property>
             <property name="args">
-                <string>P=EDIO24:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd</string>
+                <string>P=EDIO24:,Bd=Bd,Bi=Bi,Bo=Bo,Ct=Counter,Li=Li,Lo=Lo</string>
             </property>
             <property name="removeParent">
                 <string>false</string>
