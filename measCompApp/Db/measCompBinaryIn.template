@@ -1,5 +1,6 @@
 record(bi, "$(P)$(R)")
 {
+    field(DESC, "$(DESC=)")
     field(DTYP, "asynUInt32Digital")
     field(INP,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_INPUT")
     field(ZNAM, "$(ZNAM=Low)")
