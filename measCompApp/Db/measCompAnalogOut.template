@@ -1,5 +1,5 @@
 record(ao,"$(P)$(R)") {
-    field(PINI, "YES")
+    field(PINI, "$(PINI=NO)")
     field(DTYP, "asynInt32")
     field(FLNK, "$(P)$(R)Return.PROC  PP MS")
     field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_VALUE")

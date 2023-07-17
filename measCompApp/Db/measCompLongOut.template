@@ -3,7 +3,7 @@
 ###################################################################
 record(longout, "$(P)$(R)")
 {
-    field(PINI, "$(PINI=YES)")
+    field(PINI, "$(PINI=NO)")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
 }
