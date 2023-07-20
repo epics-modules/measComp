@@ -1,6 +1,8 @@
 record(bo, "$(P)$(R)")
 {
-    field(PINI, "$(PINI=NO)")
+    field(PINI, "$(PINI=YES)")
+    # Setting PHAS=2 ensures that the Direction record will process before this record during iocInit
+    field(PHAS, "2")
     field(DESC, "$(DESC=)")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),$(MASK))DIGITAL_OUTPUT")
