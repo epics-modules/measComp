@@ -579,7 +579,6 @@ public:
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
-  virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 *value);
   virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
   virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
   virtual asynStatus readFloat64(asynUser *pasynUser, epicsFloat64 *value);
@@ -2138,67 +2137,6 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
   return status;
 }
 
-asynStatus MultiFunction::readInt32(asynUser *pasynUser, epicsInt32 *value)
-{
-  int addr;
-  int function = pasynUser->reason;
-  int status=0;
-  int type;
-  int mode;
-  int model;
-  int range;
-  static const char *functionName = "readInt32";
-
-  this->getAddress(pasynUser, &addr);
-
-  // Analog input function
-  if (function == analogInValue_) {
-    if (waveDigRunning_) return asynSuccess;
-    getIntegerParam(addr, analogInRange_, &range);
-    getIntegerParam(addr, analogInType_, &type);
-    getIntegerParam(0, analogInMode_, &mode);
-    getIntegerParam(0, modelNumber_, &model);
-    if ((model == E_1608) && (mode == DIFFERENTIAL) && (addr>3)) return asynSuccess;
-    if (type != AI_CHAN_TYPE_VOLTAGE) return asynSuccess;
-    // NOTE: There is something wrong with their driver.
-    // If cbAIn is just called once there is a large error due apparently
-    // to not allowing settling time before reading.  For now we read twice
-    // which removes the error.
-    ULMutex.lock();
-    #ifdef _WIN32
-      if (ADCResolution_ <= 16) {
-        epicsUInt16 shortVal;
-        status = cbAIn(boardNum_, addr, range, &shortVal);
-        status = cbAIn(boardNum_, addr, range, &shortVal);
-        *value = shortVal;
-      } else {
-        ULONG ulongVal;
-        status = cbAIn32(boardNum_, addr, range, &ulongVal, 0);
-        status = cbAIn32(boardNum_, addr, range, &ulongVal, 0);
-        *value = (epicsInt32)ulongVal;
-      }
-    #else
-      double data;
-      Range ulRange;
-      mapRange(range, &ulRange);
-      status = ulAIn(daqDeviceHandle_, addr, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
-      status = ulAIn(daqDeviceHandle_, addr, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
-      *value = (epicsInt32) data;
-    #endif
-    ULMutex.unlock();
-    setIntegerParam(addr, analogInValue_, *value);
-    reportError(status, functionName, "Calling AIn");
-  }
-
-  // Other functions we call the base class method
-  else {
-     status = asynPortDriver::readInt32(pasynUser, value);
-  }
-
-  callParamCallbacks(addr);
-  return (status==0) ? asynSuccess : asynError;
-}
-
 asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
   int addr;
@@ -2753,6 +2691,35 @@ void MultiFunction::pollerThread()
       }
       if (aiStatus == 0) {
         stopWaveDig();
+      }
+    } else {
+      // If the waveform digitizer is not running then read the analog inputs
+      int range, type, mode;
+      epicsInt32 value;
+      getIntegerParam(0, analogInMode_, &mode);
+      for (i=0; i<numAnalogIn_; i++) {
+        getIntegerParam(i, analogInRange_, &range);
+        getIntegerParam(i, analogInType_, &type);
+        if (type != AI_CHAN_TYPE_VOLTAGE) continue;
+        if ((boardType_ == E_1608) && (mode == DIFFERENTIAL) && (i>3)) break;
+        #ifdef _WIN32
+          if (ADCResolution_ <= 16) {
+            epicsUInt16 shortVal;
+            status = cbAIn(boardNum_, i, range, &shortVal);
+            value = shortVal;
+          } else {
+            ULONG ulongVal;
+            status = cbAIn32(boardNum_, i, range, &ulongVal, 0);
+            value = (epicsInt32)ulongVal;
+          }
+        #else
+          double data;
+          Range ulRange;
+          mapRange(range, &ulRange);
+          status = ulAIn(daqDeviceHandle_, i, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
+          value = (epicsInt32) data;
+        #endif
+        setIntegerParam(i, analogInValue_, value);
       }
     }
 
