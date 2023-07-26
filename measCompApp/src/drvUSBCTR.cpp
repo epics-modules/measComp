@@ -1474,12 +1474,16 @@ void USBCTR::pollerThread()
    * time */
   static const char *functionName = "pollerThread";
   epicsUInt32 newValue, changedBits, prevInput=0;
+  epicsTime startTime=epicsTime::getCurrent(), endTime, currentTime;
   unsigned short biVal;;
   int i;
   int status;
 
   while(1) {
     lock();
+    endTime = epicsTime::getCurrent();
+    setDoubleParam(pollTimeMS_, (endTime-startTime)*1000.);
+    startTime = epicsTime::getCurrent();
 
     // Read the digital inputs
     #ifdef _WIN32
@@ -1512,8 +1516,10 @@ void USBCTR::pollerThread()
     for (i=0; i<MAX_SIGNALS; i++) {
       callParamCallbacks(i);
     }
+    double pollTime;
+    getDoubleParam(pollSleepMS_, &pollTime);
     unlock();
-    epicsThreadSleep(pollTime_);
+    epicsThreadSleep(pollTime/1000.);
   }
 }
 
