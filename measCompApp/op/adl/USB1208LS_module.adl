@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/USB1208LS_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/USB1208LS_module.adl"
+	version=030117
 }
 display {
 	object {
-		x=359
-		y=89
+		x=142
+		y=202
 		width=605
-		height=550
+		height=655
 	}
 	clr=14
 	bclr=4
@@ -102,748 +102,39 @@ text {
 }
 composite {
 	object {
-		x=305
-		y=360
-		width=295
-		height=115
-	}
-	"composite name"=""
-	"composite file"="measCompAnalogOut2.adl"
-}
-composite {
-	object {
-		x=305
-		y=480
-		width=220
-		height=60
-	}
-	"composite name"=""
-	"composite file"="measCompCounters1.adl"
-}
-composite {
-	object {
 		x=5
-		y=360
-		width=295
-		height=185
-	}
-	"composite name"=""
-	"composite file"="measCompAnalogIn4.adl"
-}
-composite {
-	object {
-		x=5
-		y=39
+		y=145
 		width=595
-		height=315
+		height=506
 	}
 	"composite name"=""
 	children {
-		rectangle {
+		composite {
 			object {
 				x=5
-				y=39
+				y=145
 				width=595
 				height=315
 			}
-			"basic attribute" {
-				clr=14
-				fill="outline"
-				width=1
-			}
-		}
-		text {
-			object {
-				x=35
-				y=131
-				width=70
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Outputs"
-			align="horiz. right"
-		}
-		"choice button" {
-			object {
-				x=155
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)2"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=195
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)3"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=235
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)4"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=275
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)5"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=315
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)6"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=355
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)7"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=395
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)8"
-				clr=14
-				bclr=51
-			}
-		}
-		"choice button" {
-			object {
-				x=115
-				y=126
-				width=35
-				height=30
-			}
-			control {
-				chan="$(P)$(Bo)1"
-				clr=14
-				bclr=51
-			}
-		}
-		text {
-			object {
-				x=15
-				y=167
-				width=90
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Direction"
-			align="horiz. right"
-		}
-		text {
-			object {
-				x=45
-				y=101
-				width=60
-				height=20
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Inputs"
-			align="horiz. right"
-		}
-		oval {
-			object {
-				x=123
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)1.VAL"
-			}
-		}
-		oval {
-			object {
-				x=123
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)1.VAL"
-			}
-		}
-		text {
-			object {
-				x=211
-				y=47
-				width=216
-				height=25
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="Digital I/O Port 1"
-		}
-		"choice button" {
-			object {
-				x=115
-				y=164
-				width=60
-				height=30
-			}
-			control {
-				chan="$(P)$(Bd)1"
-				clr=14
-				bclr=51
-			}
-		}
-		"text entry" {
-			object {
-				x=435
-				y=131
-				width=100
-				height=20
-			}
-			control {
-				chan="$(P)$(Lo)1"
-				clr=14
-				bclr=51
-			}
-			format="hexadecimal"
-			limits {
-			}
-		}
-		"text update" {
-			object {
-				x=435
-				y=100
-				width=100
-				height=18
-			}
-			monitor {
-				chan="$(P)$(Li)1"
-				clr=14
-				bclr=51
-			}
-			format="hexadecimal"
-			limits {
-			}
-		}
-		oval {
-			object {
-				x=163
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)2.VAL"
-			}
-		}
-		oval {
-			object {
-				x=163
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)2.VAL"
-			}
-		}
-		oval {
-			object {
-				x=203
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)3.VAL"
-			}
-		}
-		oval {
-			object {
-				x=203
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)3.VAL"
-			}
-		}
-		oval {
-			object {
-				x=243
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)4.VAL"
-			}
-		}
-		oval {
-			object {
-				x=243
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)4.VAL"
-			}
-		}
-		oval {
-			object {
-				x=283
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)5.VAL"
-			}
-		}
-		oval {
-			object {
-				x=283
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)5.VAL"
-			}
-		}
-		oval {
-			object {
-				x=323
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)6.VAL"
-			}
-		}
-		oval {
-			object {
-				x=323
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)6.VAL"
-			}
-		}
-		oval {
-			object {
-				x=363
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)7.VAL"
-			}
-		}
-		oval {
-			object {
-				x=363
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)7.VAL"
-			}
-		}
-		oval {
-			object {
-				x=403
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=20
-			}
-			"dynamic attribute" {
-				vis="if not zero"
-				chan="$(P)$(Bi)8.VAL"
-			}
-		}
-		oval {
-			object {
-				x=403
-				y=99
-				width=20
-				height=20
-			}
-			"basic attribute" {
-				clr=15
-			}
-			"dynamic attribute" {
-				vis="if zero"
-				chan="$(P)$(Bi)8.VAL"
-			}
-		}
-		text {
-			object {
-				x=128
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="1"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=168
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="2"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=208
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="3"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=248
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="4"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=288
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="5"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=328
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="6"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=368
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="7"
-			align="horiz. centered"
-		}
-		text {
-			object {
-				x=408
-				y=77
-				width=9
-				height=15
-			}
-			"basic attribute" {
-				clr=14
-			}
-			textix="8"
-			align="horiz. centered"
-		}
-		composite {
-			object {
-				x=15
-				y=201
-				width=520
-				height=147
-			}
 			"composite name"=""
 			children {
-				oval {
+				rectangle {
 					object {
-						x=403
-						y=253
-						width=20
-						height=20
+						x=5
+						y=145
+						width=595
+						height=315
 					}
 					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)16.VAL"
-					}
-				}
-				oval {
-					object {
-						x=363
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)15.VAL"
-					}
-				}
-				oval {
-					object {
-						x=323
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)14.VAL"
-					}
-				}
-				oval {
-					object {
-						x=323
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)14.VAL"
-					}
-				}
-				oval {
-					object {
-						x=283
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)13.VAL"
-					}
-				}
-				oval {
-					object {
-						x=243
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)12.VAL"
-					}
-				}
-				oval {
-					object {
-						x=203
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)11.VAL"
-					}
-				}
-				oval {
-					object {
-						x=163
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)10.VAL"
-					}
-				}
-				oval {
-					object {
-						x=123
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=15
-					}
-					"dynamic attribute" {
-						vis="if zero"
-						chan="$(P)$(Bi)9.VAL"
+						clr=14
+						fill="outline"
+						width=1
 					}
 				}
 				text {
 					object {
 						x=35
-						y=285
+						y=237
 						width=70
 						height=20
 					}
@@ -856,12 +147,12 @@ composite {
 				"choice button" {
 					object {
 						x=155
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)10"
+						chan="$(P)$(Bo)2"
 						clr=14
 						bclr=51
 					}
@@ -869,12 +160,12 @@ composite {
 				"choice button" {
 					object {
 						x=195
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)11"
+						chan="$(P)$(Bo)3"
 						clr=14
 						bclr=51
 					}
@@ -882,12 +173,12 @@ composite {
 				"choice button" {
 					object {
 						x=235
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)12"
+						chan="$(P)$(Bo)4"
 						clr=14
 						bclr=51
 					}
@@ -895,12 +186,12 @@ composite {
 				"choice button" {
 					object {
 						x=275
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)13"
+						chan="$(P)$(Bo)5"
 						clr=14
 						bclr=51
 					}
@@ -908,12 +199,12 @@ composite {
 				"choice button" {
 					object {
 						x=315
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)14"
+						chan="$(P)$(Bo)6"
 						clr=14
 						bclr=51
 					}
@@ -921,12 +212,12 @@ composite {
 				"choice button" {
 					object {
 						x=355
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)15"
+						chan="$(P)$(Bo)7"
 						clr=14
 						bclr=51
 					}
@@ -934,12 +225,12 @@ composite {
 				"choice button" {
 					object {
 						x=395
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)16"
+						chan="$(P)$(Bo)8"
 						clr=14
 						bclr=51
 					}
@@ -947,12 +238,12 @@ composite {
 				"choice button" {
 					object {
 						x=115
-						y=280
+						y=232
 						width=35
 						height=30
 					}
 					control {
-						chan="$(P)$(Bo)9"
+						chan="$(P)$(Bo)1"
 						clr=14
 						bclr=51
 					}
@@ -960,7 +251,7 @@ composite {
 				text {
 					object {
 						x=15
-						y=321
+						y=273
 						width=90
 						height=20
 					}
@@ -973,7 +264,7 @@ composite {
 				text {
 					object {
 						x=45
-						y=255
+						y=207
 						width=60
 						height=20
 					}
@@ -985,8 +276,8 @@ composite {
 				}
 				oval {
 					object {
-						x=163
-						y=253
+						x=123
+						y=205
 						width=20
 						height=20
 					}
@@ -995,224 +286,45 @@ composite {
 					}
 					"dynamic attribute" {
 						vis="if not zero"
-						chan="$(P)$(Bi)10.VAL"
-					}
-				}
-				oval {
-					object {
-						x=203
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)11.VAL"
-					}
-				}
-				oval {
-					object {
-						x=243
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)12.VAL"
-					}
-				}
-				oval {
-					object {
-						x=283
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)13.VAL"
-					}
-				}
-				oval {
-					object {
-						x=363
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)15.VAL"
-					}
-				}
-				oval {
-					object {
-						x=403
-						y=253
-						width=20
-						height=20
-					}
-					"basic attribute" {
-						clr=20
-					}
-					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)16.VAL"
+						chan="$(P)$(Bi)1.VAL"
 					}
 				}
 				oval {
 					object {
 						x=123
-						y=253
+						y=205
 						width=20
 						height=20
 					}
 					"basic attribute" {
-						clr=20
+						clr=15
 					}
 					"dynamic attribute" {
-						vis="if not zero"
-						chan="$(P)$(Bi)9.VAL"
+						vis="if zero"
+						chan="$(P)$(Bi)1.VAL"
 					}
-				}
-				text {
-					object {
-						x=163
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="10"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=203
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="11"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=243
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="12"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=283
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="13"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=323
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="14"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=363
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="15"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=403
-						y=231
-						width=20
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="16"
-					align="horiz. centered"
-				}
-				text {
-					object {
-						x=128
-						y=231
-						width=9
-						height=15
-					}
-					"basic attribute" {
-						clr=14
-					}
-					textix="9"
-					align="horiz. centered"
 				}
 				text {
 					object {
 						x=211
-						y=201
+						y=153
 						width=216
 						height=25
 					}
 					"basic attribute" {
 						clr=14
 					}
-					textix="Digital I/O Port 2"
+					textix="Digital I/O Port 1"
 				}
 				"choice button" {
 					object {
 						x=115
-						y=318
+						y=270
 						width=60
 						height=30
 					}
 					control {
-						chan="$(P)$(Bd)2"
+						chan="$(P)$(Bd)1"
 						clr=14
 						bclr=51
 					}
@@ -1220,12 +332,12 @@ composite {
 				"text entry" {
 					object {
 						x=435
-						y=285
+						y=237
 						width=100
 						height=20
 					}
 					control {
-						chan="$(P)$(Lo)2"
+						chan="$(P)$(Lo)1"
 						clr=14
 						bclr=51
 					}
@@ -1236,12 +348,12 @@ composite {
 				"text update" {
 					object {
 						x=435
-						y=254
+						y=206
 						width=100
 						height=18
 					}
 					monitor {
-						chan="$(P)$(Li)2"
+						chan="$(P)$(Li)1"
 						clr=14
 						bclr=51
 					}
@@ -1249,7 +361,916 @@ composite {
 					limits {
 					}
 				}
+				oval {
+					object {
+						x=163
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)2.VAL"
+					}
+				}
+				oval {
+					object {
+						x=163
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)2.VAL"
+					}
+				}
+				oval {
+					object {
+						x=203
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)3.VAL"
+					}
+				}
+				oval {
+					object {
+						x=203
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)3.VAL"
+					}
+				}
+				oval {
+					object {
+						x=243
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)4.VAL"
+					}
+				}
+				oval {
+					object {
+						x=243
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)4.VAL"
+					}
+				}
+				oval {
+					object {
+						x=283
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)5.VAL"
+					}
+				}
+				oval {
+					object {
+						x=283
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)5.VAL"
+					}
+				}
+				oval {
+					object {
+						x=323
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)6.VAL"
+					}
+				}
+				oval {
+					object {
+						x=323
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)6.VAL"
+					}
+				}
+				oval {
+					object {
+						x=363
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)7.VAL"
+					}
+				}
+				oval {
+					object {
+						x=363
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)7.VAL"
+					}
+				}
+				oval {
+					object {
+						x=403
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=20
+					}
+					"dynamic attribute" {
+						vis="if not zero"
+						chan="$(P)$(Bi)8.VAL"
+					}
+				}
+				oval {
+					object {
+						x=403
+						y=205
+						width=20
+						height=20
+					}
+					"basic attribute" {
+						clr=15
+					}
+					"dynamic attribute" {
+						vis="if zero"
+						chan="$(P)$(Bi)8.VAL"
+					}
+				}
+				text {
+					object {
+						x=128
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="1"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=168
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="2"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=208
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="3"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=248
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="4"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=288
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="5"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=328
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="6"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=368
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="7"
+					align="horiz. centered"
+				}
+				text {
+					object {
+						x=408
+						y=183
+						width=9
+						height=15
+					}
+					"basic attribute" {
+						clr=14
+					}
+					textix="8"
+					align="horiz. centered"
+				}
+				composite {
+					object {
+						x=15
+						y=307
+						width=520
+						height=147
+					}
+					"composite name"=""
+					children {
+						oval {
+							object {
+								x=403
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)16.VAL"
+							}
+						}
+						oval {
+							object {
+								x=363
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)15.VAL"
+							}
+						}
+						oval {
+							object {
+								x=323
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)14.VAL"
+							}
+						}
+						oval {
+							object {
+								x=323
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)14.VAL"
+							}
+						}
+						oval {
+							object {
+								x=283
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)13.VAL"
+							}
+						}
+						oval {
+							object {
+								x=243
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)12.VAL"
+							}
+						}
+						oval {
+							object {
+								x=203
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)11.VAL"
+							}
+						}
+						oval {
+							object {
+								x=163
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)10.VAL"
+							}
+						}
+						oval {
+							object {
+								x=123
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=15
+							}
+							"dynamic attribute" {
+								vis="if zero"
+								chan="$(P)$(Bi)9.VAL"
+							}
+						}
+						text {
+							object {
+								x=35
+								y=391
+								width=70
+								height=20
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="Outputs"
+							align="horiz. right"
+						}
+						"choice button" {
+							object {
+								x=155
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)10"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=195
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)11"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=235
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)12"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=275
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)13"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=315
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)14"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=355
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)15"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=395
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)16"
+								clr=14
+								bclr=51
+							}
+						}
+						"choice button" {
+							object {
+								x=115
+								y=386
+								width=35
+								height=30
+							}
+							control {
+								chan="$(P)$(Bo)9"
+								clr=14
+								bclr=51
+							}
+						}
+						text {
+							object {
+								x=15
+								y=427
+								width=90
+								height=20
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="Direction"
+							align="horiz. right"
+						}
+						text {
+							object {
+								x=45
+								y=361
+								width=60
+								height=20
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="Inputs"
+							align="horiz. right"
+						}
+						oval {
+							object {
+								x=163
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)10.VAL"
+							}
+						}
+						oval {
+							object {
+								x=203
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)11.VAL"
+							}
+						}
+						oval {
+							object {
+								x=243
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)12.VAL"
+							}
+						}
+						oval {
+							object {
+								x=283
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)13.VAL"
+							}
+						}
+						oval {
+							object {
+								x=363
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)15.VAL"
+							}
+						}
+						oval {
+							object {
+								x=403
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)16.VAL"
+							}
+						}
+						oval {
+							object {
+								x=123
+								y=359
+								width=20
+								height=20
+							}
+							"basic attribute" {
+								clr=20
+							}
+							"dynamic attribute" {
+								vis="if not zero"
+								chan="$(P)$(Bi)9.VAL"
+							}
+						}
+						text {
+							object {
+								x=163
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="10"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=203
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="11"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=243
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="12"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=283
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="13"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=323
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="14"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=363
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="15"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=403
+								y=337
+								width=20
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="16"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=128
+								y=337
+								width=9
+								height=15
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="9"
+							align="horiz. centered"
+						}
+						text {
+							object {
+								x=211
+								y=307
+								width=216
+								height=25
+							}
+							"basic attribute" {
+								clr=14
+							}
+							textix="Digital I/O Port 2"
+						}
+						"choice button" {
+							object {
+								x=115
+								y=424
+								width=60
+								height=30
+							}
+							control {
+								chan="$(P)$(Bd)2"
+								clr=14
+								bclr=51
+							}
+						}
+						"text entry" {
+							object {
+								x=435
+								y=391
+								width=100
+								height=20
+							}
+							control {
+								chan="$(P)$(Lo)2"
+								clr=14
+								bclr=51
+							}
+							format="hexadecimal"
+							limits {
+							}
+						}
+						"text update" {
+							object {
+								x=435
+								y=360
+								width=100
+								height=18
+							}
+							monitor {
+								chan="$(P)$(Li)2"
+								clr=14
+								bclr=51
+							}
+							format="hexadecimal"
+							limits {
+							}
+						}
+					}
+				}
 			}
 		}
+		composite {
+			object {
+				x=305
+				y=466
+				width=295
+				height=115
+			}
+			"composite name"=""
+			"composite file"="measCompAnalogOut2.adl"
+		}
+		composite {
+			object {
+				x=5
+				y=466
+				width=295
+				height=185
+			}
+			"composite name"=""
+			"composite file"="measCompAnalogIn4.adl"
+		}
+		composite {
+			object {
+				x=305
+				y=586
+				width=220
+				height=60
+			}
+			"composite name"=""
+			"composite file"="measCompCounters1.adl"
+		}
 	}
+}
+composite {
+	object {
+		x=47
+		y=35
+		width=510
+		height=105
+	}
+	"composite name"=""
+	"composite file"="measCompDeviceVert.adl"
 }

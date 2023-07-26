@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 864
-y 212
+x 616
+y 255
 w 570
-h 470
+h 575
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -44,14 +44,40 @@ value {
 }
 endObjectProperties
 
-# (Embedded Window)
-object activePipClass
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 560
+h 425
+
+beginGroup
+
+# (Group)
+object activeGroupClass
 beginObjectProperties
 major 4
 minor 0
 release 0
 x 305
-y 40
+y 145
+w 220
+h 60
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 305
+y 145
 w 220
 h 60
 fgColor rgb 0 0 0
@@ -68,14 +94,33 @@ displayFileName {
 noScroll
 endObjectProperties
 
-# (Embedded Window)
-object activePipClass
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
 beginObjectProperties
 major 4
 minor 0
 release 0
 x 5
-y 310
+y 415
+w 560
+h 155
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 415
 w 560
 h 155
 fgColor rgb 0 0 0
@@ -92,6 +137,12 @@ displayFileName {
 noScroll
 endObjectProperties
 
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -99,7 +150,7 @@ major 4
 minor 0
 release 0
 x 5
-y 40
+y 145
 w 294
 h 264
 lineColor rgb 0 0 0
@@ -113,7 +164,7 @@ major 4
 minor 7
 release 0
 x 28
-y 75
+y 180
 w 90
 h 20
 controlPv "$(P)$(Ti)1"
@@ -137,7 +188,7 @@ major 4
 minor 7
 release 0
 x 28
-y 100
+y 205
 w 90
 h 20
 controlPv "$(P)$(Ti)2"
@@ -161,7 +212,7 @@ major 4
 minor 7
 release 0
 x 28
-y 125
+y 230
 w 90
 h 20
 controlPv "$(P)$(Ti)3"
@@ -185,7 +236,7 @@ major 4
 minor 7
 release 0
 x 28
-y 150
+y 255
 w 90
 h 20
 controlPv "$(P)$(Ti)4"
@@ -209,7 +260,7 @@ major 4
 minor 7
 release 0
 x 28
-y 175
+y 280
 w 90
 h 20
 controlPv "$(P)$(Ti)5"
@@ -233,7 +284,7 @@ major 4
 minor 7
 release 0
 x 28
-y 200
+y 305
 w 90
 h 20
 controlPv "$(P)$(Ti)6"
@@ -257,7 +308,7 @@ major 4
 minor 7
 release 0
 x 28
-y 225
+y 330
 w 90
 h 20
 controlPv "$(P)$(Ti)7"
@@ -281,7 +332,7 @@ major 4
 minor 7
 release 0
 x 28
-y 250
+y 355
 w 90
 h 20
 controlPv "$(P)$(Ti)8"
@@ -305,7 +356,7 @@ major 4
 minor 0
 release 0
 x 13
-y 75
+y 180
 w 10
 h 195
 
@@ -318,7 +369,7 @@ major 4
 minor 1
 release 1
 x 1
-y 75
+y 180
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -338,7 +389,7 @@ major 4
 minor 1
 release 1
 x 1
-y 100
+y 205
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -358,7 +409,7 @@ major 4
 minor 1
 release 1
 x 1
-y 125
+y 230
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -378,7 +429,7 @@ major 4
 minor 1
 release 1
 x 1
-y 150
+y 255
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -398,7 +449,7 @@ major 4
 minor 1
 release 1
 x 1
-y 175
+y 280
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -418,7 +469,7 @@ major 4
 minor 1
 release 1
 x 1
-y 200
+y 305
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -438,7 +489,7 @@ major 4
 minor 1
 release 1
 x 1
-y 225
+y 330
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -458,7 +509,7 @@ major 4
 minor 1
 release 1
 x 1
-y 250
+y 355
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -483,7 +534,7 @@ major 4
 minor 1
 release 1
 x 50
-y 45
+y 150
 w 204
 h 25
 font "helvetica-medium-r-18.0"
@@ -496,6 +547,66 @@ value {
 }
 endObjectProperties
 
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 35
+w 510
+h 105
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 35
+w 510
+h 105
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompDeviceVert.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompDeviceVert.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 560
+h 425
+
+beginGroup
+
 # (Related Display)
 object relatedDisplayClass
 beginObjectProperties
@@ -503,7 +614,7 @@ major 4
 minor 0
 release 0
 x 48
-y 275
+y 380
 w 113
 h 20
 fgColor rgb 0 0 0
@@ -564,7 +675,7 @@ major 4
 minor 0
 release 0
 x 166
-y 275
+y 380
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -597,7 +708,7 @@ major 4
 minor 0
 release 0
 x 218
-y 75
+y 180
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -622,7 +733,7 @@ major 4
 minor 0
 release 0
 x 218
-y 100
+y 205
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -647,7 +758,7 @@ major 4
 minor 0
 release 0
 x 218
-y 125
+y 230
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -672,7 +783,7 @@ major 4
 minor 0
 release 0
 x 218
-y 150
+y 255
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -697,7 +808,7 @@ major 4
 minor 0
 release 0
 x 218
-y 175
+y 280
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -722,7 +833,7 @@ major 4
 minor 0
 release 0
 x 218
-y 200
+y 305
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -747,7 +858,7 @@ major 4
 minor 0
 release 0
 x 218
-y 225
+y 330
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -772,7 +883,7 @@ major 4
 minor 0
 release 0
 x 218
-y 250
+y 355
 w 74
 h 20
 fgColor rgb 0 0 0
@@ -797,7 +908,7 @@ major 4
 minor 0
 release 0
 x 123
-y 75
+y 180
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -817,7 +928,7 @@ major 4
 minor 0
 release 0
 x 123
-y 100
+y 205
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -837,7 +948,7 @@ major 4
 minor 0
 release 0
 x 123
-y 125
+y 230
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -857,7 +968,7 @@ major 4
 minor 0
 release 0
 x 123
-y 150
+y 255
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -877,7 +988,7 @@ major 4
 minor 0
 release 0
 x 123
-y 175
+y 280
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -897,7 +1008,7 @@ major 4
 minor 0
 release 0
 x 123
-y 200
+y 305
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -917,7 +1028,7 @@ major 4
 minor 0
 release 0
 x 123
-y 225
+y 330
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -937,7 +1048,7 @@ major 4
 minor 0
 release 0
 x 123
-y 250
+y 355
 w 90
 h 20
 fgColor rgb 0 0 0
@@ -956,11 +1067,16 @@ major 4
 minor 0
 release 0
 x 13
-y 75
+y 180
 w 10
 h 195
 
 beginGroup
+
+endGroup
+
+endObjectProperties
+
 
 endGroup
 

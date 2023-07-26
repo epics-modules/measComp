@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-07-26 13:48:28 by epics-->
 <display version="2.0.0">
   <name>USB1208LS_module</name>
-  <x>359</x>
-  <y>89</y>
+  <x>142</x>
+  <y>202</y>
   <width>605</width>
-  <height>550</height>
+  <height>655</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -27,991 +28,40 @@
     </foreground_color>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #9</name>
-    <file>measCompAnalogOut2.bob</file>
-    <x>305</x>
-    <y>360</y>
-    <width>295</width>
-    <height>115</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #11</name>
-    <file>measCompCounters1.bob</file>
-    <x>305</x>
-    <y>480</y>
-    <width>220</width>
-    <height>60</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #13</name>
-    <file>measCompAnalogIn4.bob</file>
-    <x>5</x>
-    <y>360</y>
-    <width>295</width>
-    <height>185</height>
-  </widget>
   <widget type="group" version="2.0.0">
-    <name>composite #15</name>
+    <name>composite #9</name>
     <x>5</x>
-    <y>39</y>
+    <y>145</y>
     <width>595</width>
-    <height>315</height>
+    <height>506</height>
     <style>3</style>
     <transparent>true</transparent>
-    <widget type="rectangle" version="2.0.0">
-      <name>rectangle #18</name>
+    <widget type="group" version="2.0.0">
+      <name>composite #12</name>
       <width>595</width>
       <height>315</height>
-      <line_width>1</line_width>
-      <line_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="0" blue="0">
-        </color>
-      </background_color>
-      <transparent>true</transparent>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #21</name>
-      <text>Outputs</text>
-      <x>30</x>
-      <y>92</y>
-      <width>70</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #24</name>
-      <pv_name>$(P)$(Bo)2</pv_name>
-      <x>150</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #27</name>
-      <pv_name>$(P)$(Bo)3</pv_name>
-      <x>190</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #30</name>
-      <pv_name>$(P)$(Bo)4</pv_name>
-      <x>230</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #33</name>
-      <pv_name>$(P)$(Bo)5</pv_name>
-      <x>270</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #36</name>
-      <pv_name>$(P)$(Bo)6</pv_name>
-      <x>310</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #39</name>
-      <pv_name>$(P)$(Bo)7</pv_name>
-      <x>350</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #42</name>
-      <pv_name>$(P)$(Bo)8</pv_name>
-      <x>390</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #45</name>
-      <pv_name>$(P)$(Bo)1</pv_name>
-      <x>110</x>
-      <y>87</y>
-      <width>35</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #48</name>
-      <text>Direction</text>
-      <x>10</x>
-      <y>128</y>
-      <width>90</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #51</name>
-      <text>Inputs</text>
-      <x>40</x>
-      <y>62</y>
-      <width>60</width>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>2</horizontal_alignment>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #54</name>
-      <x>118</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)1.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #58</name>
-      <x>118</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)1.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #62</name>
-      <text>Digital I/O Port 1</text>
-      <x>206</x>
-      <y>8</y>
-      <width>216</width>
-      <height>25</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <auto_size>true</auto_size>
-    </widget>
-    <widget type="choice" version="2.0.0">
-      <name>choice button #65</name>
-      <pv_name>$(P)$(Bd)1</pv_name>
-      <x>110</x>
-      <y>125</y>
-      <width>60</width>
-      <height>30</height>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <horizontal>false</horizontal>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-      <items>
-        <item>Item 1</item>
-        <item>Item 2</item>
-      </items>
-    </widget>
-    <widget type="textentry" version="3.0.0">
-      <name>text entry #68</name>
-      <pv_name>$(P)$(Lo)1</pv_name>
-      <x>430</x>
-      <y>92</y>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>4</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="textupdate" version="2.0.0">
-      <name>text update #72</name>
-      <pv_name>$(P)$(Li)1</pv_name>
-      <x>430</x>
-      <y>61</y>
-      <height>18</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <background_color>
-        <color red="115" green="223" blue="255">
-        </color>
-      </background_color>
-      <format>4</format>
-      <show_units>false</show_units>
-      <border_alarm_sensitive>false</border_alarm_sensitive>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #76</name>
-      <x>158</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)2.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #80</name>
-      <x>158</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)2.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #84</name>
-      <x>198</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)3.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #88</name>
-      <x>198</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)3.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #92</name>
-      <x>238</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)4.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #96</name>
-      <x>238</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)4.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #100</name>
-      <x>278</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)5.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #104</name>
-      <x>278</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)5.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #108</name>
-      <x>318</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)6.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #112</name>
-      <x>318</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)6.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #116</name>
-      <x>358</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)7.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #120</name>
-      <x>358</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)7.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #124</name>
-      <x>398</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="253" green="0" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0!=0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)8.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="ellipse" version="2.0.0">
-      <name>oval #128</name>
-      <x>398</x>
-      <y>60</y>
-      <width>20</width>
-      <height>20</height>
-      <line_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </line_color>
-      <background_color>
-        <color red="0" green="216" blue="0">
-        </color>
-      </background_color>
-      <rules>
-        <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-          <exp bool_exp="!(pv0==0)">
-            <value>false</value>
-          </exp>
-          <pv_name>$(P)$(Bi)8.VAL</pv_name>
-        </rule>
-      </rules>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #132</name>
-      <text>1</text>
-      <x>123</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #135</name>
-      <text>2</text>
-      <x>163</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #138</name>
-      <text>3</text>
-      <x>203</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #141</name>
-      <text>4</text>
-      <x>243</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #144</name>
-      <text>5</text>
-      <x>283</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #147</name>
-      <text>6</text>
-      <x>323</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #150</name>
-      <text>7</text>
-      <x>363</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>text #153</name>
-      <text>8</text>
-      <x>403</x>
-      <y>38</y>
-      <width>9</width>
-      <height>15</height>
-      <font>
-        <font family="Liberation Sans" style="REGULAR" size="16.0">
-        </font>
-      </font>
-      <horizontal_alignment>1</horizontal_alignment>
-    </widget>
-    <widget type="group" version="2.0.0">
-      <name>composite #156</name>
-      <x>10</x>
-      <y>162</y>
-      <width>520</width>
-      <height>147</height>
       <style>3</style>
       <transparent>true</transparent>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #159</name>
-        <x>388</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
+      <widget type="rectangle" version="2.0.0">
+        <name>rectangle #15</name>
+        <width>595</width>
+        <height>315</height>
+        <line_width>1</line_width>
         <line_color>
-          <color red="0" green="216" blue="0">
+          <color red="0" green="0" blue="0">
           </color>
         </line_color>
         <background_color>
-          <color red="0" green="216" blue="0">
+          <color red="0" green="0" blue="0">
           </color>
         </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)16.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #163</name>
-        <x>348</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)15.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #167</name>
-        <x>308</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)14.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #171</name>
-        <x>308</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)14.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #175</name>
-        <x>268</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)13.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #179</name>
-        <x>228</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)12.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #183</name>
-        <x>188</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)11.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #187</name>
-        <x>148</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)10.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #191</name>
-        <x>108</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="0" green="216" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0==0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)9.VAL</pv_name>
-          </rule>
-        </rules>
+        <transparent>true</transparent>
       </widget>
       <widget type="label" version="2.0.0">
-        <name>text #195</name>
+        <name>text #18</name>
         <text>Outputs</text>
-        <x>20</x>
-        <y>84</y>
+        <x>30</x>
+        <y>92</y>
         <width>70</width>
         <font>
           <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1020,10 +70,10 @@
         <horizontal_alignment>2</horizontal_alignment>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #198</name>
-        <pv_name>$(P)$(Bo)10</pv_name>
-        <x>140</x>
-        <y>79</y>
+        <name>choice button #21</name>
+        <pv_name>$(P)$(Bo)2</pv_name>
+        <x>150</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1038,10 +88,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #201</name>
-        <pv_name>$(P)$(Bo)11</pv_name>
-        <x>180</x>
-        <y>79</y>
+        <name>choice button #24</name>
+        <pv_name>$(P)$(Bo)3</pv_name>
+        <x>190</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1056,10 +106,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #204</name>
-        <pv_name>$(P)$(Bo)12</pv_name>
-        <x>220</x>
-        <y>79</y>
+        <name>choice button #27</name>
+        <pv_name>$(P)$(Bo)4</pv_name>
+        <x>230</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1074,10 +124,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #207</name>
-        <pv_name>$(P)$(Bo)13</pv_name>
-        <x>260</x>
-        <y>79</y>
+        <name>choice button #30</name>
+        <pv_name>$(P)$(Bo)5</pv_name>
+        <x>270</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1092,10 +142,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #210</name>
-        <pv_name>$(P)$(Bo)14</pv_name>
-        <x>300</x>
-        <y>79</y>
+        <name>choice button #33</name>
+        <pv_name>$(P)$(Bo)6</pv_name>
+        <x>310</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1110,10 +160,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #213</name>
-        <pv_name>$(P)$(Bo)15</pv_name>
-        <x>340</x>
-        <y>79</y>
+        <name>choice button #36</name>
+        <pv_name>$(P)$(Bo)7</pv_name>
+        <x>350</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1128,10 +178,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #216</name>
-        <pv_name>$(P)$(Bo)16</pv_name>
-        <x>380</x>
-        <y>79</y>
+        <name>choice button #39</name>
+        <pv_name>$(P)$(Bo)8</pv_name>
+        <x>390</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1146,10 +196,10 @@
         </items>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #219</name>
-        <pv_name>$(P)$(Bo)9</pv_name>
-        <x>100</x>
-        <y>79</y>
+        <name>choice button #42</name>
+        <pv_name>$(P)$(Bo)1</pv_name>
+        <x>110</x>
+        <y>87</y>
         <width>35</width>
         <height>30</height>
         <background_color>
@@ -1164,9 +214,10 @@
         </items>
       </widget>
       <widget type="label" version="2.0.0">
-        <name>text #222</name>
+        <name>text #45</name>
         <text>Direction</text>
-        <y>120</y>
+        <x>10</x>
+        <y>128</y>
         <width>90</width>
         <font>
           <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1175,10 +226,10 @@
         <horizontal_alignment>2</horizontal_alignment>
       </widget>
       <widget type="label" version="2.0.0">
-        <name>text #225</name>
+        <name>text #48</name>
         <text>Inputs</text>
-        <x>30</x>
-        <y>54</y>
+        <x>40</x>
+        <y>62</y>
         <width>60</width>
         <font>
           <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1187,9 +238,9 @@
         <horizontal_alignment>2</horizontal_alignment>
       </widget>
       <widget type="ellipse" version="2.0.0">
-        <name>oval #228</name>
-        <x>148</x>
-        <y>52</y>
+        <name>oval #51</name>
+        <x>118</x>
+        <y>60</y>
         <width>20</width>
         <height>20</height>
         <line_color>
@@ -1205,256 +256,38 @@
             <exp bool_exp="!(pv0!=0)">
               <value>false</value>
             </exp>
-            <pv_name>$(P)$(Bi)10.VAL</pv_name>
+            <pv_name>$(P)$(Bi)1.VAL</pv_name>
           </rule>
         </rules>
       </widget>
       <widget type="ellipse" version="2.0.0">
-        <name>oval #232</name>
-        <x>188</x>
-        <y>52</y>
+        <name>oval #55</name>
+        <x>118</x>
+        <y>60</y>
         <width>20</width>
         <height>20</height>
         <line_color>
-          <color red="253" green="0" blue="0">
+          <color red="0" green="216" blue="0">
           </color>
         </line_color>
         <background_color>
-          <color red="253" green="0" blue="0">
+          <color red="0" green="216" blue="0">
           </color>
         </background_color>
         <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
               <value>false</value>
             </exp>
-            <pv_name>$(P)$(Bi)11.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #236</name>
-        <x>228</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)12.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #240</name>
-        <x>268</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)13.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #244</name>
-        <x>348</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)15.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #248</name>
-        <x>388</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)16.VAL</pv_name>
-          </rule>
-        </rules>
-      </widget>
-      <widget type="ellipse" version="2.0.0">
-        <name>oval #252</name>
-        <x>108</x>
-        <y>52</y>
-        <width>20</width>
-        <height>20</height>
-        <line_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </line_color>
-        <background_color>
-          <color red="253" green="0" blue="0">
-          </color>
-        </background_color>
-        <rules>
-          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
-            <exp bool_exp="!(pv0!=0)">
-              <value>false</value>
-            </exp>
-            <pv_name>$(P)$(Bi)9.VAL</pv_name>
+            <pv_name>$(P)$(Bi)1.VAL</pv_name>
           </rule>
         </rules>
       </widget>
       <widget type="label" version="2.0.0">
-        <name>text #256</name>
-        <text>10</text>
-        <x>148</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #259</name>
-        <text>11</text>
-        <x>188</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #262</name>
-        <text>12</text>
-        <x>228</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #265</name>
-        <text>13</text>
-        <x>268</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #268</name>
-        <text>14</text>
-        <x>308</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #271</name>
-        <text>15</text>
-        <x>348</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #274</name>
-        <text>16</text>
-        <x>388</x>
-        <y>30</y>
-        <width>20</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #277</name>
-        <text>9</text>
-        <x>113</x>
-        <y>30</y>
-        <width>9</width>
-        <height>15</height>
-        <font>
-          <font family="Liberation Sans" style="REGULAR" size="16.0">
-          </font>
-        </font>
-        <horizontal_alignment>1</horizontal_alignment>
-      </widget>
-      <widget type="label" version="2.0.0">
-        <name>text #280</name>
-        <text>Digital I/O Port 2</text>
-        <x>196</x>
+        <name>text #59</name>
+        <text>Digital I/O Port 1</text>
+        <x>206</x>
+        <y>8</y>
         <width>216</width>
         <height>25</height>
         <font>
@@ -1464,10 +297,10 @@
         <auto_size>true</auto_size>
       </widget>
       <widget type="choice" version="2.0.0">
-        <name>choice button #283</name>
-        <pv_name>$(P)$(Bd)2</pv_name>
-        <x>100</x>
-        <y>117</y>
+        <name>choice button #62</name>
+        <pv_name>$(P)$(Bd)1</pv_name>
+        <x>110</x>
+        <y>125</y>
         <width>60</width>
         <height>30</height>
         <background_color>
@@ -1482,10 +315,10 @@
         </items>
       </widget>
       <widget type="textentry" version="3.0.0">
-        <name>text entry #286</name>
-        <pv_name>$(P)$(Lo)2</pv_name>
-        <x>420</x>
-        <y>84</y>
+        <name>text entry #65</name>
+        <pv_name>$(P)$(Lo)1</pv_name>
+        <x>430</x>
+        <y>92</y>
         <font>
           <font family="Liberation Sans" style="REGULAR" size="16.0">
           </font>
@@ -1499,10 +332,10 @@
         <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
       <widget type="textupdate" version="2.0.0">
-        <name>text update #290</name>
-        <pv_name>$(P)$(Li)2</pv_name>
-        <x>420</x>
-        <y>53</y>
+        <name>text update #69</name>
+        <pv_name>$(P)$(Li)1</pv_name>
+        <x>430</x>
+        <y>61</y>
         <height>18</height>
         <font>
           <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1516,6 +349,1188 @@
         <show_units>false</show_units>
         <border_alarm_sensitive>false</border_alarm_sensitive>
       </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #73</name>
+        <x>158</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)2.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #77</name>
+        <x>158</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)2.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #81</name>
+        <x>198</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)3.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #85</name>
+        <x>198</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)3.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #89</name>
+        <x>238</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)4.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #93</name>
+        <x>238</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)4.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #97</name>
+        <x>278</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)5.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #101</name>
+        <x>278</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)5.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #105</name>
+        <x>318</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)6.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #109</name>
+        <x>318</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)6.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #113</name>
+        <x>358</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)7.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #117</name>
+        <x>358</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)7.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #121</name>
+        <x>398</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="253" green="0" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0!=0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)8.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="ellipse" version="2.0.0">
+        <name>oval #125</name>
+        <x>398</x>
+        <y>60</y>
+        <width>20</width>
+        <height>20</height>
+        <line_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </line_color>
+        <background_color>
+          <color red="0" green="216" blue="0">
+          </color>
+        </background_color>
+        <rules>
+          <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+            <exp bool_exp="!(pv0==0)">
+              <value>false</value>
+            </exp>
+            <pv_name>$(P)$(Bi)8.VAL</pv_name>
+          </rule>
+        </rules>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #129</name>
+        <text>1</text>
+        <x>123</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #132</name>
+        <text>2</text>
+        <x>163</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #135</name>
+        <text>3</text>
+        <x>203</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #138</name>
+        <text>4</text>
+        <x>243</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #141</name>
+        <text>5</text>
+        <x>283</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #144</name>
+        <text>6</text>
+        <x>323</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #147</name>
+        <text>7</text>
+        <x>363</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="label" version="2.0.0">
+        <name>text #150</name>
+        <text>8</text>
+        <x>403</x>
+        <y>38</y>
+        <width>9</width>
+        <height>15</height>
+        <font>
+          <font family="Liberation Sans" style="REGULAR" size="16.0">
+          </font>
+        </font>
+        <horizontal_alignment>1</horizontal_alignment>
+      </widget>
+      <widget type="group" version="2.0.0">
+        <name>composite #153</name>
+        <x>10</x>
+        <y>162</y>
+        <width>520</width>
+        <height>147</height>
+        <style>3</style>
+        <transparent>true</transparent>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #156</name>
+          <x>388</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)16.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #160</name>
+          <x>348</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)15.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #164</name>
+          <x>308</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)14.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #168</name>
+          <x>308</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)14.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #172</name>
+          <x>268</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)13.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #176</name>
+          <x>228</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)12.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #180</name>
+          <x>188</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)11.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #184</name>
+          <x>148</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)10.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #188</name>
+          <x>108</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="0" green="216" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0==0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)9.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #192</name>
+          <text>Outputs</text>
+          <x>20</x>
+          <y>84</y>
+          <width>70</width>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>2</horizontal_alignment>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #195</name>
+          <pv_name>$(P)$(Bo)10</pv_name>
+          <x>140</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #198</name>
+          <pv_name>$(P)$(Bo)11</pv_name>
+          <x>180</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #201</name>
+          <pv_name>$(P)$(Bo)12</pv_name>
+          <x>220</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #204</name>
+          <pv_name>$(P)$(Bo)13</pv_name>
+          <x>260</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #207</name>
+          <pv_name>$(P)$(Bo)14</pv_name>
+          <x>300</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #210</name>
+          <pv_name>$(P)$(Bo)15</pv_name>
+          <x>340</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #213</name>
+          <pv_name>$(P)$(Bo)16</pv_name>
+          <x>380</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #216</name>
+          <pv_name>$(P)$(Bo)9</pv_name>
+          <x>100</x>
+          <y>79</y>
+          <width>35</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #219</name>
+          <text>Direction</text>
+          <y>120</y>
+          <width>90</width>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>2</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #222</name>
+          <text>Inputs</text>
+          <x>30</x>
+          <y>54</y>
+          <width>60</width>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>2</horizontal_alignment>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #225</name>
+          <x>148</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)10.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #229</name>
+          <x>188</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)11.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #233</name>
+          <x>228</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)12.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #237</name>
+          <x>268</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)13.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #241</name>
+          <x>348</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)15.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #245</name>
+          <x>388</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)16.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="ellipse" version="2.0.0">
+          <name>oval #249</name>
+          <x>108</x>
+          <y>52</y>
+          <width>20</width>
+          <height>20</height>
+          <line_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </line_color>
+          <background_color>
+            <color red="253" green="0" blue="0">
+            </color>
+          </background_color>
+          <rules>
+            <rule name="vis_if_not_zero" prop_id="visible" out_exp="false">
+              <exp bool_exp="!(pv0!=0)">
+                <value>false</value>
+              </exp>
+              <pv_name>$(P)$(Bi)9.VAL</pv_name>
+            </rule>
+          </rules>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #253</name>
+          <text>10</text>
+          <x>148</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #256</name>
+          <text>11</text>
+          <x>188</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #259</name>
+          <text>12</text>
+          <x>228</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #262</name>
+          <text>13</text>
+          <x>268</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #265</name>
+          <text>14</text>
+          <x>308</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #268</name>
+          <text>15</text>
+          <x>348</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #271</name>
+          <text>16</text>
+          <x>388</x>
+          <y>30</y>
+          <width>20</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #274</name>
+          <text>9</text>
+          <x>113</x>
+          <y>30</y>
+          <width>9</width>
+          <height>15</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <horizontal_alignment>1</horizontal_alignment>
+        </widget>
+        <widget type="label" version="2.0.0">
+          <name>text #277</name>
+          <text>Digital I/O Port 2</text>
+          <x>196</x>
+          <width>216</width>
+          <height>25</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <auto_size>true</auto_size>
+        </widget>
+        <widget type="choice" version="2.0.0">
+          <name>choice button #280</name>
+          <pv_name>$(P)$(Bd)2</pv_name>
+          <x>100</x>
+          <y>117</y>
+          <width>60</width>
+          <height>30</height>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <horizontal>false</horizontal>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+          <items>
+            <item>Item 1</item>
+            <item>Item 2</item>
+          </items>
+        </widget>
+        <widget type="textentry" version="3.0.0">
+          <name>text entry #283</name>
+          <pv_name>$(P)$(Lo)2</pv_name>
+          <x>420</x>
+          <y>84</y>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <format>4</format>
+          <show_units>false</show_units>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+        </widget>
+        <widget type="textupdate" version="2.0.0">
+          <name>text update #287</name>
+          <pv_name>$(P)$(Li)2</pv_name>
+          <x>420</x>
+          <y>53</y>
+          <height>18</height>
+          <font>
+            <font family="Liberation Sans" style="REGULAR" size="16.0">
+            </font>
+          </font>
+          <background_color>
+            <color red="115" green="223" blue="255">
+            </color>
+          </background_color>
+          <format>4</format>
+          <show_units>false</show_units>
+          <border_alarm_sensitive>false</border_alarm_sensitive>
+        </widget>
+      </widget>
     </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #291</name>
+      <file>measCompAnalogOut2.bob</file>
+      <x>300</x>
+      <y>321</y>
+      <width>295</width>
+      <height>115</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #293</name>
+      <file>measCompAnalogIn4.bob</file>
+      <y>321</y>
+      <width>295</width>
+      <height>185</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #295</name>
+      <file>measCompCounters1.bob</file>
+      <x>300</x>
+      <y>441</y>
+      <width>220</width>
+      <height>60</height>
+    </widget>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>composite #297</name>
+    <file>measCompDeviceVert.bob</file>
+    <x>47</x>
+    <y>35</y>
+    <width>510</width>
+    <height>105</height>
   </widget>
 </display>

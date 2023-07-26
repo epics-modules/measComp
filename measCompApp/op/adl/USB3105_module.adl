@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/USB3105_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/USB3105_module.adl"
+	version=030117
 }
 display {
 	object {
 		x=216
 		y=77
 		width=620
-		height=535
+		height=640
 	}
 	clr=14
 	bclr=4
@@ -102,31 +102,52 @@ text {
 }
 composite {
 	object {
-		x=200
-		y=465
-		width=220
-		height=60
-	}
-	"composite name"=""
-	"composite file"="measCompCounters1.adl"
-}
-composite {
-	object {
 		x=10
-		y=40
+		y=145
 		width=600
-		height=260
+		height=485
 	}
 	"composite name"=""
-	"composite file"="measCompAnalogOut16.adl"
+	children {
+		composite {
+			object {
+				x=200
+				y=570
+				width=220
+				height=60
+			}
+			"composite name"=""
+			"composite file"="measCompCounters1.adl"
+		}
+		composite {
+			object {
+				x=10
+				y=145
+				width=600
+				height=260
+			}
+			"composite name"=""
+			"composite file"="measCompAnalogOut16.adl"
+		}
+		composite {
+			object {
+				x=30
+				y=410
+				width=560
+				height=155
+			}
+			"composite name"=""
+			"composite file"="measCompDigitalIO8.adl"
+		}
+	}
 }
 composite {
 	object {
-		x=30
-		y=305
-		width=560
-		height=155
+		x=55
+		y=35
+		width=510
+		height=105
 	}
 	"composite name"=""
-	"composite file"="measCompDigitalIO8.adl"
+	"composite file"="measCompDeviceVert.adl"
 }

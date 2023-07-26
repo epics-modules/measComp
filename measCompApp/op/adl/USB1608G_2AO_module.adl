@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp/measCompApp/op/adl/USB1608G_2AO_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/USB1608G_2AO_module.adl"
+	version=030117
 }
 display {
 	object {
-		x=49
-		y=167
+		x=361
+		y=76
 		width=1090
-		height=720
+		height=725
 	}
 	clr=14
 	bclr=4
@@ -112,8 +112,8 @@ composite {
 }
 composite {
 	object {
-		x=582
-		y=610
+		x=70
+		y=41
 		width=180
 		height=65
 	}
@@ -163,20 +163,20 @@ composite {
 composite {
 	object {
 		x=5
-		y=40
-		width=250
-		height=205
-	}
-	"composite name"=""
-	"composite file"="measCompPulseGen.adl"
-}
-composite {
-	object {
-		x=5
-		y=250
+		y=130
 		width=515
 		height=465
 	}
 	"composite name"=""
 	"composite file"="measCompWaveGen2.adl"
+}
+composite {
+	object {
+		x=5
+		y=610
+		width=780
+		height=110
+	}
+	"composite name"=""
+	"composite file"="measCompPulseGen1.adl"
 }

@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 136
-y 93
+x 113
+y 163
 w 1570
-h 520
+h 585
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -51,577 +51,11 @@ major 4
 minor 0
 release 0
 x 5
-y 305
-w 555
-h 85
+y 95
+w 1560
+h 480
 
 beginGroup
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 305
-w 554
-h 84
-lineColor rgb 0 0 0
-fillColor rgb 0 0 0
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 198
-y 310
-w 168
-h 25
-font "helvetica-medium-r-18.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Digital Inputs"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 453
-y 357
-w 100
-h 18
-controlPv "$(P)$(Li)0"
-format "hex"
-font "helvetica-medium-r-14.0"
-fontAlign "left"
-fgColor rgb 0 0 0
-bgColor rgb 29440 57088 65280
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 11
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 26
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "0"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 11
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)0.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 66
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 81
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "1"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 66
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)1.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 121
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 136
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "2"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 121
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)2.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 176
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 191
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "3"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 176
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)3.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 231
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 246
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "4"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 231
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)4.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 341
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 356
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "5"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 341
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)5.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 286
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 301
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "6"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 286
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)6.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 396
-y 336
-w 50
-h 40
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 411
-y 336
-w 21
-h 15
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "7"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 396
-y 356
-w 50
-h 20
-controlPv "$(P)$(Bi)7.VAL"
-format "string"
-font "helvetica-medium-r-14.0"
-fontAlign "center"
-fgColor rgb 0 65535 0
-fgAlarm
-bgColor rgb 55808 55808 55808
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-
-endGroup
-
-endObjectProperties
-
 
 # (Group)
 object activeGroupClass
@@ -630,7 +64,7 @@ major 4
 minor 0
 release 0
 x 565
-y 305
+y 365
 w 1000
 h 210
 
@@ -643,7 +77,7 @@ major 4
 minor 1
 release 1
 x 972
-y 309
+y 369
 w 180
 h 25
 font "helvetica-medium-r-18.0"
@@ -662,7 +96,7 @@ major 4
 minor 0
 release 0
 x 565
-y 305
+y 365
 w 999
 h 209
 lineColor rgb 0 0 0
@@ -676,7 +110,7 @@ major 4
 minor 7
 release 0
 x 1455
-y 368
+y 428
 w 100
 h 18
 controlPv "$(P)$(Li)1"
@@ -700,7 +134,7 @@ major 4
 minor 7
 release 0
 x 1455
-y 399
+y 459
 w 100
 h 20
 controlPv "$(P)$(Lo)1"
@@ -726,7 +160,7 @@ major 4
 minor 0
 release 0
 x 575
-y 344
+y 404
 w 875
 h 75
 
@@ -739,7 +173,7 @@ major 4
 minor 0
 release 0
 x 575
-y 344
+y 404
 w 50
 h 75
 
@@ -752,7 +186,7 @@ major 4
 minor 1
 release 1
 x 590
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -772,7 +206,7 @@ major 4
 minor 7
 release 0
 x 575
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)0_RBV.VAL"
@@ -802,7 +236,7 @@ major 4
 minor 0
 release 0
 x 630
-y 344
+y 404
 w 50
 h 75
 
@@ -815,7 +249,7 @@ major 4
 minor 1
 release 1
 x 645
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -835,7 +269,7 @@ major 4
 minor 7
 release 0
 x 630
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)1_RBV.VAL"
@@ -865,7 +299,7 @@ major 4
 minor 0
 release 0
 x 685
-y 344
+y 404
 w 50
 h 75
 
@@ -878,7 +312,7 @@ major 4
 minor 1
 release 1
 x 700
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -898,7 +332,7 @@ major 4
 minor 7
 release 0
 x 685
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)2_RBV.VAL"
@@ -928,7 +362,7 @@ major 4
 minor 0
 release 0
 x 740
-y 344
+y 404
 w 50
 h 75
 
@@ -941,7 +375,7 @@ major 4
 minor 1
 release 1
 x 755
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -961,7 +395,7 @@ major 4
 minor 7
 release 0
 x 740
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)3_RBV.VAL"
@@ -991,7 +425,7 @@ major 4
 minor 0
 release 0
 x 795
-y 344
+y 404
 w 50
 h 75
 
@@ -1004,7 +438,7 @@ major 4
 minor 1
 release 1
 x 810
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1024,7 +458,7 @@ major 4
 minor 7
 release 0
 x 795
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)4_RBV.VAL"
@@ -1054,7 +488,7 @@ major 4
 minor 0
 release 0
 x 850
-y 344
+y 404
 w 50
 h 75
 
@@ -1067,7 +501,7 @@ major 4
 minor 1
 release 1
 x 865
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1087,7 +521,7 @@ major 4
 minor 7
 release 0
 x 850
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)5_RBV.VAL"
@@ -1117,7 +551,7 @@ major 4
 minor 0
 release 0
 x 905
-y 344
+y 404
 w 50
 h 75
 
@@ -1130,7 +564,7 @@ major 4
 minor 1
 release 1
 x 920
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1150,7 +584,7 @@ major 4
 minor 7
 release 0
 x 905
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)6_RBV.VAL"
@@ -1180,7 +614,7 @@ major 4
 minor 0
 release 0
 x 960
-y 344
+y 404
 w 50
 h 75
 
@@ -1193,7 +627,7 @@ major 4
 minor 1
 release 1
 x 975
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1213,7 +647,7 @@ major 4
 minor 7
 release 0
 x 960
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)7_RBV.VAL"
@@ -1243,7 +677,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 344
+y 404
 w 50
 h 75
 
@@ -1256,7 +690,7 @@ major 4
 minor 1
 release 1
 x 1030
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1276,7 +710,7 @@ major 4
 minor 7
 release 0
 x 1015
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)8_RBV.VAL"
@@ -1306,7 +740,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 344
+y 404
 w 50
 h 75
 
@@ -1319,7 +753,7 @@ major 4
 minor 1
 release 1
 x 1085
-y 344
+y 404
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1339,7 +773,7 @@ major 4
 minor 7
 release 0
 x 1070
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)9_RBV.VAL"
@@ -1369,7 +803,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 344
+y 404
 w 50
 h 75
 
@@ -1382,7 +816,7 @@ major 4
 minor 1
 release 1
 x 1137
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1402,7 +836,7 @@ major 4
 minor 7
 release 0
 x 1125
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)10_RBV.VAL"
@@ -1432,7 +866,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 344
+y 404
 w 50
 h 75
 
@@ -1445,7 +879,7 @@ major 4
 minor 1
 release 1
 x 1192
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1465,7 +899,7 @@ major 4
 minor 7
 release 0
 x 1180
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)11_RBV.VAL"
@@ -1495,7 +929,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 344
+y 404
 w 50
 h 75
 
@@ -1508,7 +942,7 @@ major 4
 minor 1
 release 1
 x 1247
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1528,7 +962,7 @@ major 4
 minor 7
 release 0
 x 1235
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)12_RBV.VAL"
@@ -1558,7 +992,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 344
+y 404
 w 50
 h 75
 
@@ -1571,7 +1005,7 @@ major 4
 minor 1
 release 1
 x 1302
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1591,7 +1025,7 @@ major 4
 minor 7
 release 0
 x 1290
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)13_RBV.VAL"
@@ -1621,7 +1055,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 344
+y 404
 w 50
 h 75
 
@@ -1634,7 +1068,7 @@ major 4
 minor 1
 release 1
 x 1357
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1654,7 +1088,7 @@ major 4
 minor 7
 release 0
 x 1345
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)14_RBV.VAL"
@@ -1684,7 +1118,7 @@ major 4
 minor 0
 release 0
 x 1400
-y 344
+y 404
 w 50
 h 75
 
@@ -1697,7 +1131,7 @@ major 4
 minor 1
 release 1
 x 1412
-y 344
+y 404
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1717,7 +1151,7 @@ major 4
 minor 7
 release 0
 x 1400
-y 364
+y 424
 w 50
 h 20
 controlPv "$(P)$(Bo)15_RBV.VAL"
@@ -1752,7 +1186,7 @@ major 4
 minor 0
 release 0
 x 575
-y 434
+y 494
 w 50
 h 75
 
@@ -1765,7 +1199,7 @@ major 4
 minor 1
 release 1
 x 587
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1785,7 +1219,7 @@ major 4
 minor 7
 release 0
 x 575
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)16_RBV.VAL"
@@ -1815,7 +1249,7 @@ major 4
 minor 0
 release 0
 x 630
-y 434
+y 494
 w 50
 h 75
 
@@ -1828,7 +1262,7 @@ major 4
 minor 1
 release 1
 x 642
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1848,7 +1282,7 @@ major 4
 minor 7
 release 0
 x 630
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)17_RBV.VAL"
@@ -1878,7 +1312,7 @@ major 4
 minor 0
 release 0
 x 685
-y 434
+y 494
 w 50
 h 75
 
@@ -1891,7 +1325,7 @@ major 4
 minor 1
 release 1
 x 697
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1911,7 +1345,7 @@ major 4
 minor 7
 release 0
 x 685
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)18_RBV.VAL"
@@ -1941,7 +1375,7 @@ major 4
 minor 0
 release 0
 x 740
-y 434
+y 494
 w 50
 h 75
 
@@ -1954,7 +1388,7 @@ major 4
 minor 1
 release 1
 x 752
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1974,7 +1408,7 @@ major 4
 minor 7
 release 0
 x 740
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)19_RBV.VAL"
@@ -2004,7 +1438,7 @@ major 4
 minor 0
 release 0
 x 795
-y 434
+y 494
 w 50
 h 75
 
@@ -2017,7 +1451,7 @@ major 4
 minor 1
 release 1
 x 807
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2037,7 +1471,7 @@ major 4
 minor 7
 release 0
 x 795
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)20_RBV.VAL"
@@ -2067,7 +1501,7 @@ major 4
 minor 0
 release 0
 x 850
-y 434
+y 494
 w 50
 h 75
 
@@ -2080,7 +1514,7 @@ major 4
 minor 1
 release 1
 x 862
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2100,7 +1534,7 @@ major 4
 minor 7
 release 0
 x 850
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)21_RBV.VAL"
@@ -2130,7 +1564,7 @@ major 4
 minor 0
 release 0
 x 905
-y 434
+y 494
 w 50
 h 75
 
@@ -2143,7 +1577,7 @@ major 4
 minor 1
 release 1
 x 917
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2163,7 +1597,7 @@ major 4
 minor 7
 release 0
 x 905
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)22_RBV.VAL"
@@ -2193,7 +1627,7 @@ major 4
 minor 0
 release 0
 x 960
-y 434
+y 494
 w 50
 h 75
 
@@ -2206,7 +1640,7 @@ major 4
 minor 1
 release 1
 x 972
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2226,7 +1660,7 @@ major 4
 minor 7
 release 0
 x 960
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)23_RBV.VAL"
@@ -2256,7 +1690,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 434
+y 494
 w 50
 h 75
 
@@ -2269,7 +1703,7 @@ major 4
 minor 1
 release 1
 x 1027
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2289,7 +1723,7 @@ major 4
 minor 7
 release 0
 x 1015
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)24_RBV.VAL"
@@ -2319,7 +1753,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 434
+y 494
 w 50
 h 75
 
@@ -2332,7 +1766,7 @@ major 4
 minor 1
 release 1
 x 1082
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2352,7 +1786,7 @@ major 4
 minor 7
 release 0
 x 1070
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)25_RBV.VAL"
@@ -2382,7 +1816,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 434
+y 494
 w 50
 h 75
 
@@ -2395,7 +1829,7 @@ major 4
 minor 1
 release 1
 x 1137
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2415,7 +1849,7 @@ major 4
 minor 7
 release 0
 x 1125
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)26_RBV.VAL"
@@ -2445,7 +1879,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 434
+y 494
 w 50
 h 75
 
@@ -2458,7 +1892,7 @@ major 4
 minor 1
 release 1
 x 1192
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2478,7 +1912,7 @@ major 4
 minor 7
 release 0
 x 1180
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)27_RBV.VAL"
@@ -2508,7 +1942,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 434
+y 494
 w 50
 h 75
 
@@ -2521,7 +1955,7 @@ major 4
 minor 1
 release 1
 x 1247
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2541,7 +1975,7 @@ major 4
 minor 7
 release 0
 x 1235
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)28_RBV.VAL"
@@ -2571,7 +2005,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 434
+y 494
 w 50
 h 75
 
@@ -2584,7 +2018,7 @@ major 4
 minor 1
 release 1
 x 1302
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2604,7 +2038,7 @@ major 4
 minor 7
 release 0
 x 1290
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)29_RBV.VAL"
@@ -2634,7 +2068,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 434
+y 494
 w 50
 h 75
 
@@ -2647,7 +2081,7 @@ major 4
 minor 1
 release 1
 x 1357
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2667,7 +2101,7 @@ major 4
 minor 7
 release 0
 x 1345
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)30_RBV.VAL"
@@ -2697,7 +2131,7 @@ major 4
 minor 1
 release 1
 x 1412
-y 434
+y 494
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -2717,7 +2151,7 @@ major 4
 minor 7
 release 0
 x 1400
-y 454
+y 514
 w 50
 h 20
 controlPv "$(P)$(Bo)31_RBV.VAL"
@@ -2747,7 +2181,7 @@ major 4
 minor 0
 release 0
 x 20
-y 35
+y 95
 w 1530
 h 265
 
@@ -2760,7 +2194,7 @@ major 4
 minor 0
 release 0
 x 20
-y 35
+y 95
 w 375
 h 265
 
@@ -2773,7 +2207,7 @@ major 4
 minor 0
 release 0
 x 20
-y 35
+y 95
 w 374
 h 264
 lineColor rgb 0 0 0
@@ -2787,7 +2221,7 @@ major 4
 minor 7
 release 0
 x 48
-y 71
+y 131
 w 90
 h 18
 controlPv "$(P)$(Ti)0"
@@ -2811,7 +2245,7 @@ major 4
 minor 1
 release 1
 x 21
-y 70
+y 130
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -2831,7 +2265,7 @@ major 4
 minor 7
 release 0
 x 48
-y 96
+y 156
 w 90
 h 18
 controlPv "$(P)$(Ti)1"
@@ -2855,7 +2289,7 @@ major 4
 minor 1
 release 1
 x 21
-y 95
+y 155
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -2875,7 +2309,7 @@ major 4
 minor 7
 release 0
 x 48
-y 121
+y 181
 w 90
 h 18
 controlPv "$(P)$(Ti)2"
@@ -2899,7 +2333,7 @@ major 4
 minor 1
 release 1
 x 21
-y 120
+y 180
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -2919,7 +2353,7 @@ major 4
 minor 7
 release 0
 x 48
-y 145
+y 205
 w 90
 h 18
 controlPv "$(P)$(Ti)3"
@@ -2943,7 +2377,7 @@ major 4
 minor 1
 release 1
 x 21
-y 144
+y 204
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -2963,7 +2397,7 @@ major 4
 minor 7
 release 0
 x 48
-y 171
+y 231
 w 90
 h 18
 controlPv "$(P)$(Ti)4"
@@ -2987,7 +2421,7 @@ major 4
 minor 1
 release 1
 x 21
-y 170
+y 230
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3007,7 +2441,7 @@ major 4
 minor 7
 release 0
 x 48
-y 196
+y 256
 w 90
 h 18
 controlPv "$(P)$(Ti)5"
@@ -3031,7 +2465,7 @@ major 4
 minor 1
 release 1
 x 21
-y 195
+y 255
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3051,7 +2485,7 @@ major 4
 minor 7
 release 0
 x 48
-y 221
+y 281
 w 90
 h 18
 controlPv "$(P)$(Ti)6"
@@ -3075,7 +2509,7 @@ major 4
 minor 1
 release 1
 x 21
-y 220
+y 280
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3095,7 +2529,7 @@ major 4
 minor 7
 release 0
 x 48
-y 246
+y 306
 w 90
 h 18
 controlPv "$(P)$(Ti)7"
@@ -3119,7 +2553,7 @@ major 4
 minor 1
 release 1
 x 21
-y 245
+y 305
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3139,7 +2573,7 @@ major 4
 minor 1
 release 1
 x 111
-y 40
+y 100
 w 192
 h 25
 font "helvetica-medium-r-18.0"
@@ -3159,7 +2593,7 @@ major 4
 minor 7
 release 0
 x 283
-y 73
+y 133
 w 105
 h 14
 controlPv "$(P)$(Ti)0.DESC"
@@ -3183,7 +2617,7 @@ major 4
 minor 7
 release 0
 x 283
-y 98
+y 158
 w 105
 h 14
 controlPv "$(P)$(Ti)1.DESC"
@@ -3207,7 +2641,7 @@ major 4
 minor 7
 release 0
 x 283
-y 123
+y 183
 w 105
 h 14
 controlPv "$(P)$(Ti)2.DESC"
@@ -3231,7 +2665,7 @@ major 4
 minor 7
 release 0
 x 283
-y 148
+y 208
 w 105
 h 14
 controlPv "$(P)$(Ti)3.DESC"
@@ -3255,7 +2689,7 @@ major 4
 minor 7
 release 0
 x 283
-y 173
+y 233
 w 105
 h 14
 controlPv "$(P)$(Ti)4.DESC"
@@ -3279,7 +2713,7 @@ major 4
 minor 7
 release 0
 x 283
-y 198
+y 258
 w 105
 h 14
 controlPv "$(P)$(Ti)5.DESC"
@@ -3303,7 +2737,7 @@ major 4
 minor 7
 release 0
 x 283
-y 223
+y 283
 w 105
 h 14
 controlPv "$(P)$(Ti)6.DESC"
@@ -3327,7 +2761,7 @@ major 4
 minor 7
 release 0
 x 283
-y 248
+y 308
 w 105
 h 14
 controlPv "$(P)$(Ti)7.DESC"
@@ -3356,7 +2790,7 @@ major 4
 minor 0
 release 0
 x 400
-y 35
+y 95
 w 380
 h 265
 
@@ -3369,7 +2803,7 @@ major 4
 minor 0
 release 0
 x 400
-y 35
+y 95
 w 379
 h 264
 lineColor rgb 0 0 0
@@ -3383,7 +2817,7 @@ major 4
 minor 7
 release 0
 x 433
-y 72
+y 132
 w 90
 h 18
 controlPv "$(P)$(Ti)8"
@@ -3407,7 +2841,7 @@ major 4
 minor 1
 release 1
 x 406
-y 70
+y 130
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3427,7 +2861,7 @@ major 4
 minor 7
 release 0
 x 433
-y 96
+y 156
 w 90
 h 18
 controlPv "$(P)$(Ti)9"
@@ -3451,7 +2885,7 @@ major 4
 minor 1
 release 1
 x 406
-y 95
+y 155
 w 22
 h 20
 font "helvetica-medium-r-14.0"
@@ -3471,7 +2905,7 @@ major 4
 minor 7
 release 0
 x 433
-y 121
+y 181
 w 90
 h 18
 controlPv "$(P)$(Ti)10"
@@ -3495,7 +2929,7 @@ major 4
 minor 1
 release 1
 x 398
-y 120
+y 180
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3515,7 +2949,7 @@ major 4
 minor 7
 release 0
 x 433
-y 146
+y 206
 w 90
 h 18
 controlPv "$(P)$(Ti)11"
@@ -3539,7 +2973,7 @@ major 4
 minor 1
 release 1
 x 398
-y 145
+y 205
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3559,7 +2993,7 @@ major 4
 minor 7
 release 0
 x 433
-y 171
+y 231
 w 90
 h 18
 controlPv "$(P)$(Ti)12"
@@ -3583,7 +3017,7 @@ major 4
 minor 1
 release 1
 x 398
-y 170
+y 230
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3603,7 +3037,7 @@ major 4
 minor 7
 release 0
 x 433
-y 196
+y 256
 w 90
 h 18
 controlPv "$(P)$(Ti)13"
@@ -3627,7 +3061,7 @@ major 4
 minor 1
 release 1
 x 398
-y 195
+y 255
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3647,7 +3081,7 @@ major 4
 minor 7
 release 0
 x 433
-y 221
+y 281
 w 90
 h 18
 controlPv "$(P)$(Ti)14"
@@ -3671,7 +3105,7 @@ major 4
 minor 1
 release 1
 x 398
-y 220
+y 280
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3691,7 +3125,7 @@ major 4
 minor 7
 release 0
 x 433
-y 246
+y 306
 w 90
 h 18
 controlPv "$(P)$(Ti)15"
@@ -3715,7 +3149,7 @@ major 4
 minor 1
 release 1
 x 398
-y 245
+y 305
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -3735,7 +3169,7 @@ major 4
 minor 1
 release 1
 x 488
-y 40
+y 100
 w 204
 h 25
 font "helvetica-medium-r-18.0"
@@ -3755,7 +3189,7 @@ major 4
 minor 0
 release 0
 x 623
-y 71
+y 131
 w 40
 h 194
 
@@ -3773,7 +3207,7 @@ major 4
 minor 0
 release 0
 x 485
-y 270
+y 330
 w 211
 h 20
 
@@ -3791,7 +3225,7 @@ major 4
 minor 7
 release 0
 x 668
-y 73
+y 133
 w 105
 h 14
 controlPv "$(P)$(Ti)8.DESC"
@@ -3815,7 +3249,7 @@ major 4
 minor 7
 release 0
 x 668
-y 98
+y 158
 w 105
 h 14
 controlPv "$(P)$(Ti)9.DESC"
@@ -3839,7 +3273,7 @@ major 4
 minor 7
 release 0
 x 668
-y 123
+y 183
 w 105
 h 14
 controlPv "$(P)$(Ti)10.DESC"
@@ -3863,7 +3297,7 @@ major 4
 minor 7
 release 0
 x 668
-y 148
+y 208
 w 105
 h 14
 controlPv "$(P)$(Ti)11.DESC"
@@ -3887,7 +3321,7 @@ major 4
 minor 7
 release 0
 x 668
-y 173
+y 233
 w 105
 h 14
 controlPv "$(P)$(Ti)12.DESC"
@@ -3911,7 +3345,7 @@ major 4
 minor 7
 release 0
 x 668
-y 198
+y 258
 w 105
 h 14
 controlPv "$(P)$(Ti)13.DESC"
@@ -3935,7 +3369,7 @@ major 4
 minor 7
 release 0
 x 668
-y 223
+y 283
 w 105
 h 14
 controlPv "$(P)$(Ti)14.DESC"
@@ -3959,7 +3393,7 @@ major 4
 minor 7
 release 0
 x 668
-y 248
+y 308
 w 105
 h 14
 controlPv "$(P)$(Ti)15.DESC"
@@ -3988,7 +3422,7 @@ major 4
 minor 0
 release 0
 x 785
-y 35
+y 95
 w 380
 h 265
 
@@ -4001,7 +3435,7 @@ major 4
 minor 0
 release 0
 x 785
-y 35
+y 95
 w 379
 h 264
 lineColor rgb 0 0 0
@@ -4015,7 +3449,7 @@ major 4
 minor 1
 release 1
 x 864
-y 40
+y 100
 w 216
 h 25
 font "helvetica-medium-r-18.0"
@@ -4035,7 +3469,7 @@ major 4
 minor 7
 release 0
 x 818
-y 72
+y 132
 w 90
 h 18
 controlPv "$(P)$(Ti)16"
@@ -4059,7 +3493,7 @@ major 4
 minor 1
 release 1
 x 783
-y 70
+y 130
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4079,7 +3513,7 @@ major 4
 minor 7
 release 0
 x 818
-y 96
+y 156
 w 90
 h 18
 controlPv "$(P)$(Ti)17"
@@ -4103,7 +3537,7 @@ major 4
 minor 1
 release 1
 x 783
-y 95
+y 155
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4123,7 +3557,7 @@ major 4
 minor 7
 release 0
 x 818
-y 121
+y 181
 w 90
 h 18
 controlPv "$(P)$(Ti)18"
@@ -4147,7 +3581,7 @@ major 4
 minor 1
 release 1
 x 783
-y 120
+y 180
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4167,7 +3601,7 @@ major 4
 minor 7
 release 0
 x 818
-y 146
+y 206
 w 90
 h 18
 controlPv "$(P)$(Ti)19"
@@ -4191,7 +3625,7 @@ major 4
 minor 1
 release 1
 x 783
-y 145
+y 205
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4211,7 +3645,7 @@ major 4
 minor 7
 release 0
 x 818
-y 171
+y 231
 w 90
 h 18
 controlPv "$(P)$(Ti)20"
@@ -4235,7 +3669,7 @@ major 4
 minor 1
 release 1
 x 783
-y 170
+y 230
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4255,7 +3689,7 @@ major 4
 minor 7
 release 0
 x 818
-y 196
+y 256
 w 90
 h 18
 controlPv "$(P)$(Ti)21"
@@ -4279,7 +3713,7 @@ major 4
 minor 1
 release 1
 x 783
-y 195
+y 255
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4299,7 +3733,7 @@ major 4
 minor 7
 release 0
 x 818
-y 221
+y 281
 w 90
 h 18
 controlPv "$(P)$(Ti)22"
@@ -4323,7 +3757,7 @@ major 4
 minor 1
 release 1
 x 783
-y 220
+y 280
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4343,7 +3777,7 @@ major 4
 minor 7
 release 0
 x 818
-y 246
+y 306
 w 90
 h 18
 controlPv "$(P)$(Ti)23"
@@ -4367,7 +3801,7 @@ major 4
 minor 1
 release 1
 x 783
-y 245
+y 305
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4387,7 +3821,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 71
+y 131
 w 40
 h 194
 
@@ -4405,7 +3839,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 73
+y 133
 w 105
 h 14
 controlPv "$(P)$(Ti)16.DESC"
@@ -4429,7 +3863,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 98
+y 158
 w 105
 h 14
 controlPv "$(P)$(Ti)17.DESC"
@@ -4453,7 +3887,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 123
+y 183
 w 105
 h 14
 controlPv "$(P)$(Ti)18.DESC"
@@ -4477,7 +3911,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 148
+y 208
 w 105
 h 14
 controlPv "$(P)$(Ti)19.DESC"
@@ -4501,7 +3935,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 173
+y 233
 w 105
 h 14
 controlPv "$(P)$(Ti)20.DESC"
@@ -4525,7 +3959,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 198
+y 258
 w 105
 h 14
 controlPv "$(P)$(Ti)21.DESC"
@@ -4549,7 +3983,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 223
+y 283
 w 105
 h 14
 controlPv "$(P)$(Ti)22.DESC"
@@ -4573,7 +4007,7 @@ major 4
 minor 7
 release 0
 x 1053
-y 248
+y 308
 w 105
 h 14
 controlPv "$(P)$(Ti)23.DESC"
@@ -4597,7 +4031,7 @@ major 4
 minor 0
 release 0
 x 867
-y 270
+y 330
 w 211
 h 20
 
@@ -4620,7 +4054,7 @@ major 4
 minor 0
 release 0
 x 1170
-y 35
+y 95
 w 380
 h 265
 
@@ -4633,7 +4067,7 @@ major 4
 minor 0
 release 0
 x 1170
-y 35
+y 95
 w 379
 h 264
 lineColor rgb 0 0 0
@@ -4647,7 +4081,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 71
+y 131
 w 90
 h 18
 controlPv "$(P)$(Ti)24"
@@ -4671,7 +4105,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 70
+y 130
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4691,7 +4125,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 96
+y 156
 w 90
 h 18
 controlPv "$(P)$(Ti)25"
@@ -4715,7 +4149,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 95
+y 155
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4735,7 +4169,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 121
+y 181
 w 90
 h 18
 controlPv "$(P)$(Ti)26"
@@ -4759,7 +4193,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 120
+y 180
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4779,7 +4213,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 146
+y 206
 w 90
 h 18
 controlPv "$(P)$(Ti)27"
@@ -4803,7 +4237,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 145
+y 205
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4823,7 +4257,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 171
+y 231
 w 90
 h 18
 controlPv "$(P)$(Ti)28"
@@ -4847,7 +4281,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 170
+y 230
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4867,7 +4301,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 196
+y 256
 w 90
 h 18
 controlPv "$(P)$(Ti)29"
@@ -4891,7 +4325,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 195
+y 255
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4911,7 +4345,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 221
+y 281
 w 90
 h 18
 controlPv "$(P)$(Ti)30"
@@ -4935,7 +4369,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 220
+y 280
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4955,7 +4389,7 @@ major 4
 minor 7
 release 0
 x 1203
-y 246
+y 306
 w 90
 h 18
 controlPv "$(P)$(Ti)31"
@@ -4979,7 +4413,7 @@ major 4
 minor 1
 release 1
 x 1168
-y 245
+y 305
 w 30
 h 20
 font "helvetica-medium-r-14.0"
@@ -4999,7 +4433,7 @@ major 4
 minor 1
 release 1
 x 1249
-y 40
+y 100
 w 216
 h 25
 font "helvetica-medium-r-18.0"
@@ -5019,7 +4453,7 @@ major 4
 minor 0
 release 0
 x 1252
-y 270
+y 330
 w 211
 h 20
 
@@ -5037,7 +4471,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 72
+y 132
 w 105
 h 14
 controlPv "$(P)$(Ti)24.DESC"
@@ -5061,7 +4495,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 98
+y 158
 w 105
 h 14
 controlPv "$(P)$(Ti)25.DESC"
@@ -5085,7 +4519,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 123
+y 183
 w 105
 h 14
 controlPv "$(P)$(Ti)26.DESC"
@@ -5109,7 +4543,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 148
+y 208
 w 105
 h 14
 controlPv "$(P)$(Ti)27.DESC"
@@ -5133,7 +4567,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 173
+y 233
 w 105
 h 14
 controlPv "$(P)$(Ti)28.DESC"
@@ -5157,7 +4591,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 198
+y 258
 w 105
 h 14
 controlPv "$(P)$(Ti)29.DESC"
@@ -5181,7 +4615,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 223
+y 283
 w 105
 h 14
 controlPv "$(P)$(Ti)30.DESC"
@@ -5205,7 +4639,7 @@ major 4
 minor 7
 release 0
 x 1438
-y 248
+y 308
 w 105
 h 14
 controlPv "$(P)$(Ti)31.DESC"
@@ -5231,6 +4665,7 @@ endGroup
 
 endObjectProperties
 
+
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -5238,11 +4673,69 @@ major 4
 minor 0
 release 0
 x 5
-y 305
+y 365
 w 555
 h 85
 
 beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 365
+w 554
+h 84
+lineColor rgb 0 0 0
+fillColor rgb 0 0 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 198
+y 370
+w 168
+h 25
+font "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Digital Inputs"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 453
+y 417
+w 100
+h 18
+controlPv "$(P)$(Li)0"
+format "hex"
+font "helvetica-medium-r-14.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -5250,15 +4743,61 @@ major 4
 minor 0
 release 0
 x 11
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 26
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "0"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 11
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)0.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5267,15 +4806,61 @@ major 4
 minor 0
 release 0
 x 66
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 81
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "1"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 66
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)1.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5284,15 +4869,61 @@ major 4
 minor 0
 release 0
 x 121
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 136
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "2"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 121
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)2.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5301,15 +4932,61 @@ major 4
 minor 0
 release 0
 x 176
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 191
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "3"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 176
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)3.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5318,15 +4995,61 @@ major 4
 minor 0
 release 0
 x 231
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 246
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "4"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 231
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)4.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5335,15 +5058,61 @@ major 4
 minor 0
 release 0
 x 341
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 356
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "5"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 341
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)5.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5352,15 +5121,61 @@ major 4
 minor 0
 release 0
 x 286
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 301
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "6"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 286
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)6.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5369,12 +5184,57 @@ major 4
 minor 0
 release 0
 x 396
-y 336
+y 396
 w 50
 h 40
 
 beginGroup
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 411
+y 396
+w 21
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "7"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 396
+y 416
+w 50
+h 20
+controlPv "$(P)$(Bi)7.VAL"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 55808 55808 55808
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
 endGroup
 
 endObjectProperties
@@ -5383,6 +5243,12 @@ endObjectProperties
 endGroup
 
 endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
 
 # (Group)
 object activeGroupClass
@@ -5390,8 +5256,62 @@ beginObjectProperties
 major 4
 minor 0
 release 0
+x 292
+y 35
+w 960
+h 55
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 292
+y 35
+w 960
+h 55
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompDevice.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompDevice.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 95
+w 1560
+h 480
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
 x 565
-y 305
+y 365
 w 1000
 h 210
 
@@ -5403,7 +5323,7 @@ major 4
 minor 0
 release 0
 x 575
-y 344
+y 404
 w 875
 h 75
 
@@ -5415,7 +5335,7 @@ major 4
 minor 0
 release 0
 x 575
-y 344
+y 404
 w 50
 h 75
 
@@ -5428,7 +5348,7 @@ major 4
 minor 0
 release 0
 x 575
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5452,7 +5372,7 @@ major 4
 minor 0
 release 0
 x 630
-y 344
+y 404
 w 50
 h 75
 
@@ -5465,7 +5385,7 @@ major 4
 minor 0
 release 0
 x 630
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5489,7 +5409,7 @@ major 4
 minor 0
 release 0
 x 685
-y 344
+y 404
 w 50
 h 75
 
@@ -5502,7 +5422,7 @@ major 4
 minor 0
 release 0
 x 685
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5526,7 +5446,7 @@ major 4
 minor 0
 release 0
 x 740
-y 344
+y 404
 w 50
 h 75
 
@@ -5539,7 +5459,7 @@ major 4
 minor 0
 release 0
 x 740
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5563,7 +5483,7 @@ major 4
 minor 0
 release 0
 x 795
-y 344
+y 404
 w 50
 h 75
 
@@ -5576,7 +5496,7 @@ major 4
 minor 0
 release 0
 x 795
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5600,7 +5520,7 @@ major 4
 minor 0
 release 0
 x 850
-y 344
+y 404
 w 50
 h 75
 
@@ -5613,7 +5533,7 @@ major 4
 minor 0
 release 0
 x 850
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5637,7 +5557,7 @@ major 4
 minor 0
 release 0
 x 905
-y 344
+y 404
 w 50
 h 75
 
@@ -5650,7 +5570,7 @@ major 4
 minor 0
 release 0
 x 905
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5674,7 +5594,7 @@ major 4
 minor 0
 release 0
 x 960
-y 344
+y 404
 w 50
 h 75
 
@@ -5687,7 +5607,7 @@ major 4
 minor 0
 release 0
 x 960
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5711,7 +5631,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 344
+y 404
 w 50
 h 75
 
@@ -5724,7 +5644,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5748,7 +5668,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 344
+y 404
 w 50
 h 75
 
@@ -5761,7 +5681,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5785,7 +5705,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 344
+y 404
 w 50
 h 75
 
@@ -5798,7 +5718,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5822,7 +5742,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 344
+y 404
 w 50
 h 75
 
@@ -5835,7 +5755,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5859,7 +5779,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 344
+y 404
 w 50
 h 75
 
@@ -5872,7 +5792,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5896,7 +5816,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 344
+y 404
 w 50
 h 75
 
@@ -5909,7 +5829,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5933,7 +5853,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 344
+y 404
 w 50
 h 75
 
@@ -5946,7 +5866,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -5970,7 +5890,7 @@ major 4
 minor 0
 release 0
 x 1400
-y 344
+y 404
 w 50
 h 75
 
@@ -5983,7 +5903,7 @@ major 4
 minor 0
 release 0
 x 1400
-y 389
+y 449
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6012,7 +5932,7 @@ major 4
 minor 0
 release 0
 x 575
-y 434
+y 494
 w 50
 h 75
 
@@ -6025,7 +5945,7 @@ major 4
 minor 0
 release 0
 x 575
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6049,7 +5969,7 @@ major 4
 minor 0
 release 0
 x 630
-y 434
+y 494
 w 50
 h 75
 
@@ -6062,7 +5982,7 @@ major 4
 minor 0
 release 0
 x 630
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6086,7 +6006,7 @@ major 4
 minor 0
 release 0
 x 685
-y 434
+y 494
 w 50
 h 75
 
@@ -6099,7 +6019,7 @@ major 4
 minor 0
 release 0
 x 685
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6123,7 +6043,7 @@ major 4
 minor 0
 release 0
 x 740
-y 434
+y 494
 w 50
 h 75
 
@@ -6136,7 +6056,7 @@ major 4
 minor 0
 release 0
 x 740
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6160,7 +6080,7 @@ major 4
 minor 0
 release 0
 x 795
-y 434
+y 494
 w 50
 h 75
 
@@ -6173,7 +6093,7 @@ major 4
 minor 0
 release 0
 x 795
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6197,7 +6117,7 @@ major 4
 minor 0
 release 0
 x 850
-y 434
+y 494
 w 50
 h 75
 
@@ -6210,7 +6130,7 @@ major 4
 minor 0
 release 0
 x 850
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6234,7 +6154,7 @@ major 4
 minor 0
 release 0
 x 905
-y 434
+y 494
 w 50
 h 75
 
@@ -6247,7 +6167,7 @@ major 4
 minor 0
 release 0
 x 905
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6271,7 +6191,7 @@ major 4
 minor 0
 release 0
 x 960
-y 434
+y 494
 w 50
 h 75
 
@@ -6284,7 +6204,7 @@ major 4
 minor 0
 release 0
 x 960
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6308,7 +6228,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 434
+y 494
 w 50
 h 75
 
@@ -6321,7 +6241,7 @@ major 4
 minor 0
 release 0
 x 1015
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6345,7 +6265,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 434
+y 494
 w 50
 h 75
 
@@ -6358,7 +6278,7 @@ major 4
 minor 0
 release 0
 x 1070
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6382,7 +6302,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 434
+y 494
 w 50
 h 75
 
@@ -6395,7 +6315,7 @@ major 4
 minor 0
 release 0
 x 1125
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6419,7 +6339,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 434
+y 494
 w 50
 h 75
 
@@ -6432,7 +6352,7 @@ major 4
 minor 0
 release 0
 x 1180
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6456,7 +6376,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 434
+y 494
 w 50
 h 75
 
@@ -6469,7 +6389,7 @@ major 4
 minor 0
 release 0
 x 1235
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6493,7 +6413,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 434
+y 494
 w 50
 h 75
 
@@ -6506,7 +6426,7 @@ major 4
 minor 0
 release 0
 x 1290
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6530,7 +6450,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 434
+y 494
 w 50
 h 75
 
@@ -6543,7 +6463,7 @@ major 4
 minor 0
 release 0
 x 1345
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6568,7 +6488,7 @@ major 4
 minor 0
 release 0
 x 1400
-y 479
+y 539
 w 50
 h 30
 fgColor rgb 0 0 0
@@ -6592,7 +6512,7 @@ major 4
 minor 0
 release 0
 x 20
-y 35
+y 95
 w 1530
 h 265
 
@@ -6604,7 +6524,7 @@ major 4
 minor 0
 release 0
 x 20
-y 35
+y 95
 w 375
 h 265
 
@@ -6617,7 +6537,7 @@ major 4
 minor 0
 release 0
 x 143
-y 71
+y 131
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6637,7 +6557,7 @@ major 4
 minor 0
 release 0
 x 143
-y 96
+y 156
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6657,7 +6577,7 @@ major 4
 minor 0
 release 0
 x 143
-y 121
+y 181
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6677,7 +6597,7 @@ major 4
 minor 0
 release 0
 x 143
-y 145
+y 205
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6697,7 +6617,7 @@ major 4
 minor 0
 release 0
 x 143
-y 171
+y 231
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6717,7 +6637,7 @@ major 4
 minor 0
 release 0
 x 143
-y 196
+y 256
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6737,7 +6657,7 @@ major 4
 minor 0
 release 0
 x 143
-y 221
+y 281
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6757,7 +6677,7 @@ major 4
 minor 0
 release 0
 x 143
-y 246
+y 306
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -6777,7 +6697,7 @@ major 4
 minor 0
 release 0
 x 238
-y 70
+y 130
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6802,7 +6722,7 @@ major 4
 minor 0
 release 0
 x 238
-y 95
+y 155
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6827,7 +6747,7 @@ major 4
 minor 0
 release 0
 x 238
-y 120
+y 180
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6852,7 +6772,7 @@ major 4
 minor 0
 release 0
 x 238
-y 144
+y 204
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6877,7 +6797,7 @@ major 4
 minor 0
 release 0
 x 238
-y 170
+y 230
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6902,7 +6822,7 @@ major 4
 minor 0
 release 0
 x 238
-y 195
+y 255
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6927,7 +6847,7 @@ major 4
 minor 0
 release 0
 x 238
-y 220
+y 280
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6952,7 +6872,7 @@ major 4
 minor 0
 release 0
 x 238
-y 245
+y 305
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -6977,7 +6897,7 @@ major 4
 minor 0
 release 0
 x 102
-y 270
+y 330
 w 113
 h 20
 fgColor rgb 0 0 0
@@ -7038,7 +6958,7 @@ major 4
 minor 0
 release 0
 x 220
-y 270
+y 330
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -7075,7 +6995,7 @@ major 4
 minor 0
 release 0
 x 400
-y 35
+y 95
 w 380
 h 265
 
@@ -7088,7 +7008,7 @@ major 4
 minor 0
 release 0
 x 528
-y 72
+y 132
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7108,7 +7028,7 @@ major 4
 minor 0
 release 0
 x 528
-y 96
+y 156
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7128,7 +7048,7 @@ major 4
 minor 0
 release 0
 x 528
-y 121
+y 181
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7148,7 +7068,7 @@ major 4
 minor 0
 release 0
 x 528
-y 146
+y 206
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7168,7 +7088,7 @@ major 4
 minor 0
 release 0
 x 528
-y 171
+y 231
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7188,7 +7108,7 @@ major 4
 minor 0
 release 0
 x 528
-y 196
+y 256
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7208,7 +7128,7 @@ major 4
 minor 0
 release 0
 x 528
-y 221
+y 281
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7228,7 +7148,7 @@ major 4
 minor 0
 release 0
 x 528
-y 246
+y 306
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7247,7 +7167,7 @@ major 4
 minor 0
 release 0
 x 623
-y 71
+y 131
 w 40
 h 194
 
@@ -7260,7 +7180,7 @@ major 4
 minor 0
 release 0
 x 623
-y 71
+y 131
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7285,7 +7205,7 @@ major 4
 minor 0
 release 0
 x 623
-y 95
+y 155
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7310,7 +7230,7 @@ major 4
 minor 0
 release 0
 x 623
-y 120
+y 180
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7335,7 +7255,7 @@ major 4
 minor 0
 release 0
 x 623
-y 145
+y 205
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7360,7 +7280,7 @@ major 4
 minor 0
 release 0
 x 623
-y 170
+y 230
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7385,7 +7305,7 @@ major 4
 minor 0
 release 0
 x 623
-y 195
+y 255
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7410,7 +7330,7 @@ major 4
 minor 0
 release 0
 x 623
-y 220
+y 280
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7435,7 +7355,7 @@ major 4
 minor 0
 release 0
 x 623
-y 245
+y 305
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7464,7 +7384,7 @@ major 4
 minor 0
 release 0
 x 485
-y 270
+y 330
 w 211
 h 20
 
@@ -7477,7 +7397,7 @@ major 4
 minor 0
 release 0
 x 603
-y 270
+y 330
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -7510,7 +7430,7 @@ major 4
 minor 0
 release 0
 x 485
-y 270
+y 330
 w 113
 h 20
 fgColor rgb 0 0 0
@@ -7580,7 +7500,7 @@ major 4
 minor 0
 release 0
 x 785
-y 35
+y 95
 w 380
 h 265
 
@@ -7593,7 +7513,7 @@ major 4
 minor 0
 release 0
 x 913
-y 72
+y 132
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7613,7 +7533,7 @@ major 4
 minor 0
 release 0
 x 913
-y 96
+y 156
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7633,7 +7553,7 @@ major 4
 minor 0
 release 0
 x 913
-y 121
+y 181
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7653,7 +7573,7 @@ major 4
 minor 0
 release 0
 x 913
-y 146
+y 206
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7673,7 +7593,7 @@ major 4
 minor 0
 release 0
 x 913
-y 171
+y 231
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7693,7 +7613,7 @@ major 4
 minor 0
 release 0
 x 913
-y 196
+y 256
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7713,7 +7633,7 @@ major 4
 minor 0
 release 0
 x 913
-y 221
+y 281
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7733,7 +7653,7 @@ major 4
 minor 0
 release 0
 x 913
-y 246
+y 306
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -7752,7 +7672,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 71
+y 131
 w 40
 h 194
 
@@ -7765,7 +7685,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 71
+y 131
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7790,7 +7710,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 95
+y 155
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7815,7 +7735,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 120
+y 180
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7840,7 +7760,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 145
+y 205
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7865,7 +7785,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 170
+y 230
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7890,7 +7810,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 195
+y 255
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7915,7 +7835,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 220
+y 280
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7940,7 +7860,7 @@ major 4
 minor 0
 release 0
 x 1008
-y 245
+y 305
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -7969,7 +7889,7 @@ major 4
 minor 0
 release 0
 x 867
-y 270
+y 330
 w 211
 h 20
 
@@ -7982,7 +7902,7 @@ major 4
 minor 0
 release 0
 x 867
-y 270
+y 330
 w 113
 h 20
 fgColor rgb 0 0 0
@@ -8043,7 +7963,7 @@ major 4
 minor 0
 release 0
 x 985
-y 270
+y 330
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -8085,7 +8005,7 @@ major 4
 minor 0
 release 0
 x 1170
-y 35
+y 95
 w 380
 h 265
 
@@ -8098,7 +8018,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 71
+y 131
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8118,7 +8038,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 96
+y 156
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8138,7 +8058,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 121
+y 181
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8158,7 +8078,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 146
+y 206
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8178,7 +8098,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 171
+y 231
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8198,7 +8118,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 196
+y 256
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8218,7 +8138,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 221
+y 281
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8238,7 +8158,7 @@ major 4
 minor 0
 release 0
 x 1298
-y 246
+y 306
 w 90
 h 18
 fgColor rgb 0 0 0
@@ -8258,7 +8178,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 70
+y 130
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8283,7 +8203,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 95
+y 155
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8308,7 +8228,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 120
+y 180
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8333,7 +8253,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 145
+y 205
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8358,7 +8278,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 170
+y 230
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8383,7 +8303,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 195
+y 255
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8408,7 +8328,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 220
+y 280
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8433,7 +8353,7 @@ major 4
 minor 0
 release 0
 x 1393
-y 245
+y 305
 w 40
 h 20
 fgColor rgb 0 0 0
@@ -8457,7 +8377,7 @@ major 4
 minor 0
 release 0
 x 1252
-y 270
+y 330
 w 211
 h 20
 
@@ -8470,7 +8390,7 @@ major 4
 minor 0
 release 0
 x 1252
-y 270
+y 330
 w 113
 h 20
 fgColor rgb 0 0 0
@@ -8531,7 +8451,7 @@ major 4
 minor 0
 release 0
 x 1370
-y 270
+y 330
 w 93
 h 20
 fgColor rgb 0 0 0
@@ -8556,6 +8476,164 @@ replaceSymbols {
   0 1
 }
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 365
+w 555
+h 85
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 11
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 66
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 121
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 176
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 231
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 341
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 286
+y 396
+w 50
+h 40
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 396
+y 396
+w 50
+h 40
+
+beginGroup
 
 endGroup
 

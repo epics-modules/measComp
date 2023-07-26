@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-07-26 13:48:28 by epics-->
 <display version="2.0.0">
   <name>USB3105_module</name>
   <x>216</x>
   <y>77</y>
   <width>620</width>
-  <height>535</height>
+  <height>640</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -27,28 +28,43 @@
     </foreground_color>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="embedded" version="2.0.0">
+  <widget type="group" version="2.0.0">
     <name>composite #9</name>
-    <file>measCompCounters1.bob</file>
-    <x>200</x>
-    <y>465</y>
-    <width>220</width>
-    <height>60</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #11</name>
-    <file>measCompAnalogOut16.bob</file>
     <x>10</x>
-    <y>40</y>
+    <y>145</y>
     <width>600</width>
-    <height>260</height>
+    <height>485</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #12</name>
+      <file>measCompCounters1.bob</file>
+      <x>190</x>
+      <y>425</y>
+      <width>220</width>
+      <height>60</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #14</name>
+      <file>measCompAnalogOut16.bob</file>
+      <width>600</width>
+      <height>260</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #16</name>
+      <file>measCompDigitalIO8.bob</file>
+      <x>20</x>
+      <y>265</y>
+      <width>560</width>
+      <height>155</height>
+    </widget>
   </widget>
   <widget type="embedded" version="2.0.0">
-    <name>composite #13</name>
-    <file>measCompDigitalIO8.bob</file>
-    <x>30</x>
-    <y>305</y>
-    <width>560</width>
-    <height>155</height>
+    <name>composite #18</name>
+    <file>measCompDeviceVert.bob</file>
+    <x>55</x>
+    <y>35</y>
+    <width>510</width>
+    <height>105</height>
   </widget>
 </display>

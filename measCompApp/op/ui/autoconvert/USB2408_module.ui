@@ -4,10 +4,10 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>798</x>
-            <y>140</y>
+            <x>405</x>
+            <y>132</y>
             <width>1090</width>
-            <height>720</height>
+            <height>775</height>
         </rect>
     </property>
     <property name="styleSheet">
@@ -142,182 +142,218 @@ border-radius: 2px;
                 </rect>
             </property>
         </widget>
-        <widget class="caInclude" name="caInclude_0">
-            <property name="geometry">
-                <rect>
-                    <x>303</x>
-                    <y>40</y>
-                    <width>222</width>
-                    <height>87</height>
-                </rect>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>303</x>
-                    <y>40</y>
-                    <width>220</width>
-                    <height>85</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompCounters2.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
-        </widget>
-        <widget class="caInclude" name="caInclude_1">
+        <widget class="caFrame" name="caFrame_0">
             <property name="geometry">
                 <rect>
                     <x>5</x>
-                    <y>596</y>
-                    <width>297</width>
-                    <height>117</height>
+                    <y>95</y>
+                    <width>1082</width>
+                    <height>677</height>
                 </rect>
             </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>596</y>
-                    <width>295</width>
-                    <height>115</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompAnalogOut2.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
+            <widget class="caInclude" name="caInclude_1">
+                <property name="geometry">
+                    <rect>
+                        <x>298</x>
+                        <y>0</y>
+                        <width>222</width>
+                        <height>87</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>298</x>
+                        <y>0</y>
+                        <width>220</width>
+                        <height>85</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompCounters2.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_2">
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>556</y>
+                        <width>297</width>
+                        <height>117</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>556</y>
+                        <width>295</width>
+                        <height>115</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompAnalogOut2.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_3">
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>297</width>
+                        <height>287</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>295</width>
+                        <height>285</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompAnalogIn8.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_4">
+                <property name="geometry">
+                    <rect>
+                        <x>520</x>
+                        <y>0</y>
+                        <width>562</width>
+                        <height>157</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>520</x>
+                        <y>0</y>
+                        <width>560</width>
+                        <height>155</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompDigitalIO8.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_5">
+                <property name="geometry">
+                    <rect>
+                        <x>300</x>
+                        <y>160</y>
+                        <width>517</width>
+                        <height>467</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>300</x>
+                        <y>160</y>
+                        <width>515</width>
+                        <height>465</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompWaveGen2.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_6">
+                <property name="geometry">
+                    <rect>
+                        <x>820</x>
+                        <y>160</y>
+                        <width>262</width>
+                        <height>517</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>820</x>
+                        <y>160</y>
+                        <width>260</width>
+                        <height>515</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompWaveDig.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="caInclude" name="caInclude_7">
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>286</y>
+                        <width>297</width>
+                        <height>267</height>
+                    </rect>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>0</x>
+                        <y>286</y>
+                        <width>295</width>
+                        <height>265</height>
+                    </rect>
+                </property>
+                <property name="filename">
+                    <string>measCompTempIn8.adl</string>
+                </property>
+                <property name="macro">
+                    <string></string>
+                </property>
+            </widget>
         </widget>
-        <widget class="caInclude" name="caInclude_2">
+        <widget class="caInclude" name="caInclude_8">
             <property name="geometry">
                 <rect>
-                    <x>5</x>
-                    <y>40</y>
-                    <width>297</width>
-                    <height>287</height>
+                    <x>65</x>
+                    <y>35</y>
+                    <width>962</width>
+                    <height>57</height>
                 </rect>
             </property>
             <property name="geometry">
                 <rect>
-                    <x>5</x>
-                    <y>40</y>
-                    <width>295</width>
-                    <height>285</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompAnalogIn8.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
-        </widget>
-        <widget class="caInclude" name="caInclude_3">
-            <property name="geometry">
-                <rect>
-                    <x>525</x>
-                    <y>40</y>
-                    <width>562</width>
-                    <height>157</height>
-                </rect>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>525</x>
-                    <y>40</y>
-                    <width>560</width>
-                    <height>155</height>
+                    <x>65</x>
+                    <y>35</y>
+                    <width>960</width>
+                    <height>55</height>
                 </rect>
             </property>
             <property name="filename">
-                <string>measCompDigitalIO8.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
-        </widget>
-        <widget class="caInclude" name="caInclude_4">
-            <property name="geometry">
-                <rect>
-                    <x>305</x>
-                    <y>200</y>
-                    <width>517</width>
-                    <height>467</height>
-                </rect>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>305</x>
-                    <y>200</y>
-                    <width>515</width>
-                    <height>465</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompWaveGen2.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
-        </widget>
-        <widget class="caInclude" name="caInclude_5">
-            <property name="geometry">
-                <rect>
-                    <x>825</x>
-                    <y>200</y>
-                    <width>262</width>
-                    <height>517</height>
-                </rect>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>825</x>
-                    <y>200</y>
-                    <width>260</width>
-                    <height>515</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompWaveDig.adl</string>
-            </property>
-            <property name="macro">
-                <string></string>
-            </property>
-        </widget>
-        <widget class="caInclude" name="caInclude_6">
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>326</y>
-                    <width>297</width>
-                    <height>267</height>
-                </rect>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>326</y>
-                    <width>295</width>
-                    <height>265</height>
-                </rect>
-            </property>
-            <property name="filename">
-                <string>measCompTempIn8.adl</string>
+                <string>measCompDevice.adl</string>
             </property>
             <property name="macro">
                 <string></string>
             </property>
         </widget>
         <zorder>caLabel_0</zorder>
-        <zorder>caInclude_0</zorder>
         <zorder>caInclude_1</zorder>
         <zorder>caInclude_2</zorder>
         <zorder>caInclude_3</zorder>
         <zorder>caInclude_4</zorder>
         <zorder>caInclude_5</zorder>
         <zorder>caInclude_6</zorder>
+        <zorder>caInclude_7</zorder>
+        <zorder>caFrame_0</zorder>
+        <zorder>caInclude_8</zorder>
     </widget>
 </widget>
 </ui>

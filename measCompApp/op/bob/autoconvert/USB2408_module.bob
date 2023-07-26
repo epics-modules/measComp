@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-07-26 13:48:27 by epics-->
 <display version="2.0.0">
   <name>USB2408_module</name>
-  <x>798</x>
-  <y>140</y>
+  <x>405</x>
+  <y>132</y>
   <width>1090</width>
-  <height>720</height>
+  <height>775</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -27,60 +28,71 @@
     </foreground_color>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="embedded" version="2.0.0">
+  <widget type="group" version="2.0.0">
     <name>composite #9</name>
-    <file>measCompCounters2.bob</file>
-    <x>303</x>
-    <y>40</y>
-    <width>220</width>
-    <height>85</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #11</name>
-    <file>measCompAnalogOut2.bob</file>
     <x>5</x>
-    <y>596</y>
-    <width>295</width>
-    <height>115</height>
+    <y>95</y>
+    <width>1080</width>
+    <height>675</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #12</name>
+      <file>measCompCounters2.bob</file>
+      <x>298</x>
+      <width>220</width>
+      <height>85</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #14</name>
+      <file>measCompAnalogOut2.bob</file>
+      <y>556</y>
+      <width>295</width>
+      <height>115</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #16</name>
+      <file>measCompAnalogIn8.bob</file>
+      <width>295</width>
+      <height>285</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #18</name>
+      <file>measCompDigitalIO8.bob</file>
+      <x>520</x>
+      <width>560</width>
+      <height>155</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #20</name>
+      <file>measCompWaveGen2.bob</file>
+      <x>300</x>
+      <y>160</y>
+      <width>515</width>
+      <height>465</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #22</name>
+      <file>measCompWaveDig.bob</file>
+      <x>820</x>
+      <y>160</y>
+      <width>260</width>
+      <height>515</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #24</name>
+      <file>measCompTempIn8.bob</file>
+      <y>286</y>
+      <width>295</width>
+      <height>265</height>
+    </widget>
   </widget>
   <widget type="embedded" version="2.0.0">
-    <name>composite #13</name>
-    <file>measCompAnalogIn8.bob</file>
-    <x>5</x>
-    <y>40</y>
-    <width>295</width>
-    <height>285</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #15</name>
-    <file>measCompDigitalIO8.bob</file>
-    <x>525</x>
-    <y>40</y>
-    <width>560</width>
-    <height>155</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #17</name>
-    <file>measCompWaveGen2.bob</file>
-    <x>305</x>
-    <y>200</y>
-    <width>515</width>
-    <height>465</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #19</name>
-    <file>measCompWaveDig.bob</file>
-    <x>825</x>
-    <y>200</y>
-    <width>260</width>
-    <height>515</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #21</name>
-    <file>measCompTempIn8.bob</file>
-    <x>5</x>
-    <y>326</y>
-    <width>295</width>
-    <height>265</height>
+    <name>composite #26</name>
+    <file>measCompDevice.bob</file>
+    <x>65</x>
+    <y>35</y>
+    <width>960</width>
+    <height>55</height>
   </widget>
 </display>

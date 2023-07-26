@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/ETC_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/ETC_module.adl"
+	version=030117
 }
 display {
 	object {
-		x=290
-		y=120
+		x=81
+		y=105
 		width=570
-		height=470
+		height=575
 	}
 	clr=14
 	bclr=4
@@ -102,31 +102,52 @@ text {
 }
 composite {
 	object {
-		x=327
-		y=40
-		width=220
-		height=60
-	}
-	"composite name"=""
-	"composite file"="measCompCounters1.adl"
-}
-composite {
-	object {
 		x=5
-		y=310
+		y=145
 		width=560
-		height=155
+		height=425
 	}
 	"composite name"=""
-	"composite file"="measCompDigitalIO8.adl"
+	children {
+		composite {
+			object {
+				x=5
+				y=145
+				width=295
+				height=265
+			}
+			"composite name"=""
+			"composite file"="measCompTempIn8.adl"
+		}
+		composite {
+			object {
+				x=327
+				y=145
+				width=220
+				height=60
+			}
+			"composite name"=""
+			"composite file"="measCompCounters1.adl"
+		}
+		composite {
+			object {
+				x=5
+				y=415
+				width=560
+				height=155
+			}
+			"composite name"=""
+			"composite file"="measCompDigitalIO8.adl"
+		}
+	}
 }
 composite {
 	object {
-		x=5
-		y=40
-		width=295
-		height=265
+		x=30
+		y=35
+		width=510
+		height=105
 	}
 	"composite name"=""
-	"composite file"="measCompTempIn8.adl"
+	"composite file"="measCompDeviceVert.adl"
 }

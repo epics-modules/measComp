@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/USB231_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/USB231_module.adl"
+	version=030117
 }
 display {
 	object {
 		x=359
 		y=89
 		width=605
-		height=390
+		height=500
 	}
 	clr=14
 	bclr=4
@@ -102,18 +102,18 @@ text {
 }
 composite {
 	object {
-		x=305
-		y=200
-		width=295
-		height=115
+		x=47
+		y=35
+		width=510
+		height=105
 	}
 	"composite name"=""
-	"composite file"="measCompAnalogOut2.adl"
+	"composite file"="measCompDeviceVert.adl"
 }
 composite {
 	object {
 		x=305
-		y=320
+		y=425
 		width=220
 		height=60
 	}
@@ -122,21 +122,31 @@ composite {
 }
 composite {
 	object {
-		x=22
-		y=40
-		width=560
-		height=155
+		x=305
+		y=305
+		width=295
+		height=115
 	}
 	"composite name"=""
-	"composite file"="measCompDigitalIO8.adl"
+	"composite file"="measCompAnalogOut2.adl"
 }
 composite {
 	object {
 		x=5
-		y=200
+		y=305
 		width=295
 		height=185
 	}
 	"composite name"=""
 	"composite file"="measCompAnalogIn4.adl"
+}
+composite {
+	object {
+		x=22
+		y=145
+		width=560
+		height=155
+	}
+	"composite name"=""
+	"composite file"="measCompDigitalIO8.adl"
 }

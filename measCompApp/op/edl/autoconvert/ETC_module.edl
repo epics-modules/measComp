@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 290
-y 120
+x 81
+y 105
 w 570
-h 470
+h 575
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -44,6 +44,43 @@ value {
 }
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 560
+h 425
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 295
+h 265
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompTempIn8.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompTempIn8.edl"
+}
+noScroll
+endObjectProperties
+
 # (Embedded Window)
 object activePipClass
 beginObjectProperties
@@ -51,7 +88,7 @@ major 4
 minor 0
 release 0
 x 327
-y 40
+y 145
 w 220
 h 60
 fgColor rgb 0 0 0
@@ -75,7 +112,7 @@ major 4
 minor 0
 release 0
 x 5
-y 310
+y 415
 w 560
 h 155
 fgColor rgb 0 0 0
@@ -92,27 +129,68 @@ displayFileName {
 noScroll
 endObjectProperties
 
-# (Embedded Window)
-object activePipClass
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 40
-w 295
-h 265
+x 30
+y 35
+w 510
+h 105
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 35
+w 510
+h 105
 fgColor rgb 0 0 0
 bgColor rgb 65280 65280 65280
 topShadowColor rgb 65280 65280 65280
 botShadowColor rgb 0 0 0
 displaySource "file"
-file "measCompTempIn8.edl"
+file "measCompDeviceVert.edl"
 sizeOfs 5
 numDsps 1
 displayFileName {
-  0 "measCompTempIn8.edl"
+  0 "measCompDeviceVert.edl"
 }
 noScroll
 endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 560
+h 425
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
 

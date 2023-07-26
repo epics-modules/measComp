@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2023-07-26 13:48:27 by epics-->
 <display version="2.0.0">
   <name>ETC_module</name>
-  <x>290</x>
-  <y>120</y>
+  <x>81</x>
+  <y>105</y>
   <width>570</width>
-  <height>470</height>
+  <height>575</height>
   <background_color>
     <color red="187" green="187" blue="187">
     </color>
@@ -27,28 +28,41 @@
     </foreground_color>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="embedded" version="2.0.0">
+  <widget type="group" version="2.0.0">
     <name>composite #9</name>
-    <file>measCompCounters1.bob</file>
-    <x>327</x>
-    <y>40</y>
-    <width>220</width>
-    <height>60</height>
-  </widget>
-  <widget type="embedded" version="2.0.0">
-    <name>composite #11</name>
-    <file>measCompDigitalIO8.bob</file>
     <x>5</x>
-    <y>310</y>
+    <y>145</y>
     <width>560</width>
-    <height>155</height>
+    <height>425</height>
+    <style>3</style>
+    <transparent>true</transparent>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #12</name>
+      <file>measCompTempIn8.bob</file>
+      <width>295</width>
+      <height>265</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #14</name>
+      <file>measCompCounters1.bob</file>
+      <x>322</x>
+      <width>220</width>
+      <height>60</height>
+    </widget>
+    <widget type="embedded" version="2.0.0">
+      <name>composite #16</name>
+      <file>measCompDigitalIO8.bob</file>
+      <y>270</y>
+      <width>560</width>
+      <height>155</height>
+    </widget>
   </widget>
   <widget type="embedded" version="2.0.0">
-    <name>composite #13</name>
-    <file>measCompTempIn8.bob</file>
-    <x>5</x>
-    <y>40</y>
-    <width>295</width>
-    <height>265</height>
+    <name>composite #18</name>
+    <file>measCompDeviceVert.bob</file>
+    <x>30</x>
+    <y>35</y>
+    <width>510</width>
+    <height>105</height>
   </widget>
 </display>

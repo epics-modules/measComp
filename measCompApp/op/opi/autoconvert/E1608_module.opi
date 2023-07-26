@@ -14,7 +14,7 @@
     <color red="0" green="0" blue="0" />
   </foreground_color>
   <grid_space>5</grid_space>
-  <height>745</height>
+  <height>850</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
   </macros>
@@ -30,7 +30,7 @@
   <width>570</width>
   <x>290</x>
   <y>120</y>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+  <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <background_color>
       <color red="187" green="187" blue="187" />
@@ -41,20 +41,19 @@
     <border_style>0</border_style>
     <border_width>1</border_width>
     <enabled>true</enabled>
+    <fc>false</fc>
     <font>
       <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
     </font>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
-    <group_name></group_name>
-    <height>155</height>
+    <height>700</height>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
-    <name>Linking Container</name>
-    <opi_file>measCompDigitalIO8.opi</opi_file>
-    <resize_behaviour>2</resize_behaviour>
+    <name>Grouping Container</name>
     <rules />
     <scale_options>
       <width_scalable>true</width_scalable>
@@ -62,12 +61,248 @@
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
+    <show_scrollbar>false</show_scrollbar>
     <tooltip></tooltip>
+    <transparent>true</transparent>
     <visible>true</visible>
-    <widget_type>Linking Container</widget_type>
+    <widget_type>Grouping Container</widget_type>
     <width>560</width>
     <x>5</x>
-    <y>585</y>
+    <y>145</y>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>285</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompAnalogIn8.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>295</width>
+      <x>0</x>
+      <y>0</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>515</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompWaveDig.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>260</width>
+      <x>300</x>
+      <y>0</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>115</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompAnalogOut2.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>295</width>
+      <x>0</x>
+      <y>290</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>65</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompTrigger.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>180</width>
+      <x>57</x>
+      <y>410</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>60</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompCounters1.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>220</width>
+      <x>37</x>
+      <y>480</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <background_color>
+        <color red="187" green="187" blue="187" />
+      </background_color>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
+      </font>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <group_name></group_name>
+      <height>155</height>
+      <macros>
+        <include_parent_macros>true</include_parent_macros>
+      </macros>
+      <name>Linking Container</name>
+      <opi_file>measCompDigitalIO8.opi</opi_file>
+      <resize_behaviour>2</resize_behaviour>
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <tooltip></tooltip>
+      <visible>true</visible>
+      <widget_type>Linking Container</widget_type>
+      <width>560</width>
+      <x>0</x>
+      <y>545</y>
+    </widget>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -87,12 +322,12 @@
       <color red="0" green="0" blue="0" />
     </foreground_color>
     <group_name></group_name>
-    <height>60</height>
+    <height>105</height>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
     <name>Linking Container</name>
-    <opi_file>measCompCounters1.opi</opi_file>
+    <opi_file>measCompDeviceVert.opi</opi_file>
     <resize_behaviour>2</resize_behaviour>
     <rules />
     <scale_options>
@@ -104,165 +339,9 @@
     <tooltip></tooltip>
     <visible>true</visible>
     <widget_type>Linking Container</widget_type>
-    <width>220</width>
-    <x>42</x>
-    <y>520</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <background_color>
-      <color red="187" green="187" blue="187" />
-    </background_color>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <group_name></group_name>
-    <height>115</height>
-    <macros>
-      <include_parent_macros>true</include_parent_macros>
-    </macros>
-    <name>Linking Container</name>
-    <opi_file>measCompAnalogOut2.opi</opi_file>
-    <resize_behaviour>2</resize_behaviour>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <tooltip></tooltip>
-    <visible>true</visible>
-    <widget_type>Linking Container</widget_type>
-    <width>295</width>
-    <x>5</x>
-    <y>330</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <background_color>
-      <color red="187" green="187" blue="187" />
-    </background_color>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <group_name></group_name>
-    <height>65</height>
-    <macros>
-      <include_parent_macros>true</include_parent_macros>
-    </macros>
-    <name>Linking Container</name>
-    <opi_file>measCompTrigger.opi</opi_file>
-    <resize_behaviour>2</resize_behaviour>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <tooltip></tooltip>
-    <visible>true</visible>
-    <widget_type>Linking Container</widget_type>
-    <width>180</width>
-    <x>62</x>
-    <y>450</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <background_color>
-      <color red="187" green="187" blue="187" />
-    </background_color>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <group_name></group_name>
-    <height>285</height>
-    <macros>
-      <include_parent_macros>true</include_parent_macros>
-    </macros>
-    <name>Linking Container</name>
-    <opi_file>measCompAnalogIn8.opi</opi_file>
-    <resize_behaviour>2</resize_behaviour>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <tooltip></tooltip>
-    <visible>true</visible>
-    <widget_type>Linking Container</widget_type>
-    <width>295</width>
-    <x>5</x>
-    <y>40</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <background_color>
-      <color red="187" green="187" blue="187" />
-    </background_color>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Sans" height="10" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <group_name></group_name>
-    <height>515</height>
-    <macros>
-      <include_parent_macros>true</include_parent_macros>
-    </macros>
-    <name>Linking Container</name>
-    <opi_file>measCompWaveDig.opi</opi_file>
-    <resize_behaviour>2</resize_behaviour>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <tooltip></tooltip>
-    <visible>true</visible>
-    <widget_type>Linking Container</widget_type>
-    <width>260</width>
-    <x>305</x>
-    <y>40</y>
+    <width>510</width>
+    <x>30</x>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />

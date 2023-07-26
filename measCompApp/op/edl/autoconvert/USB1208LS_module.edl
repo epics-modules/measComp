@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 359
-y 89
+x 142
+y 202
 w 605
-h 550
+h 655
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-bold-r-10.0"
 btnFont "helvetica-medium-r-18.0"
@@ -44,77 +44,18 @@ value {
 }
 endObjectProperties
 
-# (Embedded Window)
-object activePipClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 305
-y 360
-w 295
-h 115
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompAnalogOut2.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompAnalogOut2.edl"
-}
-noScroll
-endObjectProperties
-
-# (Embedded Window)
-object activePipClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 305
-y 480
-w 220
-h 60
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompCounters1.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompCounters1.edl"
-}
-noScroll
-endObjectProperties
-
-# (Embedded Window)
-object activePipClass
+# (Group)
+object activeGroupClass
 beginObjectProperties
 major 4
 minor 0
 release 0
 x 5
-y 360
-w 295
-h 185
-fgColor rgb 0 0 0
-bgColor rgb 65280 65280 65280
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-displaySource "file"
-file "measCompAnalogIn4.edl"
-sizeOfs 5
-numDsps 1
-displayFileName {
-  0 "measCompAnalogIn4.edl"
-}
-noScroll
-endObjectProperties
+y 145
+w 595
+h 506
+
+beginGroup
 
 # (Group)
 object activeGroupClass
@@ -123,7 +64,7 @@ major 4
 minor 0
 release 0
 x 5
-y 39
+y 145
 w 595
 h 315
 
@@ -136,7 +77,7 @@ major 4
 minor 0
 release 0
 x 5
-y 39
+y 145
 w 594
 h 314
 lineColor rgb 0 0 0
@@ -150,7 +91,7 @@ major 4
 minor 1
 release 1
 x 35
-y 131
+y 237
 w 70
 h 20
 font "helvetica-medium-r-14.0"
@@ -170,7 +111,7 @@ major 4
 minor 1
 release 1
 x 15
-y 167
+y 273
 w 90
 h 20
 font "helvetica-medium-r-14.0"
@@ -190,7 +131,7 @@ major 4
 minor 1
 release 1
 x 45
-y 101
+y 207
 w 60
 h 20
 font "helvetica-medium-r-14.0"
@@ -210,7 +151,7 @@ major 4
 minor 0
 release 0
 x 124
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -230,7 +171,7 @@ major 4
 minor 0
 release 0
 x 124
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -249,7 +190,7 @@ major 4
 minor 1
 release 1
 x 211
-y 47
+y 153
 w 216
 h 25
 font "helvetica-medium-r-18.0"
@@ -268,7 +209,7 @@ major 4
 minor 7
 release 0
 x 435
-y 131
+y 237
 w 100
 h 20
 controlPv "$(P)$(Lo)1"
@@ -294,7 +235,7 @@ major 4
 minor 7
 release 0
 x 435
-y 100
+y 206
 w 100
 h 18
 controlPv "$(P)$(Li)1"
@@ -318,7 +259,7 @@ major 4
 minor 0
 release 0
 x 164
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -338,7 +279,7 @@ major 4
 minor 0
 release 0
 x 164
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -357,7 +298,7 @@ major 4
 minor 0
 release 0
 x 204
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -377,7 +318,7 @@ major 4
 minor 0
 release 0
 x 204
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -396,7 +337,7 @@ major 4
 minor 0
 release 0
 x 244
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -416,7 +357,7 @@ major 4
 minor 0
 release 0
 x 244
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -435,7 +376,7 @@ major 4
 minor 0
 release 0
 x 284
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -455,7 +396,7 @@ major 4
 minor 0
 release 0
 x 284
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -474,7 +415,7 @@ major 4
 minor 0
 release 0
 x 324
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -494,7 +435,7 @@ major 4
 minor 0
 release 0
 x 324
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -513,7 +454,7 @@ major 4
 minor 0
 release 0
 x 364
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -533,7 +474,7 @@ major 4
 minor 0
 release 0
 x 364
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -552,7 +493,7 @@ major 4
 minor 0
 release 0
 x 404
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -572,7 +513,7 @@ major 4
 minor 0
 release 0
 x 404
-y 100
+y 206
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -591,7 +532,7 @@ major 4
 minor 1
 release 1
 x 122
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -611,7 +552,7 @@ major 4
 minor 1
 release 1
 x 162
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -631,7 +572,7 @@ major 4
 minor 1
 release 1
 x 202
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -651,7 +592,7 @@ major 4
 minor 1
 release 1
 x 242
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -671,7 +612,7 @@ major 4
 minor 1
 release 1
 x 282
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -691,7 +632,7 @@ major 4
 minor 1
 release 1
 x 322
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -711,7 +652,7 @@ major 4
 minor 1
 release 1
 x 362
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -731,7 +672,7 @@ major 4
 minor 1
 release 1
 x 402
-y 77
+y 183
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -751,7 +692,7 @@ major 4
 minor 0
 release 0
 x 15
-y 201
+y 307
 w 520
 h 147
 
@@ -764,7 +705,7 @@ major 4
 minor 0
 release 0
 x 404
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -783,7 +724,7 @@ major 4
 minor 0
 release 0
 x 364
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -802,7 +743,7 @@ major 4
 minor 0
 release 0
 x 324
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -821,7 +762,7 @@ major 4
 minor 0
 release 0
 x 324
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -841,7 +782,7 @@ major 4
 minor 0
 release 0
 x 284
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -860,7 +801,7 @@ major 4
 minor 0
 release 0
 x 244
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -879,7 +820,7 @@ major 4
 minor 0
 release 0
 x 204
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -898,7 +839,7 @@ major 4
 minor 0
 release 0
 x 164
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -917,7 +858,7 @@ major 4
 minor 0
 release 0
 x 124
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 0 55296 0
@@ -936,7 +877,7 @@ major 4
 minor 1
 release 1
 x 35
-y 285
+y 391
 w 70
 h 20
 font "helvetica-medium-r-14.0"
@@ -956,7 +897,7 @@ major 4
 minor 1
 release 1
 x 15
-y 321
+y 427
 w 90
 h 20
 font "helvetica-medium-r-14.0"
@@ -976,7 +917,7 @@ major 4
 minor 1
 release 1
 x 45
-y 255
+y 361
 w 60
 h 20
 font "helvetica-medium-r-14.0"
@@ -996,7 +937,7 @@ major 4
 minor 0
 release 0
 x 164
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1016,7 +957,7 @@ major 4
 minor 0
 release 0
 x 204
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1036,7 +977,7 @@ major 4
 minor 0
 release 0
 x 244
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1056,7 +997,7 @@ major 4
 minor 0
 release 0
 x 284
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1076,7 +1017,7 @@ major 4
 minor 0
 release 0
 x 364
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1096,7 +1037,7 @@ major 4
 minor 0
 release 0
 x 404
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1116,7 +1057,7 @@ major 4
 minor 0
 release 0
 x 124
-y 254
+y 360
 w 18
 h 18
 lineColor rgb 64768 0 0
@@ -1136,7 +1077,7 @@ major 4
 minor 1
 release 1
 x 159
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1156,7 +1097,7 @@ major 4
 minor 1
 release 1
 x 199
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1176,7 +1117,7 @@ major 4
 minor 1
 release 1
 x 239
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1196,7 +1137,7 @@ major 4
 minor 1
 release 1
 x 279
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1216,7 +1157,7 @@ major 4
 minor 1
 release 1
 x 319
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1236,7 +1177,7 @@ major 4
 minor 1
 release 1
 x 359
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1256,7 +1197,7 @@ major 4
 minor 1
 release 1
 x 399
-y 231
+y 337
 w 28
 h 15
 font "helvetica-medium-r-12.0"
@@ -1276,7 +1217,7 @@ major 4
 minor 1
 release 1
 x 122
-y 231
+y 337
 w 21
 h 15
 font "helvetica-medium-r-12.0"
@@ -1296,7 +1237,7 @@ major 4
 minor 1
 release 1
 x 211
-y 201
+y 307
 w 216
 h 25
 font "helvetica-medium-r-18.0"
@@ -1315,7 +1256,7 @@ major 4
 minor 7
 release 0
 x 435
-y 285
+y 391
 w 100
 h 20
 controlPv "$(P)$(Lo)2"
@@ -1341,7 +1282,7 @@ major 4
 minor 7
 release 0
 x 435
-y 254
+y 360
 w 100
 h 18
 controlPv "$(P)$(Li)2"
@@ -1367,6 +1308,50 @@ endGroup
 
 endObjectProperties
 
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 305
+y 466
+w 295
+h 115
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 305
+y 466
+w 295
+h 115
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompAnalogOut2.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompAnalogOut2.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -1374,7 +1359,152 @@ major 4
 minor 0
 release 0
 x 5
-y 39
+y 466
+w 295
+h 185
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 466
+w 295
+h 185
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompAnalogIn4.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompAnalogIn4.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 305
+y 586
+w 220
+h 60
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 305
+y 586
+w 220
+h 60
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompCounters1.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompCounters1.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 47
+y 35
+w 510
+h 105
+
+beginGroup
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 47
+y 35
+w 510
+h 105
+fgColor rgb 0 0 0
+bgColor rgb 65280 65280 65280
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+displaySource "file"
+file "measCompDeviceVert.edl"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "measCompDeviceVert.edl"
+}
+noScroll
+endObjectProperties
+
+endGroup
+
+visMin "A"
+visMax "1"
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
+w 595
+h 506
+
+beginGroup
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 145
 w 595
 h 315
 
@@ -1387,7 +1517,7 @@ major 4
 minor 0
 release 0
 x 155
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1407,7 +1537,7 @@ major 4
 minor 0
 release 0
 x 195
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1427,7 +1557,7 @@ major 4
 minor 0
 release 0
 x 235
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1447,7 +1577,7 @@ major 4
 minor 0
 release 0
 x 275
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1467,7 +1597,7 @@ major 4
 minor 0
 release 0
 x 315
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1487,7 +1617,7 @@ major 4
 minor 0
 release 0
 x 355
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1507,7 +1637,7 @@ major 4
 minor 0
 release 0
 x 395
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1527,7 +1657,7 @@ major 4
 minor 0
 release 0
 x 115
-y 126
+y 232
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1547,7 +1677,7 @@ major 4
 minor 0
 release 0
 x 115
-y 164
+y 270
 w 60
 h 30
 fgColor rgb 0 0 0
@@ -1566,7 +1696,7 @@ major 4
 minor 0
 release 0
 x 15
-y 201
+y 307
 w 520
 h 147
 
@@ -1579,7 +1709,7 @@ major 4
 minor 0
 release 0
 x 155
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1599,7 +1729,7 @@ major 4
 minor 0
 release 0
 x 195
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1619,7 +1749,7 @@ major 4
 minor 0
 release 0
 x 235
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1639,7 +1769,7 @@ major 4
 minor 0
 release 0
 x 275
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1659,7 +1789,7 @@ major 4
 minor 0
 release 0
 x 315
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1679,7 +1809,7 @@ major 4
 minor 0
 release 0
 x 355
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1699,7 +1829,7 @@ major 4
 minor 0
 release 0
 x 395
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1719,7 +1849,7 @@ major 4
 minor 0
 release 0
 x 115
-y 280
+y 386
 w 35
 h 30
 fgColor rgb 0 0 0
@@ -1739,7 +1869,7 @@ major 4
 minor 0
 release 0
 x 115
-y 318
+y 424
 w 60
 h 30
 fgColor rgb 0 0 0
@@ -1751,6 +1881,11 @@ botShadowColor rgb 0 0 0
 controlPv "$(P)$(Bd)2"
 font "helvetica-medium-r-10.0"
 endObjectProperties
+
+endGroup
+
+endObjectProperties
+
 
 endGroup
 

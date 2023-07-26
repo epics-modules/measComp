@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/devel/measComp-2-5-1/measCompApp/op/adl/E1608_module.adl"
-	version=030109
+	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/E1608_module.adl"
+	version=030117
 }
 display {
 	object {
 		x=290
 		y=120
 		width=570
-		height=745
+		height=850
 	}
 	clr=14
 	bclr=4
@@ -103,60 +103,81 @@ text {
 composite {
 	object {
 		x=5
-		y=585
+		y=145
 		width=560
-		height=155
+		height=700
 	}
 	"composite name"=""
-	"composite file"="measCompDigitalIO8.adl"
+	children {
+		composite {
+			object {
+				x=5
+				y=145
+				width=295
+				height=285
+			}
+			"composite name"=""
+			"composite file"="measCompAnalogIn8.adl"
+		}
+		composite {
+			object {
+				x=305
+				y=145
+				width=260
+				height=515
+			}
+			"composite name"=""
+			"composite file"="measCompWaveDig.adl"
+		}
+		composite {
+			object {
+				x=5
+				y=435
+				width=295
+				height=115
+			}
+			"composite name"=""
+			"composite file"="measCompAnalogOut2.adl"
+		}
+		composite {
+			object {
+				x=62
+				y=555
+				width=180
+				height=65
+			}
+			"composite name"=""
+			"composite file"="measCompTrigger.adl"
+		}
+		composite {
+			object {
+				x=42
+				y=625
+				width=220
+				height=60
+			}
+			"composite name"=""
+			"composite file"="measCompCounters1.adl"
+		}
+		composite {
+			object {
+				x=5
+				y=690
+				width=560
+				height=155
+			}
+			"composite name"=""
+			"composite file"="measCompDigitalIO8.adl"
+		}
+	}
 }
 composite {
 	object {
-		x=42
-		y=520
-		width=220
-		height=60
+		x=30
+		y=35
+		width=510
+		height=105
 	}
 	"composite name"=""
-	"composite file"="measCompCounters1.adl"
-}
-composite {
-	object {
-		x=5
-		y=330
-		width=295
-		height=115
-	}
-	"composite name"=""
-	"composite file"="measCompAnalogOut2.adl"
-}
-composite {
-	object {
-		x=62
-		y=450
-		width=180
-		height=65
-	}
-	"composite name"=""
-	"composite file"="measCompTrigger.adl"
-}
-composite {
-	object {
-		x=5
-		y=40
-		width=295
-		height=285
-	}
-	"composite name"=""
-	"composite file"="measCompAnalogIn8.adl"
-}
-composite {
-	object {
-		x=305
-		y=40
-		width=260
-		height=515
-	}
-	"composite name"=""
-	"composite file"="measCompWaveDig.adl"
+	"composite file"="measCompDeviceVert.adl"
 }
