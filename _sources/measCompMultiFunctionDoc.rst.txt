@@ -218,6 +218,72 @@ USB-1608GX-2AO.
 
     **1608G_module.adl**
 
+USB-1808 and USB-1808X
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: USB-1808.jpg
+    :align: center
+
+    **Photo of USB-1808**
+
+These modules cost $769 and $989 and have the following features:
+
+-  18-bit analog inputs
+
+   -  8 single-ended or differential channels
+   -  Programmable per-channel range:+-5V, +-10V, 0-5V, 0-10V
+   -  USB-1808: 125 kHz total maximum input rate, i.e. 1 channel at 125 kHz, 8
+      channels at 15.625 kHz, etc.
+   -  USB-1808X: 500 kHz total maximum input rate, i.e. 1 channel at 500 kHz, 8
+      channels at 62.5 kHz, etc.
+   -  Internal or external trigger. External trigger shared with analog
+      outputs.
+   -  Internal or external clock, input and output signals.
+   -  4 kSample input FIFO, unlimited waveform length
+
+-  16-bit analog outputs
+
+   -  2 channels, fixed +-10V range
+   -  USB-1808: 250 kHz total maximum output rate, i.e. 1 channel at 250 kHz, 2
+      channels at 125 kHz
+   -  USB-1808X: 1000 kHz total maximum output rate, i.e. 1 channel at 1000 kHz, 2
+      channels at 500 kHz
+   -  Internal or external trigger. External trigger shared with analog
+      inputs.
+   -  Internal or external clock, input and output signals
+   -  2 kSample output FIFO, unlimited waveform length
+
+-  Digital inputs/outputs
+
+   -  4 signals, individually programmable as inputs or outputs
+
+-  Pulse generator
+
+   -  2 outputs
+   -  100 MHz clock, 32-bit registers
+   -  Programmable period, width, number of pulses, polarity
+
+-  Counters
+
+   -  2 inputs
+   -  50 MHz maximum rate, 32-bit registers
+
+-  Quadrature encoder inputs
+
+   -  2 inputs
+   -  50 MHz maximum rate, 32-bit registers
+
+More information can be found in the `USB-1808 product
+description. <https://www.mccdaq.com/PDFs/specs/DS-USB-1808-Series.pdf>`__
+
+The following is the main medm screen for controlling the
+USB-1808.
+
+.. figure:: USB1808X_module.png
+    :align: center
+
+    **1808_module.adl**
+
 USB-2408-2AO
 ~~~~~~~~~~~~
 
@@ -393,6 +459,13 @@ This module costs $320 and has the following features:
 More information can be found in the `E-DIO24 product
 description. <https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series>`__
 
+The following is the main medm screen for controlling the E-DIO24.
+
+.. figure:: EDIO24_module.png
+    :align: center
+
+    **EDIO24_module.adl**
+
 USB-3100
 ~~~~~~~~
 
@@ -423,19 +496,19 @@ and has the following features:
 More information can be found in the `USB-3100 series product
 description. <https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx>`__
 
-The following is the main medm screen for controlling the USB-3105 16-channel unit.
+The following is the main medm screen for controlling the USB-3104 8-channel unit.
 
-.. figure:: USB3105_module.png
+.. figure:: USB3104_module.png
     :align: center
 
-    **USB3105_module.adl**
+    **USB3104_module.adl**
 
-The following is the medm screen for configuring the analog outputs on the USB-3105 16-channel unit.
+The following is the medm screen for configuring the analog outputs on the USB-3104 8-channel unit.
 
-.. figure:: USB3105_setup.png
+.. figure:: USB3104_setup.png
     :align: center
 
-    **USB3105_setup.adl**
+    **USB3104_setup.adl**
 
 
 Configuration
@@ -472,6 +545,76 @@ Databases
 The following tables list the database template files that are used with
 the multi-function modules.
 
+Overall Device Functions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+These are the records defined in measCompDevice.template.
+This database is loaded once for each module.
+
+.. cssclass:: table-bordered table-striped table-hover
+.. list-table::
+  :header-rows: 1
+  :widths: 10 10 10 10 60
+
+  * - EPICS record name
+    - EPICS record type
+    - asyn interface
+    - drvInfo string
+    - Description
+  * - $(P)ModelName
+    - stringin
+    - asynOctetRead
+    - MODEL_NAME
+    - The model name of this device, e.g. "USB-1808X".
+  * - $(P)ModelNumber
+    - longin
+    - asynInt32
+    - MODEL_NUMBER
+    - The model number of this device, e.g. 318.
+  * - $(P)FirmwareVersion
+    - stringin
+    - asynOctetRead
+    - FIRMWARE_VERSION
+    - The firmware version, e.g. "1.03".
+  * - $(P)UniqueID
+    - stringin
+    - asynOctetRead
+    - UNIQUE_ID
+    - The unique ID of this device, e.g. "02151405"
+  * - $(P)ULVersion
+    - stringin
+    - asynOctetRead
+    - UL_VERSION
+    - The version of the UL library on Linux or Windows, e.g. "1.2.0".
+  * - $(P)DriverVersion
+    - stringin
+    - asynOctetRead
+    - DRIVER_VERSION
+    - The version of the EPICS driver, e.g. "4.3".
+  * - $(P)PollTimeMS
+    - ai
+    - asynFloat64
+    - POLL_TIME_MS
+    - The actual time for the last poll cycle in ms.
+  * - $(P)PollSleepMS
+    - ao
+    - asynFloat64
+    - POLL_SLEEP_MS
+    - The time to sleep at the end of each poll cycle in ms.
+  * - $(P)LastErrorMessage
+    - waveform
+    - asynOctetRead
+    - LAST_ERROR_MESSAGE
+    - The last error message from the driver.
+
+The medm sub-screen that displays these records.
+The main screen for every module contains a subscreen like this.
+
+.. figure:: measCompDevice.png
+    :align: center
+
+    **measCompDevice.adl**
+
 Analog I/O Functions
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -493,9 +636,15 @@ This database is loaded once for each analog input channel
     - asynInt32
     - ANALOG_IN_VALUE
     - Analog input value. This is converted from the 16-bit unsigned integer device units
-      from the driver to engineering units using the EGUL and EGUF fields. This field
-      should be periodically scanned, since it is not currently polled in the driver,
-      so I/O Intr scanning cannot be used.
+      from the driver to engineering units using the EGUL and EGUF fields. 
+      This value is polled in the driver at the polling frequency set by PollSleepMS.
+      The asynInt32Average device support is used, so that the ai value
+      is the average of all the readings from the poller since the last time the record processed.  
+      For example, if the poller is running at 100 Hz and the ai record SCAN field is "0.2 seconds"
+      then 20 values will be averaged each time the record processes.
+      If SCAN=I/O Intr then the device support will average the number of values specified in the SVAL
+      field of the record.  
+      If SVAL<=1 then the record will processes on each callback, so there is no averaging.
   * - $(P)$(R)Range
     - mbbo
     - asynInt32
@@ -1122,6 +1271,17 @@ These records are defined in measCompTrigger.template. This database is loaded o
     - The mode of the external trigger input. Choices are "Positive edge", "Negative edge",
       "High", and "Low".
 
+Box for USB-CTR08, USB-3104, and USB-1808X
+------------------------------------------
+
+The following photo is a box we built to house the USB-CTR08, USB-3104, and USB-1808X
+and provide BNC I/O connections.
+
+.. figure:: 3ModuleBox.jpg
+    :align: center
+
+    **GSECARS designed box for USB-CTR08, USB-3104, and USB-1808X**
+
 Box for USB-2408-2AO
 --------------------
 
@@ -1141,92 +1301,6 @@ These are the side views.
     :align: center
 
     **Side views of USB-2408-2AO box**
-
-Wiring USB-1608GX-2AO to BCDA BC-020
-------------------------------------
-
-The following photo shows the BCDA BC-020 LEMO breakout panels wired to
-the USB-1608GX-2AO. These are the lower 2 BC-020 panels in this photo. A
-BC-020 with a BC-026 daughter card is used for the analog signals (lower
-left), and a BC-020 with a BC-087 daughter card for the digital signals
-(lower right).
-
-.. figure:: measCompBC-020.jpg
-    :align: center
-
-    **BC-020 LEMO breakout panels**
-
-USB-1608GX-2AO Wiring to Two BCDA BC-020 LEMO Breakout Panels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-         Digital I/O using BC-087 daughter card
-
-   50-pin ribbon      USB-1608GX      BC-020   EPICS Function
-   connector pin    screw terminal   connector
-    1                DIO0               J1     Digital I/O bit 0 
-    2                DIO1               J2     Digital I/O bit 1
-    3                DIO2               J3     Digital I/O bit 2
-    4                DIO3               J4     Digital I/O bit 3
-    5                DIO4               J5     Digital I/O bit 4
-    6                DIO5               J6     Digital I/O bit 5
-    7                DIO6               J7     Digital I/O bit 6
-    8                DIO7               J8     Digital I/O bit 7
-    9                 TMR               J9     Pulse generator output
-   10                 GND              J10     Grounded to avoid cross-talk
-   11                CTR0              J11     Counter 1 input
-   12                 GND              J12     Grounded to avoid cross-talk
-   13                CTR1              J13     Counter 2 input
-   14                 GND              J14     Grounded to avoid cross-talk
-   15                TRIG              J15     Trigger input for waveform generator and waveform digitizer
-   16                 GND              J16     Grounded to avoid cross-talk
-   17               A0CK0              J17     Waveform generator clock out
-   18                 GND              J18     Grounded to avoid cross-talk
-   19               A0CKI              J19     Waveform generator clock in
-   20                 GND              J20     Grounded to avoid cross-talk
-   21               AICK0              J21     Waveform digitizer clock out
-   22                 GND              J16     Grounded to avoid cross-talk
-   23               AICKI              J17     Waveform digitzer clock in
-   50                 GND           J1-J32     LEMO connectors outer shells
-
-    
-            Analog I/O using BC-026 daughter card
-
-   50-pin ribbon      USB-1608GX      BC-020   EPICS Function
-   connector pin    screw terminal   connector
-    1                CH0H               J1     Analog input 1 +
-    2                CH0L               J1     Analog input 1 -
-    3                AGND              N.C     Analog ground
-    4                CH1H               J2     Analog input 2 +
-    5                CH1L               J2     Analog input 2 -
-    6                AGND              N.C     Analog ground
-    7                CH2H               J3     Analog input 3 +
-    8                CH2L               J3     Analog input 3 -
-    9                AGND              N.C     Analog ground
-   10                CH3H               J4     Analog input 4 +
-   11                CH3L               J4     Analog input 4 -
-   12                AGND              N.C     Analog ground
-   13                CH4H               J5     Analog input 5 +
-   14                CH4L               J5     Analog input 5 -
-   15                AGND              N.C     Analog ground
-   16                CH5H               J6     Analog input 6 +
-   17                CH5L               J6     Analog input 6 -
-   18                AGND              N.C     Analog ground
-   19                CH6H               J7     Analog input 7 +
-   20                CH6L               J7     Analog input 7 -
-   21                AGND              N.C     Analog ground
-   22                CH7H               J8     Analog input 8 +
-   23                CH7L               J8     Analog input 8 -
-   24                AGND              N.C     Analog ground
-   25               AOUT0               J9     Analog output 1
-   26                AGND               J9     Analog ground
-   27                AGND              N.C     Analog ground
-   28               AOUT1              J10     Analog output 1
-   29                AGND              J10     Analog ground
-
-   Note: the "Analog input N +" lines are connected to the Lemo center pin, 
-   and the "Analog input N -" lines are connected to the Lemo shell.
 
 .. _Performance_MF:
 

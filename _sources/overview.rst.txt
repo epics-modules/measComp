@@ -4,7 +4,7 @@ Overview
 This package provides EPICS drivers for the some of the USB and Ethernet
 I/O modules from Measurement Computing. Currently the USB-CTR04/08, 
 and multi-function modules (E-1608, USB-1208LS, USB-1208FS, USB-1608G, 
-USB-1608GX-2AO, USB-231, USB-2408-2AO, E-TC, TC-32, USB-TEMP, USB-TEMP-AI,
+USB-1608GX-2AO, USB-1808/1808X, USB-231, USB-2408-2AO, E-TC, TC-32, USB-TEMP, USB-TEMP-AI,
 and E-DIO24) are supported. 
 The multi-function modules support analog input and/or output, temperature input
 (USB-2408-2AO, USB-TEMP, USB-TEMP-AI, E-TC, TC-32), digital input/output, 
