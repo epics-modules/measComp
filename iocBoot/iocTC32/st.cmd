@@ -6,7 +6,7 @@ measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "TC32:")
 epicsEnvSet("PORT",          "TC32_1")
-epicsEnvSet("UNIQUE_ID",     "10.54.160.200")
+epicsEnvSet("UNIQUE_ID",     "164.54.160.221")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
