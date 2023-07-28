@@ -1,7 +1,56 @@
 # measComp Release Notes
 
-## Release 4-2 (March XXX, 2023)
+## Release 4-2 (July 28, 2023)
+  - Added support for the following new models:
+    - USB-SSR08, which supports 8 solid-state relays.
+    - USB-1808 and 1808X.  These support 8 18-bit analog inputs, 2 16-bit analog outputs,
+      2 50 MHz pulse-generators, and 4 digital I/O bits.
+  - Added support for counter device to E-DIO24.substitutions.
   - Added OPI and iocBoot files for the USB-3104.
+  - drvUSBCTR.cpp and drvMultiFunction.cpp
+    - Added new parameters for modelName, modelNumber, firmwareVersion, ULVersion,
+      driverVersion, pollSleepMS, pollTimeMS, lastErrorMessage
+    - replacedPulseGenWidth with pulseGenDutyCycle.  
+      pulseGenWidth is now calculated in the database from pulseGenFrequency and pulseGenDutyCycle.
+    - Changed the poller function to sleep for pollSleepMS rather than hardcoded time of 100 ms.
+      The actual poller cycle time is now reported in pollTimeMS.
+  - drvMultiFunction.cpp
+    - Added a new global mutex to prevent multiple devices from calling the vendor library at the same time.
+      This is needed to prevent errors with multiple Ethernet devices in the same IOC on Linux.
+    - Changes to support multiple pulse generators (timers) rather than only 1. Needed for USB-1808.
+    - Changes to support write-only and read-only digital I/O ports.
+    - The analog inputs are now read in the poller thread, rather than in the readInt32 method.
+      The device support for analog inputs was changed from asynInt32 to asynInt32Average.
+      This means that the device support now averages all of the values read by the poller thread
+      between record processing.  For example, if the poller thread is running at 100 Hz and the
+      ai record SCAN field is .2 seconds then 20 values will be averaged each time the record processes.
+      If the record SCAN field is I/O Intr then every value read in the poller thread will result in
+      record processing with no averaging.
+  - measCompAnalogOut.template
+    - Changed PINI from YES to $(PINI=YES) so the default value can be overridden.
+    - Set PHAS=2 on the ao record to ensure that the Range record will process before the ao record.
+  - measCompBinaryIn.template
+    - Set DESC=$(DESC=) to allow optional passing a description macro value.
+  - measCompBinaryOut.template
+    - Set DESC=$(DESC=) to allow optional passing a description macro value on the bo and bi RBV records.
+    - Set PHAS=2 on the bo record to ensure that the Direction record will process before the bo record.
+  - measCompDevice.template
+     - New file with records for ModelName, ModelNumber, FirmwareVersion, ULVersion,
+       DriverVersion, PollSleepMS, PollTimeMS, LastErrorMessage
+  - measCompEncoder.template
+     - New file with records for quadrature encoder inputs.
+  - measCompLongOut.template
+    - Changed PINI from YES to $(PINI=NO) so the default is now NO but can be overridden.
+  - measCompPulseGen.template
+    - Added DutyCycle record, and calc record logic to convert from DutyCycle to PulseWidth and vice versa.
+  - OPI files
+    - Add ModelName, ModelNumber, FirmwareVersion, ULVersion, DriverVersion, PollSleepMS, PollTimeMS, LastErrorMessage
+      PV at top of each module screen.
+  - Documentation
+    - Added documentation for the records in the new measCompDevice.template file.
+    - Updated the screen shots to show the new measCompDevice embedded screen at the top.
+    - Added documentation for the USB-1808 models.
+    - Changed the analog input documentation to describe the new pollSleepMS record and asynInt32Average device support.
 
 ## Release 4-1 (February 21, 2023)
   - Fixed problems with the E-DIO24 support that caused only bits 1-8 to work correctly,
