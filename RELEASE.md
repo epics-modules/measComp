@@ -1,6 +1,6 @@
 # measComp Release Notes
 
-## Release 4-2 (July 28, 2023)
+## Release 4-2 (July 29, 2023)
   - Added support for the following new models:
     - USB-SSR08, which supports 8 solid-state relays.
     - USB-1808 and 1808X.  These support 8 18-bit analog inputs, 2 16-bit analog outputs,
