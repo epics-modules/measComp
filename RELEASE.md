@@ -4,7 +4,7 @@
   - Added support for the following new models:
     - USB-SSR08, which supports 8 solid-state relays.
     - USB-1808 and 1808X.  These support 8 18-bit analog inputs, 2 16-bit analog outputs,
-      2 50 MHz pulse-generators, and 4 digital I/O bits.
+      2 50 MHz pulse-generators, 4 digital I/O bits, 2 counter inputs, and 2 quadrature encoder inputs.
   - Added support for counter device to E-DIO24.substitutions.
   - Added OPI and iocBoot files for the USB-3104.
   - drvUSBCTR.cpp and drvMultiFunction.cpp
