@@ -89,6 +89,13 @@ the analog inputs, binary I/O, and a pulse generator.
 analog I/O module. This is similar to the USB-1608GX-2AO except that it runs at
 250 kHz rather than 500 kHz, and does not have the 2 analog outputs.
 
+* The [USB-1808 and USB-1808X](https://www.mccdaq.com/data-acquisition-and-control/simultaneous-daq/USB-1808-Series.aspx).
+This device contains 8 single-ended/8 differential 18-bit analog inputs, 
+2 16-bit analog outputs, and 4 binary input/outputs, 2 pulse generators, 2 counter inputs, and 
+2 quadrature encoder inputs. The driver supports simple analog and binary I/O, 
+2 waveform generators up to 1 MHz using the analog and/or digital outputs,
+and a waveform digitizer up to 500 kHz using the analog, digital, and encoder inputs.
+
 * The [USB-2408-2AO](http://www.mccdaq.com/usb-data-acquisition/USB-2408-2AO.aspx).
 This device contains 16 single-ended/8 differential 24-bit analog inputs, 
 2 16-bit analog outputs, and 8 binary input/outputs. The analog inputs can
