@@ -21,7 +21,7 @@
 
 #include <asynPortDriver.h>
 
-#define DRIVER_VERSION "4.3"
+#define DRIVER_VERSION "4.2"
 
 #ifdef _WIN32
   #include "cbw.h"

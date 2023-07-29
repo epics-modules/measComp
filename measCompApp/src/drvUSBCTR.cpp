@@ -31,7 +31,7 @@
 #include <epicsExport.h>
 #include <measCompDiscover.h>
 
-#define DRIVER_VERSION "4.3"
+#define DRIVER_VERSION "4.2"
 
 typedef enum {
   MCSPoint0Clear,
