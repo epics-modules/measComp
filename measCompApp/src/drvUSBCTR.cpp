@@ -98,14 +98,13 @@ static const char *driverName = "USBCTR";
 #define MAX_ERROR_STRING_LEN 256
 #define MAX_BOARDNAME_LEN    256
 
-#define DEFAULT_POLL_TIME 0.01
 #define SINGLEIO_THRESHOLD_TIME 0.01  // Above this time uses SINGLEIO, below uses block I/O.
 
 /** This is the class definition for the USBCTR class
   */
 class USBCTR : public asynPortDriver {
 public:
-  USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, double pollTime);
+  USBCTR(const char *portName, const char *uniqueID, int maxTimePoints);
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -203,7 +202,6 @@ private:
   #endif
   DaqDeviceDescriptor daqDeviceDescriptor_;
   char boardName_[MAX_BOARDNAME_LEN];
-  double pollTime_;
   int forceCallback_;
   int numCounters_;
   int numMCSCounters_;
@@ -254,14 +252,13 @@ static void pollerThreadC(void * pPvt)
     pUSBCTR->pollerThread();
 }
 
-USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, double pollTime)
+USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints)
   : asynPortDriver(portName, MAX_SIGNALS,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask |asynDrvUserMask,
       asynInt32Mask | asynUInt32DigitalMask | asynInt32ArrayMask | asynFloat32ArrayMask | asynFloat64Mask | asynFloat64ArrayMask | asynOctetMask,
       // Note: ASYN_CANBLOCK must not be set because the scaler record does not work with asynchronous device support
       ASYN_MULTIDEVICE, 1, /* ASYN_CANBLOCK=0, ASYN_MULTIDEVICE=1, autoConnect=1 */
       0, 0),  /* Default priority and stack size */
-    pollTime_((pollTime > 0.) ? pollTime : DEFAULT_POLL_TIME),
     forceCallback_(1),
     maxTimePoints_(maxTimePoints),
     scalerRunning_(false),
@@ -398,6 +395,7 @@ USBCTR::USBCTR(const char *portName, const char *uniqueID, int maxTimePoints, do
   setStringParam(firmwareVersion_, firmwareVersion);
   setStringParam(ULVersion_, ULVersion);
   setStringParam(driverVersion_, DRIVER_VERSION);
+  setDoubleParam(pollSleepMS_, 50.);
   
   // Allocate memory for the input buffers
   for (i=0; i<MAX_MCS_COUNTERS; i++) {
@@ -1530,8 +1528,7 @@ void USBCTR::report(FILE *fp, int details)
   int i;
   int currentPoint;
 
-  fprintf(fp, "  Port: %s, pollTime=%f\n",
-          this->portName, pollTime_);
+  fprintf(fp, "  Port: %s\n", this->portName);
   if (details >= 1) {
     fprintf(fp, "  Pulse generators:\n");
     for (i=0; i<NUM_TIMERS; i++) {
@@ -1555,9 +1552,9 @@ void USBCTR::report(FILE *fp, int details)
 
 /** Configuration command, called directly or from iocsh */
 extern "C" int USBCTRConfig(const char *portName, const char *uniqueID,
-                            int maxTimePoints, double pollTime)
+                            int maxTimePoints)
 {
-  new USBCTR(portName, uniqueID, maxTimePoints, pollTime);
+  new USBCTR(portName, uniqueID, maxTimePoints);
   return(asynSuccess);
 }
 
@@ -1565,15 +1562,13 @@ extern "C" int USBCTRConfig(const char *portName, const char *uniqueID,
 static const iocshArg configArg0 = { "Port name",             iocshArgString};
 static const iocshArg configArg1 = { "uniqueID",              iocshArgString};
 static const iocshArg configArg2 = { "Max. # of time points", iocshArgInt};
-static const iocshArg configArg3 = { "Poll time",             iocshArgDouble};
 static const iocshArg * const configArgs[] = {&configArg0,
                                               &configArg1,
-                                              &configArg2,
-                                              &configArg3};
-static const iocshFuncDef configFuncDef = {"USBCTRConfig",4,configArgs};
+                                              &configArg2};
+static const iocshFuncDef configFuncDef = {"USBCTRConfig",3,configArgs};
 static void configCallFunc(const iocshArgBuf *args)
 {
-  USBCTRConfig(args[0].sval, args[1].sval, args[2].ival, args[3].dval);
+  USBCTRConfig(args[0].sval, args[1].sval, args[2].ival);
 }
 
 void drvUSBCTRRegister(void)
