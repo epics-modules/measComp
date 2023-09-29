@@ -13,9 +13,9 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -90,7 +90,7 @@
            <div itemprop="articleBody">
              
   <section id="driver-for-the-usb-ctr08">
-<h1><a class="toc-backref" href="#id12" role="doc-backlink">Driver for the USB-CTR08</a><a class="headerlink" href="#driver-for-the-usb-ctr08" title="Permalink to this heading"></a></h1>
+<h1><a class="toc-backref" href="#id12" role="doc-backlink">Driver for the USB-CTR08</a><a class="headerlink" href="#driver-for-the-usb-ctr08" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Mark Rivers, University of Chicago</p>
@@ -124,7 +124,7 @@
 </ul>
 </nav>
 <section id="introduction">
-<span id="id1"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>This is an <a class="reference external" href="https://epics-controls.org/">EPICS</a> driver for the
 <a class="reference external" href="http://www.mccdaq.com/usb-data-acquisition/USB-CTR08.aspx">USB-CTR04 and USB-CTR08</a>
 counter/timer modules from <a class="reference external" href="https://www.mccdaq.com">MeasurementComputing</a>.</p>
@@ -133,7 +133,7 @@ counter/timer modules from <a class="reference external" href="https://www.mccda
 <figure class="align-center" id="id5">
 <img alt="_images/USB-CTR08.jpg" src="_images/USB-CTR08.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>Photo of USB-CTR08</strong></span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>Photo of USB-CTR08</strong></span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>This module has the following features:</p>
@@ -160,7 +160,7 @@ SIS3820)</p></li>
 </ul>
 </section>
 <section id="configuration">
-<span id="id2"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>The following lines are needed in the EPICS startup script for the
 USBCTR.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># This line is for Linux only
@@ -227,11 +227,11 @@ create_monitor_set(&quot;auto_settings.req&quot;,30)
 that contains and example startup script and example substitution files.</p>
 </section>
 <section id="databases">
-<span id="id3"></span><h2><a class="toc-backref" href="#id15" role="doc-backlink">Databases</a><a class="headerlink" href="#databases" title="Permalink to this heading"></a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id15" role="doc-backlink">Databases</a><a class="headerlink" href="#databases" title="Link to this heading"></a></h2>
 <p>The following tables list the database template files that are used with
 the USB-CTR04/08.</p>
 <section id="digital-i-o-functions">
-<span id="digitalio"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">Digital I/O Functions</a><a class="headerlink" href="#digital-i-o-functions" title="Permalink to this heading"></a></h3>
+<span id="digitalio"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">Digital I/O Functions</a><a class="headerlink" href="#digital-i-o-functions" title="Link to this heading"></a></h3>
 <p>These are the records defined in the following files:</p>
 <ul class="simple">
 <li><p>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</p></li>
@@ -311,7 +311,7 @@ link defines which bit is used.</p></td>
 </table>
 </section>
 <section id="pulse-generator-functions">
-<span id="pulsegen"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">Pulse Generator Functions</a><a class="headerlink" href="#pulse-generator-functions" title="Permalink to this heading"></a></h3>
+<span id="pulsegen"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">Pulse Generator Functions</a><a class="headerlink" href="#pulse-generator-functions" title="Link to this heading"></a></h3>
 <p><strong>Note:</strong> These are called “timers” in Measurement Computing’s documentation.</p>
 <p>These are the records defined in measCompPulseGen.template.
 This database is loaded once for each pulse generator.</p>
@@ -387,7 +387,7 @@ the polarity of the pulse, i.e. positive going or negative going.</p></td>
 </table>
 </section>
 <section id="scaler-record-support">
-<span id="scalersupport"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">Scaler Record Support</a><a class="headerlink" href="#scaler-record-support" title="Permalink to this heading"></a></h3>
+<span id="scalersupport"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">Scaler Record Support</a><a class="headerlink" href="#scaler-record-support" title="Link to this heading"></a></h3>
 <p>The USBCTR driver supports the EPICS scaler record via the
 devScalerAsyn.c device support originally from the
 <a class="reference external" href="http://www.aps.anl.gov/bcda/synApps">synApps</a>
@@ -417,7 +417,7 @@ the pulse generator (the actual frequency) and not the Frequency field
 frequencies &gt;1 MHz.</p>
 </section>
 <section id="multi-channel-scaler-mcs-support">
-<span id="mcssupport"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Multi-Channel Scaler (MCS) Support</a><a class="headerlink" href="#multi-channel-scaler-mcs-support" title="Permalink to this heading"></a></h3>
+<span id="mcssupport"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Multi-Channel Scaler (MCS) Support</a><a class="headerlink" href="#multi-channel-scaler-mcs-support" title="Link to this heading"></a></h3>
 <p>The USBCTR driver provides multi-channel scaler support very similar to
 the SIS3820 driver in the synApps mca module. The support has the
 following properties:</p>
@@ -647,12 +647,12 @@ MAX_POINTS macro parameter when loading the MCA or waveform records.</p></td>
 </table>
 </section>
 <section id="medm-screens">
-<h3><a class="toc-backref" href="#id20" role="doc-backlink">medm screens</a><a class="headerlink" href="#medm-screens" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">medm screens</a><a class="headerlink" href="#medm-screens" title="Link to this heading"></a></h3>
 <p>The following is the main medm screen for controlling the USB-CTR04/08.</p>
 <figure class="align-center" id="id6">
 <img alt="_images/USBCTR.png" src="_images/USBCTR.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USBCTR.adl</strong></span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>USBCTR.adl</strong></span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following is the medm screen for the EPICS scaler record using the
@@ -660,7 +660,7 @@ USB-CTR04/08.</p>
 <figure class="align-center" id="id7">
 <img alt="_images/USBCTR_scaler.png" src="_images/USBCTR_scaler.png" />
 <figcaption>
-<p><span class="caption-text"><strong>scaler_full.adl</strong></span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>scaler_full.adl</strong></span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following is the medm screen for controlling the MCS mode of the
@@ -668,19 +668,19 @@ USB-CTR04/08.</p>
 <figure class="align-center" id="id8">
 <img alt="_images/USBCTR_MCS.png" src="_images/USBCTR_MCS.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USBCTR_MCS.adl</strong></span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>USBCTR_MCS.adl</strong></span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id9">
 <img alt="_images/USBCTR_MCS_plots.png" src="_images/USBCTR_MCS_plots.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USBCTR_MCS_plots.adl</strong></span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>USBCTR_MCS_plots.adl</strong></span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="wiring-to-bcda-bc-020-lemo-breakout-panels">
-<span id="wiring"></span><h2><a class="toc-backref" href="#id21" role="doc-backlink">Wiring to BCDA BC-020 LEMO Breakout Panels</a><a class="headerlink" href="#wiring-to-bcda-bc-020-lemo-breakout-panels" title="Permalink to this heading"></a></h2>
+<span id="wiring"></span><h2><a class="toc-backref" href="#id21" role="doc-backlink">Wiring to BCDA BC-020 LEMO Breakout Panels</a><a class="headerlink" href="#wiring-to-bcda-bc-020-lemo-breakout-panels" title="Link to this heading"></a></h2>
 <p>The following photos show the BCDA BC-020 LEMO breakout panels wired to
 the USB-CTR08. A BC-020 with a BC-087 daughter card (left) is used for
 the 8 counter signals, and a BC-020 with wire-wrapping (right) is used
@@ -688,17 +688,17 @@ for digital I/O, timer output, clock I/O, etc. .</p>
 <figure class="align-center" id="id10">
 <img alt="_images/USBCTR_BC020.jpg" src="_images/USBCTR_BC020.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>BC-020 LEMO breakout panels with USBCTR-08</strong></span><a class="headerlink" href="#id10" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>BC-020 LEMO breakout panels with USBCTR-08</strong></span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="id11">
 <img alt="_images/USBCTR_Top.jpg" src="_images/USBCTR_Top.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>Top view of USBCTR-08 with BC-020 LEMO breakout panels</strong></span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><strong>Top view of USBCTR-08 with BC-020 LEMO breakout panels</strong></span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <section id="wiring-table">
-<span id="usb-ctr08-wiring"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Wiring table</a><a class="headerlink" href="#wiring-table" title="Permalink to this heading"></a></h3>
+<span id="usb-ctr08-wiring"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Wiring table</a><a class="headerlink" href="#wiring-table" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">Digital</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="ow">and</span> <span class="n">other</span> <span class="n">signals</span> <span class="n">using</span> <span class="n">wire</span><span class="o">-</span><span class="n">wrap</span> <span class="n">connections</span>
 
 <span class="mi">50</span><span class="o">-</span><span class="n">pin</span> <span class="n">ribbon</span>      <span class="n">USB</span><span class="o">-</span><span class="mi">1608</span><span class="n">GX</span>      <span class="n">BC</span><span class="o">-</span><span class="mi">020</span>       <span class="n">EPICS</span> <span class="n">Function</span>
@@ -798,7 +798,7 @@ for digital I/O, timer output, clock I/O, etc. .</p>
 </section>
 </section>
 <section id="performance-measurements">
-<span id="performance-ctr"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">Performance measurements</a><a class="headerlink" href="#performance-measurements" title="Permalink to this heading"></a></h2>
+<span id="performance-ctr"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">Performance measurements</a><a class="headerlink" href="#performance-measurements" title="Link to this heading"></a></h2>
 <p>The binary input bits are polled at 100 Hz, and the input records have
 SCAN=I/O Intr. There is thus a worse-case latency of 0.01 seconds in
 detecting a transition on these bits.</p>
@@ -834,7 +834,7 @@ counts in the MCA record was 8000000. This means that no pulses were
 lost during the 1000 channel advances that happened during this time.</p>
 </section>
 <section id="restrictions">
-<span id="id4"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">Restrictions</a><a class="headerlink" href="#restrictions" title="Permalink to this heading"></a></h2>
+<span id="id4"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">Restrictions</a><a class="headerlink" href="#restrictions" title="Link to this heading"></a></h2>
 <ul>
 <li><p>The EPICS driver only uses the Totalize mode of the counters. With
 the scaler record it does a one-shot totalize, while in the MCS mode
@@ -882,7 +882,7 @@ the gate inputs of counters 1-7 as discussed above.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2023, Mark Rivers.
-      <span class="lastupdated">Last updated on 2023-July-31.
+      <span class="lastupdated">Last updated on 2023-September-29.
       </span></p>
   </div>
 
