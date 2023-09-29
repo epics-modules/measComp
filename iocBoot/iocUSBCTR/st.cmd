@@ -13,7 +13,6 @@ epicsEnvSet("SCALER_NAME",        "scaler1")
 epicsEnvSet("RNAME",              "mca")
 epicsEnvSet("MAX_COUNTERS",       "9")
 epicsEnvSet("MAX_POINTS",         "2048")
-epicsEnvSet("POLL_TIME",          "0.01")
 # For MCA records FIELD=READ, for waveform records FIELD=PROC
 epicsEnvSet("FIELD",              "PROC")
 
@@ -23,9 +22,8 @@ asynSetMinTimerPeriod(0.001)
 ## Configure port driver
 # USBCTRConfig(portName,       # The name to give to this asyn port driver
 #              uniqueID,       # Device serial number.
-#              maxTimePoints,  # Maximum number of time points for MCS
-#              pollTime,       # Time to sleep between polls
-USBCTRConfig("$(PORT)", "$(UNIQUE_ID)", $(MAX_POINTS), $(POLL_TIME))
+#              maxTimePoints)  # Maximum number of time points for MCS
+USBCTRConfig("$(PORT)", "$(UNIQUE_ID)", $(MAX_POINTS))
 
 #asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
