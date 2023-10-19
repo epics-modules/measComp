@@ -1165,6 +1165,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       numTimers_    = 0;
       numCounters_  = 1;
       firstCounter_ = 0;
+      // There appears to be a bug on Windows when reading numAnalogIn_ above.  
+      // It is setting numAnalogIn_=4, when it should be 8
+      numAnalogIn_  = 8;
       break;
     case E_DIO24:
       numTimers_    = 0;
