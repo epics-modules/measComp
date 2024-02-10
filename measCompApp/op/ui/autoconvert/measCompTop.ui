@@ -85,6 +85,16 @@ caChoice &gt; QPushButton {
       padding: 1px;
 }
 
+/* when font specified, no font sizing is done any more,  font: 10pt; is not bad. You could Enable this when you converted from .adl files
+caRelatedDisplay  &gt; QPushButton {
+font: 10pt;
+}
+
+caShellCommand  &gt; QPushButton {
+font: 10pt;
+}
+*/
+
 caSlider::groove:horizontal {
 border: 1px solid #bbb;
 background: lightgrey;
@@ -139,7 +149,7 @@ border-radius: 2px;
                 <string>USB-1608G module</string>
             </property>
             <property name="files">
-                <string>1608G_module.adl</string>
+                <string>1608G_module.ui </string>
             </property>
             <property name="args">
                 <string>P=1608G:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen1,Tg=Trig</string>
@@ -181,7 +191,7 @@ border-radius: 2px;
                 <string>USB-1208LS module</string>
             </property>
             <property name="files">
-                <string>USB1208LS_module.adl</string>
+                <string>USB1208LS_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB1208:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen</string>
@@ -223,7 +233,7 @@ border-radius: 2px;
                 <string>USB-1608G-2AO module</string>
             </property>
             <property name="files">
-                <string>USB1608G_2AO_module.adl</string>
+                <string>USB1608G_2AO_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB1608G_2AO:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen,Tg=Trig</string>
@@ -265,10 +275,10 @@ border-radius: 2px;
                 <string>USB-CTR08 module</string>
             </property>
             <property name="files">
-                <string>USBCTR.adl</string>
+                <string>USBCTR.ui </string>
             </property>
             <property name="args">
-                <string>P=USBCTR:,SP=USBCTR:scaler1,MP=USBCTR:MCS:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig</string>
+                <string>P=USBCTR:,SP=USBCTR:,S=scaler1,MP=USBCTR:MCS:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter,Pg=PulseGen,Tg=Trig</string>
             </property>
             <property name="removeParent">
                 <string>false</string>
@@ -307,7 +317,7 @@ border-radius: 2px;
                 <string>USB-2408 module</string>
             </property>
             <property name="files">
-                <string>USB2408_module.adl</string>
+                <string>USB2408_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB2408:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ti=Ti,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Tg=Trig</string>
@@ -349,7 +359,7 @@ border-radius: 2px;
                 <string>TC32 module</string>
             </property>
             <property name="files">
-                <string>TC32_module.adl</string>
+                <string>TC32_module.ui </string>
             </property>
             <property name="args">
                 <string>P=TC32:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Ti=Ti</string>
@@ -391,7 +401,7 @@ border-radius: 2px;
                 <string>USB-231 module</string>
             </property>
             <property name="files">
-                <string>USB231_module.adl</string>
+                <string>USB231_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB231:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen</string>
@@ -433,7 +443,7 @@ border-radius: 2px;
                 <string>E-1608 module #1;E-1608 module #2</string>
             </property>
             <property name="files">
-                <string>E1608_module.adl;E1608_module.adl</string>
+                <string>E1608_module.ui ;E1608_module.ui </string>
             </property>
             <property name="args">
                 <string>P=E1608:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Tg=Trig;P=E1608_1:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Tg=Trig</string>
@@ -475,7 +485,7 @@ border-radius: 2px;
                 <string>E-TC module</string>
             </property>
             <property name="files">
-                <string>ETC_module.adl</string>
+                <string>ETC_module.ui </string>
             </property>
             <property name="args">
                 <string>P=ETC:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter</string>
@@ -517,7 +527,7 @@ border-radius: 2px;
                 <string>USB-TEMP-AI module</string>
             </property>
             <property name="files">
-                <string>USBTEMP_AI_module.adl</string>
+                <string>USBTEMP_AI_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USBTEMP_AI:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter</string>
@@ -559,7 +569,7 @@ border-radius: 2px;
                 <string>USB-TEMP module</string>
             </property>
             <property name="files">
-                <string>USBTEMP_module.adl</string>
+                <string>USBTEMP_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USBTEMP:,Ai=Ai,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ti=Ti,Ct=Counter</string>
@@ -601,7 +611,7 @@ border-radius: 2px;
                 <string>E-DIO24 module</string>
             </property>
             <property name="files">
-                <string>EDIO24_module.adl</string>
+                <string>EDIO24_module.ui </string>
             </property>
             <property name="args">
                 <string>P=EDIO24:,Bd=Bd,Bi=Bi,Bo=Bo,Ct=Counter,Li=Li,Lo=Lo</string>
@@ -643,7 +653,7 @@ border-radius: 2px;
                 <string>USB-3105 module;USB-3104 module</string>
             </property>
             <property name="files">
-                <string>USB3105_module.adl;USB3104_module.adl</string>
+                <string>USB3105_module.ui ;USB3104_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB3105:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter;P=USB3104:,Ao=Ao,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ct=Counter</string>
@@ -685,7 +695,7 @@ border-radius: 2px;
                 <string>USB-1808 module</string>
             </property>
             <property name="files">
-                <string>USB1808_module.adl</string>
+                <string>USB1808_module.ui </string>
             </property>
             <property name="args">
                 <string>P=USB1808:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo,Bd=Bd,Ai=Ai,Ao=Ao,Ct=Counter,Wd=WaveDig,Wg=WaveGen,Pg=PulseGen,Tg=Trig,Enc=Encoder</string>
