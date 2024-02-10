@@ -1,5 +1,14 @@
 # measComp Release Notes
 
+## Release 4-3 (February XXX, 2024)
+  - drvMultiFunction.cpp
+    - Work around bug where the value of numAnalogIn on E-1608 is returned by the vendor UL library is 4 rather than 8.
+    - Set the initial value of pollSleepMS to 50.
+  - drvUSBCTR.cpp
+    - Remove the pollTime argument from the constructor and USBCTRConfig iocsh command.
+      This was no longer used since pollSleepMS was added in R4-2.
+    - Set the initial value of pollSleepMS to 50.
+
 ## Release 4-2 (July 29, 2023)
   - Added support for the following new models:
     - USB-SSR08, which supports 8 solid-state relays.
