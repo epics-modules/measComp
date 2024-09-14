@@ -415,7 +415,7 @@ The following record are defined in measCompMCS.template. This database is loade
     - bo
     - asynInt32
     - MCA_CH_ADV_SOURCE
-    - The channel advance source. 0="Internal" uses DWELL record, 1="External" uses External
+    - The channel advance source. 0="Internal" uses Dwell record, 1="External" uses External
       Clock Input on USB-CTR module.
   * - $(P)$(R)Prescale
     - bo
@@ -484,6 +484,10 @@ The following record are defined in measCompMCS.template. This database is loade
       mode. If triggered acquisition is not desired then simply do not connect any signal
       to the Trigger Input and set Mode="Low". This will cause the trigger condition to
       always be satisfied.
+
+      There is actually a serious problem with using external triggers in MCS mode.
+      See the note below.
+
   * - $(P)$(R)MaxChannels
     - longin
     - asynInt32
@@ -495,6 +499,80 @@ The following record are defined in measCompMCS.template. This database is loade
     - asynInt32
     - MODEL
     - The model number of the counter module. 0="USB-CRT08", 1="USB-CTR04".
+
+Notes on external channel advance
+_________________________________
+
+There are 2 problem with external channel advance that can cause the number channels collected (final value of CurrentChannel) to be less than that requested (NuseAll).
+
+The first problem only happens when all of the following 4 conditions are met:
+
+1) ChannelAdvance = External
+2) TrigMode = Anything that would prevent counting from starting immediately, e.g. Rising edge, Falling edge, 
+   Low level (when the trigger input is currently high), or High level (when the trigger input is currently low).
+3) Pulses are arriving on CLKI before the trigger condition is satisfied.
+4) The requested number of CLKI pulses (NuseAll) have not yet arrived when the trigger condition is satisfied.
+
+The problem is clearly that the USBCTR should be ignoring any CLKI pulses that arrive before the trigger condition is met, but it does not.
+
+Consider the following conditions:
+
+- CLKI input is 100 Hz, and is arriving continuously
+- NuseAll = 2048
+- The total time to collect the data should be 20.48 seconds.
+- The EraseStart is processed at time 0, starting the MCS
+- If the trigger condition is satisfied at time=5.12 seconds, then it will only acquire 1526 channels.
+  This is because it did not ignore the first 512 CLKI signals that arrived before the trigger condition was satisfied.
+
+I believe this is a bug in the USBCTR firmware. I should report it to them, but I am not sure they will see it as a high enough priority to fix it.
+They will want to have a C test program to demonstrate the problem, which would be some work.
+
+The second problem happens when the following 3 conditions are met:
+
+1) ChannelAdvance = External
+2) The number of external channel advance pulses received on CLKI is less than the requested number (NuseAll).
+3) The dwell time (Dwell) is set to less than 0.01 second.
+
+For example:
+
+- External channel advance pulse rate into CLKI is 1000 Hz.
+- Dwell = 0.001
+- NuseAll = 2048
+- The actual number of pulses sent to CLKI is 2047
+
+One would expect that the final value of CurrentChannel would be 2047.
+The MCS would not automatically stop, because it is expecting one more external channel advance.
+What is actually observed is that the final value of CurrentChannel is 2033, not 2047.
+
+This is the explanation for this:
+
+- The USB-CTR08 can transfer the MCS data to the EPICS driver in 2 modes:
+
+  - SINGLEIO mode. In this mode the counts for each dwell period are immediately sent by USB to the EPICS computer.
+  - BLOCKIO mode. In this mode the USBCTR buffers the data and sends it in blocks to the EPICS computer.
+
+- SINGLEIO mode is desired at long dwell times, so that the user can see the MCS array data
+  without any delay from waiting for the buffer on the USB-CTR08 to fill up.
+- BLOCKIO is needed at very short dwell times because the USB bus cannot keep up with too many short transactions per second.
+- The USB-CTR08 always pushes MCS data to the host computer. It does not support pulling the data via a request from the host.
+- The EPICS driver transitions from SINGLEIO to BLOCKIO when Dwell is less than 0.01 seconds.
+
+In general I recommend that Dwell be set approximately the period of the external channel advance pulses.
+This will ensure the correct 32/16 bit switch as explained above.
+
+In the example above with Dwell=0.001 it was thus using BLOCKIO.
+The problem arises because the USB-CTR08 was told to collect 2048 dwell periods, but only receives 2047 external CLKI pulses.
+It thus has a partially full buffer that it will push to the host when pulse 2048 is received.
+But because that final pulse is never received the final buffer is never sent, and CurrentChannel only gets to 2033.
+
+This problem can be worked around by always setting Dwell to 0.01, forcing it to use SINGLEIO even for external pulse periods shorter than 0.01 seconds (100 Hz).
+Surprisingly I have found that SINGLEIO works reliably for dwell times as short as 10 microseconds, i.e. 100 kHz.
+This is true no matter how many counter channels are enabled, i.e. have CounterNEnable=1. 
+However. above 100 kHz channel advance frequency SINGLEIO does not work, and one needs to decrease Dwell to switch to BLOCKIO.
+
+Note that this problem only occurs when the number of advance pulses received is less than NuseALL. 
+If the number of pulses is at least NuseAll then CurrentChannel will always reach NuseAll.
+This is true whether it is running with SINGLEIO or BLOCKIO.
 
 medm screens
 ~~~~~~~~~~~~
