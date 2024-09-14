@@ -562,6 +562,8 @@ int USBCTR::startMCS()
 
   if ((channelAdvance == mcaChannelAdvance_External) && (prescale > 1) ) {
     #ifdef _WIN32
+      // LOADREG0=0, LOADREG1=1, so we use addr  
+      status = cbCLoad32(boardNum_, prescaleCounter, 0);
       status = cbCLoad32(boardNum_, OUTPUTVAL0REG0+prescaleCounter, 0);
       status = cbCLoad32(boardNum_, OUTPUTVAL1REG0+prescaleCounter, prescale-1);
       status = cbCLoad32(boardNum_, MAXLIMITREG0+prescaleCounter, prescale-1);
@@ -569,6 +571,7 @@ int USBCTR::startMCS()
       status = cbCConfigScan(boardNum_, prescaleCounter, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                              CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     #else
+      status = ulCClear(daqDeviceHandle_, prescaleCounter);
       status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL0, 0);
       status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_OUTPUT_VAL1, prescale-1);
       status = ulCLoad(daqDeviceHandle_, prescaleCounter, CRT_MAX_LIMIT, prescale-1);
