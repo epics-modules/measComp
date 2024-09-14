@@ -915,6 +915,7 @@ Waveform Digitizer Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These records are defined in the following files:
+
 - measCompWaveformDig.template. This database is loaded once per module.
 - measCompWaveformDigN.template. This database is loaded for each digitizer input channel.
 
@@ -1056,6 +1057,7 @@ Waveform Generator Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These records are defined in the following files:
+
 - measCompWaveformGen.template. This database is loaded once per module.
 - measCompWaveformGenN.template. This database is loaded for each waveform generator output channel.
 
