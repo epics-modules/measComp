@@ -58,6 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#usb-temp-and-usb-temp-ai">USB-TEMP and USB-TEMP-AI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usb-1208ls">USB-1208LS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#e-dio24">E-DIO24</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usb-erb24">USB-ERB24</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usb-3100">USB-3100</a></li>
 </ul>
 </li>
@@ -106,7 +107,7 @@
            <div itemprop="articleBody">
              
   <section id="driver-for-multi-function-devices">
-<h1><a class="toc-backref" href="#id36" role="doc-backlink">Driver for Multi-Function Devices</a><a class="headerlink" href="#driver-for-multi-function-devices" title="Link to this heading"></a></h1>
+<h1><a class="toc-backref" href="#id38" role="doc-backlink">Driver for Multi-Function Devices</a><a class="headerlink" href="#driver-for-multi-function-devices" title="Link to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Mark Rivers, University of Chicago</p>
@@ -115,45 +116,46 @@
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#driver-for-multi-function-devices" id="id36">Driver for Multi-Function Devices</a></p>
+<li><p><a class="reference internal" href="#driver-for-multi-function-devices" id="id38">Driver for Multi-Function Devices</a></p>
 <ul>
-<li><p><a class="reference internal" href="#introduction" id="id37">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#supported-models" id="id38">Supported models</a></p>
+<li><p><a class="reference internal" href="#introduction" id="id39">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#supported-models" id="id40">Supported models</a></p>
 <ul>
-<li><p><a class="reference internal" href="#e-1608" id="id39">E-1608</a></p></li>
-<li><p><a class="reference internal" href="#e-tc" id="id40">E-TC</a></p></li>
-<li><p><a class="reference internal" href="#tc-32" id="id41">TC-32</a></p></li>
-<li><p><a class="reference internal" href="#usb-1608g-and-usb-1608gx-2ao" id="id42">USB-1608G and USB-1608GX-2AO</a></p></li>
-<li><p><a class="reference internal" href="#usb-1808-and-usb-1808x" id="id43">USB-1808 and USB-1808X</a></p></li>
-<li><p><a class="reference internal" href="#usb-2408-2ao" id="id44">USB-2408-2AO</a></p></li>
-<li><p><a class="reference internal" href="#usb-temp-and-usb-temp-ai" id="id45">USB-TEMP and USB-TEMP-AI</a></p></li>
-<li><p><a class="reference internal" href="#usb-1208ls" id="id46">USB-1208LS</a></p></li>
-<li><p><a class="reference internal" href="#e-dio24" id="id47">E-DIO24</a></p></li>
-<li><p><a class="reference internal" href="#usb-3100" id="id48">USB-3100</a></p></li>
+<li><p><a class="reference internal" href="#e-1608" id="id41">E-1608</a></p></li>
+<li><p><a class="reference internal" href="#e-tc" id="id42">E-TC</a></p></li>
+<li><p><a class="reference internal" href="#tc-32" id="id43">TC-32</a></p></li>
+<li><p><a class="reference internal" href="#usb-1608g-and-usb-1608gx-2ao" id="id44">USB-1608G and USB-1608GX-2AO</a></p></li>
+<li><p><a class="reference internal" href="#usb-1808-and-usb-1808x" id="id45">USB-1808 and USB-1808X</a></p></li>
+<li><p><a class="reference internal" href="#usb-2408-2ao" id="id46">USB-2408-2AO</a></p></li>
+<li><p><a class="reference internal" href="#usb-temp-and-usb-temp-ai" id="id47">USB-TEMP and USB-TEMP-AI</a></p></li>
+<li><p><a class="reference internal" href="#usb-1208ls" id="id48">USB-1208LS</a></p></li>
+<li><p><a class="reference internal" href="#e-dio24" id="id49">E-DIO24</a></p></li>
+<li><p><a class="reference internal" href="#usb-erb24" id="id50">USB-ERB24</a></p></li>
+<li><p><a class="reference internal" href="#usb-3100" id="id51">USB-3100</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#configuration" id="id49">Configuration</a></p></li>
-<li><p><a class="reference internal" href="#databases" id="id50">Databases</a></p>
+<li><p><a class="reference internal" href="#configuration" id="id52">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#databases" id="id53">Databases</a></p>
 <ul>
-<li><p><a class="reference internal" href="#overall-device-functions" id="id51">Overall Device Functions</a></p></li>
-<li><p><a class="reference internal" href="#analog-i-o-functions" id="id52">Analog I/O Functions</a></p></li>
-<li><p><a class="reference internal" href="#temperature-functions" id="id53">Temperature Functions</a></p></li>
-<li><p><a class="reference internal" href="#digital-i-o-functions" id="id54">Digital I/O Functions</a></p></li>
-<li><p><a class="reference internal" href="#pulse-generator-functions" id="id55">Pulse Generator Functions</a></p></li>
-<li><p><a class="reference internal" href="#waveform-digitizer-functions" id="id56">Waveform Digitizer Functions</a></p></li>
-<li><p><a class="reference internal" href="#waveform-generator-functions" id="id57">Waveform Generator Functions</a></p></li>
-<li><p><a class="reference internal" href="#trigger-functions" id="id58">Trigger Functions</a></p></li>
+<li><p><a class="reference internal" href="#overall-device-functions" id="id54">Overall Device Functions</a></p></li>
+<li><p><a class="reference internal" href="#analog-i-o-functions" id="id55">Analog I/O Functions</a></p></li>
+<li><p><a class="reference internal" href="#temperature-functions" id="id56">Temperature Functions</a></p></li>
+<li><p><a class="reference internal" href="#digital-i-o-functions" id="id57">Digital I/O Functions</a></p></li>
+<li><p><a class="reference internal" href="#pulse-generator-functions" id="id58">Pulse Generator Functions</a></p></li>
+<li><p><a class="reference internal" href="#waveform-digitizer-functions" id="id59">Waveform Digitizer Functions</a></p></li>
+<li><p><a class="reference internal" href="#waveform-generator-functions" id="id60">Waveform Generator Functions</a></p></li>
+<li><p><a class="reference internal" href="#trigger-functions" id="id61">Trigger Functions</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#box-for-usb-ctr08-usb-3104-and-usb-1808x" id="id59">Box for USB-CTR08, USB-3104, and USB-1808X</a></p></li>
-<li><p><a class="reference internal" href="#box-for-usb-2408-2ao" id="id60">Box for USB-2408-2AO</a></p></li>
-<li><p><a class="reference internal" href="#performance-measurements" id="id61">Performance measurements</a></p></li>
+<li><p><a class="reference internal" href="#box-for-usb-ctr08-usb-3104-and-usb-1808x" id="id62">Box for USB-CTR08, USB-3104, and USB-1808X</a></p></li>
+<li><p><a class="reference internal" href="#box-for-usb-2408-2ao" id="id63">Box for USB-2408-2AO</a></p></li>
+<li><p><a class="reference internal" href="#performance-measurements" id="id64">Performance measurements</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="introduction">
-<h2><a class="toc-backref" href="#id37" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id39" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
 <p>This is an <a class="reference external" href="https://epics-controls.org/">EPICS</a> driver for the
 multi-function devices from <a class="reference external" href="https://www.mccdaq.com">MeasurementComputing</a>.
 These multi-function devices support support analog input,
@@ -168,10 +170,10 @@ However, there are some features that cannot be queried, so the driver
 does require small modifications to be be used with a new model.</p>
 </section>
 <section id="supported-models">
-<h2><a class="toc-backref" href="#id38" role="doc-backlink">Supported models</a><a class="headerlink" href="#supported-models" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id40" role="doc-backlink">Supported models</a><a class="headerlink" href="#supported-models" title="Link to this heading"></a></h2>
 <p>The following models are currently supported.</p>
 <section id="e-1608">
-<h3><a class="toc-backref" href="#id39" role="doc-backlink">E-1608</a><a class="headerlink" href="#e-1608" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">E-1608</a><a class="headerlink" href="#e-1608" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id1">
 <img alt="_images/E1608.jpg" src="_images/E1608.jpg" />
 <figcaption>
@@ -220,7 +222,7 @@ description.</a></p>
 </figure>
 </section>
 <section id="e-tc">
-<h3><a class="toc-backref" href="#id40" role="doc-backlink">E-TC</a><a class="headerlink" href="#e-tc" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">E-TC</a><a class="headerlink" href="#e-tc" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id3">
 <img alt="_images/E-TC.jpg" src="_images/E-TC.jpg" />
 <figcaption>
@@ -261,7 +263,7 @@ description.</a></p>
 </section>
 <hr class="docutils" />
 <section id="tc-32">
-<h3><a class="toc-backref" href="#id41" role="doc-backlink">TC-32</a><a class="headerlink" href="#tc-32" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">TC-32</a><a class="headerlink" href="#tc-32" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id5">
 <img alt="_images/TC-32.jpg" src="_images/TC-32.jpg" />
 <figcaption>
@@ -303,7 +305,7 @@ description.</a></p>
 </figure>
 </section>
 <section id="usb-1608g-and-usb-1608gx-2ao">
-<h3><a class="toc-backref" href="#id42" role="doc-backlink">USB-1608G and USB-1608GX-2AO</a><a class="headerlink" href="#usb-1608g-and-usb-1608gx-2ao" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">USB-1608G and USB-1608GX-2AO</a><a class="headerlink" href="#usb-1608g-and-usb-1608gx-2ao" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id7">
 <img alt="_images/USB-1608GX-2AO.jpg" src="_images/USB-1608GX-2AO.jpg" />
 <figcaption>
@@ -371,7 +373,7 @@ USB-1608GX-2AO.</p>
 </figure>
 </section>
 <section id="usb-1808-and-usb-1808x">
-<h3><a class="toc-backref" href="#id43" role="doc-backlink">USB-1808 and USB-1808X</a><a class="headerlink" href="#usb-1808-and-usb-1808x" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">USB-1808 and USB-1808X</a><a class="headerlink" href="#usb-1808-and-usb-1808x" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id9">
 <img alt="_images/USB-1808.jpg" src="_images/USB-1808.jpg" />
 <figcaption>
@@ -444,7 +446,7 @@ USB-1808.</p>
 </figure>
 </section>
 <section id="usb-2408-2ao">
-<h3><a class="toc-backref" href="#id44" role="doc-backlink">USB-2408-2AO</a><a class="headerlink" href="#usb-2408-2ao" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">USB-2408-2AO</a><a class="headerlink" href="#usb-2408-2ao" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id11">
 <img alt="_images/USB-2408-2AO.jpg" src="_images/USB-2408-2AO.jpg" />
 <figcaption>
@@ -495,7 +497,7 @@ description.</a></p>
 </figure>
 </section>
 <section id="usb-temp-and-usb-temp-ai">
-<h3><a class="toc-backref" href="#id45" role="doc-backlink">USB-TEMP and USB-TEMP-AI</a><a class="headerlink" href="#usb-temp-and-usb-temp-ai" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id47" role="doc-backlink">USB-TEMP and USB-TEMP-AI</a><a class="headerlink" href="#usb-temp-and-usb-temp-ai" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id13">
 <img alt="_images/USB-TEMP.jpg" src="_images/USB-TEMP.jpg" />
 <figcaption>
@@ -555,7 +557,7 @@ However, they <strong>can</strong> be changed with EPICS on Linux, so they are e
 </figure>
 </section>
 <section id="usb-1208ls">
-<h3><a class="toc-backref" href="#id46" role="doc-backlink">USB-1208LS</a><a class="headerlink" href="#usb-1208ls" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">USB-1208LS</a><a class="headerlink" href="#usb-1208ls" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id16">
 <img alt="_images/USB-1208LS.jpg" src="_images/USB-1208LS.jpg" />
 <figcaption>
@@ -608,7 +610,7 @@ are similar devices but with higher performance.  These are also supported.</p>
 </figure>
 </section>
 <section id="e-dio24">
-<h3><a class="toc-backref" href="#id47" role="doc-backlink">E-DIO24</a><a class="headerlink" href="#e-dio24" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">E-DIO24</a><a class="headerlink" href="#e-dio24" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id18">
 <img alt="_images/E-DIO24_500.jpg" src="_images/E-DIO24_500.jpg" />
 <figcaption>
@@ -639,12 +641,39 @@ description.</a></p>
 </figcaption>
 </figure>
 </section>
-<section id="usb-3100">
-<h3><a class="toc-backref" href="#id48" role="doc-backlink">USB-3100</a><a class="headerlink" href="#usb-3100" title="Link to this heading"></a></h3>
+<section id="usb-erb24">
+<h3><a class="toc-backref" href="#id50" role="doc-backlink">USB-ERB24</a><a class="headerlink" href="#usb-erb24" title="Link to this heading"></a></h3>
 <figure class="align-center" id="id20">
+<img alt="_images/USB-ERB24.jpg" src="_images/USB-ERB24.jpg" />
+<figcaption>
+<p><span class="caption-text"><strong>Photo of USB-ERB24</strong></span><a class="headerlink" href="#id20" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>This module costs $325 and has the following features:</p>
+<ul class="simple">
+<li><p>Relay outputs</p>
+<ul>
+<li><p>24 Form C SPDT relay outputs, up to 6 amps at 240 VAC/28 VDC.
+Screw terminals with normally-open and normally closed connections for each relay.</p></li>
+</ul>
+</li>
+</ul>
+<p>More information can be found in the <a class="reference external" href="https://digilent.com/shop/mcc-usb-erb-series-electromechanical-relay-usb-devices">USB-ERB24 product
+description.</a></p>
+<p>The following is the main medm screen for controlling the USB-ERB24.</p>
+<figure class="align-center" id="id21">
+<img alt="_images/USBERB24_module.png" src="_images/USBERB24_module.png" />
+<figcaption>
+<p><span class="caption-text"><strong>USBERB24_module.adl</strong></span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="usb-3100">
+<h3><a class="toc-backref" href="#id51" role="doc-backlink">USB-3100</a><a class="headerlink" href="#usb-3100" title="Link to this heading"></a></h3>
+<figure class="align-center" id="id22">
 <img alt="_images/USB-3100.jpg" src="_images/USB-3100.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>Photo of USB-3101</strong></span><a class="headerlink" href="#id20" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Photo of USB-3101</strong></span><a class="headerlink" href="#id22" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>This series of module costs from $330 (USB-3101) to $660 (USB-3106) depending on the number of channels and the output type,
@@ -673,23 +702,23 @@ and has the following features:</p>
 <p>More information can be found in the <a class="reference external" href="https://www.mccdaq.com/usb-data-acquisition/USB-3100-Series.aspx">USB-3100 series product
 description.</a></p>
 <p>The following is the main medm screen for controlling the USB-3104 8-channel unit.</p>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id23">
 <img alt="_images/USB3104_module.png" src="_images/USB3104_module.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USB3104_module.adl</strong></span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>USB3104_module.adl</strong></span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following is the medm screen for configuring the analog outputs on the USB-3104 8-channel unit.</p>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id24">
 <img alt="_images/USB3104_setup.png" src="_images/USB3104_setup.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USB3104_setup.adl</strong></span><a class="headerlink" href="#id22" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>USB3104_setup.adl</strong></span><a class="headerlink" href="#id24" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="configuration">
-<h2><a class="toc-backref" href="#id49" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">Configuration</a><a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>The following lines are needed in the EPICS startup script for the
 multifunction driver.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Configure port driver</span>
@@ -713,11 +742,11 @@ while the IP address or IP name must be used for devices on other subnets.</p></
 example startup scripts and example substitutions files for each supported model.</p>
 </section>
 <section id="databases">
-<h2><a class="toc-backref" href="#id50" role="doc-backlink">Databases</a><a class="headerlink" href="#databases" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id53" role="doc-backlink">Databases</a><a class="headerlink" href="#databases" title="Link to this heading"></a></h2>
 <p>The following tables list the database template files that are used with
 the multi-function modules.</p>
 <section id="overall-device-functions">
-<h3><a class="toc-backref" href="#id51" role="doc-backlink">Overall Device Functions</a><a class="headerlink" href="#overall-device-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">Overall Device Functions</a><a class="headerlink" href="#overall-device-functions" title="Link to this heading"></a></h3>
 <p>These are the records defined in measCompDevice.template.
 This database is loaded once for each module.</p>
 <table class="table-bordered table-striped table-hover docutils align-default">
@@ -795,15 +824,15 @@ This database is loaded once for each module.</p>
 </table>
 <p>The medm sub-screen that displays these records.
 The main screen for every module contains a subscreen like this.</p>
-<figure class="align-center" id="id23">
+<figure class="align-center" id="id25">
 <img alt="_images/measCompDevice.png" src="_images/measCompDevice.png" />
 <figcaption>
-<p><span class="caption-text"><strong>measCompDevice.adl</strong></span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>measCompDevice.adl</strong></span><a class="headerlink" href="#id25" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="analog-i-o-functions">
-<h3><a class="toc-backref" href="#id52" role="doc-backlink">Analog I/O Functions</a><a class="headerlink" href="#analog-i-o-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">Analog I/O Functions</a><a class="headerlink" href="#analog-i-o-functions" title="Link to this heading"></a></h3>
 <p>These are the records defined in measCompAnalogIn.template.
 This database is loaded once for each analog input channel</p>
 <table class="table-bordered table-striped table-hover docutils align-default">
@@ -858,10 +887,10 @@ are determined at run time based on the model in use.</p></td>
 records for the USB-1608GX-2AO. Note that the engineering units limits
 (EGUL and EGUF) do not have to be in volts, they can be in any units
 such as “percent”, “degrees”, etc.</p>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id26">
 <img alt="_images/measCompAiSetup.png" src="_images/measCompAiSetup.png" />
 <figcaption>
-<p><span class="caption-text"><strong>measCompAiSetup.adl</strong></span><a class="headerlink" href="#id24" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>measCompAiSetup.adl</strong></span><a class="headerlink" href="#id26" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>These are the records defined in measCompAnalogOut.template.
@@ -938,15 +967,15 @@ records for the USB-1608GX-2AO. Note that the engineering units limits
 (EGUL and EGUF) do not have to be in volts, they can be in any units
 such as “percent”, “degrees”, etc. The drive limits can be more
 restrictive than the full +-10V output range of the analog outputs.</p>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id27">
 <img alt="_images/measCompAoSetup.png" src="_images/measCompAoSetup.png" />
 <figcaption>
-<p><span class="caption-text"><strong>measCompAoSetup.adl</strong></span><a class="headerlink" href="#id25" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>measCompAoSetup.adl</strong></span><a class="headerlink" href="#id27" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="temperature-functions">
-<h3><a class="toc-backref" href="#id53" role="doc-backlink">Temperature Functions</a><a class="headerlink" href="#temperature-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">Temperature Functions</a><a class="headerlink" href="#temperature-functions" title="Link to this heading"></a></h3>
 <p>These are the records defined in measCompTemperatureIn.template.
 This database is loaded once for each temperature input channel.</p>
 <table class="table-bordered table-striped table-hover docutils align-default">
@@ -997,15 +1026,15 @@ not currently polled in the driver, so I/O Intr scanning cannot be used.</p></td
 </table>
 <p>The following is the main medm screen for configuring the
 analog/temperature inputs on the USB-2408-2AO.</p>
-<figure class="align-center" id="id26">
+<figure class="align-center" id="id28">
 <img alt="_images/measCompTemperatureSetup.png" src="_images/measCompTemperatureSetup.png" />
 <figcaption>
-<p><span class="caption-text"><strong>measCompTemperatureSetup.adl</strong></span><a class="headerlink" href="#id26" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>measCompTemperatureSetup.adl</strong></span><a class="headerlink" href="#id28" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="digital-i-o-functions">
-<h3><a class="toc-backref" href="#id54" role="doc-backlink">Digital I/O Functions</a><a class="headerlink" href="#digital-i-o-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">Digital I/O Functions</a><a class="headerlink" href="#digital-i-o-functions" title="Link to this heading"></a></h3>
 <p>These are the records defined in the following files:</p>
 <ul class="simple">
 <li><p>measCompBinaryIn.template. This database is loaded once for each binary I/O bit.</p></li>
@@ -1085,7 +1114,7 @@ link defines which bit is used.</p></td>
 </table>
 </section>
 <section id="pulse-generator-functions">
-<h3><a class="toc-backref" href="#id55" role="doc-backlink">Pulse Generator Functions</a><a class="headerlink" href="#pulse-generator-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">Pulse Generator Functions</a><a class="headerlink" href="#pulse-generator-functions" title="Link to this heading"></a></h3>
 <p><strong>Note:</strong> These are called “timers” in Measurement Computing’s documentation.</p>
 <p>These are the records defined in measCompPulseGen.template.
 This database is loaded once for each pulse generator.</p>
@@ -1161,7 +1190,7 @@ the polarity of the pulse, i.e. positive going or negative going.</p></td>
 </table>
 </section>
 <section id="waveform-digitizer-functions">
-<h3><a class="toc-backref" href="#id56" role="doc-backlink">Waveform Digitizer Functions</a><a class="headerlink" href="#waveform-digitizer-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id59" role="doc-backlink">Waveform Digitizer Functions</a><a class="headerlink" href="#waveform-digitizer-functions" title="Link to this heading"></a></h3>
 <p>These records are defined in the following files:</p>
 <ul class="simple">
 <li><p>measCompWaveformDig.template. This database is loaded once per module.</p></li>
@@ -1320,15 +1349,15 @@ the ReadWF record above processes. The data are in volts.</p></td>
 </tbody>
 </table>
 <p>This is a plot of a digitized waveform captured of someone speaking into a microphone.</p>
-<figure class="align-center" id="id27">
+<figure class="align-center" id="id29">
 <img alt="_images/measCompWaveDigPlot.png" src="_images/measCompWaveDigPlot.png" />
 <figcaption>
-<p><span class="caption-text"><strong>Waveform digitizer plot</strong></span><a class="headerlink" href="#id27" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Waveform digitizer plot</strong></span><a class="headerlink" href="#id29" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="waveform-generator-functions">
-<h3><a class="toc-backref" href="#id57" role="doc-backlink">Waveform Generator Functions</a><a class="headerlink" href="#waveform-generator-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">Waveform Generator Functions</a><a class="headerlink" href="#waveform-generator-functions" title="Link to this heading"></a></h3>
 <p>These records are defined in the following files:</p>
 <ul class="simple">
 <li><p>measCompWaveformGen.template. This database is loaded once per module.</p></li>
@@ -1548,21 +1577,21 @@ is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
 </tr>
 </tbody>
 </table>
-<figure class="align-center" id="id28">
+<figure class="align-center" id="id30">
 <img alt="_images/measCompWaveGenPlot_int.png" src="_images/measCompWaveGenPlot_int.png" />
 <figcaption>
-<p><span class="caption-text"><strong>Plot of an internal predefined waveform (sin wave)</strong></span><a class="headerlink" href="#id28" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Plot of an internal predefined waveform (sin wave)</strong></span><a class="headerlink" href="#id30" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id29">
+<figure class="align-center" id="id31">
 <img alt="_images/measCompWaveGenPlot_user.png" src="_images/measCompWaveGenPlot_user.png" />
 <figcaption>
-<p><span class="caption-text"><strong>Plot of a user-defined waveform (sum of sin and cos waves)</strong></span><a class="headerlink" href="#id29" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Plot of a user-defined waveform (sum of sin and cos waves)</strong></span><a class="headerlink" href="#id31" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="trigger-functions">
-<h3><a class="toc-backref" href="#id58" role="doc-backlink">Trigger Functions</a><a class="headerlink" href="#trigger-functions" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id61" role="doc-backlink">Trigger Functions</a><a class="headerlink" href="#trigger-functions" title="Link to this heading"></a></h3>
 <p>These records are defined in measCompTrigger.template. This database is loaded once per module.</p>
 <table class="table-bordered table-striped table-hover docutils align-default">
 <colgroup>
@@ -1593,37 +1622,37 @@ is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
 </section>
 </section>
 <section id="box-for-usb-ctr08-usb-3104-and-usb-1808x">
-<h2><a class="toc-backref" href="#id59" role="doc-backlink">Box for USB-CTR08, USB-3104, and USB-1808X</a><a class="headerlink" href="#box-for-usb-ctr08-usb-3104-and-usb-1808x" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id62" role="doc-backlink">Box for USB-CTR08, USB-3104, and USB-1808X</a><a class="headerlink" href="#box-for-usb-ctr08-usb-3104-and-usb-1808x" title="Link to this heading"></a></h2>
 <p>The following photo is a box we built to house the USB-CTR08, USB-3104, and USB-1808X
 and provide BNC I/O connections.</p>
-<figure class="align-center" id="id30">
+<figure class="align-center" id="id32">
 <img alt="_images/3ModuleBox.jpg" src="_images/3ModuleBox.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>GSECARS designed box for USB-CTR08, USB-3104, and USB-1808X</strong></span><a class="headerlink" href="#id30" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>GSECARS designed box for USB-CTR08, USB-3104, and USB-1808X</strong></span><a class="headerlink" href="#id32" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="box-for-usb-2408-2ao">
-<h2><a class="toc-backref" href="#id60" role="doc-backlink">Box for USB-2408-2AO</a><a class="headerlink" href="#box-for-usb-2408-2ao" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id63" role="doc-backlink">Box for USB-2408-2AO</a><a class="headerlink" href="#box-for-usb-2408-2ao" title="Link to this heading"></a></h2>
 <p>The following photos show a box we built to house the USB-2408-2AO and
 provide I/O connections.</p>
 <p>This is the top view.</p>
-<figure class="align-center" id="id31">
+<figure class="align-center" id="id33">
 <img alt="_images/USB2408_Box_Top.jpg" src="_images/USB2408_Box_Top.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>Top view of USB-2408-2AO box</strong></span><a class="headerlink" href="#id31" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Top view of USB-2408-2AO box</strong></span><a class="headerlink" href="#id33" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>These are the side views.</p>
-<figure class="align-center" id="id32">
+<figure class="align-center" id="id34">
 <img alt="_images/USB2408_Box_Sides.jpg" src="_images/USB2408_Box_Sides.jpg" />
 <figcaption>
-<p><span class="caption-text"><strong>Side views of USB-2408-2AO box</strong></span><a class="headerlink" href="#id32" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>Side views of USB-2408-2AO box</strong></span><a class="headerlink" href="#id34" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="performance-measurements">
-<span id="performance-mf"></span><h2><a class="toc-backref" href="#id61" role="doc-backlink">Performance measurements</a><a class="headerlink" href="#performance-measurements" title="Link to this heading"></a></h2>
+<span id="performance-mf"></span><h2><a class="toc-backref" href="#id64" role="doc-backlink">Performance measurements</a><a class="headerlink" href="#performance-measurements" title="Link to this heading"></a></h2>
 <p>The following summarizes a simple test of the precision and accuracy of
 the analog outputs and analog inputs of the USB-1608GX-2AO. The test
 configuration was with Analog Output 0 connected to Analog Input 0, and
@@ -1679,29 +1708,29 @@ end
 output voltage from the Keithley 2700 reading. The mean error is
 0.000312V, or just over 1 bit. The RMS error is 0.000203V, or less than
 1 bit.</p>
-<figure class="align-center" id="id33">
+<figure class="align-center" id="id35">
 <img alt="_images/measCompAoError.png" src="_images/measCompAoError.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USB-1608GX-2AO analog output voltage error</strong></span><a class="headerlink" href="#id33" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog output voltage error</strong></span><a class="headerlink" href="#id35" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following plot shows the difference of the mean of 10 readings of
 the 1608GX analog input voltage from the Keithley 2700 reading. The mean
 error is 0.000106V, less than 1 bit. The RMS error is 0.000259V, also
 less than 1 bit.</p>
-<figure class="align-center" id="id34">
+<figure class="align-center" id="id36">
 <img alt="_images/measCompAiError.png" src="_images/measCompAiError.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USB-1608GX-2AO analog input voltage error</strong></span><a class="headerlink" href="#id34" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog input voltage error</strong></span><a class="headerlink" href="#id36" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following plot shows the standard deviation of 10 readings of the
 1608GX analog input voltage. The values range from about 0.001V (~3
 bits) at +-10V to less than 0.0003V (1 bit) between -2 and +2V.</p>
-<figure class="align-center" id="id35">
+<figure class="align-center" id="id37">
 <img alt="_images/measCompAiStdDev.png" src="_images/measCompAiStdDev.png" />
 <figcaption>
-<p><span class="caption-text"><strong>USB-1608GX-2AO analog input standard deviation</strong></span><a class="headerlink" href="#id35" title="Link to this image"></a></p>
+<p><span class="caption-text"><strong>USB-1608GX-2AO analog input standard deviation</strong></span><a class="headerlink" href="#id37" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The following table contains all of the results from the tests.</p>
