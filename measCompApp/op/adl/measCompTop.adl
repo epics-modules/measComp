@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/support/measComp-4-2/measCompApp/op/adl/measCompTop.adl"
+	name="/home/epics/devel/measComp-4-0/measCompApp/op/adl/measCompTop.adl"
 	version=030117
 }
 display {
@@ -8,7 +8,7 @@ display {
 		x=10
 		y=184
 		width=212
-		height=365
+		height=390
 	}
 	clr=14
 	bclr=4
@@ -320,4 +320,20 @@ display {
 	clr=14
 	bclr=51
 	label="USB-1808"
+}
+"related display" {
+	object {
+		x=30
+		y=360
+		width=150
+		height=20
+	}
+	display[0] {
+		label="USB-ERB24 module"
+		name="USBERB24_module.adl"
+		args="P=USBERB24:,Bi=Bi,Li=Li,Bo=Bo,Lo=Lo"
+	}
+	clr=14
+	bclr=51
+	label="USB-ERB24"
 }
