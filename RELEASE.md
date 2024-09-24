@@ -1,7 +1,8 @@
 # measComp Release Notes
 
-## Release 4-3 (February XXX, 2024)
+## Release 4-3 (October XXX, 2024)
   - drvMultiFunction.cpp
+    - Added support for the USB-ERB24, a 24-bit relay output module.
     - Work around bug where the value of numAnalogIn on E-1608 is returned by the vendor UL library is 4 rather than 8.
     - Set the initial value of pollSleepMS to 50.
   - drvUSBCTR.cpp

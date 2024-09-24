@@ -32,6 +32,9 @@ The driver supports temperature measurements at up to 4 Hz, binary I/O, and 1 co
 * The [E-DIO24 digital I/O module](https://www.mccdaq.com/ethernet-data-acquisition/24-channel-digital-io-daq/E-DIO24-Series).
 This device contains 24 digital I/O lines and 1 counter.
 
+* The [USB-ERB24 digital I/O module](https://digilent.com/shop/mcc-usb-erb-series-electromechanical-relay-usb-devices/).
+This device contains 24 relay outputs.
+
 * The [TC-32 thermocouple module](http://www.mccdaq.com/usb-ethernet-data-acquisition/temperature/usb-ethernet-24-bit-thermocouple-daq/TC-32.aspx)
 This device contains 32 thermocouple inputs, 8 binary inputs and 32 binary outputs.
 Thermocouple types B, E, J, K, N, R, S and T are supported.
