@@ -254,6 +254,7 @@ typedef enum {
   USB_3112           = 163,
   USB_3114           = 164,
   USB_SSR08          = 134,
+  USB_ERB24          = 138,
   USB_TEMP           = 141,
   USB_TEMP_AI        = 188,
   USB_TC32           = 305,
@@ -383,6 +384,18 @@ static const enumStruct_t outputRangeUSB_SSR08[] = {
 };
 
 static const enumStruct_t inputTypeUSB_SSR08[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputRangeUSB_ERB24[] = {
+  {"N.A.",  0}
+};
+
+static const enumStruct_t outputRangeUSB_ERB24[] = {
+  {"N.A.", 0}
+};
+
+static const enumStruct_t inputTypeUSB_ERB24[] = {
   {"N.A.", 0}
 };
 
@@ -539,6 +552,10 @@ static const boardEnums_t allBoardEnums[] = {
   {USB_SSR08,      inputRangeUSB_SSR08,   sizeof(inputRangeUSB_SSR08)/sizeof(enumStruct_t),
                    outputRangeUSB_SSR08,  sizeof(outputRangeUSB_SSR08)/sizeof(enumStruct_t),
                    inputTypeUSB_SSR08,    sizeof(inputTypeUSB_SSR08)/sizeof(enumStruct_t)},
+
+  {USB_ERB24,      inputRangeUSB_ERB24,   sizeof(inputRangeUSB_ERB24)/sizeof(enumStruct_t),
+                   outputRangeUSB_ERB24,  sizeof(outputRangeUSB_ERB24)/sizeof(enumStruct_t),
+                   inputTypeUSB_ERB24,    sizeof(inputTypeUSB_ERB24)/sizeof(enumStruct_t)},
 
   {USB_TEMP,       inputRangeUSB_TEMP,    sizeof(inputRangeUSB_TEMP)/sizeof(enumStruct_t),
                    outputRangeUSB_TEMP,   sizeof(outputRangeUSB_TEMP)/sizeof(enumStruct_t),
@@ -1125,6 +1142,17 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
         // Digital I/O port 1 is outputs 5 - 8      
         setUIntDigitalParam(i, digitalDirection_, 0xFFFFFFFF, digitalIOMask_[i]);
       }
+      break;
+    case USB_ERB24:
+      numTimers_    = 0;
+      numCounters_  = 0;
+      // The USB-ERB24 handles I/O ports different than other devices
+      // For bit I/O operations it treats FIRSTPORTA as a 24-bit register.
+      // But for word operations it treats FIRSTPORTA as an 8-bit register.
+      // The query operation above reports that FIRSTPORTA is only 8-bits.
+      // We are using bit I/O so we override this to be 24 bits.
+      numIOBits_[0] = 24;
+      setUIntDigitalParam(0, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
       break;
     case USB_TEMP:
       numTimers_    = 0;
@@ -2568,7 +2596,7 @@ void MultiFunction::pollerThread()
 
     // Read the digital inputs
     for (i=0; i<numIOPorts_; i++) {
-      if (digitalIOPortWriteOnly_[i]) continue;
+      //if (digitalIOPortWriteOnly_[i]) continue;
       #ifdef _WIN32
         epicsUInt16 biVal16;
         if (numIOBits_[i] > 16) {
@@ -2826,4 +2854,3 @@ void drvMultiFunctionRegister(void)
 extern "C" {
 epicsExportRegistrar(drvMultiFunctionRegister);
 }
-
