@@ -466,6 +466,31 @@ The following is the main medm screen for controlling the E-DIO24.
 
     **EDIO24_module.adl**
 
+USB-ERB24
+~~~~~~~~~
+
+.. figure:: USB-ERB24.jpg
+    :align: center
+
+    **Photo of USB-ERB24**
+
+This module costs $325 and has the following features:
+
+-  Relay outputs
+
+   -  24 Form C SPDT relay outputs, up to 6 amps at 240 VAC/28 VDC.
+      Screw terminals with normally-open and normally closed connections for each relay.
+
+More information can be found in the `USB-ERB24 product
+description. <https://digilent.com/shop/mcc-usb-erb-series-electromechanical-relay-usb-devices>`__
+
+The following is the main medm screen for controlling the USB-ERB24.
+
+.. figure:: USBERB24_module.png
+    :align: center
+
+    **USBERB24_module.adl**
+
 USB-3100
 ~~~~~~~~
 
