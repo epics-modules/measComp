@@ -164,7 +164,10 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #PROD_IOC_WIN32 += test_USB_CTR_fdiv
 #test_USB_CTR_fdiv_LIBS_WIN32 += cbw64
 
+ifeq ($(HAVE_ULDAQ), YES)
 PROD_IOC_Linux += testDualEthDevice
+endif
+
 ifdef ULDAQ_DIR
   testDualEthDevice_LIBS_Linux += uldaq
 else
