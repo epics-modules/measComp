@@ -774,6 +774,7 @@ private:
   int numWaveGenChans_;
   int numWaveDigChans_;
   int pulseGenRunning_[MAX_PULSE_GEN];
+  int waveGenSavedOutput[MAX_ANALOG_OUT];
   int waveGenRunning_;
   int waveDigRunning_;
   int startPulseGenerator(int timerNum);
@@ -1585,6 +1586,8 @@ int MultiFunction::startWaveGen()
       firstChan = i;
       firstType = waveType;
     }
+    // Save the current value of the analog output so it can be restored at the end of the scan
+    getIntegerParam(i, analogOutValue_, &waveGenSavedOutput[i]);
     // Cannot mix user-defined and internal waveform types, because internal modifies dwell time
     // based on frequency
     if (((firstType == waveTypeUser) && (waveType != waveTypeUser)) ||
@@ -1674,7 +1677,12 @@ int MultiFunction::startWaveGen()
 int MultiFunction::stopWaveGen()
 {
   int err;
+  int range;
+  int enable;
+  int status=0;
   waveGenRunning_ = 0;
+  static const char *functionName = "stopWaveGen";
+
   setIntegerParam(waveGenRun_, 0);
   ULMutex.lock();
   #ifdef _WIN32
@@ -1682,6 +1690,21 @@ int MultiFunction::stopWaveGen()
   #else
     err = ulAOutScanStop(daqDeviceHandle_);
   #endif
+  
+  // Set the analog outputs back to their value before the scan
+  for (int i=0; i<numAnalogOut_; i++) {
+    getIntegerParam(i, waveGenEnable_, &enable);
+    if (!enable) continue;
+    getIntegerParam(i, analogOutRange_, &range);
+    #ifdef _WIN32
+      status = cbAOut(boardNum_, i, range, waveGenSavedOutput[i]);
+    #else
+      Range ulRange;
+      mapRange(range, &ulRange);
+      status = ulAOut(daqDeviceHandle_, i, ulRange, AOUT_FF_NOSCALEDATA, (double) waveGenSavedOutput[i]);
+    #endif
+    reportError(status, functionName, "calling AOut");
+  }
   ULMutex.unlock();
   return err;
 }
