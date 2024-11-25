@@ -598,7 +598,6 @@ public:
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
   virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
   virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
-  virtual asynStatus readFloat64(asynUser *pasynUser, epicsFloat64 *value);
   virtual asynStatus writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask);
   virtual asynStatus readFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements, size_t *nIn);
   virtual asynStatus writeFloat32Array(asynUser *pasynUser, epicsFloat32 *value, size_t nElements);
@@ -726,6 +725,8 @@ private:
   int boardFamily_;
   const boardEnums_t *pBoardEnums_;
   int numAnalogIn_;
+  int numVoltageIn_;
+  int numTemperatureIn_;
   int analogInTypeConfigurable_;
   int analogInDataRateConfigurable_;
   int analogOutRangeConfigurable_;
@@ -742,7 +743,6 @@ private:
   int firstCounter_;
   int numTimers_;
   int numIOPorts_;
-  int numTempChans_;
   int digitalIOPort_[MAX_IO_PORTS];
   int digitalIOBitConfigurable_[MAX_IO_PORTS];
   int digitalIOPortConfigurable_[MAX_IO_PORTS];
@@ -1014,7 +1014,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     cbGetConfig(BOARDINFO, boardNum_, 0, BIADRES,         &ADCResolution_);
     cbGetConfig(BOARDINFO, boardNum_, 0, BIDACRES,        &DACResolution_);
     cbGetConfig(BOARDINFO, boardNum_, 0, BIDINUMDEVS,     &numIOPorts_);
-    cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTempChans_);
+    cbGetConfig(BOARDINFO, boardNum_, 0, BINUMTEMPCHANS,  &numTemperatureIn_);
   #else
     long long infoValue;
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_VOLTAGE, &infoValue);
@@ -1034,7 +1034,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     status = ulDIOGetInfo(daqDeviceHandle_, DIO_INFO_NUM_PORTS, 0, &infoValue);
     numIOPorts_ = infoValue;
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_TC, &infoValue);
-    numTempChans_ = infoValue;
+    numTemperatureIn_ = infoValue;
   #endif
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
@@ -1258,7 +1258,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
   setDoubleParam(pollSleepMS_, 50.);
-  for (i=0; i<numTempChans_; i++) {
+  for (i=0; i<numTemperatureIn_; i++) {
     setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
   }
   // Set the analog output range to the first supported value for this model
@@ -2249,106 +2249,6 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   return (status==0) ? asynSuccess : asynError;
 }
 
-asynStatus MultiFunction::readFloat64(asynUser *pasynUser, epicsFloat64 *value)
-{
-  int addr;
-  int function = pasynUser->reason;
-  int status=0;
-  int type;
-  int scale;
-  int filter=0;
-  int range;
-  static const char *functionName = "readFloat64";
-
-  this->getAddress(pasynUser, &addr);
-
-  // Temperature input function
-  if (function == temperatureInValue_) {
-    if (waveDigRunning_) {
-      int currentPoint;
-      getIntegerParam(waveDigCurrentPoint_, &currentPoint);
-      if (currentPoint > 0) {
-        *value = waveDigBuffer_[addr][currentPoint-1];
-      }
-    }
-    else {
-      getIntegerParam(addr, analogInType_, &type);
-      getIntegerParam(addr, temperatureScale_, &scale);
-      getIntegerParam(addr, temperatureFilter_, &filter);
-      if (type != AI_CHAN_TYPE_TC) return asynSuccess;
-      ULMutex.lock();
-      #ifdef _WIN32
-        float fVal;
-        status = cbTIn(boardNum_, addr, scale, &fVal, filter);
-        if (status == OPENCONNECTION) {
-          // This is an "expected" error if the thermocouple is broken or disconnected
-          // Don't print error message, just set temp to -9999.
-          fVal = -9999.;
-          status = 0;
-          *value = (double) fVal;
-        }
-        *value = (double) fVal;
-      #else
-        TempScale tempScale;
-        // cbTin has a filter option but ulTin does not?
-        TInFlag flags = TIN_FF_DEFAULT;
-        switch (scale) {
-            case CELSIUS:     tempScale = TS_CELSIUS; break;
-            case FAHRENHEIT:  tempScale = TS_FAHRENHEIT; break;
-            case KELVIN:      tempScale = TS_KELVIN; break;
-            case VOLTS:       tempScale = TS_VOLTS; break;
-            case NOSCALE:     tempScale = TS_NOSCALE; break;
-            default:
-                asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
-                  "%s::%s unsupported Scale=%d\n", driverName, functionName, scale);
-                tempScale = TS_CELSIUS;
-        }
-        status = ulTIn(daqDeviceHandle_, addr, tempScale, flags, value);
-        if (status == ERR_OPEN_CONNECTION) {
-          // This is an "expected" error if the thermocouple is broken or disconnected
-          // Don't print error message, just set temp to -9999.
-          status = 0;
-          *value = -9999.;
-        }
-      #endif
-      ULMutex.unlock();
-    }
-    setDoubleParam(addr, temperatureInValue_, *value);
-    reportError(status, functionName, "Calling TIn");
-  }
-  else if (function == voltageInValue_) {
-    getIntegerParam(addr, voltageInRange_, &range);
-    ULMutex.lock();
-    #ifdef _WIN32
-      float fVal;
-      status = cbVIn(boardNum_, addr, range, &fVal, 0);
-      *value = fVal;
-    #else
-      double data;
-      Range ulRange;
-      mapRange(range, &ulRange);
-      int chan = addr;
-      if (boardFamily_ == USB_TEMP_AI) {
-        // On Linux the address needs to be 4 larger
-        chan = addr + 4;
-      }
-      status = ulAIn(daqDeviceHandle_, chan, aiInputMode_, ulRange, AIN_FF_DEFAULT, &data);
-      *value = (float) data;
-    #endif
-    ULMutex.unlock();
-    reportError(status, functionName, "Calling AIn");
-    setDoubleParam(addr, voltageInValue_, *value);
-  }
-
-  // Other functions we call the base class method
-  else {
-     status = asynPortDriver::readFloat64(pasynUser, value);
-  }
-
-  callParamCallbacks(addr);
-  return (status==0) ? asynSuccess : asynError;
-}
-
 asynStatus MultiFunction::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask)
 {
   int function = pasynUser->reason;
@@ -2606,6 +2506,8 @@ void MultiFunction::pollerThread()
   epicsUInt32 countVal;
   long aoCount, aoIndex, aiCount, aiIndex;
   short aoStatus, aiStatus;
+  int scale;
+  int filter=0;
   epicsTime startTime=epicsTime::getCurrent(), endTime, currentTime;
   int lastPoint;
   int status=0, prevStatus=0;
@@ -2751,32 +2653,97 @@ void MultiFunction::pollerThread()
       // If the waveform digitizer is not running then read the analog inputs
       int range, type, mode;
       epicsInt32 value;
+      double tempValue;
       getIntegerParam(0, analogInMode_, &mode);
       for (i=0; i<numAnalogIn_; i++) {
         getIntegerParam(i, analogInRange_, &range);
         getIntegerParam(i, analogInType_, &type);
         if (type != AI_CHAN_TYPE_VOLTAGE) continue;
         if ((boardType_ == E_1608) && (mode == DIFFERENTIAL) && (i>3)) break;
+        if (boardType_ == USB_TEMP_AI) {
+          // USB_TEMP_AI reads voltage as floating point
+          #ifdef _WIN32
+            float fVal;
+            status = cbVIn(boardNum_, i, range, &fVal, 0);
+            tempValue = fVal;
+          #else
+            Range ulRange;
+            mapRange(range, &ulRange);
+            // On Linux the address needs to be 4 larger
+            status = ulAIn(daqDeviceHandle_, i+4, aiInputMode_, ulRange, AIN_FF_DEFAULT, &tempValue);
+          #endif
+          reportError(status, functionName, "Calling AIn");
+          setDoubleParam(i, voltageInValue_, tempValue);
+        } 
+        else { 
+          // Models other than USB_TEMP_AI read voltage as integer
+          #ifdef _WIN32
+            if (ADCResolution_ <= 16) {
+              epicsUInt16 shortVal;
+              status = cbAIn(boardNum_, i, range, &shortVal);
+              value = shortVal;
+            } else {
+              ULONG ulongVal;
+              status = cbAIn32(boardNum_, i, range, &ulongVal, 0);
+              value = (epicsInt32)ulongVal;
+            }
+          #else
+            double data;
+            Range ulRange;
+            mapRange(range, &ulRange);
+            status = ulAIn(daqDeviceHandle_, i, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
+            value = (epicsInt32) data;
+          #endif
+          setIntegerParam(i, analogInValue_, value);
+        }
+      } // for numAnalogIn_
+
+      for (i=0; i<numTemperatureIn_; i++) {
+        getIntegerParam(i, analogInRange_, &range);
+        getIntegerParam(i, analogInType_, &type);
+        if (type != AI_CHAN_TYPE_TC) continue;
+        getIntegerParam(i, temperatureScale_, &scale);
+        getIntegerParam(i, temperatureFilter_, &filter);
         #ifdef _WIN32
-          if (ADCResolution_ <= 16) {
-            epicsUInt16 shortVal;
-            status = cbAIn(boardNum_, i, range, &shortVal);
-            value = shortVal;
-          } else {
-            ULONG ulongVal;
-            status = cbAIn32(boardNum_, i, range, &ulongVal, 0);
-            value = (epicsInt32)ulongVal;
+          float fVal;
+          status = cbTIn(boardNum_, i, scale, &fVal, filter);
+          if (status == OPENCONNECTION) {
+            // This is an "expected" error if the thermocouple is broken or disconnected
+            // Don't print error message, just set temp to -9999.
+            fVal = -9999.;
+            status = 0;
           }
+          tempValue = (double) fVal;
         #else
-          double data;
-          Range ulRange;
-          mapRange(range, &ulRange);
-          status = ulAIn(daqDeviceHandle_, i, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
-          value = (epicsInt32) data;
+          TempScale tempScale;
+          // cbTin has a filter option but ulTin does not?
+          TInFlag flags = TIN_FF_DEFAULT;
+          switch (scale) {
+              case CELSIUS:     tempScale = TS_CELSIUS; break;
+              case FAHRENHEIT:  tempScale = TS_FAHRENHEIT; break;
+              case KELVIN:      tempScale = TS_KELVIN; break;
+              case VOLTS:       tempScale = TS_VOLTS; break;
+              case NOSCALE:     tempScale = TS_NOSCALE; break;
+              default:
+                  asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+                    "%s::%s unsupported Scale=%d\n", driverName, functionName, scale);
+                  tempScale = TS_CELSIUS;
+          }
+          status = ulTIn(daqDeviceHandle_, i, tempScale, flags, &tempValue);
+          if (status == ERR_OPEN_CONNECTION) {
+            // This is an "expected" error if the thermocouple is broken or disconnected
+            // Don't print error message, just set temp to -9999.
+            status = 0;
+            tempValue = -9999.;
+          }
         #endif
-        setIntegerParam(i, analogInValue_, value);
-      }
-    }
+        //if (i==0) asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "ulTIn chan=%d, tempValue=%f\n", i, tempValue);
+
+        setDoubleParam(i, temperatureInValue_, tempValue);
+        reportError(status, functionName, "Calling TIn");
+
+      } // for on channels
+    } // waveDig not running
 
     for (i=0; i<MAX_SIGNALS; i++) {
       callParamCallbacks(i);
@@ -2808,7 +2775,7 @@ void MultiFunction::report(FILE *fp, int details)
     fprintf(fp, "  analog input bits  = %d\n", ADCResolution_);
     fprintf(fp, "  analog outputs     = %d\n", numAnalogOut_);
     fprintf(fp, "  analog output bits = %d\n", DACResolution_);
-    fprintf(fp, "  temperature inputs = %d\n", numTempChans_);
+    fprintf(fp, "  temperature inputs = %d\n", numTemperatureIn_);
     fprintf(fp, "  digital I/O ports  = %d\n", numIOPorts_);
     for (i=0; i<numIOPorts_; i++) {
       fprintf(fp, "  digital I/O port     %d\n", i);
