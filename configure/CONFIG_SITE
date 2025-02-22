@@ -41,6 +41,12 @@ HAVE_ULDAQ=YES
 #ULDAQ_DIR=/home/epics/local/lib
 #ULDAQ_INCLUDE=/home/epics/local/include
 
+# If libusb on Linux is not installed in a system directory (e.g. /usr/local)
+# then uncomment and edit these lines to define the location of the include
+# and lib directories.
+#USB_DIR=/home/epics/local/lib
+#USB_INCLUDE=/home/epics/local/include
+
 # These allow developers to override the CONFIG_SITE variable
 # settings without having to modify the configure/CONFIG_SITE
 # file itself.
