@@ -1248,6 +1248,12 @@ These records are defined in the following files:
     - asynFloat64
     - WAVEGEN_PULSE_WIDTH
     - Controls the pulse width in seconds if Type is "Pulse".
+  * - $(P)$(R)PulseDelay
+    - ao
+    - asynFloat64
+    - WAVEGEN_PULSE_DELAY
+    - Controls the time of the beginning of the pulse relative to the start of the waveform if Type is "Pulse".
+      This is useful when multiple waveforms are output, and one wants to control the relative time offset.
   * - $(P)$(R)Amplitude
     - ao
     - asynFloat64
@@ -1262,9 +1268,14 @@ These records are defined in the following files:
     - ao
     - asynFloat64
     - WAVEGEN_OFFSET
-    - Controls the offset of the waveform in volts. For user-defined waveforms, this value
-      is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
-      1.0 adds 1 volt, etc.
+    - Controls the offset of the waveform in volts. 
+      For user-defined waveforms, this value is added to the waveform, i.e. 0.0
+      outputs the user-defined waveform unchanged, 1.0 adds 1 volt, etc.
+      For internally defined waveforms all types except Pulse are centered at 0V 
+      if Offset=0, e.g. Sin wave goes from +Amplitude to -Amplitude.  If Offset 
+      is non-zero it is added to this waveform.
+      If waveform Type=Pulse it is not centered on 0V.  The baseline=Offset, and the pulse height is Amplitude
+      relative to the baseline.  This was a change made in R4-3.
 
 .. figure:: measCompWaveGenPlot_int.png
     :align: center
