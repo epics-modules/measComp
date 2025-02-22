@@ -192,6 +192,7 @@ typedef enum {
 #define waveGenAmplitudeString    "WAVEGEN_AMPLITUDE"
 #define waveGenOffsetString       "WAVEGEN_OFFSET"
 #define waveGenPulseWidthString   "WAVEGEN_PULSE_WIDTH"
+#define waveGenPulseDelayString   "WAVEGEN_PULSE_DELAY"
 #define waveGenIntWFString        "WAVEGEN_INT_WF"
 #define waveGenUserWFString       "WAVEGEN_USER_WF"
 
@@ -702,6 +703,7 @@ protected:
   int waveGenAmplitude_;
   int waveGenOffset_;
   int waveGenPulseWidth_;
+  int waveGenPulseDelay_;
   int waveGenIntWF_;
   int waveGenUserWF_;
 
@@ -933,6 +935,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   createParam(waveGenAmplitudeString,        asynParamFloat64, &waveGenAmplitude_);
   createParam(waveGenOffsetString,           asynParamFloat64, &waveGenOffset_);
   createParam(waveGenPulseWidthString,       asynParamFloat64, &waveGenPulseWidth_);
+  createParam(waveGenPulseDelayString,       asynParamFloat64, &waveGenPulseDelay_);
   createParam(waveGenIntWFString,       asynParamFloat32Array, &waveGenIntWF_);
   createParam(waveGenUserWFString,      asynParamFloat32Array, &waveGenUserWF_);
 
@@ -1481,9 +1484,10 @@ int MultiFunction::defineWaveform(int channel)
   int waveType;
   int numPoints;
   int nPulse;
+  int nDelay;
   int i;
   epicsFloat32 *outPtr = waveGenIntBuffer_[channel];
-  double dwell, offset, base, amplitude, pulseWidth, scale;
+  double dwell, offset, base, amplitude, pulseWidth, pulseDelay, scale;
   static const char *functionName = "defineWaveform";
 
   getIntegerParam(channel, waveGenWaveType_,  &waveType);
@@ -1514,6 +1518,7 @@ int MultiFunction::defineWaveform(int channel)
   getDoubleParam(channel, waveGenOffset_,      &offset);
   getDoubleParam(channel, waveGenAmplitude_,   &amplitude);
   getDoubleParam(channel, waveGenPulseWidth_,  &pulseWidth);
+  getDoubleParam(channel, waveGenPulseDelay_,  &pulseDelay);
   setIntegerParam(waveGenNumPoints_, numPoints);
   setDoubleParam(waveGenDwell_, dwell);
   setDoubleParam(waveGenFreq_, 1./dwell/numPoints);
@@ -1533,10 +1538,14 @@ int MultiFunction::defineWaveform(int channel)
       break;
     case waveTypePulse:
       nPulse = (int) ((pulseWidth / dwell) + 0.5);
+      nDelay = (int) ((pulseDelay / dwell) + 0.5);
       if (nPulse < 1) nPulse = 1;
-      if (nPulse >= numPoints-1) nPulse = numPoints-1;
-      for (i=0; i<nPulse; i++)              *outPtr++ = (epicsFloat32) (base + amplitude);
-      for (i=nPulse; i<numPoints; i++)      *outPtr++ = (epicsFloat32) (base);
+      if (nPulse  >= numPoints-1) nPulse = numPoints - 1;
+      if ((nDelay + nPulse) >= numPoints-1) nDelay = numPoints - nPulse - 1;
+      if (nDelay < 0) nDelay = 0;
+      for (i=0; i<nDelay; i++)                    *outPtr++ = (epicsFloat32) (offset);
+      for (i=0; i<nPulse; i++)                    *outPtr++ = (epicsFloat32) (offset + amplitude);
+      for (i=(nDelay + nPulse); i<numPoints; i++) *outPtr++ = (epicsFloat32) (offset);
       break;
     case waveTypeRandom:
       scale = amplitude / RAND_MAX;
@@ -2216,6 +2225,7 @@ asynStatus MultiFunction::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   else if ((function == waveGenUserDwell_)  ||
            (function == waveGenIntDwell_)   ||
            (function == waveGenPulseWidth_) ||
+           (function == waveGenPulseDelay_) ||
            (function == waveGenAmplitude_)  ||
            (function == waveGenOffset_)) {
     defineWaveform(addr);
