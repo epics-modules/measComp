@@ -68,6 +68,18 @@ record(ao, "$(P)$(R)PulseWidth")
 }
 
 ###################################################################
+#  Pulse Delay                                                    # 
+###################################################################
+record(ao, "$(P)$(R)PulseDelay")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR))WAVEGEN_PULSE_DELAY")
+    field(VAL,  "0.0")
+    field(PREC, "$(PREC)")
+}
+
+###################################################################
 #  Amplitude                                                      # 
 ###################################################################
 record(ao, "$(P)$(R)Amplitude")
