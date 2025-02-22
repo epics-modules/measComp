@@ -1,14 +1,14 @@
 
 file {
-	name="/home/epics/support/measComp/measCompApp/op/adl/USB1808_module.adl"
+	name="/home/epics/devel/measComp/measCompApp/op/adl/USB1808_module.adl"
 	version=030117
 }
 display {
 	object {
-		x=539
-		y=253
+		x=298
+		y=66
 		width=1090
-		height=830
+		height=845
 	}
 	clr=14
 	bclr=4
@@ -102,110 +102,99 @@ text {
 }
 composite {
 	object {
-		x=5
-		y=95
-		width=1080
-		height=730
+		x=50
+		y=590
+		width=220
+		height=85
 	}
 	"composite name"=""
-	children {
-		composite {
-			object {
-				x=50
-				y=568
-				width=220
-				height=85
-			}
-			"composite name"=""
-			"composite file"="measCompCounters2.adl"
-		}
-		composite {
-			object {
-				x=525
-				y=95
-				width=180
-				height=65
-			}
-			"composite name"=""
-			"composite file"="measCompTrigger.adl"
-		}
-		composite {
-			object {
-				x=525
-				y=255
-				width=295
-				height=285
-			}
-			"composite name"=""
-			"composite file"="measCompAnalogIn8.adl"
-		}
-		composite {
-			object {
-				x=825
-				y=255
-				width=260
-				height=515
-			}
-			"composite name"=""
-			"composite file"="measCompWaveDig.adl"
-		}
-		composite {
-			object {
-				x=525
-				y=545
-				width=295
-				height=115
-			}
-			"composite name"=""
-			"composite file"="measCompAnalogOut2.adl"
-		}
-		composite {
-			object {
-				x=710
-				y=95
-				width=375
-				height=155
-			}
-			"composite name"=""
-			"composite file"="measCompDigitalIO4.adl"
-		}
-		composite {
-			object {
-				x=5
-				y=665
-				width=780
-				height=160
-			}
-			"composite name"=""
-			"composite file"="measCompPulseGen2.adl"
-		}
-		composite {
-			object {
-				x=5
-				y=95
-				width=515
-				height=465
-			}
-			"composite name"=""
-			"composite file"="measCompWaveGen2.adl"
-		}
-		composite {
-			object {
-				x=281
-				y=568
-				width=220
-				height=85
-			}
-			"composite name"=""
-			"composite file"="measCompEncoders2.adl"
-		}
+	"composite file"="measCompCounters2.adl"
+}
+composite {
+	object {
+		x=525
+		y=95
+		width=180
+		height=65
 	}
+	"composite name"=""
+	"composite file"="measCompTrigger.adl"
+}
+composite {
+	object {
+		x=525
+		y=255
+		width=295
+		height=285
+	}
+	"composite name"=""
+	"composite file"="measCompAnalogIn8.adl"
+}
+composite {
+	object {
+		x=825
+		y=255
+		width=260
+		height=515
+	}
+	"composite name"=""
+	"composite file"="measCompWaveDig.adl"
+}
+composite {
+	object {
+		x=525
+		y=545
+		width=295
+		height=115
+	}
+	"composite name"=""
+	"composite file"="measCompAnalogOut2.adl"
+}
+composite {
+	object {
+		x=710
+		y=95
+		width=375
+		height=155
+	}
+	"composite name"=""
+	"composite file"="measCompDigitalIO4.adl"
+}
+composite {
+	object {
+		x=5
+		y=680
+		width=780
+		height=160
+	}
+	"composite name"=""
+	"composite file"="measCompPulseGen2.adl"
+}
+composite {
+	object {
+		x=5
+		y=95
+		width=515
+		height=490
+	}
+	"composite name"=""
+	"composite file"="measCompWaveGen2.adl"
+}
+composite {
+	object {
+		x=281
+		y=590
+		width=220
+		height=85
+	}
+	"composite name"=""
+	"composite file"="measCompEncoders2.adl"
 }
 composite {
 	object {
 		x=60
 		y=35
-		width=970
+		width=960
 		height=55
 	}
 	"composite name"=""
