@@ -1554,7 +1554,14 @@ about 0 volts. To output unipolar signals the Offset should be set to +-Amplitud
 <td><p>WAVEGEN_PULSE_WIDTH</p></td>
 <td><p>Controls the pulse width in seconds if Type is “Pulse”.</p></td>
 </tr>
-<tr class="row-even"><td><p>$(P)$(R)Amplitude</p></td>
+<tr class="row-even"><td><p>$(P)$(R)PulseDelay</p></td>
+<td><p>ao</p></td>
+<td><p>asynFloat64</p></td>
+<td><p>WAVEGEN_PULSE_DELAY</p></td>
+<td><p>Controls the time of the beginning of the pulse relative to the start of the waveform if Type is “Pulse”.
+This is useful when multiple waveforms are output, and one wants to control the relative time offset.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Amplitude</p></td>
 <td><p>ao</p></td>
 <td><p>asynFloat64</p></td>
 <td><p>WAVEGEN_AMPLITUDE</p></td>
@@ -1565,13 +1572,18 @@ the user-defined waveform unchanged, 2.0 increases the amplitide by 2, etc. For
 both internal and used-defined waveforms changing the sign of the Amplitude controls
 the polarity of the signal.</p></td>
 </tr>
-<tr class="row-odd"><td><p>$(P)$(R)Offset</p></td>
+<tr class="row-even"><td><p>$(P)$(R)Offset</p></td>
 <td><p>ao</p></td>
 <td><p>asynFloat64</p></td>
 <td><p>WAVEGEN_OFFSET</p></td>
-<td><p>Controls the offset of the waveform in volts. For user-defined waveforms, this value
-is added to the waveform, i.e. 0.0 outputs the user-defined waveform unchanged,
-1.0 adds 1 volt, etc.</p></td>
+<td><p>Controls the offset of the waveform in volts.
+For user-defined waveforms, this value is added to the waveform, i.e. 0.0
+outputs the user-defined waveform unchanged, 1.0 adds 1 volt, etc.
+For internally defined waveforms all types except Pulse are centered at 0V
+if Offset=0, e.g. Sin wave goes from +Amplitude to -Amplitude.  If Offset
+is non-zero it is added to this waveform.
+If waveform Type=Pulse it is not centered on 0V.  The baseline=Offset, and the pulse height is Amplitude
+relative to the baseline.  This was a change made in R4-3.</p></td>
 </tr>
 </tbody>
 </table>
