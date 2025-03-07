@@ -17,7 +17,10 @@ MultiFunctionConfig("$(PORT)", "$(UNIQUE_ID)", 1, 1)
 
 #asynSetTraceMask($(PORT), -1, ERROR|FLOW|DRIVER)
 
+# Use this file for Windows
 dbLoadTemplate("$(MEASCOMP)/db/USBERB24.substitutions", "P=$(PREFIX),PORT=$(PORT)")
+# Use this file for Linux
+#dbLoadTemplate("$(MEASCOMP)/db/USBERB24_Linux.substitutions", "P=$(PREFIX),PORT=$(PORT)")
 
 < ../save_restore.cmd
 
