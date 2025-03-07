@@ -1,10 +1,8 @@
 # measComp Release Notes
 
-## Release 4-3 (February XXX, 2025)
+## Release 4-4 (March XXX, 2025)
   - drvMultiFunction.cpp
     - Added support for the USB-ERB24, a 24-bit relay output module.
-    - Work around bug where the value of numAnalogIn on E-1608 is returned by the vendor UL library is 4 rather than 8.
-    - Set the initial value of pollSleepMS to 50.
     - Moved the code for reading thermocouples and floating point voltages (USB-TEMP-AI) from the readFloat64
       function to the poller, and changed the device support from asynFloat64 to asynFloat64 average.
       This allows these measurements to be averaged like other analog inputs.
@@ -15,6 +13,11 @@
       The new behavior is that the non-pulse part of the waveform has the value of Offset.
     - Added a PulseDelay PV, which controls the time of the beginning of the pulse relative to the start of the waveform.
       This is useful when using 2 waveforms, and one wants a time offset between them.
+
+## Release 4-3 (February 10, 2024)
+  - drvMultiFunction.cpp
+    - Work around bug where the value of numAnalogIn on E-1608 is returned by the vendor UL library is 4 rather than 8.
+    - Set the initial value of pollSleepMS to 50.
   - drvUSBCTR.cpp
     - Remove the pollTime argument from the constructor and USBCTRConfig iocsh command.
       This was no longer used since pollSleepMS was added in R4-2.
