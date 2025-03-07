@@ -1,0 +1,62 @@
+file "$(MEASCOMP)/db/measCompDevice.template"
+{pattern {} {} }
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryIn.template"
+{
+pattern
+{  R,   MASK,     ADDR}
+{ Bi1,  0x01,     0}
+{ Bi2,  0x02,     0}
+{ Bi3,  0x04,     0}
+{ Bi4,  0x08,     0}
+{ Bi5,  0x10,     0}
+{ Bi6,  0x20,     0}
+{ Bi7,  0x40,     0}
+{ Bi8,  0x80,     0}
+{ Bi9,  0x01,     1}
+{Bi10,  0x02,     1}
+{Bi11,  0x04,     1}
+{Bi12,  0x08,     1}
+{Bi13,  0x10,     1}
+{Bi14,  0x20,     1}
+{Bi15,  0x40,     1}
+{Bi16,  0x80,     1}
+{Bi17,  0x01,     2}
+{Bi18,  0x02,     2}
+{Bi19,  0x04,     2}
+{Bi20,  0x08,     2}
+{Bi21,  0x01,     3}
+{Bi22,  0x02,     3}
+{Bi23,  0x04,     3}
+{Bi24,  0x08,     3}
+}
+
+file "$(MEASCOMP)/measCompApp/Db/measCompBinaryOut.template"
+{
+pattern
+{  R,   MASK,     ADDR}
+{ Bo1,  0x01,     0}
+{ Bo2,  0x02,     0}
+{ Bo3,  0x04,     0}
+{ Bo4,  0x08,     0}
+{ Bo5,  0x10,     0}
+{ Bo6,  0x20,     0}
+{ Bo7,  0x40,     0}
+{ Bo8,  0x80,     0}
+{ Bo9,  0x01,     1}
+{Bo10,  0x02,     1}
+{Bo11,  0x04,     1}
+{Bo12,  0x08,     1}
+{Bo13,  0x10,     1}
+{Bo14,  0x20,     1}
+{Bo15,  0x40,     1}
+{Bo16,  0x80,     1}
+{Bo17,  0x01,     2}
+{Bo18,  0x02,     2}
+{Bo19,  0x04,     2}
+{Bo20,  0x08,     2}
+{Bo21,  0x01,     3}
+{Bo22,  0x02,     3}
+{Bo23,  0x04,     3}
+{Bo24,  0x08,     3}
+}
