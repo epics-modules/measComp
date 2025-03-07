@@ -1156,7 +1156,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       // The query operation above reports that FIRSTPORTA is only 8-bits.
       // We are using bit I/O so we override this to be 24 bits.
       numIOBits_[0] = 24;
-      setUIntDigitalParam(0, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
+      for (i=0; i<4; i++) {
+        setUIntDigitalParam(i, digitalDirection_, 0xFFFFFFFF, 0xFFFFFFFF);
+      }
       break;
     case USB_TEMP:
       numTimers_    = 0;
