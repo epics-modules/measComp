@@ -13,6 +13,8 @@
       The new behavior is that the non-pulse part of the waveform has the value of Offset.
     - Added a PulseDelay PV, which controls the time of the beginning of the pulse relative to the start of the waveform.
       This is useful when using 2 waveforms, and one wants a time offset between them.
+  - drvUSBCTR
+    - Fixed a problem with Rising Edge and Falling Edge trigger modes. The wrong enums were being used.
 
 ## Release 4-3 (February 10, 2024)
   - drvMultiFunction.cpp
