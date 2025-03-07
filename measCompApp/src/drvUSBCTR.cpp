@@ -1118,8 +1118,8 @@ asynStatus USBCTR::writeInt32(asynUser *pasynUser, epicsInt32 value)
       // We map the UL Windows trigger types to Ul Linux
       // We can't use macros from cbw.h because that file conflicts with uldaq.h
       switch (value) {
-        case 0: triggerType = TRIG_RISING; break;
-        case 1: triggerType = TRIG_FALLING; break;
+        case 0: triggerType = TRIG_POS_EDGE; break;
+        case 1: triggerType = TRIG_NEG_EDGE; break;
         case 6: triggerType = TRIG_HIGH; break;
         case 7: triggerType = TRIG_LOW; break;
         default:
