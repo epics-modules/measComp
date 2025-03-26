@@ -545,11 +545,11 @@ int USBCTR::startMCS()
     if (!mcsCounterEnable_[i]) continue;
     numMCSCounters_++;
     #ifdef _WIN32
-      mode = OUTPUT_ON | CLEAR_ON_READ;
+      mode = OUTPUT_ON | CLEAR_ON_READ | GATING_ON | INVERT_GATE | OUTPUT_INITIAL_STATE_HIGH;
       status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                              CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
     #else
-      mode = CMM_OUTPUT_ON | CMM_CLEAR_ON_READ;
+      mode = CMM_OUTPUT_ON | CMM_CLEAR_ON_READ | CMM_GATING_ON | CMM_INVERT_GATE | CMM_OUTPUT_INITIAL_STATE_HIGH;
       status = ulCConfigScan(daqDeviceHandle_, i, CMT_COUNT,  (CounterMeasurementMode) mode,
 					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
     #endif
@@ -882,8 +882,8 @@ int USBCTR::startScaler()
 
   #ifdef _WIN32
     for (i=0; i<numCounters_; i++) {
-      mode = OUTPUT_ON | COUNT_DOWN_OFF | GATING_ON;
-      if (i == 0) mode = mode | RANGE_LIMIT_ON | NO_RECYCLE_ON | INVERT_GATE;
+      mode = OUTPUT_ON | OUTPUT_INITIAL_STATE_HIGH | GATING_ON | INVERT_GATE | COUNT_DOWN_OFF;
+      if (i == 0) mode = mode | RANGE_LIMIT_ON | NO_RECYCLE_ON;
       status = cbCConfigScan(boardNum_, i, mode, CTR_DEBOUNCE_NONE, CTR_TRIGGER_BEFORE_STABLE,
                              CTR_RISING_EDGE, CTR_TICK20PT83ns, 0);
       if (status) {
@@ -903,8 +903,8 @@ int USBCTR::startScaler()
     }
   #else
     for (i=0; i<numCounters_; i++) {
-      mode = CMM_OUTPUT_ON | CMM_GATING_ON;
-      if (i == 0) mode = mode | CMM_RANGE_LIMIT_ON | CMM_NO_RECYCLE | CMM_INVERT_GATE;
+      mode = CMM_OUTPUT_ON | CMM_OUTPUT_INITIAL_STATE_HIGH | CMM_GATING_ON | CMM_INVERT_GATE;
+      if (i == 0) mode = mode | CMM_RANGE_LIMIT_ON | CMM_NO_RECYCLE;
       status = ulCConfigScan(daqDeviceHandle_, i, CMT_COUNT,  (CounterMeasurementMode) mode,
 					                   CED_RISING_EDGE, CTS_TICK_20PT83ns, CDM_NONE, CDT_DEBOUNCE_0ns, CF_DEFAULT);
       if (status) {
