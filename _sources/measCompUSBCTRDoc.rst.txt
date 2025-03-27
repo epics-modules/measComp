@@ -261,7 +261,7 @@ This database is loaded once for each pulse generator.
 .. _ScalerSupport:
 
 Scaler Record Support
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 The USBCTR driver supports the EPICS scaler record via the
 devScalerAsyn.c device support originally from the
@@ -295,7 +295,7 @@ frequencies >1 MHz.
 .. _MCSSupport:
 
 Multi-Channel Scaler (MCS) Support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 The USBCTR driver provides multi-channel scaler support very similar to
 the SIS3820 driver in the synApps mca module. The support has the
@@ -500,10 +500,12 @@ The following record are defined in measCompMCS.template. This database is loade
     - MODEL
     - The model number of the counter module. 0="USB-CRT08", 1="USB-CTR04".
 
-Notes on external channel advance
-_________________________________
 
-There are 2 problem with external channel advance that can cause the number channels collected (final value of CurrentChannel) to be less than that requested (NuseAll).
+Notes on external channel advance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are 2 problem with external channel advance that can cause the number channels collected
+(final value of CurrentChannel) to be less than that requested (NuseAll).
 
 The first problem only happens when all of the following 4 conditions are met:
 
@@ -513,7 +515,8 @@ The first problem only happens when all of the following 4 conditions are met:
 3) Pulses are arriving on CLKI before the trigger condition is satisfied.
 4) The requested number of CLKI pulses (NuseAll) have not yet arrived when the trigger condition is satisfied.
 
-The problem is clearly that the USBCTR should be ignoring any CLKI pulses that arrive before the trigger condition is met, but it does not.
+The problem is clearly that the USBCTR should be ignoring any CLKI pulses that arrive before the trigger condition is met,
+but it does not.
 
 Consider the following conditions:
 
@@ -524,7 +527,8 @@ Consider the following conditions:
 - If the trigger condition is satisfied at time=5.12 seconds, then it will only acquire 1526 channels.
   This is because it did not ignore the first 512 CLKI signals that arrived before the trigger condition was satisfied.
 
-I believe this is a bug in the USBCTR firmware. I should report it to them, but I am not sure they will see it as a high enough priority to fix it.
+I believe this is a bug in the USBCTR firmware. I should report it to them,
+but I am not sure they will see it as a high enough priority to fix it.
 They will want to have a C test program to demonstrate the problem, which would be some work.
 
 The second problem happens when the following 3 conditions are met:
@@ -565,17 +569,55 @@ The problem arises because the USB-CTR08 was told to collect 2048 dwell periods,
 It thus has a partially full buffer that it will push to the host when pulse 2048 is received.
 But because that final pulse is never received the final buffer is never sent, and CurrentChannel only gets to 2033.
 
-This problem can be worked around by always setting Dwell to 0.01, forcing it to use SINGLEIO even for external pulse periods shorter than 0.01 seconds (100 Hz).
+This problem can be worked around by always setting Dwell to 0.01, forcing it to use SINGLEIO
+even for external pulse periods shorter than 0.01 seconds (100 Hz).
 Surprisingly I have found that SINGLEIO works reliably for dwell times as short as 10 microseconds, i.e. 100 kHz.
 This is true no matter how many counter channels are enabled, i.e. have CounterNEnable=1. 
-However. above 100 kHz channel advance frequency SINGLEIO does not work, and one needs to decrease Dwell to switch to BLOCKIO.
+However, above 100 kHz channel advance frequency SINGLEIO does not work, and one needs to decrease Dwell to switch to BLOCKIO.
 
 Note that this problem only occurs when the number of advance pulses received is less than NuseALL. 
 If the number of pulses is at least NuseAll then CurrentChannel will always reach NuseAll.
 This is true whether it is running with SINGLEIO or BLOCKIO.
 
+Using an external gate signal
+-----------------------------
+It is possible to use an external gate signal to inhibit counting in both scaler mode and MCS mode.
+However, this requires the installation of one external TTL chip containing an OR gate.
+This is needed because in scaler mode counters 1-7 need to be gated by either counter 0 out
+(C0O) or by the external gate.  There is no way to do this without an external chip.
+To use an external gate the following wiring is required.
+
+- Install an external chip with at least one OR gate (e.g. 74HC32N or equivalent).
+- Connect the external gate signal to the first input of the OR gate.
+- Connect channel 0 output (C0O) to the second input of the OR gate.
+- Connect the output of the OR gate to all counter gate inputs (C0GT-C7GT).
+
+With these changes the external gate will inhibit counting in scaler mode.
+In MCS mode the external gate will inhibit counting but will not inhibit channel advance.
+
+Packaging
+---------
+The photo below shows the USB-CTR08 mounted in a box with BNC connectors on the front
+and back for inputs and outputs.  It also shows the 74HC32N chip mounted on top to
+implement the external gate as explained above.
+
+.. figure:: USB-CTR08_box.jpg
+    :width: 600
+    :align: center
+
+    **USB-CTR08 box showing 74HC32N for external gate**
+
+The photo below shows a box with the USB-CTR08 on the left, the USB-3114 in the middle,
+and the USB-1808X on the right.  This box contains most of the analog input, analog output, 
+digital I/O, and counter/timer functions required to run an experimental station at the APS.
+
+.. figure:: 3ModuleBox.jpg
+    :align: center
+
+    **Box with the USB-CTR08, USB-3114, and USB-1808X**
+
 medm screens
-~~~~~~~~~~~~
+------------
 
 The following is the main medm screen for controlling the USB-CTR04/08.
 
@@ -605,128 +647,6 @@ USB-CTR04/08.
 
     **USBCTR_MCS_plots.adl**
     
-.. _Wiring:
-
-Wiring to BCDA BC-020 LEMO Breakout Panels
-------------------------------------------
-
-The following photos show the BCDA BC-020 LEMO breakout panels wired to
-the USB-CTR08. A BC-020 with a BC-087 daughter card (left) is used for
-the 8 counter signals, and a BC-020 with wire-wrapping (right) is used
-for digital I/O, timer output, clock I/O, etc. .
-
-.. figure:: USBCTR_BC020.jpg
-    :align: center
-
-    **BC-020 LEMO breakout panels with USBCTR-08**
-
-.. figure:: USBCTR_Top.jpg
-    :align: center
-
-    **Top view of USBCTR-08 with BC-020 LEMO breakout panels**
-
-.. _USB-CTR08_wiring:
-
-Wiring table
-~~~~~~~~~~~~
-
-::
-
-         Digital I/O and other signals using wire-wrap connections
-
-   50-pin ribbon      USB-1608GX      BC-020       EPICS Function
-   connector pin    screw terminal   connector
-    1                DIO0               J1         Digital I/O bit 0
-    2                 GND               J1 shell   Ground
-    3                DIO1               J2         Digital I/O bit 1
-    4                 GND               J2 shell   Ground
-    5                DIO2               J3         Digital I/O bit 2
-    6                 GND               J3 shell   Ground
-    7                DIO3               J4         Digital I/O bit 3
-    8                 GND               J4 shell   Ground
-    9                DIO4               J5         Digital I/O bit 4
-   10                 GND               J5 shell   Ground
-   11                DIO5               J6         Digital I/O bit 5
-   12                 GND               J6 shell   Ground
-   13                DIO6               J7         Digital I/O bit 6
-   14                 GND               J7 shell   Ground
-   15                DIO7               J8         Digital I/O bit 7
-   16                 GND               J8 shell   Ground
-   17                TMR0               J9         Pulse generator 0 output
-   18                 GND               J9 shell   Ground
-   19                TMR1              J10         Pulse generator 1 output
-   20                 GND              J10 shell   Ground
-   21                TMR2              J11         Pulse generator 2 output
-   22                 GND              J11 shell   Ground
-   23                TMR3              J12         Pulse generator 3 output
-   24                 GND              J12 shell   Ground
-   25                TRIG              J13         Trigger input for MCS
-   26                 GND              J13 shell   Ground
-   27                CLKI              J14         External channel advance input
-   28                 GND              J14 shell   Ground
-   29                CLK0              J15         Clock output
-   30                 GND              J15 shell   Ground
-   31                 +VO              J16         +5 volt output
-   32                 GND              J16 shell   Ground
-
-    
-            Counter I/O using wire-wrap connections
-
-   50-pin ribbon      USB-CTR08      BC-020   EPICS Function
-   connector pin    screw terminal   connector
-    1                C0IN               J1         Scaler 1 input
-    2                 GND               J1 shell   Ground
-    3                C0GT               J2         Scaler 1 gate input
-    4                 GND               J2 shell   Ground
-    5                 C0O               J3         Scaler 1 output
-    6                 GND               J3 shell   Ground
-    7                C1IN               J4         Scaler 2 input
-    8                 GND               J4 shell   Ground
-    9                C1GT               J5         Scaler 2 gate input
-   10                 GND               J5 shell   Ground
-   11                 C1O               J6         Scaler 2 output
-   12                 GND               J6 shell   Ground
-   13                C2IN               J7         Scaler 3 input
-   14                 GND               J7 shell   Ground
-   15                C2GT               J8         Scaler 3 gate input
-   16                 GND               J8 shell   Ground
-   17                 C2O               J9         Scaler 3 output
-   18                 GND               J9 shell   Ground
-   19                C3IN              J10         Scaler 4 input
-   20                 GND              J10 shell   Ground
-   21                C3GT              J11         Scaler 4 gate input
-   22                 GND              J11 shell   Ground
-   23                 C4O              J12         Scaler 4 output
-   24                 GND              J12 shell   Ground
-   25                C4IN              J13         Scaler 5 input
-   26                 GND              J14 shell   Ground
-   27                C4GT              J14         Scaler 5 gate input
-   28                 GND              J14 shell   Ground
-   29                 C4O              J15         Scaler 5 output
-   30                 GND              J15 shell   Ground
-   31                C5IN              J16         Scaler 6 input
-   32                 GND              J16 shell   Ground
-   33                C5GT              J17         Scaler 6 gate input
-   34                 GND              J17 shell   Ground
-   35                 C5O              J18         Scaler 6 output
-   36                 GND              J18 shell   Ground
-   37                C6IN              J19         Scaler 7 input
-   38                 GND              J19 shell   Ground
-   39                C6GT              J20     Scaler 7 gate input
-   40                 GND              J20 shell   Ground
-   41                 C6O              J21         Scaler 7 output
-   42                 GND              J21 shell   Ground
-   43                C7IN              J22         Scaler 8 input
-   44                 GND              J22 shell   Ground
-   45                C7GT              J23         Scaler 8 gate input
-   46                 GND              J23 shell   Ground
-   47                 C7O              J24         Scaler 8 output
-   48                 GND              J24 shell   Ground
-
-   In addition to these connections counter 0 output (C0O) was connected to the gate
-   inputs of counters 1-7 (C1GT - C7GT) at the module screw terminals.
-   This is cheaper and simpler than using LEMO tees and short cables on the BC-020 module.
-
 .. _Performance_CTR:
 
 Performance measurements
