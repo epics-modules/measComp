@@ -1,6 +1,6 @@
 # measComp Release Notes
 
-## Release 4-4 (March XXX, 2025)
+## Release 4-4 (April XXX, 2025)
   - drvMultiFunction.cpp
     - Added support for the USB-ERB24, a 24-bit relay output module.
     - Moved the code for reading thermocouples and floating point voltages (USB-TEMP-AI) from the readFloat64
@@ -14,6 +14,22 @@
     - Added a PulseDelay PV, which controls the time of the beginning of the pulse relative to the start of the waveform.
       This is useful when using 2 waveforms, and one wants a time offset between them.
   - drvUSBCTR
+    - Changes to allow use of an external gate signal in scaler and MCS modes.
+      - Changed the polarity of the gate signals for the counters (C0GT-C7GT).
+        Previously counting was enabled with TTL high signal, and disabled with TTL low.
+        This has been swapped to allow use of an external TTL high gate signal to disable counting.
+      - Changed the polarity of the counter output signals (C0O-C7O).
+        Previously these were TTL high when counting and TTL low when not counting.
+        This was swapped to match the change to the gate signals and use of an external gate.
+      - These changes are backwards compatible with existing hardware, where C0O is wired to C1GT-C7GT,
+        and no external gate is used.
+      - To use an external gate the following wiring is required.
+        - Install an external chip with 4 OR gates (74HC32N or equivalent).
+        - Connect the external gate signal to the first input of the OR gate.
+        - Connect channel 0 output (C0O) to the second input of the OR gate.
+        - Connect the output of the OR gate to all counter gate inputs (C0GT-C7GT).
+      - With these changes the external gate will inhibit counting in scaler mode.
+        In MCS mode external gate will inhibit counting but will not inhibit channel advance.
     - Fixed a problem with Rising Edge and Falling Edge trigger modes. The wrong enums were being used.
 
 ## Release 4-3 (February 10, 2024)
