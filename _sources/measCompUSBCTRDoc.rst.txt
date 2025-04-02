@@ -588,6 +588,8 @@ This is needed because in scaler mode counters 1-7 need to be gated by either co
 To use an external gate the following wiring is required.
 
 - Install an external chip with at least one OR gate (e.g. 74HC32N or equivalent).
+- Connect +5V from the USB-CTR08 to the +5V on the chip.
+- Connect ground from the USB-CTR08 to the ground on the chip.
 - Connect the external gate signal to the first input of the OR gate.
 - Connect channel 0 output (C0O) to the second input of the OR gate.
 - Connect the output of the OR gate to all counter gate inputs (C0GT-C7GT).
