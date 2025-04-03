@@ -478,6 +478,8 @@ static const enumStruct_t inputTypeE_TC[] = {
   {"TC deg.", AI_CHAN_TYPE_TC}
 };
 
+// Note, the following are not used because they cannot be configured on the USB-TEMP or USB-TEMP-AI.
+// They were previously configurable on Linux with Warren Jasper's drivers
 #ifdef _WIN32
   // The sensor type cannot be configured in UL for Windows so widthwe use these default enum values
   static const enumStruct_t temperatureSensorUSB_TEMP[] = {
@@ -1162,7 +1164,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
       break;
     case USB_TEMP:
       numTimers_    = 0;
-      numCounters_  = 1;
+      numCounters_  = 0;
       firstCounter_ = 0;
       for (i=0; i<8; i++) {
         setIntegerParam(i, analogInType_, AI_CHAN_TYPE_TC);
@@ -2485,6 +2487,8 @@ asynStatus MultiFunction::readEnum(asynUser *pasynUser, char *strings[], int val
     pEnum    = pBoardEnums_->pInputType;
     numEnums = pBoardEnums_->numInputType;
   }
+  // Note, the following are not used because they cannot be configured on the USB-TEMP or USB-TEMP-AI.
+  // They were previously configurable on Linux with Warren Jasper's drivers
   else if (function == temperatureSensor_) {
     pEnum    = temperatureSensorUSB_TEMP;
     numEnums = sizeof(temperatureSensorUSB_TEMP)/sizeof(enumStruct_t);
@@ -2685,7 +2689,11 @@ void MultiFunction::pollerThread()
             status = ulAIn(daqDeviceHandle_, i+4, aiInputMode_, ulRange, AIN_FF_DEFAULT, &tempValue);
           #endif
           reportError(status, functionName, "Calling AIn");
+          // We want to force a callback, even if the value is the same.
+          // This can only be done by setting the value once to a different value, then the correct value
+          setDoubleParam(i, voltageInValue_, tempValue+1);
           setDoubleParam(i, voltageInValue_, tempValue);
+          //if (i==0) asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "ulAIn chan=%d, tempValue=%f\n", i, tempValue);
         } 
         else { 
           // Models other than USB_TEMP_AI read voltage as integer
@@ -2706,6 +2714,9 @@ void MultiFunction::pollerThread()
             status = ulAIn(daqDeviceHandle_, i, aiInputMode_, ulRange, AIN_FF_NOSCALEDATA, &data);
             value = (epicsInt32) data;
           #endif
+          // We want to force a callback, even if the value is the same.
+          // This can only be done by setting the value once to a different value, then the correct value
+          setIntegerParam(i, analogInValue_, value+1);
           setIntegerParam(i, analogInValue_, value);
         }
       } // for numAnalogIn_
@@ -2751,6 +2762,9 @@ void MultiFunction::pollerThread()
         #endif
         //if (i==0) asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "ulTIn chan=%d, tempValue=%f\n", i, tempValue);
 
+        // We want to force a callback, even if the value is the same.
+        // This can only be done by setting the value once to a different value, then the correct value
+        setDoubleParam(i, temperatureInValue_, tempValue+1);
         setDoubleParam(i, temperatureInValue_, tempValue);
         reportError(status, functionName, "Calling TIn");
 
