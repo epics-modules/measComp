@@ -77,17 +77,6 @@ pattern
 {Ti4,    3,  "1 second",    2}
 }
 
-# Temperature sensor types and wiring
-file "$(MEASCOMP)/db/measCompUSBTempConfig.template"
-{
-pattern
-{ R,  ADDR}
-{Ti1,    0}
-{Ti2,    1}
-{Ti3,    2}
-{Ti4,    3}
-}
-
 # Analog inputs
 file "$(MEASCOMP)/db/measCompVoltageIn.template"
 {
