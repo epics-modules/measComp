@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/support/measComp-4-1/measCompApp/op/adl/USBTEMP_module.adl"
+	name="/home/epics/devel/measComp-4-3/measCompApp/op/adl/USBTEMP_module.adl"
 	version=030117
 }
 display {
@@ -103,35 +103,35 @@ text {
 composite {
 	object {
 		x=5
-		y=145
+		y=415
 		width=560
-		height=425
+		height=155
+	}
+	"composite name"=""
+	"composite file"="measCompDigitalIO8.adl"
+}
+composite {
+	object {
+		x=30
+		y=35
+		width=510
+		height=105
+	}
+	"composite name"=""
+	"composite file"="measCompDeviceVert.adl"
+}
+composite {
+	object {
+		x=138
+		y=145
+		width=295
+		height=265
 	}
 	"composite name"=""
 	children {
-		composite {
-			object {
-				x=305
-				y=145
-				width=220
-				height=60
-			}
-			"composite name"=""
-			"composite file"="measCompCounters1.adl"
-		}
-		composite {
-			object {
-				x=5
-				y=415
-				width=560
-				height=155
-			}
-			"composite name"=""
-			"composite file"="measCompDigitalIO8.adl"
-		}
 		rectangle {
 			object {
-				x=5
+				x=138
 				y=145
 				width=295
 				height=265
@@ -144,7 +144,7 @@ composite {
 		}
 		"related display" {
 			object {
-				x=48
+				x=181
 				y=380
 				width=113
 				height=20
@@ -195,7 +195,7 @@ composite {
 		}
 		"related display" {
 			object {
-				x=166
+				x=299
 				y=380
 				width=93
 				height=20
@@ -211,7 +211,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=180
 				width=74
 				height=20
@@ -226,7 +226,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=205
 				width=74
 				height=20
@@ -241,7 +241,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=230
 				width=74
 				height=20
@@ -256,7 +256,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=255
 				width=74
 				height=20
@@ -271,7 +271,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=280
 				width=74
 				height=20
@@ -286,7 +286,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=305
 				width=74
 				height=20
@@ -301,7 +301,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=330
 				width=74
 				height=20
@@ -316,7 +316,7 @@ composite {
 		}
 		"message button" {
 			object {
-				x=218
+				x=351
 				y=355
 				width=74
 				height=20
@@ -331,7 +331,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=180
 				width=90
 				height=20
@@ -344,7 +344,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=205
 				width=90
 				height=20
@@ -357,7 +357,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=230
 				width=90
 				height=20
@@ -370,7 +370,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=255
 				width=90
 				height=20
@@ -383,7 +383,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=280
 				width=90
 				height=20
@@ -396,7 +396,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=305
 				width=90
 				height=20
@@ -409,7 +409,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=330
 				width=90
 				height=20
@@ -422,7 +422,7 @@ composite {
 		}
 		menu {
 			object {
-				x=123
+				x=256
 				y=355
 				width=90
 				height=20
@@ -435,7 +435,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=180
 				width=90
 				height=20
@@ -451,7 +451,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=205
 				width=90
 				height=20
@@ -467,7 +467,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=230
 				width=90
 				height=20
@@ -483,7 +483,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=255
 				width=90
 				height=20
@@ -499,7 +499,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=280
 				width=90
 				height=20
@@ -515,7 +515,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=305
 				width=90
 				height=20
@@ -531,7 +531,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=330
 				width=90
 				height=20
@@ -547,7 +547,7 @@ composite {
 		}
 		"text update" {
 			object {
-				x=28
+				x=161
 				y=355
 				width=90
 				height=20
@@ -563,7 +563,7 @@ composite {
 		}
 		composite {
 			object {
-				x=13
+				x=146
 				y=180
 				width=10
 				height=195
@@ -572,7 +572,7 @@ composite {
 			children {
 				text {
 					object {
-						x=13
+						x=146
 						y=180
 						width=10
 						height=20
@@ -585,7 +585,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=205
 						width=10
 						height=20
@@ -598,7 +598,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=230
 						width=10
 						height=20
@@ -611,7 +611,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=255
 						width=10
 						height=20
@@ -624,7 +624,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=280
 						width=10
 						height=20
@@ -637,7 +637,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=305
 						width=10
 						height=20
@@ -650,7 +650,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=330
 						width=10
 						height=20
@@ -663,7 +663,7 @@ composite {
 				}
 				text {
 					object {
-						x=13
+						x=146
 						y=355
 						width=10
 						height=20
@@ -678,7 +678,7 @@ composite {
 		}
 		text {
 			object {
-				x=50
+				x=183
 				y=150
 				width=204
 				height=25
@@ -690,14 +690,4 @@ composite {
 			align="horiz. right"
 		}
 	}
-}
-composite {
-	object {
-		x=30
-		y=35
-		width=510
-		height=105
-	}
-	"composite name"=""
-	"composite file"="measCompDeviceVert.adl"
 }
