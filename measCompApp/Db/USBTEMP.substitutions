@@ -59,13 +59,6 @@ pattern
 {Bd8,  0x80,    1,     0}
 }
 
-file "$(MEASCOMP)/db/measCompCounter.template"
-{
-pattern
-{   R,       ADDR}
-{Counter1,      0}
-}
-
 # Temperature inputs
 file "$(MEASCOMP)/db/measCompTemperatureIn.template"
 {
@@ -79,19 +72,4 @@ pattern
 {Ti6,    5,  "1 second",    2}
 {Ti7,    6,  "1 second",    2}
 {Ti8,    7,  "1 second",    2}
-}
-
-# Temperature sensor types and wiring
-file "$(MEASCOMP)/db/measCompUSBTempConfig.template"
-{
-pattern
-{ R,  ADDR}
-{Ti1,    0}
-{Ti2,    1}
-{Ti3,    2}
-{Ti4,    3}
-{Ti5,    4}
-{Ti6,    5}
-{Ti7,    6}
-{Ti8,    7}
 }
