@@ -1265,6 +1265,7 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
   setDoubleParam(pollSleepMS_, 50.);
+  aiInputMode_ = AI_SINGLE_ENDED;
   for (i=0; i<numTemperatureIn_; i++) {
     setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
   }
@@ -2672,9 +2673,7 @@ void MultiFunction::pollerThread()
       double tempValue;
       getIntegerParam(0, analogInMode_, &mode);
       for (i=0; i<numAnalogIn_; i++) {
-        getIntegerParam(i, analogInRange_, &range);
-        getIntegerParam(i, analogInType_, &type);
-        if (type != AI_CHAN_TYPE_VOLTAGE) continue;
+        getIntegerParam(i, voltageInRange_, &range);
         if ((boardType_ == E_1608) && (mode == DIFFERENTIAL) && (i>3)) break;
         if (boardType_ == USB_TEMP_AI) {
           // USB_TEMP_AI reads voltage as floating point
@@ -2693,10 +2692,12 @@ void MultiFunction::pollerThread()
           // This can only be done by setting the value once to a different value, then the correct value
           setDoubleParam(i, voltageInValue_, tempValue+1);
           setDoubleParam(i, voltageInValue_, tempValue);
-          //if (i==0) asynPrint(pasynUserSelf, ASYN_TRACE_ERROR, "ulAIn chan=%d, tempValue=%f\n", i, tempValue);
         } 
         else { 
           // Models other than USB_TEMP_AI read voltage as integer
+          getIntegerParam(i, analogInRange_, &range);
+          getIntegerParam(i, analogInType_, &type);
+          if (type != AI_CHAN_TYPE_VOLTAGE) continue;
           #ifdef _WIN32
             if (ADCResolution_ <= 16) {
               epicsUInt16 shortVal;
