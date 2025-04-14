@@ -12,9 +12,15 @@ USR_CXXFLAGS_Linux += -Wno-write-strings
 ifdef ULDAQ_INCLUDE
   USR_INCLUDES_Linux += -I$(ULDAQ_INCLUDE)
 endif
+ifdef USB_INCLUDE
+  USR_INCLUDES_Linux += -I$(USB_INCLUDE)
+endif
 
 ifdef ULDAQ_DIR
   uldaq_DIR = $(ULDAQ_DIR)
+endif
+ifdef USB_DIR
+  usb-1.0_DIR = $(USB_DIR)
 endif
 
 DBD += measCompApp.dbd
@@ -72,7 +78,11 @@ ifdef ULDAQ_DIR
 else
   measCompApp_SYS_LIBS_Linux += uldaq
 endif
-measCompApp_SYS_LIBS_Linux += usb-1.0
+ifdef USB_DIR
+  measCompApp_LIBS_Linux += usb-1.0
+else
+  measCompApp_SYS_LIBS_Linux += usb-1.0
+endif
 
 # Finally link to the EPICS Base libraries
 measCompApp_LIBS += $(EPICS_BASE_IOC_LIBS)
@@ -113,7 +123,11 @@ ifdef ULDAQ_DIR
 else
   test_measCompDiscover_SYS_LIBS_Linux += uldaq
 endif
-test_measCompDiscover_SYS_LIBS_Linux += usb-1.0
+ifdef USB_DIR
+  test_measCompDiscover_LIBS_Linux += usb-1.0
+else
+  test_measCompDiscover_SYS_LIBS_Linux += usb-1.0
+endif
 test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # These are test programs which were used when finding Ubuntu18 had problems with scans > 1000 points/s
@@ -123,7 +137,11 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #else
 #  test_AInScan_Linux_SYS_LIBS += uldaq
 #endif
-#test_AInScan_Linux_SYS_LIBS += usb-1.0
+#ifdef USB_DIR
+#  test_AInScan_Linux_LIBS += usb-1.0
+#else
+#  test_AInScan_Linux_SYS_LIBS += usb-1.0
+#endif
 
 #PROD_IOC_Linux += test_USB_CTR
 #ifdef ULDAQ_DIR
@@ -131,7 +149,11 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #else
 #  test_USB_CTR_SYS_LIBS_Linux += uldaq
 #endif
-#test_USB_CTR_SYS_LIBS_Linux += usb-1.0
+#ifdef USB_DIR
+#  test_USB_CTR_LIBS_Linux += usb-1.0
+#else
+#  test_USB_CTR_SYS_LIBS_Linux += usb-1.0
+#endif
 #PROD_IOC_WIN32 += test_USB_CTR
 #test_USB_CTR_LIBS_WIN32 += cbw64
 
@@ -142,7 +164,11 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #else
 #  DaqInScan_SYS_LIBS_Linux += uldaq
 #endif
-#DaqInScan_SYS_LIBS_Linux += usb-1.0
+#ifdef USB_DIR
+#  DaqInScan_LIBS_Linux += usb-1.0
+#else
+#  DaqInScan_SYS_LIBS_Linux += usb-1.0
+#endif
 
 # This test program shows temperature glitches on Linux with USB-2408 and data rate <= 20 Hz.
 #PROD_IOC_Linux += 2408_TIn
@@ -152,7 +178,11 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #else
 #  2408_TIn_SYS_LIBS_Linux += uldaq
 #endif
-#2408_TIn_SYS_LIBS_Linux += usb-1.0
+#ifdef USB_DIR
+#  2408_TIn_LIBS_Linux += usb-1.0
+#else
+#  2408_TIn_SYS_LIBS_Linux += usb-1.0
+#endif
 
 #PROD_IOC_Linux += test_USB_CTR_fdiv
 #ifdef ULDAQ_DIR
@@ -160,7 +190,11 @@ test_measCompDiscover_LIBS += $(EPICS_BASE_IOC_LIBS)
 #else
 #  test_USB_CTR_fdiv_SYS_LIBS_Linux += uldaq
 #endif
-#test_USB_CTR_fdiv_SYS_LIBS_Linux += usb-1.0
+#ifdef USB_DIR
+#  test_USB_CTR_fdiv_LIBS_Linux += usb-1.0
+#else
+#  test_USB_CTR_fdiv_SYS_LIBS_Linux += usb-1.0
+#endif
 #PROD_IOC_WIN32 += test_USB_CTR_fdiv
 #test_USB_CTR_fdiv_LIBS_WIN32 += cbw64
 
@@ -173,7 +207,12 @@ ifdef ULDAQ_DIR
 else
   testDualEthDevice_SYS_LIBS_Linux += uldaq
 endif
-testDualEthDevice_SYS_LIBS_Linux += usb-1.0 pthread
+ifdef USB_DIR
+  testDualEthDevice_LIBS_Linux += usb-1.0
+else
+  testDualEthDevice_SYS_LIBS_Linux += usb-1.0
+endif
+testDualEthDevice_SYS_LIBS_Linux += pthread
 #=============================
 
 include $(TOP)/configure/RULES
