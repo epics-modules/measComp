@@ -1265,7 +1265,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   setIntegerParam(waveDigRun_, 0);
   setIntegerParam(waveGenRun_, 0);
   setDoubleParam(pollSleepMS_, 50.);
+  #ifdef linux
   aiInputMode_ = AI_SINGLE_ENDED;
+  #endif
   for (i=0; i<numTemperatureIn_; i++) {
     setIntegerParam(i, thermocoupleType_, TC_TYPE_J);
   }
