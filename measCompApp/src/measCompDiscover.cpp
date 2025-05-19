@@ -9,6 +9,7 @@
   #include "uldaq.h"
 #endif
 
+#include <epicsExport.h>
 #include <measCompDiscover.h>
 
 #define MAX_DEVICES 100
