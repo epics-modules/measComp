@@ -1,11 +1,13 @@
 # measComp Release Notes
 
-## Release 4-4 (April XXX, 2025)
+## Release 4-4 (December XXX, 2025)
   - drvMultiFunction.cpp
     - Added support for the USB-ERB24, a 24-bit relay output module.
     - Fixed the code for doing callbacks from the poller for analog inputs and temperature inputs.
       Because these use the asynInt32Average or asynFloat64 average device support, it is important
       to force a callback even if the value read has not changed.
+    - Added support for synchronous DAC updates, including support for master or slave mode.
+      Currently the only supported modules with these features are the USB-31xx series.
     - Moved the code for reading thermocouples and floating point voltages (USB-TEMP-AI) from the readFloat64
       function to the poller, and changed the device support from asynFloat64 to asynFloat64 average.
       This allows these measurements to be averaged like other analog inputs.
