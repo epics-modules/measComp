@@ -65,3 +65,38 @@ record(calcout,"$(P)$(R)TweakDown") {
     field(OUT,  "$(P)$(R).VAL  PP MS")
     field(PREC, "$(PREC)")
 }
+
+###################################################################
+# Master or slave synchonous mode                                 #
+###################################################################
+record(bo,"$(P)$(R)SyncMaster")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_SYNC_MASTER")
+    field(ZNAM, "Master")
+    field(ONAM, "Slave")
+}
+
+###################################################################
+#  Simultaneous or sequential output mode                         #
+###################################################################
+record(bo, "$(P)$(R)SyncMode")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_SYNC_ENABLE")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+}
+
+###################################################################
+#  Simultaneous or sequential output mode                         #
+###################################################################
+record(bo, "$(P)$(R)SyncWrite")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR))ANALOG_OUT_SYNC_WRITE")
+    field(ZNAM, "Done")
+    field(ONAM, "Write")
+}
