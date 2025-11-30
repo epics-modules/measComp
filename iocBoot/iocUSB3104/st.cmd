@@ -6,7 +6,8 @@ measCompApp_registerRecordDeviceDriver pdbbase
 
 epicsEnvSet("PREFIX",        "USB3104:")
 epicsEnvSet("PORT",          "USB3104_1")
-epicsEnvSet("UNIQUE_ID",     "0209CC99")
+epicsEnvSet("UNIQUE_ID",     "0216B19B")
+#epicsEnvSet("UNIQUE_ID",     "0209CC85")
 
 ## Configure port driver
 # MultiFunctionConfig((portName,        # The name to give to this asyn port driver
