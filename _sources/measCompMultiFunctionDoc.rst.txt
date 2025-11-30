@@ -507,6 +507,9 @@ and has the following features:
    -  4, 8 or 16 channels, individually programmable range 0-10V or +-10V.
    -  Some models provide 0-20 mA current output as well as voltage output
    -  Some models have high-drive voltage output (+-40 mA)
+   -  Support for synchronously updating all DAC channels at the same time.
+      This can be done in master or slave mode, which controls whether the 
+      SYNCLD signal is an output (master) or an input (slave).
    -  100 Hz maximum output rate
 
 -  Digital inputs/outputs
@@ -718,6 +721,26 @@ This database is loaded once for each analog output channel
     - ANALOG_OUT_RANGE
     - Output range for this analog output channel. Choices are determined at run time
       based on the model in use.
+  * - $(P)$(R)SyncMaster
+    - bo
+    - asynInt32
+    - ANALOG_OUT_SYNC_MASTER
+    - Controls whether the SYNCLD signal is an output (0, Master) or input (1, Slave).
+  * - $(P)$(R)SyncEnable
+    - bo
+    - asynInt32
+    - ANALOG_OUT_SYNC_ENABLE
+    - Controls whether the analog outputs are updated synchronously.  
+
+      - If this is Disable then the DAC outputs are updated immediately when new values are
+        written to the ao records.
+      - If this is Enable then the DAC outputs are not updated when the ao records are written to.
+        They are only updated when the SyncWrite record is processed, and they all update simultaneously.
+  * - $(P)$(R)SyncWrite
+    - bo
+    - asynInt32
+    - ANALOG_OUT_SYNC_WRITE
+    - Writing to this record simultaneously updates all of the analog outputs to the values in the ao records.
   * - $(P)$(R)Return
     - ai
     - asynInt32
@@ -747,6 +770,11 @@ This database is loaded once for each analog output channel
     - N.A.
     - N.A.
     - Tweaks the output down by TweakVal.
+
+**NOTE for Sync records:** The sync features are only supported on the USB-31xx models.
+The Sync records exist for all analog output channels.
+However, only the records for the first channel, $(P)$(R)1Sync*, are used.
+The screen shot for the USB-3104 above shows the sync record widgets.
 
 The following is the medm screen for controlling the analog output
 records for the USB-1608GX-2AO. Note that the engineering units limits

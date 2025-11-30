@@ -682,6 +682,9 @@ and has the following features:</p>
 <li><p>4, 8 or 16 channels, individually programmable range 0-10V or +-10V.</p></li>
 <li><p>Some models provide 0-20 mA current output as well as voltage output</p></li>
 <li><p>Some models have high-drive voltage output (+-40 mA)</p></li>
+<li><p>Support for synchronously updating all DAC channels at the same time.
+This can be done in master or slave mode, which controls whether the
+SYNCLD signal is an output (master) or an input (slave).</p></li>
 <li><p>100 Hz maximum output rate</p></li>
 </ul>
 </li>
@@ -924,7 +927,32 @@ integer device units for the driver using the EGUL and EGUF fields.</p></td>
 <td><p>Output range for this analog output channel. Choices are determined at run time
 based on the model in use.</p></td>
 </tr>
-<tr class="row-even"><td><p>$(P)$(R)Return</p></td>
+<tr class="row-even"><td><p>$(P)$(R)SyncMaster</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_SYNC_MASTER</p></td>
+<td><p>Controls whether the SYNCLD signal is an output (0, Master) or input (1, Slave).</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)SyncEnable</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_SYNC_ENABLE</p></td>
+<td><p>Controls whether the analog outputs are updated synchronously.</p>
+<ul class="simple">
+<li><p>If this is Disable then the DAC outputs are updated immediately when new values are
+written to the ao records.</p></li>
+<li><p>If this is Enable then the DAC outputs are not updated when the ao records are written to.
+They are only updated when the SyncWrite record is processed, and they all update simultaneously.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>$(P)$(R)SyncWrite</p></td>
+<td><p>bo</p></td>
+<td><p>asynInt32</p></td>
+<td><p>ANALOG_OUT_SYNC_WRITE</p></td>
+<td><p>Writing to this record simultaneously updates all of the analog outputs to the values in the ao records.</p></td>
+</tr>
+<tr class="row-odd"><td><p>$(P)$(R)Return</p></td>
 <td><p>ai</p></td>
 <td><p>asynInt32</p></td>
 <td><p>ANALOG_OUT_VALUE</p></td>
@@ -932,7 +960,7 @@ based on the model in use.</p></td>
 units to the 16-bit unsigned integer device units for the driver using the EGUL
 and EGUF fields.</p></td>
 </tr>
-<tr class="row-odd"><td><p>$(P)$(R)Pulse</p></td>
+<tr class="row-even"><td><p>$(P)$(R)Pulse</p></td>
 <td><p>bo</p></td>
 <td><p>N.A.</p></td>
 <td><p>N.A.</p></td>
@@ -940,19 +968,19 @@ and EGUF fields.</p></td>
 Pulse mode the $(P)($R) output is written to to hardware, followed immediately by
 writing the $(P)$(R)Return value.</p></td>
 </tr>
-<tr class="row-even"><td><p>$(P)$(R)TweakVal</p></td>
+<tr class="row-odd"><td><p>$(P)$(R)TweakVal</p></td>
 <td><p>ao</p></td>
 <td><p>N.A.</p></td>
 <td><p>N.A.</p></td>
 <td><p>The amount by which to tweak the out when the Tweak record is processed.</p></td>
 </tr>
-<tr class="row-odd"><td><p>$(P)$(R)TweakUp</p></td>
+<tr class="row-even"><td><p>$(P)$(R)TweakUp</p></td>
 <td><p>calcout</p></td>
 <td><p>N.A.</p></td>
 <td><p>N.A.</p></td>
 <td><p>Tweaks the output up by TweakVal.</p></td>
 </tr>
-<tr class="row-even"><td><p>$(P)$(R)TweakDown</p></td>
+<tr class="row-odd"><td><p>$(P)$(R)TweakDown</p></td>
 <td><p>calcout</p></td>
 <td><p>N.A.</p></td>
 <td><p>N.A.</p></td>
@@ -960,6 +988,10 @@ writing the $(P)$(R)Return value.</p></td>
 </tr>
 </tbody>
 </table>
+<p><strong>NOTE for Sync records:</strong> The sync features are only supported on the USB-31xx models.
+The Sync records exist for all analog output channels.
+However, only the records for the first channel, $(P)$(R)1Sync*, are used.
+The screen shot for the USB-3104 above shows the sync record widgets.</p>
 <p>The following is the medm screen for controlling the analog output
 records for the USB-1608GX-2AO. Note that the engineering units limits
 (EGUL and EGUF) do not have to be in volts, they can be in any units
