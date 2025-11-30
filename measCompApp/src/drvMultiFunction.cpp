@@ -21,7 +21,7 @@
 
 #include <asynPortDriver.h>
 
-#define DRIVER_VERSION "4.3"
+#define DRIVER_VERSION "4.4"
 
 #ifdef _WIN32
   #include "cbw.h"
@@ -166,6 +166,9 @@ typedef enum {
 // Analog output parameters
 #define analogOutValueString      "ANALOG_OUT_VALUE"
 #define analogOutRangeString      "ANALOG_OUT_RANGE"
+#define analogOutSyncMasterString "ANALOG_OUT_SYNC_MASTER"
+#define analogOutSyncEnableString "ANALOG_OUT_SYNC_ENABLE"
+#define analogOutSyncWriteString  "ANALOG_OUT_SYNC_WRITE"
 
 // Waveform generator parameters - global
 #define waveGenFreqString         "WAVEGEN_FREQ"
@@ -679,6 +682,9 @@ protected:
   // Analog output parameters
   int analogOutValue_;
   int analogOutRange_;
+  int analogOutSyncMaster_;
+  int analogOutSyncEnable_;
+  int analogOutSyncWrite_;
 
   // Waveform generator parameters - global
   int waveGenFreq_;
@@ -781,6 +787,7 @@ private:
   int waveGenSavedOutput[MAX_ANALOG_OUT];
   int waveGenRunning_;
   int waveDigRunning_;
+  int writeAnalogOutSync();
   int startPulseGenerator(int timerNum);
   int stopPulseGenerator(int timerNum);
   int startWaveGen();
@@ -911,6 +918,9 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
   // Analog output parameters
   createParam(analogOutValueString,            asynParamInt32, &analogOutValue_);
   createParam(analogOutRangeString,            asynParamInt32, &analogOutRange_);
+  createParam(analogOutSyncMasterString,       asynParamInt32, &analogOutSyncMaster_);
+  createParam(analogOutSyncEnableString,       asynParamInt32, &analogOutSyncEnable_);
+  createParam(analogOutSyncWriteString,       asynParamInt32, &analogOutSyncWrite_);
 
   // Waveform generator parameters - global
   createParam(waveGenFreqString,             asynParamFloat64, &waveGenFreq_);
@@ -1972,16 +1982,6 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
 
-  // Analog output functions
-  if ((function == analogOutRange_) && analogOutRangeConfigurable_) {
-    #ifdef _WIN32
-      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDACRANGE, value);
-    #else
-      // No function to immediately set it on Linux, this value is read from parameter library when calling ulAOut
-    #endif
-    reportError(status, functionName, "Setting analog out range");
-  }
-
   else if (function == analogInMode_) {
     #ifdef _WIN32
       status = cbAInputMode(boardNum_, value);
@@ -2000,6 +2000,7 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
     reportError(status, functionName, "Setting data rate");
   }
 
+  // Temperature functions
   else if ((function == thermocoupleType_) && isThermocouple) {
     // NOTE:
     // This sleep is a hack to get it working on the TC-32.  Without it the call to cbSetConfig()
@@ -2113,22 +2114,49 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   // Analog output functions
-  else if (function == analogOutValue_) {
-    if (waveGenRunning_) {
-      reportError(-1, functionName, "cannot write analog outputs while waveform generator is running.");
-      ULMutex.unlock();
-      return asynError;
-    }
-    status = getIntegerParam(addr, analogOutRange_, &range);
-
+  else if ((function == analogOutRange_) && analogOutRangeConfigurable_) {
     #ifdef _WIN32
-      status = cbAOut(boardNum_, addr, range, value);
+      status = cbSetConfig(BOARDINFO, boardNum_, addr, BIDACRANGE, value);
     #else
-      Range ulRange;
-      mapRange(range, &ulRange);
-      status = ulAOut(daqDeviceHandle_, addr, ulRange, AOUT_FF_NOSCALEDATA, (double) value);
+      // No function to immediately set it on Linux, this value is read from parameter library when calling ulAOut
     #endif
-    reportError(status, functionName, "calling AOut");
+    reportError(status, functionName, "Setting analog out range");
+  }
+
+  else if (function == analogOutValue_) {
+    int syncEnable;
+    getIntegerParam(analogOutSyncEnable_, &syncEnable);
+    // In sync mode we don't write the outputs until analogOutSyncWrite_ is written
+    if (!syncEnable) {
+      if (waveGenRunning_) {
+        reportError(-1, functionName, "cannot write analog outputs while waveform generator is running.");
+        ULMutex.unlock();
+        return asynError;
+      }
+      status = getIntegerParam(addr, analogOutRange_, &range);
+  
+      #ifdef _WIN32
+        status = cbAOut(boardNum_, addr, range, value);
+      #else
+        Range ulRange;
+        mapRange(range, &ulRange);
+        status = ulAOut(daqDeviceHandle_, addr, ulRange, AOUT_FF_NOSCALEDATA, (double) value);
+      #endif
+      reportError(status, functionName, "calling AOut");
+    }
+  }
+
+  else if (function == analogOutSyncMaster_) {
+    #ifdef _WIN32
+      status = cbSetConfig(BOARDINFO, boardNum_, addr, BISYNCMODE, value ? 0 : 1);
+    #else
+      status = ulAOSetConfig(daqDeviceHandle_, AO_CFG_SYNC_MODE, addr, value ? AOSM_MASTER : AOSM_SLAVE);
+    #endif
+    reportError(status, functionName, "Setting analog out master");
+  }
+
+  else if (function == analogOutSyncWrite_) {
+    status = writeAnalogOutSync();
   }
 
   // Waveform generator functions
@@ -2205,6 +2233,37 @@ int MultiFunction::setOpenThermocoupleDetect(int addr, int value)
     ULMutex.unlock();
     reportError(status, functionName, "Setting thermocouple open detect mode");
   }
+  return status;
+}
+
+int MultiFunction::writeAnalogOutSync()
+{
+  int iTemp;
+  int status;
+  int syncEnable;
+  int options = 0;
+
+  getIntegerParam(analogOutSyncEnable_, &syncEnable);
+  if (syncEnable) options |= SIMULTANEOUS;
+
+  #ifdef _WIN32
+    long rate = 0;
+    epicsUInt16 aoValues[MAX_ANALOG_OUT];
+    for (int i=0; i<MAX_ANALOG_OUT; i++) {
+      getIntegerParam(analogOutValue_, &iTemp);
+      aoValues[i] = (epicsUInt16) iTemp;
+    }
+    status = cbAOutScan(boardNum_, 0, numAnalogOut_-1, numAnalogOut_, &rate, BIP10VOLTS, aoValues, options);
+  #else
+    double rate = 0.;
+    epicsFloat64 aoValues[MAX_ANALOG_OUT];
+    for (int i=0; i<MAX_ANALOG_OUT; i++) {
+      getIntegerParam(analogOutValue_, &iTemp);
+      aoValues[i] = double(iTemp);
+    }
+    status = ulAOutScan(daqDeviceHandle_, 0, numAnalogOut_-1, BIP10VOLTS, numAnalogOut_, &rate, (ScanOption) options, 
+                        AOUTSCAN_FF_NOSCALEDATA, aoValues);
+  #endif
   return status;
 }
 
