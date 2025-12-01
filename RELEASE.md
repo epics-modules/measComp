@@ -9,7 +9,7 @@
     - Added support for synchronous DAC updates, including support for master or slave mode.
       Currently the only supported modules with these features are the USB-31xx series.
     - Moved the code for reading thermocouples and floating point voltages (USB-TEMP-AI) from the readFloat64
-      function to the poller, and changed the device support from asynFloat64 to asynFloat64 average.
+      function to the poller, and changed the device support from asynFloat64 to asynFloat64Average.
       This allows these measurements to be averaged like other analog inputs.
       It also allows them to have SCAN=I/O Intr and scan faster than 10 Hz.
     - Changed the behavior of the waveform generator Offset PV when using the internal Pulse waveform.
@@ -18,12 +18,6 @@
       The new behavior is that the non-pulse part of the waveform has the value of Offset.
     - Added a PulseDelay PV, which controls the time of the beginning of the pulse relative to the start of the waveform.
       This is useful when using 2 waveforms, and one wants a time offset between them.
-    - Removed the code for configuring the temperature input type (RTD, thermocouple, etc.) on the USB-TEMP and USB-TEMP-AI.
-      These can only be configured using InstaCal on Windows, and generated errors when trying to set them.
-      In older versions of measComp that used Warren Jasper's drivers on Linux these could be configured,
-      but the uldaq library does not support this.
-    - Set the number of counters on the USB-TEMP to 0 because this module does not have a counter.
-      It was previously set to 1, which was causing errors.
   - drvUSBCTR
     - Changes to allow use of an external gate signal in scaler and MCS modes.
       - Changed the polarity of the gate signals for the counters (C0GT-C7GT).
@@ -43,11 +37,15 @@
         In MCS mode external gate will inhibit counting but will not inhibit channel advance.
     - Fixed a problem with Rising Edge and Falling Edge trigger modes. The wrong enums were being used.
   - USB-TEMP
-    - Removed the records for the counter input from the substitutions file and OPI screens
-      because the USB-TEMP does not have a counter.
+    - Set the number of counters on the USB-TEMP to 0 because this module does not have a counter.
+      It was previously set to 1, which was causing errors.
+      Removed the records for the counter input from the substitutions file and OPI screens. 
   - USB-TEMP and USB-TEMP-AI
     - Removed the records for temperature input type (RTD, thermocouple, etc.) from the substitutions file
-      and OPI screens because these are not configurable.
+      and OPI screens because these are not configurable using the UL library on Windows or the uldaq library on Linux.
+      These can only be configured using InstaCal on Windows, and generated errors when trying to set them.
+      In older versions of measComp that used Warren Jasper's drivers on Linux these could be configured,
+      but the uldaq library does not support this.
 
 ## Release 4-3 (February 10, 2024)
   - drvMultiFunction.cpp
