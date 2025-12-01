@@ -2147,10 +2147,11 @@ asynStatus MultiFunction::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   else if (function == analogOutSyncMaster_) {
+    // In the record 0=Master, 1=Slave.  Windows uses these, Linux uses enums.
     #ifdef _WIN32
-      status = cbSetConfig(BOARDINFO, boardNum_, addr, BISYNCMODE, value ? 0 : 1);
+      status = cbSetConfig(BOARDINFO, boardNum_, addr, BISYNCMODE, value);
     #else
-      status = ulAOSetConfig(daqDeviceHandle_, AO_CFG_SYNC_MODE, addr, value ? AOSM_MASTER : AOSM_SLAVE);
+      status = ulAOSetConfig(daqDeviceHandle_, AO_CFG_SYNC_MODE, addr, value ? AOSM_SLAVE : AOSM_MASTER);
     #endif
     reportError(status, functionName, "Setting analog out master");
   }
@@ -2250,19 +2251,21 @@ int MultiFunction::writeAnalogOutSync()
     long rate = 0;
     epicsUInt16 aoValues[MAX_ANALOG_OUT];
     for (int i=0; i<MAX_ANALOG_OUT; i++) {
-      getIntegerParam(analogOutValue_, &iTemp);
+      getIntegerParam(i, analogOutValue_, &iTemp);
       aoValues[i] = (epicsUInt16) iTemp;
     }
     status = cbAOutScan(boardNum_, 0, numAnalogOut_-1, numAnalogOut_, &rate, BIP10VOLTS, aoValues, options);
   #else
-    double rate = 0.;
+    int flags = AOUTARRAY_FF_NOSCALEDATA | AOUTARRAY_FF_SIMULTANEOUS;
     epicsFloat64 aoValues[MAX_ANALOG_OUT];
+    Range aoRanges[MAX_ANALOG_OUT];
     for (int i=0; i<MAX_ANALOG_OUT; i++) {
-      getIntegerParam(analogOutValue_, &iTemp);
+      getIntegerParam(i, analogOutValue_, &iTemp);
       aoValues[i] = double(iTemp);
+      getIntegerParam(i, analogOutRange_, &iTemp);
+      mapRange(iTemp, &aoRanges[i]);
     }
-    status = ulAOutScan(daqDeviceHandle_, 0, numAnalogOut_-1, BIP10VOLTS, numAnalogOut_, &rate, (ScanOption) options, 
-                        AOUTSCAN_FF_NOSCALEDATA, aoValues);
+    status = ulAOutArray(daqDeviceHandle_, 0, numAnalogOut_-1, aoRanges, (AOutArrayFlag)flags, aoValues);
   #endif
   return status;
 }
