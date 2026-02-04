@@ -560,6 +560,22 @@ int USBCTR::startMCS()
     }
   }
 
+  // Disable presets on channel 0.  
+  // These will have been set in scaler mode, and will stop channels 2-8 after the
+  // most recent preset count time if not set to 0 here.
+  #ifdef _WIN32
+    status = cbCLoad32(boardNum_, OUTPUTVAL0REG0, 0);
+    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0, 0);
+  #else 
+    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL0, 0);
+    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL1, 0);
+  #endif
+  if (status) {
+    asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
+      "%s::%s error calling cbCLoad32, reg=OUTPUTVALREG, value=%d, status=%d, error=%s\n",
+      driverName, functionName, 0, status, getErrorMessage(status));
+  }
+
   if ((channelAdvance == mcaChannelAdvance_External) && (prescale > 1) ) {
     #ifdef _WIN32
       // LOADREG0=0, LOADREG1=1, so we use addr  
