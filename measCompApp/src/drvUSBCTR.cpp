@@ -565,10 +565,10 @@ int USBCTR::startMCS()
   // most recent preset count time if not set to 0 here.
   #ifdef _WIN32
     status = cbCLoad32(boardNum_, OUTPUTVAL0REG0, 0);
-    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0, 0);
+    status = cbCLoad32(boardNum_, OUTPUTVAL1REG0, 0xFFFFFFFF);
   #else 
     status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL0, 0);
-    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL1, 0);
+    status = ulCLoad(daqDeviceHandle_, 0, CRT_OUTPUT_VAL1, 0xFFFFFFFF);
   #endif
   if (status) {
     asynPrint(pasynUserSelf, ASYN_TRACE_ERROR,
