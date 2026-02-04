@@ -1,6 +1,6 @@
 # measComp Release Notes
 
-## Release 4-4 (December XXX, 2025)
+## Release 4-4 (February XXX, 2026)
   - drvMultiFunction.cpp
     - Added support for the USB-ERB24, a 24-bit relay output module.
     - Fixed the code for doing callbacks from the poller for analog inputs and temperature inputs.
