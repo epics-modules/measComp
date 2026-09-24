@@ -1050,6 +1050,13 @@ MultiFunction::MultiFunction(const char *portName, const char *uniqueID, int max
     numIOPorts_ = infoValue;
     status = ulAIGetInfo(daqDeviceHandle_, AI_INFO_NUM_CHANS_BY_TYPE, AI_TC, &infoValue);
     numTemperatureIn_ = infoValue;
+    // uldaq reports the TC-32 thermocouple channel count including the EXP-32
+    // expansion channels. Without the expansion only the first half of the
+    // channels exist, so limit the count to the base unit channels.
+    if (boardFamily_ == USB_TC32) {
+      status = ulDevGetConfig(daqDeviceHandle_, ::DEV_CFG_HAS_EXP, 0, &infoValue);
+      if ((status == ERR_NO_ERROR) && (infoValue == 0)) numTemperatureIn_ /= 2;
+    }
   #endif
   if (numIOPorts_ > MAX_IO_PORTS) numIOPorts_ = MAX_IO_PORTS;
   for (i=0; i<numIOPorts_; i++) {
